@@ -20,7 +20,7 @@ sourceSets {
         }
         resources {
             srcDirs("src")
-            include("**/*.xml", "**/*.properties", "**/*.html", "**/*.txt", "**/*.dic", "**/*.gif", "**/*.png", "**/*.jpg")
+            include("**/*.xml", "**/*.xsl", "**/*.properties", "**/*.html", "**/*.css", "**/*.js", "**/*.txt", "**/*.dic", "**/*.gif", "**/*.png", "**/*.jpg")
             exclude("**/*.java", "**/*.class")
         }
     }

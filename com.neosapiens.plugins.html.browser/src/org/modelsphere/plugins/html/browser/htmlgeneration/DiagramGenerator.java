@@ -311,7 +311,7 @@ public class DiagramGenerator
 
 	private Rectangle generateImageFiles(ApplicationDiagram appDiagram) throws IOException
 	{
-		String diagramPath = HTMLGenerationHelper.getProjectFolder() + "\\images\\diagrams\\";
+		String diagramPath = HTMLGenerationHelper.getProjectFolder() + File.separator + "images" + File.separator + "diagrams" + File.separator;
 		File diagramFolder = new File(diagramPath);
 
 		//for each page..

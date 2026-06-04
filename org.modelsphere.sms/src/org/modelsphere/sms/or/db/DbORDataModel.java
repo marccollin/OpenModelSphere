@@ -118,8 +118,8 @@ public abstract class DbORDataModel extends DbORModel {
     Creates an instance of DbORDataModel.
 
     @param composite org.modelsphere.jack.baseDb.db.DbObject
-    @param targetsystem org.modelsphere.sms.db.DbSMSTargetSystem
-    @param logicalmode int
+    @param targetSystem org.modelsphere.sms.db.DbSMSTargetSystem
+    @param logicalMode int
  **/
   public DbORDataModel(DbObject composite, DbSMSTargetSystem targetSystem, int logicalMode) throws DbException {
     super(composite, targetSystem);
@@ -132,7 +132,7 @@ public abstract class DbORDataModel extends DbORModel {
     Creates an instance of DbORDataModel.
 
     @param composite org.modelsphere.jack.baseDb.db.DbObject
-    @param targetsystem org.modelsphere.sms.db.DbSMSTargetSystem
+    @param targetSystem org.modelsphere.sms.db.DbSMSTargetSystem
  **/
   public DbORDataModel(DbObject composite, DbSMSTargetSystem targetSystem) throws DbException {
     super(composite, targetSystem);
@@ -149,7 +149,7 @@ public abstract class DbORDataModel extends DbORModel {
 
 /**
 
-    @param metareln org.modelsphere.jack.baseDb.meta.MetaRelationN
+    @param metaRelN org.modelsphere.jack.baseDb.meta.MetaRelationN
     @return boolean
  **/
   public final boolean isHugeRelN(MetaRelationN metaRelN) {

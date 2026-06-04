@@ -152,11 +152,9 @@ public class SMSListView extends DbListView {
                 if (userTargetList.size() == 1 && selRows.length == 1) {
                     message = kDelUserTarget; // le target user...
                 } else if (userTargetList.size() != selRows.length) {
-                    message = kDelOneORMoreUserTarget; // un de la liste est
-                    // user
+                    message = kDelOneORMoreUserTarget; // un de la liste est user
                 } else if (userTargetList.size() == selRows.length) {
-                    message = kDelAllUserTargets; // Tous les target user
-                    // seront...
+                    message = kDelAllUserTargets; // Tous les target user seront...
                 }
                 int rc = JOptionPane.showConfirmDialog(frame, message,
                         ApplicationContext.getApplicationName(), JOptionPane.YES_NO_CANCEL_OPTION);
@@ -176,10 +174,7 @@ public class SMSListView extends DbListView {
                 if (delLogic)
                     ExceptionHandler.showErrorMessage(this, DO_NOT_DELETE_LOGICAL_TS);
                 else if (!isFreeUserTS)
-                    ExceptionHandler.showErrorMessage(this, DO_NOT_DELETE_TS);// message
-                // et
-                // comportement
-                // incorrect
+                    ExceptionHandler.showErrorMessage(this, DO_NOT_DELETE_TS);// message et comportement incorrect
             }
             userTargetList.clear();
             return ret;

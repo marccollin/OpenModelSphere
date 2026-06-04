@@ -48,24 +48,22 @@ import java.awt.image.*;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.modelsphere.jack.debug.Debug;
-// this isn't working with openJDK
-//import com.sun.image.codec.jpeg.JPEGCodec;
-//import com.sun.image.codec.jpeg.JPEGEncodeParam;
-//import com.sun.image.codec.jpeg.JPEGImageEncoder;
-
-//import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public abstract class GraphicUtil {
 
@@ -546,14 +544,23 @@ public abstract class GraphicUtil {
 
     public static void saveImageToJPEGFile(BufferedImage bi, File file, float quality)
             throws IOException {
-//        FileOutputStream fos = new FileOutputStream(file);
-//        JPEGEncodeParam param = JPEGCodec.getDefaultJPEGEncodeParam(bi);
-//        param.setQuality(quality, false);
-//        JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(fos, param);
-//        encoder.encode(bi);
-//        fos.close();
-    	  // this doesn't work with openJDK
-    	  throw new NotImplementedException();
+
+        try (FileOutputStream fos = new FileOutputStream(file);
+             ImageOutputStream ios = ImageIO.createImageOutputStream(fos)) {
+
+            Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
+            ImageWriter writer = writers.next();
+
+            // setup compression level
+            ImageWriteParam param = writer.getDefaultWriteParam();
+            param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+            param.setCompressionQuality(quality); // Float entre 0.0f et 1.0f
+
+            writer.setOutput(ios);
+            writer.write(null, new IIOImage(bi, null, null), param);
+
+            writer.dispose();
+        }
     }
     
     public static void saveImageToPNGFile(BufferedImage bi, File file)

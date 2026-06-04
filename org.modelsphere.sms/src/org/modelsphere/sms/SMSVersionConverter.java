@@ -529,7 +529,7 @@ public final class SMSVersionConverter implements VersionConverter {
                 m_arrayFrench.add("Ward-Mellor");
                 m_arrayFrench.add("Diagramme fonctionnel");
                 m_arrayFrench.add("Merise MCT");
-                m_arrayFrench.add("Merise sch�ma de flux");
+                m_arrayFrench.add("Merise schéma de flux");
                 m_arrayFrench.add("Merise OOM");
                 m_arrayFrench.add("P+");
                 m_arrayFrench.add("P+ OPAL");

@@ -34,6 +34,7 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.htmlgeneration;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -57,7 +58,7 @@ public class JSClassesFileGenerator
 	 */
 	public JSClassesFileGenerator()
 	{
-		this.filepath = HTMLGenerationHelper.getProjectFolder() + "\\js\\classes.js";
+		this.filepath = HTMLGenerationHelper.getProjectFolder() + File.separator + "js" + File.separator + "classes.js";
 	}
 
 	/**

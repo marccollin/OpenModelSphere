@@ -172,7 +172,7 @@ public final class HookOracleModifyColumn extends UserDefinedField {
             defaultValue = "";
         }
 
-        if (!defaultValue.equals("")) {
+        if (!defaultValue.isEmpty()) {
             defaultValue = " " + DEFAULT + " " + defaultValue; //NOT LOCALIZABLE, two strings
         }
 

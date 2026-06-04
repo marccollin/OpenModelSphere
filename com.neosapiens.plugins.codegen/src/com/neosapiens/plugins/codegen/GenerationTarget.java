@@ -156,9 +156,13 @@ public class GenerationTarget {
 	                jarname = jarname.substring(4);
 	            }
 	            index = jarname.indexOf("file:/");
-	            if (index > -1) {
-	                jarname = jarname.substring(6);
-	            }
+                if (index > -1) {
+                    jarname = jarname.substring(6);
+                    // S'assurer que le chemin est absolu sur Unix/Linux
+                    if (File.separatorChar == '/' && !jarname.startsWith("/")) {
+                        jarname = "/" + jarname;
+                    }
+                }
 	            index = jarname.indexOf("file:");
 	            if (index > -1) {
 	                jarname = jarname.substring(5);
@@ -189,6 +193,7 @@ public class GenerationTarget {
         try {
             jar = new JarFile(jarfile);
         } catch (IOException e1) {
+            e1.printStackTrace();
         }
         if (jar == null)
             return;
