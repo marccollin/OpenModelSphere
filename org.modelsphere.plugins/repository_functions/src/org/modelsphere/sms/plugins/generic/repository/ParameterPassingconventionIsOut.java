@@ -90,9 +90,9 @@ public final class ParameterPassingconventionIsOut extends UserDefinedField {
 
         try {
             if (parameter.getPassingConvention().getValue() == SMSPassingConvention.OUT)
-                value = new String("true"); // NOT LOCALIZABLE
+                value = "true"; // NOT LOCALIZABLE
             else
-                value = new String("false");// NOT LOCALIZABLE
+                value = "false";// NOT LOCALIZABLE
 
             if (prefixModifier != null) {
                 prefixModifier.expand(output, object, options);

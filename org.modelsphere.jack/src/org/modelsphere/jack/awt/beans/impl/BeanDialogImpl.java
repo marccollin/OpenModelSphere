@@ -43,6 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.beans.impl;
 
+
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.*;
@@ -50,6 +51,7 @@ import java.io.Serializable;
 import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -69,7 +71,7 @@ public class BeanDialogImpl implements BeanDialog {
     private int m_modelType; // EITHER BEAN_TYPE OR ARRAYLIST_TYPE
     private Serializable m_bean = null;
     private BeanInfo m_beaninfo = null;
-    private ArrayList m_primitiveList = null;
+    private List m_primitiveList = null;
     private static int g_defaultTooltipDismissDelay = 0;
 
     // CONSTRUCTORS
@@ -80,7 +82,7 @@ public class BeanDialogImpl implements BeanDialog {
         g_defaultTooltipDismissDelay = ToolTipManager.sharedInstance().getDismissDelay();
     }
 
-    public BeanDialogImpl(ArrayList primitiveList) {
+    public BeanDialogImpl(List primitiveList) {
         m_modelType = PROPERTYLIST_TYPE;
         m_primitiveList = primitiveList;
         g_defaultTooltipDismissDelay = ToolTipManager.sharedInstance().getDismissDelay();
@@ -101,7 +103,7 @@ public class BeanDialogImpl implements BeanDialog {
     //
     // /////////////////////////////////////////////////
 
-    public ArrayList getPrimitiveList() {
+    public List getPrimitiveList() {
         return m_primitiveList;
     }
 
@@ -174,7 +176,7 @@ public class BeanDialogImpl implements BeanDialog {
         private int g_counter;
         private int m_modelType;
         private Serializable m_bean;
-        private ArrayList m_propertyList;
+        private List m_propertyList;
         private int m_nbrows;
         private Image m_icon;
         private String m_title;
@@ -186,7 +188,7 @@ public class BeanDialogImpl implements BeanDialog {
         private Method[] m_writeMethods;
         private Class[] m_propertyTypes;
 
-        PropertyTableModel(ArrayList propertyList, BeanFrameInfo beanFrameInfo) {
+        PropertyTableModel(List propertyList, BeanFrameInfo beanFrameInfo) {
             m_modelType = PROPERTYLIST_TYPE;
             m_propertyList = propertyList;
             m_info = beanFrameInfo;
@@ -198,16 +200,14 @@ public class BeanDialogImpl implements BeanDialog {
             m_writeMethods = new Method[nb];
             m_propertyTypes = new Class[nb];
 
-            Iterator iterator = propertyList.iterator();
-            while (iterator.hasNext()) {
-                AbstractProperty.BooleanProperty prop = (AbstractProperty.BooleanProperty) iterator
-                        .next();
+            for (Object o : propertyList) {
+                AbstractProperty.BooleanProperty prop = (AbstractProperty.BooleanProperty) o;
                 m_names[m_nbrows] = prop.getName();
                 Class claz = AbstractProperty.BooleanProperty.class;
                 try {
-                    m_readMethods[m_nbrows] = claz.getDeclaredMethod("getValue", new Class[] {}); // NOT LOCALIZABLE
+                    m_readMethods[m_nbrows] = claz.getDeclaredMethod("getValue", new Class[]{}); // NOT LOCALIZABLE
                     m_writeMethods[m_nbrows] = claz.getDeclaredMethod("setValue",
-                            new Class[] { Object.class }); // NOT
+                            new Class[]{Object.class}); // NOT
                     // LOCALIZABLE
 
                     Class type = prop.getType();
@@ -241,9 +241,7 @@ public class BeanDialogImpl implements BeanDialog {
                 m_writeMethods = new Method[nb];
                 m_propertyTypes = new Class[nb];
 
-                for (int i = 0; i < nb; i++) {
-                    PropertyDescriptor propDesc = propDescs[i];
-
+                for (PropertyDescriptor propDesc : propDescs) {
                     if (!propDesc.isHidden()) {
                         m_names[m_nbrows] = propDesc.getDisplayName();
                         m_readMethods[m_nbrows] = propDesc.getReadMethod();

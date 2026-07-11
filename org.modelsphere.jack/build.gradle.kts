@@ -4,8 +4,8 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 dependencies {
@@ -22,7 +22,10 @@ dependencies {
     api(rootProject.libs.antlr)
     api(rootProject.libs.stringtemplate)
     api(rootProject.libs.bcel)
-    api(rootProject.libs.log4j)
+    //api(rootProject.libs.log4j)
+    api(rootProject.libs.log4j.api)
+    api(rootProject.libs.log4j.core)
+
     api(rootProject.libs.jdom)
 
 

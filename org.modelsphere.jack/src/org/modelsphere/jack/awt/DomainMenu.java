@@ -52,6 +52,7 @@ import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
@@ -87,7 +88,7 @@ final class DomainMenu extends JackMenu implements ActionListener {
     // LOCALIZABLE
 
     // may contains null - represented by separator
-    private ArrayList items = new ArrayList(0);
+    private List items = new ArrayList(0);
     private Object oldSelection = null;
     private boolean uiSelectionVisible = true;
     private ButtonGroup group = new ButtonGroup();
@@ -162,7 +163,7 @@ final class DomainMenu extends JackMenu implements ActionListener {
                     repaint();
                 } else if (propertyName.equals(AbstractApplicationAction.MNEMONIC_KEY)) {
                     Integer mn = (Integer) e.getNewValue();
-                    setMnemonic((mn != null) ? mn.intValue() : KeyEvent.VK_UNDEFINED);
+                    setMnemonic((mn != null) ? mn : KeyEvent.VK_UNDEFINED);
                     invalidate();
                     repaint();
                 } else if (propertyName.equals(AbstractApplicationAction.VISIBLE)) { // Disabled
@@ -184,10 +185,10 @@ final class DomainMenu extends JackMenu implements ActionListener {
                         // TreeStateCheckBoxMenuItem)
                         if ((getParent() instanceof JackPopupMenu)
                                 && (((AbstractApplicationAction) getAction()).getVisibilityMode() & AbstractApplicationAction.VISIBILITY_ALWAYS_VISIBLE_IN_POPUPMENU) == 0) {
-                            newValue = ((Boolean) e.getNewValue()).booleanValue();
+                            newValue = (Boolean) e.getNewValue();
                         } else if ((getParent() instanceof JPopupMenu)
                                 && (((AbstractApplicationAction) getAction()).getVisibilityMode() & AbstractApplicationAction.VISIBILITY_ALWAYS_VISIBLE_IN_MENU) == 0) {
-                            newValue = ((Boolean) e.getNewValue()).booleanValue();
+                            newValue = (Boolean) e.getNewValue();
                         }
                         setVisible(newValue);
                         invalidate();
@@ -196,8 +197,7 @@ final class DomainMenu extends JackMenu implements ActionListener {
                 } else if (propertyName.equals(AbstractDomainAction.VALUES)) {
                     updateItems((Object[]) e.getNewValue());
                 } else if (propertyName.equals(AbstractDomainAction.SELECTED_VALUE)) {
-                    int newsel = e.getNewValue() == null ? -1 : ((Integer) e.getNewValue())
-                            .intValue();
+                    int newsel = e.getNewValue() == null ? -1 : (Integer) e.getNewValue();
                     updateSelectedItem(newsel);
                 }
             }
@@ -263,16 +263,16 @@ final class DomainMenu extends JackMenu implements ActionListener {
                                 JMenuItem subItem = new JMenuItem(choiceValues[j].toString());
                                 ((JMenu) item).add(subItem);
                                 subItem.setActionCommand(ACTION_COMMAND_PREFIX
-                                        + new Integer(i).toString()
+                                        + i
                                         + AbstractMenuAction.ACTION_COMMAND_SUB_VALUE_SEPARATOR
-                                        + new Integer(j).toString());
+                                        + j);
                                 subItem.addActionListener(this);
                             }
                         } else {
                             item = new JMenuItem(value.toString(), icon);
                             item
                                     .setActionCommand(ACTION_COMMAND_PREFIX
-                                            + new Integer(i).toString());
+                                            + i);
                         }
                         item.setVisible(element.isVisible());
                         item.setEnabled(element.isEnabled());

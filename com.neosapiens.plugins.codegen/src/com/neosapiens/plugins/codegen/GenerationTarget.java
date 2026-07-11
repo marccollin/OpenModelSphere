@@ -223,6 +223,7 @@ public class GenerationTarget {
 
     private static void scanFolder(File folder, File root, List<GenerationTarget> targets) {
         File[] entries = folder.listFiles();
+        assert entries != null;
         for (File entry : entries) {
             if (entry.isDirectory()) {
                 File file = new File(entry, "templates.xml");
@@ -272,11 +273,7 @@ public class GenerationTarget {
             target = new GenerationTarget(templateFile, root, templateName, description);
             addDirectives(doc, nodes, target);
 
-        } catch (ParserConfigurationException ex) {
-            target = null;
-        } catch (IOException ex) {
-            target = null;
-        } catch (SAXException ex) {
+        } catch (ParserConfigurationException | IOException | SAXException ex) {
             target = null;
         } //end try
 
@@ -387,15 +384,11 @@ public class GenerationTarget {
                     Object result = method.invoke(claz, null);
                     if (result instanceof Boolean) {
                         Boolean b = (Boolean) result;
-                        checked = (b.booleanValue());
+                        checked = (b);
                     } else {
                         checked = false;
                     } //end if
-                } catch (NoSuchMethodException ex) {
-                    checked = false;
-                } catch (InvocationTargetException ex) {
-                    checked = false;
-                } catch (IllegalAccessException ex) {
+                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
                     checked = false;
                 } //end try
             } //end if
@@ -410,8 +403,7 @@ public class GenerationTarget {
     private static URL getClassLocation() {
         //get location of GenerationTarget.class
         Class<?> thisClass = GenerationTarget.class;
-        URL url = thisClass.getResource(thisClass.getSimpleName() + ".class");
-        return url;
+        return thisClass.getResource(thisClass.getSimpleName() + ".class");
     } //end getClassLocation()
 
     public boolean doesSupport(DbObject[] dbos) {

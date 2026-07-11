@@ -30,6 +30,7 @@ package org.antlr.runtime.tree;
 import org.antlr.stringtemplate.StringTemplate;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /** A utility class to generate DOT diagrams (graphviz) from
  *  arbitrary trees.  You can pass in your own templates and
@@ -71,7 +72,7 @@ public class DOTTreeGenerator {
 			new StringTemplate("$parent$ -> $child$ // \"$parentText$\" -> \"$childText$\"\n");
 
 	/** Track node to number mapping so we can get proper node name back */
-	HashMap nodeToNumberMap = new HashMap();
+	Map nodeToNumberMap = new HashMap();
 
 	/** Track node number so we can get unique node names */
 	int nodeNumber = 0;
@@ -194,10 +195,10 @@ public class DOTTreeGenerator {
 	protected int getNodeNumber(Object t) {
 		Integer nI = (Integer)nodeToNumberMap.get(t);
 		if ( nI!=null ) {
-			return nI.intValue();
+			return nI;
 		}
 		else {
-			nodeToNumberMap.put(t, new Integer(nodeNumber));
+			nodeToNumberMap.put(t, nodeNumber);
 			nodeNumber++;
 			return nodeNumber-1;
 		}

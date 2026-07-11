@@ -69,8 +69,7 @@ public class UmlComponentShape implements GraphicShape {
 
     private int getGap(DiagramView diagView) {
         double zoomFactor = diagView == null ? 1.0 : diagView.getZoomFactor();
-        int gap = (int) (GAP * zoomFactor);
-        return gap;
+        return (int) (GAP * zoomFactor);
     } // getGap()
 
     public final void paint(Graphics g, DiagramView diagView, GraphicComponent gc,

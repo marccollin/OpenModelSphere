@@ -49,9 +49,9 @@ import org.modelsphere.sms.plugins.report.LocaleMgr;
 
 public class ComponentAttributeProperties implements Properties {
 
-    private MetaClass m_metaClass;
-    private MetaField m_metaField;
-    private MetaClass m_compositeMetaClass;
+    private final MetaClass m_metaClass;
+    private final MetaField m_metaField;
+    private final MetaClass m_compositeMetaClass;
 
     public ComponentAttributeProperties(MetaClass compositeMetaClass, MetaClass metaClass,
             MetaField metaField) {
@@ -77,7 +77,7 @@ public class ComponentAttributeProperties implements Properties {
     public static final String COLUMN_ALIGNMENT_GROUP = LocaleMgr.misc.getString("ColumnAlignment"); //NOT LOCALIZABLE
     public static final String COLUMN_GENERAL_GROUP = LocaleMgr.misc.getString("ColumnGeneral"); //NOT LOCALIZABLE
 
-    private PropertyGroup[] groups = new PropertyGroup[] {
+    private final PropertyGroup[] groups = new PropertyGroup[] {
     // Group 1
             new PropertyGroup(COLUMN_COLORS_GROUP, // NOT LOCALIZABLE
                     new Property[] {
@@ -91,11 +91,11 @@ public class ComponentAttributeProperties implements Properties {
             new PropertyGroup(COLUMN_DIMENSIONS_GROUP, // NOT LOCALIZABLE
                     new Property[] {
                             new Property(LocaleMgr.misc.getString(WIDTH_PROPERTY_KEY),
-                                    WIDTH_PROPERTY_KEY, new Integer(600)), // NOT LOCALIZABLE
+                                    WIDTH_PROPERTY_KEY, 600), // NOT LOCALIZABLE
                             new Property(LocaleMgr.misc.getString(WIDTHUNIT_PROPERTY_KEY),
                                     WIDTHUNIT_PROPERTY_KEY, UnitDomain.getInstance(2)), // NOT LOCALIZABLE
                             new Property(LocaleMgr.misc.getString(HEIGHT_PROPERTY_KEY),
-                                    HEIGHT_PROPERTY_KEY, new Integer(0)), // NOT LOCALIZABLE
+                                    HEIGHT_PROPERTY_KEY, 0), // NOT LOCALIZABLE
                             new Property(LocaleMgr.misc.getString(HEIGHTUNIT_PROPERTY_KEY),
                                     HEIGHTUNIT_PROPERTY_KEY, UnitDomain.getInstance(1)) // NOT LOCALIZABLE
                     }),
@@ -136,10 +136,9 @@ public class ComponentAttributeProperties implements Properties {
     private static final String DOT = ".";
 
     public String getBaseKey() {
-        String baseKey = m_compositeMetaClass.getJClass().getName() + DOT
+        return m_compositeMetaClass.getJClass().getName() + DOT
                 + DbObject.fComponents.getJName() + DOT + m_metaClass.getJClass().getName() + DOT
                 + m_metaField.getJName();
-        return baseKey;
     }
 
     public Property getProperty(String groupName, String propertyKey) {
@@ -156,9 +155,9 @@ public class ComponentAttributeProperties implements Properties {
     }
 
     public PropertyGroup getPropertyGroup(String groupName) {
-        for (int i = 0; i < groups.length; i++) {
-            if (groups[i].toString().equals(groupName))
-                return groups[i];
+        for (PropertyGroup group : groups) {
+            if (group.toString().equals(groupName))
+                return group;
         }
 
         return null;

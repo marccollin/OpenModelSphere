@@ -35,6 +35,7 @@ package org.modelsphere.sms;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.Icon;
 
@@ -316,7 +317,7 @@ final class ListPool extends HashMap {
             }
         };
 
-        ArrayList columns = DbJVAssociation.metaClass.getScreenMetaFields();
+        List columns = DbJVAssociation.metaClass.getScreenMetaFields();
 
         // if(nMode != DbORDataModel.LOGICAL_MODE_ENTITY_RELATIONSHIP)
         columns.add(frontEndColumn);
@@ -470,7 +471,7 @@ final class ListPool extends HashMap {
                 new MetaClass[] { DbORDataModel.metaClass }, true);
         if (nMode == DbORDataModel.LOGICAL_MODE_ENTITY_RELATIONSHIP) {
             descriptor.setIcon(terminologyUtil.getArcIcon());
-            if (isModelConverted == true)
+            if (isModelConverted)
                 put(DbGEDataModel.metaClass, new ListDescriptor[] {
                         new ListDescriptor(DbGETable.metaClass,
                                 new MetaClass[] { DbSMSAbstractPackage.metaClass }),
@@ -510,7 +511,7 @@ final class ListPool extends HashMap {
                                 .getString("conceptualDataModel"), terminologyUtil
                                 .getConceptualModelIcon()), });
 
-            if (isRelationship == true)
+            if (isRelationship)
                 put(DbGETable.metaClass, new ListDescriptor[] {
                         new ListDescriptor(DbGEColumn.metaClass,
                                 new MetaClass[] { DbSMSAbstractPackage.metaClass }),
@@ -519,7 +520,7 @@ final class ListPool extends HashMap {
                 // new ListDescriptor(DbGEPrimaryUnique.metaClass, new
                         // MetaClass[]{DbSMSAbstractPackage.metaClass}),
                         });
-            else if (isModelConverted == true)
+            else if (isModelConverted)
                 put(DbGETable.metaClass, new ListDescriptor[] {
                         new ListDescriptor(DbGEColumn.metaClass,
                                 new MetaClass[] { DbSMSAbstractPackage.metaClass }),
@@ -613,7 +614,7 @@ final class ListPool extends HashMap {
 
         if (nMode == DbORDataModel.LOGICAL_MODE_ENTITY_RELATIONSHIP) {
             descriptor.setIcon(terminologyUtil.getArcIcon());
-            if (isModelConverted == true)
+            if (isModelConverted)
                 put(DbORADataModel.metaClass, new ListDescriptor[] {
                         new ListDescriptor(DbORATable.metaClass,
                                 new MetaClass[] { DbSMSAbstractPackage.metaClass }),
@@ -659,13 +660,13 @@ final class ListPool extends HashMap {
                                 .getString("conceptualDataModel"), terminologyUtil
                                 .getConceptualModelIcon()), });
 
-            if (isRelationship == true)
+            if (isRelationship)
                 put(DbORATable.metaClass, new ListDescriptor[] {
                         new ListDescriptor(DbORAColumn.metaClass,
                                 new MetaClass[] { DbSMSAbstractPackage.metaClass }),
                         new ListDescriptor(DbORAPrimaryUnique.metaClass,
                                 new MetaClass[] { DbSMSAbstractPackage.metaClass }), });
-            else if (isModelConverted == true)
+            else if (isModelConverted)
                 put(DbORATable.metaClass, new ListDescriptor[] {
                         new ListDescriptor(DbORAColumn.metaClass,
                                 new MetaClass[] { DbSMSAbstractPackage.metaClass }),
@@ -795,7 +796,7 @@ final class ListPool extends HashMap {
 
         if (nMode == DbORDataModel.LOGICAL_MODE_ENTITY_RELATIONSHIP) {
             descriptor.setIcon(terminologyUtil.getArcIcon());
-            if (isModelConverted == true)
+            if (isModelConverted)
                 put(DbINFDataModel.metaClass, new ListDescriptor[] {
                         new ListDescriptor(DbINFTable.metaClass,
                                 new MetaClass[] { DbSMSAbstractPackage.metaClass }),
@@ -833,13 +834,13 @@ final class ListPool extends HashMap {
                                 .getString("conceptualDataModel"), terminologyUtil
                                 .getConceptualModelIcon()), });
 
-            if (isRelationship == true)
+            if (isRelationship)
                 put(DbINFTable.metaClass, new ListDescriptor[] {
                         new ListDescriptor(DbINFColumn.metaClass,
                                 new MetaClass[] { DbSMSAbstractPackage.metaClass }),
                         new ListDescriptor(DbINFPrimaryUnique.metaClass,
                                 new MetaClass[] { DbSMSAbstractPackage.metaClass }), });
-            else if (isModelConverted == true)
+            else if (isModelConverted)
                 put(DbINFTable.metaClass, new ListDescriptor[] {
                         new ListDescriptor(DbINFColumn.metaClass,
                                 new MetaClass[] { DbSMSAbstractPackage.metaClass }),
@@ -975,13 +976,13 @@ final class ListPool extends HashMap {
                                 .getString("conceptualDataModel"), terminologyUtil
                                 .getConceptualModelIcon()), });
 
-            if (isRelationship == true)
+            if (isRelationship)
                 put(DbIBMTable.metaClass, new ListDescriptor[] {
                         new ListDescriptor(DbIBMColumn.metaClass,
                                 new MetaClass[] { DbSMSAbstractPackage.metaClass }),
                         new ListDescriptor(DbIBMPrimaryUnique.metaClass,
                                 new MetaClass[] { DbSMSAbstractPackage.metaClass }), });
-            else if (isModelConverted == true)
+            else if (isModelConverted)
                 put(DbIBMTable.metaClass, new ListDescriptor[] {
                         new ListDescriptor(DbIBMColumn.metaClass,
                                 new MetaClass[] { DbSMSAbstractPackage.metaClass }),

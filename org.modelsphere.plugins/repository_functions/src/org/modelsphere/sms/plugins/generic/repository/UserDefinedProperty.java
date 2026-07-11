@@ -86,8 +86,7 @@ String propertyName = getPropertyName();
 if (propertyName != null) {
 	
     //user-defined properties apply to dbObject only
-    if (object instanceof DbObject) {
-        DbObject dbObject = (DbObject) object;
+    if (object instanceof DbObject dbObject) {
         Db db = dbObject.getDb();
         try {
             //get the property of object

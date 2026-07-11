@@ -36,6 +36,7 @@ package org.modelsphere.plugins.html.browser.data.extractor.dbobject;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -59,7 +60,7 @@ import org.modelsphere.sms.db.DbSMSDiagram;
 public class ComponentsExtractor
 {
 	/** DbObject from which the components will be extracted */
-	private DbObject object;
+	private final DbObject object;
 
 	/**
 	 * Constructor
@@ -82,9 +83,9 @@ public class ComponentsExtractor
 	 * @throws DbException
 	 *             If an error occurs while handling a DbObject
 	 */
-	public Map<String, ArrayList<DbObject>> extractComponents() throws DbException
+	public Map<String, List<DbObject>> extractComponents() throws DbException
 	{
-		LinkedHashMap<String, ArrayList<DbObject>> groupedComponents = new LinkedHashMap<String, ArrayList<DbObject>>();
+		LinkedHashMap<String, List<DbObject>> groupedComponents = new LinkedHashMap<String, List<DbObject>>();
 
 		DbEnumeration components = object.getComponents().elements();
 		while (components.hasMoreElements())

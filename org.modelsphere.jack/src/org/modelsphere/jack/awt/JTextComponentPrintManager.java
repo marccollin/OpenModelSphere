@@ -64,7 +64,7 @@ import org.modelsphere.jack.international.LocaleMgr;
 
 public final class JTextComponentPrintManager implements Printable, Pageable, Runnable {
 
-    private List printList;
+    private List<String> printList;
     private List pages;
     private PageFormat curPageFormat;
     private PrinterJob printerJob;
@@ -104,8 +104,8 @@ public final class JTextComponentPrintManager implements Printable, Pageable, Ru
                         protected void handleEmptyTag(TagElement tag)
                                 throws ChangedCharSetException {
                             HTML.Tag htmltag = tag.getHTMLTag();
-                            if (htmltag.toString().toLowerCase().equals(
-                                    HTML.Tag.BR.toString().toLowerCase())) {
+                            if (htmltag.toString().equalsIgnoreCase(
+                                    HTML.Tag.BR.toString())) {
                                 tempText = tempText.concat("\n"); // NOT
                                 // LOCALIZABLE
                             }
@@ -113,12 +113,12 @@ public final class JTextComponentPrintManager implements Printable, Pageable, Ru
 
                         protected void handleEndTag(TagElement tag) {
                             HTML.Tag htmltag = tag.getHTMLTag();
-                            if (htmltag.toString().toLowerCase().equals(
-                                    HTML.Tag.TD.toString().toLowerCase())) {
+                            if (htmltag.toString().equalsIgnoreCase(
+                                    HTML.Tag.TD.toString())) {
                                 tempText = tempText.concat(" "); // NOT
                                 // LOCALIZABLE
-                            } else if (htmltag.toString().toLowerCase().equals(
-                                    HTML.Tag.TR.toString().toLowerCase())) {
+                            } else if (htmltag.toString().equalsIgnoreCase(
+                                    HTML.Tag.TR.toString())) {
                                 tempText = tempText.concat("\n"); // NOT
                                 // LOCALIZABLE
                             }
@@ -192,7 +192,7 @@ public final class JTextComponentPrintManager implements Printable, Pageable, Ru
         return Printable.PAGE_EXISTS;
     }
 
-    private ArrayList repaginate(PageFormat pf, Graphics g) {
+    private List repaginate(PageFormat pf, Graphics g) {
         if (pf == null || g == null) {
             return new ArrayList();
         }
@@ -200,14 +200,14 @@ public final class JTextComponentPrintManager implements Printable, Pageable, Ru
         int maxh = (int) pf.getImageableHeight();
         int maxw = (int) pf.getImageableWidth();
         int lineh = font.getSize();
-        ArrayList pgs = new ArrayList();
+        List pgs = new ArrayList<>();
         Iterator it = printList.iterator();
         FontMetrics fm = g.getFontMetrics();
 
         while (it.hasNext())
             try {
                 String item = it.next().toString();
-                ArrayList page = new ArrayList();
+                List page = new ArrayList();
                 int pageh = 0;
                 BufferedReader reader = new BufferedReader(new StringReader(item));
                 String line;
@@ -254,11 +254,10 @@ public final class JTextComponentPrintManager implements Printable, Pageable, Ru
         int xo = (int) pf.getImageableX();
         int yo = (int) pf.getImageableY();
         int y = font.getSize();
-        ArrayList page = (ArrayList) pages.get(idx);
-        Iterator iter = page.iterator();
-        while (iter.hasNext()) {
-            String line = (String) iter.next();
-            if (line != null && line.length() > 0) // To avoid a bug in 1.2.x
+        List page = (List) pages.get(idx);
+        for (Object o : page) {
+            String line = (String) o;
+            if (line != null && !line.isEmpty()) // To avoid a bug in 1.2.x
                 g.drawString(line, xo, y + yo);
             y += font.getSize();
         }

@@ -212,13 +212,13 @@ public class PropertiesFrame extends CascadingJInternalFrame implements Printabl
                     panel.activateTab();
                 }
             });
-            for (int i = 0; i < panels.length; i++)
-                ((JTabbedPane) viewPanel).addTab(panels[i].getTabName(), (JComponent) panels[i]);
+            for (ScreenTabPanel panel : panels)
+                ((JTabbedPane) viewPanel).addTab(panel.getTabName(), (JComponent) panel);
         }
 
-        for (int i = 0; i < panels.length; i++) {
-            if (panels[i] instanceof ScreenView)
-                ((ScreenView) panels[i]).setPropertiesFrame(this);
+        for (ScreenTabPanel panel : panels) {
+            if (panel instanceof ScreenView)
+                ((ScreenView) panel).setPropertiesFrame(this);
         }
     }
 

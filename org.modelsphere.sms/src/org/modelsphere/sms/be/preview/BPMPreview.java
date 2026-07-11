@@ -42,6 +42,7 @@ import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -128,7 +129,7 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
         return new Class[] {};
     }
 
-    protected void forwardTo(DbObject semObj, ArrayList generatedFiles) throws DbException,
+    protected void forwardTo(DbObject semObj, List generatedFiles) throws DbException,
             IOException, RuleException {
         String name = semObj.getName();
 
@@ -173,8 +174,8 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
 
         private void process(Writer writer, DbBEUseCase process) throws IOException, DbException {
             //fill the process list
-            ArrayList processList = new ArrayList();
-            ArrayList resourceList = new ArrayList();
+            List processList = new ArrayList();
+            List resourceList = new ArrayList();
             DbRelationN relN = process.getComponents();
             DbEnumeration dbEnum = relN.elements(DbBEUseCase.metaClass);
             while (dbEnum.hasMoreElements()) {
@@ -200,8 +201,8 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
             writer.write(s);
         } //end process()
 
-        private void fillBuffer(PrintWriter writer, DbBEUseCase process, ArrayList processList,
-                ArrayList resourceList) throws DbException {
+        private void fillBuffer(PrintWriter writer, DbBEUseCase process, List processList,
+                List resourceList) throws DbException {
 
             int nbColumns = processList.size();
             writer.println("<table BORDER COLS=" + (3 + nbColumns) + " WIDTH=\"100%\" > ");
@@ -227,11 +228,11 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
 
             //write the content
             int nbRows = resourceList.size();
-            ArrayList resourceProcessList = new ArrayList();
-            ArrayList resourceProcessNodeList = new ArrayList();
-            for (int i = 0; i < nbRows; i++) {
+            List resourceProcessList = new ArrayList();
+            List resourceProcessNodeList = new ArrayList();
+            for (Object o : resourceList) {
                 writer.println("<tr>");
-                DbBEResource resource = (DbBEResource) resourceList.get(i);
+                DbBEResource resource = (DbBEResource) o;
                 String resName = resource.getName();
                 writer.println("<td WIDTH=\"150\">");
                 String s = "<b>" + resName + "</b><br>";
@@ -333,7 +334,7 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
             } //end for
 
             Double time = process.getResourceTime();
-            double value = (time == null) ? 0.0 : time.doubleValue();
+            double value = (time == null) ? 0.0 : time;
             BETimeUnit unit = process.getResourceTimeUnit();
             String text = getFormattedTime(value, unit);
             String s2 = "<td WIDTH=\"150\">" + text + "</td>";
@@ -353,7 +354,7 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
             } //end for
 
             time = process.getFixedTime();
-            value = (time == null) ? 0.0 : time.doubleValue();
+            value = (time == null) ? 0.0 : time;
             unit = process.getFixedTimeUnit();
             text = getFormattedTime(value, unit);
             s2 = "<td WIDTH=\"150\">" + text + "</td>";
@@ -376,7 +377,7 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
             } //end for
 
             time = process.getPartialTime();
-            value = (time == null) ? 0.0 : time.doubleValue();
+            value = (time == null) ? 0.0 : time;
             unit = process.getPartialTimeUnit();
             text = getFormattedTime(value, unit);
             s2 = "<td WIDTH=\"150\">" + text + "</td>";
@@ -399,7 +400,7 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
             } //end for
 
             time = process.getTotalTime();
-            value = (time == null) ? 0.0 : time.doubleValue();
+            value = (time == null) ? 0.0 : time;
             unit = process.getTotalTimeUnit();
             text = getFormattedTime(value, unit);
             s2 = "<td WIDTH=\"150\">" + text + "</td>";
@@ -417,7 +418,7 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
             writer.println("<td WIDTH=\"150\">");
             String text = NONE;
             if (time != null) {
-                double value = (time == null) ? 0.0 : time.doubleValue();
+                double value = (time == null) ? 0.0 : time;
                 text = getFormattedTime(value, unit);
             }
             writer.println(TIME + " = " + text + "<br>");
@@ -438,18 +439,18 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
             Double resCost = resource.getCost();
             BETimeUnit resUnit = resource.getCostTimeUnit();
             int rsrcCostUnit = (resUnit == null) ? 0 : resUnit.getValue();
-            double pureCost = (resCost == null) ? 0.0 : resCost.doubleValue();
+            double pureCost = (resCost == null) ? 0.0 : resCost;
 
             Double rate = usage.getUsageRate();
             BETimeUnit rateUnit = usage.getUsageRateTimeUnit();
             int rscrUsageRateUnit = (rateUnit == null) ? 0 : rateUnit.getValue();
-            double rateVal = (rate == null) ? 0.0 : rate.doubleValue();
+            double rateVal = (rate == null) ? 0.0 : rate;
 
             boolean isRsrcFixedCost = (rsrcCostUnit == 0) && (rscrUsageRateUnit != 0);
             boolean isIntraLinkUnitValid = (rsrcCostUnit == 0) || (rscrUsageRateUnit != 0);
 
             if (!isIntraLinkUnitValid) {
-                return new Double(Double.NaN);
+                return Double.NaN;
             } //end if
 
             if (resCost == null) {
@@ -462,7 +463,7 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
                 if (resUnit == null) {
                     double nbDays = rateVal; //rateVal should be interpreted as number of days
                     double totalCost = pureCost * nbDays; //pureCost should be interpreted as cost per day
-                    usageCost = new Double(totalCost);
+                    usageCost = totalCost;
                 } else {
 
                     //get cost per second
@@ -481,7 +482,7 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
                         nbSecs *= 60.0;
                     } //end if
 
-                    usageCost = new Double(costPerSecond * nbSecs);
+                    usageCost = costPerSecond * nbSecs;
                 } //end if
             } //end if
 

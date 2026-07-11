@@ -58,10 +58,12 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.FileSystems;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
 
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -322,7 +324,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
     private Modifier[] createModifiers(GenericRuleStructure currentRS, Modifier optionalModifier)
             throws VariableNotDefinedRuleException {
         Modifier[] modifiers;
-        ArrayList modifierList = new ArrayList();
+        List modifierList = new ArrayList();
         if (optionalModifier != null) {
             modifierList.add(optionalModifier);
         }
@@ -418,10 +420,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
                 rule = createUserFunctionRule(GenericRuleStructure.CONNECTOR, currentRS,
                         repositoryFunctionName, modifiers);
             } //end if
-        } catch (NullPointerException ex) {
-            String msg = MessageFormat.format(CONN_ERR_PATTRN, new Object[] { text });
-            throw new RuleException(msg);
-        } catch (InvocationTargetException ex) {
+        } catch (NullPointerException | InvocationTargetException ex) {
             String msg = MessageFormat.format(CONN_ERR_PATTRN, new Object[] { text });
             throw new RuleException(msg);
         }
@@ -458,8 +457,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
         String rulename = currentRS.getRuleName();
         String text = currentRS.getRuleText();
         Modifier[] modifiers = createModifiers(currentRS);
-        Rule rule = new Group(rulename, text, modifiers);
-        return rule;
+        return new Group(rulename, text, modifiers);
     }
 
     private Rule createPropertyRule(GenericRuleStructure currentRS) throws NoSuchMethodException,
@@ -570,13 +568,13 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
         String[] subr = currentRS.m_stringRules;
         String[] dom = currentRS.m_stringDomains;
         String[] tmpRules = null;
-        ArrayList rulesList = new ArrayList();
+        List rulesList = new ArrayList();
 
-        for (int a = 0; a < subr.length; a++) {
+        for (String string : subr) {
 
             if (currentRS.m_ruleCategory == GenericRuleStructure.CDOM) {
-                TemplateEnumeration enumeration = new TemplateEnumeration(subr[a]);
-                ArrayList ruleList = new ArrayList();
+                TemplateEnumeration enumeration = new TemplateEnumeration(string);
+                List ruleList = new ArrayList();
                 while (enumeration.hasMoreElements()) {
                     StringStructure ss = (StringStructure) enumeration.nextElement();
                     if (ss.stringRule != null) {
@@ -596,9 +594,9 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
 
             if (tmpRules.length == 0) {
                 //if there are no subrules
-                rule = new Template(rulename, subr[a], new String[] {}, null, new Modifier[] {});
+                rule = new Template(rulename, string, new String[]{}, null, new Modifier[]{});
             } else {
-                rule = new Template(rulename, subr[a], tmpRules, null, new Modifier[] {});
+                rule = new Template(rulename, string, tmpRules, null, new Modifier[]{});
             }
             rulesList.add(rule);
         }
@@ -714,8 +712,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
 
     private Rule createImportRule(GenericRuleStructure currentRS, File tplFile) {
         String beanClassFile = currentRS.getBeanClassFile();
-        Rule rule = new ImportClause(beanClassFile, tplFile);
-        return rule;
+        return new ImportClause(beanClassFile, tplFile);
     }
 
     //restore m_ruletable from serialized file
@@ -1027,7 +1024,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
                 tplObjFile = new File(templateURLFile + ".o");
             } else if (!parseAlways) {
                 String tplDir = getTemplateDirectory().replaceAll("%20", " ");
-                tplObjFile = new File(tplDir + System.getProperty("file.separator") + jarFileEntry
+                tplObjFile = new File(tplDir + FileSystems.getDefault().getSeparator() + jarFileEntry
                         + ".o");
             }
 
@@ -1083,22 +1080,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
             classNotFoundRule.isError = true;
             rule = classNotFoundRule;
             g_syntaxErrorRule = classNotFoundRule;
-        } catch (InstantiationException ex) {
-            classNotFoundRule = new Template(null, ex.toString());
-            classNotFoundRule.isError = true;
-            rule = classNotFoundRule;
-            g_syntaxErrorRule = classNotFoundRule;
-        } catch (IllegalAccessException ex) {
-            classNotFoundRule = new Template(null, ex.toString());
-            classNotFoundRule.isError = true;
-            rule = classNotFoundRule;
-            g_syntaxErrorRule = classNotFoundRule;
-        } catch (NoSuchMethodException ex) {
-            classNotFoundRule = new Template(null, ex.toString());
-            classNotFoundRule.isError = true;
-            rule = classNotFoundRule;
-            g_syntaxErrorRule = classNotFoundRule;
-        } catch (ClassNotFoundException ex) {
+        } catch (InstantiationException | ClassNotFoundException | NoSuchMethodException | IllegalAccessException ex) {
             classNotFoundRule = new Template(null, ex.toString());
             classNotFoundRule.isError = true;
             rule = classNotFoundRule;
@@ -1108,14 +1090,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
             if (rule != null) {
                 rule.isError = true;
             }
-        } catch (RuleException ex) {
-            String msg = ex.getMessage();
-            if (msg == null) {
-                msg = ex.toString();
-            }
-            rule = new Template(null, msg);
-            rule.isError = true;
-        } catch (VariableNotDefinedRuleException ex) {
+        } catch (RuleException | VariableNotDefinedRuleException ex) {
             String msg = ex.getMessage();
             if (msg == null) {
                 msg = ex.toString();
@@ -1140,48 +1115,48 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
     }
 
     protected Rule getProjectRule() {
-        Rule rule = getRule("projectEntryPoint", getTemplateURL()); //NOT LOCALIZABLE
-        return rule;
+        //NOT LOCALIZABLE
+        return getRule("projectEntryPoint", getTemplateURL());
     }
 
     protected Rule getDataModelRule() {
-        Rule rule = getRule("datamodelEntryPoint", getTemplateURL()); //NOT LOCALIZABLE
-        return rule;
+        //NOT LOCALIZABLE
+        return getRule("datamodelEntryPoint", getTemplateURL());
     }
 
     protected Rule getTableRule() {
-        Rule rule = getRule("tableEntryPoint", getTemplateURL()); //NOT LOCALIZABLE
-        return rule;
+        //NOT LOCALIZABLE
+        return getRule("tableEntryPoint", getTemplateURL());
     }
 
     protected Rule getViewRule() {
-        Rule rule = getRule("viewEntryPoint", getTemplateURL()); //NOT LOCALIZABLE
-        return rule;
+        //NOT LOCALIZABLE
+        return getRule("viewEntryPoint", getTemplateURL());
     }
 
     protected Rule getColumnRule() {
-        Rule rule = getRule("columnEntryPoint", getTemplateURL()); //NOT LOCALIZABLE
-        return rule;
+        //NOT LOCALIZABLE
+        return getRule("columnEntryPoint", getTemplateURL());
     }
 
     protected Rule getIndexRule() {
-        Rule rule = getRule("indexEntryPoint", getTemplateURL()); //NOT LOCALIZABLE
-        return rule;
+        //NOT LOCALIZABLE
+        return getRule("indexEntryPoint", getTemplateURL());
     }
 
     protected Rule getPrimaryUniqueRule() {
-        Rule rule = getRule("primaryuniqueEntryPoint", getTemplateURL()); //NOT LOCALIZABLE
-        return rule;
+        //NOT LOCALIZABLE
+        return getRule("primaryuniqueEntryPoint", getTemplateURL());
     }
 
     protected Rule getCheckRule() {
-        Rule rule = getRule("checkEntryPoint", getTemplateURL()); //NOT LOCALIZABLE
-        return rule;
+        //NOT LOCALIZABLE
+        return getRule("checkEntryPoint", getTemplateURL());
     }
 
     protected Rule getTriggerRule() {
-        Rule rule = getRule("triggerEntryPoint", getTemplateURL()); //NOT LOCALIZABLE
-        return rule;
+        //NOT LOCALIZABLE
+        return getRule("triggerEntryPoint", getTemplateURL());
     }
 
     //INNER CLASSES

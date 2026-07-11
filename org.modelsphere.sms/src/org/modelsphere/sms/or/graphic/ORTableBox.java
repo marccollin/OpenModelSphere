@@ -613,7 +613,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
         Boolean displayTrgsElem = (Boolean) tableGO.find(DbORStyle.fOr_triggerDisplay);
         Boolean displayConsElem = (Boolean) tableGO.find(DbORStyle.fOr_umlConstraintDisplayed);
 
-        boolean displayCols = (displayColsElem == null) ? true : displayColsElem.booleanValue();
+        boolean displayCols = displayColsElem == null || displayColsElem.booleanValue();
         boolean displayPKs = (displayPKsElem == null) ? true : displayPKsElem.booleanValue();
         boolean displayUKs = (displayUKsElem == null) ? true : displayUKsElem.booleanValue();
         boolean displayFKs = (displayFKsElem == null) ? true : displayFKsElem.booleanValue();

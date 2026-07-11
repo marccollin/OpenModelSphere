@@ -314,7 +314,7 @@ public class TokenRewriteStream extends CommonTokenStream {
 	}
 
 	protected void setLastRewriteTokenIndex(String programName, int i) {
-		lastRewriteTokenIndexes.put(programName, new Integer(i));
+		lastRewriteTokenIndexes.put(programName, i);
 	}
 
 	protected List getProgram(String name) {
@@ -365,7 +365,7 @@ public class TokenRewriteStream extends CommonTokenStream {
         if ( end>tokens.size()-1 ) end = tokens.size()-1;
         if ( start<0 ) start = 0;
 
-        if ( rewrites==null || rewrites.size()==0 ) {
+        if ( rewrites==null || rewrites.isEmpty()) {
 			return toOriginalString(start,end); // no instructions to execute
 		}
 		StringBuffer buf = new StringBuffer();
@@ -376,8 +376,8 @@ public class TokenRewriteStream extends CommonTokenStream {
         // Walk buffer, executing instructions and emitting tokens
         int i = start;
         while ( i <= end && i < tokens.size() ) {
-			RewriteOperation op = (RewriteOperation)indexToOp.get(new Integer(i));
-			indexToOp.remove(new Integer(i)); // remove so any left have index size-1
+			RewriteOperation op = (RewriteOperation)indexToOp.get(i);
+			indexToOp.remove(i); // remove so any left have index size-1
 			Token t = (Token) tokens.get(i);
 			if ( op==null ) {
 				// no operation at that index, just dump token
@@ -545,10 +545,10 @@ public class TokenRewriteStream extends CommonTokenStream {
 		for (int i = 0; i < rewrites.size(); i++) {
 			RewriteOperation op = (RewriteOperation)rewrites.get(i);
 			if ( op==null ) continue; // ignore deleted ops
-			if ( m.get(new Integer(op.index))!=null ) {
+			if ( m.get(op.index)!=null ) {
 				throw new Error("should only be one op per index");
 			}
-			m.put(new Integer(op.index), op);
+			m.put(op.index, op);
 		}
 		//System.out.println("index to op: "+m);
 		return m;

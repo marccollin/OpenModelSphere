@@ -36,12 +36,14 @@ package org.modelsphere.sms.plugins.report;
 // Awt
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FileUtil {
 
     public static boolean sameDiskDrive(File validFile1, File validFile2) {
-        String sep = System.getProperty("file.separator");
+        String sep = FileSystems.getDefault().getSeparator();
         String drive1, drive2;
         String temp;
 
@@ -61,24 +63,24 @@ public class FileUtil {
     }
 
     public static File getRelativePath(File src, File dst) {
-        String sep = System.getProperty("file.separator");
+        String sep = FileSystems.getDefault().getSeparator();
         String relativePath;
         String temp;
         int index;
 
-        ArrayList directoryList1 = new ArrayList();
-        ArrayList directoryList2 = new ArrayList();
+        List<String> directoryList1 = new ArrayList<>();
+        List<String> directoryList2 = new ArrayList<>();
 
         temp = src.toString();
-        while (temp.indexOf(sep) > -1) {
+        while (temp.contains(sep)) {
             directoryList1.add(temp.substring(0, temp.indexOf(sep)));
-            temp = temp.substring(temp.indexOf(sep) + 1, temp.length());
+            temp = temp.substring(temp.indexOf(sep) + 1);
         }
 
         temp = dst.toString();
-        while (temp.indexOf(sep) > -1) {
+        while (temp.contains(sep)) {
             directoryList2.add(temp.substring(0, temp.indexOf(sep)));
-            temp = temp.substring(temp.indexOf(sep) + 1, temp.length());
+            temp = temp.substring(temp.indexOf(sep) + 1);
         }
         relativePath = temp;
 
@@ -90,7 +92,7 @@ public class FileUtil {
 
         int i;
         for (i = directoryList2.size() - 1; i >= index; i--) {
-            relativePath = directoryList2.get(i).toString() + sep + relativePath;
+            relativePath = directoryList2.get(i) + sep + relativePath;
         }
 
         int nbParentDir = directoryList1.size() - index;

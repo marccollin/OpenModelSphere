@@ -88,7 +88,7 @@ final class GenerateDataModelAction extends AbstractApplicationAction implements
                     ApplicationContext.getDefaultMainFrame(), ooPackage);
             objects[0].getDb().commitTrans();
             createDataFrame.setVisible(true);
-            if (createDataFrame.cancel == false) {
+            if (!createDataFrame.cancel) {
                 JavaToDataModelParameters params = createDataFrame.getParameters();
                 DbObject destination = createDataFrame.destination;
                 JavaToDataModelConversion conversion = new JavaToDataModelConversion(destination,

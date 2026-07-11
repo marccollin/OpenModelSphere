@@ -34,11 +34,7 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.data.extractor.dbobject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -53,91 +49,117 @@ import org.modelsphere.sms.db.DbSMSDiagram;
  * This class is used to extract the necessary information of a project from a
  * point of entry defined by a DbObject set through the constructor so it can
  * be easily be accessible for the creation of the HTML report.
- * 
- * @version 1.0.0
+ *
  * @author Open ModelSphere HTML Reports Team
+ * @version 1.0.0
  */
-public class DbObjectExtractor
-{
-	/** DbObject from which the information will be extracted */
-	private DbObject object;
+public class DbObjectExtractor {
+    /**
+     * DbObject from which the information will be extracted
+     */
+    private final DbObject sourceObject;
 
-	/**
-	 * Constructor
-	 * 
-	 * @param object
-	 *            DbObject from which the information will be extracted
-	 */
-	public DbObjectExtractor(DbObject object)
-	{
-		this.object = object;
-	}
+    /**
+     * Constructor
+     *
+     * @param object DbObject from which the information will be extracted
+     */
+    public DbObjectExtractor(DbObject object) {
+        this.sourceObject = object;
+    }
 
-	/**
-	 * extractDbObject is the main function of the class. It lists the fields,
-	 * the components, the diagrams and the icons of object in a DataDbObject to
-	 * then be used to generate the HTML report.
-	 * 
-	 * @return An object containing all the information from object
-	 * @throws DbException
-	 *             If an error occurs while handling a DbObject
-	 */
-	public DataDbObject extractDbObject() throws DbException
-	{
-		String name = object.getName();
-		DataDbObject extractedObject = new DataDbObject(name);
+    /**
+     * extractDbObject is the main function of the class. It lists the fields,
+     * the components, the diagrams and the icons of object in a DataDbObject to
+     * then be used to generate the HTML report.
+     *
+     * @return An object containing all the information from object
+     * @throws DbException If an error occurs while handling a DbObject
+     */
+    public DataDbObject extractDbObject() throws DbException {
+        Map<DbObject, DataComponent> dbObjectAssociations = new HashMap<DbObject, DataComponent>();
+        return extractDbObject(dbObjectAssociations);
+    }
 
-		FieldsExtractor fields = new FieldsExtractor(object);
-		extractedObject.setFields(fields.extractFields());
+    private DataDbObject extractDbObject(Map<DbObject, DataComponent> dbObjectAssociations) throws DbException {
+        if (dbObjectAssociations.containsKey(sourceObject)) {
+            return (DataDbObject) dbObjectAssociations.get(sourceObject);
+        }
 
-		IconExtractor iconExtractor = new IconExtractor(object);
-		extractedObject.setIcon(iconExtractor.extractIcon());
+        DataDbObject extractedObject = createBaseDataObject();
+        dbObjectAssociations.put(sourceObject, extractedObject);
 
-		ComponentsExtractor components = new ComponentsExtractor(object);
-		Map<String, ArrayList<DbObject>> groupedComponents = components.extractComponents();
-		Set<String> keys = groupedComponents.keySet();
-		HashMap<DbObject, DataComponent> dbObjectAssociations = new HashMap<DbObject, DataComponent>();
-		dbObjectAssociations.put(object, extractedObject);
+        addExtractedComponents(extractedObject, dbObjectAssociations);
+        addExtractedDiagrams(extractedObject, dbObjectAssociations);
 
-		Iterator<String> keysIterator = keys.iterator();
-		String keyName;
-		while (keysIterator.hasNext())
-		{
-			keyName = keysIterator.next();
-			ArrayList<DbObject> objects = groupedComponents.get(keyName);
-			if (objects.size() > 1)
-			{
-				DataDbObjectsGroup composite = new DataDbObjectsGroup(keyName);
-				for (int i = 0; i < objects.size(); i++)
-				{
-					DbObjectExtractor currentObjectExtractor = new DbObjectExtractor(objects.get(i));
-					DataDbObject dataObject = currentObjectExtractor.extractDbObject();
-					dbObjectAssociations.put(objects.get(i), dataObject);
-					composite.add(dataObject);
-				}
+        return extractedObject;
+    }
 
-				composite.sortComponents();
-				extractedObject.addComponent(composite);
-			}
+    private DataDbObject createBaseDataObject() throws DbException {
+        DataDbObject extractedObject = new DataDbObject(sourceObject.getName());
 
-			else
-			{
-				DbObjectExtractor currentObjectExtractor = new DbObjectExtractor(objects.get(0));
-				DataDbObject dataObject = currentObjectExtractor.extractDbObject();
-				dbObjectAssociations.put(objects.get(0), dataObject);
-				extractedObject.addComponent(dataObject);
-			}
-		}
+        FieldsExtractor fieldsExtractor = new FieldsExtractor(sourceObject);
+        extractedObject.setFields(fieldsExtractor.extractFields());
 
-		DiagramsExtractor diagramsExtractor = new DiagramsExtractor(object);
-		ArrayList<DbSMSDiagram> diagrams = diagramsExtractor.extractDiagrams();
-		for (DbSMSDiagram diagram : diagrams)
-		{
-			SMSDiagramExtractor diagramExtractor = new SMSDiagramExtractor(diagram, dbObjectAssociations);
-			DataDiagram dataDiagram = diagramExtractor.extractDbSMSDiagram();
-			extractedObject.addDiagram(dataDiagram);
-		}
+        IconExtractor iconExtractor = new IconExtractor(sourceObject);
+        extractedObject.setIcon(iconExtractor.extractIcon());
 
-		return extractedObject;
-	}
+        return extractedObject;
+    }
+
+    private void addExtractedComponents(DataDbObject extractedObject,
+                                        Map<DbObject, DataComponent> dbObjectAssociations) throws DbException {
+        ComponentsExtractor componentsExtractor = new ComponentsExtractor(sourceObject);
+        Map<String, List<DbObject>> groupedComponents = componentsExtractor.extractComponents();
+
+        for (Map.Entry<String, List<DbObject>> componentGroup : groupedComponents.entrySet()) {
+            String groupName = componentGroup.getKey();
+            List<DbObject> components = componentGroup.getValue();
+
+            if (components.size() > 1) {
+                addComponentGroup(extractedObject, dbObjectAssociations, groupName, components);
+            } else {
+                addSingleComponent(extractedObject, dbObjectAssociations, components.get(0));
+            }
+        }
+    }
+
+    private void addComponentGroup(DataDbObject extractedObject,
+                                   Map<DbObject, DataComponent> dbObjectAssociations, String groupName,
+                                   List<DbObject> components) throws DbException {
+        DataDbObjectsGroup componentGroup = new DataDbObjectsGroup(groupName);
+
+        for (DbObject component : components) {
+            DataDbObject dataObject = extractDataObject(component, dbObjectAssociations);
+            componentGroup.add(dataObject);
+        }
+
+        componentGroup.sortComponents();
+        extractedObject.addComponent(componentGroup);
+    }
+
+    private void addSingleComponent(DataDbObject extractedObject,
+                                    Map<DbObject, DataComponent> dbObjectAssociations, DbObject component)
+            throws DbException {
+        DataDbObject dataObject = extractDataObject(component, dbObjectAssociations);
+        extractedObject.addComponent(dataObject);
+    }
+
+    private DataDbObject extractDataObject(DbObject component,
+                                           Map<DbObject, DataComponent> dbObjectAssociations) throws DbException {
+        DbObjectExtractor componentExtractor = new DbObjectExtractor(component);
+        return componentExtractor.extractDbObject(dbObjectAssociations);
+    }
+
+    private void addExtractedDiagrams(DataDbObject extractedObject,
+                                      Map<DbObject, DataComponent> dbObjectAssociations) throws DbException {
+        DiagramsExtractor diagramsExtractor = new DiagramsExtractor(sourceObject);
+        List<DbSMSDiagram> diagrams = diagramsExtractor.extractDiagrams();
+
+        for (DbSMSDiagram diagram : diagrams) {
+            SMSDiagramExtractor diagramExtractor = new SMSDiagramExtractor(diagram, dbObjectAssociations);
+            DataDiagram dataDiagram = diagramExtractor.extractDbSMSDiagram();
+            extractedObject.addDiagram(dataDiagram);
+        }
+    }
 }

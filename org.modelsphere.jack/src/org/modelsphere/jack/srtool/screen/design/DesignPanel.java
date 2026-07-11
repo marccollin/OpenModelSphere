@@ -51,6 +51,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -116,7 +117,7 @@ public class DesignPanel extends JPanel implements AncestorListener, SelectionLi
 
     private int rowHeight = -1;
 
-    private DbRefreshListener refreshListener = new DbRefreshListener() {
+    private final DbRefreshListener refreshListener = new DbRefreshListener() {
 
         @Override
         public void refreshAfterDbUpdate(DbUpdateEvent event) throws DbException {
@@ -147,13 +148,11 @@ public class DesignPanel extends JPanel implements AncestorListener, SelectionLi
 
     public DesignPanel() {
         setLayout(new BorderLayout());
-
         table = new DesignTable(this);
         scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         outerPanel.add(scrollPane, BorderLayout.CENTER);
-
         scrollPane.setBorder(null);
 
         add(title, BorderLayout.NORTH);
@@ -176,7 +175,7 @@ public class DesignPanel extends JPanel implements AncestorListener, SelectionLi
                             if (evt.getNewValue() == null
                                     || !(evt.getNewValue() instanceof Boolean))
                                 return;
-                            setHeaderVisible(((Boolean) evt.getNewValue()).booleanValue());
+                            setHeaderVisible((Boolean) evt.getNewValue());
                         }
                     });
         }
@@ -193,16 +192,16 @@ public class DesignPanel extends JPanel implements AncestorListener, SelectionLi
 
     private void installDbListeners() {
         DbObject[] dbos = table.getDesignTableModel().getDbObjects();
-        for (int i = 0; i < dbos.length; i++) {
-            dbos[i].addDbRefreshListener(refreshListener);
+        for (DbObject dbo : dbos) {
+            dbo.addDbRefreshListener(refreshListener);
         }
         DbUDFValue.fValue.addDbRefreshListener(refreshListener);
     }
 
     private void removeDbListeners() {
         DbObject[] dbos = table.getDesignTableModel().getDbObjects();
-        for (int i = 0; i < dbos.length; i++) {
-            dbos[i].removeDbRefreshListener(refreshListener);
+        for (DbObject dbo : dbos) {
+            dbo.removeDbRefreshListener(refreshListener);
         }
         DbUDFValue.fValue.removeDbRefreshListener(refreshListener);
     }
@@ -306,7 +305,7 @@ public class DesignPanel extends JPanel implements AncestorListener, SelectionLi
 
             JLabel label = (JLabel) table.getCellRenderer(0, 0);
             if (label != null) {
-                ArrayList<RowData> data = table.getDesignTableModel().getData();
+                List<RowData> data = table.getDesignTableModel().getData();
                 DbObject[] dbos = table.getDesignTableModel().getDbObjects();
                 for (int i = 0; i < data.size() && col0MaxWidth < availableWidth; i++) {
                     RowData row = ((RowData) data.get(i));
@@ -395,7 +394,7 @@ public class DesignPanel extends JPanel implements AncestorListener, SelectionLi
 
         String sValue = ApplicationContext.getSemanticalModel().getDisplayValue(value,
                 model.getMetaFieldAt(row), DesignTableModel.class).toString();
-        if (sValue.indexOf("\n") < 0) { // NOT LOCALIZABLE
+        if (!sValue.contains("\n")) { // NOT LOCALIZABLE
             text += sValue;
             ToolTipManager.sharedInstance().setDismissDelay(defaultTooltipDismissDelay);
         } else {
@@ -423,10 +422,10 @@ public class DesignPanel extends JPanel implements AncestorListener, SelectionLi
                 } else if (token.equals("\"")) {
                     text += QUOT;
                     charinline += 1;
-                } else if (token.equals("�")) {
+                } else if (token.equals("©")) {
                     text += COPY;
                     charinline += 1;
-                } else if (token.equals("�")) {
+                } else if (token.equals("®")) {
                     text += REG;
                     charinline += 1;
                 } else if (charinline >= MAX_CHAR_PER_LINE) { // NOT LOCALIZABLE

@@ -38,6 +38,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -104,7 +105,7 @@ public abstract class OOForwardEngineeringPlugin extends GenericForwardEngineeri
         }
     }
 
-    protected void forwardTo(DbObject semObj, ArrayList generatedFiles) throws DbException,
+    protected void forwardTo(DbObject semObj, List generatedFiles) throws DbException,
             IOException, RuleException {
         // has to be coded
     }

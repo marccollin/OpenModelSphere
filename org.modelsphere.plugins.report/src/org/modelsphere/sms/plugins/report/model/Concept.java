@@ -39,6 +39,7 @@ package org.modelsphere.sms.plugins.report.model;
 
 // JDK
 import java.util.ArrayList;
+import java.util.List;
 
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -96,7 +97,7 @@ public class Concept {
     }
 
     private void initFields() {
-        ArrayList screenMetaFields = m_metaClass.getScreenMetaFields();
+        List<MetaField> screenMetaFields = m_metaClass.getScreenMetaFields();
         metaFields = new MetaField[screenMetaFields.size() + 1];//new MetaField[screenMetaFields.size()+2];
 
         // the composite and components metafields are added to the screen metafields
@@ -140,17 +141,16 @@ public class Concept {
         return components;
     }
 
-    public ArrayList getOccurences() throws DbException {
-        ArrayList occurences = new ArrayList();
+    public List<DbObject> getOccurences() throws DbException {
+        List<DbObject> occurences = new ArrayList();
 
-        for (int i = 0; i < m_entryPoints.length; i++)
-            occurences.addAll(getOccurences(m_entryPoints[i]));
+        for (DbObject mEntryPoint : m_entryPoints) occurences.addAll(getOccurences(mEntryPoint));
 
         return occurences;
     }
 
-    public ArrayList getOccurences(DbObject parent) throws DbException {
-        ArrayList occurences = new ArrayList();
+    public List<DbObject> getOccurences(DbObject parent) throws DbException {
+        List<DbObject>  occurences = new ArrayList();
 
         if (parent == null)
             return occurences;

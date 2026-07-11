@@ -109,9 +109,7 @@ public abstract class Rule implements Plugin, Serializable {
     //TODO: check for multiple modifiers (several Ifs, several Prefix, ect.)
     Rule(String name, Modifier[] someModifiers) {
         this(name);
-        for (int i = 0; i < someModifiers.length; i++) {
-            Modifier modifier = someModifiers[i];
-
+        for (Modifier modifier : someModifiers) {
             if (modifier instanceof PrefixModifier) {
                 prefixModifier = (PrefixModifier) modifier;
             } else if (modifier instanceof SuffixModifier) {
@@ -227,8 +225,7 @@ public abstract class Rule implements Plugin, Serializable {
 
     public boolean expand(Writer output, Serializable object) throws IOException, RuleException {
         Rule.RuleOptions options = null;
-        boolean expanded = expand(output, object, options);
-        return expanded;
+        return expand(output, object, options);
     }
 
     /*
@@ -303,10 +300,10 @@ public abstract class Rule implements Plugin, Serializable {
 
         if (delay > 2000) {
             if (g_lastOutputTime != 0) {
-                counter = new Long(counter.longValue() + delay);
+                counter = counter + delay;
                 controller.setCounter(counter);
-                String message = MessageFormat.format(PROCESS_TIME0, new Object[] { new Long(
-                        counter.longValue() / 1000) });
+                String message = MessageFormat.format(PROCESS_TIME0, new Object[] {
+                        counter / 1000 });
                 controller.println(message);
             }
 
@@ -316,8 +313,7 @@ public abstract class Rule implements Plugin, Serializable {
 
     public static MetaField getMetaField(DbObject dbo, String name) {
         MetaField[] allMetaFields = dbo.getMetaClass().getAllMetaFields();
-        for (int i = 0; i < allMetaFields.length; i++) {
-            MetaField metaField = allMetaFields[i];
+        for (MetaField metaField : allMetaFields) {
             if (name.equals(metaField.getJField().getName()))
                 return metaField;
         }
@@ -342,7 +338,7 @@ public abstract class Rule implements Plugin, Serializable {
             return false;
         }
 
-        ArrayList excludeList = options.getExcludeList();
+        List excludeList = options.getExcludeList();
 
         if (excludeList != null) {
             if (excludeList.contains(className)) {
@@ -362,7 +358,7 @@ public abstract class Rule implements Plugin, Serializable {
             return false;
         }
 
-        ArrayList excludeList = options.getExcludeList();
+        List excludeList = options.getExcludeList();
 
         if (obj != null) {
             if (obj instanceof DbObject) {
@@ -404,17 +400,17 @@ public abstract class Rule implements Plugin, Serializable {
 
         //Used by Property rules, ignored by others
         //If a property's name is contained in the excludeList, then doesn't generate the property
-        private ArrayList m_propertyExcludeList;
+        private List m_propertyExcludeList;
 
         public RuleOptions(DbObject refObject, MetaField[] metafields, Controller controller,
-                ArrayList excludeList) {
+                List excludeList) {
             m_refObject = refObject;
             m_metafields = metafields;
             m_controller = controller;
             m_propertyExcludeList = excludeList;
         }
 
-        ArrayList getExcludeList() {
+        List getExcludeList() {
             return m_propertyExcludeList;
         }
 

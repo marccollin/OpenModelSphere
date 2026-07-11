@@ -117,17 +117,16 @@ public abstract class AbstractDomainAction extends AbstractApplicationAction {
     }
 
     public final void setDomainValues(Object[] newValue) {
-        putValue(SELECTED_VALUE, new Integer(-1));
+        putValue(SELECTED_VALUE, -1);
         putValue(VALUES, newValue);
     }
 
     public final Object[] getDomainValues() {
-        Object[] value = (Object[]) getValue(VALUES);
-        return value;
+        return (Object[]) getValue(VALUES);
     }
 
     private final void setSelectedImpl(int idx) {
-        putValue(SELECTED_VALUE, new Integer(idx));
+        putValue(SELECTED_VALUE, idx);
     }
 
     // IMPORTANT: DO NOT USE THIS METHOD.
@@ -189,9 +188,9 @@ public abstract class AbstractDomainAction extends AbstractApplicationAction {
 
     public final Object getSelectedObject() {
         Integer idx = (Integer) getValue(SELECTED_VALUE);
-        if (idx != null && idx.intValue() > -1) {
+        if (idx != null && idx > -1) {
             Object[] value = (Object[]) getValue(VALUES);
-            return value == null ? null : Arrays.asList(value).get(idx.intValue());
+            return value == null ? null : Arrays.asList(value).get(idx);
         }
         return null;
     }
@@ -199,7 +198,7 @@ public abstract class AbstractDomainAction extends AbstractApplicationAction {
     public final int getSelectedIndex() {
         Integer value = (Integer) getValue(SELECTED_VALUE);
         // make sure that nobody set the property using the putValue method
-        return value == null ? -1 : value.intValue();
+        return value == null ? -1 : value;
     }
 
     public final boolean isUISelectionVisible() {

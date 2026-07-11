@@ -45,6 +45,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -165,9 +166,7 @@ public final class ForwardPanel extends JPanel implements ScreenTabPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     updateForwardPanel(supportedClasses);
-                } catch (DbException ex) {
-                    editPane.setText(ex.toString());
-                } catch (IOException ex) {
+                } catch (DbException | IOException ex) {
                     editPane.setText(ex.toString());
                 }
             }
@@ -189,8 +188,8 @@ public final class ForwardPanel extends JPanel implements ScreenTabPanel {
     private boolean isSupported(Class claz, Class[] supportedClasses) {
         boolean supported = false;
 
-        for (int i = 0; i < supportedClasses.length; i++) {
-            if (supportedClasses[i].isAssignableFrom(claz)) {
+        for (Class supportedClass : supportedClasses) {
+            if (supportedClass.isAssignableFrom(claz)) {
                 supported = true;
                 break;
             }
@@ -248,19 +247,14 @@ public final class ForwardPanel extends JPanel implements ScreenTabPanel {
                     DbObject refObject = null;
                     MetaField[] metafields = null;
                     Controller controller = null;
-                    ArrayList excludeList = null;
+                    List excludeList = null;
 
                     Rule.RuleOptions options = new Rule.RuleOptions(refObject, metafields,
                             controller, excludeList);
                     rule.expand(writer, semanticalObject, options);
                     String unprocessedEditionCode = writer.toString();
                     s = EditionCode.processEditionCode(unprocessedEditionCode);
-                } catch (RuleException ex) {
-                    StringWriter sw = new StringWriter();
-                    PrintWriter pw = new PrintWriter(sw);
-                    ex.printStackTrace(pw);
-                    s = sw.toString();
-                } catch (RuntimeException ex) {
+                } catch (RuleException | RuntimeException ex) {
                     StringWriter sw = new StringWriter();
                     PrintWriter pw = new PrintWriter(sw);
                     ex.printStackTrace(pw);
@@ -400,9 +394,7 @@ public final class ForwardPanel extends JPanel implements ScreenTabPanel {
     public final void activateTab() {
         try {
             updateForward(false);
-        } catch (DbException ex) {
-            editPane.setText(ex.toString());
-        } catch (IOException ex) {
+        } catch (DbException | IOException ex) {
             editPane.setText(ex.toString());
         }
     }

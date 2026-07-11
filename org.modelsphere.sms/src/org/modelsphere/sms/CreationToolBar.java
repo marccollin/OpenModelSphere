@@ -35,6 +35,7 @@ package org.modelsphere.sms;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JComponent;
 
@@ -45,11 +46,10 @@ import org.modelsphere.sms.international.LocaleMgr;
 public final class CreationToolBar extends JackToolBar {
     private ToolButtonGroup toolGroup;
 
-    public CreationToolBar(ArrayList components, ToolButtonGroup toolGroup) {
+    public CreationToolBar(List components, ToolButtonGroup toolGroup) {
         this.toolGroup = toolGroup;
-        Iterator iter = components.iterator();
-        while (iter.hasNext()) {
-            add((JComponent) iter.next());
+        for (Object component : components) {
+            add((JComponent) component);
         }
         setName(LocaleMgr.misc.getString("CreationToolBarName"));
     }

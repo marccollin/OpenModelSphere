@@ -40,7 +40,7 @@ public abstract class BaseTreeAdaptor implements TreeAdaptor {
 	 *  track ourselves.  That's ok, it's only for debugging, though it's
 	 *  expensive: we have to create a hashtable with all tree nodes in it.
 	 */
-	protected Map treeToUniqueIDMap;
+	protected Map<Object, Integer> treeToUniqueIDMap;
 	protected int uniqueNodeID = 1;
 
 	public Object nil() {
@@ -243,7 +243,7 @@ public abstract class BaseTreeAdaptor implements TreeAdaptor {
 			return prevID.intValue();
 		}
 		int ID = uniqueNodeID;
-		treeToUniqueIDMap.put(node, new Integer(ID));
+		treeToUniqueIDMap.put(node, ID);
 		uniqueNodeID++;
 		return ID;
 		// GC makes these nonunique:

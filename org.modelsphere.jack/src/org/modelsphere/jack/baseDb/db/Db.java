@@ -92,7 +92,7 @@ import org.modelsphere.jack.util.SrVector;
  */
 public abstract class Db {
     public static final String PROPERTY_CONMMAND_HISTORY_SIZE = "CommandHistorySize"; //NOT LOCALIZABLE, property key
-    public static final Integer PROPERTY_CONMMAND_HISTORY_SIZE_DEFAULT = new Integer(10);
+    public static final Integer PROPERTY_CONMMAND_HISTORY_SIZE_DEFAULT = 10;
     public static final int PROPERTY_CONMMAND_HISTORY_SIZE_MAX = 100;
     public static final int PROPERTY_CONMMAND_HISTORY_SIZE_MIN = 1;
 
@@ -219,7 +219,7 @@ public abstract class Db {
                         Constructor dbConstructor = dbClass.getDeclaredConstructor(new Class[] {
                                 String.class, int.class, boolean.class });
                         tempdb = (Db) dbConstructor.newInstance(new Object[] { rootName,
-                                new Integer(converter.getCurrentVersion()),
+                                converter.getCurrentVersion(),
                                 (convert ? Boolean.FALSE : Boolean.TRUE) });
                     } catch (ClassNotFoundException e1) {
                         Debug.trace(e1);
@@ -353,7 +353,7 @@ public abstract class Db {
     }
 
     public static void addDbTransListener(DbTransListener listener) {
-        if (transListeners.indexOf(listener) == -1)
+        if (!transListeners.contains(listener))
             transListeners.addElement(listener);
     }
 
@@ -362,7 +362,7 @@ public abstract class Db {
     }
 
     public static void addDbUpdatePassListener(DbUpdatePassListener listener) {
-        if (updatePassListeners.indexOf(listener) == -1)
+        if (!updatePassListeners.contains(listener))
             updatePassListeners.addElement(listener);
     }
 
@@ -371,7 +371,7 @@ public abstract class Db {
     }
 
     public static void addDbRefreshPassListener(DbRefreshPassListener listener) {
-        if (refreshPassListeners.indexOf(listener) == -1)
+        if (!refreshPassListeners.contains(listener))
             refreshPassListeners.addElement(listener);
     }
 
@@ -380,7 +380,7 @@ public abstract class Db {
     }
 
     public static void addDbListener(DbListener listener) {
-        if (dbListeners.indexOf(listener) == -1)
+        if (!dbListeners.contains(listener))
             dbListeners.addElement(listener);
     }
 
@@ -389,7 +389,7 @@ public abstract class Db {
     }
 
     public static void addDbUndoRedoListener(DbUndoRedoListener listener) {
-        if (undoRedoListeners.indexOf(listener) == -1)
+        if (!undoRedoListeners.contains(listener))
             undoRedoListeners.addElement(listener);
     }
 
@@ -423,7 +423,7 @@ public abstract class Db {
     }
 
     public final boolean isInEnum() {
-        return (enumeratedRelNs.size() != 0);
+        return (!enumeratedRelNs.isEmpty());
     }
 
     final DbTransaction getRootTransaction() {
@@ -574,7 +574,7 @@ public abstract class Db {
         }
         DBMSCommitTrans("");
 
-        if (enumeratedRelNs.size() != 0)
+        if (!enumeratedRelNs.isEmpty())
             throw new RuntimeException("Enumerations opened at commit time"); // NOT LOCALIZABLE RuntimeException
         resetAllModifiedObjects();
         rootTransaction = null;
@@ -631,7 +631,7 @@ public abstract class Db {
             return;
         DbTransaction trans = (DbTransaction) transHistory.elementAt(historyIndex - 1);
         beginWriteTrans("");
-        if (trans.getDescription().length() != 0)
+        if (!trans.getDescription().isEmpty())
             setTransDescription(MessageFormat.format(LocaleMgr.db.getString("Undo0"),
                     new Object[] { trans.getDescription() }));
         setTransMode(TRANS_UNDO);
@@ -649,7 +649,7 @@ public abstract class Db {
             return;
         DbTransaction trans = (DbTransaction) transHistory.elementAt(historyIndex);
         beginWriteTrans("");
-        if (trans.getDescription().length() != 0)
+        if (!trans.getDescription().isEmpty())
             setTransDescription(MessageFormat.format(LocaleMgr.db.getString("Redo0"),
                     new Object[] { trans.getDescription() }));
         setTransMode(TRANS_REDO);
@@ -889,10 +889,9 @@ public abstract class Db {
 
     public static final String getConnectionString() {
         PropertiesSet preferences = PropertiesManager.getPreferencePropertiesSet();
-        String connectionString = preferences.getPropertyString(Db.class,
+        return preferences.getPropertyString(Db.class,
                 PROPERTY_REPOSITORY_CONNECTION_STRING,
                 PROPERTY_REPOSITORY_CONNECTION_STRING_DEFAULT);
-        return connectionString;
     }
 
 }

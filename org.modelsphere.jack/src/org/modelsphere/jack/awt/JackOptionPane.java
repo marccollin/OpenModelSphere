@@ -231,16 +231,16 @@ public class JackOptionPane extends JOptionPane {
         int returnValue;
         returnValue = JackOptionPane.showConfirmDialog(null, "pane1"); // NOT
         // LOCALIZABLE
-        Debug.trace(new Integer(returnValue));
+        Debug.trace(returnValue);
 
         returnValue = JackOptionPane.showConfirmDialog(null, "pane2", "title2",
                 JackOptionPane.YES_NO_CANCEL_OPTION); // NOT LOCALIZABLE
-        Debug.trace(new Integer(returnValue));
+        Debug.trace(returnValue);
 
         returnValue = JackOptionPane.showConfirmDialog(null, "pane3", "title3",
                 JackOptionPane.YES_YESTOALL_NO_CANCEL_OPTION); // NOT
         // LOCALIZABLE
-        Debug.trace(new Integer(returnValue));
+        Debug.trace(returnValue);
 
         // javax.swing.JFrame frame = new javax.swing.JFrame();
         // javax.swing.JPanel panel = new javax.swing.JPanel();

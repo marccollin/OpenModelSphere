@@ -42,7 +42,7 @@ public class LegacyCommonTokenStream implements TokenStream {
 	/** Record every single token pulled from the source so we can reproduce
 	 *  chunks of it later.
 	 */
-	protected List tokens;
+	protected List<Token> tokens;
 
 	/** Map<tokentype, channel> to override some Tokens' channel numbers */
 	protected Map channelOverrideMap;
@@ -100,13 +100,13 @@ public class LegacyCommonTokenStream implements TokenStream {
 			// is there a channel override for token type?
 			if ( channelOverrideMap!=null ) {
 				Integer channelI = (Integer)
-					channelOverrideMap.get(new Integer(t.getType()));
+					channelOverrideMap.get(t.getType());
 				if ( channelI!=null ) {
-					t.setChannel(channelI.intValue());
+					t.setChannel(channelI);
 				}
 			}
 			if ( discardSet!=null &&
-				 discardSet.contains(new Integer(t.getType())) )
+				 discardSet.contains(t.getType()) )
 			{
 				discard = true;
 			}
@@ -167,14 +167,14 @@ public class LegacyCommonTokenStream implements TokenStream {
 		if ( channelOverrideMap==null ) {
 			channelOverrideMap = new HashMap();
 		}
-        channelOverrideMap.put(new Integer(ttype), new Integer(channel));
+        channelOverrideMap.put(ttype, channel);
 	}
 
 	public void discardTokenType(int ttype) {
 		if ( discardSet==null ) {
 			discardSet = new HashSet();
 		}
-        discardSet.add(new Integer(ttype));
+        discardSet.add(ttype);
 	}
 
 	public void discardOffChannelTokens(boolean discardOffChannelTokens) {
@@ -218,7 +218,7 @@ public class LegacyCommonTokenStream implements TokenStream {
 				filteredTokens.add(t);
 			}
 		}
-		if ( filteredTokens.size()==0 ) {
+		if (filteredTokens.isEmpty()) {
 			filteredTokens = null;
 		}
 		return filteredTokens;

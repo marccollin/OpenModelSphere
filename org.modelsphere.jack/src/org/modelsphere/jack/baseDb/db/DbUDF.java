@@ -44,6 +44,7 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.baseDb.db;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.modelsphere.jack.baseDb.db.srtypes.UDFValueType;
 import org.modelsphere.jack.baseDb.international.LocaleMgr;
@@ -182,22 +183,16 @@ public final class DbUDF extends DbSemanticalObject {
     }
 
     public final Class getValueClass() throws DbException {
-        switch (getValueType().getValue()) {
-        case UDFValueType.BOOLEAN:
-            return Boolean.class;
-        case UDFValueType.LONG:
-            return Long.class;
-        case UDFValueType.DOUBLE:
-            return Double.class;
-        case UDFValueType.STRING:
-        case UDFValueType.TEXT:
-            return String.class;
-
-        default:
-            throw new RuntimeException("Missing case in DbUDF.getValueClass"); // NOT
-            // LOCALIZABLE
-            // RuntimeException
-        }
+        // NOT
+        // LOCALIZABLE
+        // RuntimeException
+        return switch (getValueType().getValue()) {
+            case UDFValueType.BOOLEAN -> Boolean.class;
+            case UDFValueType.LONG -> Long.class;
+            case UDFValueType.DOUBLE -> Double.class;
+            case UDFValueType.STRING, UDFValueType.TEXT -> String.class;
+            default -> throw new RuntimeException("Missing case in DbUDF.getValueClass"); // NOT
+        };
     }
 
     public final boolean matches(DbObject dbo) throws DbException {
@@ -263,7 +258,7 @@ public final class DbUDF extends DbSemanticalObject {
     public static class UDFMap {
 
         private DbProject project;
-        private ArrayList[] udfsByClass;
+        private List[] udfsByClass;
 
         public UDFMap(DbProject project) throws DbException {
             this.project = project;
@@ -282,7 +277,7 @@ public final class DbUDF extends DbSemanticalObject {
         public final DbUDF find(MetaClass metaClass, String udfName, UDFValueType valueType)
                 throws DbException {
             DbUDF udfFound = null;
-            ArrayList udfs = udfsByClass[metaClass.getSeqNo()];
+            List udfs = udfsByClass[metaClass.getSeqNo()];
             if (udfs != null) {
                 for (int i = 0; i < udfs.size(); i++) {
                     DbUDF udf = (DbUDF) udfs.get(i);

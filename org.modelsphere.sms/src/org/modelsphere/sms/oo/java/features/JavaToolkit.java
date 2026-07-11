@@ -33,10 +33,7 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.oo.java.features;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -66,7 +63,7 @@ public class JavaToolkit {
     // public methods
     //
     public Object[] getSystemJarFiles() {
-        ArrayList systemJarList = new ArrayList();
+        List systemJarList = new ArrayList();
         String path = System.getProperty("sun.boot.class.path"); //NOT LOCALIZABLE, property name
         String delim = System.getProperty("path.separator"); //NOT LOCALIZABLE, property name
         StringTokenizer st = new StringTokenizer(path, delim);
@@ -78,9 +75,9 @@ public class JavaToolkit {
         return objs;
     } //end getSystemJarFiles() 
 
-    public void fillClassList(Object[] jarFiles, ArrayList packageList, ArrayList classList) {
-        for (int i = 0; i < jarFiles.length; i++) {
-            String jarFile = jarFiles[i].toString();
+    public void fillClassList(Object[] jarFiles, List packageList, List classList) {
+        for (Object file : jarFiles) {
+            String jarFile = file.toString();
             scanJarFile(jarFile, packageList, classList);
         } //end for
     } //end fillClassList()
@@ -88,7 +85,7 @@ public class JavaToolkit {
     //
     // private methods
     //
-    private void scanJarFile(String filename, ArrayList packageList, ArrayList classList) {
+    private void scanJarFile(String filename, List packageList, List classList) {
         try {
             ZipFile file = new ZipFile(filename);
             Enumeration enumeration = file.entries();
@@ -116,11 +113,11 @@ public class JavaToolkit {
     //
     public static void main(String[] args) {
         JavaToolkit toolkit = JavaToolkit.getSingleton();
-        ArrayList packageList = new ArrayList();
+        List packageList = new ArrayList();
         packageList.add("java.lang");
 
         Object[] jarFiles = toolkit.getSystemJarFiles();
-        ArrayList classList = new ArrayList();
+        List classList = new ArrayList();
         toolkit.fillClassList(jarFiles, packageList, classList);
 
         Iterator iter = classList.iterator();

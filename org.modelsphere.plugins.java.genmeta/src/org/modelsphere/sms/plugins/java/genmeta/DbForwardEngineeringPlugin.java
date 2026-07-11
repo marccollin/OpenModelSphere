@@ -33,6 +33,7 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.plugins.java.genmeta;
 
 import java.io.*;
+import java.nio.file.FileSystems;
 import java.text.MessageFormat;
 import java.util.*;
 
@@ -81,7 +82,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
     private static final String SP4 = "    ";
     private static final String SP6 = "      ";
     private static final String SP8 = "        ";
-    private static final String EOL = System.getProperty("line.separator");
+    private static final String EOL = System.lineSeparator();
 
     private static final int META_NONE = 0;
     private static final int META_FIELD = 1;
@@ -125,13 +126,13 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
     //Support of two languages, English and French
     private LocaleDictionary[] m_dictionaries = new LocaleDictionary[] {
             new LocaleDictionary("en"), new LocaleDictionary("fr") };
-    private String m_fileSep = System.getProperty("file.separator");
+    private String m_fileSep = FileSystems.getDefault().getSeparator();
 
     //members set by initializer
     private DbJVPackage m_dbPack;
     private String m_packPrefix;
     private String m_packQualName;
-    private HashMap m_choices;
+    private Map<DbJVDataMember,Object> m_choices;
     //members set by methods
     private String m_pathPrefix = null;
     private String m_pathName = null;
@@ -146,7 +147,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         m_dbPack = dbPack;
         m_packPrefix = dbPack.getComposite().getSemanticalName(DbObject.LONG_FORM);
         m_packQualName = m_packPrefix + "." + DB_PACK_NAME;
-        m_choices = new HashMap();
+        m_choices = new HashMap<>();
     }
 
     //
@@ -226,14 +227,13 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
 
     public String getRootDirFromUserProp() {
         PropertiesSet appSet = PropertiesManager.APPLICATION_PROPERTIES_SET;
-        String rootDir = appSet.getPropertyString(DbForwardEngineeringPlugin.class, PROP_ROOT_DIR,
+        return appSet.getPropertyString(DbForwardEngineeringPlugin.class, PROP_ROOT_DIR,
                 "");
-        return rootDir;
     }
 
     private File m_actualDirectory = null;
 
-    public String getFeedBackMessage(ArrayList generatedList) {
+    public String getFeedBackMessage(List generatedList) {
         String message;
         int nbForwards = generatedList.size();
 
@@ -249,15 +249,14 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
                     : m_actualDirectory.getPath();
             String pattern = LocaleMgr.message.getString("nFilesForwardedIn");
             message = MessageFormat.format(pattern,
-                    new Object[] { new Integer(nbForwards), rootDir });
+                    new Object[] { nbForwards, rootDir });
         }
 
         return message;
     }
 
     protected ForwardOptions createForwardOptions(DbObject[] semObjs) {
-        ForwardOptions options = new DbForwardOptions(this, semObjs);
-        return options;
+        return new DbForwardOptions(this, semObjs);
     }
 
     private ForwardToolkitInterface m_toolkit = new DbForwardToolkit();
@@ -284,7 +283,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
     // ENTRY POINT, called by DbForwardWorker.runJob()
     //
     void genPackages(DbJVPackage dbPack, File actualDirectory, Controller controller,
-            ArrayList generatedFiles) throws DbException, IOException {
+            List generatedFiles) throws DbException, IOException {
         init(dbPack);
         m_actualDirectory = actualDirectory;
         genPackage(dbPack, actualDirectory, controller, generatedFiles);
@@ -304,13 +303,12 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
     // All the methods below are private to this class
     //
     private void genPackage(DbJVPackage dbPack, File actualDirectory, Controller controller,
-            ArrayList generatedFiles) throws DbException, IOException {
+            List generatedFiles) throws DbException, IOException {
         if (!dbPack.getName().equals(DB_PACK_NAME))
             return;
 
         //Clear previous entries in all the dictionaries
-        for (int i = 0; i < m_dictionaries.length; i++) {
-            LocaleDictionary dictionary = m_dictionaries[i];
+        for (LocaleDictionary dictionary : m_dictionaries) {
             dictionary.m_localeEntries.clear();
         } //end for
 
@@ -358,7 +356,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         return rootDir + pathName;
     }
 
-    private void genFile(DbObject dbo, Controller controller, ArrayList generatedFiles)
+    private void genFile(DbObject dbo, Controller controller, List generatedFiles)
             throws DbException, IOException {
         String name = (dbo instanceof DbJVCompilationUnit ? dbo.getName() : dbo.getName() + ".java");
         String filename = m_pathName + name;
@@ -373,13 +371,13 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         File dbDir = new File(m_pathName);
         dbDir.mkdirs();
         File[] files = dbDir.listFiles();
-        for (int i = 0; i < files.length; i++) {
-            if (files[i].isFile())
-                files[i].delete();
+        for (File file : files) {
+            if (file.isFile())
+                file.delete();
         }
     }
 
-    private void genFinalClasses(Controller controller, ArrayList generatedFiles)
+    private void genFinalClasses(Controller controller, List generatedFiles)
             throws DbException, IOException {
         String filename = m_pathName + "ApplClasses.java";
         PrintWriter output = new PrintWriter(new FileWriter(filename));
@@ -409,10 +407,10 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         controller.println(filename);
     }
 
-    private void genLocaleStrs(Controller controller, ArrayList generatedFiles) throws IOException {
+    private void genLocaleStrs(Controller controller, List generatedFiles) throws IOException {
         for (int i = 0; i <= LAST_LANGUAGE; i++) {
             LocaleDictionary dictionary = m_dictionaries[i];
-            HashMap entries = dictionary.m_localeEntries;
+            Map entries = dictionary.m_localeEntries;
             String[] sortedStrs = new String[entries.size()];
             Iterator iter = entries.keySet().iterator();
 
@@ -437,8 +435,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
             output.println();
             output.println("This file is part of Open ModelSphere.");
             output.println();
-            output
-                    .println("Open ModelSphere is free software; you can redistribute it and/or modify");
+            output.println("Open ModelSphere is free software; you can redistribute it and/or modify");
             output.println("it under the terms of the GNU General Public License as published by");
             output.println("the Free Software Foundation; either version 3 of the License, or");
             output.println("(at your option) any later version.");
@@ -450,21 +447,17 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
             output.println();
             output.println("You should have received a copy of the GNU General Public License");
             output.println("along with this program; if not, write to the Free Software");
-            output
-                    .println("Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA ");
+            output.println("Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA ");
             output.println("or see http://www.gnu.org/licenses/.");
             output.println();
-            output
-                    .println("You can redistribute and/or modify this particular file even under the");
+            output.println("You can redistribute and/or modify this particular file even under the");
             output.println("terms of the GNU Lesser General Public License (LGPL) as published by");
             output.println("the Free Software Foundation; either version 3 of the License, or");
             output.println("(at your option) any later version.");
             output.println();
-            output
-                    .println("You should have received a copy of the GNU Lesser General Public License");
+            output.println("You should have received a copy of the GNU Lesser General Public License");
             output.println("(LGPL) along with this program; if not, write to the Free Software");
-            output
-                    .println("Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA");
+            output.println("Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA");
             output.println("or see http://www.gnu.org/licenses/.");
             output.println();
             output.println("You can reach Grandite at: ");
@@ -477,8 +470,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
             output.println();
             output.println("open-modelsphere@grandite.com");
             output.println();
-            output
-                    .println("**********************************************************************/");
+            output.println("**********************************************************************/");
             output.println();
             for (j = 0; j < sortedStrs.length; j++) {
                 output.println(sortedStrs[j]);
@@ -517,7 +509,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         DbEnumeration dbEnumClasses = m_dbPack.getComponents().elements(DbJVClass.metaClass);
         while (dbEnumClasses.hasMoreElements()) {
             DbJVClass cls = (DbJVClass) dbEnumClasses.nextElement();
-            HashMap names = new HashMap(11);
+            Map<String, DbJVDataMember> names = new HashMap<>(11);
             DbEnumeration dbEnumFields = cls.getComponents().elements(DbJVDataMember.metaClass);
             while (dbEnumFields.hasMoreElements()) {
                 DbJVDataMember field = (DbJVDataMember) dbEnumFields.nextElement();
@@ -615,24 +607,24 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
             for (DbJVClass superAdt = adt; superAdt != null; superAdt = getSuperAdt(superAdt)) {
                 for (int i = 0; i < notAbstractClassFlagUDFs.length; i++) {
                     Boolean flag = (Boolean) superAdt.getUDF(notAbstractClassFlagUDFs[i]);
-                    if (flag != null && flag.booleanValue())
+                    if (flag != null && flag)
                         classFlags[i] = true;
                 }
             }
             for (int i = 0; i < classFlags.length; i++) {
                 if (classFlags[i])
-                    strValue = strValue + (strValue.length() == 0 ? ", " : " | ") + "MetaClass."
+                    strValue = strValue + (strValue.isEmpty() ? ", " : " | ") + "MetaClass."
                             + notAbstractClassFlagStrs[i];
             }
         }
 
         // This flag may apply to abstract MetaClass
         Boolean umlExtensibilityFilter = (Boolean) adt.getUDF("uml Extensibility Filter");
-        if (umlExtensibilityFilter != null && umlExtensibilityFilter.booleanValue())
-            strValue = strValue + (strValue.length() == 0 ? ", " : " | ") + "MetaClass."
+        if (umlExtensibilityFilter != null && umlExtensibilityFilter)
+            strValue = strValue + (strValue.isEmpty() ? ", " : " | ") + "MetaClass."
                     + "UML_EXTENSIBILITY_FILTER";
 
-        if (strValue.length() == 0)
+        if (strValue.isEmpty())
             strValue = ", 0";
         return strValue;
     }
@@ -648,12 +640,12 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         String strValue = "";
         for (int i = 0; i < fieldFlagUDFs.length; i++) {
             Boolean flag = (Boolean) member.getUDF(fieldFlagUDFs[i]);
-            if (flag != null && flag.booleanValue())
+            if (flag != null && flag)
                 strValue = strValue
-                        + (strValue.length() == 0 ? newLine + name + ".setFlags(" : " | ")
+                        + (strValue.isEmpty() ? newLine + name + ".setFlags(" : " | ")
                         + "MetaField." + fieldFlagStrs[i];
         }
-        if (strValue.length() != 0)
+        if (!strValue.isEmpty())
             strValue = strValue + ");";
 
         String screenOrder = (String) member.getUDF("screen order");
@@ -666,11 +658,11 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
                     + "\");";
 
         Boolean hideOnScreen = (Boolean) member.getUDF("hide on screen");
-        if (hideOnScreen != null && hideOnScreen.booleanValue())
+        if (hideOnScreen != null && hideOnScreen)
             strValue = strValue + newLine + name + ".setVisibleInScreen(false);";
 
         Boolean notEditable = (Boolean) member.getUDF("not editable");
-        if (notEditable != null && notEditable.booleanValue())
+        if (notEditable != null && notEditable)
             strValue = strValue + newLine + name + ".setEditable(false);";
         return strValue;
     }
@@ -678,14 +670,14 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
     private String getMetaGUINameStr(DbSemanticalObject obj) throws DbException {
         LocaleDictionary enDictionary = m_dictionaries[ENGLISH];
         LocaleDictionary frDictionary = m_dictionaries[FRENCH];
-        HashMap enEntries = enDictionary.m_localeEntries;
-        HashMap frEntries = frDictionary.m_localeEntries;
+        Map<String, String> enEntries = enDictionary.m_localeEntries;
+        Map<String, String> frEntries = frDictionary.m_localeEntries;
 
         String name = obj.getName();
         String enName = obj.getAlias();
         String frName = (String) obj.getUDF("fr alias");
 
-        if (enName != null && enName.length() != 0) {
+        if (enName != null && !enName.isEmpty()) {
             String guiName2 = (String) enEntries.get(name);
             if (guiName2 != null && !guiName2.equals(enName)) {
                 name = obj.getComposite().getName() + "." + name;
@@ -728,11 +720,11 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
 
     private DbJVClass getSuperAdt(DbJVClass adt) throws DbException {
         DbJVClass superAdt = null;
-        Integer stereotype = new Integer(adt.getStereotype().getValue());
+        Integer stereotype = adt.getStereotype().getValue();
         DbEnumeration dbEnum = adt.getSuperInheritances().elements();
         while (dbEnum.hasMoreElements()) {
             DbJVClass supAdt = (DbJVClass) ((DbJVInheritance) dbEnum.nextElement()).getSuperClass();
-            if (stereotype.equals(new Integer(supAdt.getStereotype().getValue()))) {
+            if (stereotype.equals(supAdt.getStereotype().getValue())) {
                 superAdt = supAdt;
                 break;
             }
@@ -805,8 +797,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
     }
 
     private void genClassHeader(PrintWriter output, DbObject dbo) throws DbException, IOException {
-        output
-                .println("/*************************************************************************");
+        output.println("/*************************************************************************");
         output.println();
         output.println("Copyright (C) 2008 Grandite");
         output.println();
@@ -2107,14 +2098,17 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         public boolean expand(Writer writer, Serializable obj, RuleOptions options) {
             boolean expanded = true;
             DbJVClass claz = (DbJVClass) obj;
+
             try {
+                //pack2 is null, there is no  DbJVPackage found, but from
+                //DbJVPackage pack2 = (DbJVPackage) claz.getCompositeOfType(DbJVPackage.metaClass);
+
+                //class cast exception...
                 DbJVPackage pack = (DbJVPackage) claz.getComposite();
                 DbForwardEngineeringPlugin forward = new DbForwardEngineeringPlugin();
                 forward.init(pack);
                 forward.genClassifier(writer, claz);
-            } catch (DbException ex) {
-                expanded = false;
-            } catch (IOException ex) {
+            } catch (DbException | IOException ex) {
                 expanded = false;
             }
 
@@ -2127,7 +2121,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
     //
     private static class LocaleDictionary {
         private String m_locale; //A ISO language code
-        private HashMap m_localeEntries = new HashMap();
+        private Map<String, String> m_localeEntries = new HashMap<>();
 
         LocaleDictionary(String locale) {
             m_locale = locale;

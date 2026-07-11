@@ -92,50 +92,45 @@ public class PropertiesTreeNode extends CheckTreeNode {
         key = properties.getBaseKey() + "." + selectedKey; // NOT LOCALIZABLE
         set.setProperty(key, this.isSelected());
 
-        for (int i = 0; i < groups.length; i++) {
+        for (PropertyGroup group : groups) {
 
-            Property[] property = groups[i].properties;
-            for (int j = 0; j < property.length; j++) {
-                key = properties.getBaseKey() + "." + property[j].getKey(); // NOT LOCALIZABLE
-                value = property[j].getValue();
+            Property[] property = group.properties;
+            for (Property item : property) {
+                key = properties.getBaseKey() + "." + item.getKey(); // NOT LOCALIZABLE
+                value = item.getValue();
 
-                if (value instanceof UnitDomain) {
-                    UnitDomain domain = (UnitDomain) value;
+                if (value instanceof UnitDomain domain) {
                     set.setProperty(key, domain.getValue()/*
-                                                           * (String)property[j].getValue().toString(
-                                                           * )
-                                                           */);
-                } else if (value instanceof TableAlignmentDomain) {
-                    TableAlignmentDomain domain = (TableAlignmentDomain) value;
+                     * (String)property[j].getValue().toString(
+                     * )
+                     */);
+                } else if (value instanceof TableAlignmentDomain domain) {
                     set.setProperty(key, domain.getValue()/*
-                                                           * (String)property[j].getValue().toString(
-                                                           * )
-                                                           */);
-                } else if (value instanceof ColumnHorizontalAlignmentDomain) {
-                    ColumnHorizontalAlignmentDomain domain = (ColumnHorizontalAlignmentDomain) value;
+                     * (String)property[j].getValue().toString(
+                     * )
+                     */);
+                } else if (value instanceof ColumnHorizontalAlignmentDomain domain) {
                     set.setProperty(key, domain.getValue()/*
-                                                           * (String)property[j].getValue().toString(
-                                                           * )
-                                                           */);
-                } else if (value instanceof ColumnVerticalAlignmentDomain) {
-                    ColumnVerticalAlignmentDomain domain = (ColumnVerticalAlignmentDomain) value;
+                     * (String)property[j].getValue().toString(
+                     * )
+                     */);
+                } else if (value instanceof ColumnVerticalAlignmentDomain domain) {
                     set.setProperty(key, domain.getValue()/*
-                                                           * (String)property[j].getValue().toString(
-                                                           * )
-                                                           */);
+                     * (String)property[j].getValue().toString(
+                     * )
+                     */);
                 } else if (value instanceof Color) {
                     Color color = (Color) value;
                     set.setProperty(key + ".r", color.getRed());
                     set.setProperty(key + ".g", color.getGreen());
                     set.setProperty(key + ".b", color.getBlue());
-                } else if (value instanceof Boolean) {
-                    Boolean bool = (Boolean) value;
-                    set.setProperty(key, bool.booleanValue()/*
-                                                             * (String)property[j].getValue().toString
-                                                             * ()
-                                                             */);
+                } else if (value instanceof Boolean bool) {
+                    set.setProperty(key, bool/*
+                     * (String)property[j].getValue().toString
+                     * ()
+                     */);
                 } else
-                    set.setProperty(key, (String) property[j].getValue().toString());
+                    set.setProperty(key, (String) item.getValue().toString());
 
             }
         }
@@ -151,10 +146,8 @@ public class PropertiesTreeNode extends CheckTreeNode {
     }
 
     private void refresh(PropertiesSet set, ReportOptions options) {
-        options.setGenerateIndex(set.getPropertyBoolean(generateIndexKey, Boolean.FALSE)
-                .booleanValue());
-        options.setUseBackgroundImage(set.getPropertyBoolean(useBackgroundImageKey, Boolean.FALSE)
-                .booleanValue());
+        options.setGenerateIndex(set.getPropertyBoolean(generateIndexKey, Boolean.FALSE));
+        options.setUseBackgroundImage(set.getPropertyBoolean(useBackgroundImageKey, Boolean.FALSE));
         options.setOutputDirectory(set.getPropertyString(outputDirectoryKey, DirectoryOptionGroup
                 .getHTMLGenerationDirectory()));
         options.setBackgroundImage(set.getPropertyString(backgroundImageKey, ""));
@@ -173,7 +166,7 @@ public class PropertiesTreeNode extends CheckTreeNode {
         Object value;
 
         key = properties.getBaseKey() + "." + selectedKey; // NOT LOCALIZABLE
-        this.setSelected(set.getPropertyBoolean(key, Boolean.FALSE).booleanValue());
+        this.setSelected(set.getPropertyBoolean(key, Boolean.FALSE));
 
         for (int i = 0; i < groups.length; i++) {
 
@@ -185,22 +178,20 @@ public class PropertiesTreeNode extends CheckTreeNode {
                 if (value instanceof File)
                     property[j].setValue(new File(set.getPropertyString(key, ""))); // NOT LOCALIZABLE
                 else if (value instanceof UnitDomain) {
-                    property[j].setValue(UnitDomain.getInstance(set.getPropertyInteger(key,
-                            new Integer(1)).intValue())); // NOT LOCALIZABLE
+                    property[j].setValue(UnitDomain.getInstance(set.getPropertyInteger(key, 1))); // NOT LOCALIZABLE
                 } else if (value instanceof TableAlignmentDomain) {
-                    property[j].setValue(TableAlignmentDomain.getInstance(set.getPropertyInteger(
-                            key, new Integer(1)).intValue())); // NOT LOCALIZABLE
+                    property[j].setValue(TableAlignmentDomain.getInstance(set.getPropertyInteger(key, 1))); // NOT LOCALIZABLE
                 } else if (value instanceof ColumnHorizontalAlignmentDomain) {
                     property[j].setValue(ColumnHorizontalAlignmentDomain.getInstance(set
-                            .getPropertyInteger(key, new Integer(1)).intValue())); // NOT LOCALIZABLE
+                            .getPropertyInteger(key, 1))); // NOT LOCALIZABLE
                 } else if (value instanceof ColumnVerticalAlignmentDomain) {
                     property[j].setValue(ColumnVerticalAlignmentDomain.getInstance(set
-                            .getPropertyInteger(key, new Integer(1)).intValue())); // NOT LOCALIZABLE
+                            .getPropertyInteger(key, 1))); // NOT LOCALIZABLE
                 } else if (value instanceof Color) {
                     int r, g, b;
-                    r = set.getPropertyInteger(key + ".r", new Integer(255)).intValue();
-                    g = set.getPropertyInteger(key + ".g", new Integer(255)).intValue();
-                    b = set.getPropertyInteger(key + ".b", new Integer(255)).intValue();
+                    r = set.getPropertyInteger(key + ".r", 255);
+                    g = set.getPropertyInteger(key + ".g", 255);
+                    b = set.getPropertyInteger(key + ".b", 255);
                     property[j].setValue(new Color(r, g, b));
                     // or
                     /*
@@ -223,7 +214,7 @@ public class PropertiesTreeNode extends CheckTreeNode {
         IntDomain domain = null;
         String className = PACKAGE_NAME + domainFileName + DOMAIN_SUFFIX_NAME;
         try {
-            domain = (IntDomain) Class.forName(className).newInstance();
+            domain = (IntDomain) Class.forName(className).getDeclaredConstructor().newInstance();
         } catch (Exception ex) {
         }
         return domain;

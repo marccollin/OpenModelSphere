@@ -50,7 +50,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.TimeZone;
 
 import javax.swing.Icon;
@@ -100,7 +100,7 @@ public abstract class DbObject extends PersistentObject {
     public static final int SHORT_FORM = 1;
     public static final int LONG_FORM = 2;
 
-    static HashMap matchingMap = null;
+    static Map<DbObject, Object> matchingMap = null;
 
     protected static final byte ACCESS_GRANTED = 1; // 0 means uninitialized
     protected static final byte ACCESS_NOT_GRANTED = 2;
@@ -202,7 +202,7 @@ public abstract class DbObject extends PersistentObject {
         if (val1 == null || val2 == null) {
             /* If String, consider that null and "" are equal. */
             Object val = (val1 == null ? val2 : val1);
-            if (val instanceof String && ((String) val).length() == 0)
+            if (val instanceof String && ((String) val).isEmpty())
                 return true;
             return false;
         }
@@ -229,7 +229,7 @@ public abstract class DbObject extends PersistentObject {
         db.checkWriteTrans();
         setTransStatus(Db.OBJ_ADDED);
         setComposite(composite);
-        Long currentTime = new Long(System.currentTimeMillis());
+        Long currentTime = System.currentTimeMillis();
         basicSet(fCreationTime, currentTime);
         setModificationTime(currentTime);
     }
@@ -366,7 +366,7 @@ public abstract class DbObject extends PersistentObject {
                     parametersClasses.length);
             Constructor constructor = metaClass.getJClass().getConstructor(newParametersClasses);
             return (DbObject) constructor.newInstance(newParameters);
-        } catch (NoSuchMethodException e) {
+        } catch (NoSuchMethodException ignored) {
         } catch (Exception e) {
             ExceptionHandler.throwRealException(e);
         }
@@ -452,16 +452,16 @@ public abstract class DbObject extends PersistentObject {
 
     public String getName() throws DbException {
         MetaClass mc = getMetaClass();
-        String guiname = (mc == null) ? "?" : mc.getGUIName();
-        return guiname;
+        return (mc == null) ? "?" : mc.getGUIName();
     }
 
     public void setName(String name) throws DbException {
     }
 
     public final String getId() throws DbException {
-        if (id == null)
-            id = new Long(getDb().nextId++).toString();
+        if (id == null) {
+            id = Long.toString(getDb().nextId++);
+        }
         return id;
     }
 
@@ -586,10 +586,10 @@ public abstract class DbObject extends PersistentObject {
     public final void set(DbUDF udf, Object value) throws DbException {
         if (value != null) {
             if (value instanceof Boolean) {
-                if (!((Boolean) value).booleanValue())
+                if (!(Boolean) value)
                     value = null;
             } else if (value instanceof String) {
-                if (((String) value).length() == 0)
+                if (((String) value).isEmpty())
                     value = null;
             }
         }
@@ -685,8 +685,7 @@ public abstract class DbObject extends PersistentObject {
      */
     public static DbObject[] deepCopy(DbObject[] dbos, DbObject composite,
             DeepCopyCustomizer customizer) throws DbException {
-        DbObject[] newDbos = deepCopy(dbos, composite, customizer, false);
-        return newDbos;
+        return deepCopy(dbos, composite, customizer, false);
     }
 
     public static DbObject[] deepCopy(DbObject[] dbos, DbObject composite,
@@ -832,8 +831,8 @@ public abstract class DbObject extends PersistentObject {
 
                         if (bounds != null) {
                             MetaClass dboMetaClass = dbo.getMetaClass();
-                            for (int i = 0; i < bounds.length; i++) {
-                                if (bounds[i].isAssignableFrom(dboMetaClass)) {
+                            for (MetaClass bound : bounds) {
+                                if (bound.isAssignableFrom(dboMetaClass)) {
                                     // For bounds metaclasses, add a boundary dbo to the enum if dbo instanceof metaClass
                                     if (metaClass == null || metaClass.getJClass().isInstance(dbo)) {
                                         nextDbo = dbo;
@@ -893,7 +892,7 @@ public abstract class DbObject extends PersistentObject {
 
     public final void setComposite(DbObject value) throws DbException {
         MetaClass mc = value.getMetaClass();
-        if (value == null || !getMetaClass().compositeIsAllowed(mc))
+        if (!getMetaClass().compositeIsAllowed(mc))
             throw new RuntimeException("Invalid composite"); // NOT LOCALIZABLE RuntimeException
         basicSet(fComposite, value);
     }
@@ -913,7 +912,7 @@ public abstract class DbObject extends PersistentObject {
             if (m_sequencer == null)
                 m_sequencer = Sequencer.getSingleton();
 
-            Integer seq = new Integer(m_sequencer.getSequenceId());
+            int seq = m_sequencer.getSequenceId();
             String value = String.format("%1$5d", new Object[] { seq });
             value = value.replace(' ', '0');
             m_sequenceId = df.format(modifTime).concat(value);
@@ -923,16 +922,15 @@ public abstract class DbObject extends PersistentObject {
 
     public static final String generateEDCTimestamp() throws DbException {
         String sequenceId = null;
-        Long modifTime = new Long(System.currentTimeMillis());
+        Long modifTime = System.currentTimeMillis();
         String datetimeFormat = "yyyyMMddHHmmss";
         DateFormat dateFormat = DateFormat.getInstance();
         DateFormat df = new SimpleDateFormat(datetimeFormat);
         df.setTimeZone(TimeZone.getDefault());
-        Integer seq = new Integer(Sequencer.getSingleton().getSequenceId());
+        int seq = Sequencer.getSingleton().getSequenceId();
         String value = String.format("%1$5d", new Object[] { seq });
         value = value.replace(' ', '0');
-        sequenceId = df.format(modifTime).concat(value);
-        return sequenceId;
+        return  df.format(modifTime).concat(value);
     }
 
     public final Object getModificationTime() throws DbException {
@@ -943,13 +941,12 @@ public abstract class DbObject extends PersistentObject {
         basicSet(fModificationTime, value);
         DbObject dbObject = getComposite();
         if (dbObject != null)
-            dbObject.setModificationTime(new Long(System.currentTimeMillis()));
+            dbObject.setModificationTime(System.currentTimeMillis());
     }
 
     public final int getValidationStatus() throws DbException {
         Integer value = (Integer) get(fValidationStatus);
-        int status = (value == null) ? 0 : value;
-        return status;
+        return (value == null) ? 0 : value;
     }
 
     public final void setValidationStatus(int value) throws DbException {
@@ -1020,8 +1017,7 @@ public abstract class DbObject extends PersistentObject {
     private final Object fetchValue(Object obj, MetaField metaField) throws DbException {
         if (obj == null)
             return obj;
-        if (metaField instanceof MetaRelationship) {
-            MetaRelationship metaRelation = (MetaRelationship) metaField;
+        if (metaField instanceof MetaRelationship metaRelation) {
             if (metaRelation.getMaxCard() > 1) {
                 DbRelationN dbRelN = (DbRelationN) obj;
                 dbRelN.initTransientFields(this, (MetaRelationN) metaRelation); /*
@@ -1038,11 +1034,9 @@ public abstract class DbObject extends PersistentObject {
                 ((SrType) obj).dbFetch(db);
             else if (obj.getClass().isArray()) {
                 db.fetch(obj);
-                if (obj instanceof SrType[]) {
+                if (obj instanceof SrType[] array) {
                     /* If array of SrTypes, fetch each array element. */
-                    SrType[] array = (SrType[]) obj;
-                    for (int i = 0; i < array.length; i++)
-                        array[i].dbFetch(db);
+                    for (SrType srType : array) srType.dbFetch(db);
                 }
             }
         }
@@ -1053,8 +1047,7 @@ public abstract class DbObject extends PersistentObject {
     private final void fetchAllValues() throws DbException {
         db.fetch(this);
         MetaField[] allMetaFields = getMetaClass().getAllMetaFields();
-        for (int i = 0; i < allMetaFields.length; i++) {
-            MetaField metaField = allMetaFields[i];
+        for (MetaField metaField : allMetaFields) {
             fetchValue(fieldGet(metaField), metaField);
         }
     }
@@ -1076,8 +1069,7 @@ public abstract class DbObject extends PersistentObject {
      */
     private final void toRAMGraph(SrVector vecRelN) throws DbException {
         MetaField[] allMetaFields = getMetaClass().getAllMetaFields();
-        for (int i = 0; i < allMetaFields.length; i++) {
-            MetaField metaField = allMetaFields[i];
+        for (MetaField metaField : allMetaFields) {
             if (!(metaField instanceof MetaRelationN))
                 continue;
             DbRelationN dbRelN = (DbRelationN) fieldGet(metaField);
@@ -1105,8 +1097,7 @@ public abstract class DbObject extends PersistentObject {
      */
     private final void toDbGraph() throws DbException {
         MetaField[] allMetaFields = getMetaClass().getAllMetaFields();
-        for (int i = 0; i < allMetaFields.length; i++) {
-            MetaField metaField = allMetaFields[i];
+        for (MetaField metaField : allMetaFields) {
             if (metaField instanceof MetaRelationN) {
                 DbRelationN dbRAMRelN = (DbRelationN) fieldGet(metaField);
                 if (dbRAMRelN != null) {
@@ -1178,8 +1169,7 @@ public abstract class DbObject extends PersistentObject {
         db.cluster(this, parent);
 
         MetaField[] allMetaFields = getMetaClass().getAllMetaFields();
-        for (int i = 0; i < allMetaFields.length; i++) {
-            MetaField metaField = allMetaFields[i];
+        for (MetaField metaField : allMetaFields) {
             Object value = fieldGet(metaField);
             if (value instanceof DbRelationN) {
                 ((DbRelationN) value).initTransientFields(this, (MetaRelationN) metaField);
@@ -1225,12 +1215,12 @@ public abstract class DbObject extends PersistentObject {
                     /* Convert an AWT type to a SrType; a SrType must have only one constructor. */
                     try {
                         Constructor[] constructors = type.getConstructors();
-                        for (int i = 0; i < constructors.length; i++) {
-                            Class[] parametersTypes = constructors[i].getParameterTypes();
+                        for (Constructor constructor : constructors) {
+                            Class[] parametersTypes = constructor.getParameterTypes();
                             if (parametersTypes.length == 0)
                                 continue;
                             if (parametersTypes.length == 1) {
-                                value = constructors[i].newInstance(new Object[] { value });
+                                value = constructor.newInstance(new Object[]{value});
                                 break;
                             }
                         }
@@ -1303,7 +1293,7 @@ public abstract class DbObject extends PersistentObject {
         if (!isDeletedObject) {
             int mode = db.getTransMode();
             if (mode != Db.TRANS_UNDO && mode != Db.TRANS_REDO)
-                setModificationTime(new Long(System.currentTimeMillis()));
+                setModificationTime(System.currentTimeMillis());
         }
 
         return true;
@@ -1528,8 +1518,7 @@ public abstract class DbObject extends PersistentObject {
     final void checkUndoRedoConflicts() throws DbException {
         if (transStatus == Db.OBJ_REMOVED) {
             MetaField[] allMetaFields = getMetaClass().getAllMetaFields();
-            for (int i = 0; i < allMetaFields.length; i++) {
-                MetaField metaField = allMetaFields[i];
+            for (MetaField metaField : allMetaFields) {
                 if (metaField instanceof MetaRelationship
                         && getNbNeighbors((MetaRelationship) metaField) != 0)
                     db.throwDbUndoRedoConflictException();
@@ -1565,7 +1554,7 @@ public abstract class DbObject extends PersistentObject {
             commonClass = metaClass = getMetaClass();
         else
             commonClass = getMetaClass().getCommonSuperMetaClass(metaClass);
-        DbObject newDbo = (DbObject) metaClass.getJClass().newInstance();
+        DbObject newDbo = (DbObject) metaClass.getJClass().getDeclaredConstructor().newInstance();
         newDbo.db = db;
         newDbo.project = project;
         newDbo.m_ts = m_ts;
@@ -1746,7 +1735,7 @@ public abstract class DbObject extends PersistentObject {
     }
 
     final boolean hasDbRefreshListeners() {
-        return (refreshListeners != null && refreshListeners.size() != 0);
+        return (refreshListeners != null && !refreshListeners.isEmpty());
     }
 
     final void fireDbRefreshListeners(DbUpdateEvent event, int when) throws DbException {

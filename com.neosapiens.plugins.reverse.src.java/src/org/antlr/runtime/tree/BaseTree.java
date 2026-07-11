@@ -300,9 +300,9 @@ public abstract class BaseTree implements Tree {
     /** Return a list of all ancestors of this node.  The first node of
      *  list is the root and the last is the parent of this node.
      */
-    public List getAncestors() {
+    public List<Tree> getAncestors() {
         if ( getParent()==null ) return null;
-        List ancestors = new ArrayList();
+        List<Tree> ancestors = new ArrayList();
         Tree t = this;
         t = t.getParent();
         while ( t!=null ) {
@@ -314,7 +314,7 @@ public abstract class BaseTree implements Tree {
 
     /** Print out a whole tree not just a node */
     public String toStringTree() {
-		if ( children==null || children.size()==0 ) {
+		if ( children==null || children.isEmpty()) {
 			return this.toString();
 		}
 		StringBuffer buf = new StringBuffer();

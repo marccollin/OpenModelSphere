@@ -72,6 +72,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StringWriter;
+import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -256,10 +257,10 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
 
     private MagnifierInternalFrame magnifierFrame = null;
 
-    private static List<Runnable> initialisers = new ArrayList<Runnable>();
+    private static List<Runnable> initialisers = new ArrayList<>();
 
-    private List<Runnable> preFinalizers = new ArrayList<Runnable>();
-    private List<Runnable> postFinalizers = new ArrayList<Runnable>();
+    private List<Runnable> preFinalizers = new ArrayList<>();
+    private List<Runnable> postFinalizers = new ArrayList<>();
 
     private DesktopPaneContext desktopPaneContext;
 
@@ -286,25 +287,25 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
             String property = evt.getPropertyName();
             if (property == null)
                 return;
-            if (property.indexOf(MagnifierView.ZOOM_FACTOR_PROPERTY) > -1) {
+            if (property.contains(MagnifierView.ZOOM_FACTOR_PROPERTY)) {
                 if (magnifierFrame != null && evt.getNewValue() != null
                         && (evt.getNewValue() instanceof Float)) {
                     magnifierFrame.setZoomFactor(((Float) evt.getNewValue()).floatValue());
                 }
-            } else if (property.indexOf(ApplicationContext.LF_PROPERTY) > -1
+            } else if (property.contains(ApplicationContext.LF_PROPERTY)
                     && evt.getNewValue() != null) {
                 String theme = PropertiesManager.APPLICATION_PROPERTIES_SET.getPropertyString(
                         ApplicationContext.class, ApplicationContext.THEME_PROPERTY,
                         ThemeBank.themes[0].getName());
                 setLookAndFeel((String) evt.getNewValue(), ThemeBank.getMetalTheme(theme));
-            } else if (property.indexOf(ApplicationContext.THEME_PROPERTY) > -1
+            } else if (property.contains(ApplicationContext.THEME_PROPERTY)
                     && evt.getNewValue() != null) {
                 String theme = (String) evt.getNewValue();
                 setLookAndFeel(PropertiesManager.APPLICATION_PROPERTIES_SET.getPropertyString(
                         ApplicationContext.class, ApplicationContext.LF_PROPERTY, UIManager
                                 .getLookAndFeel().getClass().getName()), ThemeBank
                         .getMetalTheme(theme));
-            } else if (property.indexOf(RecentFiles.PROPERTY_NB_RECENT_FILE) > -1) {
+            } else if (property.contains(RecentFiles.PROPERTY_NB_RECENT_FILE)) {
                 if (recentFiles != null)
                     recentFiles.uninstall();
                 recentFiles = new RecentFiles();
@@ -471,7 +472,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
         PropertiesSet prefs = PropertiesManager.getPreferencePropertiesSet();
         if (prefs != null) {
             setMFLayout(prefs.getPropertyInteger(DefaultMainFrame.class, PROPERTY_LAYOUT,
-                    PROPERTY_LAYOUT_DEFAULT).intValue());
+                    PROPERTY_LAYOUT_DEFAULT));
         }
 
         // setting frame location and size
@@ -482,13 +483,13 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
                 org.modelsphere.jack.awt.AwtUtil.centerWindow(this);
             } else {
                 int framewidth = Math.max(applPref.getPropertyInteger(DefaultMainFrame.class,
-                        PROPERTY_WIDTH, new Integer(screenSize.width - 80)).intValue(), 300);
+                        PROPERTY_WIDTH, screenSize.width - 80), 300);
                 int frameheight = Math.max(applPref.getPropertyInteger(DefaultMainFrame.class,
-                        PROPERTY_HEIGHT, new Integer(screenSize.height - 80)).intValue(), 200);
+                        PROPERTY_HEIGHT, screenSize.height - 80), 200);
                 int framex = Math.max(applPref.getPropertyInteger(DefaultMainFrame.class,
-                        PROPERTY_X, new Integer(40)).intValue(), 0);
+                        PROPERTY_X, 40), 0);
                 int framey = Math.max(applPref.getPropertyInteger(DefaultMainFrame.class,
-                        PROPERTY_Y, new Integer(40)).intValue(), 0);
+                        PROPERTY_Y, 40), 0);
                 // ensure size not out of desktop bounds
                 framewidth = Math.min(framewidth, screenSize.width);
                 frameheight = Math.min(frameheight, screenSize.height);
@@ -582,7 +583,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
             if (dim.height > -1)
                 applPref.setProperty(ExplorerPanel.class, PROPERTY_HEIGHT, dim.height);
         }
-        boolean designPanelVisible = getDesignPanel() == null ? false : getDesignPanel()
+        boolean designPanelVisible = getDesignPanel() != null && getDesignPanel()
                 .isVisible();
         if (designPanelVisible) {
             dim = mfLayout.getPreferredSize(getDesignPanel());
@@ -597,16 +598,15 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
         if (mfLayout == null || !isVisible())
             return;
         int width = applPref.getPropertyInteger(ExplorerPanel.class, PROPERTY_WIDTH,
-                new Integer((int) (getWidth() * 0.30))).intValue();
+                (int) (getWidth() * 0.30));
         int height = applPref.getPropertyInteger(ExplorerPanel.class, PROPERTY_HEIGHT,
-                new Integer((int) (getHeight() * 0.30))).intValue();
+                (int) (getHeight() * 0.30));
         mfLayout.setPreferredSize(getExplorerPanel(), new Dimension(width, height));
 
-        Integer defwidth = new Integer((int) (getWidth() * 0.30));
-        Integer defheight = new Integer((int) (getHeight() * 0.30));
-        width = applPref.getPropertyInteger(DesignPanel.class, PROPERTY_WIDTH, defwidth).intValue();
-        height = applPref.getPropertyInteger(DesignPanel.class, PROPERTY_HEIGHT, defheight)
-                .intValue();
+        Integer defwidth = (int) (getWidth() * 0.30);
+        Integer defheight = (int) (getHeight() * 0.30);
+        width = applPref.getPropertyInteger(DesignPanel.class, PROPERTY_WIDTH, defwidth);
+        height = applPref.getPropertyInteger(DesignPanel.class, PROPERTY_HEIGHT, defheight);
         mfLayout.setPreferredSize(getDesignPanel(), new Dimension(width, height));
     }
 
@@ -629,8 +629,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
     }
 
     public final PropertiesSet getPreferencesSet() {
-        PropertiesSet prefs = PropertiesManager.getPreferencePropertiesSet();
-        return prefs;
+        return PropertiesManager.getPreferencePropertiesSet();
     }
 
     /**
@@ -732,8 +731,8 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
             view = panel.getSecondView();
         view.clearSelection();
         boolean found = false;
-        for (int i = 0; i < dbos.length; i++) {
-            if (view.find(dbos[i]))
+        for (DbObject dbo : dbos) {
+            if (view.find(dbo))
                 found = true;
         }
         return found;
@@ -751,7 +750,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
     // Explorer management
     //
     public synchronized final void setExplorerVisibility(int newVisibility) {
-        if (lockingObjects.size() > 0)
+        if (!lockingObjects.isEmpty())
             return;
         ExplorerPanel panel = getExplorerPanel();
         int visibility = panel.getVisibility();
@@ -768,9 +767,9 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
             } else if (visibility == ExplorerPanel.EXPLORER_HIDE) {
                 mfLayout.setExplorer(panel);
                 int width = applPref.getPropertyInteger(ExplorerPanel.class, PROPERTY_WIDTH,
-                        new Integer((int) (getWidth() * 0.30))).intValue();
+                        (int) (getWidth() * 0.30));
                 int height = applPref.getPropertyInteger(ExplorerPanel.class, PROPERTY_HEIGHT,
-                        new Integer((int) (getHeight() * 0.30))).intValue();
+                        (int) (getHeight() * 0.30));
                 mfLayout.setPreferredSize(panel, new Dimension(width, height));
                 explorerMayBeLocked = true;
             }
@@ -823,8 +822,8 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
             designpanel.lockGUI();
         // Lock all list
         JInternalFrame[] lists = getListInternalFrames();
-        for (int i = 0; i < lists.length; i++) {
-            ListInternalFrame list = (ListInternalFrame) lists[i];
+        for (JInternalFrame jInternalFrame : lists) {
+            ListInternalFrame list = (ListInternalFrame) jInternalFrame;
             list.lockGUI();
         }
     }
@@ -834,7 +833,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
         if (!lockingObjects.contains(lockingObject))
             return;
         lockingObjects.remove(lockingObject);
-        if (lockingObjects.size() > 0)
+        if (!lockingObjects.isEmpty())
             return;
         ApplicationContext.getFocusManager().setGuiLocked(false);
         SwingUtilities.invokeLater(new Runnable() {
@@ -847,8 +846,8 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
                     }
                     // unLock all list
                     JInternalFrame[] lists = getListInternalFrames();
-                    for (int i = 0; i < lists.length; i++) {
-                        ListInternalFrame list = (ListInternalFrame) lists[i];
+                    for (JInternalFrame jInternalFrame : lists) {
+                        ListInternalFrame list = (ListInternalFrame) jInternalFrame;
                         list.unlockGUI();
                     }
                     ApplicationContext.getFocusManager().update();
@@ -877,12 +876,12 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
                 if (visible) {
                     panel.setDesignPanelVisible(true);
                     mfLayout.setDesignPanel(panel);
-                    Integer defwidth = new Integer((int) (getWidth() * 0.30));
-                    Integer defheight = new Integer((int) (getHeight() * 0.30));
+                    Integer defwidth = (int) (getWidth() * 0.30);
+                    Integer defheight = (int) (getHeight() * 0.30);
                     int width = applPref.getPropertyInteger(DesignPanel.class, PROPERTY_WIDTH,
-                            defwidth).intValue();
+                            defwidth);
                     int height = applPref.getPropertyInteger(DesignPanel.class, PROPERTY_HEIGHT,
-                            defheight).intValue();
+                            defheight);
                     mfLayout.setPreferredSize(panel, new Dimension(width, height));
                 } else {
                     Dimension dim = mfLayout.getPreferredSize(panel);
@@ -932,9 +931,9 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
 
     private boolean userAcceptClosingDataEntryFrames(DbProject project, String action) {
         JInternalFrame[] frames = getDataEntryInternalFrames();
-        for (int i = 0; i < frames.length; i++) {
-            if (project == null || project == ((DbDataEntryFrame) frames[i]).getProject()) {
-                if (!((DbDataEntryFrame) frames[i]).requestClose(action))
+        for (JInternalFrame frame : frames) {
+            if (project == null || project == ((DbDataEntryFrame) frame).getProject()) {
+                if (!((DbDataEntryFrame) frame).requestClose(action))
                     return false;
             }
         }
@@ -1253,9 +1252,9 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
     public DiagramInternalFrame getDiagramInternalFrame(DbObject diag) {
         DiagramInternalFrame diagFound = null;
         JInternalFrame[] diagFrames = getDiagramInternalFrames();
-        for (int i = 0; i < diagFrames.length; i++)
-            if (((DiagramInternalFrame) diagFrames[i]).getDiagram().getDiagramGO() == diag) {
-                diagFound = (DiagramInternalFrame) diagFrames[i];
+        for (JInternalFrame diagFrame : diagFrames)
+            if (((DiagramInternalFrame) diagFrame).getDiagram().getDiagramGO() == diag) {
+                diagFound = (DiagramInternalFrame) diagFrame;
                 break;
             }
         return diagFound;
@@ -1465,14 +1464,10 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
             return;
         if (visible) {
             overviewFrame = new OverviewInternalFrame();
-            int x = applPref.getPropertyInteger(OverviewInternalFrame.class, PROPERTY_X,
-                    new Integer(-1)).intValue();
-            int y = applPref.getPropertyInteger(OverviewInternalFrame.class, PROPERTY_Y,
-                    new Integer(-1)).intValue();
-            int w = applPref.getPropertyInteger(OverviewInternalFrame.class, PROPERTY_WIDTH,
-                    new Integer(-1)).intValue();
-            int h = applPref.getPropertyInteger(OverviewInternalFrame.class, PROPERTY_HEIGHT,
-                    new Integer(-1)).intValue();
+            int x = applPref.getPropertyInteger(OverviewInternalFrame.class, PROPERTY_X, -1);
+            int y = applPref.getPropertyInteger(OverviewInternalFrame.class, PROPERTY_Y, -1);
+            int w = applPref.getPropertyInteger(OverviewInternalFrame.class, PROPERTY_WIDTH, -1);
+            int h = applPref.getPropertyInteger(OverviewInternalFrame.class, PROPERTY_HEIGHT, -1);
             positionViewWindow(overviewFrame, (w == -1 || h == -1 ? null
                     : new Rectangle(x, y, w, h)), magnifierFrame);
             internalFrameContainer.add(overviewFrame, PALETTE_LAYER);
@@ -1493,14 +1488,10 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
             return;
         if (state) {
             magnifierFrame = new MagnifierInternalFrame();
-            int x = applPref.getPropertyInteger(MagnifierInternalFrame.class, PROPERTY_X,
-                    new Integer(-1)).intValue();
-            int y = applPref.getPropertyInteger(MagnifierInternalFrame.class, PROPERTY_Y,
-                    new Integer(-1)).intValue();
-            int w = applPref.getPropertyInteger(MagnifierInternalFrame.class, PROPERTY_WIDTH,
-                    new Integer(-1)).intValue();
-            int h = applPref.getPropertyInteger(MagnifierInternalFrame.class, PROPERTY_HEIGHT,
-                    new Integer(-1)).intValue();
+            int x = applPref.getPropertyInteger(MagnifierInternalFrame.class, PROPERTY_X, -1);
+            int y = applPref.getPropertyInteger(MagnifierInternalFrame.class, PROPERTY_Y, -1);
+            int w = applPref.getPropertyInteger(MagnifierInternalFrame.class, PROPERTY_WIDTH, -1);
+            int h = applPref.getPropertyInteger(MagnifierInternalFrame.class, PROPERTY_HEIGHT, -1);
             positionViewWindow(magnifierFrame, (w == -1 || h == -1 ? null : new Rectangle(x, y, w,
                     h)), overviewFrame);
             internalFrameContainer.add(magnifierFrame, PALETTE_LAYER);
@@ -1665,7 +1656,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
             try {
                 File file = new File(fileName);
                 long length = file.length();
-                isReadOnly = (length == 0) ? false : !(file.canWrite());
+                isReadOnly = length != 0 && !(file.canWrite());
 
                 if (isReadOnly) {
                     ReadOnly readonly = ReadOnly.getSingleton();
@@ -1692,8 +1683,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
             int version = versions & 0x0000FFFF;
             int build = versions >> 16;
             if (build < getMinimumBuild()) {
-                message = MessageFormat.format(kCannotOpenBuild0, new Object[] { new Integer(
-                        getMinimumBuild()) });
+                message = MessageFormat.format(kCannotOpenBuild0, new Object[] {getMinimumBuild() });
                 throw new Exception();
             }
             if (version > converter.getCurrentVersion()) {
@@ -1820,7 +1810,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
                     .getDefaultWorkingDirectory() : m_fileChooserCurrentDirectory);
             try {
                 selProject.getDb().beginReadTrans();
-                fileName += System.getProperty("file.separator") + selProject.getName() + "."
+                fileName += FileSystems.getDefault().getSeparator() + selProject.getName() + "."
                         + smsFileFilter.getExtension();
                 selProject.getDb().commitTrans();
             } catch (DbException e) {
@@ -1875,8 +1865,8 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
 
             selProject.getDb().beginTrans(Db.READ_TRANS);
             JInternalFrame[] frames = getDiagramInternalFrames();
-            for (int i = 0; i < frames.length; i++) {
-                DiagramInternalFrame diagFrame = (DiagramInternalFrame) frames[i];
+            for (JInternalFrame frame : frames) {
+                DiagramInternalFrame diagFrame = (DiagramInternalFrame) frame;
                 if (diagFrame.getDiagram().getProject() == selProject)
                     diagFrame.refreshTitle();
             }
@@ -2030,7 +2020,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
             db = new DbRAM();
         DbProject project = null;
         if (APPLICATION_DIRECTORY != null) {
-            String fs = System.getProperty("file.separator");
+            String fs = FileSystems.getDefault().getSeparator();
             project = doOpenFromFile(db, APPLICATION_DIRECTORY + fs + getDefaultFileNameForNew(),
                     true);
         }
@@ -2120,8 +2110,8 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
         }
         Graphics g = getGraphics();
         JInternalFrame[] diagFrames = getDiagramInternalFrames();
-        for (int i = 0; i < diagFrames.length; i++) {
-            ApplicationDiagram diag = ((DiagramInternalFrame) diagFrames[i]).getDiagram();
+        for (JInternalFrame diagFrame : diagFrames) {
+            ApplicationDiagram diag = ((DiagramInternalFrame) diagFrame).getDiagram();
             if (diag.getDiagramGO().getDb() == db)
                 diag.endComputePos(g);
         }

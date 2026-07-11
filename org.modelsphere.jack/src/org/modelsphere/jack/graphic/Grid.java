@@ -86,16 +86,16 @@ public class Grid {
 
     Grid() {
         PropertiesSet options = PropertiesManager.APPLICATION_PROPERTIES_SET;
-        active = options.getPropertyBoolean(Grid.class, Grid.PROPERTY_GRID_ACTIVE, new Boolean(
-                Grid.PROPERTY_GRID_ACTIVE_DEFAULT));
+        active = options.getPropertyBoolean(Grid.class, Grid.PROPERTY_GRID_ACTIVE,
+                Grid.PROPERTY_GRID_ACTIVE_DEFAULT);
         cellCountX = options.getPropertyInteger(Grid.class, Grid.PROPERTY_NB_OF_CELLS_IN_X,
-                new Integer(Grid.PROPERTY_NB_OF_CELLS_IN_X_DEFAULT));
+                Grid.PROPERTY_NB_OF_CELLS_IN_X_DEFAULT);
         cellCountY = options.getPropertyInteger(Grid.class, Grid.PROPERTY_NB_OF_CELLS_IN_Y,
-                new Integer(Grid.PROPERTY_NB_OF_CELLS_IN_Y_DEFAULT));
+                Grid.PROPERTY_NB_OF_CELLS_IN_Y_DEFAULT);
         fillPercent = options.getPropertyInteger(Grid.class, Grid.PROPERTY_PERCENT_OF_CELL,
-                new Integer(Grid.PROPERTY_PERCENT_OF_CELL_DEFAULT));
+                Grid.PROPERTY_PERCENT_OF_CELL_DEFAULT);
         int rgb = options.getPropertyInteger(Grid.class, Grid.PROPERTY_GRID_COLOR,
-                new Integer(Grid.PROPERTY_GRID_COLOR_DEFAULT)).intValue();
+                Grid.PROPERTY_GRID_COLOR_DEFAULT);
         color = new Color(rgb);
     }
 

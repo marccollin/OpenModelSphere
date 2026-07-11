@@ -1106,10 +1106,7 @@ public final class SMSExplorer extends Explorer {
 
         public final void refreshAfterDbUpdate(DbUpdateEvent evt) throws DbException {
             if (evt.metaField == DbObject.fComponents || evt.metaField == DbSemanticalObject.fName) { // test
-                // first, it
-                // is by far
-                // the most
-                // frequent
+                // first, it is by far the most frequent
                 if (evt.metaField == DbObject.fComponents
                         && (evt.dbo instanceof DbORProcedure || evt.dbo instanceof DbOOAbstractMethod))
                     updateNode(evt.dbo); // update method signature

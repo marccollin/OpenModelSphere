@@ -46,6 +46,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -310,7 +311,7 @@ public class ChangingTargetSystemWizard extends JDialog {
                 try {
                     TargetSystem ts = TargetSystemManager.getSingleton();
                     boolean showAll = true;
-                    ArrayList newtarget = ts.addTargetSystem(ApplicationContext
+                    List newtarget = ts.addTargetSystem(ApplicationContext
                             .getDefaultMainFrame(), m_project, false, showAll);
                     if (newtarget != null && newtarget.size() == 1 && newtarget.get(0) != null) {
                         m_selectedDestTarget = (DbSMSTargetSystem) newtarget.get(0);

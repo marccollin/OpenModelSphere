@@ -36,6 +36,8 @@ package org.modelsphere.sms.plugins.report;
 // JDK
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -92,7 +94,7 @@ public class ReportGeneratorPlugin implements Plugin2 {
                 .getSelectedSemanticalObjects();
         DbObject[] newSelectedObjects;
 
-        ArrayList list = new ArrayList();
+        List list = new ArrayList();
         if (selectedObjects != null && selectedObjects.length == 0) {
             JOptionPane.showMessageDialog(ApplicationContext.getDefaultMainFrame(), LocaleMgr.misc
                     .getString("noSelection"), LocaleMgr.misc.getString("GenerateReport"),
@@ -105,9 +107,7 @@ public class ReportGeneratorPlugin implements Plugin2 {
 
         // REMOVE UNNECESSARY SEMANTICAL OBJECTS
         // fill ArrayList from SelectedSemanticalObjects (Explorer)
-        for (int i = 0; i < selectedObjects.length; i++) {
-            list.add(selectedObjects[i]);
-        }
+        Collections.addAll(list, selectedObjects);
         // remove unncessary objects from the ArrayList
         removeUnnecessaryObjects(list);
         newSelectedObjects = new DbObject[list.size()];
@@ -134,7 +134,7 @@ public class ReportGeneratorPlugin implements Plugin2 {
     // Plugin methods - End
     // ***************************************************************************
 
-    private void removeUnnecessaryObjects(ArrayList dbObjects) throws DbException {
+    private void removeUnnecessaryObjects(List dbObjects) throws DbException {
         boolean changed = false;
 
         if (dbObjects.size() < 2)

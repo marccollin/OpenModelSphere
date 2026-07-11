@@ -36,6 +36,7 @@ package org.modelsphere.sms;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JComponent;
 
@@ -148,45 +149,40 @@ public class MainFrame extends DefaultMainFrame {
         DbObject.fComposite.addDbRefreshListener(this);
         MetaField[][] optionGroups = StyleFrame.getOptionGroups(DbOOStyle.class,
                 "oojv_optionGroups"); // NOT LOCALIZABLE
-        for (int i = 0; i < optionGroups.length; i++)
-            for (int j = 0; j < optionGroups[i].length; j++)
-                optionGroups[i][j].addDbRefreshListener(this);
+        for (MetaField[] optionGroup : optionGroups)
+            for (MetaField metaField : optionGroup) metaField.addDbRefreshListener(this);
 
         MetaField[][] orOptionGroups = StyleFrame.getOptionGroups(DbORStyle.class,
                 "or_optionGroups"); // NOT LOCALIZABLE
-        for (int i = 0; i < orOptionGroups.length; i++)
-            for (int j = 0; j < orOptionGroups[i].length; j++)
-                orOptionGroups[i][j].addDbRefreshListener(this);
+        for (MetaField[] orOptionGroup : orOptionGroups)
+            for (MetaField metaField : orOptionGroup) metaField.addDbRefreshListener(this);
 
         MetaField[][] domainOptionGroups = StyleFrame.getOptionGroups(DbORDomainStyle.class,
                 "domain_optionGroups"); // NOT LOCALIZABLE
-        for (int i = 0; i < domainOptionGroups.length; i++)
-            for (int j = 0; j < domainOptionGroups[i].length; j++)
-                domainOptionGroups[i][j].addDbRefreshListener(this);
+        for (MetaField[] domainOptionGroup : domainOptionGroups)
+            for (MetaField metaField : domainOptionGroup) metaField.addDbRefreshListener(this);
 
         MetaField[][] commonItemOptionGroups = StyleFrame.getOptionGroups(
                 DbORCommonItemStyle.class, "commonItem_optionGroups"); // NOT LOCALIZABLE
-        for (int i = 0; i < commonItemOptionGroups.length; i++)
-            for (int j = 0; j < commonItemOptionGroups[i].length; j++)
-                commonItemOptionGroups[i][j].addDbRefreshListener(this);
+        for (MetaField[] commonItemOptionGroup : commonItemOptionGroups)
+            for (MetaField metaField : commonItemOptionGroup) metaField.addDbRefreshListener(this);
 
         MetaField[][] beOptionGroups = StyleFrame.getOptionGroups(DbBEStyle.class,
                 "be_optionGroups"); // NOT LOCALIZABLE
-        for (int i = 0; i < beOptionGroups.length; i++)
-            for (int j = 0; j < beOptionGroups[i].length; j++)
-                beOptionGroups[i][j].addDbRefreshListener(this);
+        for (MetaField[] beOptionGroup : beOptionGroups)
+            for (MetaField metaField : beOptionGroup) metaField.addDbRefreshListener(this);
 
     }
 
     public void installToolBars() {
 
         JComponent toolComponent = null;
-        ArrayList creationComponents = new ArrayList();
-        ArrayList drawingComponents = new ArrayList();
-        ArrayList resourceComponents = new ArrayList();
-        ArrayList resourceTools = new ArrayList();
-        ArrayList qualifierComponents = new ArrayList();
-        ArrayList qualifierTools = new ArrayList();
+        List creationComponents = new ArrayList();
+        List drawingComponents = new ArrayList();
+        List resourceComponents = new ArrayList();
+        List resourceTools = new ArrayList();
+        List qualifierComponents = new ArrayList();
+        List qualifierTools = new ArrayList();
         diagramsToolGroup = new ToolButtonGroup();
         Tool[] tools = SMSToolkit.getTools();
         for (int i = 0; i < tools.length; i++) {
@@ -242,7 +238,7 @@ public class MainFrame extends DefaultMainFrame {
         } //end if
     } //end installToolBars()
 
-    public final static MainFrame getSingleton() {
+    public static MainFrame getSingleton() {
         if (singleton == null) {
             singleton = new MainFrame();
         }
@@ -410,8 +406,7 @@ public class MainFrame extends DefaultMainFrame {
         }
 
         //call the super
-        boolean saved = super.saveCurrentProject(selProject, saveAs);
-        return saved;
+        return super.saveCurrentProject(selProject, saveAs);
     }
 
     //Entry point to open a XML-formatted file

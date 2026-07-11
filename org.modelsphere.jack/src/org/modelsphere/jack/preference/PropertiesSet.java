@@ -69,12 +69,12 @@ public class PropertiesSet {
     private static final String EOL = "\r\n";//NOT LOCALIZABLE
     private static final String VERSION = "@version="; //NOT LOCALIZABLE
 
-    private Hashtable properties;
+    private Hashtable<String, Object> properties;
     File file;
     private String header = LocaleMgr.misc.getString("Donoteditfilemanually");
     private int version = 0;
 
-    private ArrayList prefixListeners = new ArrayList();
+    private List<String> prefixListeners = new ArrayList<>();
 
     private PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
@@ -92,7 +92,7 @@ public class PropertiesSet {
     }
 
     private int load() {
-        properties = new Hashtable();
+        properties = new Hashtable<>();
         int fileversion = 0;
         try {
             if (file.exists()) {
@@ -104,8 +104,7 @@ public class PropertiesSet {
                         if (line.trim().indexOf(VERSION) != 0)
                             loadProperty(line);
                         else {
-                            line = line.substring(line.indexOf(VERSION) + VERSION.length(), line
-                                    .length());
+                            line = line.substring(line.indexOf(VERSION) + VERSION.length());
                             try {
                                 fileversion = Integer.parseInt(line.trim());
                             } catch (Exception e2) {
@@ -148,7 +147,7 @@ public class PropertiesSet {
                 file.createNewFile();
             FileWriter outFile = new FileWriter(file);
 
-            if (header != null && header.length() > 0) {
+            if (header != null && !header.isEmpty()) {
                 outFile.write(COMMENTS + EOL);
                 outFile.write(COMMENTS + "  " + header + EOL);
                 outFile.write(COMMENTS + EOL);
@@ -158,14 +157,14 @@ public class PropertiesSet {
             // write version
             outFile.write(VERSION + version + EOL + EOL);
 
-            HashSet keySet = new HashSet(properties.keySet());
+            Set keySet = new HashSet(properties.keySet());
             Object[] sortedkeys = keySet.toArray();
             Arrays.sort(sortedkeys);
 
             for (int i = 0; i < sortedkeys.length; i++) {
                 String key = (String) sortedkeys[i];
                 String value = (String) properties.get(key);
-                if ((key != null) && (key != null))
+                if ((key != null) && (value != null))
                     outFile.write(key + SEPARATOR + value + EOL);
             }
 
@@ -227,52 +226,52 @@ public class PropertiesSet {
     }
 
     public void setProperty(Class c, String key, int value) {
-        Object old = setProperty_(c, key, new Integer(value).toString());
+        Object old = setProperty_(c, key, Integer.toString(value));
         // If null, do not fire a property change, this is just a first call init
         if (old != null)
-            firePropertyChange(getFullKey(c, key), old, new Integer(value));
+            firePropertyChange(getFullKey(c, key), old, value);
     }
 
     public void setProperty(Class c, String key, long value) {
-        Object old = setProperty_(c, key, new Long(value).toString());
+        Object old = setProperty_(c, key, Long.toString(value));
         // If null, do not fire a property change, this is just a first call init
         if (old != null)
-            firePropertyChange(getFullKey(c, key), old, new Long(value));
+            firePropertyChange(getFullKey(c, key), old, value);
     }
 
     public void setProperty(String c, String key, long value) {
-        Object old = setProperty_(c, key, new Long(value).toString());
+        Object old = setProperty_(c, key, Long.toString(value));
         // If null, do not fire a property change, this is just a first call init
         if (old != null)
-            firePropertyChange(getFullKey(c, key), old, new Long(value));
+            firePropertyChange(getFullKey(c, key), old, value);
     }
 
     public void setProperty(Class c, String key, float value) {
-        Object old = setProperty_(c, key, new Float(value).toString());
+        Object old = setProperty_(c, key, Float.toString(value));
         // If null, do not fire a property change, this is just a first call init
         if (old != null)
-            firePropertyChange(getFullKey(c, key), old, new Float(value));
+            firePropertyChange(getFullKey(c, key), old, value);
     }
 
     public void setProperty(String c, String key, float value) {
-        Object old = setProperty_(c, key, new Float(value).toString());
+        Object old = setProperty_(c, key, Float.toString(value));
         // If null, do not fire a property change, this is just a first call init
         if (old != null)
-            firePropertyChange(getFullKey(c, key), old, new Float(value));
+            firePropertyChange(getFullKey(c, key), old, value);
     }
 
     public void setProperty(Class c, String key, boolean value) {
-        Object old = setProperty_(c, key, new Boolean(value).toString());
+        Object old = setProperty_(c, key, Boolean.toString(value));
         // If null, do not fire a property change, this is just a first call init
         if (old != null)
-            firePropertyChange(getFullKey(c, key), old, new Boolean(value));
+            firePropertyChange(getFullKey(c, key), old, value);
     }
 
     public void setProperty(String c, String key, boolean value) {
-        Object old = setProperty_(c, key, new Boolean(value).toString());
+        Object old = setProperty_(c, key, Boolean.toString(value));
         // If null, do not fire a property change, this is just a first call init
         if (old != null)
-            firePropertyChange(getFullKey(c, key), old, new Boolean(value));
+            firePropertyChange(getFullKey(c, key), old, value);
     }
 
     private Object setProperty_(Class c, String key, String value) {
@@ -330,13 +329,13 @@ public class PropertiesSet {
         Integer valueInt = defaultValue;
         if (value != null) {
             try {
-                valueInt = new Integer(value);
+                valueInt = Integer.valueOf(value);
                 return valueInt;
             } catch (NumberFormatException e) {
             }
         }
         if (defaultValue != null) {
-            setProperty(c, key, defaultValue.intValue());
+            setProperty(c, key, defaultValue);
         }
         return valueInt;
     }
@@ -346,13 +345,13 @@ public class PropertiesSet {
         Integer valueInt = defaultValue;
         if (value != null) {
             try {
-                valueInt = new Integer(value);
+                valueInt = Integer.valueOf(value);
                 return valueInt;
             } catch (NumberFormatException e) {
             }
         }
         if (defaultValue != null) {
-            setProperty(c, key, defaultValue.intValue());
+            setProperty(c, key, defaultValue);
         }
         return valueInt;
     }
@@ -369,11 +368,11 @@ public class PropertiesSet {
             if (!bValue) {
                 bValue = value.equalsIgnoreCase(Boolean.TRUE.toString());
             }
-            valueBoolean = new Boolean(bValue);
+            valueBoolean = bValue;
             return valueBoolean;
         }
         if (defaultValue != null) {
-            setProperty(c, key, defaultValue.booleanValue());
+            setProperty(c, key, defaultValue);
         }
         return valueBoolean;
     }
@@ -386,11 +385,11 @@ public class PropertiesSet {
             if (!bValue) {
                 bValue = value.equalsIgnoreCase(Boolean.TRUE.toString());
             }
-            valueBoolean = new Boolean(bValue);
+            valueBoolean = bValue;
             return valueBoolean;
         }
         if (defaultValue != null) {
-            setProperty(c, key, defaultValue.booleanValue());
+            setProperty(c, key, defaultValue);
         }
         return valueBoolean;
     }
@@ -404,13 +403,13 @@ public class PropertiesSet {
         Long valueLong = defaultValue;
         if (value != null) {
             try {
-                valueLong = new Long(value);
+                valueLong = Long.valueOf(value);
                 return valueLong;
             } catch (NumberFormatException e) {
             }
         }
         if (defaultValue != null) {
-            setProperty(c, key, defaultValue.longValue());
+            setProperty(c, key, defaultValue);
         }
         return valueLong;
     }
@@ -420,13 +419,13 @@ public class PropertiesSet {
         Long valueLong = defaultValue;
         if (value != null) {
             try {
-                valueLong = new Long(value);
+                valueLong = Long.valueOf(value);
                 return valueLong;
             } catch (NumberFormatException e) {
             }
         }
         if (defaultValue != null) {
-            setProperty(c, key, defaultValue.longValue());
+            setProperty(c, key, defaultValue);
         }
         return valueLong;
     }
@@ -435,20 +434,19 @@ public class PropertiesSet {
      * Get the Float value represented by the specified key. If no value found, store the provided
      * defaultValue and return it.
      */
-    public Float getPropertyFloat(Class c, String key, Float defaultValue) {
+    public Float getPropertyFloat(Class<?> c, String key, Float defaultValue) {
         String value = (String) properties.get(getFullKey(c, key));
-        Float valueFloat = defaultValue;
         if (value != null) {
             try {
-                valueFloat = new Float(value);
-                return valueFloat;
+                return Float.valueOf(value);
             } catch (NumberFormatException e) {
             }
         }
+        // Si la propriété n'existe pas ou est invalide, on la définit avec la valeur par défaut
         if (defaultValue != null) {
-            setProperty(c, key, defaultValue.floatValue());
+            setProperty(c, key, defaultValue);
         }
-        return valueFloat;
+        return defaultValue;
     }
 
     public Float getPropertyFloat(String c, String key, Float defaultValue) {
@@ -456,13 +454,13 @@ public class PropertiesSet {
         Float valueFloat = defaultValue;
         if (value != null) {
             try {
-                valueFloat = new Float(value);
+                valueFloat = Float.valueOf(value);
                 return valueFloat;
             } catch (NumberFormatException e) {
             }
         }
         if (defaultValue != null) {
-            setProperty(c, key, defaultValue.floatValue());
+            setProperty(c, key, defaultValue);
         }
         return valueFloat;
     }
@@ -516,17 +514,17 @@ public class PropertiesSet {
      * tested before adding it to the table.
      */
     public static final boolean isValidKey(Class c, String key) {
-        String result = new String(key);
-        return (result.indexOf(SEPARATOR) == -1) && (result.trim().indexOf(COMMENTS) != 0);
+        String result = key;
+        return (!result.contains(SEPARATOR)) && (result.trim().indexOf(COMMENTS) != 0);
     }
 
     public static final boolean isValidKey(String fullClassName, String key) {
-        String result = new String(key);
+        String result = key;
         return (result.indexOf(SEPARATOR) == -1) && (result.trim().indexOf(COMMENTS) != 0);
     }
 
     private static final boolean isValidKey(String key) {
-        String result = new String(key);
+        String result = key;
         return (result.indexOf(SEPARATOR) == -1) && (result.trim().indexOf(COMMENTS) != 0);
     }
 
@@ -595,9 +593,7 @@ public class PropertiesSet {
     protected final void firePropertyChange(String property, Object oldValue, Object newValue) {
         listeners.firePropertyChange(property, oldValue, newValue);
         // fire listeners with property starting with prefixProperties
-        Iterator iter = prefixListeners.iterator();
-        while (iter.hasNext()) {
-            String prefix = (String) iter.next();
+        for (String prefix : prefixListeners) {
             if (!property.startsWith(prefix))
                 continue;
             listeners.firePropertyChange(prefix, oldValue, newValue);

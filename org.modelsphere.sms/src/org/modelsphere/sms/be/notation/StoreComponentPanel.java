@@ -200,9 +200,9 @@ public final class StoreComponentPanel extends JPanel implements ActionListener 
         if (init)
             return;
         try {
-            if (width.getText() == null || width.getText().length() == 0)
+            if (width.getText() == null || width.getText().isEmpty())
                 return;
-            optionComponent.setValue(new Integer(width.getText()), 0);
+            optionComponent.setValue(width.getText(), 0);
         } catch (NumberFormatException e) {
         }
     }
@@ -211,9 +211,9 @@ public final class StoreComponentPanel extends JPanel implements ActionListener 
         if (init)
             return;
         try {
-            if (height.getText() == null || height.getText().length() == 0)
+            if (height.getText() == null || height.getText().isEmpty())
                 return;
-            optionComponent.setValue(new Integer(height.getText()), 1);
+            optionComponent.setValue(height.getText(), 1);
         } catch (NumberFormatException e) {
         }
     }

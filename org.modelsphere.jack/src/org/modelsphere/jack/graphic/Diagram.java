@@ -83,10 +83,10 @@ public abstract class Diagram implements Pageable, Printable {
     private SrVector[] layers = new SrVector[] { new SrVector(), new SrVector(), new SrVector(),
             new SrVector(), new SrVector() };
     // selection handles are drawn on top and in XOR mode
-    private HashSet selItems = null;
+    private Set selItems = null;
     // graphic components that need to recompute their position data
-    private HashSet computePosGraphics = null;
-    private HashSet computePosLines = null;
+    private Set computePosGraphics = null;
+    private Set computePosLines = null;
 
     private PageFormat pageFormat;
     private int printScale;
@@ -136,7 +136,7 @@ public abstract class Diagram implements Pageable, Printable {
         if (editorCell != null && editorCell.zone.getBox() == gc)
             removeEditor(CellEditor.CANCEL);
         layers[gc.getLayer()].removeElement(gc);
-        HashSet computePosSet = (gc instanceof Line || gc instanceof Attachment ? computePosLines
+        Set computePosSet = (gc instanceof Line || gc instanceof Attachment ? computePosLines
                 : computePosGraphics);
         if (computePosSet != null)
             computePosSet.remove(gc);
@@ -184,8 +184,7 @@ public abstract class Diagram implements Pageable, Printable {
 
         double width = pageFormat.getImageableWidth() * 100.0 / (double) printScale;
         double height = pageFormat.getImageableHeight() * 100.0 / (double) printScale;
-        Dimension dim = new Dimension((int) width, (int) height);
-        return dim;
+        return new Dimension((int) width, (int) height);
     } // end getPageSize()
 
     public final Dimension getNbPages() {
@@ -323,7 +322,7 @@ public abstract class Diagram implements Pageable, Printable {
     }
 
     public final void paintAux(Graphics g, DiagramView diagView, int drawingMode,
-            int renderingFlags, int left, int right, int top, int bottom, HashSet selGcs) {
+            int renderingFlags, int left, int right, int top, int bottom, Set selGcs) {
         int d = GraphicComponent.LINE_BOLD_WIDTH;
         if (diagView != null)
             d = (int) (d / diagView.getZoomFactor());
@@ -587,13 +586,13 @@ public abstract class Diagram implements Pageable, Printable {
 
     // Create an image containing a selection of graphic components.
     // If selGcs null, create an image for the whole diagram.
-    public final Image createImage(HashSet selGcs, int scale) {
+    public final Image createImage(Set selGcs, int scale) {
         return createImage(selGcs, scale, false);
     }
 
     // Create an image containing a selection of graphic components.
     // If selGcs null, create an image for the whole diagram.
-    public final Image createImage(HashSet selGcs, int scale, boolean transparent) {
+    public final Image createImage(Set selGcs, int scale, boolean transparent) {
         Rectangle rect = null;
         if (selGcs == null)
             rect = getContentRect();
@@ -636,7 +635,7 @@ public abstract class Diagram implements Pageable, Printable {
         return createImage(null, rect, scale, transparent);
     }
 
-    public final Image createImage(HashSet selGcs, Rectangle rect, int scale, boolean transparent) {
+    public final Image createImage(Set selGcs, Rectangle rect, int scale, boolean transparent) {
         double zoom = scale / 100.0;
         BufferedImage bufImage = null;
         if (transparent) {
@@ -681,9 +680,8 @@ public abstract class Diagram implements Pageable, Printable {
             boolean withSel) {
         Line selLine = null;
         if (withSel && selItems != null) {
-            Iterator iter = selItems.iterator();
-            while (iter.hasNext()) {
-                GraphicComponent gc = (GraphicComponent) iter.next();
+            for (Object selItem : selItems) {
+                GraphicComponent gc = (GraphicComponent) selItem;
                 if (gc instanceof Line) {
                     int i = ((Line) gc).segmentAt(diagView, x, y);
                     if (i != -1) {
@@ -769,7 +767,7 @@ public abstract class Diagram implements Pageable, Printable {
     // causes lines and attachments to be added to the computePosLines set.
     // <g> = any screen graphics, only used to get font metrics
     public final void endComputePos(Graphics g) {
-        if (computePosGraphics.size() != 0) {
+        if (!computePosGraphics.isEmpty()) {
             Iterator iter = computePosGraphics.iterator();
             computePosGraphics = null; // prevents adding of non-lines; adding
             // of lines and attachments is still
@@ -781,7 +779,7 @@ public abstract class Diagram implements Pageable, Printable {
         } // end if
         computePosGraphics = null;
 
-        if (computePosLines.size() != 0) {
+        if (!computePosLines.isEmpty()) {
             Iterator iter = computePosLines.iterator();
             computePosLines = null; // prevents adding of lines and attachments
             while (iter.hasNext())

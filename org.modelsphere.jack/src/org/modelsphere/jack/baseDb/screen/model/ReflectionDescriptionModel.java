@@ -44,6 +44,7 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.baseDb.screen.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -165,26 +166,25 @@ public class ReflectionDescriptionModel extends DbDescriptionModel {
 
         if (columnModel != null) { // ListView row: same fields as header
             int nb = columnModel.getSize();
-            ArrayList fieldsToDelete = new ArrayList();
+            List<DescriptionField> fieldsToDelete = new ArrayList<>();
             for (int i = getSize(); i < nb; i++) {
                 DescriptionField dfc = columnModel.getDescriptionFieldAt(i);
                 if (!(dfc instanceof UDFDescriptionField)) {
                     DescriptionField df = createDescriptionField(null, i);
-                    if (df.isEnabled() == false && bShowPhysicalFields == false)
+                    if (!df.isEnabled() && !bShowPhysicalFields)
                         fieldsToDelete.add(dfc);
                 }
             }
-            for (int j = 0; j < fieldsToDelete.size(); j++) {
-                Object o = (Object) fieldsToDelete.get(j);
+            for (Object object : fieldsToDelete) {
+                Object o = (Object) object;
                 columnModel.removeDescriptionField((DescriptionField) o);
             }
         } else {
-            ArrayList fields = metaClass.getScreenMetaFields();
-            ArrayList fieldsToDelete = new ArrayList();
+            List<MetaField> fields = metaClass.getScreenMetaFields();
+            List<DescriptionField>  fieldsToDelete = new ArrayList<>();
             int nb = fields.size();
-            fieldsToDelete = new ArrayList();
-            for (int i = 0; i < nb; i++) {
-                MetaField field = (MetaField) fields.get(i);
+            for (MetaField metaField : fields) {
+                MetaField field = (MetaField) metaField;
                 if (!semanticalModel.isVisibleOnScreen(metaClass, field,
                         (listRelations != null ? null : semObj), null))
                     continue;
@@ -192,11 +192,11 @@ public class ReflectionDescriptionModel extends DbDescriptionModel {
                     continue;
 
                 DescriptionField df = createDescriptionField(field, -1);
-                if (df.isEnabled() == false && bShowPhysicalFields == false)
+                if (!df.isEnabled() && !bShowPhysicalFields)
                     fieldsToDelete.add(df);
             }
-            for (int j = 0; j < fieldsToDelete.size(); j++) {
-                removeDescriptionField((DescriptionField) fieldsToDelete.get(j));
+            for (DescriptionField o : fieldsToDelete) {
+                removeDescriptionField(o);
             }
         }
         long i = 0;
@@ -264,7 +264,7 @@ public class ReflectionDescriptionModel extends DbDescriptionModel {
         boolean bNotEditable = false;
         if (guiName == null) {
             bNotEditable = true;
-            if (bShow == false)
+            if (!bShow)
                 bIsHideableField = true;
             if (columnModel != null) {
                 guiName = semanticalModel.getDisplayText(metaClass, field,
@@ -309,8 +309,7 @@ public class ReflectionDescriptionModel extends DbDescriptionModel {
             for (; i < nb; i++) {
                 DescriptionField df = columnModel.getDescriptionFieldAt(i);
                 if (df != null) {
-                    if (df instanceof UDFDescriptionField) {
-                        UDFDescriptionField dField = (UDFDescriptionField) df;
+                    if (df instanceof UDFDescriptionField dField) {
                         addDescriptionField(new UDFDescriptionField(this, semObj, dField));
                     }
                 }

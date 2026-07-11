@@ -48,8 +48,11 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
+import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -141,7 +144,8 @@ public abstract class SQLForwardEngineeringPlugin extends GenericForwardEngineer
     private static final String HTML_EXTENSION = "html"; //NOT LOCALIZABLE, file extension
 
     private static final String ITEM_TITLE = LocaleMgr.misc.getString("DDLFile");
-    private static final Integer ITEM_MNEMONIC = new Integer(LocaleMgr.misc.getMnemonic("DDLFile"));
+    private static final int ITEM_MNEMONIC = LocaleMgr.misc.getMnemonic("DDLFile");
+
     private GenerateInFileInfo m_generateInFileInfo = null;
 
     public final GenerateInFileInfo getGenerateInFileInfo() {
@@ -169,8 +173,7 @@ public abstract class SQLForwardEngineeringPlugin extends GenericForwardEngineer
     }
 
     public String getForwardDirectory() {
-        String defDir = DirectoryOptionGroup.getDDLGenerationDirectory();
-        return defDir;
+        return DirectoryOptionGroup.getDDLGenerationDirectory();
     }
 
     //
@@ -192,7 +195,7 @@ public abstract class SQLForwardEngineeringPlugin extends GenericForwardEngineer
         if (varScope.isDefined("html")) {
             VariableDecl.VariableStructure varStruct = varScope.getVariable("html");
             Boolean b = (Boolean) varStruct.getValue();
-            value = b.booleanValue();
+            value = b;
         }
 
         return value;
@@ -211,80 +214,80 @@ public abstract class SQLForwardEngineeringPlugin extends GenericForwardEngineer
     }
 
     // Concepts ID - Generic
-    public static final Integer GETableId = new Integer(1);
-    public static final Integer GEViewId = new Integer(2);
-    public static final Integer GEColumnId = new Integer(3);
-    public static final Integer GEIndexId = new Integer(4);
-    public static final Integer GETriggerId = new Integer(5);
-    public static final Integer ORUserId = new Integer(6);
-    public static final Integer ORDomainId = new Integer(7);
-    public static final Integer PrimaryId = new Integer(60);
-    public static final Integer UniqueId = new Integer(70);
-    public static final Integer GEForeignId = new Integer(80);
-    public static final Integer GEProcedureId = new Integer(8);
-    public static final Integer GEDataModelId = new Integer(11);
+    public static final Integer GETableId = 1;
+    public static final Integer GEViewId = 2;
+    public static final Integer GEColumnId = 3;
+    public static final Integer GEIndexId = 4;
+    public static final Integer GETriggerId = 5;
+    public static final Integer ORUserId = 6;
+    public static final Integer ORDomainId = 7;
+    public static final Integer PrimaryId = 60;
+    public static final Integer UniqueId = 70;
+    public static final Integer GEForeignId = 80;
+    public static final Integer GEProcedureId = 8;
+    public static final Integer GEDataModelId = 11;
 
     // DB2 UDB
-    public static final Integer IBMTableId = new Integer(1);
-    public static final Integer IBMViewId = new Integer(2);
-    public static final Integer IBMColumnId = new Integer(3);
-    public static final Integer IBMIndexId = new Integer(4);
-    public static final Integer IBMTriggerId = new Integer(5);
-    public static final Integer IBMUserId = new Integer(6);
-    public static final Integer IBMDomainId = new Integer(7);
-    public static final Integer IBMPrimaryId = new Integer(60);
-    public static final Integer IBMUniqueId = new Integer(70);
-    public static final Integer IBMProcedureId = new Integer(8);
-    public static final Integer IBMDataModelId = new Integer(11);
-    public static final Integer IBMSequenceId = new Integer(12);
-    public static final Integer IBMForeignId = new Integer(13);
-    public static final Integer IBMCheckId = new Integer(14);
-    public static final Integer IBMDbPartGroupId = new Integer(20);
-    public static final Integer IBMBufferPoolId = new Integer(21);
-    public static final Integer IBMTablespaceId = new Integer(22);
-    public static final Integer IBMDatabaseId = new Integer(23);
-    public static final Integer IBMOperationLibId = new Integer(24);
+    public static final Integer IBMTableId = 1;
+    public static final Integer IBMViewId = 2;
+    public static final Integer IBMColumnId = 3;
+    public static final Integer IBMIndexId = 4;
+    public static final Integer IBMTriggerId = 5;
+    public static final Integer IBMUserId = 6;
+    public static final Integer IBMDomainId = 7;
+    public static final Integer IBMPrimaryId = 60;
+    public static final Integer IBMUniqueId = 70;
+    public static final Integer IBMProcedureId = 8;
+    public static final Integer IBMDataModelId = 11;
+    public static final Integer IBMSequenceId = 12;
+    public static final Integer IBMForeignId = 13;
+    public static final Integer IBMCheckId = 14;
+    public static final Integer IBMDbPartGroupId = 20;
+    public static final Integer IBMBufferPoolId = 21;
+    public static final Integer IBMTablespaceId = 22;
+    public static final Integer IBMDatabaseId = 23;
+    public static final Integer IBMOperationLibId = 24;
 
     // Oracle
-    public static final Integer ORATableId = new Integer(1);
-    public static final Integer ORAViewId = new Integer(2);
-    public static final Integer ORAColumnId = new Integer(3);
-    public static final Integer ORAIndexId = new Integer(4);
-    public static final Integer ORATriggerId = new Integer(5);
-    public static final Integer ORAPrimaryId = PrimaryId;
-    public static final Integer ORAUniqueId = UniqueId;
-    public static final Integer ORAForeignId = new Integer(8);
-    public static final Integer ORAProcedureId = new Integer(9);
-    public static final Integer ORACheckId = new Integer(12);
-    public static final Integer ORADatabaseId = new Integer(13);
-    public static final Integer ORAPartitionId = new Integer(14);
-    public static final Integer ORASubPartitionId = new Integer(15);
-    public static final Integer ORASequenceId = new Integer(16);
-    public static final Integer ORATablespaceId = new Integer(17);
-    public static final Integer ORADataFileId = new Integer(18);
-    public static final Integer ORARollbackSegmentId = new Integer(19);
-    public static final Integer ORAPackageId = new Integer(20);
-    public static final Integer ORADataModelId = new Integer(21);
-    public static final Integer ORARedoLogFileId = new Integer(22);
-    public static final Integer ORARedoLogGroupId = new Integer(23);
-    public static final Integer ORALobStorageId = new Integer(24);
-    public static final Integer ORANestedTableId = new Integer(25);
+    public static final Integer ORATableId = 1;
+    public static final Integer ORAViewId = 2;
+    public static final Integer ORAColumnId = 3;
+    public static final Integer ORAIndexId = 4;
+    public static final Integer ORATriggerId = 5;
+    public static final Integer ORAPrimaryId = PrimaryId;  // Réutilisation
+    public static final Integer ORAUniqueId = UniqueId;    // Réutilisation
+    public static final Integer ORAForeignId = 8;
+    public static final Integer ORAProcedureId = 9;
+    public static final Integer ORACheckId = 12;
+    public static final Integer ORADatabaseId = 13;
+    public static final Integer ORAPartitionId = 14;
+    public static final Integer ORASubPartitionId = 15;
+    public static final Integer ORASequenceId = 16;
+    public static final Integer ORATablespaceId = 17;
+    public static final Integer ORADataFileId = 18;
+    public static final Integer ORARollbackSegmentId = 19;
+    public static final Integer ORAPackageId = 20;
+    public static final Integer ORADataModelId = 21;
+    public static final Integer ORARedoLogFileId = 22;
+    public static final Integer ORARedoLogGroupId = 23;
+    public static final Integer ORALobStorageId = 24;
+    public static final Integer ORANestedTableId = 25;
 
     // Informix
-    public static final Integer INFTableId = new Integer(1);
-    public static final Integer INFViewId = new Integer(2);
-    public static final Integer INFColumnId = new Integer(3);
-    public static final Integer INFIndexId = new Integer(4);
-    public static final Integer INFTriggerId = new Integer(5);
-    public static final Integer INFPrimaryId = PrimaryId;
-    public static final Integer INFUniqueId = UniqueId;
-    public static final Integer INFForeignId = new Integer(8);
-    public static final Integer INFProcedureId = new Integer(9);
-    public static final Integer INFCheckId = new Integer(12);
-    public static final Integer INFDatabaseId = new Integer(13);
-    public static final Integer INFDataModelId = new Integer(14);
+    public static final Integer INFTableId = 1;
+    public static final Integer INFViewId = 2;
+    public static final Integer INFColumnId = 3;
+    public static final Integer INFIndexId = 4;
+    public static final Integer INFTriggerId = 5;
+    public static final Integer INFPrimaryId = PrimaryId;   // Réutilisation
+    public static final Integer INFUniqueId = UniqueId;     // Réutilisation
+    public static final Integer INFForeignId = 8;
+    public static final Integer INFProcedureId = 9;
+    public static final Integer INFCheckId = 12;
+    public static final Integer INFDatabaseId = 13;
+    public static final Integer INFDataModelId = 14;
 
-    private static final HashMap ENTRY_POINT_MAP;
+    private static final Map ENTRY_POINT_MAP;
     //Data
     private static final String PUKEY_CREATE_ENTRY_POINT = "pukeyEntryPoint"; //NOT LOCALIZABLE, template entry point
     private static final String FKEY_CREATE_ENTRY_POINT = "fkEntryPoint"; //NOT LOCALIZABLE, template entry point
@@ -304,30 +307,18 @@ public abstract class SQLForwardEngineeringPlugin extends GenericForwardEngineer
     static {
         ENTRY_POINT_MAP = new HashMap();
         //                  MetaClass                        CREATE_ADD_FORWARD         CREATE_ADD_SYNCHRO  DROP/DELETE   ALTER/MODIFY  RENAME
-        ENTRY_POINT_MAP.put(GETableId, new String[] { TABLE_CREATE_ENTRY_POINT, null, null, null,
-                null });
-        ENTRY_POINT_MAP.put(GEViewId, new String[] { VIEW_CREATE_ENTRY_POINT, null, null, null,
-                null });
-        ENTRY_POINT_MAP.put(GEColumnId, new String[] { COL_CREATE_ENTRY_POINT, null, null, null,
-                null });
-        ENTRY_POINT_MAP.put(GEIndexId, new String[] { INDEX_CREATE_ENTRY_POINT, null, null, null,
-                null });
-        ENTRY_POINT_MAP.put(GETriggerId, new String[] { TRIG_CREATE_ENTRY_POINT, null, null, null,
-                null });
-        ENTRY_POINT_MAP.put(PrimaryId, new String[] { PUKEY_CREATE_ENTRY_POINT, null, null, null,
-                null });
-        ENTRY_POINT_MAP.put(UniqueId, new String[] { PUKEY_CREATE_ENTRY_POINT, null, null, null,
-                null });
-        ENTRY_POINT_MAP.put(GEForeignId, new String[] { FKEY_CREATE_ENTRY_POINT, null, null, null,
-                null });
-        ENTRY_POINT_MAP.put(GEProcedureId, new String[] { PROC_CREATE_ENTRY_POINT, null, null,
-                null, null });
-        ENTRY_POINT_MAP.put(ORUserId, new String[] { USER_CREATE_ENTRY_POINT, null, null, null,
-                null });
-        ENTRY_POINT_MAP.put(ORDomainId, new String[] { DOMAIN_CREATE_ENTRY_POINT, null, null, null,
-                null });
-        ENTRY_POINT_MAP.put(GEDataModelId, new String[] { MODEL_CREATE_ENTRY_POINT, null, null,
-                null, null });
+        ENTRY_POINT_MAP.put(GETableId, new String[] { TABLE_CREATE_ENTRY_POINT, null, null, null, null });
+        ENTRY_POINT_MAP.put(GEViewId, new String[] { VIEW_CREATE_ENTRY_POINT, null, null, null, null });
+        ENTRY_POINT_MAP.put(GEColumnId, new String[] { COL_CREATE_ENTRY_POINT, null, null, null, null });
+        ENTRY_POINT_MAP.put(GEIndexId, new String[] { INDEX_CREATE_ENTRY_POINT, null, null, null, null });
+        ENTRY_POINT_MAP.put(GETriggerId, new String[] { TRIG_CREATE_ENTRY_POINT, null, null, null, null });
+        ENTRY_POINT_MAP.put(PrimaryId, new String[] { PUKEY_CREATE_ENTRY_POINT, null, null, null, null });
+        ENTRY_POINT_MAP.put(UniqueId, new String[] { PUKEY_CREATE_ENTRY_POINT, null, null, null, null });
+        ENTRY_POINT_MAP.put(GEForeignId, new String[] { FKEY_CREATE_ENTRY_POINT, null, null, null, null });
+        ENTRY_POINT_MAP.put(GEProcedureId, new String[] { PROC_CREATE_ENTRY_POINT, null, null, null, null });
+        ENTRY_POINT_MAP.put(ORUserId, new String[] { USER_CREATE_ENTRY_POINT, null, null, null, null });
+        ENTRY_POINT_MAP.put(ORDomainId, new String[] { DOMAIN_CREATE_ENTRY_POINT, null, null, null, null });
+        ENTRY_POINT_MAP.put(GEDataModelId, new String[] { MODEL_CREATE_ENTRY_POINT, null, null, null, null });
     }
 
     public Rule getRuleOf(DbObject obj, int action) throws DbException {
@@ -398,18 +389,17 @@ public abstract class SQLForwardEngineeringPlugin extends GenericForwardEngineer
     protected Template getFileNotFoundRule() {
     	URL templateUrl = getTemplateURL();
     	String template = templateUrl.getFile();
-        Template tmpl = new Template(null, FILE_NOT_FOUND + ": " + template == null ? null : template);
-        return tmpl;
+        return new Template(null, template);
     }
 
     public void setTemplateCondition(String condition, boolean value) {
         if (getVarScope().isDefined(condition)) {
-            Boolean val = new Boolean(value);
+            Boolean val = value;
             getVarScope().setVariable(condition, val);
         }
     } //end setTemplateCondition()
 
-    protected final void forwardTo(DbObject semObj, ArrayList generatedFiles) throws DbException,
+    protected final void forwardTo(DbObject semObj, List generatedFiles) throws DbException,
             IOException, RuleException {
         if (semObj instanceof DbORTable) {
             forwardSemObj((DbSemanticalObject) semObj, generatedFiles);
@@ -418,7 +408,7 @@ public abstract class SQLForwardEngineeringPlugin extends GenericForwardEngineer
         }
     }
 
-    private void forwardSemObj(DbSemanticalObject semObj, ArrayList generatedFiles)
+    private void forwardSemObj(DbSemanticalObject semObj, List generatedFiles)
             throws DbException, IOException, RuleException {
         //build file name
         String filename = semObj.getPhysicalName();
@@ -426,7 +416,7 @@ public abstract class SQLForwardEngineeringPlugin extends GenericForwardEngineer
             filename = semObj.getName();
         }
         filename += "." + getGenerateInFileInfo().getDefaultExtension();
-        String pathname = getForwardDirectory() + System.getProperty("file.separator") + filename;
+        String pathname = getForwardDirectory() + FileSystems.getDefault().getSeparator() + filename;
 
         //forward engineer
         StringWriter writer = new StringWriter();

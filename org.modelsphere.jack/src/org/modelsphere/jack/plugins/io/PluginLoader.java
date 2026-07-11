@@ -48,6 +48,7 @@ import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.FileSystems;
 import java.util.*;
 
 import org.modelsphere.jack.debug.Debug;
@@ -75,7 +76,7 @@ public abstract class PluginLoader implements PluginConstants {
     protected static final String kRequireAppl = LocaleMgr.misc.getString("RequireAppl0");
     public static final String START_OPTION_PLUGINS_PATH = "pluginpath"; // NOT LOCALIZABLE
 
-    private static final String DEFAULT_PLUGINS_PATH = "." + System.getProperty("file.separator")
+    private static final String DEFAULT_PLUGINS_PATH = "." + FileSystems.getDefault().getSeparator()
             + "plugins"; // NOT LOCALIZABLE
 
     private static PluginLoader XMLInstance;
@@ -89,27 +90,25 @@ public abstract class PluginLoader implements PluginConstants {
 
     private static List<String> pluginsPath;
 
-    private static File pluginsDirectory;
+    private static final File pluginsDirectory;
 
-    private static HashMap<String, PluginLoader> loaders = new HashMap<String, PluginLoader>();
+    private static Map<String, PluginLoader> loaders = new HashMap<String, PluginLoader>();
 
     // We use the context to store invalidated plugins instead of the descriptor.  Mode than 1 
     // descriptors can be equals() even if they represent different scanned/installed plugins
     // (case of duplicates).
-    private List<PluginContext> invalidated = new ArrayList<PluginContext>();
+    private List<PluginContext> invalidated = new ArrayList<>();
 
-    protected List<String> packages = new ArrayList<String>();
+    protected List<String> packages = new ArrayList<>();
 
     static{   
             pluginsDirectory = new File(System.getProperty("user.dir"), "plugins");
             if ((!pluginsDirectory.exists()) && (ScreenPerspective.isFullVersion())) {
-                try {
-                    if (!pluginsDirectory.mkdir()) {
-                        System.out.println("Failed to creating directory: " + pluginsDirectory);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (!pluginsDirectory.mkdir()) {
+                    System.err.println("Failed to create directory: " + pluginsDirectory);
                 }
+            } else if (pluginsDirectory.exists() && !pluginsDirectory.isDirectory()) {
+                 System.err.println("Plugins path exists but is not a directory: " + pluginsDirectory);
             }
             getInstances();       
     }
@@ -122,15 +121,12 @@ public abstract class PluginLoader implements PluginConstants {
         }
     }
 
-    private static ArrayList<String> getPaths(String path) {
+    private static List<String> getPaths(String path) {
         if (path == null)
-            return new ArrayList<String>();
-        ArrayList<String> paths = new ArrayList<String>();
-        StringTokenizer st = new StringTokenizer(path, File.pathSeparator, false);
-        while (st.hasMoreElements()) {
-            String token = (String) st.nextElement();
-            paths.add(token);
-        }
+            return new ArrayList<>();
+        List<String> paths = new ArrayList<>();
+        String[] tokens = path.split(File.pathSeparator);
+        Collections.addAll(paths, tokens);
         return paths;
     }
 
@@ -221,19 +217,17 @@ public abstract class PluginLoader implements PluginConstants {
     }
 
     public List<PluginDescriptor> scan() {
-        ArrayList<String> scannedPath = new ArrayList<String>();
-        List<PluginDescriptor> pluginInfos = new ArrayList<PluginDescriptor>();
+        List<String> scannedPath = new ArrayList<>();
+        List<PluginDescriptor> pluginInfos = new ArrayList<>();
 
-        Iterator<String> iterPath = getPluginsPath().iterator();
-        while (iterPath.hasNext()) {
-            String path = iterPath.next();
+        for (String path : getPluginsPath()) {
             if (scannedPath.contains(path))
                 continue;
             List<PluginDescriptor> scannedPluginInfos = scan(path);
-            if (scannedPluginInfos == null)
-                continue;
-            pluginInfos.addAll(scannedPluginInfos);
-            scannedPath.add(path);
+            if (scannedPluginInfos != null) {
+                pluginInfos.addAll(scannedPluginInfos);
+                scannedPath.add(path);
+            }
         }
         return pluginInfos;
     }
@@ -263,11 +257,9 @@ public abstract class PluginLoader implements PluginConstants {
         if (idx != -1) {
             path = path.substring(0, idx - 1);
             File base = new File(path);
-            URL url = base.toURL();
-            return url;
+            return base.toURI().toURL();
         } else {
-            URL url = file.toURL();
-            return url;
+            return file.toURI().toURL();
         }
     }
 
@@ -286,36 +278,32 @@ public abstract class PluginLoader implements PluginConstants {
 
         try {
             ClassLoader classLoader = context.getClassLoader();
+            
             if (classLoader == null) {
+                ClassLoader parentClassLoader = Thread.currentThread().getContextClassLoader();
+                if (parentClassLoader == null) {
+                    parentClassLoader = PluginLoader.class.getClassLoader();
+                }
+
                 URL url = context.getURL();
                 if (url != null) {
-                    ClassLoader parentClassLoader = Thread.currentThread().getContextClassLoader();
-                    if (parentClassLoader == null) {
-                        parentClassLoader = PluginLoader.class.getClassLoader();
-                    }
                     classLoader = new URLClassLoader(new URL[] { url }, parentClassLoader);
                 } else {
-                    System.out.println("PluginLoad: URL is null, using application ClassLoader " + pluginDescriptor);
-                    classLoader = Thread.currentThread().getContextClassLoader();
-                    if (classLoader == null) {
-                        classLoader = PluginLoader.class.getClassLoader();
-                    }
-                    if (classLoader == null) {
-                        System.out.println("Undefined class loader for " + pluginDescriptor);
-                        return false;
-                    }
+                    classLoader = parentClassLoader;
+                }
+
+                if (classLoader == null) {
+                    System.err.println("Undefined class loader for " + pluginDescriptor);
+                    return false;
                 }
                 context.setClassLoader(classLoader);
             }
 
-            // Charger la classe en utilisant le ClassLoader approprié
-            pluginClass = (Class<? extends Plugin>) Class.forName(className, true, classLoader);
-
-            if (pluginClass != null && Plugin.class.isAssignableFrom(pluginClass)
-                    && Modifier.isPublic(pluginClass.getModifiers())) {
+            Class<?> rawClass = Class.forName(className, true, classLoader);
+            if (Plugin.class.isAssignableFrom(rawClass) && Modifier.isPublic(rawClass.getModifiers())) {
+                pluginClass = rawClass.asSubclass(Plugin.class);
                 ((DefaultPluginDescriptor) pluginDescriptor).setPluginClass(pluginClass);
-                ((DefaultPluginDescriptor) pluginDescriptor).setPluginType(PLUGIN_TYPE
-                        .getType(pluginClass));
+                ((DefaultPluginDescriptor) pluginDescriptor).setPluginType(PLUGIN_TYPE.getType(pluginClass));
                 return true;
             } else {
                 ((DefaultPluginDescriptor) pluginDescriptor).setPluginType(null);
@@ -332,12 +320,6 @@ public abstract class PluginLoader implements PluginConstants {
             } else if (Debug.isDebug())
                 e1.printStackTrace();
         } catch (NoClassDefFoundError noclasserror) {
-            String errortext = noclasserror.toString();
-            context.setStatusText(kMissingResource + "  (" + errortext + ")"); // NOT LOCALIZABLE
-        } catch (ExceptionInInitializerError initerror) {
-            Throwable th = initerror.getException();
-            String errortext = th.toString();
-            context.setStatusText(errortext);
         } catch (Throwable th) {
             String errortext = th.toString();
             context.setStatusText(errortext);
@@ -347,9 +329,7 @@ public abstract class PluginLoader implements PluginConstants {
     }
 
     public boolean initPluginInstance(PluginDescriptor pluginDescriptor, Splash splashScreen) {
-        if (pluginDescriptor == null) {
-            return false;
-        }
+        if (pluginDescriptor == null) return false;
         PluginContext context = pluginDescriptor.getContext();
         Class<? extends Plugin> pluginClass = pluginDescriptor.getPluginClass();
         if (pluginClass == null) {
@@ -378,43 +358,29 @@ public abstract class PluginLoader implements PluginConstants {
 
         Plugin plugin = null;
         try {
-            plugin = (Plugin) pluginClass.newInstance();
+            plugin = pluginClass.getDeclaredConstructor().newInstance();
             loadingmessage += kLoadedSuccess;
-        } catch (Exception ex1) {
-            plugin = null;
+        } catch (Exception | LinkageError ex) {
             loadingmessage += kLoadingError;
-            errortext = kNotInstantiable + "  (" + ex1.toString() + ")"; // NOT LOCALIZABLE
-        } catch (NoClassDefFoundError ex2) {
-            plugin = null;
-            loadingmessage += kLoadingError;
-            errortext = kMissingResource + "  (" + ex2.getMessage() + ")"; // NOT LOCALIZABLE
-        } catch (Error ex3) {
-            plugin = null;
-            loadingmessage += kLoadingError;
-            errortext = ex3.getMessage();
+            if (ex instanceof NoClassDefFoundError) {
+                errortext = kMissingResource + "  (" + ex.getMessage() + ")";
+            } else {
+                errortext = kNotInstantiable + "  (" + ex.toString() + ")";
+            }
         }
 
         if (plugin != null) {
             context.setInstance(plugin);
             try {
                 if (!isValid(pluginDescriptor)) {
-                    errortext = MessageFormat.format(kRequireAppl, new Object[] { new Integer(
-                            (plugin).getSignature().getBuildRequired()) });
+                    errortext = MessageFormat.format(kRequireAppl, new Object[] { plugin.getSignature().getBuildRequired() });
                     plugin = null;
                     loadingmessage += kInvalidRelease;
                 }
-            } catch (Exception e1) {
+            } catch (Exception | LinkageError e) {
                 plugin = null;
                 loadingmessage += kLoadingError;
-                errortext = e1.getMessage();
-            } catch (NoClassDefFoundError e2) {
-                plugin = null;
-                loadingmessage += kLoadingError;
-                errortext = kMissingResource + "  (" + e2.getMessage() + ")"; // NOT LOCALIZABLE
-            } catch (Error e3) {
-                plugin = null;
-                loadingmessage += kLoadingError;
-                errortext = e3.getMessage();
+                errortext = (e instanceof NoClassDefFoundError) ? kMissingResource + " (" + e.getMessage() + ")" : e.getMessage();
             } // end try
         } // end if
 
@@ -462,8 +428,7 @@ public abstract class PluginLoader implements PluginConstants {
 
         PluginContext context = pluginDescriptor.getContext();
         PluginLoader loader = context.getLoader();
-        boolean saved = loader.saveImpl(pluginDescriptor, document, element);
-        return saved;
+        return loader.saveImpl(pluginDescriptor, document, element);
     }
 
     protected boolean saveImpl(PluginDescriptor pluginDescriptor, Document document, Element element) {
@@ -534,7 +499,7 @@ public abstract class PluginLoader implements PluginConstants {
             }
         }
 
-        if (loaderID == null || loaderID.trim().length() == 0) {
+        if (loaderID == null || loaderID.trim().isEmpty()) {
             return null;
         }
 
@@ -542,8 +507,7 @@ public abstract class PluginLoader implements PluginConstants {
         if (loader == null)
             return null;
 
-        PluginDescriptor desc = loader.loadImpl(pluginNode, extendedAttributes);
-        return desc;
+        return loader.loadImpl(pluginNode, extendedAttributes);
     }
 
     protected PluginDescriptor loadImpl(Node pluginNode, Map<String, Object> extendedAttributes) {
@@ -561,16 +525,14 @@ public abstract class PluginLoader implements PluginConstants {
                 continue;
             String value = childNode.getTextContent();
 
-            if (value == null || value.length() == 0)
+            if (value == null || value.isEmpty())
                 continue;
 
             if (name.equals("command")) {
                 int index = value.indexOf(':');
                 if (index > -1) {
                     commandname = value.substring(0, index);
-                    commandvalues = null;
-                    if (index < value.length())
-                        commandvalues = value.substring(index + 1, value.length());
+                    commandvalues = value.substring(index + 1);
                 }
             } else {
                 extendedAttributes.put(name, value);
@@ -616,9 +578,7 @@ public abstract class PluginLoader implements PluginConstants {
         PluginLoader loader = context.getLoader();
         if (loader == null)
             return false;
-        return loader.isValidImpl(pluginDescriptor) && checkCompatibility(pluginDescriptor)
-                && PluginSecurityManager.getInstance().verify(pluginDescriptor);
-    }
+        return loader.isValidImpl(pluginDescriptor) && checkCompatibility(pluginDescriptor) && PluginSecurityManager.getInstance().verify(pluginDescriptor);    }
 
     protected boolean isValidImpl(PluginDescriptor pluginDescriptor) {
         PluginContext context = pluginDescriptor.getContext();
@@ -713,39 +673,29 @@ public abstract class PluginLoader implements PluginConstants {
 
     private static int[] splitVersion(String version) {
         ArrayList<Integer> versions = new ArrayList<Integer>();
-        StringTokenizer st = new StringTokenizer(version, "._- ()[]{}", false);
-        // note: this algo doesnt support cases like 1.2 beta2 1.2 beta3 which would both result in 1,2,-4
-        while (st.hasMoreTokens()) {
-            String token = st.nextToken();
-            if (token.length() == 0)
-                continue;
+        // Split by non-alphanumeric characters but keep segments
+        String[] tokens = version.split("[._\\-\\s()\\[\\]{}]");
+        
+        for (String token : tokens) {
+            if (token.isEmpty()) continue;
+            
             try {
-                int value = Integer.parseInt(token);
-                versions.add(value);
+                versions.add(Integer.parseInt(token));
                 continue;
-            } catch (Exception e) {
-            }
-            token = token.toLowerCase();
-            if (token.length() == 1) {
-                // apply the char value
-                char ch = token.charAt(0);
-                if (Character.isLetter(ch)) {
-                    versions.add((int) ch);
+            } catch (NumberFormatException e) {
+                // Fallback to keyword matching
+                String lower = token.toLowerCase();
+                if (lower.contains("early")) versions.add(-6);
+                else if (lower.contains("alpha")) versions.add(-5);
+                else if (lower.contains("beta")) versions.add(-4);
+                else if (lower.contains("pre")) versions.add(-2);
+                else if (lower.contains("rc") || lower.contains("candidate")) versions.add(-1);
+                else if (lower.length() == 1 && Character.isLetter(lower.charAt(0))) {
+                    versions.add((int) lower.charAt(0));
                 }
-                continue; // else ignore
-            }
-            if (token.contains("early")) {
-                versions.add(-6);
-            } else if (token.contains("alpha")) {
-                versions.add(-5);
-            } else if (token.contains("beta")) {
-                versions.add(-4);
-            } else if (token.contains("pre")) {
-                versions.add(-2);
-            } else if (token.contains("rc") || token.contains("candidate")) {
-                versions.add(-1);
             }
         }
+        
         int[] result = new int[versions.size()];
         for (int i = 0; i < result.length; i++) {
             result[i] = versions.get(i);

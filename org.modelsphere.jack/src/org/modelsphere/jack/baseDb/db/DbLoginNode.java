@@ -90,7 +90,7 @@ public final class DbLoginNode extends DbObject {
     // Called in DbLogin constructor
     final Integer nextNo() throws DbException {
         Integer next = (Integer) get(fLastNo);
-        next = new Integer(next.intValue() + 1);
+        next = next + 1;
         basicSet(fLastNo, next);
         return next;
     }
@@ -99,7 +99,7 @@ public final class DbLoginNode extends DbObject {
         DbRelationN logins = getComponents();
         for (int i = 0; i < logins.size(); i++) {
             DbLogin login = (DbLogin) logins.elementAt(i);
-            if (no == login.getNo().intValue())
+            if (no == login.getNo())
                 return login;
         }
         return null;

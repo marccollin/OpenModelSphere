@@ -35,6 +35,7 @@ package org.modelsphere.sms;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -86,10 +87,10 @@ public final class SMSVersionConverter implements VersionConverter {
     static final String STR_CUSTOM_IMPORTED = LocaleMgr.misc.getString("custom");//"(custom) "; 
     static final String FROM_VERSION = LocaleMgr.misc.getString("from_version"); //" (from version "; //MUST BE LOCALIZED
 
-    ArrayList<String> m_arrayFrench = null;
-    ArrayList<String> m_arrayEnglish = null;
-    ArrayList<String> m_arrayFrenchStyles = null;
-    ArrayList<String> m_arrayEnglishStyles = null;
+    List<String> m_arrayFrench = null;
+    List<String> m_arrayEnglish = null;
+    List<String> m_arrayFrenchStyles = null;
+    List<String> m_arrayEnglishStyles = null;
 
     /**
      * Increment VERSION for each new commercial version, and add a case to the switch statement to
@@ -299,7 +300,7 @@ public final class SMSVersionConverter implements VersionConverter {
             boolean hasmore = true;
             while (hasmore) { //changed stereotypes
                 hasmore = oldStereotypesEnum.hasMoreElements();
-                if (hasmore == false) { //if we reach the end, we have a brand new stereotype !
+                if (!hasmore) { //if we reach the end, we have a brand new stereotype !
                     foundNewStereotype = true;
                     break;
                 }
@@ -311,9 +312,9 @@ public final class SMSVersionConverter implements VersionConverter {
                     }
                 }
             }
-            if (true == foundNewStereotype) { //stereotype not found create it... 
+            if (foundNewStereotype) { //stereotype not found create it...
                 DbSMSStereotype stereotype = new DbSMSStereotype(oldUMLExtensibility);
-                stereotype.setBuiltIn(new Boolean(newStereotype.isBuiltIn()));
+                stereotype.setBuiltIn(newStereotype.isBuiltIn());
                 stereotype.setName(newStereotype.getName()); //NOT LOCALIZABLE, stereotype name
                 stereotype.setIcon(newStereotype.getIcon()); //NOT LOCALIZABLE, stereotype name
                 stereotype.setMetaClassName(newStereotype.getMetaClassName());
@@ -469,7 +470,7 @@ public final class SMSVersionConverter implements VersionConverter {
             boolean translate = true;
             if (useCase.getTerminologyName() == null)
                 translate = false;
-            else if (useCase.getTerminologyName().equals(""))
+            else if (useCase.getTerminologyName().isEmpty())
                 translate = false;
             if (translate) {
                 String equivalent = translateString(useCase.getTerminologyName(), toEnglish);
@@ -487,7 +488,7 @@ public final class SMSVersionConverter implements VersionConverter {
             boolean translate = true;
             if (notation.getTerminologyName() == null)
                 translate = false;
-            else if (notation.getTerminologyName().equals(""))
+            else if (notation.getTerminologyName().isEmpty())
                 translate = false;
             if (translate) {
                 String equivalent = translateString(notation.getTerminologyName(), toEnglish);
@@ -677,15 +678,15 @@ public final class SMSVersionConverter implements VersionConverter {
         DbEnumeration dbEnum = project.componentTree(DbORNotation.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbORNotation nota = (DbORNotation) dbEnum.nextElement();
-            nota.set(DbORNotation.fNotationMode, new Integer(
-                    TerminologyUtil.LOGICAL_MODE_OBJECT_RELATIONAL));
+            nota.set(DbORNotation.fNotationMode,
+                    TerminologyUtil.LOGICAL_MODE_OBJECT_RELATIONAL);
         }
         dbEnum.close();
 
         dbEnum = project.componentTree(DbORDataModel.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbORDataModel model = (DbORDataModel) dbEnum.nextElement();
-            model.setLogicalMode(new Integer(DbORDataModel.LOGICAL_MODE_OBJECT_RELATIONAL));
+            model.setLogicalMode(DbORDataModel.LOGICAL_MODE_OBJECT_RELATIONAL);
         }
         dbEnum.close();
 
@@ -722,8 +723,8 @@ public final class SMSVersionConverter implements VersionConverter {
         DbEnumeration dbEnum = smsPackage.componentTree(DbORNotation.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbORNotation nota = (DbORNotation) dbEnum.nextElement();
-            nota.set(DbORNotation.fNotationMode, new Integer(
-                    TerminologyUtil.LOGICAL_MODE_OBJECT_RELATIONAL));
+            nota.set(DbORNotation.fNotationMode,
+                    TerminologyUtil.LOGICAL_MODE_OBJECT_RELATIONAL);
         }
         dbEnum.close();
 
@@ -769,7 +770,7 @@ public final class SMSVersionConverter implements VersionConverter {
         ////
         // update the timestamps for all db objects
 
-        Long now = new Long(System.currentTimeMillis());
+        Long now = System.currentTimeMillis();
         project.getDb().beginWriteTrans("");
         project.setModificationTime(now);
         project.set(DbObject.fCreationTime, now);
@@ -819,7 +820,7 @@ public final class SMSVersionConverter implements VersionConverter {
         ////
         // update the timestamps for all db objects
 
-        Long now = new Long(System.currentTimeMillis());
+        Long now = System.currentTimeMillis();
         project.getDb().beginWriteTrans("");
         project.setModificationTime(now);
         project.set(DbObject.fCreationTime, now);
@@ -847,7 +848,7 @@ public final class SMSVersionConverter implements VersionConverter {
     }
 
     private void updateTimeStamps(DbObject dbo) throws DbException {
-        Long now = new Long(System.currentTimeMillis());
+        Long now = System.currentTimeMillis();
         DbEnumeration dbObjectsEnum = dbo.getComponents().elements(DbObject.metaClass);
         while (dbObjectsEnum.hasMoreElements()) {
             DbObject object = (DbObject) dbObjectsEnum.nextElement();
@@ -1028,9 +1029,9 @@ public final class SMSVersionConverter implements VersionConverter {
             int notationId = oldNotation.getNotationID().intValue();
             if (notationId >= DbInitialization.DATARUN_BPM
                     && notationId <= DbInitialization.OBJECT_LIFE_CYCLE)
-                oldNotation.setMasterNotationID(new Integer(notationId));
+                oldNotation.setMasterNotationID(notationId);
             else
-                oldNotation.setMasterNotationID(new Integer(DbInitialization.GANE_SARSON));
+                oldNotation.setMasterNotationID(DbInitialization.GANE_SARSON);
 
             if (oldNotation.getDisplayFrameBox() == null)
                 oldNotation.setDisplayFrameBox(Boolean.TRUE);
@@ -1059,7 +1060,7 @@ public final class SMSVersionConverter implements VersionConverter {
         }
         dbEnum.close();
 
-        Long now = new Long(System.currentTimeMillis());
+        Long now = System.currentTimeMillis();
         project.setModificationTime(now);
         project.set(DbObject.fCreationTime, now);
 
@@ -1147,16 +1148,16 @@ public final class SMSVersionConverter implements VersionConverter {
         DbEnumeration dbObjectsEnum = smsPackage.componentTree(DbBENotation.metaClass);
         while (dbObjectsEnum.hasMoreElements()) {
             DbBENotation oldNotation = (DbBENotation) dbObjectsEnum.nextElement();
-            int notationId = oldNotation.getNotationID().intValue();
+            int notationId = oldNotation.getNotationID();
             if (oldNotation.getDisplayFrameBox() == null)
                 oldNotation.setDisplayFrameBox(Boolean.TRUE);
             if (oldNotation.getHasFrame() == null)
                 oldNotation.setHasFrame(Boolean.FALSE);
             if (notationId >= DbInitialization.DATARUN_BPM
                     && notationId <= DbInitialization.OBJECT_LIFE_CYCLE)
-                oldNotation.setMasterNotationID(new Integer(notationId));
+                oldNotation.setMasterNotationID(notationId);
             else
-                oldNotation.setMasterNotationID(new Integer(DbInitialization.GANE_SARSON));
+                oldNotation.setMasterNotationID(DbInitialization.GANE_SARSON);
         }
         dbObjectsEnum.close();
 
@@ -1237,8 +1238,8 @@ public final class SMSVersionConverter implements VersionConverter {
             DbBENotation notation = (DbBENotation) dbEnum.nextElement();
             if (notation.isBuiltIn()) {
                 notation.setBuiltIn(Boolean.FALSE);
-                notation.setNotationID(new Integer(getCurrentVersion() * 100000
-                        + notation.getNotationID().intValue()));
+                notation.setNotationID(getCurrentVersion() * 100000
+                        + notation.getNotationID());
             } else
                 notation.setName(notation.getName() + STR_CUSTOM_IMPORTED);
         }
@@ -1254,7 +1255,7 @@ public final class SMSVersionConverter implements VersionConverter {
             if (!notation.isBuiltIn()) {
                 DbBENotation newNotation = findBENotation(project, notation.getNotationID());
                 if (newNotation != null) {
-                    int notationId = newNotation.getNotationID().intValue();
+                    int notationId = newNotation.getNotationID();
                     DbEnumeration dbNotationEnum = notation.getDiagrams().elements();
                     while (dbNotationEnum.hasMoreElements()) {
                         DbBEDiagram diagram = (DbBEDiagram) dbNotationEnum.nextElement();
@@ -1283,8 +1284,8 @@ public final class SMSVersionConverter implements VersionConverter {
             DbORNotation notation = (DbORNotation) dbEnum.nextElement();
             if (notation.isBuiltIn()) {
                 notation.setBuiltIn(Boolean.FALSE);
-                notation.setNotationID(new Integer(getCurrentVersion() * 100000
-                        + notation.getNotationID().intValue()));
+                notation.setNotationID(getCurrentVersion() * 100000
+                        + notation.getNotationID());
             } else
                 notation.setName(notation.getName() + STR_CUSTOM_IMPORTED);
         }
@@ -1315,13 +1316,13 @@ public final class SMSVersionConverter implements VersionConverter {
 
     private DbBENotation findBENotation(DbSMSProject project, Integer notationID)
             throws DbException {
-        int trueId = notationID.intValue() - (getCurrentVersion() * 100000);
+        int trueId = notationID - (getCurrentVersion() * 100000);
         DbEnumeration dbEnum = project.componentTree(DbBENotation.metaClass);
         DbBENotation notation = null;
         boolean found = false;
         while (dbEnum.hasMoreElements()) {
             notation = (DbBENotation) dbEnum.nextElement();
-            if (trueId == notation.getNotationID().intValue()) {
+            if (trueId == notation.getNotationID()) {
                 found = true;
                 break;
             }
@@ -1333,13 +1334,13 @@ public final class SMSVersionConverter implements VersionConverter {
 
     private DbORNotation findORNotation(DbSMSProject project, Integer notationID)
             throws DbException {
-        int trueId = notationID.intValue() - (getCurrentVersion() * 100000);
+        int trueId = notationID - (getCurrentVersion() * 100000);
         DbEnumeration dbEnum = project.componentTree(DbORNotation.metaClass);
         DbORNotation notation = null;
         boolean found = false;
         while (dbEnum.hasMoreElements()) {
             notation = (DbORNotation) dbEnum.nextElement();
-            if (trueId == notation.getNotationID().intValue()) {
+            if (trueId == notation.getNotationID()) {
                 found = true;
                 break;
             }
@@ -1431,7 +1432,7 @@ public final class SMSVersionConverter implements VersionConverter {
                     rate2 = 0.0;
                 } //end try
 
-                usercaseQualifier.setRate2(new Double(rate2));
+                usercaseQualifier.setRate2(rate2);
             }
         } //end while
         dbEnum.close();
@@ -1455,8 +1456,8 @@ public final class SMSVersionConverter implements VersionConverter {
         DbEnumeration dbEnum = relN.elements(DbBEContextCell.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbBEContextCell cell = (DbBEContextCell) dbEnum.nextElement();
-            int horizontal = cell.getHorizontalJustification().intValue();
-            int vertical = cell.getVerticalJustification().intValue();
+            int horizontal = cell.getHorizontalJustification();
+            int vertical = cell.getVerticalJustification();
             SMSHorizontalAlignment hAlign = DbInitialization
                     .convertToHorizontalAlignment(horizontal);
             SMSVerticalAlignment vAlign = DbInitialization.convertToVerticalAlignment(vertical);

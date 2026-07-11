@@ -89,8 +89,6 @@ public final class XmiOutputDirectory extends UserDefinedField {
         try {
             Method getStaticSelectedDirectoryMethod = xmlForwardToolkitClass.getMethod(
                     "getStaticSelectedDirectory", new Class[] {});
-            if (getStaticSelectedDirectoryMethod == null)
-                return false;
             directory = (File) getStaticSelectedDirectoryMethod.invoke(null, null);
         } catch (Exception e) {
             return false;

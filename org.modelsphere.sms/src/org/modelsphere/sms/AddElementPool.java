@@ -242,14 +242,14 @@ final class AddElementPool {
             boolean isConceptualSelection = false;
 
             if (selected instanceof String) {
-                if (selected.toString() == kConceptual) {
+                if (selected.toString().equals(kConceptual)) {
                     DbProject project = ApplicationContext.getFocusManager().getCurrentProject();
                     selected = TargetSystem.getSpecificTargetSystem(project,
                             TargetSystem.SGBD_LOGICAL);
                     isConceptualSelection = true;
                 } else {
                     DefaultMainFrame mf = ApplicationContext.getDefaultMainFrame();
-                    ArrayList<DbSMSTargetSystem> newtarget = TargetSystemManager.getSingleton()
+                    List<DbSMSTargetSystem> newtarget = TargetSystemManager.getSingleton()
                             .addTargetSystem(mf, composite, false);
                     if (newtarget == null || newtarget.size() != 1 || newtarget.get(0) == null) {
                         return null;
@@ -289,7 +289,7 @@ final class AddElementPool {
                 targets.add(null);
                 targets.add(kOthers);
             } else if (selobjs[0] instanceof DbORDataModel) {
-                if (((DbORDataModel) selobjs[0]).getLogicalMode().intValue() == DbORDataModel.LOGICAL_MODE_ENTITY_RELATIONSHIP) {
+                if (((DbORDataModel) selobjs[0]).getLogicalMode() == DbORDataModel.LOGICAL_MODE_ENTITY_RELATIONSHIP) {
                     if (targets == null) {
                         targets = new ArrayList<Serializable>();
                     } else
@@ -320,7 +320,7 @@ final class AddElementPool {
                 items[i] = target.getName() + " " + target.getVersion();
             }
             setChoiceValues(items);
-            setEnabled(targets.size() != 0);
+            setEnabled(!targets.isEmpty());
         }
     }
 
@@ -336,8 +336,8 @@ final class AddElementPool {
             public void update() throws DbException {
                 DbObject[] dbos = ApplicationContext.getFocusManager()
                         .getSelectedSemanticalObjects();
-                for (int i = 0; i < dbos.length; i++) {
-                    if (((DbSMSBuiltInTypePackage) dbos[i]).isBuiltIn()) {
+                for (DbObject dbo : dbos) {
+                    if (((DbSMSBuiltInTypePackage) dbo).isBuiltIn()) {
                         setEnabled(false);
                         return;
                     }
@@ -394,9 +394,9 @@ final class AddElementPool {
                 DbObject[] objects = ApplicationContext.getFocusManager()
                         .getSelectedSemanticalObjects();
                 boolean state = false;
-                for (int i = 0; i < objects.length; i++) {
-                    if (objects[i] instanceof DbJVClass) {
-                        DbJVClass adt = (DbJVClass) objects[i];
+                for (DbObject object : objects) {
+                    if (object instanceof DbJVClass) {
+                        DbJVClass adt = (DbJVClass) object;
                         if (!isAdtValid(adt, getCompilName(adt)))
                             continue;
                     }
@@ -925,8 +925,8 @@ final class AddElementPool {
                 public void update() throws DbException {
                     DbObject[] dbos = ApplicationContext.getFocusManager()
                             .getSelectedSemanticalObjects();
-                    for (int i = 0; i < dbos.length; i++) {
-                        if (((DbBEUseCase) dbos[i]).isExternal()) {
+                    for (DbObject dbo : dbos) {
+                        if (((DbBEUseCase) dbo).isExternal()) {
                             setEnabled(false);
                             return;
                         }
@@ -942,8 +942,8 @@ final class AddElementPool {
                 public void update() throws DbException {
                     DbObject[] dbos = ApplicationContext.getFocusManager()
                             .getSelectedSemanticalObjects();
-                    for (int i = 0; i < dbos.length; i++) {
-                        if (((DbBEUseCase) dbos[i]).isExternal()) {
+                    for (DbObject dbo : dbos) {
+                        if (((DbBEUseCase) dbo).isExternal()) {
                             setEnabled(false);
                             return;
                         }
@@ -969,7 +969,7 @@ final class AddElementPool {
                         //set identifier
                         Integer id = currentProcess.getNumericIdentifier();
                         newLevel.setNumericIdentifier(id);
-                        currentProcess.setNumericIdentifier(new Integer(1));
+                        currentProcess.setNumericIdentifier(1);
 
                         //create a diagram for each diagram in composite (using the same notation)
                         DbRelationN relN = currentProcess.getComponents();
@@ -1026,7 +1026,7 @@ final class AddElementPool {
                                     .getToolkit(composite).createGraphicalComponentFactory(),
                             MainFrame.getSingleton().getDiagramsToolGroup());
                     Dimension dim = Diagram.getPageSize(((DbSMSDiagram) composite).getPageFormat(),
-                            ((DbSMSDiagram) composite).getPrintScale().intValue());
+                            ((DbSMSDiagram) composite).getPrintScale());
                     int x = (int) (dim.getWidth() * 0.2 / 2);
                     int y = (int) (dim.getHeight() * 0.15 / 2);
                     int width = (int) (dim.getWidth() * 0.8);
@@ -1041,8 +1041,8 @@ final class AddElementPool {
                 public void update() throws DbException {
                     DbObject[] dbos = ApplicationContext.getFocusManager()
                             .getSelectedSemanticalObjects();
-                    for (int i = 0; i < dbos.length; i++) {
-                        if (((DbBEUseCase) dbos[i]).isExternal()) {
+                    for (DbObject dbo : dbos) {
+                        if (((DbBEUseCase) dbo).isExternal()) {
                             setEnabled(false);
                             return;
                         }
@@ -1082,8 +1082,8 @@ final class AddElementPool {
                 public void update() throws DbException {
                     DbObject[] dbos = ApplicationContext.getFocusManager()
                             .getSelectedSemanticalObjects();
-                    for (int i = 0; i < dbos.length; i++) {
-                        if (((DbBEUseCase) dbos[i]).isExternal()) {
+                    for (DbObject dbo : dbos) {
+                        if (((DbBEUseCase) dbo).isExternal()) {
                             setEnabled(false);
                             return;
                         }
@@ -1131,7 +1131,7 @@ final class AddElementPool {
                         //set identifier
                         Integer id = currentProcess.getNumericIdentifier();
                         newLevel.setNumericIdentifier(id);
-                        currentProcess.setNumericIdentifier(new Integer(1));
+                        currentProcess.setNumericIdentifier(1);
 
                         //create a diagram for each diagram in composite (using the same notation)
                         DbRelationN relN = currentProcess.getComponents();
@@ -1201,7 +1201,7 @@ final class AddElementPool {
                                     .getToolkit(composite).createGraphicalComponentFactory(),
                             MainFrame.getSingleton().getDiagramsToolGroup());
                     Dimension dim = Diagram.getPageSize(((DbSMSDiagram) composite).getPageFormat(),
-                            ((DbSMSDiagram) composite).getPrintScale().intValue());
+                            ((DbSMSDiagram) composite).getPrintScale());
                     int x = (int) (dim.getWidth() * 0.2 / 2);
                     int y = (int) (dim.getHeight() * 0.15 / 2);
                     int width = (int) (dim.getWidth() * 0.8);
@@ -1220,8 +1220,8 @@ final class AddElementPool {
                 public void update() throws DbException {
                     DbObject[] dbos = ApplicationContext.getFocusManager()
                             .getSelectedSemanticalObjects();
-                    for (int i = 0; i < dbos.length; i++) {
-                        if (((DbBEUseCase) dbos[i]).isExternal()) {
+                    for (DbObject dbo : dbos) {
+                        if (((DbBEUseCase) dbo).isExternal()) {
                             setEnabled(false);
                             return;
                         }
@@ -1396,7 +1396,7 @@ final class AddElementPool {
                 DbBENotation selectedNotation = items[choiceValuesSelectedIndex];
                 if (selectedNotation != null) {
                     DbObject elem = createElement(composite, selectedNotation);
-                    int nId = selectedNotation.getMasterNotationID().intValue();
+                    int nId = selectedNotation.getMasterNotationID();
                     if (nId >= 13 && nId <= 19)
                         elem.setName(TerminologyInitializer.UML_MODEL);
                     return elem;
@@ -1418,16 +1418,14 @@ final class AddElementPool {
                 Object[] notations = (Object[]) list.toArray();
                 int nb = notations.length;
                 List<DbBENotation> alobjs = new ArrayList<DbBENotation>();
-                for (int i = 0; i < nb; i++) {
-                    int masterNotationID = ((DbBENotation) notations[i]).getMasterNotationID()
-                            .intValue();
+                for (Object o : notations) {
+                    int masterNotationID = ((DbBENotation) o).getMasterNotationID();
                     if (!(masterNotationID >= 13 && masterNotationID <= 19)) {
-                        alobjs.add(((DbBENotation) notations[i]));
+                        alobjs.add(((DbBENotation) o));
                     }
                 }
                 List<String> al = new ArrayList<String>();
-                for (int i = 0; i < alobjs.size(); i++)
-                    al.add(alobjs.get(i).getName());
+                for (DbBENotation alobj : alobjs) al.add(alobj.getName());
 
                 Comparator<?> comp = null;
                 int idx = LookupDialog.selectOne(frame, title, msg, al.toArray(), -1, comp);
@@ -1443,7 +1441,7 @@ final class AddElementPool {
 
                     DbObject elem = createElement(composite, notation);
                     if (notation != null) {
-                        int nId = notation.getMasterNotationID().intValue();
+                        int nId = notation.getMasterNotationID();
                         if (nId >= 13 && nId <= 19)
                             elem.setName(TerminologyInitializer.UML_MODEL);
                     }
@@ -1508,7 +1506,7 @@ final class AddElementPool {
             DbBEModel model = (DbBEModel) super.createElement(composite);
 
             ////
-            // set the terminoilogy name according to the master notation
+            // set the terminology name according to the master notation
 
             notation = BEUtility.getSingleInstance().getMasterNotation(notation);
             model.setTerminologyName(notation.getName());

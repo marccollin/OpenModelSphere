@@ -78,8 +78,7 @@ public class CodeGenerationWorker extends Worker {
 
     @Override
     protected String getJobTitle() {
-        String title = LocaleMgr.misc.getString("CodeGeneration");
-        return title;
+        return LocaleMgr.misc.getString("CodeGeneration");
     }
 
     @Override
