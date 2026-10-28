@@ -48,6 +48,7 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Map;
 import java.util.Vector;
 import java.util.HashMap;
 
@@ -63,13 +64,13 @@ public final class ReverseFileOptions {
     private String m_fileName = null;
     private long m_fileLength = 0;
     private Vector m_objectsToDeleteVector;
-    private HashMap m_diagMap;
+    private Map m_diagMap;
     private Controller m_controller;
     private long m_partialSize;
     private long m_totalSize;
 
-    public ReverseFileOptions(Vector objectsToDeleteVector, HashMap diagMap, Controller controller,
-            long partialSize, long totalSize) {
+    public ReverseFileOptions(Vector objectsToDeleteVector, Map diagMap, Controller controller,
+                              long partialSize, long totalSize) {
         m_objectsToDeleteVector = objectsToDeleteVector;
         m_diagMap = diagMap;
         m_controller = controller;
@@ -112,7 +113,7 @@ public final class ReverseFileOptions {
         return m_objectsToDeleteVector;
     }
 
-    public HashMap getDiagMap() {
+    public Map getDiagMap() {
         return m_diagMap;
     }
 

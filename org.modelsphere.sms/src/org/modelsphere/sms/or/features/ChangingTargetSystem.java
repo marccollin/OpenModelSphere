@@ -34,9 +34,7 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.or.features;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -251,7 +249,7 @@ final class ChangingTargetSystem {
             getController().println();
         } // end outputOption()
 
-        private void changeTargetSystem(HashMap convertedModelsMap, DbORDataModel model)
+        private void changeTargetSystem(Map convertedModelsMap, DbORDataModel model)
                 throws DbException {
             DbProject project = model.getProject();
             DbObject composite = model.getComposite();
@@ -317,9 +315,9 @@ final class ChangingTargetSystem {
             }
         } // end changeTargetSystem()
 
-        private void recoverSubModelFromSource(HashMap convertedModelsMap, DbORDataModel srcModel,
-                String destTargetSystem) throws DbException {
-            ArrayList srcList = new ArrayList();
+        private void recoverSubModelFromSource(Map convertedModelsMap, DbORDataModel srcModel,
+                                               String destTargetSystem) throws DbException {
+            List srcList = new ArrayList();
             DbORDataModel destModel = (DbORDataModel) convertedModelsMap.get(srcModel);
 
             // PASS 1 : delete converted submodels
@@ -368,7 +366,7 @@ final class ChangingTargetSystem {
 
         } // end recoverSubModelFromSource()
 
-        private void changeTargetSystem(HashMap convertedModelsMap, DbORDatabase database)
+        private void changeTargetSystem(Map convertedModelsMap, DbORDatabase database)
                 throws DbException {
             DbProject project = database.getProject();
             DbObject composite = database.getComposite();
@@ -472,7 +470,7 @@ final class ChangingTargetSystem {
             backup(operationLibrary);
         } // end changeTargetSystem()
 
-        private void findUsedDomains(ArrayList domainList, DbORDataModel model) throws DbException {
+        private void findUsedDomains(List domainList, DbORDataModel model) throws DbException {
             DbRelationN relN = model.getComponents();
             DbEnumeration dbEnum = relN.elements(DbORTable.metaClass);
             while (dbEnum.hasMoreElements()) {
@@ -502,17 +500,16 @@ final class ChangingTargetSystem {
 
         } // end findUsedDomains()
 
-        private void fillDomainModel(DbORDomainModel domainModel, ArrayList domainList,
+        private void fillDomainModel(DbORDomainModel domainModel, List domainList,
                 SMSDeepCopyCustomizer customizer) throws DbException {
-            Iterator iter = domainList.iterator();
-            while (iter.hasNext()) {
-                DbORDomain sourceDomain = (DbORDomain) iter.next();
-                DbObject[] targetDomains = DbObject.deepCopy(new DbObject[] { sourceDomain },
+            for (Object o : domainList) {
+                DbORDomain sourceDomain = (DbORDomain) o;
+                DbObject[] targetDomains = DbObject.deepCopy(new DbObject[]{sourceDomain},
                         domainModel, customizer, false);
             } // end iter()
         } // end fillDomainModel()
 
-        private void setTargetDependantProperties(HashMap convertedModelsMap,
+        private void setTargetDependantProperties(Map convertedModelsMap,
                 DbORDataModel sourceModel, SMSDeepCopyCustomizer customizer) throws DbException {
             // Set database
             DbORDatabase sourceDatabase = sourceModel.getDeploymentDatabase();
@@ -522,8 +519,8 @@ final class ChangingTargetSystem {
 
             if ((m_options.m_params & CONVERT_SUB_MODELS) != 0) {
                 // for each sub data model
-                ArrayList sourceSubModels = new ArrayList();
-                ArrayList targetSubModels = new ArrayList();
+                List sourceSubModels = new ArrayList();
+                List targetSubModels = new ArrayList();
 
                 DbRelationN relN = sourceModel.getComponents();
                 DbEnumeration dbEnum = relN.elements(DbORDataModel.metaClass);
@@ -552,7 +549,7 @@ final class ChangingTargetSystem {
 
         } // end setTargetDependantProperties()
 
-        private void setTargetDependantProperties(HashMap convertedModelsMap,
+        private void setTargetDependantProperties(Map convertedModelsMap,
                 DbORDatabase sourceDB, SMSDeepCopyCustomizer customizer) throws DbException {
             String destTargetSystem = m_options.m_ts.getName() + " " + m_options.m_ts.getVersion();
 
@@ -823,7 +820,7 @@ final class ChangingTargetSystem {
         //
         // UNLINK COMMON ITEMS
         //
-        private void unlinkCommonItems(HashMap convertedModelsMap, DbORDataModel model)
+        private void unlinkCommonItems(Map convertedModelsMap, DbORDataModel model)
                 throws DbException {
             DbORDataModel destModel = (DbORDataModel) convertedModelsMap.get(model);
             if (destModel == null) {

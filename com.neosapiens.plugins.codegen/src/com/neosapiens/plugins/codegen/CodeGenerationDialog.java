@@ -68,7 +68,7 @@ public class CodeGenerationDialog extends JDialog implements ActionListener {
 
     private JTextField folderText;
     private JButton folderSelectButton;
-    private JComboBox m_combo;
+    private JComboBox<GenerationTarget> m_combo;
     private JTextArea m_descriptionArea;
     private ButtonPanel buttonPanel;
 
@@ -81,7 +81,6 @@ public class CodeGenerationDialog extends JDialog implements ActionListener {
     //
     // CONSTRUCTORS
     //
-
     public CodeGenerationDialog(JFrame parent) {
         super(parent, LocaleMgr.misc.getString("CodeGeneration"), true);
         properties = PropertySet.getInstance(CodeGenerationDialog.class);

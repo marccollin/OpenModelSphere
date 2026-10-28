@@ -11,7 +11,7 @@ public class PutClassesFirstComparator implements Comparator<SemanticDeclaration
 
         if (o1isClass && o2isClass)
             return 0;
-        else if (o1isClass && !o2isClass)
+        else if (o1isClass)
             return -1;
         else
             return 1;

@@ -35,10 +35,7 @@ package org.modelsphere.sms.or.features;
 
 import java.awt.Frame;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 import javax.swing.JOptionPane;
 
@@ -87,7 +84,7 @@ public final class PhysicalNameGeneration {
     private PhysicalNameDictionary dictionary = new PhysicalNameDictionary();
     private StringBuffer report = new StringBuffer(250);
     private boolean somePhysicalNameGen = false;
-    private HashMap accentedCharactersHashMap = null;
+    private Map accentedCharactersHashMap = null;
 
     public PhysicalNameGeneration() {
     }
@@ -112,11 +109,11 @@ public final class PhysicalNameGeneration {
         }
     }
 
-    private final void generateForConcepts(ArrayList concepts, DbObject[] semObjs)
+    private final void generateForConcepts(List concepts, DbObject[] semObjs)
             throws DbException {
         DbMultiTrans.beginTrans(Db.WRITE_TRANS, semObjs, PhysicalNameTrans);
-        for (int i = 0; i < semObjs.length; i++) {
-            DbObject semObj = semObjs[i];
+        for (DbObject obj : semObjs) {
+            DbObject semObj = obj;
             if (semObj instanceof DbORDiagram) {
                 semObj = (DbORModel) semObj.getCompositeOfType(DbORModel.metaClass);
             }
@@ -128,20 +125,20 @@ public final class PhysicalNameGeneration {
             if (semObj != null) {
                 writePackageHeader(semObj);
                 boolean innerPackageNameGen = false;
-                for (int j = 0; j < concepts.size(); j++) {
-                    ArrayList conceptsChanged = new ArrayList();
+                for (Object o : concepts) {
+                    List conceptsChanged = new ArrayList();
                     boolean addSemObjToGeneration = false;
-                    ORPNGParameters param = (ORPNGParameters) concepts.get(j);
+                    ORPNGParameters param = (ORPNGParameters) o;
                     if (param.getConceptMetaClass().isAssignableFrom(semObj.getMetaClass()))
                         addSemObjToGeneration = true;
-                    ArrayList uniqueName = (param.isUnique().booleanValue() ? new ArrayList()
+                    List uniqueName = (param.isUnique() ? new ArrayList()
                             : null);
                     if (param.getStatus().getValue() == ORPNGStatus.PARTIAL) {
-                        ArrayList listConcepts = new ArrayList();
+                        List listConcepts = new ArrayList();
                         if (addSemObjToGeneration)
                             listConcepts.add(semObj);
                         DbEnumeration dbEnum = semObj.componentTree(param.getConceptMetaClass(),
-                                new MetaClass[] { DbSMSPackage.metaClass, DbSMSDiagram.metaClass });
+                                new MetaClass[]{DbSMSPackage.metaClass, DbSMSDiagram.metaClass});
                         while (dbEnum.hasMoreElements()) {
                             DbSemanticalObject concept = (DbSemanticalObject) dbEnum.nextElement();
                             listConcepts.add(concept);
@@ -174,7 +171,7 @@ public final class PhysicalNameGeneration {
                             } //end if
                         } //end if
                         DbEnumeration dbEnum = semObj.componentTree(param.getConceptMetaClass(),
-                                new MetaClass[] { DbSMSPackage.metaClass, DbSMSDiagram.metaClass });
+                                new MetaClass[]{DbSMSPackage.metaClass, DbSMSDiagram.metaClass});
                         while (dbEnum.hasMoreElements()) {
                             DbSemanticalObject concept = (DbSemanticalObject) dbEnum.nextElement();
                             String genName = generatePhysicalNameFor(concept, uniqueName, param);
@@ -205,7 +202,7 @@ public final class PhysicalNameGeneration {
         DbMultiTrans.commitTrans(semObjs);
     } //end generateForConcepts()
 
-    private final String generatePhysicalNameFor(DbSemanticalObject concept, ArrayList uniqueName,
+    private final String generatePhysicalNameFor(DbSemanticalObject concept, List uniqueName,
             ORPNGParameters param) throws DbException {
         String physicalName = null;
 
@@ -219,7 +216,7 @@ public final class PhysicalNameGeneration {
         physicalName = getNameWithSpaceReplaced(physicalName, param);
         physicalName = getNameWithParamApplied(physicalName, param);
         physicalName = getNameWithAccentedCharactersReplaced(physicalName);
-        if (param.isUnique().booleanValue()) {
+        if (param.isUnique()) {
             physicalName = getUniqueName(physicalName, uniqueName, param);
         }
         return physicalName;
@@ -348,9 +345,9 @@ public final class PhysicalNameGeneration {
         return newName;
     }
 
-    private final String getUniqueName(String name, ArrayList uniqueName, ORPNGParameters param) {
-        int length = param.getLength().intValue();
-        int nbrCharByWord = param.getNbrCharByWord().intValue();
+    private final String getUniqueName(String name, List uniqueName, ORPNGParameters param) {
+        int length = param.getLength();
+        int nbrCharByWord = param.getNbrCharByWord();
         String newName = name;
 
         if (!uniqueNameContains(uniqueName, name))
@@ -370,9 +367,9 @@ public final class PhysicalNameGeneration {
         return newName;
     }
 
-    private final boolean uniqueNameContains(ArrayList uniqueName, String name) {
-        for (int j = 0; j < uniqueName.size(); j++) {
-            if (((String) uniqueName.get(j)).equalsIgnoreCase(name))
+    private final boolean uniqueNameContains(List uniqueName, String name) {
+        for (Object o : uniqueName) {
+            if (((String) o).equalsIgnoreCase(name))
                 return true;
         }
         return false;
@@ -436,7 +433,7 @@ public final class PhysicalNameGeneration {
         report.append(TAB + TAB + s + EOL);
     }
 
-    private final void writeInnerConceptComment(ArrayList innerComments) throws DbException {
+    private final void writeInnerConceptComment(List innerComments) throws DbException {
         Collections.sort(innerComments, new CollationComparator());
         for (int i = 0; i < innerComments.size(); i++) {
             writeInnerConceptComment((String) innerComments.get(i));

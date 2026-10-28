@@ -77,19 +77,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import javax.swing.DefaultDesktopManager;
-import javax.swing.JDesktopPane;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JLayeredPane;
-import javax.swing.JMenu;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRootPane;
-import javax.swing.JToolBar;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
@@ -225,7 +213,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
 
     public static final String PROPERTY_LAYOUT = "layout"; //NOT LOCALIZABLE, property key
 
-    public static final Integer PROPERTY_LAYOUT_DEFAULT = new Integer(LAYOUT_LEFT_LEFT);
+    public static final Integer PROPERTY_LAYOUT_DEFAULT = LAYOUT_LEFT_LEFT;
 
     // Frame Preference keys
     public static final String STATUSBAR_PROPERTY = "StatusBar";//NOT LOCALIZABLE, property key
@@ -365,15 +353,17 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
     private JPanel contentPanel = new JPanel();
 
     private JDesktopPane internalFrameContainer = new JDesktopPane() {
+        @Override
         public void setUI(DesktopPaneUI ui) {
-            if (UIManager.getLookAndFeel().getClass().getName().equals(
-                    "com.sun.java.swing.plaf.windows.WindowsLookAndFeel")) { // NOT LOCALIZABLE
-                // We don't want the windows behavior. Conflicts with our
-                // magnifier and overview frames
-                super.setUI(ui);
+            super.setUI(ui);
+
+            //Vérification si le Look and Feel actif est celui de Windows
+            LookAndFeel laf = UIManager.getLookAndFeel();
+            if (laf != null && "Windows".equals(laf.getID())) {
+                // On écrase le DesktopManager spécifique à Windows
+                // pour éviter les conflits avec les frames de loupe et d'aperçu
                 setDesktopManager(new DefaultDesktopManager());
-            } else
-                super.setUI(ui);
+            }
         }
     };
 
@@ -381,7 +371,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
 
     private SrVector projectsNeedingRefresh;
 
-    private ArrayList lockingObjects = new ArrayList();
+    private List lockingObjects = new ArrayList();
 
     private boolean explorerMayBeLocked = false; // Used for locking the
 

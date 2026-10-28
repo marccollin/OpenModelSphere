@@ -51,6 +51,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -114,7 +115,7 @@ public class GenerationTarget {
             return m_targets;
         }
 
-        m_targets = new ArrayList<GenerationTarget>();
+        m_targets = new ArrayList<>();
 
         URL location = getClassLocation();
 
@@ -124,13 +125,9 @@ public class GenerationTarget {
         if (location.getProtocol().equals("file")) {
             String encoded = location.getFile();
             File classFileLocation = null;
-            try {
-                String decoded = URLDecoder.decode(encoded, "UTF-8"); //important
-                classFileLocation = new File(decoded);
+            String decoded = URLDecoder.decode(encoded, StandardCharsets.UTF_8); //important
+            classFileLocation = new File(decoded);
 
-            } catch (UnsupportedEncodingException ex) {
-                ex.printStackTrace();
-            } //end try
             if (classFileLocation != null) {
                 File root = classFileLocation;
                 String classname = GenerationTarget.class.getName();
@@ -145,32 +142,28 @@ public class GenerationTarget {
             }
         } else if (location.getProtocol().equals("jar")) {
             String jarname = location.toExternalForm();
-            
-            try {
-				jarname = URLDecoder.decode(jarname, "UTF-8");
-				int index = jarname.indexOf(".jar!");
-	            if (index > -1)
-	                jarname = jarname.substring(0, index + 4);
-	            index = jarname.indexOf("jar:");
-	            if (index > -1) {
-	                jarname = jarname.substring(4);
-	            }
-	            index = jarname.indexOf("file:/");
-                if (index > -1) {
-                    jarname = jarname.substring(6);
-                    // S'assurer que le chemin est absolu sur Unix/Linux
-                    if (File.separatorChar == '/' && !jarname.startsWith("/")) {
-                        jarname = "/" + jarname;
-                    }
+
+            jarname = URLDecoder.decode(jarname, StandardCharsets.UTF_8);
+            int index = jarname.indexOf(".jar!");
+            if (index > -1)
+                jarname = jarname.substring(0, index + 4);
+            index = jarname.indexOf("jar:");
+            if (index > -1) {
+                jarname = jarname.substring(4);
+            }
+            index = jarname.indexOf("file:/");
+            if (index > -1) {
+                jarname = jarname.substring(6);
+                // S'assurer que le chemin est absolu sur Unix/Linux
+                if (File.separatorChar == '/' && !jarname.startsWith("/")) {
+                    jarname = "/" + jarname;
                 }
-	            index = jarname.indexOf("file:");
-	            if (index > -1) {
-	                jarname = jarname.substring(5);
-	            }
-	            scanJar(new File(jarname), new File(System.getProperty("java.io.tmpdir")), m_targets);
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
+            }
+            index = jarname.indexOf("file:");
+            if (index > -1) {
+                jarname = jarname.substring(5);
+            }
+            scanJar(new File(jarname), new File(System.getProperty("java.io.tmpdir")), m_targets);
         }
 
         return m_targets;

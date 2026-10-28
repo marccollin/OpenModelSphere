@@ -292,7 +292,6 @@ public class PrimaryKey {
 
         //delete column
         col.remove();
-
     }
 
     //
@@ -319,8 +318,7 @@ public class PrimaryKey {
         public int compare(TypeInfo o1, TypeInfo o2) {
             String s1 = o1.m_typename;
             String s2 = o2.m_typename;
-            int comparison = s1.compareTo(s2);
-            return comparison;
+            return s1.compareTo(s2);
         }
 
     }

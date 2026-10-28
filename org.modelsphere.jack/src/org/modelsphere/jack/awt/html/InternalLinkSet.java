@@ -46,12 +46,14 @@ package org.modelsphere.jack.awt.html;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.modelsphere.jack.baseDb.db.DbObject;
 
 public final class InternalLinkSet {
-    HashMap map = new HashMap(); // Map to array List - the key is the dbo
-    ArrayList links = new ArrayList();
+    Map<DbObject, List<InternalLink>> map = new HashMap<>(); // Map to array List - the key is the dbo
+    List<InternalLink> links = new ArrayList<>();
     int nextKey = 0;
 
     public InternalLinkSet() {
@@ -65,7 +67,7 @@ public final class InternalLinkSet {
         if (dbo == null)
             return null;
 
-        ArrayList dbolinks = (ArrayList) map.get(dbo);
+        List dbolinks = map.get(dbo);
         if (dbolinks == null) {
             dbolinks = new ArrayList(2);
             map.put(dbo, dbolinks);
@@ -104,7 +106,7 @@ public final class InternalLinkSet {
             idx++;
         }
 
-        if (number.length() == 0)
+        if (number.isEmpty())
             return null;
 
         int key = -1;

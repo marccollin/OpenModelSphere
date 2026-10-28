@@ -519,7 +519,7 @@ public class NoticeBox extends GraphicNode implements ActionInformation, DbRefre
             return null;
         String pattern = "{0}/{1}";
         return MessageFormat.format(pattern,
-                new Object[] { new Integer(index), new Integer(count) });
+                new Object[] { index, count });
     }
 
     //TODO : parse 'cmd /c ""'
@@ -527,8 +527,7 @@ public class NoticeBox extends GraphicNode implements ActionInformation, DbRefre
         int idx1 = externalDoc.indexOf('\"');
         int idx2 = externalDoc.lastIndexOf('\"');
 
-        String filename = externalDoc.substring(idx1 + 1, idx2);
-        return filename;
+        return externalDoc.substring(idx1 + 1, idx2);
     } //end getActualName()
 
     protected Vector getDocumentImageData(DbSMSNotice notice, File file) throws DbException {

@@ -60,14 +60,13 @@ public final class MetaChoice extends MetaRelationship {
 
     public final void setOppositeRels(MetaRelation[] oppositeRels) {
         this.oppositeRels = oppositeRels;
-        for (int i = 0; i < oppositeRels.length; i++)
-            oppositeRels[i].oppositeRel = this;
+        for (MetaRelation oppositeRel : oppositeRels) oppositeRel.oppositeRel = this;
     }
 
     public final MetaRelationship getOppositeRel(DbObject neighbor) {
-        for (int i = 0; i < oppositeRels.length; i++) {
-            if (oppositeRels[i].getMetaClass().getJClass().isInstance(neighbor))
-                return oppositeRels[i];
+        for (MetaRelation oppositeRel : oppositeRels) {
+            if (oppositeRel.getMetaClass().getJClass().isInstance(neighbor))
+                return oppositeRel;
         }
         return null;
     }

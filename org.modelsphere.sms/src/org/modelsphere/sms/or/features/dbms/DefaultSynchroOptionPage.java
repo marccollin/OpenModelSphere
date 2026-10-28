@@ -49,6 +49,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -231,8 +232,8 @@ public class DefaultSynchroOptionPage extends WizardPage {
             options.setRequestFile(kit.getSQLFileName_Gets(options));
 
             NameListMessage nameListMessage = DefaultReverseWizardOptionPage.getNameList(options);
-            ArrayList nameList = nameListMessage.nameList;
-            if (nameList.size() == 0)
+            List nameList = nameListMessage.nameList;
+            if (nameList.isEmpty())
                 return false;
 
             kit.processNameListMessage(options, nameListMessage);

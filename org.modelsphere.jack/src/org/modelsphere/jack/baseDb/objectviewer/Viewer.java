@@ -50,6 +50,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -147,7 +148,7 @@ public final class Viewer extends JDialog {
                 Viewer.this.dispose();
             } else if (event.getSource() == newviewer) {
                 Object root = explorer.getModel().getRoot();
-                ArrayList tempRoots = new ArrayList();
+                List tempRoots = new ArrayList();
                 Enumeration enumeration = ((DefaultMutableTreeNode) root).children();
                 while (enumeration.hasMoreElements()) {
                     tempRoots.add(((DefaultMutableTreeNode) enumeration.nextElement())
@@ -158,9 +159,9 @@ public final class Viewer extends JDialog {
                 TreePath[] selectedPath = explorer.getSelectionPaths();
                 if (selectedPath == null)
                     return;
-                ArrayList tempRoots = new ArrayList();
-                for (int i = 0; i < selectedPath.length; i++) {
-                    Object obj = selectedPath[i].getLastPathComponent();
+                List tempRoots = new ArrayList();
+                for (TreePath treePath : selectedPath) {
+                    Object obj = treePath.getLastPathComponent();
                     tempRoots.add(((DefaultMutableTreeNode) obj).getUserObject());
                 }
                 Viewer.showViewer(Viewer.this.getParent(), tempRoots.toArray());

@@ -103,8 +103,7 @@ public class ConceptualModelingOptionGroup extends OptionGroup {
             boolean displayRelationalAttributes = applOptions.getPropertyBoolean(
                     TerminologyUtil.class,
                     TerminologyUtil.DISPLAY_RELATIONAL_ATTRIBUTES_FOR_ER_MODELS_KEY,
-                    TerminologyUtil.DISPLAY_RELATIONAL_ATTRIBUTES_FOR_ER_MODELS_DEFAULT)
-                    .booleanValue();
+                    TerminologyUtil.DISPLAY_RELATIONAL_ATTRIBUTES_FOR_ER_MODELS_DEFAULT);
             checkbox.setSelected(displayRelationalAttributes);
         }
 
@@ -118,8 +117,7 @@ public class ConceptualModelingOptionGroup extends OptionGroup {
                 boolean displayRelationalAttributes = checkbox.isSelected();
                 fireOptionChanged(PropertiesManager.APPLICATION_PROPERTIES_SET,
                         TerminologyUtil.class,
-                        TerminologyUtil.DISPLAY_RELATIONAL_ATTRIBUTES_FOR_ER_MODELS_KEY, Boolean
-                                .valueOf(displayRelationalAttributes));
+                        TerminologyUtil.DISPLAY_RELATIONAL_ATTRIBUTES_FOR_ER_MODELS_KEY, displayRelationalAttributes);
             }
         }
 

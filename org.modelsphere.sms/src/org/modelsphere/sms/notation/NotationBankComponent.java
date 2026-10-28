@@ -283,11 +283,7 @@ public class NotationBankComponent extends JPanel implements DbRefreshListener,
         try {
             project.getDb().beginTrans(Db.WRITE_TRANS, NOTATION_ADD);
             DbObject newNotation = project.createComponent(notationClass);
-            newNotation.set(DbSMSNotation.fName, NEW_NOTATION); // TODO: Move
-            // this value in
-            // init default
-            // value of
-            // DbSMSNotation
+            newNotation.set(DbSMSNotation.fName, NEW_NOTATION); // TODO: Move this value in init default value of DbSMSNotation
             if (newNotation instanceof DbORNotation) {
                 int answer = JOptionPane.showOptionDialog(ApplicationContext.getDefaultMainFrame(),
                         kMsgNewNotationMode, ApplicationContext.getApplicationName(),
@@ -295,23 +291,23 @@ public class NotationBankComponent extends JPanel implements DbRefreshListener,
                         new String[] { kConceptualMode, kRelationalMode, kCancel }, kCancel);
                 if (answer == JOptionPane.YES_OPTION) {// Conceptual Mode
                     ((DbORNotation) newNotation)
-                            .setNotationMode(new Integer(DbSMSNotation.ER_MODE));
+                            .setNotationMode(DbSMSNotation.ER_MODE);
                 } else if (answer == JOptionPane.NO_OPTION) {// Relational Mode
                     ((DbORNotation) newNotation)
-                            .setNotationMode(new Integer(DbSMSNotation.OR_MODE));
+                            .setNotationMode(DbSMSNotation.OR_MODE);
                 } else if (answer == JOptionPane.CANCEL_OPTION) {
                     project.getDb().abortTrans();
                     return;
                 }
                 ((DbORNotation) newNotation).initOptions();
             } else {
-                ((DbBENotation) newNotation).setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                ((DbBENotation) newNotation).setNotationMode(DbSMSNotation.BE_MODE);
                 ((DbBENotation) newNotation).initOptions();
             }
-            newNotation.set(DbSMSNotation.fNotationID, new Integer(DbInitialization
-                    .getNextNewNotationId()));
-            newNotation.set(DbSMSNotation.fMasterNotationID, new Integer(
-                    DbInitialization.GANE_SARSON));
+            newNotation.set(DbSMSNotation.fNotationID, DbInitialization
+                    .getNextNewNotationId());
+            newNotation.set(DbSMSNotation.fMasterNotationID,
+                    DbInitialization.GANE_SARSON);
             createNewNotation(newNotation);
             project.getDb().commitTrans();
         } catch (Exception ex) {
@@ -494,8 +490,7 @@ public class NotationBankComponent extends JPanel implements DbRefreshListener,
                     } else
                         ((DbBENotation) newNotation).copyOptions((DbBENotation) srcNotation);
 
-                    newNotation.set(DbSMSNotation.fNotationID, new Integer(DbInitialization
-                            .getNextNewNotationId()));
+                    newNotation.set(DbSMSNotation.fNotationID, DbInitialization.getNextNewNotationId());
                     newNotation.set(DbSMSNotation.fMasterNotationID, ((DbSMSNotation) srcNotation)
                             .getMasterNotationID());
                     createNewNotation(newNotation);

@@ -107,7 +107,7 @@ public final class MergeUseCase {
     private DefaultController controler = null;
 
     // contains MergeInfo objects to update at the end
-    private ArrayList toMerge = new ArrayList();
+    private List toMerge = new ArrayList();
 
     private class MergeInfo {
         DbObject source;
@@ -184,7 +184,7 @@ public final class MergeUseCase {
             return targetNeighbor;
         }
 
-        public void endCopy(ArrayList srcRoots) throws DbException {
+        public void endCopy(List srcRoots) throws DbException {
         }
     }
 
@@ -341,7 +341,7 @@ public final class MergeUseCase {
     private void copyMissingUDFsFor(MetaClass metaclass) throws DbException {
         List udfs = Arrays.asList(DbUDF.getUDF(sourceModel.getProject(), metaclass));
 
-        ArrayList toCreate = new ArrayList();
+        List toCreate = new ArrayList();
         DbProject project = targetModel.getProject();
         Iterator iter = udfs.iterator();
         while (iter.hasNext()) {
@@ -362,7 +362,7 @@ public final class MergeUseCase {
     private void copyMissingStyles() throws DbException {
         DbEnumeration dbEnum = sourceModel.getProject().getComponents().elements(
                 DbBEStyle.metaClass);
-        ArrayList styles = new ArrayList();
+        List<DbObject> styles = new ArrayList();
         while (dbEnum.hasMoreElements()) {
             // todo filter used styles only ???
             DbObject dbo = dbEnum.nextElement();
@@ -380,7 +380,7 @@ public final class MergeUseCase {
     private void copyMissingNotations() throws DbException {
         DbEnumeration dbEnum = sourceModel.getProject().getComponents().elements(
                 DbBENotation.metaClass);
-        ArrayList notations = new ArrayList();
+        List<DbObject> notations = new ArrayList();
         while (dbEnum.hasMoreElements()) {
             // todo filter used notations only ???
             DbObject dbo = dbEnum.nextElement();
@@ -397,7 +397,7 @@ public final class MergeUseCase {
 
     // copy UML Extensibilities, actors, stores, qualifiers and resources
     private void copyMissingModelComponents() throws DbException {
-        ArrayList components = new ArrayList();
+        List<DbObject> components = new ArrayList();
         DbEnumeration dbEnum = null;
         if (!sameProject) {
             // copy missing UML Extensibilities
@@ -487,7 +487,7 @@ public final class MergeUseCase {
     }
 
     private void matchExternalProcesses() throws DbException {
-        ArrayList externalUseCases = new ArrayList();
+        List externalUseCases = new ArrayList();
         // beware: sub external processes must be kept external. They are not
         // part of this split-merge operation
         DbEnumeration dbEnum = source.getComponents().elements(DbBEUseCase.metaClass);
@@ -499,9 +499,8 @@ public final class MergeUseCase {
         }
         dbEnum.close();
 
-        Iterator iter = externalUseCases.iterator();
-        while (iter.hasNext()) {
-            DbBEUseCase usecase = (DbBEUseCase) iter.next();
+        for (Object externalUseCase : externalUseCases) {
+            DbBEUseCase usecase = (DbBEUseCase) externalUseCase;
             DbBEUseCase matchingUsecase = getMatchingDbBEUseCase(usecase);
             if (matchingUsecase == null) {
                 String usecaseInfo = usecase.getName() + " ("; // NOT
@@ -510,8 +509,8 @@ public final class MergeUseCase {
                         .getSourceNumericIdentifier());
                 usecaseInfo += " - "
                         + (usecase.getSourceAlphanumericIdentifier() == null ? kNoAlphaId : usecase
-                                .getSourceAlphanumericIdentifier()) + ")"; // NOT LOCALIZABLE
-                String line = MessageFormat.format(kCouldNotResolve0, new Object[] { usecaseInfo });
+                        .getSourceAlphanumericIdentifier()) + ")"; // NOT LOCALIZABLE
+                String line = MessageFormat.format(kCouldNotResolve0, new Object[]{usecaseInfo});
                 controler.println(line);
             } else {
                 refUseCase.put(usecase, matchingUsecase);
@@ -527,7 +526,7 @@ public final class MergeUseCase {
         if (numericId != null && numericId.length() > 0) {
             matchingUsecase = resolveDbUseCaseID(targetModel, numericId, true);
         }
-        if (matchingUsecase == null && alphaId != null && alphaId.length() > 0) {
+        if (matchingUsecase == null && alphaId != null && !alphaId.isEmpty()) {
             matchingUsecase = resolveDbUseCaseID(targetModel, alphaId, false);
         }
         return matchingUsecase;
@@ -535,7 +534,7 @@ public final class MergeUseCase {
 
     private DbBEUseCase resolveDbUseCaseID(DbBEModel model, String sPath, boolean numeric)
             throws DbException {
-        ArrayList path = getPath(sPath, numeric);
+        List path = getPath(sPath, numeric);
         if (path.size() == 0)
             return null;
         DbObject composite = model;
@@ -560,9 +559,9 @@ public final class MergeUseCase {
         return (DbBEUseCase) composite;
     }
 
-    private ArrayList getPath(String s, boolean numeric) {
-        ArrayList path = new ArrayList();
-        if (s == null || s.length() == 0)
+    private List getPath(String s, boolean numeric) {
+        List path = new ArrayList();
+        if (s == null || s.isEmpty())
             return path;
         StringTokenizer st = new StringTokenizer(s, ".", false);
         while (st.hasMoreTokens()) {
@@ -570,7 +569,7 @@ public final class MergeUseCase {
             try {
                 Object pathElement = null;
                 if (numeric)
-                    pathElement = new Integer(token);
+                    pathElement = token;
                 else
                     pathElement = token;
                 path.add(pathElement);
@@ -589,7 +588,7 @@ public final class MergeUseCase {
     // (DbBEUseCaseResource.metaClass, DbBEUseCaseQualifier.metaClass has been
     // processed previously)
     private void copyComponents() throws DbException {
-        ArrayList dbos = new ArrayList();
+        List dbos = new ArrayList();
         DbEnumeration dbEnum = source.getComponents().elements();
         while (dbEnum.hasMoreElements()) {
             DbObject dbo = (DbObject) dbEnum.nextElement();
@@ -668,7 +667,7 @@ public final class MergeUseCase {
 
         if (mergeQualifiers) {
             // update existing and add missing
-            ArrayList toCopy = new ArrayList();
+            List toCopy = new ArrayList();
             if (source instanceof DbBEActor) {
                 DbEnumeration dbEnum = source.getComponents()
                         .elements(DbBEActorQualifier.metaClass);
@@ -756,7 +755,7 @@ public final class MergeUseCase {
 
         if (mergeResources) {
             // update existing and add missing
-            ArrayList toCopy = new ArrayList();
+            List toCopy = new ArrayList();
             if (source instanceof DbBEUseCase) {
                 DbEnumeration dbEnum = source.getComponents().elements(
                         DbBEUseCaseResource.metaClass);

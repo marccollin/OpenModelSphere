@@ -43,14 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.util;
 
-import java.io.*;
-import java.net.URLEncoder;
+import org.modelsphere.jack.io.PathFile;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-
-import org.modelsphere.jack.io.PathFile;
 
 /**
  * Utility methods for Java archive handling
@@ -92,7 +94,7 @@ public final class JarUtil {
         if (url == null)
             return null;
         String sURL = url;
-        if (!(sURL.indexOf("jar:") == 0) || !(sURL.indexOf("!/") > -1)) // NOT LOCALIZABLE
+        if (!(sURL.indexOf("jar:") == 0) || !(sURL.contains("!/"))) // NOT LOCALIZABLE
             return null;
         return  sURL.substring(sURL.indexOf("!/") + 2, sURL.length()); // NOT LOCALIZABLE, jarFileName
     }
@@ -102,7 +104,7 @@ public final class JarUtil {
         if (url == null)
             return null;
         String sURL = url;
-        if (!(sURL.indexOf("jar:") == 0) || !(sURL.indexOf("!/") > -1)) // NOT LOCALIZABLE
+        if (!(sURL.indexOf("jar:") == 0) || !(sURL.contains("!/"))) // NOT LOCALIZABLE
             return null;
         return  sURL.substring("jar:file:".length(), sURL.indexOf("!/")); // NOT LOCALIZABLE, jarFileName
     }

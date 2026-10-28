@@ -45,6 +45,7 @@ package org.modelsphere.jack.srtool.services;
 
 import java.util.ArrayList;
 import java.net.URL;
+import java.util.List;
 
 import org.modelsphere.jack.services.ServiceMessage;
 
@@ -52,11 +53,11 @@ public class NameListMessage extends ServiceMessage {
     public int connectionId; // in
     public URL filename; // String prive avec get()...
     public boolean commaSeparated; // in
-    public ArrayList ignoredStatementIds; // in
-    public ArrayList nameList = new ArrayList(); // out
+    public List ignoredStatementIds; // in
+    public List nameList = new ArrayList(); // out
 
     public NameListMessage(int aConnectionId, URL aFilename, boolean isCommaSeparated,
-            ArrayList ignoredStatementIds) {
+            List ignoredStatementIds) {
         connectionId = aConnectionId;
         // String urlStr = null;
         // try{ urlStr = URLDecoder.decode(aFilename.getFile(), "UTF-8"); }

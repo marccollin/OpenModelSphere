@@ -109,7 +109,7 @@ class DirectoryModel extends AbstractTableModel {
             if (fileSysEntity.isDirectory()) {
                 return "--";
             } else {
-                return new Long(fileSysEntity.length());
+                return fileSysEntity.length();
             }
         default:
             return "";

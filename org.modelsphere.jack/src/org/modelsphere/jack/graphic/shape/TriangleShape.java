@@ -85,8 +85,8 @@ public class TriangleShape implements GraphicShape {
         Rectangle rect = gc.getRectangle();
         x -= rect.x + rect.width / 2;
         y -= rect.y + rect.height / 2;
-        double dx = (double) x / (rect.width / 2);
-        double dy = (double) y / (rect.height / 2);
+        double dx = (double) x / ((double) rect.width / 2);
+        double dy = (double) y / ((double) rect.height / 2);
         return (dx * dx + dy * dy <= 1);
     }
 

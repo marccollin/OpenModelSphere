@@ -83,25 +83,32 @@ public final class CreateLinkAction extends AbstractApplicationAction implements
             return;
         }
 
-        //TODO Linked elements must be in the same project 
         DbObject dbo1 = selection.get(0);
         DbObject dbo2 = selection.get(1);
-        DbSMSProject project = (DbSMSProject) dbo1.getProject();
+
+        DbSMSProject project1 = (DbSMSProject) dbo1.getProject();
+        DbSMSProject project2 = (DbSMSProject) dbo2.getProject();
+        if (!project1.equals(project2)) {
+            String msg = "Must be in the same project"; //TODO localise
+            JOptionPane.showMessageDialog(dmf, msg, ApplicationContext.getApplicationName(), JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
 
         try {
-            project.getDb().beginWriteTrans(LocaleMgr.action.getString("newLinkModel"));
-            List<DbSMSLinkModel> list = AnySemObject.getAllDbSMSLinkModel(project);
-            if (list == null || list.size() == 0)
+            project1.getDb().beginWriteTrans(LocaleMgr.action.getString("newLinkModel"));
+            List<DbSMSLinkModel> list = AnySemObject.getAllDbSMSLinkModel(project1);
+            if (list == null || list.isEmpty())
                 createDefaultLinkModel(dbo1, dbo2);
 
-            project.getDb().commitTrans();
+            project1.getDb().commitTrans();
 
             dbo1.getDb().beginTrans(Db.WRITE_TRANS, LocaleMgr.action.getString("createLink"));
             SMSLinkFrameExt linkFrame = new SMSLinkFrameExt(dmf, selection, true);
             linkFrame.setLocationRelativeTo(dmf);
             linkFrame.setVisible(true);
 
-            if (linkFrame.cancel == false) {
+            if (!linkFrame.cancel) {
                 DbSMSSemanticalObject src = (DbSMSSemanticalObject) linkFrame.sourceObject;
                 DbSMSSemanticalObject dest = (DbSMSSemanticalObject) linkFrame.targetObject;
                 createLink(linkFrame.linkModel, src, dest);

@@ -37,7 +37,6 @@ import java.awt.Polygon;
 
 import org.modelsphere.jack.graphic.GraphicNode;
 import org.modelsphere.jack.graphic.GraphicUtil;
-import org.modelsphere.jack.graphic.tool.Tool;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.sms.oo.db.srtypes.OOAggregation;
 import org.modelsphere.sms.oo.java.graphic.AdtBox;

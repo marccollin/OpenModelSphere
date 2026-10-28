@@ -524,11 +524,11 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
 
         //stereotype zone
         Boolean b = (style == null) ? Boolean.TRUE : style.getOr_umlStereotypeDisplayed();
-        if ((b != null) && b.booleanValue()) {
+        if ((b != null) && b) {
             stereotypeZone.addColumn(new ColumnCellsOption(stereotypeNameCRO, (CellEditor) null));
         }
         b = (style == null) ? Boolean.TRUE : style.getOr_umlStereotypeIconDisplayed();
-        if ((b != null) && b.booleanValue()) {
+        if ((b != null) && b) {
             stereotypeZone.addColumn(new ColumnCellsOption(stereotypeImageCRO, (CellEditor) null));
         }
 
@@ -613,14 +613,14 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
         Boolean displayTrgsElem = (Boolean) tableGO.find(DbORStyle.fOr_triggerDisplay);
         Boolean displayConsElem = (Boolean) tableGO.find(DbORStyle.fOr_umlConstraintDisplayed);
 
-        boolean displayCols = displayColsElem == null || displayColsElem.booleanValue();
-        boolean displayPKs = (displayPKsElem == null) ? true : displayPKsElem.booleanValue();
-        boolean displayUKs = (displayUKsElem == null) ? true : displayUKsElem.booleanValue();
-        boolean displayFKs = (displayFKsElem == null) ? true : displayFKsElem.booleanValue();
-        boolean displayIdx = (displayIdxElem == null) ? true : displayIdxElem.booleanValue();
-        boolean displayChks = (displayChksElem == null) ? true : displayChksElem.booleanValue();
-        boolean displayTrgs = (displayTrgsElem == null) ? true : displayTrgsElem.booleanValue();
-        boolean displayCons = (displayConsElem == null) ? true : displayConsElem.booleanValue();
+        boolean displayCols = displayColsElem == null || displayColsElem;
+        boolean displayPKs = displayPKsElem == null || displayPKsElem;
+        boolean displayUKs = displayUKsElem == null || displayUKsElem;
+        boolean displayFKs = displayFKsElem == null || displayFKsElem;
+        boolean displayIdx = displayIdxElem == null || displayIdxElem;
+        boolean displayChks = displayChksElem == null || displayChksElem;
+        boolean displayTrgs = displayTrgsElem == null || displayTrgsElem;
+        boolean displayCons = displayConsElem == null || displayConsElem;
 
         columnZone.setVisible(displayCols);
         pKConstraintZone.setVisible(displayPKs);
@@ -737,7 +737,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
 
         MetaField mf = DbORStyle.fOr_umlStereotypeDisplayed;
         Boolean b = (Boolean) tableGO.find(mf);
-        if ((b != null) && b.booleanValue()) {
+        if ((b != null) && b) {
             stereotypeName = getUMLStereotypeName(tableSO);
         } //end if
 
@@ -749,7 +749,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
 
         MetaField mf = DbORStyle.fOr_umlStereotypeDisplayed;
         Boolean b = (Boolean) tableGO.find(mf);
-        if ((b != null) && b.booleanValue()) {
+        if ((b != null) && b) {
             stereotypeName = getUMLStereotypeName(columnSO);
         } //end if
 
@@ -765,13 +765,13 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
 
         int stereotypeStyle = 0;
         Boolean b = (style == null) ? Boolean.TRUE : style.getOr_umlStereotypeDisplayed();
-        if ((b != null) && b.booleanValue()) {
+        if ((b != null) && b) {
             stereotypeZone.addColumn(new ColumnCellsOption(stereotypeNameCRO,
                     new SMSStereotypeEditor(DbORTable.fUmlStereotype)));
             stereotypeStyle += 1;
         }
         b = (style == null) ? Boolean.TRUE : style.getOr_umlStereotypeIconDisplayed();
-        if ((b != null) && b.booleanValue()) {
+        if ((b != null) && b) {
             stereotypeZone.addColumn(new ColumnCellsOption(stereotypeImageCRO,
                     new SMSStereotypeEditor(DbORTable.fUmlStereotype)));
             stereotypeStyle += 2;
@@ -836,7 +836,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
         tableZone.set(0, TABLE_ADD_DESCRIPTOR_IDX, getNameZoneCell(tableSO, additionnalDescriptor,
                 null));
         tableZone.set(0, TABLE_NAME_IDX, getNameZoneCell(tableSO, DbORStyle.fOr_nameDescriptor,
-                null, ((Boolean) tableGO.find(DbORStyle.fOr_tableOwnerDisplay)).booleanValue()));
+                null, (Boolean) tableGO.find(DbORStyle.fOr_tableOwnerDisplay)));
 
         tableZone.set(0, TABLE_DUPLICATE_IDX, new ZoneCell(tableSO, calculateDuplicate(tableSO
                 .getClassifierGos(), tableGO)));
@@ -938,7 +938,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
             return null;
         String pattern = "{0}/{1}";
         return MessageFormat.format(pattern,
-                new Object[] { new Integer(index), new Integer(count) });
+                new Object[] { index, count });
     }
 
     public final int calculateIndexID(DbORIndex index) throws DbException {
@@ -979,8 +979,8 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
             while (ins.hasMoreElements()) {
                 DbORColumn column = (DbORColumn) ins.nextElement();
 
-                if (true == bHideForeignAttributes)
-                    if (true == column.isForeign())
+                if (bHideForeignAttributes)
+                    if (column.isForeign())
                         continue;
 
                 populateColumn(column, rowCtr);
@@ -1008,7 +1008,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
         //Column Type Cell Visibility
         DbORTypeClassifier typeClassifier = column.getType();
         if (typeClassifier != null
-                && ((Boolean) tableGO.find(DbORStyle.fOr_columnTypeDisplay)).booleanValue()) {
+                && (Boolean) tableGO.find(DbORStyle.fOr_columnTypeDisplay)) {
             CellRenderingOption typeRendering = getDescriptorCRO(column, columnTypeCRO);
             ZoneCell zc = getNameZoneCell(typeClassifier, DbORStyle.fOr_nameDescriptor,
                     typeRendering);
@@ -1024,7 +1024,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
 
         //Column source type Cell visibility
         DbORTypeClassifier sourceType = null;
-        if (((Boolean) tableGO.find(DbORStyle.fOr_columnDomainSourceTypeDisplay)).booleanValue()) {
+        if ((Boolean) tableGO.find(DbORStyle.fOr_columnDomainSourceTypeDisplay)) {
             if (typeClassifier != null && typeClassifier instanceof DbORDomain)
                 sourceType = ((DbORDomain) typeClassifier).getSourceType();
         }
@@ -1040,7 +1040,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
             columnZone.set(rowCtr, COLUMN_SOURCE_TYPE_IDX, new ZoneCell(column, null));
 
         //Column Length Nb Decimal Cell visibility
-        if (((Boolean) tableGO.find(DbORStyle.fOr_columnLengthDecimalsDisplay)).booleanValue()) {
+        if ((Boolean) tableGO.find(DbORStyle.fOr_columnLengthDecimalsDisplay)) {
             LengthNbDecimal = column.getLengthNbDecimal();
         }
         CellRenderingOption rendering = getDescriptorCRO(column, columnLengthDecimalCRO);
@@ -1048,7 +1048,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
                 rendering, null));
 
         //Column null Value Possible Cell visibility
-        if (((Boolean) tableGO.find(DbORStyle.fOr_columnNullValueDisplay)).booleanValue()) {
+        if ((Boolean) tableGO.find(DbORStyle.fOr_columnNullValueDisplay)) {
             nullValuePossible = (column.isNull() ? LocaleMgr.screen.getString("Null")
                     : LocaleMgr.screen.getString("NotNull"));
         }
@@ -1057,7 +1057,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
                 rendering, null));
 
         //Column default Value Cell visibility
-        if (((Boolean) tableGO.find(DbORStyle.fOr_columnDefaultValueDisplay)).booleanValue()) {
+        if ((Boolean) tableGO.find(DbORStyle.fOr_columnDefaultValueDisplay)) {
             defaultValue = column.getInitialValue();
         }
         rendering = getDescriptorCRO(column, columnDefaultValueCRO);
@@ -1139,7 +1139,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
                         DbORStyle.fOr_nameDescriptor, null));
 
                 String columns = null;
-                if (((Boolean) tableGO.find(DbORStyle.fOr_pkColumnsDisplay)).booleanValue()) {
+                if ((Boolean) tableGO.find(DbORStyle.fOr_pkColumnsDisplay)) {
                     List<DbORColumn> columnList = getColumnList(primaryKey,
                             DbORPrimaryUnique.fColumns);
                     columns = getColumnsString(columnList);
@@ -1164,7 +1164,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
                         DbORStyle.fOr_nameDescriptor, null));
 
                 String columns = null;
-                if (((Boolean) tableGO.find(DbORStyle.fOr_ukColumnsDisplay)).booleanValue()) {
+                if ((Boolean) tableGO.find(DbORStyle.fOr_ukColumnsDisplay)) {
                     List<DbORColumn> columnList = getColumnList(unique, DbORPrimaryUnique.fColumns);
                     columns = getColumnsString(columnList);
                 }
@@ -1187,7 +1187,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
                         DbORStyle.fOr_nameDescriptor, null));
 
                 String columns = null;
-                if (((Boolean) tableGO.find(DbORStyle.fOr_fkColumnsDisplay)).booleanValue()) {
+                if ((Boolean) tableGO.find(DbORStyle.fOr_fkColumnsDisplay)) {
                     List<DbORColumn> columnList = getColumnList(fk, DbObject.fComponents);
                     columns = getColumnsString(columnList);
                 }
@@ -1210,7 +1210,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
                         DbORStyle.fOr_nameDescriptor, null));
 
                 String columnsString = null;
-                if (((Boolean) tableGO.find(DbORStyle.fOr_indexColumnsDisplay)).booleanValue()) {
+                if ((Boolean) tableGO.find(DbORStyle.fOr_indexColumnsDisplay)) {
                     List<DbORColumn> columnList = new ArrayList<DbORColumn>();
                     DbEnumeration indexKeys = index.getComponents()
                             .elements(DbORIndexKey.metaClass);
@@ -1227,13 +1227,13 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
 
                 indexZone.set(rowCtr, INDEX_COLUMNS_IDX, new ZoneCell(index, columnsString));
                 String type = null;
-                if (((Boolean) tableGO.find(DbORStyle.fOr_indexTypeDisplay)).booleanValue()
+                if ((Boolean) tableGO.find(DbORStyle.fOr_indexTypeDisplay)
                         && index instanceof DbINFIndex)
                     type = ((DbINFIndex) index).isCluster() ? LocaleMgr.screen.getString("CLUSTER")
                             : null;
                 indexZone.set(rowCtr, INDEX_TYPE_IDX, new ZoneCell(index, type));
                 String unique = null;
-                if (((Boolean) tableGO.find(DbORStyle.fOr_indexUniqueDisplay)).booleanValue())
+                if ((Boolean) tableGO.find(DbORStyle.fOr_indexUniqueDisplay))
                     unique = (index.isUnique() ? LocaleMgr.screen.getString("Unique")
                             : LocaleMgr.screen.getString("NotUnique"));
                 indexZone.set(rowCtr, INDEX_UNIQUE_IDX, new ZoneCell(index, unique));
@@ -1255,7 +1255,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
                 checkConstraintZone.set(rowCtr, CHECK_NAME_IDX, getNameZoneCell(check,
                         DbORStyle.fOr_nameDescriptor, null));
                 String columns = null;
-                if (((Boolean) tableGO.find(DbORStyle.fOr_checkParametersDisplay)).booleanValue()) {
+                if ((Boolean) tableGO.find(DbORStyle.fOr_checkParametersDisplay)) {
                     List<DbORColumn> columnList = getColumnList(check, null);
                     columns = getColumnsString(columnList);
                 }
@@ -1284,7 +1284,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
                         DbORStyle.fOr_nameDescriptor, null));
 
                 String columnsString = null;
-                if (((Boolean) tableGO.find(DbORStyle.fOr_triggerColumnsDisplay)).booleanValue()) {
+                if ((Boolean) tableGO.find(DbORStyle.fOr_triggerColumnsDisplay)) {
                     List<DbORColumn> columnList = getColumnList(trigger, DbORTrigger.fColumns);
                     columnsString = getColumnsString(columnList);
                 }
@@ -1414,7 +1414,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
                 addToCompositeElements(compositeElements, (DbtPrefix) tableGO
                         .find(DbORStyle.fOr_pkColumnsPrefix), -1);
             else
-                ukOrderedList.add(new Integer(calculateUniqueConstraintID(uniqueKey)));
+                ukOrderedList.add(calculateUniqueConstraintID(uniqueKey));
         }
         ukEnum.close();
 
@@ -1422,22 +1422,22 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
         DbEnumeration fkEnum = column.getFKeyColumns().elements();
         while (fkEnum.hasMoreElements()) {
             DbORForeign foreignKey = (DbORForeign) fkEnum.nextElement().getComposite();
-            fkOrderedList.add(new Integer(calculateForeignConstraintID(foreignKey)));
+            fkOrderedList.add(calculateForeignConstraintID(foreignKey));
         }
         fkEnum.close();
 
         Object[] orderedArray = ukOrderedList.toArray();
         Arrays.sort(orderedArray);
-        for (int i = 0; i < orderedArray.length; i++) {
+        for (Object item : orderedArray) {
             addToCompositeElements(compositeElements, (DbtPrefix) tableGO
-                    .find(DbORStyle.fOr_ukColumnsPrefix), ((Integer) orderedArray[i]).intValue());
+                    .find(DbORStyle.fOr_ukColumnsPrefix), (Integer) item);
         }
 
         orderedArray = fkOrderedList.toArray();
         Arrays.sort(orderedArray);
-        for (int i = 0; i < orderedArray.length; i++) {
+        for (Object object : orderedArray) {
             addToCompositeElements(compositeElements, (DbtPrefix) tableGO
-                    .find(DbORStyle.fOr_fkColumnsPrefix), ((Integer) orderedArray[i]).intValue());
+                    .find(DbORStyle.fOr_fkColumnsPrefix), (Integer) object);
         }
 
         if (column.isForeign() && orderedArray.length == 0)
@@ -1449,15 +1449,15 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
         List<Integer> OrderedList = new ArrayList<Integer>();
         while (indexKeys.hasMoreElements()) {
             DbORIndexKey indexKey = (DbORIndexKey) indexKeys.nextElement();
-            OrderedList.add(new Integer(calculateIndexID((DbORIndex) indexKey.getComposite())));
+            OrderedList.add(calculateIndexID((DbORIndex) indexKey.getComposite()));
         }
         indexKeys.close();
 
         orderedArray = OrderedList.toArray();
         Arrays.sort(orderedArray);
-        for (int i = 0; i < orderedArray.length; i++) {
+        for (Object o : orderedArray) {
             addToCompositeElements(compositeElements, (DbtPrefix) tableGO
-                    .find(DbORStyle.fOr_indexColumnsPrefix), ((Integer) orderedArray[i]).intValue());
+                    .find(DbORStyle.fOr_indexColumnsPrefix), (Integer) o);
         }
 
         //Super-Sub columns
@@ -1515,8 +1515,8 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
             DbtPrefix prefix, int nb) {
         if (prefix.getDisplayedComponent() == DbtPrefix.DISPLAY_TEXT) {
             String textPrefix = prefix.getText();
-            if (textPrefix != null && textPrefix.length() > 0) {
-                if ((textPrefix.indexOf(DbORStyle.SEQUENCE_KEYWORD) != -1)) {
+            if (textPrefix != null && !textPrefix.isEmpty()) {
+                if ((textPrefix.contains(DbORStyle.SEQUENCE_KEYWORD))) {
                     String number = (nb != -1 ? Integer.toString(nb) : "");
                     textPrefix = StringUtil.replaceWords(textPrefix, DbORStyle.SEQUENCE_KEYWORD,
                             number);
@@ -1551,7 +1551,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
         if (column.isForeign())
             metafields.add(DbORStyle.fOr_fkDescriptorFormat);
 
-        if (metafields.size() > 0) {
+        if (!metafields.isEmpty()) {
             ORDescriptorFormat format = getColumnDescriptorFormat(metafields.toArray());
 
             if (format.isBold() || format.isItalic() || format.isUnderline()) {
@@ -1590,7 +1590,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
         int i = 0;
         if (metaFields != null) {
             while ((i < metaFields.length)
-                    && !(bold == true && italic == true && underline == true)) {
+                    && !(bold && italic && underline)) {
                 ORDescriptorFormat format = (ORDescriptorFormat) tableGO
                         .find((MetaField) metaFields[i]);
                 if (format.isBold())
@@ -1745,8 +1745,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
                         DbORTableGo go = (DbORTableGo) enu2.nextElement();
                         GraphicNode node = (GraphicNode) go.getGraphicPeer();
 
-                        if (node instanceof ORTableBox) {
-                            ORTableBox tableBox = (ORTableBox) node;
+                        if (node instanceof ORTableBox tableBox) {
                             tableBox.populateContents();
                         }
                     } //end while

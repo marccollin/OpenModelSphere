@@ -212,15 +212,15 @@ public abstract class Db {
                 String[] dbClassNames = new String[] { "DbGemStone", "DbObjectivity",
                         "DbObjectStore" }; // NOT LOCALIZABLE - Class name
                 //Db db = null;
-                for (int i = 0; i < dbClassNames.length; i++) {
+                for (String dbClassName : dbClassNames) {
                     try {
                         Class dbClass = Class.forName("org.modelsphere.jack.baseDb.db."
-                                + dbClassNames[i]); // NOT LOCALIZABLE - Package name
-                        Constructor dbConstructor = dbClass.getDeclaredConstructor(new Class[] {
-                                String.class, int.class, boolean.class });
-                        tempdb = (Db) dbConstructor.newInstance(new Object[] { rootName,
+                                + dbClassName); // NOT LOCALIZABLE - Package name
+                        Constructor dbConstructor = dbClass.getDeclaredConstructor(new Class[]{
+                                String.class, int.class, boolean.class});
+                        tempdb = (Db) dbConstructor.newInstance(new Object[]{rootName,
                                 converter.getCurrentVersion(),
-                                (convert ? Boolean.FALSE : Boolean.TRUE) });
+                                (convert ? Boolean.FALSE : Boolean.TRUE)});
                     } catch (ClassNotFoundException e1) {
                         Debug.trace(e1);
                         //org.modelsphere.jack.util.ExceptionHandler.processUncatchedException(null, e1);

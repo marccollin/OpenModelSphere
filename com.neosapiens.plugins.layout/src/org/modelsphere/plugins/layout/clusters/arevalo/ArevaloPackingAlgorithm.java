@@ -186,7 +186,7 @@ public class ArevaloPackingAlgorithm implements ClustersLayoutAlgorithm {
             if (isPlaced) {
                 for (Entry<Node, Integer> nodeEntry : nodesCluster.entrySet()) {
 
-                    if (nodeEntry.getValue() == clustersBounds.get(clusterBounds)) {
+                    if (Objects.equals(nodeEntry.getValue(), clustersBounds.get(clusterBounds))) {
                         int x = nextBounds.x + nodeEntry.getKey().getX() - clusterBounds.x;
                         int y = nextBounds.y + nodeEntry.getKey().getY() - clusterBounds.y;
                         nodeEntry.getKey().setLocation(x, y);

@@ -91,9 +91,9 @@ public class LinkQualifiersAndResourcesAction extends AbstractApplicationAction 
         // processOrActorOrFlow
 
         processOrActorOrFlows.getDb().beginWriteTrans(LINK_QUALIFIER_OR_RESOURCE);
-        for (int i = 0; i < dragObjects.length; i++) {
-            if (dragObjects[i] instanceof DbBEResource) {
-                DbBEResource resource = (DbBEResource) dragObjects[i];
+        for (DbObject dragObject : dragObjects) {
+            if (dragObject instanceof DbBEResource) {
+                DbBEResource resource = (DbBEResource) dragObject;
                 DbEnumeration dbEnum = processOrActorOrFlows.getComponents().elements(
                         DbBEUseCaseResource.metaClass);
                 boolean found = false;
@@ -108,15 +108,15 @@ public class LinkQualifiersAndResourcesAction extends AbstractApplicationAction 
                 if (!found) {
                     if (processOrActorOrFlows instanceof DbBEUseCase)
                         new DbBEUseCaseResource(processOrActorOrFlows,
-                                (DbBEResource) dragObjects[i]);
+                                (DbBEResource) dragObject);
                 } else {
                     JOptionPane.showMessageDialog(ApplicationContext.getDefaultMainFrame(),
                             LINK_ALREADY_EXISTS_MESSAGE, ApplicationContext.getApplicationName(),
                             JOptionPane.INFORMATION_MESSAGE);
                 }
-            } else if (dragObjects[i] instanceof DbBEQualifier) {
+            } else if (dragObject instanceof DbBEQualifier) {
                 if (processOrActorOrFlows instanceof DbBEUseCase) {
-                    DbBEQualifier qualifier = (DbBEQualifier) dragObjects[i];
+                    DbBEQualifier qualifier = (DbBEQualifier) dragObject;
                     DbEnumeration dbEnum = processOrActorOrFlows.getComponents().elements(
                             DbBEUseCaseQualifier.metaClass);
                     boolean found = false;
@@ -131,13 +131,13 @@ public class LinkQualifiersAndResourcesAction extends AbstractApplicationAction 
                     dbEnum.close();
                     if (!found) {
                         new DbBEUseCaseQualifier(processOrActorOrFlows,
-                                (DbBEQualifier) dragObjects[i]);
+                                (DbBEQualifier) dragObject);
                     } else
                         JOptionPane.showMessageDialog(ApplicationContext.getDefaultMainFrame(),
                                 LINK_ALREADY_EXISTS_MESSAGE, ApplicationContext.getApplicationName(),
                                 JOptionPane.INFORMATION_MESSAGE);
                 } else if (processOrActorOrFlows instanceof DbBEFlow) {
-                    DbBEQualifier qualifier = (DbBEQualifier) dragObjects[i];
+                    DbBEQualifier qualifier = (DbBEQualifier) dragObject;
                     DbEnumeration dbEnum = processOrActorOrFlows.getComponents().elements(
                             DbBEFlowQualifier.metaClass);
                     boolean found = false;
@@ -150,13 +150,13 @@ public class LinkQualifiersAndResourcesAction extends AbstractApplicationAction 
                     }
                     dbEnum.close();
                     if (!found)
-                        new DbBEFlowQualifier(processOrActorOrFlows, (DbBEQualifier) dragObjects[i]);
+                        new DbBEFlowQualifier(processOrActorOrFlows, (DbBEQualifier) dragObject);
                     else
                         JOptionPane.showMessageDialog(ApplicationContext.getDefaultMainFrame(),
                                 LINK_ALREADY_EXISTS_MESSAGE, ApplicationContext.getApplicationName(),
                                 JOptionPane.INFORMATION_MESSAGE);
                 } else if (processOrActorOrFlows instanceof DbBEActor) {
-                    DbBEQualifier qualifier = (DbBEQualifier) dragObjects[i];
+                    DbBEQualifier qualifier = (DbBEQualifier) dragObject;
                     DbEnumeration dbEnum = processOrActorOrFlows.getComponents().elements(
                             DbBEActorQualifier.metaClass);
                     boolean found = false;
@@ -170,13 +170,13 @@ public class LinkQualifiersAndResourcesAction extends AbstractApplicationAction 
                     dbEnum.close();
                     if (!found)
                         new DbBEActorQualifier(processOrActorOrFlows,
-                                (DbBEQualifier) dragObjects[i]);
+                                (DbBEQualifier) dragObject);
                     else
                         JOptionPane.showMessageDialog(ApplicationContext.getDefaultMainFrame(),
                                 LINK_ALREADY_EXISTS_MESSAGE, ApplicationContext.getApplicationName(),
                                 JOptionPane.INFORMATION_MESSAGE);
                 } else if (processOrActorOrFlows instanceof DbBEStore) {
-                    DbBEQualifier qualifier = (DbBEQualifier) dragObjects[i];
+                    DbBEQualifier qualifier = (DbBEQualifier) dragObject;
                     DbEnumeration dbEnum = processOrActorOrFlows.getComponents().elements(
                             DbBEStoreQualifier.metaClass);
                     boolean found = false;
@@ -190,7 +190,7 @@ public class LinkQualifiersAndResourcesAction extends AbstractApplicationAction 
                     dbEnum.close();
                     if (!found)
                         new DbBEStoreQualifier(processOrActorOrFlows,
-                                (DbBEQualifier) dragObjects[i]);
+                                (DbBEQualifier) dragObject);
                     else
                         JOptionPane.showMessageDialog(ApplicationContext.getDefaultMainFrame(),
                                 LINK_ALREADY_EXISTS_MESSAGE, ApplicationContext.getApplicationName(),

@@ -161,9 +161,7 @@ class ImageViewer extends AbstractViewer {
             if (idx != -1) {
                 String ext = filename.substring(1 + idx);
                 if (ext.equals("jpg") || ext.equals("gif")) { // NOT
-                    // LOCALIZABLE,
-                    // file
-                    // extension
+                    // LOCALIZABLE, file extension
                     accepted = true;
                 }
             } // end if

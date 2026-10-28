@@ -63,7 +63,7 @@ public class StringWrapper {
         boolean nextUpper = false;
         //String allLower = this.s.toLowerCase();
         for (int i = 0; i < this.s.length(); i++) {
-            Character currentChar = this.s.charAt(i);
+            char currentChar = this.s.charAt(i);
             if (currentChar == '_') {
                 nextUpper = true;
             } else {
@@ -71,7 +71,7 @@ public class StringWrapper {
                     currentChar = Character.toUpperCase(currentChar);
                     nextUpper = false;
                 }
-                result = result.concat(currentChar.toString());
+                result = result.concat(Character.toString(currentChar));
             }
         }
 

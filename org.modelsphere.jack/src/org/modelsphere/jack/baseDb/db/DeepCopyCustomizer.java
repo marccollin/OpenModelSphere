@@ -44,6 +44,7 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.baseDb.db;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaRelationship;
@@ -67,5 +68,5 @@ public interface DeepCopyCustomizer {
     public DbObject resolveLink(DbObject srcObj, MetaRelationship metaRel, DbObject srcNeighbor)
             throws DbException;
 
-    public void endCopy(ArrayList srcRoots) throws DbException;
+    public void endCopy(List srcRoots) throws DbException;
 }

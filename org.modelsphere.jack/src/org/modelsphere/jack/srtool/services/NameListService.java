@@ -117,7 +117,7 @@ public final class NameListService extends NameListServiceProtocol {
         }
     }
 
-    private void executeParsedFile(NameListMessage nameListMessage, ArrayList cmds) {
+    private void executeParsedFile(NameListMessage nameListMessage, List cmds) {
         BufferedWriter buffer = null;
         int connectionId = nameListMessage.connectionId;
         boolean commaSeparated = nameListMessage.commaSeparated;

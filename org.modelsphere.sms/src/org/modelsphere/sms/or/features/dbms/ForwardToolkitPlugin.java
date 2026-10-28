@@ -139,6 +139,8 @@ public abstract class ForwardToolkitPlugin implements Plugin2 {
     			
     			if (mgr.isValid(pluginDescriptor)) {
     				Class<?> claz = pluginDescriptor.getPluginClass();
+				if (claz == null)
+					continue;
     		
     				//if it's a toolkit
     				if (ForwardToolkitPlugin.class.isAssignableFrom(claz))  {
@@ -414,4 +416,3 @@ public abstract class ForwardToolkitPlugin implements Plugin2 {
     //
     /////////////////////////
 } //end ForwardToolkit
-

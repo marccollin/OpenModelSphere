@@ -86,9 +86,9 @@ public class DisplayRecentModifsOptionGroup extends OptionGroup {
             ChangeListener {
 
         private static final long serialVersionUID = 1L;
-        private JRadioButton option1 = new JRadioButton();
-        private JRadioButton option2 = new JRadioButton();
-        private JRadioButton option3 = new JRadioButton();
+        private JRadioButton rbDoNotDisplay = new JRadioButton();
+        private JRadioButton rbCurrentSession = new JRadioButton();
+        private JRadioButton rbUnsavedModifications = new JRadioButton();
         private JRadioButton option4 = new JRadioButton();
 
         private JCheckBox checkBox1 = new JCheckBox();
@@ -103,22 +103,22 @@ public class DisplayRecentModifsOptionGroup extends OptionGroup {
             setLayout(new GridBagLayout());
             int row = 0;
 
-            add(option1, new GridBagConstraints(0, row, 3, 1, 0.0, 0.0, GridBagConstraints.NORTH,
+            add(rbDoNotDisplay, new GridBagConstraints(0, row, 3, 1, 0.0, 0.0, GridBagConstraints.NORTH,
                     GridBagConstraints.BOTH, new Insets(12, 3, 3, 3), 0, 0));
-            option1.setText(LocaleMgr.screen.getString("DoNotDisplay"));
-            option1.addActionListener(this);
+            rbDoNotDisplay.setText(LocaleMgr.screen.getString("DoNotDisplay"));
+            rbDoNotDisplay.addActionListener(this);
             row++;
 
-            add(option2, new GridBagConstraints(0, row, 3, 1, 0.0, 0.0, GridBagConstraints.NORTH,
+            add(rbCurrentSession, new GridBagConstraints(0, row, 3, 1, 0.0, 0.0, GridBagConstraints.NORTH,
                     GridBagConstraints.BOTH, new Insets(3, 3, 3, 3), 0, 0));
-            option2.setText(LocaleMgr.screen.getString("CurrentSession"));
-            option2.addActionListener(this);
+            rbCurrentSession.setText(LocaleMgr.screen.getString("CurrentSession"));
+            rbCurrentSession.addActionListener(this);
             row++;
 
-            add(option3, new GridBagConstraints(0, row, 3, 1, 0.0, 0.0, GridBagConstraints.NORTH,
+            add(rbUnsavedModifications, new GridBagConstraints(0, row, 3, 1, 0.0, 0.0, GridBagConstraints.NORTH,
                     GridBagConstraints.BOTH, new Insets(3, 3, 3, 3), 0, 0));
-            option3.setText(LocaleMgr.screen.getString("UnsavedModifications"));
-            option3.addActionListener(this);
+            rbUnsavedModifications.setText(LocaleMgr.screen.getString("UnsavedModifications"));
+            rbUnsavedModifications.addActionListener(this);
             row++;
 
             /*
@@ -128,9 +128,9 @@ public class DisplayRecentModifsOptionGroup extends OptionGroup {
              */
 
             ButtonGroup group = new ButtonGroup();
-            group.add(option1);
-            group.add(option2);
-            group.add(option3);
+            group.add(rbDoNotDisplay);
+            group.add(rbCurrentSession);
+            group.add(rbUnsavedModifications);
             group.add(option4);
 
             label = new JLabel(LocaleMgr.screen.getString("HighlightColor"));
@@ -153,7 +153,7 @@ public class DisplayRecentModifsOptionGroup extends OptionGroup {
             innerPanel.add(lineColorBtn, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0,
                     GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 6, 0),
                     0, 0));
-            colorPanel.setPreferredSize(new Dimension(lineColorBtn.getPreferredSize().height,
+            colorPanel.setPreferredSize(new Dimension(lineColorBtn.getPreferredSize().width,
                     lineColorBtn.getPreferredSize().height));
             row++;
 
@@ -215,13 +215,13 @@ public class DisplayRecentModifsOptionGroup extends OptionGroup {
 
             switch (displayOption) {
             case DisplayRecentModifications.DO_NOT_DISPLAY_RECENT_MODIFS:
-                option1.setSelected(true);
+                rbDoNotDisplay.setSelected(true);
                 break;
             case DisplayRecentModifications.DISPLAY_SESSION_MODIFS:
-                option2.setSelected(true);
+                rbCurrentSession.setSelected(true);
                 break;
             case DisplayRecentModifications.DISPLAY_UNSAVED_MODIFS:
-                option3.setSelected(true);
+                rbUnsavedModifications.setSelected(true);
                 break;
             case DisplayRecentModifications.DISPLAY_MODIFS_SINCE:
                 option4.setSelected(true);
@@ -344,11 +344,11 @@ public class DisplayRecentModifsOptionGroup extends OptionGroup {
         private int getDisplayOption() {
             int option = -1;
 
-            if (option1.isSelected()) {
+            if (rbDoNotDisplay.isSelected()) {
                 option = DisplayRecentModifications.DO_NOT_DISPLAY_RECENT_MODIFS;
-            } else if (option2.isSelected()) {
+            } else if (rbCurrentSession.isSelected()) {
                 option = DisplayRecentModifications.DISPLAY_SESSION_MODIFS;
-            } else if (option3.isSelected()) {
+            } else if (rbUnsavedModifications.isSelected()) {
                 option = DisplayRecentModifications.DISPLAY_UNSAVED_MODIFS;
             } else if (option4.isSelected()) {
                 option = DisplayRecentModifications.DISPLAY_MODIFS_SINCE;

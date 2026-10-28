@@ -166,9 +166,7 @@ public abstract class AbstractApplicationAction extends AbstractAction implement
 
         if (name != null) {
             super.putValue(Action.SHORT_DESCRIPTION, name); // By default:
-            // Duplication of
-            // name for use with
-            // tooltips
+            // Duplication of name for use with tooltips
         }
 
         if (this instanceof SelectionActionListener) {

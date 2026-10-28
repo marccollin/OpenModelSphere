@@ -48,6 +48,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -77,8 +79,8 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
 
     private DiagramView diagView = null;
     private DbSemanticalObject diagPackage = null;
-    private ArrayList origTools = new ArrayList();
-    private ArrayList toolComponents = new ArrayList();
+    private List origTools = new ArrayList();
+    private List toolComponents = new ArrayList();
     private int origMaster = 0;
 
     public ToolButtonGroup() {
@@ -160,8 +162,8 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
     }
 
     private boolean init = false;
-    private HashMap diagramPackagesCompVisibility = new HashMap();
-    private HashMap diagramPackagesCompEnabled = new HashMap();
+    private Map diagramPackagesCompVisibility = new HashMap();
+    private Map diagramPackagesCompEnabled = new HashMap();
 
     public void setVisible(int index, boolean visible) {
         MetaClass diagPackageMetaClass = diagPackage.getMetaClass();
@@ -323,8 +325,8 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
 
     private void setAllEnabled(boolean value) {
         int nb = toolComponents.size();
-        for (int i = 0; i < nb; i++) {
-            JComponent comp = (JComponent) toolComponents.get(i);
+        for (Object toolComponent : toolComponents) {
+            JComponent comp = (JComponent) toolComponent;
             comp.setEnabled(value);
         }
     }

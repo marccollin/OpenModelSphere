@@ -48,13 +48,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Vector;
+import java.util.*;
 
 import javax.swing.JDialog;
 
@@ -98,10 +92,10 @@ public class ReverseWorker extends Worker {
         UniqueFileVector uniqueFileVector = new UniqueFileVector(fileVector);
         int totalReverseCount = uniqueFileVector.size();
         Enumeration enumeration = uniqueFileVector.elements();
-        ArrayList reverseList = getInstantiatedReverseList();
+        List reverseList = getInstantiatedReverseList();
         Hashtable modelTable = new Hashtable();
         Vector obsoleteObjectVector = new Vector();
-        HashMap diagMap = new HashMap(); // set to null if we do not want
+        Map diagMap = new HashMap(); // set to null if we do not want
         // graphics
         StringWriter logBuffer = new StringWriter();
         int successfulReverseCount = 0;
@@ -252,7 +246,7 @@ public class ReverseWorker extends Worker {
                 JackOptionPane.DEFAULT_OPTION, JackOptionPane.WARNING_MESSAGE, null, options,
                 options[0]);
 
-        cancel = (option == 0) ? false : true;
+        cancel = option != 0;
         return cancel;
     }
 
@@ -263,21 +257,17 @@ public class ReverseWorker extends Worker {
     } // end computeProgression()
 
     // Instantiate reverse only once ArrayList getReverseList()
-    private ArrayList instantiatedReverseList = null;
+    private List instantiatedReverseList = null;
 
-    protected ArrayList getInstantiatedReverseList() {
+    protected List getInstantiatedReverseList() {
         if (instantiatedReverseList == null) {
             instantiatedReverseList = new ArrayList();
-            Iterator iter = m_options.m_reverseList.iterator();
-            while (iter.hasNext()) {
-                Class claz = (Class) iter.next();
+            for (Object o : m_options.m_reverseList) {
+                Class claz = (Class) o;
                 try {
-                    JackReverseEngineeringPlugin reverse = (JackReverseEngineeringPlugin) claz
-                            .newInstance();
+                    JackReverseEngineeringPlugin reverse = (JackReverseEngineeringPlugin) claz.newInstance();
                     instantiatedReverseList.add(reverse);
-                } catch (IllegalAccessException ex) {
-                    // try next reverse
-                } catch (InstantiationException ex) {
+                } catch (IllegalAccessException | InstantiationException ex) {
                     // try next reverse
                 }
             } // end while
@@ -286,7 +276,7 @@ public class ReverseWorker extends Worker {
         return instantiatedReverseList;
     } // end getInstantiatedReverseList()
 
-    private JackReverseEngineeringPlugin getReverseForFile(ArrayList reverseList, File file) {
+    private JackReverseEngineeringPlugin getReverseForFile(List reverseList, File file) {
         JackReverseEngineeringPlugin reverse = null;
 
         Iterator iter = reverseList.iterator();
@@ -311,7 +301,7 @@ public class ReverseWorker extends Worker {
     // Sort files according the priority of their reverse module (for example,
     // if ClassReverse has a higher priority than JavaReverse, .class files
     // will be reversed before .java files)
-    protected void sortAccordingPriority(Vector uniqueFileVector, final ArrayList reverseList) {
+    protected void sortAccordingPriority(Vector uniqueFileVector, final List reverseList) {
         // use a hashtable to associate a file with a reverse module
         final Hashtable table = new Hashtable();
 
@@ -352,13 +342,12 @@ public class ReverseWorker extends Worker {
         }
     } // end sortAccordingPriority()
 
-    private JackReverseEngineeringPlugin getRelevantReverse(File file, ArrayList reverseList)
+    private JackReverseEngineeringPlugin getRelevantReverse(File file, List reverseList)
             throws IOException {
         JackReverseEngineeringPlugin reverse = null;
 
-        Iterator iter = reverseList.iterator();
-        while (iter.hasNext()) {
-            Class claz = (Class) iter.next();
+        for (Object o : reverseList) {
+            Class claz = (Class) o;
             try {
                 JackReverseEngineeringPlugin r = (JackReverseEngineeringPlugin) claz.newInstance();
 
@@ -366,9 +355,7 @@ public class ReverseWorker extends Worker {
                     reverse = r;
                     break;
                 }
-            } catch (IllegalAccessException ex) {
-                // ignore and continue with the next reverse
-            } catch (InstantiationException ex) {
+            } catch (IllegalAccessException | InstantiationException ex) {
                 // ignore and continue with the next reverse
             }
         } // end while
@@ -377,20 +364,20 @@ public class ReverseWorker extends Worker {
     } // getRelevantReverse()
 
     // Normaly terminated
-    final private void terminate(ArrayList reverseList, int successfulReverseCount,
+    final private void terminate(List reverseList, int successfulReverseCount,
             int totalReverseCount, StringWriter logBuffer, String name) {
         Controller controller = getController();
         String log = logBuffer.toString();
 
         // if warning messages in log buffer
-        if (log.length() != 0) {
+        if (!log.isEmpty()) {
             controller.println(log);
         }
 
         if (successfulReverseCount > 0) {
             String reverseCountMessage = java.text.MessageFormat.format(FILES_REVERSED,
-                    new Object[] { new Integer(successfulReverseCount),
-                            new Integer(totalReverseCount), name });
+                    new Object[] { successfulReverseCount,
+                            totalReverseCount, name });
             controller.println(reverseCountMessage);
         } // end if
     } // end terminate()

@@ -100,7 +100,7 @@ public final class DirectoryChooser extends AbstractDirectoryChooser {
      * Constructs a <code>DirectoryChooser</code> using the given path. Passing in a
      * <code>null</code> string causes the directory chooser to point to the user's home directory.
      * 
-     * @param currentDirectoryPath
+     * @param currentDirectory
      *            a <code>File</code> giving the path to a directory
      */
     public DirectoryChooser(File currentDirectory) {
@@ -113,7 +113,7 @@ public final class DirectoryChooser extends AbstractDirectoryChooser {
      * 
      * @param fsv
      *            a given FileSystemView
-     * @param currentDirectoryPath
+     * @param currentDirectory
      *            a <code>File</code> giving the path to a directory
      */
     public DirectoryChooser(File currentDirectory, FileSystemView fsv) {

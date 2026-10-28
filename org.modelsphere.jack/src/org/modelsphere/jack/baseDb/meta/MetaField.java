@@ -86,24 +86,20 @@ public class MetaField {
 
     public static void addDbUpdateListener(DbUpdateListener listener, int prio,
             MetaField[] metaFields) {
-        for (int i = 0; i < metaFields.length; i++)
-            metaFields[i].addDbUpdateListener(listener, prio);
+        for (MetaField metaField : metaFields) metaField.addDbUpdateListener(listener, prio);
     }
 
     public static void removeDbUpdateListener(DbUpdateListener listener, MetaField[] metaFields) {
-        for (int i = 0; i < metaFields.length; i++)
-            metaFields[i].removeDbUpdateListener(listener);
+        for (MetaField metaField : metaFields) metaField.removeDbUpdateListener(listener);
     }
 
     public static void addDbRefreshListener(DbRefreshListener listener, DbProject project,
             MetaField[] metaFields) {
-        for (int i = 0; i < metaFields.length; i++)
-            metaFields[i].addDbRefreshListener(listener, project);
+        for (MetaField metaField : metaFields) metaField.addDbRefreshListener(listener, project);
     }
 
     public static void removeDbRefreshListener(DbRefreshListener listener, MetaField[] metaFields) {
-        for (int i = 0; i < metaFields.length; i++)
-            metaFields[i].removeDbRefreshListener(listener);
+        for (MetaField metaField : metaFields) metaField.removeDbRefreshListener(listener);
     }
 
     public MetaField(String GUIName) {

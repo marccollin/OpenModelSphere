@@ -118,7 +118,7 @@ class DomainComboBox extends JackComboBox {
                 String propertyName = e.getPropertyName();
                 if (propertyName.equals("enabled")) { // NOT LOCALIZABLE,
                     // property key
-                    setEnabled(((Boolean) e.getNewValue()).booleanValue());
+                    setEnabled((Boolean) e.getNewValue());
                 } else if (propertyName.equals(AbstractApplicationAction.VISIBLE)
                         || propertyName.equals(AbstractApplicationAction.TOOLBAR_VISIBLE_OPTION)) {
                     updateVisible();
@@ -128,8 +128,7 @@ class DomainComboBox extends JackComboBox {
                     preventEvent = false;
                 } else if (propertyName.equals(AbstractDomainAction.SELECTED_VALUE)) {
                     if (uiSelectionVisible) {
-                        int newsel = e.getNewValue() == null ? -1 : ((Integer) e.getNewValue())
-                                .intValue();
+                        int newsel = e.getNewValue() == null ? -1 : (Integer) e.getNewValue();
                         preventEvent = true;
                         setSelectedIndex(newsel);
                         preventEvent = false;

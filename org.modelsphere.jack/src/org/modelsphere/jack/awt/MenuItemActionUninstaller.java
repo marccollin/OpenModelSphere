@@ -81,8 +81,7 @@ final class MenuItemActionUninstaller implements PropertyChangeListener {
                                 // Check for all sub menu components that may be
                                 // linked to an action and remove this link
                                 Component[] comps = ((JackMenu) item).getMenuComponents();
-                                for (int i = 0; i < comps.length; i++) {
-                                    Object subitem = comps[i];
+                                for (Object subitem : comps) {
                                     if (subitem instanceof JMenuItem)
                                         ((JMenuItem) subitem).setAction(null);
                                 }

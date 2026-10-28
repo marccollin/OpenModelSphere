@@ -43,9 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 import org.modelsphere.jack.baseDb.db.DbUDF.UDFMap;
 import org.modelsphere.jack.baseDb.meta.*;
@@ -77,10 +75,10 @@ public final class DeepCopy {
     private DbProject srcProject;
     private DbProject destProject;
     private DeepCopyCustomizer customizer;
-    private ArrayList srcRoots = new ArrayList();
-    private HashSet srcObjects = new HashSet();
+    private List srcRoots = new ArrayList();
+    private Set srcObjects = new HashSet();
     private UDFMap udfMap = null;
-    private ArrayList objsToRemove = new ArrayList();
+    private List objsToRemove = new ArrayList();
 
     // beginMatching must be done prior to DeepCopy object instantiation.
     public DeepCopy(DbProject srcProject, DbProject destProject, DeepCopyCustomizer customizer)
@@ -97,8 +95,7 @@ public final class DeepCopy {
 
     public final void create(DbObject[] srcObjs, DbObject destComposite,
             boolean namePrefixedWithCopyOf) throws DbException {
-        for (int i = 0; i < srcObjs.length; i++)
-            create(srcObjs[i], destComposite, namePrefixedWithCopyOf);
+        for (DbObject srcObj : srcObjs) create(srcObj, destComposite, namePrefixedWithCopyOf);
     }
 
     public final DbObject create(DbObject srcObj, DbObject destComposite,
@@ -110,16 +107,14 @@ public final class DeepCopy {
 
     // Must be called after all calls to <create>, to complete the copy operation.
     public final void fill() throws DbException {
-        Iterator iter = srcObjects.iterator();
-        while (iter.hasNext()) {
-            DbObject srcObj = (DbObject) iter.next();
+        for (Object srcObject : srcObjects) {
+            DbObject srcObj = (DbObject) srcObject;
             copyUdfValues(srcObj);
             fillAux(srcObj);
         }
         if (customizer != null)
             customizer.endCopy(srcRoots);
-        for (int i = 0; i < objsToRemove.size(); i++)
-            ((DbObject) objsToRemove.get(i)).remove();
+        for (Object o : objsToRemove) ((DbObject) o).remove();
     }
 
     // deepCopy step 1: create all the objects without links, except composite 
@@ -196,8 +191,7 @@ public final class DeepCopy {
         MetaClass commonClass = srcObj.getMetaClass().getCommonSuperMetaClass(
                 destObj.getMetaClass());
         MetaField[] allMetaFields = commonClass.getAllMetaFields();
-        for (int i = 0; i < allMetaFields.length; i++) {
-            MetaField metaField = allMetaFields[i];
+        for (MetaField metaField : allMetaFields) {
             if (!(metaField instanceof MetaRelationship))
                 continue;
             MetaRelationship relation = (MetaRelationship) metaField;

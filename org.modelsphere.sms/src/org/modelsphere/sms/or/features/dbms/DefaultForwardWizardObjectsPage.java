@@ -414,20 +414,20 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
         panel.add(String.valueOf(id), comp);
         CardLayout layout = (CardLayout) panel.getLayout();
         cardLayoutLastItem++;
-        cardLayoutComponentTable.put(new Integer(id), new Integer(cardLayoutLastItem - 1)); //associate name & rank
+        cardLayoutComponentTable.put(id, cardLayoutLastItem - 1); //associate name & rank
     }
 
     private void showCardLayoutComponent(JPanel panel, int id) {
         CardLayout layout = (CardLayout) panel.getLayout();
 
         //another way to implement layout.show()
-        Integer iPosition = (Integer) cardLayoutComponentTable.get(new Integer(id));
+        Integer iPosition = (Integer) cardLayoutComponentTable.get(id);
 
         //iPositon null if user selects a non-leaf node: do nothing in this case
         if (iPosition == null)
             iPosition = (Integer) cardLayoutComponentTable.get("empty"); //NOT LOCALIZABLE
 
-        cardLayoutCurrentItem = iPosition.intValue();
+        cardLayoutCurrentItem = iPosition;
         layout.first(panel);
         for (int i = 0; i < cardLayoutCurrentItem; i++) {
             layout.next(panel);

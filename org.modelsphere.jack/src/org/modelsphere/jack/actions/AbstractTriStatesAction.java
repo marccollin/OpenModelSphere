@@ -84,12 +84,11 @@ public abstract class AbstractTriStatesAction extends AbstractTwoStatesAction {
         Boolean value = getStateToPerform();
         try {
             DbMultiTrans.beginTrans(Db.WRITE_TRANS, objs, transName);
-            for (int i = 0; i < objs.length; i++)
-                setObjectValue(objs[i], value);
+            for (Object obj : objs) setObjectValue(obj, value);
             DbMultiTrans.commitTrans(objs);
             // would be better with a trigger, but probably too costly to do it
             if (getUpdateSelectionMode() == UPDATE_SELECTION_ONLINE)
-                setState(value.booleanValue() ? STATE_ON : STATE_OFF);
+                setState(value ? STATE_ON : STATE_OFF);
         } catch (Exception ex) {
             org.modelsphere.jack.util.ExceptionHandler.processUncatchedException(ApplicationContext
                     .getDefaultMainFrame(), ex);
@@ -98,11 +97,11 @@ public abstract class AbstractTriStatesAction extends AbstractTwoStatesAction {
 
     protected final void updateTriState(Object[] objs) throws DbException {
         int state = STATE_NOT_APPLICABLE;
-        for (int i = 0; i < objs.length; i++) {
-            Boolean value = getObjectValue(objs[i]);
+        for (Object obj : objs) {
+            Boolean value = getObjectValue(obj);
             if (value == null)
                 continue;
-            state = updateTriState(state, value.booleanValue());
+            state = updateTriState(state, value);
             if (state == STATE_ON_OFF)
                 break;
         }

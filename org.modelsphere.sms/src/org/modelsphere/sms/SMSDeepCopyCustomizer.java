@@ -38,6 +38,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -86,8 +87,8 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
     protected DbSMSTargetSystem targetSystem; // composite target system.
     protected int rootID; // root ID of the composite target system (-1 if not
     // in a OR model).
-    private HashMap typeMap; // built-in types of the composite target system.
-    private HashMap domainMap; // domains of the composite target system.
+    private Map typeMap; // built-in types of the composite target system.
+    private Map domainMap; // domains of the composite target system.
 
     private DbBEModel sourceBEModel;
     private DbBEModel targetBEModel;
@@ -187,7 +188,7 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
         int i;
         for (i = 0; i < sequenceIdList.size(); i++) {
             Boolean retval = sequenceIdList.get(i);
-            if (retval.booleanValue() == false)
+            if (retval == false)
                 return i;
         }
         return i;
@@ -214,7 +215,7 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
         int retval = 0;
 
         try {
-            retval = new Integer(sequenceId).intValue();
+            retval = Integer.parseInt(sequenceId);
         } catch (Exception e) {
         }
 
@@ -282,7 +283,7 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
         // if "Copy of" was indeed found, we must find the next valid sequence
         // Id and build the name accordingly
 
-        Integer nextSeqId = new Integer(findNextSequenceId(composite, objectMetaClass));
+        Integer nextSeqId = findNextSequenceId(composite, objectMetaClass);
         return MessageFormat.format(COPY_OF_NUMBERED, new String[] { nextSeqId.toString(), name });
     }
 
@@ -460,7 +461,7 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
 
     // If copy from a super-schema to a sub-schema, or the opposite side, set
     // the superCopy link whenever possible.
-    public final void endCopy(ArrayList srcRoots) throws DbException {
+    public final void endCopy(List srcRoots) throws DbException {
         int i;
         for (i = 0; i < srcRoots.size(); i++) {
             DbObject dbo = (DbObject) srcRoots.get(i);

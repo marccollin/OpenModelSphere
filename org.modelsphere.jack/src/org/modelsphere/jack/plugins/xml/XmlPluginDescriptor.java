@@ -88,6 +88,7 @@ import org.modelsphere.jack.plugins.io.PluginContext;
 import org.modelsphere.jack.plugins.io.PluginLoader;
 import org.modelsphere.jack.plugins.xml.extensions.AbstractPluginExtension;
 import org.modelsphere.jack.plugins.xml.extensions.PopupExtension;
+import org.modelsphere.jack.plugins.xml.fs.FsEntry;
 import org.modelsphere.jack.plugins.xml.fs.FsFile;
 import org.modelsphere.jack.plugins.xml.fs.FsFolder;
 import org.w3c.dom.Document;
@@ -813,17 +814,9 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 		PluginContext context = getContext();
 		URL url = context.getURL();
 		
+		FsFolder parent = m_pluginXml.getParent();
 		if (url == null) {
-			FsFolder parent = m_pluginXml.getParent(); 
 			url = parent.toURL();
-			
-			/*
-			//File home = getHomeDirectory();
-			try {
-				url = home.toURI().toURL();
-			} catch (MalformedURLException ex) {
-				url = null;
-			}*/
 		}
 		
         if (url != null) {
@@ -831,7 +824,16 @@ public class XmlPluginDescriptor implements PluginDescriptor {
             //ensure Plugin2 is loaded before creating the URLClassLoader
             //required by Java Web Start
             ClassLoader parentCL = Plugin2.class.getClassLoader();
-            classLoader = new URLClassLoader(new URL[] { url }, parentCL);
+            List<URL> urls = new ArrayList<URL>();
+            String jarPath = (String) getAttributes().get(PluginConstants.JAR);
+            if (jarPath != null) {
+                FsEntry jarFile = parent.getNamedDescendent(jarPath);
+                URL jarURL = jarFile == null ? null : jarFile.toURL();
+                if (jarURL != null)
+                    urls.add(jarURL);
+            }
+            urls.add(url);
+            classLoader = new URLClassLoader(urls.toArray(new URL[urls.size()]), parentCL);
         } else {
             System.out.println("Undefined class loader for " + this);
             classLoader = null;

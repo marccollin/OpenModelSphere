@@ -65,10 +65,9 @@ public abstract class OOForwardEngineeringPlugin extends GenericForwardEngineeri
         //look for a html variable
         String condition = "html"; //NOT LOCALIZABLE
         VariableScope vars = getVarScope();
-        ArrayList conds = GenerateFromTemplatesAction.getConditions(vars);
-        Iterator iter = conds.iterator();
-        while (iter.hasNext()) {
-            VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) iter.next();
+        List conds = GenerateFromTemplatesAction.getConditions(vars);
+        for (Object cond : conds) {
+            VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) cond;
             String varName = variable.getName();
             if (varName.equals(condition)) {
                 variable.setValue(Boolean.TRUE);
@@ -81,10 +80,9 @@ public abstract class OOForwardEngineeringPlugin extends GenericForwardEngineeri
         //look for a html variable
         String condition = "html"; //NOT LOCALIZABLE
         VariableScope varScope = getVarScope();
-        ArrayList conds = GenerateFromTemplatesAction.getConditions(varScope);
-        Iterator iter = conds.iterator();
-        while (iter.hasNext()) {
-            VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) iter.next();
+        List conds = GenerateFromTemplatesAction.getConditions(varScope);
+        for (Object cond : conds) {
+            VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) cond;
             String varName = variable.getName();
             if (varName.equals(condition)) {
                 variable.setValue(Boolean.FALSE);

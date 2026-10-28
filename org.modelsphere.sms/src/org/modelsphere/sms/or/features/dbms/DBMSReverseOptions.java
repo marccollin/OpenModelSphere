@@ -45,6 +45,7 @@ package org.modelsphere.sms.or.features.dbms;
 
 //Java
 import java.util.ArrayList;
+import java.util.List;
 
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -78,7 +79,7 @@ public class DBMSReverseOptions {
     // the initialisation is made in the toolkit
     private Object specificDBMSOptions;
 
-    public ArrayList nameList = new ArrayList();
+    public List nameList = new ArrayList();
 
     // used for reading from extract files
     public boolean fromExtractFile = false;
@@ -112,11 +113,11 @@ public class DBMSReverseOptions {
         connection = aConnection;
     }
 
-    public ArrayList getNameList() {
+    public List getNameList() {
         return nameList;
     }
 
-    public void setNameList(ArrayList aList) {
+    public void setNameList(List aList) {
         nameList = aList;
     }
 

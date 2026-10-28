@@ -540,8 +540,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
             rule = userConn.createInstance(childRule, oneChildRule);
 
             //add modifiers
-            for (int i = 0; i < modifiers.length; i++) {
-                Modifier mod = modifiers[i];
+            for (Modifier mod : modifiers) {
                 if (mod instanceof PrefixModifier) {
                     rule.prefixModifier = (PrefixModifier) mod;
                 } else if (mod instanceof SeparatorModifier) {

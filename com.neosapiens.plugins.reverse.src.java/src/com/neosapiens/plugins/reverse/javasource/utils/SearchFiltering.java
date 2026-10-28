@@ -21,7 +21,7 @@ public class SearchFiltering {
             boolean searchInDescription, boolean searchInBody) {
         List<DbObject> matchingObjects = new ArrayList<DbObject>();
         try {
-            int casePattern = (caseSensitive == true ? Pattern.DOTALL : Pattern.DOTALL
+            int casePattern = (caseSensitive ? Pattern.DOTALL : Pattern.DOTALL
                     | Pattern.CASE_INSENSITIVE);
             for (DbObject object : objects) {
                 boolean matched = false;

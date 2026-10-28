@@ -100,8 +100,7 @@ public class CodeGenerationPlugin implements Plugin2 {
     @Override
     public PluginAction getPluginAction() {
         String name = LocaleMgr.misc.getString("CodeGeneration") + "...";
-        PluginAction action = new PluginAction(this, name);
-        return action;
+        return new PluginAction(this, name);
     }
 
     @Override

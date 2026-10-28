@@ -148,7 +148,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
         //ArrayList plugins = mgr.getPluginsRegistry()
         //        .getActivePluginInstances(kit.getForwardClass());
         SQLForwardEngineeringPlugin sqlForward = null;
-        if (plugins != null && plugins.size() > 0)
+        if (plugins != null && !plugins.isEmpty())
             sqlForward = (SQLForwardEngineeringPlugin) plugins.get(0);
         if (sqlForward == null) {
             displayError(kit);

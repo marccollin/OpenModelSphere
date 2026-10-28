@@ -21,6 +21,7 @@ public class ParameterOfMethode {
             this.setFinal(false);
             this.setAnnotation(null);
         }
+        assert variableModifier != null;
         if(variableModifier.endsWith("final") || variableModifier.equalsIgnoreCase("final"))
         {
             this.setFinal(true);

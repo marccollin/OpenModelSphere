@@ -15,7 +15,8 @@ dependencies {
     implementation(project(":org.modelsphere.jack"))
     implementation(project(":org.modelsphere.sms"))
 
-    implementation(files("../org.modelsphere.jack/lib/antlr-3.3-complete.jar"))
+    implementation(libs.stringtemplate)
+    implementation(libs.antlr)
 }
 
 sourceSets {

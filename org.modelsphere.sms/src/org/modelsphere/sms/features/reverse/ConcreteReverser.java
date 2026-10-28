@@ -35,10 +35,7 @@ package org.modelsphere.sms.features.reverse;
 
 import java.io.File;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Vector;
+import java.util.*;
 
 import org.modelsphere.jack.actions.AbstractActionsStore;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -102,9 +99,9 @@ public class ConcreteReverser extends AbstractReverser {
     }
 
     public String reverseCurrentFile(DbObject reverseEngineeredPackage,
-            JackReverseEngineeringPlugin reverse, /* Class modelClaz, */
-            Vector obsoleteObjectVector, HashMap diagMap, File file, DbProject project,
-            StringWriter logBuffer) throws Exception {
+                                     JackReverseEngineeringPlugin reverse, /* Class modelClaz, */
+            Vector obsoleteObjectVector, Map diagMap, File file, DbProject project,
+                                     StringWriter logBuffer) throws Exception {
 
         String errMsg;
         DbSMSPackage pack = (DbSMSPackage) reverseEngineeredPackage;
@@ -132,13 +129,13 @@ public class ConcreteReverser extends AbstractReverser {
         pack.getDb().commitTrans();
 
         pack.getDb().beginWriteTrans("");
-        for (int i = 0; i < diagrams.size(); i++) {
+        for (DbOODiagram diagram : diagrams) {
             CreateMissingGraphicsAction action2 = (CreateMissingGraphicsAction) ApplicationContext
                     .getActionStore().get(SMSActionsStore.CREATE_MISSING_GRAPHICS);
-            action2.performAction(diagrams.get(i));
+            action2.performAction(diagram);
             LayoutSelectionAction action3 = (LayoutSelectionAction) ApplicationContext
                     .getActionStore().get(SMSActionsStore.LAYOUT_SELECTION);
-            action3.performAction(new GraphicComponent[] {}, diagrams.get(i));
+            action3.performAction(new GraphicComponent[]{}, diagram);
         }
         pack.getDb().commitTrans();
 

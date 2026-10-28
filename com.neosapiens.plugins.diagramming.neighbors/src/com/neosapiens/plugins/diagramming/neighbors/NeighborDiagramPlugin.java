@@ -318,7 +318,6 @@ public class NeighborDiagramPlugin extends OOForwardEngineeringPlugin implements
         if (table instanceof DbORChoiceOrSpecialization) {
             DbORChoiceOrSpecialization choiceSpec = (DbORChoiceOrSpecialization)table;
             
-            
             enu = choiceSpec.getAssociations().elements(DbORAssociation.metaClass); 
             while (enu.hasMoreElements()) {
                 DbORAssociation assoc = (DbORAssociation)enu.nextElement(); 

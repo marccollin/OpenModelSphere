@@ -651,7 +651,7 @@ public class Graph extends DirectedMultigraph<Vertex, Edge> {
         }
 
         // if there are any
-        if (dummyNeighbors.size() != 0) {
+        if (!dummyNeighbors.isEmpty()) {
             // try each one recursively.
             for (DummyVertex neighbor : dummyNeighbors) {
                 stack.add(neighbor);

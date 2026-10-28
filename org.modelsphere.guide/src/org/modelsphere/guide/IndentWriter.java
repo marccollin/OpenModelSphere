@@ -127,7 +127,7 @@ public void print(char c) {
     if (c == '\n') newline = true;
 }
 public void print(char[] s) {
-    for (int i = 0; i < s.length; ++i) print(s[i]);
+    for (char c : s) print(c);
 }
 public void print(double d) { doIndent(); super.print(d); }
 public void print(float f) { doIndent(); super.print(f); }

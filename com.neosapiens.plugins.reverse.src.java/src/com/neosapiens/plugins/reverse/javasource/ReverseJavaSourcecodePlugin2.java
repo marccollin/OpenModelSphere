@@ -43,7 +43,6 @@ public class ReverseJavaSourcecodePlugin2 implements Plugin2 {
     public Class<? extends Object>[] getSupportedClasses() {
         return null;
     }
-    
 
     @Override
     public void execute(ActionEvent ev) throws Exception {

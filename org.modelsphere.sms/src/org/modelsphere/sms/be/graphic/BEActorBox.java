@@ -41,6 +41,8 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -107,11 +109,11 @@ public class BEActorBox extends GraphicNode implements ActionInformation, DbRefr
     protected DbBEActorGo actorGO;
     protected DbBEActor actorSO;
     protected DbBENotation notation;
-    private HashMap zonesMap = null;
+    private Map zonesMap = null;
     private DbBEDiagram beDiagram;
-    private ArrayList zones = null;
+    private List zones = null;
     private BEQualifier qualifiersGo = null;
-    private ArrayList qualifiers = null;
+    private List<DbBEQualifier> qualifiers = null;
     private String boxName = null;
 
     // listeners
@@ -414,7 +416,7 @@ public class BEActorBox extends GraphicNode implements ActionInformation, DbRefr
     }
 
     protected void setLineStyle() throws DbException {
-        Boolean dashStyle = actorSO.isControl() == true ? Boolean.TRUE : (Boolean) actorGO
+        Boolean dashStyle = actorSO.isControl() ? Boolean.TRUE : (Boolean) actorGO
                 .find(DbBEActorGo.fDashStyle);
         setLineStyle((Boolean) actorGO.find(DbBEActorGo.fHighlight), dashStyle);
     }
@@ -476,7 +478,7 @@ public class BEActorBox extends GraphicNode implements ActionInformation, DbRefr
             return null;
         String pattern = "({0}/{1})";
         return MessageFormat.format(pattern,
-                new Object[] { new Integer(index), new Integer(count) });
+                new Object[] { index, count });
     }
 
     public void refreshAfterDbUpdate(DbUpdateEvent e) throws DbException {

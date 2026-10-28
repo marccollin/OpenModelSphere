@@ -72,10 +72,10 @@ public final class UpdateEnvironment {
 
     private DbBEUseCase useCase;
     private boolean addGo = true;
-    private ArrayList useCaseDiags = new ArrayList();
+    private List useCaseDiags = new ArrayList();
     private HashMap flowSemObjectMap = new HashMap();
     private DeepCopyCustomizer copyCustomizer = new CopyCustomizer();
-    private ArrayList addedClassifierGos = new ArrayList();
+    private List addedClassifierGos = new ArrayList();
     private boolean m_updatedEnvironment = false;
 
     private int m_leftCounter, m_rightCounter;
@@ -150,7 +150,7 @@ public final class UpdateEnvironment {
             return;
         Iterator iter = flowSemObjectMap.keySet().iterator();
         while (iter.hasNext()) {
-            ArrayList matchedFlowsList = new ArrayList();
+            List matchedFlowsList = new ArrayList();
             DbSMSClassifier end1 = null;
             DbSMSClassifier end2 = null;
             DbBEFlow flow = (DbBEFlow) iter.next();
@@ -460,7 +460,7 @@ public final class UpdateEnvironment {
             return srcNeighbor.findMatchingObject();
         }
 
-        public void endCopy(ArrayList srcRoots) throws DbException {
+        public void endCopy(List srcRoots) throws DbException {
             if (srcRoots.size() != 1)
                 return;
 

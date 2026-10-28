@@ -204,7 +204,7 @@ public class OutputSemanticAction implements SemanticAction {
         System.out.print(" ");
         System.out.print(")");
         
-        if (declarationOfMethod.getMethodExceptionsList().size() != 0)
+        if (!declarationOfMethod.getMethodExceptionsList().isEmpty())
         {
             System.out.print("throws");
         

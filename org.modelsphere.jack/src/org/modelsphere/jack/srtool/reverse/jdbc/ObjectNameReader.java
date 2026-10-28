@@ -51,9 +51,9 @@ import org.modelsphere.jack.srtool.reverse.InputReadable;
 
 public final class ObjectNameReader implements InputReadable {
     // ObjectBuilder builder;
-    ArrayList nameList;
+    List nameList;
 
-    public ObjectNameReader(ArrayList anArray) {
+    public ObjectNameReader(List anArray) {
         nameList = anArray;
     }
 
@@ -79,7 +79,7 @@ public final class ObjectNameReader implements InputReadable {
 
     // INNER CLASSES
     class InputFileParserStream extends LexerStream {
-        private final String eol = System.getProperty("line.separator");
+        private final String eol = System.lineSeparator();
 
         InputFileParserStream(Reader reader) {
             super(reader);
@@ -109,8 +109,8 @@ public final class ObjectNameReader implements InputReadable {
                     "text" }; // NOT LOCALIZABLE, keywords
 
             boolean found = false;
-            for (int i = 0; i < keywords.length; i++) {
-                if (word.equals(keywords[i])) {
+            for (String keyword : keywords) {
+                if (word.equals(keyword)) {
                     found = true;
                     break;
                 }

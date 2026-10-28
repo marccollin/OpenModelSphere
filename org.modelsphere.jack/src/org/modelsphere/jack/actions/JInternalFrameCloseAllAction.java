@@ -43,10 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.actions;
 
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
-
 import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
 
 public class JInternalFrameCloseAllAction extends JInternalFrameAbstractAction {
 
@@ -62,9 +61,9 @@ public class JInternalFrameCloseAllAction extends JInternalFrameAbstractAction {
             JInternalFrame[] frames = desktop.getAllFrames();
             int frameCount = frames.length;
             try {
-                for (int i = 0; i < frameCount; i++) {
-                    if (frames[i].isClosable())
-                        frames[i].setClosed(true);
+                for (JInternalFrame frame : frames) {
+                    if (frame.isClosable())
+                        frame.setClosed(true);
                 }
             } catch (java.beans.PropertyVetoException e) {
             } // stop the process at the first frame closing vetoed.

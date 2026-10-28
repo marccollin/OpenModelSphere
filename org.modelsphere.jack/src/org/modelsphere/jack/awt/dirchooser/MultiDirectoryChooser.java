@@ -43,22 +43,25 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.dirchooser;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
-import javax.swing.event.*;
-import javax.swing.tree.*;
-
 import org.modelsphere.jack.international.LocaleMgr;
 
-import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.filechooser.FileSystemView;
+import javax.swing.tree.TreePath;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.IOException;
 
 /**
  * <code>MultiDirectoryChooser</code> provides a simple mechanism for the user to choose several
@@ -102,7 +105,7 @@ public final class MultiDirectoryChooser extends AbstractDirectoryChooser {
      * Constructs a <code>MultiDirectoryChooser</code> using the given path. Passing in a
      * <code>null</code> string causes the directory chooser to point to the user's home directory.
      * 
-     * @param currentDirectoryPath
+     * @param currentDirectory
      *            a <code>File</code> giving the path to a directory
      */
     public MultiDirectoryChooser(File currentDirectory) {
@@ -115,7 +118,7 @@ public final class MultiDirectoryChooser extends AbstractDirectoryChooser {
      * 
      * @param fsv
      *            a given FileSystemView
-     * @param currentDirectoryPath
+     * @param currentDirectory
      *            a <code>File</code> giving the path to a directory
      */
     public MultiDirectoryChooser(File currentDirectory, FileSystemView fsv) {
@@ -138,8 +141,8 @@ public final class MultiDirectoryChooser extends AbstractDirectoryChooser {
     public void setSelectedFiles(File[] selectedDirectories) {
         if (selectedDirectories != null) {
             int nb = selectedDirectories.length;
-            for (int i = 0; i < nb; i++) {
-                m_listModel.addElement(selectedDirectories[i]);
+            for (File selectedDirectory : selectedDirectories) {
+                m_listModel.addElement(selectedDirectory);
             }
         }
     } // end setSelectedFiles()
@@ -300,8 +303,8 @@ public final class MultiDirectoryChooser extends AbstractDirectoryChooser {
                 public void actionPerformed(ActionEvent ev) {
                     ListModel model = m_directoryList.getModel();
                     Object[] objects = m_directoryList.getSelectedValues();
-                    for (int i = 0; i < objects.length; i++) {
-                        m_theDialog.m_listModel.removeElement(objects[i]);
+                    for (Object object : objects) {
+                        m_theDialog.m_listModel.removeElement(object);
                     }
                     m_removeBtn.setEnabled(false);
                     m_doneBtn.setEnabled(true);
@@ -386,9 +389,7 @@ public final class MultiDirectoryChooser extends AbstractDirectoryChooser {
         try {
             ObjectInputStream input = new ObjectInputStream(new FileInputStream(contextFile));
             selectedDirectories = (File[]) input.readObject();
-        } catch (IOException ex) {
-            selectedDirectories = null;
-        } catch (ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             selectedDirectories = null;
         } // end try
 

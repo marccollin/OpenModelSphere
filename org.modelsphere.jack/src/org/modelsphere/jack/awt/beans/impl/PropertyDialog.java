@@ -179,7 +179,7 @@ public class PropertyDialog extends JDialog {
         mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // create propertyList
-        List propertyList = new ArrayList();
+        List<AbstractProperty> propertyList = new ArrayList<>();
         propertyList.add(new AbstractProperty.BooleanProperty("generate user", true)); // NOT LOCALIZABLE, unit test
         propertyList.add(new AbstractProperty.BooleanProperty("physical specs", false)); // NOT LOCALIZABLE, unit test
 

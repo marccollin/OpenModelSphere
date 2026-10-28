@@ -38,6 +38,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JDialog;
 
@@ -70,12 +71,12 @@ public class PhysicalNameDictionary {
                     keyAbbList = null;
                 else
                     keyAbbList = new KeyAbbreviationList();
-                if (line != null && line.indexOf(DIC_TOKEN) != -1) {
+                if (line != null && line.contains(DIC_TOKEN)) {
                     line = reader.readLine();
                     while (line != null) {
                         // read and validate dictionary
                         if (!StringUtil.isEmptyString(line) && !isComment(line)) {
-                            if (line.indexOf(SEPARATOR_TOKEN) != -1) {
+                            if (line.contains(SEPARATOR_TOKEN)) {
                                 String key, abbreviation;
                                 key = line.substring(0, line.indexOf(SEPARATOR_TOKEN));
                                 if (line.indexOf(SEPARATOR_TOKEN) + 1 > line.length()) {
@@ -139,7 +140,7 @@ public class PhysicalNameDictionary {
 
     // Key and abbreviation stockage class
     private final class KeyAbbreviationList {
-        ArrayList keys, values;
+        List keys, values;
 
         public KeyAbbreviationList() {
             keys = new ArrayList();
@@ -163,9 +164,7 @@ public class PhysicalNameDictionary {
 
     private final boolean isComment(String line) {
         line = StringUtil.replaceWords(line, " ", "");
-        if (line.startsWith(DIC_COMMENT))
-            return true;
-        return false;
+        return line.startsWith(DIC_COMMENT);
     }
 
     private final void showError(JDialog dialog, String error) {

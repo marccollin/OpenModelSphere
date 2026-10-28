@@ -43,14 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.actions;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.awt.JackComboBox;
 import org.modelsphere.jack.awt.PopupColorPanel;
 import org.modelsphere.jack.awt.PopupCommandHistoryPanel;
@@ -58,7 +50,17 @@ import org.modelsphere.jack.awt.checklist.CheckList;
 import org.modelsphere.jack.awt.checklist.CheckListItem;
 import org.modelsphere.jack.awt.checklist.CheckListListener;
 import org.modelsphere.jack.international.LocaleMgr;
-import org.modelsphere.jack.preference.*;
+import org.modelsphere.jack.preference.OptionGroup;
+import org.modelsphere.jack.preference.OptionPanel;
+import org.modelsphere.jack.preference.PropertiesManager;
+import org.modelsphere.jack.preference.PropertiesSet;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActionsOptionGroup extends OptionGroup {
     private JToolBar toolbar;
@@ -71,9 +73,9 @@ public class ActionsOptionGroup extends OptionGroup {
                 .getString("displayButtons"));
 
         private CheckList list = new CheckList();
-        private java.util.List items;
+        private List items;
 
-        ActionsOptionPanel(java.util.List items) {
+        ActionsOptionPanel(List items) {
             setLayout(new GridBagLayout());
             this.items = items;
             list.setListData(items.toArray());
@@ -101,9 +103,8 @@ public class ActionsOptionGroup extends OptionGroup {
         }
 
         public void init() {
-            Iterator iter = items.iterator();
-            while (iter.hasNext()) {
-                CheckListItem item = (CheckListItem) iter.next();
+            for (Object o : items) {
+                CheckListItem item = (CheckListItem) o;
                 item.setSelected(((AbstractApplicationAction) item.getUserObject())
                         .getToolBarVisibilityOption());
             }
@@ -113,9 +114,8 @@ public class ActionsOptionGroup extends OptionGroup {
         public void actionPerformed(ActionEvent e) {
             Object source = e.getSource();
             if (source == defButton) {
-                Iterator iter = items.iterator();
-                while (iter.hasNext()) {
-                    CheckListItem item = (CheckListItem) iter.next();
+                for (Object o : items) {
+                    CheckListItem item = (CheckListItem) o;
                     item.setSelected(((AbstractApplicationAction) item.getUserObject())
                             .getDefaultToolBarVisibility());
                     PropertiesSet preferences = PropertiesManager.getPreferencePropertiesSet();
@@ -146,25 +146,25 @@ public class ActionsOptionGroup extends OptionGroup {
 
     protected OptionPanel createOptionPanel() {
         Component[] components = toolbar.getComponents();
-        ArrayList items = new ArrayList();
+        List items = new ArrayList();
         AbstractApplicationAction applAction = null;
-        for (int i = 0; i < components.length; i++) {
+        for (Component component : components) {
             Action action = null;
-            if (components[i] instanceof AbstractButton)
-                action = ((AbstractButton) components[i]).getAction();
-            else if (components[i] instanceof JackComboBox)
-                action = ((JackComboBox) components[i]).getAction();
-            else if (components[i] instanceof PopupColorPanel)
-                action = ((PopupColorPanel) components[i]).getAction();
-            else if (components[i] instanceof PopupCommandHistoryPanel)
-                action = ((PopupCommandHistoryPanel) components[i]).getAction();
+            if (component instanceof AbstractButton)
+                action = ((AbstractButton) component).getAction();
+            else if (component instanceof JackComboBox)
+                action = ((JackComboBox) component).getAction();
+            else if (component instanceof PopupColorPanel)
+                action = ((PopupColorPanel) component).getAction();
+            else if (component instanceof PopupCommandHistoryPanel)
+                action = ((PopupCommandHistoryPanel) component).getAction();
             else
                 continue;
             if (action instanceof AbstractApplicationAction) {
                 applAction = (AbstractApplicationAction) action;
                 items.add(new CheckListItem((String) applAction.getValue(Action.NAME),
                         (Icon) applAction.getValue(Action.SMALL_ICON), applAction
-                                .getToolBarVisibilityOption(), applAction));
+                        .getToolBarVisibilityOption(), applAction));
             }
         }
         return new ActionsOptionPanel(items);

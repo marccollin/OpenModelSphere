@@ -56,6 +56,7 @@ import org.modelsphere.jack.international.LocaleMgr;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileFilter;
+import java.util.Collections;
 import java.util.Vector;
 
 //Contains DirectoryChooser's & MultiDirectoryChooser's common stuff
@@ -102,9 +103,9 @@ abstract class AbstractDirectoryChooser {
      * directoryChooser.showDialog(parentDialog, &quot;Set Directory&quot;);
      * </pre>
      * 
-     * @param parent
+     * @param owner
      *            a frame or a dialog containing the directory chooser; can be <code>null</code>
-     * @param approveButtonText
+     * @param approveText
      *            the text of the <code>ApproveButton</code>
      * @param title
      *            (optional) the text of the <code>JDialog's title</code>
@@ -199,9 +200,7 @@ abstract class AbstractDirectoryChooser {
             vec.add(root);
             File[] roots = getRoots(fsv);
 
-            for (int i = 0; i < roots.length; i++) {
-                vec.add(roots[i]);
-            }
+            Collections.addAll(vec, roots);
 
             JLabel label = new JLabel(LOOK_IN);
             JComboBox combo = new JComboBox(vec);

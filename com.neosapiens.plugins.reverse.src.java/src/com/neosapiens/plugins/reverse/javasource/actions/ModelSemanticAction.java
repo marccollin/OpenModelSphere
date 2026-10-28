@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -75,7 +76,7 @@ public class ModelSemanticAction implements SemanticAction {
     private final List<DbJVPackage> ownedPackages;
     private List<String> currentImports;
     /** This set contains all the imports parsed in all .java files */
-    private HashSet<String> globalImports;
+    private Set<String> globalImports;
     /** This map contains imports grouped by class. Key is full class name */
     private Map<String, List<String>> importsByClass;
 

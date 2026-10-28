@@ -258,7 +258,7 @@ public final class Occurrence extends AbstractOccurrence {
                 new String[] {}); // NOT LOCALIZABLE
         // try {
         // TODO: mc = (MetaClass)m.invoke(currentDb, new String[] {});
-        java.util.Enumeration enumeration = null; // TODO:mc.getInstances();
+        Enumeration enumeration = null; // TODO:mc.getInstances();
 
         while (enumeration.hasMoreElements()) {
             so = (org.modelsphere.jack.baseDb.db.DbSemanticalObject) enumeration.nextElement();

@@ -51,6 +51,7 @@ import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.db.*;
 import org.modelsphere.sms.db.srtypes.*;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <b>Direct subclass(es)/subinterface(s) : </b>none.<br>
@@ -175,7 +176,7 @@ public final class DbORDomainStyle extends DbSMSStyle {
     }
 
     static final long serialVersionUID = 0;
-    private static HashMap fieldMap;
+    private static Map<String,MetaField> fieldMap;
     public static String[] domain_listOptionTabs;
     public static final String SEQUENCE_KEYWORD = "%#";
     public static String[] domain_optionGroupHeaders;
@@ -271,13 +272,12 @@ public final class DbORDomainStyle extends DbSMSStyle {
     }
 
     /**
-     * @param srcstyle
+     * @param srcStyle
      *            org.modelsphere.jack.baseDb.db.DbObject
      **/
     public void copyOptions(DbObject srcStyle) throws DbException {
-        for (int i = 0; i < domain_optionGroups.length; i++) {
-            for (int j = 0; j < domain_optionGroups[i].length; j++) {
-                MetaField metaField = domain_optionGroups[i][j];
+        for (MetaField[] domainOptionGroup : domain_optionGroups) {
+            for (MetaField metaField : domainOptionGroup) {
                 basicSet(metaField, ((DbORDomainStyle) srcStyle).find(metaField));
             }
         }
@@ -291,9 +291,8 @@ public final class DbORDomainStyle extends DbSMSStyle {
     public final MetaField getMetaField(String name) {
         if (fieldMap == null) {
             MetaField[] fields = metaClass.getAllMetaFields();
-            fieldMap = new HashMap(fields.length + fields.length / 2);
-            for (int i = 0; i < fields.length; i++)
-                fieldMap.put(fields[i].getJName(), fields[i]);
+            fieldMap = new HashMap<>(fields.length + fields.length / 2);
+            for (MetaField field : fields) fieldMap.put(field.getJName(), field);
         }
         return (MetaField) fieldMap.get(name);
     }

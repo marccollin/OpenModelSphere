@@ -151,7 +151,7 @@ final class IntegerViewer extends AbstractViewer {
         boolean isNegative = false;
 
         // ignore those special values
-        if ((text == null) || (text.equals(""))) {
+        if ((text == null) || (text.isEmpty())) {
             return text;
         }
 

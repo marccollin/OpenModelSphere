@@ -1,14 +1,17 @@
 // $ANTLR 3.3 Nov 30, 2010 12:50:56 C:\\Users\\Admin\\Documents\\My Workspaces\\Open Modelsphere-18\\workspace\\javasource_reverse\\src\\com\\neosapiens\\plugins\\reverse\\javasource\\parsing\\Java1_6.g 2011-04-05 08:20:19
 
-	package com.neosapiens.plugins.reverse.javasource.parsing;
-	import com.neosapiens.plugins.reverse.javasource.actions.SemanticAction;
-	import com.neosapiens.plugins.reverse.javasource.utils.DeclarationOfMethod;
+package com.neosapiens.plugins.reverse.javasource.parsing;
 
-
-import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
+import org.antlr.runtime.BaseRecognizer;
+import org.antlr.runtime.CharStream;
+import org.antlr.runtime.DFA;
+import org.antlr.runtime.EarlyExitException;
+import org.antlr.runtime.IntStream;
+import org.antlr.runtime.Lexer;
+import org.antlr.runtime.MismatchedSetException;
+import org.antlr.runtime.NoViableAltException;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.RecognizerSharedState;
 
 public class Java1_6Lexer extends Lexer {
     public static final int EOF=-1;
@@ -220,8 +223,7 @@ public class Java1_6Lexer extends Lexer {
                 alt4=2;
             }
             else {
-                NoViableAltException nvae =
-                    new NoViableAltException("", 4, 0, input);
+                NoViableAltException nvae = new NoViableAltException("", 4, 0, input);
 
                 throw nvae;
             }

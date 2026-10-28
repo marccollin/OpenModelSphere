@@ -43,12 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.actions;
 
-import java.awt.Rectangle;
-
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
-
 import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class JInternalFrameArrangeIconsAction extends JInternalFrameAbstractAction {
 
@@ -67,9 +65,9 @@ public class JInternalFrameArrangeIconsAction extends JInternalFrameAbstractActi
             Rectangle lastBounds = new Rectangle(0, desktop.getBounds().height, 0, 0);
             int desktopwidth = desktop.getBounds().width;
 
-            for (int i = 0; i < frameCount; i++) {
-                if (frames[i].isIcon()) {
-                    Rectangle r = new Rectangle(frames[i].getDesktopIcon().getBounds());
+            for (JInternalFrame frame : frames) {
+                if (frame.isIcon()) {
+                    Rectangle r = new Rectangle(frame.getDesktopIcon().getBounds());
                     if (((lastBounds.x + lastBounds.width) + r.width) > desktopwidth) { // start
                         // a
                         // new
@@ -84,9 +82,9 @@ public class JInternalFrameArrangeIconsAction extends JInternalFrameAbstractActi
                     // 1_0_2)
                     // in documentation, they say that the desktop icon will be
                     // manage in the JInternalFrame
-                    frames[i].getDesktopIcon().setBounds(lastBounds.x + lastBounds.width,
+                    frame.getDesktopIcon().setBounds(lastBounds.x + lastBounds.width,
                             Math.max(lastBounds.y - r.height, 0), r.width, r.height);
-                    r = new Rectangle(frames[i].getDesktopIcon().getBounds());
+                    r = new Rectangle(frame.getDesktopIcon().getBounds());
                     lastBounds.x = r.x;
                     lastBounds.width = r.width;
                     lastBounds.height = r.height;

@@ -174,17 +174,15 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
         return file;
     } // end chooseWorkingDirectory()
 
-    public static ArrayList getConditions(VariableScope varList) {
-        ArrayList conditions = new ArrayList();
+    public static List getConditions(VariableScope varList) {
+        List conditions = new ArrayList();
 
         // get conditions
         VariableScope map = varList;
         Set set = map.getKeySet();
-        Iterator iter = set.iterator();
-        while (iter.hasNext()) {
-            String key = (String) iter.next();
-            VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) map
-                    .getVariable(key);
+        for (Object o : set) {
+            String key = (String) o;
+            VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) map.getVariable(key);
             if (variable.isExtern()) {
                 // TODO : and if variable is a BOOLEAN..
                 conditions.add(variable);
@@ -815,9 +813,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
             org.modelsphere.sms.Application.initMeta();
             boolean success = true;
 
-            for (int i = 0; i < g_templatesToTest.length; i++) {
-                File file = g_templatesToTest[i];
-
+            for (File file : g_templatesToTest) {
                 String obj = "HelloWorld"; // NOT LOCALIZABLE, unit test
                 DbSMSAbstractPackage absPack = null;
                 TemplateGenericForward fwd = new TemplateGenericForward();

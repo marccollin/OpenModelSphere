@@ -44,7 +44,7 @@ package org.modelsphere.jack.srtool.reverse.file;
 
 import java.io.File;
 import java.io.StringWriter;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -69,7 +69,7 @@ public abstract class AbstractReverser {
     } // end setPartialProgression()
 
     public abstract String reverseCurrentFile(DbObject reverseEngineeredPackage,
-            JackReverseEngineeringPlugin reverse, Vector obsoleteObjectVector, HashMap diagMap,
+            JackReverseEngineeringPlugin reverse, Vector obsoleteObjectVector, Map diagMap,
             File file, DbProject project, StringWriter logBuffer) throws Exception;
 
     public abstract void preparePackageForDisplay(DbObject pack) throws Exception;

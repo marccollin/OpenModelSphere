@@ -47,6 +47,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -84,7 +85,7 @@ class VExplorerModel extends DefaultTreeModel {
         if (rootObjects == null) {
             rootObjects = Db.getDbs();
         }
-        ArrayList roots = new ArrayList();
+        List roots = new ArrayList();
         try {
             for (int i = 0; rootObjects != null && i < rootObjects.length; i++) {
                 Db db = null;
@@ -106,9 +107,8 @@ class VExplorerModel extends DefaultTreeModel {
         }
         RootNode root = new RootNode();
         setRoot(root);
-        Iterator iter = roots.iterator();
-        while (iter.hasNext()) {
-            root.add((ObjectTreeNode) iter.next());
+        for (Object o : roots) {
+            root.add((ObjectTreeNode) o);
         }
     }
 
@@ -166,9 +166,9 @@ class VExplorerModel extends DefaultTreeModel {
         DbObject dbo = (DbObject) parent.getUserObject();
         MetaClass metaclass = dbo.getMetaClass();
         MetaField[] fields = metaclass.getAllMetaFields();
-        for (int i = 0; i < fields.length; i++) {
-            Object value = dbo.get(fields[i]);
-            String display = getDisplayText(value, fields[i], null);
+        for (MetaField field : fields) {
+            Object value = dbo.get(field);
+            String display = getDisplayText(value, field, null);
             parent.add(new ObjectTreeNode(value, display, isExpandable(value)));
         }
         // Include other fields
@@ -198,7 +198,7 @@ class VExplorerModel extends DefaultTreeModel {
 
     private ObjectTreeNode[] getReflexionFieldNodes(Object obj) {
         ObjectTreeNode[] nodes = null;
-        ArrayList nodesAux = new ArrayList();
+        List nodesAux = new ArrayList();
         String display = null;
         Object value = null;
         try {

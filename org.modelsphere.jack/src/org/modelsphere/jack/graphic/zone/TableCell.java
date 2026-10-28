@@ -154,7 +154,7 @@ public class TableCell {
 
         // Draw cell boundaries
         if (m_rightBorder) {
-            if ((m_centerDisplay == false) && (m_x == 0)) {
+            if ((!m_centerDisplay) && (m_x == 0)) {
                 g.drawLine(rect.x, rect.y, rect.x, rect.y + rect.height);
             }
 
@@ -162,7 +162,7 @@ public class TableCell {
         }
 
         if (m_bottomBorder) {
-            if ((m_centerDisplay == false) && (m_y == 0)) {
+            if ((!m_centerDisplay) && (m_y == 0)) {
                 g.drawLine(rect.x, rect.y, rect.x + rect.width, rect.y);
             }
 
@@ -170,7 +170,7 @@ public class TableCell {
         }
 
         // Draw cell text, if any
-        if ((m_text != null) && (m_text.length() > 0)) {
+        if ((m_text != null) && (!m_text.isEmpty())) {
             Font previous = g.getFont();
             g.setFont(m_font); // font must be set BEFORE calling getPosition()
             int x = getPosition(g, 0, m_hJustification, rect.x, rect.width, m_text);

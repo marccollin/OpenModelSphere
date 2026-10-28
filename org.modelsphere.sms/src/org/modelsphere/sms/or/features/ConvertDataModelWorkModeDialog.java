@@ -42,6 +42,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -128,7 +129,7 @@ public class ConvertDataModelWorkModeDialog extends JDialog {
     private static final String kGenerateFKMessage = LocaleMgr.screen
             .getString("generateFKMessage");
 
-    private ArrayList m_SubModelsList = new ArrayList();
+    private List m_SubModelsList = new ArrayList();
 
     public ConvertDataModelWorkModeDialog(Frame frame, String title, boolean modal,
             DbObject[] semObjs, int workMode) {

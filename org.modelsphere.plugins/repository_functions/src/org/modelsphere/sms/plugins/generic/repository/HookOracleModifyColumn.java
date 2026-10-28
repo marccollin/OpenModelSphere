@@ -113,8 +113,7 @@ public final class HookOracleModifyColumn extends UserDefinedField {
         boolean modDesc = false;
         int returnCode = 0;
 
-        for (int i = 0; i < modifiedFields.length; i++) {
-            MetaField metaField = modifiedFields[i];
+        for (MetaField metaField : modifiedFields) {
             if (metaField == DbORColumn.fType)
                 doAlterTable = true;
             else if ((metaField == DbORColumn.fLength) || (metaField == DbORColumn.fNbDecimal))
@@ -181,7 +180,7 @@ public final class HookOracleModifyColumn extends UserDefinedField {
 
     private String buildNullClause(DbORAColumn column) throws DbException {
         boolean isNull = column.isNull();
-        if (isNull == true)
+        if (isNull)
             return " " + NULL;
         else
             return " " + NOT_NULL;

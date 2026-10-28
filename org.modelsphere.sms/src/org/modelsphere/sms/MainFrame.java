@@ -51,6 +51,7 @@ import org.modelsphere.jack.baseDb.db.DbRAM;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.baseDb.db.VersionConverter;
 import org.modelsphere.jack.baseDb.db.clipboard.Clipboard;
+import org.modelsphere.jack.baseDb.db.xml.imports.XmlFileOpener;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.baseDb.screen.PropertiesFrame;
 import org.modelsphere.jack.graphic.tool.Tool;
@@ -411,10 +412,8 @@ public class MainFrame extends DefaultMainFrame {
 
     //Entry point to open a XML-formatted file
     public void doOpenFromXmlFile(Db db, String filename) {
-        /*
-         * TODO XmlFileOpener openFile = XmlFileOpener.getSingleton(); openFile.doOpenFile(db,
-         * filename);
-         */
+        XmlFileOpener openFile = XmlFileOpener.getSingleton();
+        openFile.doOpenFile(db, filename, this);
     } //end doOpenFromXmlFile()
 
     //

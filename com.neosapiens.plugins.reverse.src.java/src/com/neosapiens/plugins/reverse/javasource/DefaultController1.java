@@ -315,7 +315,6 @@ public class DefaultController1 extends GuiController {
         try {
             logWriter = new FileWriter(logFileName, false);
         } catch (IOException e) {
-            logWriter = null;
         }
         return logWriter;
     }

@@ -35,6 +35,7 @@ package org.modelsphere.sms.or.features;
 
 import java.awt.Polygon;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -206,7 +207,7 @@ final class ConvertDataModelWorkMode {
         boolean m_parentExactlyOneExist = false;
         boolean m_parentOptionalExist = false;
         boolean m_allParentMaxN = false;
-        private ArrayList m_OriginModelList = new ArrayList();
+        private List m_OriginModelList = new ArrayList();
         private int m_subModelIndex = 0;
 
         public ConvertDataModelWorker(DbObject semObjToConvert, boolean withSubmodels,
@@ -330,11 +331,11 @@ final class ConvertDataModelWorkMode {
 
             // Changer le mode du modèle courant
             if (m_convertOption == ConvertDataModelWorkMode.OR_TO_ER)
-                convertedModel.setLogicalMode(new Integer(
-                        DbORDataModel.LOGICAL_MODE_ENTITY_RELATIONSHIP));
+                convertedModel.setLogicalMode(
+                        DbORDataModel.LOGICAL_MODE_ENTITY_RELATIONSHIP);
             else
-                convertedModel.setLogicalMode(new Integer(
-                        DbORDataModel.LOGICAL_MODE_OBJECT_RELATIONAL));
+                convertedModel.setLogicalMode(
+                        DbORDataModel.LOGICAL_MODE_OBJECT_RELATIONAL);
 
             //Appliquer le suffixe s'il y lieu
             String modelName = convertedModel.getName();
@@ -383,8 +384,8 @@ final class ConvertDataModelWorkMode {
          * Conversion des mod�les relationnels en mod�les conceptuels
          */
         private void convertORRelationship(DbORDataModel model) throws DbException {
-            ArrayList assocOriginList = new ArrayList();
-            ArrayList assocWithViewList = new ArrayList();
+            List assocOriginList = new ArrayList();
+            List assocWithViewList = new ArrayList();
             DbORAssociation originAssoc = null;
             DbORAssociation viewAssoc = null;
             DbORAssociationGo originAssocGo = null;
@@ -403,8 +404,8 @@ final class ConvertDataModelWorkMode {
             SMSMultiplicity destBackMult;
             SMSMultiplicity hideMult = SMSMultiplicity.getInstance(SMSMultiplicity.UNDEFINED);
 
-            //les colonnes des cl�s �trang�res sont d�truites 
-            //puisque les cl�s sont d�truites avec les associations d'origines
+            //les colonnes des clés étrangères sont détruites
+            //puisque les clés sont détruites avec les associations d'origines
             DbEnumeration tabEnum = null;
             tabEnum = model.getComponents().elements(DbGETable.metaClass);
             while (tabEnum.hasMoreElements()) {
@@ -448,10 +449,10 @@ final class ConvertDataModelWorkMode {
             }
 
             int nb = assocOriginList.size();
-            for (int i = 0; i < nb; i++) {
+            for (Object o : assocOriginList) {
                 if (!getController().checkPoint()) //if user has CANCELled
                     break;
-                originAssoc = (DbORAssociation) assocOriginList.get(i);
+                originAssoc = (DbORAssociation) o;
                 srcClassifier = originAssoc.getFrontEnd().getClassifier();
                 destClassifier = originAssoc.getBackEnd().getClassifier();
 
@@ -470,20 +471,20 @@ final class ConvertDataModelWorkMode {
                 srcArc.setIsArc(Boolean.TRUE);
                 srcArcEnd = srcArc.getArcEnd();
                 copyRoleValues(srcArcEnd, srcEnd);
-                srcArcEnd.setNavigable(new Boolean(srcEnd.isNavigable()));
+                srcArcEnd.setNavigable(srcEnd.isNavigable());
 
                 DbORAssociation dstArc = new DbORAssociation(destClassifier, hideMult,
                         assocClassifier, destBackMult);
                 dstArc.setIsArc(Boolean.TRUE);
                 dstArcEnd = dstArc.getArcEnd();
                 copyRoleValues(dstArcEnd, dstEnd);
-                dstArcEnd.setNavigable(new Boolean(dstEnd.isNavigable()));
-                msg = MessageFormat.format(wMsgErAssocCreation, new Object[] {
+                dstArcEnd.setNavigable(dstEnd.isNavigable());
+                msg = MessageFormat.format(wMsgErAssocCreation, new Object[]{
                         assocClassifier.getName(), srcClassifier.getName(),
-                        destClassifier.getName() });
+                        destClassifier.getName()});
                 getController().println(msg);
 
-                //transf�rer les d�pendances sur les r�les
+                //transférer les dépendances sur les roles
                 boolean dependencieExist = false;
                 DbEnumeration srcDepEnum = srcEnd.getDependentConstraints().elements();
                 while (srcDepEnum.hasMoreElements()) {
@@ -493,7 +494,7 @@ final class ConvertDataModelWorkMode {
                 }
                 srcDepEnum.close();
                 if (dependencieExist) {
-                    msg = MessageFormat.format(wMsgDependKeeped, new Object[] { srcEnd.getName() });
+                    msg = MessageFormat.format(wMsgDependKeeped, new Object[]{srcEnd.getName()});
                     getController().println(msg);
                     dependencieExist = false;
                 }
@@ -507,7 +508,7 @@ final class ConvertDataModelWorkMode {
                 dstDepEnum.close();
 
                 if (dependencieExist) {
-                    msg = MessageFormat.format(wMsgDependKeeped, new Object[] { dstEnd.getName() });
+                    msg = MessageFormat.format(wMsgDependKeeped, new Object[]{dstEnd.getName()});
                     getController().println(msg);
                     dependencieExist = false;
                 }
@@ -641,10 +642,10 @@ final class ConvertDataModelWorkMode {
             DbORAssociation dstArc = null;
             DbORAbsTable dstTable = null;
             DbORAbsTable childTable = null;
-            ArrayList assocTabEndList = new ArrayList();
-            ArrayList assocTabColumnsList = new ArrayList();
-            ArrayList arcsGOList = new ArrayList();
-            ArrayList childTableUKList = new ArrayList();
+            List assocTabEndList = new ArrayList();
+            List assocTabColumnsList = new ArrayList();
+            List arcsGOList = new ArrayList();
+            List childTableUKList = new ArrayList();
             DbSMSClassifierGo assocTableGo = null;
             DbORAssociationEnd childEnd = null;
             int nbSrcDependence = 0;
@@ -669,12 +670,12 @@ final class ConvertDataModelWorkMode {
             for (int i = 0; i < dboEnds.length; i++) {
                 dboEnds[i] = (DbObject) assocTabEndList.get(i);
             }
-            //premi�re entit�
+            //première entité
             srcEnd = (DbORAssociationEnd) dboEnds[0];
             srcMult = srcEnd.getMultiplicity();
             srcArc = (DbORAssociation) srcEnd.getComposite();
             srcTable = srcEnd.getOppositeEnd().getClassifier();
-            //deuxi�me entit�
+            //deuxième entité
             dstEnd = (DbORAssociationEnd) dboEnds[1];
             dstMult = dstEnd.getMultiplicity();
             dstArc = (DbORAssociation) dstEnd.getComposite();
@@ -683,8 +684,8 @@ final class ConvertDataModelWorkMode {
             m_absorptionToDo = isBinaryAbsorptionNeeded(srcMult, dstMult);
             if (m_absorptionToDo) {
                 DbORPrimaryUnique key = null;
-                //comptabilisation des d�pendances sur les arcs pour pouvoir les recr�er sur la nouvelle association
-                //Pour le moment on conserve les d�pendances seulement pour les relations binaires
+                //comptabilisation des dépendances sur les arcs pour pouvoir les recréer sur la nouvelle association
+                //Pour le moment on conserve les dépendances seulement pour les relations binaires
                 DbEnumeration srcDepEnum = srcEnd.getDependentConstraints().elements();
                 while (srcDepEnum.hasMoreElements()) {
                     key = (DbORPrimaryUnique) srcDepEnum.nextElement();
@@ -702,7 +703,7 @@ final class ConvertDataModelWorkMode {
                 }
                 dstDepEnum.close();
 
-                //D�terminer la table enfant
+                //Déterminer la table enfant
                 //1er cas: les deux non navigables
                 if ((!srcEnd.isNavigable()) && (!dstEnd.isNavigable())) {
                     String assocTableName = getDisplayName(assocTable);
@@ -742,7 +743,7 @@ final class ConvertDataModelWorkMode {
                     dependenceOnPrimary = dstEndPrimaryDepExist;
                 }
 
-                //D�placer les colonnes des asociations vers la table enfant
+                //Déplacer les colonnes des asociations vers la table enfant
                 DbEnumeration colEnum = assocTable.getComponents().elements();
                 while (colEnum.hasMoreElements()) {
                     DbObject dbo = colEnum.nextElement();
@@ -754,14 +755,14 @@ final class ConvertDataModelWorkMode {
                 msg = MessageFormat.format(wMsgAssocAbsorbed, new Object[] { assocTable.getName(),
                         childTable.getName() });
                 getController().println(msg);
-                if (assocTabColumnsList.size() > 0) {
+                if (!assocTabColumnsList.isEmpty()) {
                     DbObject[] dbColumns = new DbObject[assocTabColumnsList.size()];
                     for (int i = 0; i < dbColumns.length; i++) {
                         dbColumns[i] = (DbObject) assocTabColumnsList.get(i);
                         msg = MessageFormat.format(wMsgAttribAbsorbed, new Object[] {
                                 ((DbORColumn) dbColumns[i]).getName(), childTable.getName() });
                         getController().println(msg);
-                        //Les attributs absorb�s dans une table optionnelle (0,1) ne peuvent �tre NON NULL
+                        //Les attributs absorbé dans une table optionnelle (0,1) ne peuvent etre NON NULL
                         if ((childIsOptional) && (((DbORColumn) dbColumns[i]).isNull())) {
                             ((DbORColumn) dbColumns[i]).setNull(Boolean.TRUE);
                             getController().println(wMsgNullPosAttribute);
@@ -770,7 +771,7 @@ final class ConvertDataModelWorkMode {
                     SMSMove.move(dbColumns, childTable);
                 }
 
-                //Cr�er la nouvelle association  
+                //Créer la nouvelle association
                 DbORAssociation orAssociation = new DbORAssociation(srcTable, srcMult, dstTable,
                         dstMult);
                 orAssociation.setIsArc(Boolean.FALSE);
@@ -789,15 +790,15 @@ final class ConvertDataModelWorkMode {
                     childEnd = newSrcEnd;
 
                 /*
-                 * d�pendance sur cl� unique sur le r�le enfant version 2.3 build 504 : il a �t�
-                 * d�cid� de ne pas g�n�rer de cl� alternative lors de la conversion selon les
-                 * anciennes r�gles de conversion mais seulement de propager les d�pendances
+                 * dépendance sur clé unique sur le rôle enfant version 2.3 build 504 : il a été
+                 * décidé de ne pas générer de clé alternative lors de la conversion selon les
+                 * anciennes rêgles de conversion mais seulement de propager les dépendances
                  * existantes
                  */
 
-                //Build 507 : on ne transfert les d�pendances sur le r�le enfant 
-                //que si la multiplicit� est 1,1 selon les r�gles d'int�grit�
-                //          Optimiser le code suite au changements de transfert de dependance
+                //Build 507 : on ne transfert les dépendances sur le rôle enfant
+                //que si la multiplicité est 1,1 selon les rêgles d'intégrité
+                //Optimiser le code suite au changements de transfert de dependance
                 SMSMultiplicity childMult = childEnd.getMultiplicity();
                 if (childMult.getValue() == SMSMultiplicity.EXACTLY_ONE) {
                     //les cles de la table enfant
@@ -844,7 +845,7 @@ final class ConvertDataModelWorkMode {
                             childEnd.addToDependentConstraints((DbORPrimaryUnique) dboUK[i]);
                         }
                     }
-                    //Les d�pendances 
+                    //Les dépendances
                     if ((dependenceOnPrimary) || (nbDependenceToDo > 0)) {
                         msg = MessageFormat.format(wMsgDependKeeped, new Object[] { childEnd
                                 .getName() });
@@ -856,7 +857,7 @@ final class ConvertDataModelWorkMode {
                     getController().println(msg);
                 }
 
-                //Cr�er les nouvelles associations graphiques
+                //Créer les nouvelles associations graphiques
                 DbEnumeration goEnum = null;
                 goEnum = assocTable.getClassifierGos().elements();
                 while (goEnum.hasMoreElements()) {
@@ -887,12 +888,12 @@ final class ConvertDataModelWorkMode {
                         DbORAssociationGo orAssocGO = new DbORAssociationGo(diagram, firstTableGo,
                                 secondTableGo, orAssociation);
                         DbORAssociationGo arcGO = (DbORAssociationGo) dbArcGOs[0];
-                        orAssocGO.setRightAngle(new Boolean(arcGO.isRightAngle()));
+                        orAssocGO.setRightAngle(arcGO.isRightAngle());
                         DbGraphic.createPolyline(orAssocGO, true);
 
                         /*
                          * pour le moment l'associationGo est en ligne droite entre les deux points
-                         * TODO m/thode dans OrAssociationTool pour traiter les polygones des 2 arcs
+                         * TODO méthode dans OrAssociationTool pour traiter les polygones des 2 arcs
                          * et l'appliquer a la nouvelle association
                          * 
                          * if ((srcEndGo != null) && (srcEndGo instanceof DbSMSClassifierGo)){
@@ -916,9 +917,9 @@ final class ConvertDataModelWorkMode {
                 }
                 goEnum.close();
 
-                //TODO  la navigabilit� est d�fini par d�faut. On devrait assigner celle des arcs           
-                //orAssociation.setIsIdentifying()TODO assigner la bonne multiplicit�
-                //si un des arc est dependant la nouvelle association devient d/pendante...
+                //TODO  la navigabilité est défini par défaut. On devrait assigner celle des arcs
+                //orAssociation.setIsIdentifying()TODO assigner la bonne multiplicité
+                //si un des arc est dependant la nouvelle association devient dépendante...
 
                 assocTable.remove();
             } else { // pas d'absorption
@@ -930,8 +931,8 @@ final class ConvertDataModelWorkMode {
                 srcArc.setIsArc(Boolean.FALSE);
                 dstArc.setIsArc(Boolean.FALSE);
 
-                // Suppression obligatoires des d�pendances existantes puisque de nouvelles sont cr��es pour la table d'intersection
-                // ces d�pendances �taient de toute fa�on erron�es selon les r�gles d'int�grit�s
+                // Suppression obligatoires des dépendances existantes puisque de nouvelles sont créées pour la table d'intersection
+                // ces dépendances étaient de toute façon erronées selon les rêgles d'intégrités
                 DbEnumeration srcDepEnum = srcEnd.getDependentConstraints().elements();
                 while (srcDepEnum.hasMoreElements()) {
                     key = (DbORPrimaryUnique) srcDepEnum.nextElement();
@@ -975,7 +976,7 @@ final class ConvertDataModelWorkMode {
                         .getName() });
                 getController().println(msg);
 
-                // Cr�ation des d�pendances sur les r�les
+                // Création des dépendances sur les rôles
 
                 // Les deux maximales N
                 if ((srcMult.isMaxN()) && (dstMult.isMaxN())) {
@@ -1034,10 +1035,10 @@ final class ConvertDataModelWorkMode {
         }// end convertBinaryRelationship
 
         /*
-         * Conversion des relations conceptuels TERNAIRES et plus en mod�les relationnels
+         * Conversion des relations conceptuels TERNAIRES et plus en modèles relationnels
          */
         private void convertTernaryAndMoreRelationship(DbORTable assocTable) throws DbException {
-            ArrayList assocTabColumnsList = new ArrayList();
+            List assocTabColumnsList = new ArrayList();
             DbORAbsTable childTable = null;
             DbORAbsTable parentTable = null;
             boolean childIsOptional = false;
@@ -1048,15 +1049,15 @@ final class ConvertDataModelWorkMode {
             DbORAssociation childArc = null;
             DbORAssociationEnd assocEnd = null;
             SMSMultiplicity endMult = null;
-            ArrayList childArcsGOList = new ArrayList();
-            ArrayList assocArcsGOList = new ArrayList();
+            List childArcsGOList = new ArrayList();
+            List assocArcsGOList = new ArrayList();
             DbSMSClassifierGo assocTableGo = null;
             DbSMSClassifierGo childTableGo = null;
             boolean assocTableGOFound = false;
             Object[][] parentWithAssoc;
-            ArrayList childTableUKList = new ArrayList();
+            List childTableUKList = new ArrayList();
             DbORPrimaryUnique childPK = null;
-            ArrayList assocTabEndList = new ArrayList();
+            List assocTabEndList = new ArrayList();
 
             DbEnumeration rolesEnum = assocTable.getAssociationEnds().elements();// toujours des backEnds
             while (rolesEnum.hasMoreElements()) {
@@ -1269,7 +1270,7 @@ final class ConvertDataModelWorkMode {
                             DbORAssociationGo orAssocGO = new DbORAssociationGo(diagram,
                                     parentTableGo, childTableGo, keepOrAssociation);
                             DbORAssociationGo arcGO = (DbORAssociationGo) dbAssocArcGOs[k];
-                            orAssocGO.setRightAngle(new Boolean(arcGO.isRightAngle()));
+                            orAssocGO.setRightAngle(arcGO.isRightAngle());
                             DbGraphic.createPolyline(orAssocGO, true);
                         }
                     }
@@ -1285,16 +1286,16 @@ final class ConvertDataModelWorkMode {
                 DbORAssociation currentArc = null;
                 DbORPrimaryUnique key = null;
                 //SMSMultiplicity assocTableMult = null;
-                ArrayList assocTableEndList = new ArrayList();
+                List assocTableEndList = new ArrayList();
                 boolean dependencieFound = false;
 
                 msg = MessageFormat.format(wMsgIntersectionTable, new Object[] { assocTable
                         .getName() });
                 getController().println(msg);
                 assocTable.setIsAssociation(Boolean.FALSE);
-                for (int i = 0; i < dboEnds.length; i++) {
+                for (DbObject dboEnd : dboEnds) {
                     int nbDep = 0;
-                    assocTableEnd = (DbORAssociationEnd) dboEnds[i];
+                    assocTableEnd = (DbORAssociationEnd) dboEnd;
 
                     // Suppression obligatoires des d�pendances existantes puisque de nouvelles sont cr��es pour la table d'intersection
                     // ces d�pendances �taient de toute fa�on erron�es selon les r�gles d'int�grit�s
@@ -1307,7 +1308,7 @@ final class ConvertDataModelWorkMode {
                     depEnum.close();
                     if (nbDep > 0) {
                         msg = MessageFormat.format(wMsgDependTernaryNOTKeeped,
-                                new Object[] { assocTableEnd.getName() });
+                                new Object[]{assocTableEnd.getName()});
                         getController().println(msg);
                     }
 
@@ -1358,10 +1359,10 @@ final class ConvertDataModelWorkMode {
         }//end convertTernaryAndMoreRelationship
 
         /*
-         * evalue si l'option d'absorption peut s'appliquer selon les multiplicit�s de la relation
+         * evalue si l'option d'absorption peut s'appliquer selon les multiplicités de la relation
          * ternaire et plus
          */
-        private boolean isTernaryAbsorptionNeeded(ArrayList assocTabEndList) throws DbException {
+        private boolean isTernaryAbsorptionNeeded(List assocTabEndList) throws DbException {
             DbORAssociationEnd assocEnd = null;
             SMSMultiplicity endMult = null;
             int nbUndefined = 0;

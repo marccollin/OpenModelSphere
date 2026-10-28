@@ -36,6 +36,7 @@ package org.modelsphere.sms.be.graphic;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -51,19 +52,22 @@ import org.modelsphere.sms.be.db.DbBEQualifier;
 
 public class BEQualifier extends SrAttachment {
 
-    public BEQualifier(Diagram diag, GraphicNode node, MetaField offsetMF, ArrayList qualifiers)
+    public BEQualifier(Diagram diag, GraphicNode node, MetaField offsetMF, List<DbBEQualifier> qualifiers)
             throws DbException {
         super(diag, node, offsetMF);
-        zone.setCellRenderer(new CompositeCellRenderer());
-        Iterator i = qualifiers.iterator();
-        Vector icons = new Vector();
-        while (i.hasNext()) {
-            DbBEQualifier qualifier = (DbBEQualifier) i.next();
+
+        CompositeCellRenderer renderer = new CompositeCellRenderer();
+        zone.setCellRenderer(renderer);
+
+        List<CompositeCellRendererElement> iconElements = new ArrayList<>();
+        for (DbBEQualifier qualifier : qualifiers) {
             Image icon = qualifier.getIcon();
-            if (icon != null)
-                icons.addElement(new CompositeCellRendererElement(new ImageCellRenderer(), icon));
+            if (icon != null) {
+                iconElements.add(new CompositeCellRendererElement(new ImageCellRenderer(), icon));
+            }
         }
-        zone.setValue(new ZoneCell(semObj, icons));
+
+        zone.setValue(new ZoneCell(semObj, new Vector<>(iconElements)));
     }
 
     // overridden

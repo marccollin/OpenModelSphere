@@ -68,9 +68,9 @@ public final class DomainValuesPlugin implements Plugin2 {
         PluginServices.multiDbBeginTrans(Db.WRITE_TRANS, LocaleMgr.misc
                 .getString("UpdateFromDomainValue"));
         DbObject[] attributes = PluginServices.getSelectedSemanticalObjects();
-        for (int i = 0; i < attributes.length; i++) {
-            if (attributes[i] instanceof DbORAttribute) {
-                DbORAttribute attr = (DbORAttribute) attributes[i];
+        for (DbObject attribute : attributes) {
+            if (attribute instanceof DbORAttribute) {
+                DbORAttribute attr = (DbORAttribute) attribute;
                 DbORTypeClassifier type = attr.getType();
 
                 if (type instanceof DbORDomain) {
@@ -83,8 +83,8 @@ public final class DomainValuesPlugin implements Plugin2 {
                                 .isReference()));
                     }
                 }
-            } else if (attributes[i] instanceof DbORCommonItem) {
-                DbORCommonItem attr = (DbORCommonItem) attributes[i];
+            } else if (attribute instanceof DbORCommonItem) {
+                DbORCommonItem attr = (DbORCommonItem) attribute;
                 DbORTypeClassifier type = attr.getType();
 
                 if (type instanceof DbORDomain) {

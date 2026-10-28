@@ -50,7 +50,6 @@ import java.beans.*;
 import java.io.Serializable;
 import java.lang.reflect.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.*;
@@ -108,14 +107,12 @@ public class BeanDialogImpl implements BeanDialog {
     }
 
     private void showDialog(JDialog dialog) {
-        switch (m_modelType) {
-        case BEAN_TYPE:
+        if (m_modelType == BEAN_TYPE) {
             BeanDescriptor desc = m_beaninfo.getBeanDescriptor();
             if (desc != null) {
                 String title = desc.getDisplayName();
                 dialog.setTitle(title);
             }
-            break;
         }
 
         Container parent = dialog.getContentPane();
@@ -145,15 +142,12 @@ public class BeanDialogImpl implements BeanDialog {
     private PropertyTable createPropertyTable() {
         BeanFrameInfo info = new BeanFrameInfo();
         // draw table
-        PropertyTableModel dm = null;
-        switch (m_modelType) {
-        case BEAN_TYPE:
-            dm = new PropertyTableModel(m_bean, m_beaninfo, info);
-            break;
-        case PROPERTYLIST_TYPE:
-            dm = new PropertyTableModel(m_primitiveList, info);
-            break;
-        } // end switch
+        // end switch
+        PropertyTableModel dm = switch (m_modelType) {
+            case BEAN_TYPE -> new PropertyTableModel(m_bean, m_beaninfo, info);
+            case PROPERTYLIST_TYPE -> new PropertyTableModel(m_primitiveList, info);
+            default -> null;
+        };
 
         PropertyTable table = new PropertyTable(this, dm);
         table.setName("Design"); // NOT LOCALIZABLE - For QA
@@ -305,16 +299,13 @@ public class BeanDialogImpl implements BeanDialog {
         }
 
         private Serializable getVariable(int idx) {
-            Serializable variable = null;
-            switch (m_modelType) {
-            case BEAN_TYPE:
-                variable = m_bean;
-                break;
-            case PROPERTYLIST_TYPE:
-                variable = (Serializable) m_propertyList.get(idx);
-                break;
-            //
-            } // end switch
+            // end switch
+            Serializable variable = switch (m_modelType) {
+                case BEAN_TYPE -> m_bean;
+                case PROPERTYLIST_TYPE -> (Serializable) m_propertyList.get(idx);
+                default -> null;
+                //
+            };
             return variable;
         } // end getVariable()
 
@@ -330,8 +321,7 @@ public class BeanDialogImpl implements BeanDialog {
                     try {
                         Serializable variable = getVariable(rowIndex);
                         value = readMethod.invoke(variable, new Object[] {});
-                    } catch (InvocationTargetException ex) {
-                    } catch (IllegalAccessException ex) {
+                    } catch (InvocationTargetException | IllegalAccessException ex) {
                     } // end try
                 } // end if
 
@@ -359,8 +349,7 @@ public class BeanDialogImpl implements BeanDialog {
                         // notify property panel : m_info.setDirty(), furthur
                         // extension
                         // set the tree.
-                    } catch (InvocationTargetException ex) {
-                    } catch (IllegalAccessException ex) {
+                    } catch (InvocationTargetException | IllegalAccessException ex) {
                     } // end try
                 } // end if
             } // end if
@@ -673,7 +662,7 @@ public class BeanDialogImpl implements BeanDialog {
         // BeanDialog dialog = new BeanDialogImpl(bean, info);
 
         // create propertyList
-        ArrayList propertyList = new ArrayList();
+        List propertyList = new ArrayList();
         propertyList.add(new AbstractProperty.BooleanProperty("generate user", true)); // NOT LOCALIZABLE, unit test
         propertyList.add(new AbstractProperty.BooleanProperty("physical specs", false)); // NOT LOCALIZABLE, unit test
         BeanDialog dialog = new BeanDialogImpl(propertyList);

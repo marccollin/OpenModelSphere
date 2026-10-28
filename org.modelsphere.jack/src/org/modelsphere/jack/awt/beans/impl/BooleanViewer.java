@@ -63,7 +63,7 @@ final class BooleanViewer extends AbstractViewer {
         public Component getTableCellRendererComponent(JTable table, Object value,
                 boolean isSelected, boolean hasFocus, int row, int column) {
             Boolean booleanValue = (Boolean) value;
-            m_checkbox.setSelected(booleanValue.booleanValue());
+            m_checkbox.setSelected(booleanValue);
             return m_checkbox;
         }
     };
@@ -73,7 +73,7 @@ final class BooleanViewer extends AbstractViewer {
                 boolean isSelected, int row, int column) {
             setEditorInfo(table, row);
             Boolean booleanValue = (Boolean) value;
-            m_checkbox.setSelected(booleanValue.booleanValue());
+            m_checkbox.setSelected(booleanValue);
             return m_checkbox;
         }
 
@@ -106,7 +106,7 @@ final class BooleanViewer extends AbstractViewer {
     private ActionListener listener = new ActionListener() {
         public void actionPerformed(ActionEvent ev) {
             boolean selected = m_checkbox.isSelected();
-            setValueInModel(new Boolean(selected));
+            setValueInModel(selected);
         }
     };
 

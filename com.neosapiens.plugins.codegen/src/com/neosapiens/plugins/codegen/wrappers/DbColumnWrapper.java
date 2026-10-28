@@ -109,8 +109,7 @@ public class DbColumnWrapper extends DbObjectWrapper {
     }
 
     private DbORTypeClassifier getSourceType(DbORTypeClassifier type) throws DbException {
-        if (type instanceof DbORDomain) {
-            DbORDomain domain = (DbORDomain) type;
+        if (type instanceof DbORDomain domain) {
             DbORTypeClassifier srcType = domain.getSourceType();
             return getSourceType(srcType);
         } else {

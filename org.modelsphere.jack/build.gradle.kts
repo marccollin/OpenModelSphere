@@ -14,15 +14,14 @@ dependencies {
 
     implementation("org.apache.bcel:bcel:6.8.1")
 
+
     api(rootProject.libs.jgrapht.core)
     api(rootProject.libs.velocity.engine)
-    api(rootProject.libs.commons.collections)
     api(rootProject.libs.commons.lang3)
     api(rootProject.libs.jython.standalone)
     api(rootProject.libs.antlr)
     api(rootProject.libs.stringtemplate)
     api(rootProject.libs.bcel)
-    //api(rootProject.libs.log4j)
     api(rootProject.libs.log4j.api)
     api(rootProject.libs.log4j.core)
 

@@ -224,7 +224,25 @@ public final class PluginMgr {
         PluginLoader xmlPluginLoader = PluginLoader.getXMLInstance();
         List<PluginDescriptor> xmlPlugins = xmlPluginLoader.scan();
 
+        if (splashWindow != null)
+            splashWindow.setGUIText(kScanning);
+        List<PluginDescriptor> plugins = PluginLoader.getJARInstance().scan();
+        scannedPlugins.addAll(plugins);
+        plugins = PluginLoader.getClassInstance().scan();
+        scannedPlugins.addAll(plugins);
+
         if (configurationLoaded) {
+            // Apply saved settings to scanned plugins, and include plugins added since
+            // the configuration was last saved.
+            for (PluginDescriptor scannedPlugin : scannedPlugins) {
+                int index = configuredPlugins.indexOf(scannedPlugin);
+                if (index > -1) {
+                    PluginDescriptor configuredPlugin = configuredPlugins.get(index);
+                    PluginLoader.applyConfiguration(scannedPlugin, configuredPlugin);
+                    configuredPlugins.remove(index);
+                }
+            }
+
             // Check if the scanned plugin (from xml) has a saved configuration.
             // If so, use the entry from the scanning and apply the configurable 
             // properties from the configuration to it. (This ensure that all the xml properties
@@ -243,20 +261,9 @@ public final class PluginMgr {
             configuredPlugins.removeIf(configuredPlugin -> configuredPlugin.getContext().getLoader() == xmlPluginLoader
                     && !xmlPlugins.contains(configuredPlugin));
             tempPlugins.addAll(configuredPlugins);
-        } else {
-            if (splashWindow != null)
-                splashWindow.setGUIText(kScanning);
-            List<PluginDescriptor> plugins = PluginLoader.getJARInstance().scan();
-            for (PluginDescriptor pluginDescriptor : plugins) {
-                scannedPlugins.add(pluginDescriptor);
-            }
-            plugins = PluginLoader.getClassInstance().scan();
-            for (PluginDescriptor pluginDescriptor : plugins) {
-                scannedPlugins.add(pluginDescriptor);
-            }
-            tempPlugins.addAll(scannedPlugins);
         }
 
+        tempPlugins.addAll(scannedPlugins);
         tempPlugins.addAll(xmlPlugins);
 
         for (PluginDescriptor pluginDescriptor : tempPlugins) {

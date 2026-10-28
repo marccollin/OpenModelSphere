@@ -43,7 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.event.MouseEvent;
+import java.awt.*;
+import java.awt.event.*;
 
 import javax.swing.JTable;
 import javax.swing.event.CellEditorListener;
@@ -51,14 +52,14 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.EventListenerList;
 
 public abstract class AbstractTableCellEditor implements javax.swing.table.TableCellEditor,
-        java.awt.event.ActionListener, java.awt.event.ItemListener {
+        ActionListener, ItemListener {
     protected EventListenerList listenerList = new EventListenerList();
     transient protected ChangeEvent changeEvent = null;
 
     private int clickCountForEditing = 1;
 
-    abstract public java.awt.Component getTableCellEditorComponent(JTable table, Object value,
-            boolean isSelected, int row, int column);
+    abstract public Component getTableCellEditorComponent(JTable table, Object value,
+                                                          boolean isSelected, int row, int column);
 
     /**
      * Add a listener to the list that's notified when the editor starts, stops, or cancels editing.
@@ -153,14 +154,14 @@ public abstract class AbstractTableCellEditor implements javax.swing.table.Table
     // Implementing ActionListener interface, it's the resposability of the
     // sub-classes to
     // call the addActionListener method to its component
-    public void actionPerformed(java.awt.event.ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {
         stopCellEditing();
     }
 
     // Implementing ItemListener interface, it's the resposability of the
     // sub-classes to
     // call the addItemListener method to its component
-    public void itemStateChanged(java.awt.event.ItemEvent e) {
+    public void itemStateChanged(ItemEvent e) {
         stopCellEditing();
     }
 
