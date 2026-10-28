@@ -46,8 +46,8 @@ package org.modelsphere.jack.awt.tree;
 import java.awt.*;
 
 public class CheckEvent {
-    private CheckTreeNode[] nodes;
-    private Component source;
+    private final CheckTreeNode[] nodes;
+    private final Component source;
 
     public CheckEvent(Component source, CheckTreeNode[] nodes) {
         this.nodes = nodes;

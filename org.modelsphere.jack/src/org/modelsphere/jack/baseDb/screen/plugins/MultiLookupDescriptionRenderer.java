@@ -94,8 +94,8 @@ public class MultiLookupDescriptionRenderer extends MultiDefaultRenderer {
             }
         }
         TableModel model = table.getModel();
-        boolean valuesDiffer = model instanceof DesignTableModel
-                && ((DesignTableModel) model).isValuesDiffer(row);
+        boolean valuesDiffer = model instanceof DesignTableModel designModel
+                && designModel.isValuesDiffer(row);
         if (valuesDiffer && !isSelected) {
             label.setForeground(table.getForeground());
             label.setBackground(DesignPanel.DIFFER_NO_FOCUS_COLOR);
