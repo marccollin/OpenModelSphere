@@ -564,8 +564,12 @@ public class TemplateDialog extends JDialog implements TestableWindow {
             }
 
             if (option.equals("DISPLAY")) { // NOT LOCALIZABLE
-                this.m_display = value.substring(1, value.length() - 1); // remove
-                // quotes
+                if (value == null || value.length() < 2
+                        || !value.startsWith("\"") || !value.endsWith("\"")) {
+                    throw new IllegalArgumentException(
+                            "DISPLAY must be enclosed in double quotes: " + param);
+                }
+                this.m_display = value.substring(1, value.length() - 1);
             } else if (option.equals("ORDER")) { // NOT LOCALIZABLE
                 int intValue = Integer.parseInt(value);
                 this.m_order = intValue;
@@ -576,6 +580,7 @@ public class TemplateDialog extends JDialog implements TestableWindow {
 
         ExternalDisplay(String value, Rule rule) {
             m_rule = rule;
+            m_display = rule.m_ruleName;
             // options are comma-separated
             StringTokenizer st = new StringTokenizer(value, ",");
             while (st.hasMoreTokens()) {

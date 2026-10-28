@@ -52,7 +52,7 @@ import javax.swing.*;
 public class UDFValueTypeEditor extends DomainEditor {
 
     public final boolean stopCellEditing() {
-        if (!oldValue.equals(getSelectedItem())) {
+        if (!java.util.Objects.equals(oldValue, getSelectedItem())) {
             int nbValues = 0;
             try {
                 dbo.getDb().beginTrans(Db.READ_TRANS);

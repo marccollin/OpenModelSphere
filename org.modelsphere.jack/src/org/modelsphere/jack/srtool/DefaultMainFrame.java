@@ -1633,6 +1633,19 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
 
         boolean isReadOnly;
         try {
+            if (!doItLikeANew) {
+                File requestedFile = new File(fileName).getCanonicalFile();
+                for (DbProject openProject : DbApplication.getProjects()) {
+                    String openFileName = openProject.getRamFileName();
+                    if (openFileName != null
+                            && requestedFile.equals(new File(openFileName).getCanonicalFile())) {
+                        findInExplorer(openProject);
+                        if (statusBarModel != null)
+                            statusBarModel.stopWaitingBar(null);
+                        return openProject;
+                    }
+                }
+            }
             try {
                 File file = new File(fileName);
                 long length = file.length();

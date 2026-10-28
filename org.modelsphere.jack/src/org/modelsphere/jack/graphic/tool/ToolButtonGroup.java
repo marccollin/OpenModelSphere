@@ -94,6 +94,8 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
                     try {
                         tool.updateHelp();
                     } catch (Exception e) {
+                        org.modelsphere.jack.util.ExceptionHandler
+                                .processUncatchedException(diagView, e);
                     }
                 }
             }
