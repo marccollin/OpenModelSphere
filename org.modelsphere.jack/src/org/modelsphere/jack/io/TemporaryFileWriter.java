@@ -78,19 +78,15 @@ public final class TemporaryFileWriter extends Writer {
     public String toString() {
         try {
             m_writer.flush();
-            FileReader reader = new FileReader(m_file);
-            StringWriter writer = new StringWriter();
-            int buflen = 1024;
-            char[] buffer = new char[buflen];
-            int bytesRead;
-            do {
-                bytesRead = reader.read(buffer, 0, buflen);
-                if (bytesRead > 0) {
-                    writer.write(buffer, 0, bytesRead);
+            try (FileReader reader = new FileReader(m_file)) {
+                StringWriter writer = new StringWriter();
+                char[] buffer = new char[1024];
+                int charsRead;
+                while ((charsRead = reader.read(buffer)) != -1) {
+                    writer.write(buffer, 0, charsRead);
                 }
-            } while (bytesRead > 0);
-
-            return writer.toString();
+                return writer.toString();
+            }
         } catch (IOException ex) {
             return ex.toString();
         }
