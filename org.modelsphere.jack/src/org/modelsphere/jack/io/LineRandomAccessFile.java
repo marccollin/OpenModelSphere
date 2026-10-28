@@ -78,7 +78,7 @@ public final class LineRandomAccessFile extends RandomAccessFile implements Test
         // Build a vector containing positions of each line
         do {
             long filepos = getFilePointer();
-            m_absolutePositions.add(new Long(filepos));
+            m_absolutePositions.add(Long.valueOf(filepos));
         } while (readLine() != null);
     }
 
