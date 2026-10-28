@@ -46,8 +46,7 @@ public class StartingWizardAction extends AbstractApplicationAction {
     private static final String START_WIZ_TITLE = LocaleMgr.action.getString("StartWizardTitle");
 
     public StartingWizardAction() {
-        super(LocaleMgr.action.getString("StartWizard"), LocaleMgr.action
-                .getImageIcon("StartWizard"));
+        super(START_WIZ, LocaleMgr.action.getImageIcon("StartWizard"));
         setVisible(ScreenPerspective.isFullVersion()); 
     }
 
