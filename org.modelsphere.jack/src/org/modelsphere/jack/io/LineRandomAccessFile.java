@@ -69,7 +69,7 @@ public final class LineRandomAccessFile extends RandomAccessFile implements Test
     // code
 
     // this array list contains the absolute position for each line
-    private ArrayList m_absolutePositions = new ArrayList();
+    private ArrayList<Long> m_absolutePositions = new ArrayList<>();
 
     public LineRandomAccessFile(File file) throws FileNotFoundException, IOException {
 
@@ -90,7 +90,7 @@ public final class LineRandomAccessFile extends RandomAccessFile implements Test
 
         // TODO: perform binary search (valuable if nb lines > 100)
         for (int i = 0; i < len; i++) {
-            Long lineStart = (Long) m_absolutePositions.get(i);
+            Long lineStart = m_absolutePositions.get(i);
             if (filepos <= lineStart.longValue()) {
                 lineNo = i;
                 break;
@@ -109,8 +109,8 @@ public final class LineRandomAccessFile extends RandomAccessFile implements Test
 
     /** seek ith line */
     public void seekLine(int lineno) throws IOException {
-        Long filepos = (Long) m_absolutePositions.get(lineno - 1);
-        seek(filepos.longValue());
+        Long filepos = m_absolutePositions.get(lineno - 1);
+        seek(filepos);
     }
 
     public int getNbLines() throws IOException {
@@ -118,8 +118,8 @@ public final class LineRandomAccessFile extends RandomAccessFile implements Test
     }
 
     public long getAbsolutePosition(int line, int column) {
-        Long pos = (Long) m_absolutePositions.get(line - 1);
-        long absolutePosition = pos.longValue() + column - 1; // line starts at
+        Long pos = m_absolutePositions.get(line - 1);
+        long absolutePosition = pos + column - 1; // line starts at
         // column 1
         return absolutePosition;
     }
