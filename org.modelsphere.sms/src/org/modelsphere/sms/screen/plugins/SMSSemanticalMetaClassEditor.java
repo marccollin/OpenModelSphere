@@ -51,7 +51,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.Iterator;
 
 /**
  * 
@@ -115,9 +114,8 @@ public final class SMSSemanticalMetaClassEditor implements Editor {
                 currentMetaclass = DbSMSSemanticalObject.metaClass;
 
             parentDbo.getDb().beginTrans(Db.READ_TRANS);
-            Iterator<DefaultComparableElement> iter = semanticalMetaClasses.iterator();
-            while (iter.hasNext()) {
-                MetaClass metaclass = (MetaClass) iter.next().object;
+            for (DefaultComparableElement element : semanticalMetaClasses) {
+                MetaClass metaclass = (MetaClass) element.object;
                 if (metaclass == DbORAbsTable.metaClass)
                     combo.addItem(new DefaultComparableElement(metaclass, kTableOrEntity));
                 else if (metaclass == DbSMSAssociation.metaClass)

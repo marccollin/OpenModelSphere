@@ -137,7 +137,12 @@ public final class TemporaryFileWriter extends Writer {
     }
 
     public void cleanup() {
-        m_file.delete();
+        try {
+            java.nio.file.Files.deleteIfExists(m_file.toPath());
+        } catch (IOException ex) {
+            throw new java.io.UncheckedIOException(
+                    "Could not delete temporary file: " + m_file, ex);
+        }
         m_file = null;
         m_writer = null;
         deleteOnExit = false;

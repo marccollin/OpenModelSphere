@@ -90,7 +90,7 @@ public class MultiLookupDescriptionRenderer extends MultiDefaultRenderer {
             if (value == null) {
                 textEditorBtn.setIcon(kTextToWrite);
             } else {
-                textEditorBtn.setIcon(((String) value).length() > 0 ? kTextWritten : kTextToWrite);
+                textEditorBtn.setIcon(!((String) value).isEmpty() ? kTextWritten : kTextToWrite);
             }
         }
         TableModel model = table.getModel();

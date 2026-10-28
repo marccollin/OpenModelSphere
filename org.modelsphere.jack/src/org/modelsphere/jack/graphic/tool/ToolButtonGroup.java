@@ -75,11 +75,11 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
 
     private static final String MASTER_TOOL_TIP = " " + LocaleMgr.message.getString("MasterTool");
 
-    private DiagramView diagView = null;
-    private DbSemanticalObject diagPackage = null;
+    private DiagramView diagView;
+    private DbSemanticalObject diagPackage;
     private final List<Tool> origTools = new ArrayList<>();
     private final List<JComponent> toolComponents = new ArrayList<>();
-    private int origMaster = 0;
+    private int origMaster;
 
     public ToolButtonGroup() {
         super();
@@ -219,8 +219,8 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
             Tool oriTool = tools[i];
             String sToolTip = oriTool.getText();
             comp.setToolTipText(sToolTip);
-            if (comp instanceof DefaultToolComponent)
-                ((DefaultToolComponent) comp).setIcon(new ImageIcon(oriTool.getIcon()));
+            if (comp instanceof DefaultToolComponent toolComponent)
+                toolComponent.setIcon(new ImageIcon(oriTool.getIcon()));
         }
         diagView.setTools(tools);
     }
@@ -295,7 +295,7 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
 
     private void setSelectDrawing(int ind, boolean selected) {
         ToolComponent comp = (ToolComponent) toolComponents.get(ind);
-        int newstate = comp.getState();
+        int newstate;
         if (selected) {
             newstate = ToolComponent.STATE_SELECTED
                     | (comp.getState() & ToolComponent.STATE_MASTER);
@@ -308,7 +308,7 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
 
     private void setMasterDrawing(int ind, boolean master) {
         ToolComponent comp = (ToolComponent) toolComponents.get(ind);
-        int newstate = comp.getState();
+        int newstate;
         if (master) {
             newstate = ToolComponent.STATE_MASTER
                     | (comp.getState() & ToolComponent.STATE_SELECTED);
@@ -343,10 +343,10 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
     //
     public void currentFocusChanged(Object oldFocusObject, Object focusObject) throws DbException {
 
-        diagPackage = (focusObject instanceof ApplicationDiagram ? ((ApplicationDiagram) focusObject)
+        diagPackage = (focusObject instanceof ApplicationDiagram applicationDiagram ? applicationDiagram
                 .getSemanticalObject()
                 : null);
-        DiagramView diagView = (focusObject instanceof ApplicationDiagram ? ((ApplicationDiagram) focusObject)
+        DiagramView diagView = (focusObject instanceof ApplicationDiagram applicationDiagram ? applicationDiagram
                 .getMainView()
                 : null);
         setDiagramView(diagView);
