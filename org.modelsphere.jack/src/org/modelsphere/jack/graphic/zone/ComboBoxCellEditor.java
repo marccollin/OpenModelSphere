@@ -49,8 +49,6 @@ import org.modelsphere.jack.graphic.ZoneBox;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public abstract class ComboBoxCellEditor implements CellEditor {
 
@@ -68,11 +66,7 @@ public abstract class ComboBoxCellEditor implements CellEditor {
         diagram = box.getDiagram();
         combo = new JComboBox();
         populateCombo();
-        combo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                diagram.removeEditor(CellEditor.NORMAL_ENDING);
-            }
-        });
+        combo.addActionListener(e -> diagram.removeEditor(CellEditor.NORMAL_ENDING));
         return combo;
     }
 
