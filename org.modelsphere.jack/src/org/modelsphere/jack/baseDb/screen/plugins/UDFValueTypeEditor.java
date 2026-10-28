@@ -64,7 +64,7 @@ public class UDFValueTypeEditor extends DomainEditor {
             }
             if (nbValues != 0) {
                 if (JOptionPane.showConfirmDialog(this, LocaleMgr.message
-                        .getString("changeUDFValueType"), "", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
+                        .getString("changeUDFValueType"), "", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) {
                     setSelectedItem(oldValue);
                 }
             }
