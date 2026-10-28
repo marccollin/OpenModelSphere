@@ -279,17 +279,14 @@ public class FsFile extends FsEntry {
 			IoUtil.copyFile(m_file, copy.m_file, true, false);
 		} else {
 			copy.m_file.createNewFile();
-			InputStream input = m_composite.getInputStream(m_entry);
-			OutputStream output = new FileOutputStream(copy.m_file); 
-			
-			 byte[] buffer = new byte[8 * 1024];
-	         int count = 0;
-	            do {
-	            	output.write(buffer, 0, count);
-	                count = input.read(buffer, 0, buffer.length);
-	            } while (count != -1);
-
-	            output.close();
+			try (InputStream input = m_composite.getInputStream(m_entry);
+					OutputStream output = new FileOutputStream(copy.m_file)) {
+				byte[] buffer = new byte[8 * 1024];
+				int count;
+				while ((count = input.read(buffer)) != -1) {
+					output.write(buffer, 0, count);
+				}
+			}
 		}
 	}
 
