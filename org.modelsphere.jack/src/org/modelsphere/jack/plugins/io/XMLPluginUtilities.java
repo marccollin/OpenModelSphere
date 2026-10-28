@@ -128,7 +128,7 @@ public class XMLPluginUtilities implements PluginConstants {
         File jarFile = new File(homeDirectory, jar);
         URL jarURL = null;
         try {
-            jarURL = jarFile.toURL();
+            jarURL = jarFile.toURI().toURL();
         } catch (MalformedURLException e) {
             return null;
         }
@@ -179,7 +179,7 @@ public class XMLPluginUtilities implements PluginConstants {
             URL licenseURL = null;
             try {
                 File licenseFile = new File(homeDirectory, licenseResource);
-                licenseURL = licenseFile.toURL();
+                licenseURL = licenseFile.toURI().toURL();
                 pluginDescriptor.setLicenseURL(licenseURL);
             } catch (MalformedURLException e) {
             }
@@ -191,7 +191,7 @@ public class XMLPluginUtilities implements PluginConstants {
             try {
                 File imageFile = new File(homeDirectory, imageResource);
                 if (imageFile.exists()) {
-                    imageURL = imageFile.toURL();
+                    imageURL = imageFile.toURI().toURL();
                     Image image = ImageUtilities.loadImage(imageURL);
                     pluginDescriptor.setImage(image);
                 }
