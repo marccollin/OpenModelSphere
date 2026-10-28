@@ -113,6 +113,7 @@ public abstract class DbSemanticalObjectShortEditor implements Editor {
             parentDbo.getDb().commitTrans();
             return value;
         } catch (Exception ex) {
+            org.modelsphere.jack.util.ExceptionHandler.processUncatchedException(comp, ex);
             return oldValue;
         }
     }
