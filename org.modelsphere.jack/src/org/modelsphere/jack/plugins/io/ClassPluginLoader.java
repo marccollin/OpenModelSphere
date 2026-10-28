@@ -124,7 +124,7 @@ public class ClassPluginLoader extends JARPluginLoader {
                 JarFile jar = new JarFile(file);
                 if (jar == null)
                     return null;
-                URL jarurl = file.toURL();
+                URL jarurl = file.toURI().toURL();
                 if (jarurl == null)
                     return null;
 
