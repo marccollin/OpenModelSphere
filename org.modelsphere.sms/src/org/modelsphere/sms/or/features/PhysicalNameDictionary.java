@@ -33,17 +33,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features;
 
+import org.modelsphere.jack.util.StringUtil;
+import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JDialog;
-
-import org.modelsphere.jack.util.StringUtil;
-import org.modelsphere.sms.or.international.LocaleMgr;
 
 public class PhysicalNameDictionary {
     public static final int VALID_DICTIONARY = 0;

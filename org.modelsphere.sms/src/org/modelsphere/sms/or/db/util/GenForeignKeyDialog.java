@@ -44,18 +44,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.db.util;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-
-import javax.swing.border.*;
-
 import org.modelsphere.jack.awt.HotKeysSupport;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GenForeignKeyDialog extends JDialog {
 

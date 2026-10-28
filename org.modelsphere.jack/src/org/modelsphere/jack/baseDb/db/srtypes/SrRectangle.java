@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.srtypes;
 
-import java.awt.Rectangle;
+import java.awt.*;
 
 public final class SrRectangle extends SrType {
 

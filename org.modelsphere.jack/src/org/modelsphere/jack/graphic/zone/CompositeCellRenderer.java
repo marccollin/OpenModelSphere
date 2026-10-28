@@ -42,10 +42,10 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.graphic.zone;
 
-import java.util.Vector;
-import java.awt.*;
+import org.modelsphere.jack.graphic.DiagramView;
 
-import org.modelsphere.jack.graphic.*;
+import java.awt.*;
+import java.util.Vector;
 
 /**
  * A CompositeCellRenderer is a renderer that use vector of other cellrenderer as an object data,

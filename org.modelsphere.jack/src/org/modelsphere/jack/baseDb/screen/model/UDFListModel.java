@@ -43,13 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.model;
 
-import java.lang.reflect.Modifier;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbUDF;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.screen.ScreenView;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.util.SrVector;
+
+import java.lang.reflect.Modifier;
 
 public class UDFListModel extends DbListModel {
 

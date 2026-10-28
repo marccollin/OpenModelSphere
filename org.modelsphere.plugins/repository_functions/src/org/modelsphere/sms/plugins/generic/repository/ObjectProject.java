@@ -44,8 +44,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.plugins.generic.repository;
 
 //Java
-import java.io.IOException;
-import java.io.Writer;
 
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -57,6 +55,9 @@ import org.modelsphere.jack.srtool.forward.RuleException;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.db.DbSMSSemanticalObject;
+
+import java.io.IOException;
+import java.io.Writer;
 
 /**
  * For any object, gets the project to which it belongs. <br>

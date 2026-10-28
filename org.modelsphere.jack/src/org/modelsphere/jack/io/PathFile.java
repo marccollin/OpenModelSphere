@@ -43,14 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.io;
 
+import org.modelsphere.jack.debug.Debug;
+import org.modelsphere.jack.international.LocaleMgr;
+import org.modelsphere.jack.text.MessageFormat;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.StringTokenizer;
-
-import org.modelsphere.jack.debug.Debug;
-import org.modelsphere.jack.international.LocaleMgr;
-import org.modelsphere.jack.text.MessageFormat;
 
 //add new functionnalities to java.io.File
 public final class PathFile {

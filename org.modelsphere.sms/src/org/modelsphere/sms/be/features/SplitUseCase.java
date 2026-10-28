@@ -33,14 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.features;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.swing.SwingUtilities;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -56,7 +48,6 @@ import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.jack.gui.task.DefaultController;
 import org.modelsphere.jack.gui.task.Worker;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.sms.be.db.DbBEActor;
 import org.modelsphere.sms.be.db.DbBEActorQualifier;
@@ -81,6 +72,13 @@ import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.db.DbSMSStereotype;
 import org.modelsphere.sms.db.DbSMSUmlConstraint;
 import org.modelsphere.sms.db.DbSMSUmlExtensibility;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 public final class SplitUseCase {
     private static final int REPORT_INDENT = 4;

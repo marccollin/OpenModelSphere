@@ -43,15 +43,20 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.graphic;
 
-import java.awt.*;
-import java.util.HashSet;
-
 import org.modelsphere.jack.actions.ActionInformation;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.graphic.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.graphic.Diagram;
+import org.modelsphere.jack.graphic.GraphicComponent;
+import org.modelsphere.jack.graphic.GraphicNode;
+import org.modelsphere.jack.graphic.Line;
 import org.modelsphere.jack.graphic.tool.SelectTool;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import java.awt.*;
+import java.util.HashSet;
 
 public class DbSelectTool extends SelectTool {
 

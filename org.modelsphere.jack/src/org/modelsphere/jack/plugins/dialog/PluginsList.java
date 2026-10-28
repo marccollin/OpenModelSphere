@@ -43,16 +43,21 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins.dialog;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.plugins.PluginConfigurationHandler;
 import org.modelsphere.jack.plugins.PluginDescriptor;
 import org.modelsphere.jack.plugins.PluginListener;
 import org.modelsphere.jack.plugins.dialog.PluginsListItem.STATE;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 @SuppressWarnings("serial")
 class PluginsList extends JComponent implements MouseListener, Scrollable {

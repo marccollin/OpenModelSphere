@@ -14,10 +14,10 @@ module as os.path.
 # sameopenfile -- Java doesn't have fstat nor file descriptors?
 # samestat -- How?
 
-from java.io import File
 import java.io.IOException
-from java.lang import System
 import os
+from java.io import File
+from java.lang import System
 
 
 def _tostr(s, method):

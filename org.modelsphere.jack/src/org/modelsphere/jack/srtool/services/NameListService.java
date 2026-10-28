@@ -43,15 +43,33 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.services;
 
-import java.io.*;
-import java.util.*;
-import java.sql.*;
-import java.net.URL;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.reverse.SQLLexerStream;
 import org.modelsphere.jack.srtool.reverse.jdbc.ObjectNameReader;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.PipedReader;
+import java.io.PipedWriter;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.Writer;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A very simple service. It displays the current time on the server to the client, and closes the

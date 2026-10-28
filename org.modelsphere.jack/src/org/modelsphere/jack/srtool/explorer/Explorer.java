@@ -43,14 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.explorer;
 
-import java.util.*;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
-import javax.swing.*;
-import javax.swing.tree.*;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbGraphicalObjectI;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbRAM;
+import org.modelsphere.jack.baseDb.db.DbRoot;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.baseDb.db.event.DbListener;
 import org.modelsphere.jack.baseDb.db.event.DbRefreshListener;
 import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
@@ -66,6 +68,17 @@ import org.modelsphere.jack.srtool.preference.DisplayToolTipsOptionGroup;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.jack.util.SrVector;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Enumeration;
+import java.util.List;
 
 public class Explorer extends DefaultTreeModel implements DbRefreshListener {
     public static final String kUpdate0 = LocaleMgr.screen.getString("Update0");

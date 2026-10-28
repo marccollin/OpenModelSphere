@@ -36,10 +36,10 @@ package org.modelsphere.sms.plugins.report.screen;
 // Jack
 
 // Swing
-import javax.swing.JComboBox;
-import javax.swing.JTable;
 
 import org.modelsphere.jack.baseDb.db.srtypes.Domain;
+
+import javax.swing.*;
 
 public class DomainEditor extends JComboBox implements Editor {
 

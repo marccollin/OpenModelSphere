@@ -43,11 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.*;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.StringTokenizer;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.io.PathFile;
 import org.modelsphere.jack.srtool.ApplicationContext;
@@ -57,6 +52,16 @@ import org.modelsphere.jack.srtool.forward.exceptions.IllformedNumberException;
 import org.modelsphere.jack.srtool.forward.exceptions.NotADomainRuleException;
 import org.modelsphere.jack.srtool.forward.exceptions.SubruleMissingRuleException;
 import org.modelsphere.jack.text.MessageFormat;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.StringTokenizer;
 
 /**
  * A template is a string containing template variables and edition codes. Processing (expanding) a

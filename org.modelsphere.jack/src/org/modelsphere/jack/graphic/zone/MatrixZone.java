@@ -43,10 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.zone;
 
-import java.util.*;
-import java.awt.*;
+import org.modelsphere.jack.graphic.Diagram;
+import org.modelsphere.jack.graphic.DiagramView;
+import org.modelsphere.jack.graphic.GraphicComponent;
+import org.modelsphere.jack.graphic.GraphicUtil;
+import org.modelsphere.jack.graphic.ZoneBox;
 
-import org.modelsphere.jack.graphic.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Vector;
 
 public class MatrixZone extends Zone {
     private int m_zoneMinimumHeight;

@@ -1,10 +1,11 @@
 # Copyright (C) 2001,2002 Python Software Foundation
 # Author: che@debian.org (Ben Gertzfield), barry@zope.com (Barry Warsaw)
 
-from types import UnicodeType
-from email.Encoders import encode_7or8bit
 import email.base64MIME
 import email.quopriMIME
+from email.Encoders import encode_7or8bit
+from types import UnicodeType
+
 
 def _isunicode(s):
     return isinstance(s, UnicodeType)

@@ -43,14 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.features;
 
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.srtool.graphic.DbGraphic;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-
-import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
-import org.modelsphere.jack.baseDb.meta.MetaField;
-import org.modelsphere.jack.srtool.graphic.DbGraphic;
 
 public class FindOption {
     private static final int NAME = 0;

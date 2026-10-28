@@ -2,8 +2,7 @@
 
 package org.modelsphere.plugins.layout.clusters.arevalo;
 
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.Collections;
 import java.util.Vector;
 

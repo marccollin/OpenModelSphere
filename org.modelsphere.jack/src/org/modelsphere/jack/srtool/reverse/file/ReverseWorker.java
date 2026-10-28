@@ -43,15 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.file;
 
-import java.awt.Component;
-import java.io.File;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.text.MessageFormat;
-import java.util.*;
-
-import javax.swing.JDialog;
-
 import org.modelsphere.jack.awt.JackOptionPane;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -60,6 +51,22 @@ import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.jack.gui.task.GuiController;
 import org.modelsphere.jack.gui.task.Worker;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 public class ReverseWorker extends Worker {
     private static final String DONT_KNOW_HOW_TO_REVERSE_MSG = LocaleMgr.message

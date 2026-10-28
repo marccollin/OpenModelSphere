@@ -1,6 +1,7 @@
-from test_support import verify
-import urllib2
 import os
+import urllib2
+
+from test_support import verify
 
 # A couple trivial tests
 

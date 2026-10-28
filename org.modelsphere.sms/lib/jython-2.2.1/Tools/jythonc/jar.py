@@ -1,12 +1,10 @@
 # Copyright (c) Corporation for National Research Initiatives
 
+import jarray
 import os
 
-import jarray
-from java.util.zip import *
-from java.io import *
-from util import lookup
 from util import listAllClasses, openResource
+from util import lookup
 
 DOT = '.'
 SLASH = '/'

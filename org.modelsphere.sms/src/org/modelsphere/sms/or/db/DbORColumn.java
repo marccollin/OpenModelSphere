@@ -42,17 +42,19 @@ open-modelsphere@grandite.com
 **********************************************************************/
 package org.modelsphere.sms.or.db;
 
-import java.awt.*;
-import org.modelsphere.jack.baseDb.meta.*;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import org.modelsphere.sms.or.db.srtypes.*;
-import org.modelsphere.sms.or.international.LocaleMgr;
-import org.modelsphere.sms.db.*;
-import org.modelsphere.sms.db.srtypes.*;
-import org.modelsphere.sms.SMSFilter;
-import org.modelsphere.jack.baseDb.util.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.jack.baseDb.db.srtypes.SrBoolean;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelation1;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
+import org.modelsphere.jack.baseDb.util.Terminology;
+import org.modelsphere.jack.baseDb.util.TerminologyUtil;
+import org.modelsphere.sms.SMSFilter;
+import org.modelsphere.sms.or.international.LocaleMgr;
 
 /**
 <b>Direct subclass(es)/subinterface(s) : </b><A HREF="../../../../../org/modelsphere/sms/or/oracle/db/DbORAColumn.html">DbORAColumn</A>, <A HREF="../../../../../org/modelsphere/sms/or/ibm/db/DbIBMColumn.html">DbIBMColumn</A>, <A HREF="../../../../../org/modelsphere/sms/or/informix/db/DbINFColumn.html">DbINFColumn</A>, <A HREF="../../../../../org/modelsphere/sms/or/generic/db/DbGEColumn.html">DbGEColumn</A>.<br>

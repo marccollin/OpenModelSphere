@@ -42,9 +42,9 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.srtool.plugins.generic.dbms;
 
-import java.io.Serializable;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
+
+import java.io.Serializable;
 
 public class ObjectSelection implements Serializable {
     public String name;

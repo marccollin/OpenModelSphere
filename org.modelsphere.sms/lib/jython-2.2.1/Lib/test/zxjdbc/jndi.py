@@ -9,8 +9,8 @@
 	This script is used to bind a JNDI reference for testing purposes only.
 """
 from java.util import Hashtable
-from org.gjt.mm.mysql import MysqlDataSource
 from javax.naming import Context, InitialContext, NameAlreadyBoundException
+from org.gjt.mm.mysql import MysqlDataSource
 
 env = Hashtable()
 env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.fscontext.RefFSContextFactory")

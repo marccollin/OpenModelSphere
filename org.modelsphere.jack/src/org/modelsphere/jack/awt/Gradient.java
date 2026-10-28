@@ -43,10 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
+import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.Method;
-
-import javax.swing.LookAndFeel;
 
 public class Gradient {
     private Color color1;

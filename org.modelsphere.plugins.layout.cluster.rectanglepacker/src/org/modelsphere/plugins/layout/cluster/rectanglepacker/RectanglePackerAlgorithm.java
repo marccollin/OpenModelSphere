@@ -1,19 +1,19 @@
 package org.modelsphere.plugins.layout.cluster.rectanglepacker;
 
-import java.awt.Point;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.awt.geom.Dimension2D;
-import java.awt.geom.Rectangle2D;
-import java.util.*;
-
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.srtool.features.layout.ClustersLayoutAlgorithm;
 import org.modelsphere.jack.srtool.features.layout.LayoutAttribute;
 import org.modelsphere.jack.srtool.features.layout.LayoutAttributes;
 import org.modelsphere.jack.srtool.features.layout.graph.Graph;
 import org.modelsphere.jack.srtool.features.layout.graph.Node;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Dimension2D;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 public class RectanglePackerAlgorithm implements ClustersLayoutAlgorithm {
     private static final int CLUSTERS_GAP = 10;

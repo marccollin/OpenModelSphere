@@ -6,7 +6,9 @@
     Written by Marc-Andre Lemburg (mal@lemburg.com).
 
 """
-import codecs, base64
+import base64
+import codecs
+
 
 ### Codec APIs
 

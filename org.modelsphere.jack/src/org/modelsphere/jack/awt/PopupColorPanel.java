@@ -43,17 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
+import org.modelsphere.jack.actions.AbstractApplicationAction;
+import org.modelsphere.jack.actions.AbstractColorDomainAction;
+import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
-import javax.swing.*;
-
-import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.actions.AbstractColorDomainAction;
-import org.modelsphere.jack.international.LocaleMgr;
 
 public class PopupColorPanel extends PopupButton {
     private static final String kRed = LocaleMgr.misc.getString("Red");

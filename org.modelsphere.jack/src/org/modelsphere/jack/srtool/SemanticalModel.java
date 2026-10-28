@@ -43,13 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool;
 
-import java.awt.Image;
-import java.awt.Point;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.TimeZone;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
@@ -60,6 +53,12 @@ import org.modelsphere.jack.baseDb.screen.plugins.MultiTimestampRenderer;
 import org.modelsphere.jack.baseDb.util.Terminology;
 import org.modelsphere.jack.srtool.list.ListDescriptor;
 import org.modelsphere.jack.srtool.list.ListTableModel;
+
+import java.awt.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.TimeZone;
 
 public abstract class SemanticalModel {
     public static final int NAME_SHORT_FORM = DbObject.SHORT_FORM;

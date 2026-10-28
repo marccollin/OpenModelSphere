@@ -4,8 +4,8 @@ Display the names of bright colors in black and of dark colors in white
 """
 
 from java import awt
-from pawt import colors, test
 from math import sqrt
+from pawt import colors, test
 
 p = awt.Panel()
 for name in dir(colors):

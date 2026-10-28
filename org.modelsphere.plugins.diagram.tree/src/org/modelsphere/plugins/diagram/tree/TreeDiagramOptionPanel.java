@@ -33,19 +33,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.diagram.tree;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.plugins.diagram.tree.international.LocaleMgr;
+import org.modelsphere.sms.be.db.DbBEDiagram;
+import org.modelsphere.sms.db.DbSMSDiagram;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-
-import org.modelsphere.jack.baseDb.db.DbException;
-import org.modelsphere.sms.be.db.DbBEDiagram;
-import org.modelsphere.sms.db.DbSMSDiagram;
-import org.modelsphere.plugins.diagram.tree.international.LocaleMgr;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class TreeDiagramOptionPanel extends JPanel {
     private JPanel jOrientationPanel = new JPanel();

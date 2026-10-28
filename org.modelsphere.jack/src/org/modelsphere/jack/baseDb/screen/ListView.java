@@ -43,22 +43,36 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.EventObject;
-
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.table.*;
-
 import org.modelsphere.jack.baseDb.PackageProperties;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.baseDb.meta.MetaRelationship;
-import org.modelsphere.jack.baseDb.screen.model.*;
+import org.modelsphere.jack.baseDb.screen.model.DbListModel;
+import org.modelsphere.jack.baseDb.screen.model.DescriptionField;
 import org.modelsphere.jack.baseDb.screen.model.ListModel;
+import org.modelsphere.jack.baseDb.screen.model.MetaFieldDescriptionField;
+import org.modelsphere.jack.baseDb.screen.model.ScreenModel;
+import org.modelsphere.jack.baseDb.screen.model.UDFDescriptionField;
 import org.modelsphere.jack.baseDb.screen.plugins.MultiDbSemanticalObjectRenderer;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.graphic.GraphicUtil;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.util.EventObject;
 
 public class ListView extends ScreenView {
 

@@ -33,15 +33,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.diagram.tree;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Iterator;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.sms.db.DbSMSSemanticalObject;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-
-import org.modelsphere.jack.baseDb.db.DbException;
-import org.modelsphere.sms.db.DbSMSSemanticalObject;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Iterator;
 
 /**
  * @author Grandite

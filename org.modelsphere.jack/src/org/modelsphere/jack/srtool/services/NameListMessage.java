@@ -43,11 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.services;
 
-import java.util.ArrayList;
-import java.net.URL;
-import java.util.List;
-
 import org.modelsphere.jack.services.ServiceMessage;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NameListMessage extends ServiceMessage {
     public int connectionId; // in

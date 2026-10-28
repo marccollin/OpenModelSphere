@@ -43,17 +43,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.jdbc.bridge;
 
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.modelsphere.jack.srtool.reverse.jdbc.JdbcMetaInfo;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.StringUtil;
 import org.modelsphere.sms.plugins.TargetSystem;
 import org.modelsphere.sms.plugins.TargetSystemInfo;
 import org.modelsphere.sms.plugins.TargetSystemManager;
+
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class JdbcReverseOptions {
 

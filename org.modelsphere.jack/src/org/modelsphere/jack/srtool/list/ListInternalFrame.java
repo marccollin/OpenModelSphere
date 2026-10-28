@@ -43,17 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.list;
 
-import java.awt.BorderLayout;
-import java.util.ArrayList;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JScrollPane;
-import javax.swing.UIManager;
-import javax.swing.WindowConstants;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -68,6 +57,12 @@ import org.modelsphere.jack.srtool.SemanticalModel;
 import org.modelsphere.jack.srtool.graphic.CascadingJInternalFrame;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.text.MessageFormat;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.util.ArrayList;
 
 public class ListInternalFrame extends CascadingJInternalFrame implements DbRefreshListener,
         DbListener {

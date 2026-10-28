@@ -33,21 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.awt.Point;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.beans.PropertyVetoException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-
-import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
-
 import org.modelsphere.jack.actions.AbstractDomainAction;
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.actions.SelectionActionListener;
@@ -108,6 +93,16 @@ import org.modelsphere.sms.or.db.DbORTableGo;
 import org.modelsphere.sms.or.db.DbORTypeClassifier;
 import org.modelsphere.sms.or.graphic.ORChoiceSpecialization;
 import org.modelsphere.sms.or.oracle.db.DbORANestedTableStorage;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyVetoException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public class SendToDiagramAction extends AbstractDomainAction implements SelectionActionListener {

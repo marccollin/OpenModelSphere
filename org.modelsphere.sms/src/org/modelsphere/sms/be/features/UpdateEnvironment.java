@@ -33,14 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.features;
 
-import java.awt.Dimension;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -66,6 +58,12 @@ import org.modelsphere.sms.db.DbSMSGraphicalObject;
 import org.modelsphere.sms.db.util.AnyGo;
 import org.modelsphere.sms.db.util.AnySemObject;
 import org.modelsphere.sms.db.util.DbInitialization;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 public final class UpdateEnvironment {
     private static final int MAX_DIAGRAM_INTERNAL_FRAME = 5;

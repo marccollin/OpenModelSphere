@@ -39,10 +39,6 @@ You can reach neosapiens inc. at:
  **********************************************************************/
 package org.modelsphere.plugins.export.links.wrappers;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
@@ -51,6 +47,10 @@ import org.modelsphere.sms.db.DbSMSLink;
 import org.modelsphere.sms.or.db.DbORColumn;
 import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.db.DbORTable;
+
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbLinkWrapper {
     private static final String NO_DESTINATION = LocaleMgr.misc.getString("NoDestination");

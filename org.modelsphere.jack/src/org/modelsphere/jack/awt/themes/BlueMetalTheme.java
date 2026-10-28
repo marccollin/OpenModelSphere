@@ -43,10 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.themes;
 
-import javax.swing.plaf.*;
-import javax.swing.plaf.metal.*;
-
 import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.metal.DefaultMetalTheme;
 
 public class BlueMetalTheme extends DefaultMetalTheme {
 

@@ -1,7 +1,7 @@
-from test_support import TestFailed
+import StringIO
 import mimetools
+import string
 
-import string,StringIO
 start = string.ascii_letters + "=" + string.digits + "\n"
 for enc in ['7bit','8bit','base64','quoted-printable']:
     print enc,

@@ -33,12 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features;
 
-import java.awt.Frame;
-import java.io.File;
-import java.util.*;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.actions.util.DbMultiTrans;
 import org.modelsphere.jack.awt.TextViewerDialog;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -65,6 +59,15 @@ import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.or.oracle.db.DbORAAbsPartition;
 import org.modelsphere.sms.or.screen.GeneratePhysicalNameFrame;
 import org.modelsphere.sms.or.screen.model.GeneratePhysicalNameModel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public final class PhysicalNameGeneration {
     private static final String EOL = System.getProperty("line.separator"); //NOT LOCALIZABLE, property key

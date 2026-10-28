@@ -3,12 +3,12 @@
   Nick Mathewson
 """
 
-import sys
 import os
+import sys
 import unittest
+from repr import repr as r  # Don't shadow builtin repr
 
 from test_support import run_unittest
-from repr import repr as r # Don't shadow builtin repr
 
 
 def nestedTuple(nesting):

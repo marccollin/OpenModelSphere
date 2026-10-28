@@ -43,13 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
+import org.modelsphere.jack.graphic.GraphicUtil;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import javax.swing.*;
-
-import org.modelsphere.jack.graphic.GraphicUtil;
 
 public class RunningPanel extends JPanel implements MouseListener {
     // direction constants

@@ -43,10 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse;
 
-import java.io.*;
-
 import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.jack.io.TemporaryFileWriter;
+
+import java.io.EOFException;
+import java.io.File;
+import java.io.RandomAccessFile;
+import java.io.Reader;
 
 public final class InputFileParser implements InputReadable, SRXConstants {
     private Controller controller;

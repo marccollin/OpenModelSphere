@@ -43,10 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins;
 
-import java.awt.event.ActionEvent;
-
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.MainFrameMenu;
+
+import java.awt.event.ActionEvent;
 
 /**
  * Used for reverse and forward engineering, JDBC driver plug-ins and other features. It is the

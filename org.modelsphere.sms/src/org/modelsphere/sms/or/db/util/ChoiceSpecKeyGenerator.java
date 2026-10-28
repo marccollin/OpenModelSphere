@@ -42,15 +42,9 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.or.db.util;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
-import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.sms.db.DbSMSBuiltInTypePackage;
 import org.modelsphere.sms.db.DbSMSTargetSystem;
 import org.modelsphere.sms.db.srtypes.SMSMultiplicity;
@@ -61,12 +55,10 @@ import org.modelsphere.sms.or.db.DbORBuiltInType;
 import org.modelsphere.sms.or.db.DbORChoiceOrSpecialization;
 import org.modelsphere.sms.or.db.DbORColumn;
 import org.modelsphere.sms.or.db.DbORDataModel;
-import org.modelsphere.sms.or.db.DbORFKeyColumn;
-
-import org.modelsphere.sms.or.db.DbORForeign;
-import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 import org.modelsphere.sms.or.db.DbORTable;
-import org.modelsphere.sms.or.db.srtypes.ORChoiceSpecializationCategory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChoiceSpecKeyGenerator {
 	boolean isNewSpecOrChoice = false;

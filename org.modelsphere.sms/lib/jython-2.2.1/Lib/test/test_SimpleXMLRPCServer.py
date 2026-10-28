@@ -2,8 +2,10 @@
 # Matt Shelton <matt@mattshelton.com>
 #
 
+import threading
+import unittest
+import xmlrpclib
 from SimpleXMLRPCServer import SimpleXMLRPCServer
-import threading, xmlrpclib, unittest
 
 HOST = "127.0.0.1"
 PORT = 7218

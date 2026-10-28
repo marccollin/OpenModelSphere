@@ -33,15 +33,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.statistics;
 
-import java.awt.*;
-import java.util.Enumeration;
-import java.util.Vector;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.debug.ConceptPair;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.util.ExceptionMessage;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.Enumeration;
+import java.util.Vector;
 
 /**
  * @author Grandite

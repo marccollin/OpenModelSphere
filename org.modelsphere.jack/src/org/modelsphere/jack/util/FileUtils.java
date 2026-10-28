@@ -43,11 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.util;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-
-import javax.swing.Icon;
-import javax.swing.JFileChooser;
 
 public class FileUtils {
     private static final JFileChooser basicChooser = new JFileChooser();

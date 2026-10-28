@@ -43,12 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.*;
-import java.util.Hashtable;
-import java.util.ArrayList;
-
 import org.modelsphere.jack.srtool.forward.exceptions.TypeMismatchRuleException;
 import org.modelsphere.jack.srtool.forward.exceptions.VariableNotDefinedRuleException;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Hashtable;
 
 public final class SetVariable extends Rule {
 

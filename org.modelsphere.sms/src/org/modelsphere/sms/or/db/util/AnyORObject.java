@@ -43,9 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.db.util;
 
-import java.util.Arrays;
-import java.util.Collection;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -138,6 +135,9 @@ import org.modelsphere.sms.or.oracle.db.DbORATable;
 import org.modelsphere.sms.or.oracle.db.DbORATrigger;
 import org.modelsphere.sms.or.oracle.db.DbORAView;
 import org.modelsphere.sms.plugins.TargetSystem;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 public abstract class AnyORObject {
 

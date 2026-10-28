@@ -43,10 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.jdbc;
 
-import java.sql.*;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.srtool.services.ConnectionService;
+
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /*******************************************************************************
  * This service executes JDBC API calls

@@ -43,22 +43,25 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.event.*;
-import java.beans.PropertyVetoException;
-import java.io.*;
+import org.modelsphere.jack.actions.AbstractActionsStore;
+import org.modelsphere.jack.international.LocaleMgr;
+import org.modelsphere.jack.srtool.ApplicationContext;
+import org.modelsphere.jack.text.MessageFormat;
 
 import javax.swing.*;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.text.JTextComponent;
-
-import org.modelsphere.jack.actions.AbstractActionsStore;
-import org.modelsphere.jack.international.LocaleMgr;
-import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.text.MessageFormat;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.beans.PropertyVetoException;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 // Internal use for TextViewerFrame, TextViewerDialog
 class TextViewerController implements ActionListener {// , HyperlinkListener {

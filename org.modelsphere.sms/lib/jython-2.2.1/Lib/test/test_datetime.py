@@ -3,16 +3,15 @@
 See http://www.zope.org/Members/fdrake/DateTimeWiki/TestCases
 """
 
-import sys
-import pickle
 import cPickle
+import pickle
+import sys
 import unittest
-
 from datetime import MINYEAR, MAXYEAR
+from datetime import date, datetime
+from datetime import time
 from datetime import timedelta
 from datetime import tzinfo
-from datetime import time
-from datetime import date, datetime
 from test import test_support
 
 # Before Python 2.3, proto=2 was taken as a synonym for proto=1.

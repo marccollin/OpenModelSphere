@@ -43,15 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.actions.AbstractActionsStore;
 import org.modelsphere.jack.graphic.tool.Tool;
 import org.modelsphere.jack.graphic.tool.ToolButtonGroup;
@@ -61,6 +52,20 @@ import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.actions.ZoomAction;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.HashMap;
+import java.util.Map;
 
 // normally (not necessarily) mounted in a JSrollPane.
 public class DiagramView extends JPanel implements Scrollable, MouseListener, MouseMotionListener,

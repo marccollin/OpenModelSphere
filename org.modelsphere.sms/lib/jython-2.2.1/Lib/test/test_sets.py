@@ -2,7 +2,10 @@
 
 from __future__ import generators
 
-import unittest, operator, copy, pickle
+import copy
+import operator
+import pickle
+import unittest
 from sets import Set, ImmutableSet
 from test import test_support
 

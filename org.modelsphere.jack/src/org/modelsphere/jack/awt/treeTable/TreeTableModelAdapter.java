@@ -43,14 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.treeTable;
 
-import javax.swing.JTree;
-import javax.swing.SwingUtilities;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.tree.TreePath;
+import javax.swing.*;
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeExpansionListener;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.tree.TreePath;
 
 public class TreeTableModelAdapter extends AbstractTableModel {
     JTree tree;

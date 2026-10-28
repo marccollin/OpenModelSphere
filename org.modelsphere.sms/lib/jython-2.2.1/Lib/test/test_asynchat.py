@@ -1,7 +1,11 @@
 # test asynchat -- requires threading
 
-import thread # If this fails, we can't test this module
-import asyncore, asynchat, socket, threading, time
+import asynchat
+import asyncore
+import socket
+import thread  # If this fails, we can't test this module
+import threading
+import time
 
 HOST = "127.0.0.1"
 PORT = 54321

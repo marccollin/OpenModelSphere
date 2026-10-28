@@ -32,19 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.graphic;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.io.File;
-import java.net.URL;
-import java.text.MessageFormat;
-import java.util.Vector;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.filechooser.FileSystemView;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.awt.choosers.ExternalDocumentDialog;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -60,7 +47,6 @@ import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.graphic.Diagram;
 import org.modelsphere.jack.graphic.DiagramView;
-import org.modelsphere.jack.graphic.ExtZoneBox;
 import org.modelsphere.jack.graphic.GraphicComponent;
 import org.modelsphere.jack.graphic.GraphicNode;
 import org.modelsphere.jack.graphic.GraphicUtil;
@@ -70,24 +56,36 @@ import org.modelsphere.jack.graphic.zone.CellRenderer;
 import org.modelsphere.jack.graphic.zone.CellRenderingOption;
 import org.modelsphere.jack.graphic.zone.ColumnCellsOption;
 import org.modelsphere.jack.graphic.zone.CompositeCellRenderer;
+import org.modelsphere.jack.graphic.zone.CompositeCellRenderer.CompositeCellRendererElement;
 import org.modelsphere.jack.graphic.zone.ImageCellRenderer;
 import org.modelsphere.jack.graphic.zone.MatrixZone;
 import org.modelsphere.jack.graphic.zone.SingletonZone;
-import org.modelsphere.jack.graphic.zone.StereotypeCellEditor;
 import org.modelsphere.jack.graphic.zone.StringCellRenderer;
 import org.modelsphere.jack.graphic.zone.Zone;
 import org.modelsphere.jack.graphic.zone.ZoneCell;
-import org.modelsphere.jack.graphic.zone.CompositeCellRenderer.CompositeCellRendererElement;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.graphic.DbTextAreaCellEditor;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;
-import org.modelsphere.sms.db.*;
+import org.modelsphere.sms.db.DbSMSDiagram;
+import org.modelsphere.sms.db.DbSMSGraphicalObject;
+import org.modelsphere.sms.db.DbSMSNotice;
+import org.modelsphere.sms.db.DbSMSNoticeGo;
+import org.modelsphere.sms.db.DbSMSSemanticalObject;
+import org.modelsphere.sms.db.DbSMSStereotype;
+import org.modelsphere.sms.db.DbSMSStyle;
 import org.modelsphere.sms.db.srtypes.SMSHorizontalAlignment;
 import org.modelsphere.sms.international.LocaleMgr;
 import org.modelsphere.sms.oo.db.DbOOStyle;
-import org.modelsphere.sms.or.db.DbORPackage;
 import org.modelsphere.sms.or.db.DbORStyle;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
+import java.awt.*;
+import java.io.File;
+import java.net.URL;
+import java.text.MessageFormat;
+import java.util.Vector;
 
 /**
  * @author Grandite

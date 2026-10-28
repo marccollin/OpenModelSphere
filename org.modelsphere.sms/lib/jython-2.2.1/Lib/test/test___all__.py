@@ -1,5 +1,7 @@
-from test_support import verify, verbose
 import sys
+
+from test_support import verify
+
 
 def check_all(modname):
     names = {}

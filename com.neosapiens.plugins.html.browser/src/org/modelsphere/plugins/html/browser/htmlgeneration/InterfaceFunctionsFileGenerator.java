@@ -34,12 +34,12 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.htmlgeneration;
 
+import org.modelsphere.plugins.html.browser.htmlgeneration.images.ThemeManager;
+import org.modelsphere.plugins.html.browser.io.IndentWriter;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-import org.modelsphere.plugins.html.browser.htmlgeneration.images.ThemeManager;
-import org.modelsphere.plugins.html.browser.io.IndentWriter;
 
 /**
  * This class is used to generate a JavaScript file that will contain the

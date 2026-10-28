@@ -42,31 +42,32 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.srtool.features.layout.ui;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.awt.AwtUtil;
-import org.modelsphere.jack.baseDb.db.Db;
-import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.plugins.Plugin2;
 import org.modelsphere.jack.plugins.PluginDescriptor;
 import org.modelsphere.jack.plugins.PluginMgr;
 import org.modelsphere.jack.plugins.PluginsRegistry;
 import org.modelsphere.jack.plugins.xml.XmlPlugin;
 import org.modelsphere.jack.plugins.xml.XmlPluginDescriptor;
-import org.modelsphere.jack.srtool.features.layout.*;
+import org.modelsphere.jack.srtool.features.layout.BuiltinLayoutAlgorithm;
+import org.modelsphere.jack.srtool.features.layout.ClustersLayoutAlgorithm;
+import org.modelsphere.jack.srtool.features.layout.EdgesLayoutAlgorithm;
+import org.modelsphere.jack.srtool.features.layout.LayoutAlgorithm;
+import org.modelsphere.jack.srtool.features.layout.LayoutPlugin;
+import org.modelsphere.jack.srtool.features.layout.NodesLayoutAlgorithm;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.util.DefaultComparableElement;
 import org.modelsphere.jack.util.ExceptionHandler;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * The Class LayoutDialog.

@@ -11,6 +11,7 @@ for manipulation of the pathname component of URLs.
 """
 
 import os
+
 import stat
 
 __all__ = ["normcase","isabs","join","splitdrive","split","splitext",

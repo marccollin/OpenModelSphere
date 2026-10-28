@@ -34,10 +34,6 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser;
 
-import java.awt.event.ActionEvent;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.gui.task.DefaultController;
 import org.modelsphere.jack.plugins.Plugin2;
@@ -49,6 +45,9 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.MainFrameMenu;
 import org.modelsphere.plugins.html.browser.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 /**
  * This is the main class of the plug-in.

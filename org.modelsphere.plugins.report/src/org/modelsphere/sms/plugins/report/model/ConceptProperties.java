@@ -34,14 +34,14 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.plugins.report.model;
 
 // JDK
-import java.awt.Color;
-
-import javax.swing.text.html.HTML;
 
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.util.StringUtil;
 import org.modelsphere.sms.plugins.report.LocaleMgr;
 import org.modelsphere.sms.preference.DirectoryOptionGroup;
+
+import javax.swing.text.html.HTML;
+import java.awt.*;
 
 public class ConceptProperties implements Properties {
 

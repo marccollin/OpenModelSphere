@@ -1,7 +1,8 @@
 from __future__ import generators
-# Python test set -- part 6, built-in types
 
 from test.test_support import *
+
+# Python test set -- part 6, built-in types
 
 print '6. Built-in types'
 

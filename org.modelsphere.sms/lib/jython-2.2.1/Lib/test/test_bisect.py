@@ -1,7 +1,7 @@
-from test_support import TestFailed
-
 import bisect
 import sys
+
+from test_support import TestFailed
 
 nerrors = 0
 

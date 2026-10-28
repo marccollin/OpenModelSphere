@@ -22,13 +22,14 @@ used to query various info about the object, if available.
 (mimetools.Message objects are queried with the getheader() method.)
 """
 
-import string
-import socket
 import os
-import stat
-import time
 import sys
+import time
 import types
+
+import socket
+import stat
+import string
 
 __all__ = ["urlopen", "URLopener", "FancyURLopener", "urlretrieve",
            "urlcleanup", "quote", "quote_plus", "unquote", "unquote_plus",

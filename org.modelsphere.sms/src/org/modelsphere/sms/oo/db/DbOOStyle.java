@@ -32,14 +32,21 @@ open-modelsphere@grandite.com
 **********************************************************************/
 package org.modelsphere.sms.oo.db;
 
-import java.awt.*;
-import org.modelsphere.jack.baseDb.meta.*;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import org.modelsphere.sms.oo.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.srtypes.DbtPrefix;
+import org.modelsphere.jack.baseDb.db.srtypes.SrBoolean;
+import org.modelsphere.jack.baseDb.db.srtypes.SrColor;
+import org.modelsphere.jack.baseDb.db.srtypes.SrFont;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelation1;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
+import org.modelsphere.sms.db.DbSMSProject;
+import org.modelsphere.sms.db.DbSMSStyle;
 import org.modelsphere.sms.oo.international.LocaleMgr;
-import org.modelsphere.sms.db.*;
-import org.modelsphere.sms.db.srtypes.*;
+
+import java.awt.*;
 import java.util.HashMap;
 
 /**

@@ -32,27 +32,16 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.screen;
 
-import java.awt.Dialog;
-import java.awt.Frame;
-import java.awt.GraphicsConfiguration;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.HeadlessException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.sms.db.DbSMSLinkModel;
 import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.db.util.AnySemObject;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
 
 /**
  * @author Nicolask

@@ -33,13 +33,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.actions;
 
-import java.awt.Component;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
-import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -59,6 +54,9 @@ import org.modelsphere.sms.or.db.util.AnyORObject;
 import org.modelsphere.sms.or.features.dbms.DBMSDefaultForwardWizardModel;
 import org.modelsphere.sms.or.features.dbms.ForwardToolkitPlugin;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class ForwardDataModelAction extends AbstractApplicationAction implements
         SelectionActionListener {

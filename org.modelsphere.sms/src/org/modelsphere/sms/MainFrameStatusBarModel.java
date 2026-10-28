@@ -33,19 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Icon;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.Timer;
-
 import org.modelsphere.jack.actions.AbstractActionsStore;
 import org.modelsphere.jack.actions.ApplicationActionEvent;
 import org.modelsphere.jack.actions.ApplicationActionListener;
@@ -70,6 +57,11 @@ import org.modelsphere.jack.srtool.services.ConnectionMessage;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.StringUtil;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainFrameStatusBarModel implements StatusBarModel, CurrentProjectListener,
         DbRefreshListener {

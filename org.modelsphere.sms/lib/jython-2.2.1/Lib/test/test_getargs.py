@@ -11,12 +11,12 @@ single case that failed between 2.1 and 2.2a2.
 # verify that the error is propagated properly from the C code back to
 # Python.
 
+import marshal
+
 # XXX If the encoding succeeds using the current default encoding,
 # this test will fail because it does not test the right part of the
 # PyArg_ParseTuple() implementation.
 from test_support import is_jython
-
-import marshal
 
 #since this tests getargs.c impl, ignore for jython.
 if not is_jython:

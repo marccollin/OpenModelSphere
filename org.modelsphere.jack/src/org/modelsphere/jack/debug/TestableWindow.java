@@ -51,8 +51,7 @@ package org.modelsphere.jack.debug;
  * @version 1.0
  */
 
-import java.awt.Container;
-import java.awt.Window;
+import java.awt.*;
 
 /*
  * A unit tester to test window

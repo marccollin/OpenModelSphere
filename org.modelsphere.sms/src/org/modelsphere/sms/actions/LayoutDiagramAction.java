@@ -33,10 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.util.List;
-
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.actions.SelectionActionListener;
@@ -44,11 +40,8 @@ import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.FocusManager;
-import org.modelsphere.jack.srtool.features.layout.LayoutException;
-import org.modelsphere.jack.srtool.features.layout.NodesLayoutAlgorithm;
 import org.modelsphere.jack.srtool.features.layout.BuiltinLayoutAlgorithm;
-import org.modelsphere.jack.srtool.features.layout.graph.Graph;
-import org.modelsphere.jack.srtool.features.layout.graph.Node;
+import org.modelsphere.jack.srtool.features.layout.NodesLayoutAlgorithm;
 import org.modelsphere.jack.srtool.features.layout.ui.LayoutDialog;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.sms.db.DbSMSDiagram;

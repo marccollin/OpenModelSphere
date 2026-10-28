@@ -43,12 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Component;
+import javax.swing.*;
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
-import javax.swing.JMenuItem;
-import javax.swing.SwingUtilities;
 
 /**
  * This class ensure that the links between an action and a menu item will be broken. Details of the

@@ -43,14 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
+import org.modelsphere.jack.srtool.forward.exceptions.GroupRuleException;
+import org.modelsphere.jack.srtool.forward.exceptions.SubruleMissingRuleException;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.StringTokenizer;
-
-import java.io.*;
-
-import org.modelsphere.jack.srtool.forward.exceptions.GroupRuleException;
-import org.modelsphere.jack.srtool.forward.exceptions.SubruleMissingRuleException;
 
 public final class Group extends Rule {
     Rule[] rules;

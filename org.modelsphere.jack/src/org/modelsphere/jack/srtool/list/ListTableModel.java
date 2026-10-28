@@ -43,24 +43,46 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.list;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import java.lang.Comparable;
-import java.util.List;
-import javax.swing.*;
-import javax.swing.table.*;
-
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.event.*;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import org.modelsphere.jack.baseDb.meta.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
+import org.modelsphere.jack.baseDb.db.DbUDF;
+import org.modelsphere.jack.baseDb.db.DbUDFValue;
+import org.modelsphere.jack.baseDb.db.event.DbRefreshListener;
+import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
+import org.modelsphere.jack.baseDb.db.srtypes.Domain;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelationship;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.debug.Debug;
-import org.modelsphere.jack.preference.*;
+import org.modelsphere.jack.preference.PropertiesManager;
+import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
-import org.modelsphere.jack.util.*;
+import org.modelsphere.jack.util.DefaultComparableElement;
+import org.modelsphere.jack.util.ExceptionHandler;
+import org.modelsphere.jack.util.SrVector;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
 
 public/* final */class ListTableModel extends DefaultTableModel implements Comparator,
         DbRefreshListener {

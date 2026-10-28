@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.generic.validation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.plugins.Plugin2;
@@ -44,12 +41,26 @@ import org.modelsphere.jack.plugins.PluginSelectionListener;
 import org.modelsphere.jack.plugins.PluginServices;
 import org.modelsphere.jack.plugins.PluginSignature;
 import org.modelsphere.jack.preference.OptionGroup;
-import org.modelsphere.jack.srtool.FocusManager;
-import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
-import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.or.ORValidationPlugin;
-import org.modelsphere.sms.or.db.*;
-import org.modelsphere.sms.or.generic.db.*;
+import org.modelsphere.sms.or.db.DbORDataModel;
+import org.modelsphere.sms.or.db.DbORDatabase;
+import org.modelsphere.sms.or.db.DbORDomain;
+import org.modelsphere.sms.or.db.DbORDomainModel;
+import org.modelsphere.sms.or.db.DbOROperationLibrary;
+import org.modelsphere.sms.or.generic.db.DbGECheck;
+import org.modelsphere.sms.or.generic.db.DbGEColumn;
+import org.modelsphere.sms.or.generic.db.DbGEDatabase;
+import org.modelsphere.sms.or.generic.db.DbGEForeign;
+import org.modelsphere.sms.or.generic.db.DbGEIndex;
+import org.modelsphere.sms.or.generic.db.DbGEParameter;
+import org.modelsphere.sms.or.generic.db.DbGEPrimaryUnique;
+import org.modelsphere.sms.or.generic.db.DbGEProcedure;
+import org.modelsphere.sms.or.generic.db.DbGETable;
+import org.modelsphere.sms.or.generic.db.DbGETrigger;
+import org.modelsphere.sms.or.generic.db.DbGEView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GenericValidationPlugin extends ORValidationPlugin implements Plugin2, PluginSelectionListener {
     private static final String GENERIC_VALIDATION = LocaleMgr.misc.getString("GenericValidation");

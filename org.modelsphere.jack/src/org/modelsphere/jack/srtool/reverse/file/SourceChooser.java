@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.file;
 
-import java.awt.*;
-import java.io.*;
 import javax.swing.*;
+import java.awt.*;
+import java.io.File;
 
 public final class SourceChooser extends JFileChooser {
     // to know how the approve have be execute

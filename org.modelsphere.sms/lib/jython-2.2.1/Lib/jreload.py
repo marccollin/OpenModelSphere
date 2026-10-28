@@ -8,8 +8,8 @@
 __version__ = "0.3"
 
 import sys
-from org.python.core import imp,PyJavaPackage,PyJavaClass
 from _jython import is_lazy as _is_lazy
+from org.python.core import imp, PyJavaPackage, PyJavaClass
 
 import jxxload_help
 

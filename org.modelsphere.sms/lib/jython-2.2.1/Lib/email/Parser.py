@@ -6,10 +6,9 @@
 
 import re
 from cStringIO import StringIO
-from types import ListType
-
 from email import Errors
 from email import Message
+from types import ListType
 
 EMPTYSTRING = ''
 NL = '\n'

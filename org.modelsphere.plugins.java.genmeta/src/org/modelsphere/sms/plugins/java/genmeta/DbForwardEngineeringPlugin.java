@@ -32,12 +32,11 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.plugins.java.genmeta;
 
-import java.io.*;
-import java.nio.file.FileSystems;
-import java.text.MessageFormat;
-import java.util.*;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.jack.international.LocaleMgr;
@@ -48,13 +47,50 @@ import org.modelsphere.jack.preference.OptionGroup;
 import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.actions.PluginDefaultAction;
-import org.modelsphere.jack.srtool.forward.*;
+import org.modelsphere.jack.srtool.forward.ForwardOptions;
+import org.modelsphere.jack.srtool.forward.ForwardToolkitInterface;
+import org.modelsphere.jack.srtool.forward.GenerateInFileInfo;
+import org.modelsphere.jack.srtool.forward.PropertyScreenPreviewInfo;
+import org.modelsphere.jack.srtool.forward.Rule;
+import org.modelsphere.jack.srtool.forward.VariableScope;
 import org.modelsphere.sms.db.srtypes.SMSMultiplicity;
-import org.modelsphere.sms.oo.db.*;
+import org.modelsphere.sms.oo.db.DbOOAbstractMethod;
+import org.modelsphere.sms.oo.db.DbOOAdt;
+import org.modelsphere.sms.oo.db.DbOOAssociationEnd;
+import org.modelsphere.sms.oo.db.DbOOClass;
+import org.modelsphere.sms.oo.db.DbOODataMember;
+import org.modelsphere.sms.oo.db.DbOOInheritance;
+import org.modelsphere.sms.oo.db.DbOOMethod;
+import org.modelsphere.sms.oo.db.DbOOParameter;
 import org.modelsphere.sms.oo.db.srtypes.OOAggregation;
 import org.modelsphere.sms.oo.db.srtypes.OOVisibility;
 import org.modelsphere.sms.oo.forward.OOForwardEngineeringPlugin;
-import org.modelsphere.sms.oo.java.db.*;
+import org.modelsphere.sms.oo.java.db.DbJVClass;
+import org.modelsphere.sms.oo.java.db.DbJVCompilationUnit;
+import org.modelsphere.sms.oo.java.db.DbJVConstructor;
+import org.modelsphere.sms.oo.java.db.DbJVDataMember;
+import org.modelsphere.sms.oo.java.db.DbJVImport;
+import org.modelsphere.sms.oo.java.db.DbJVInheritance;
+import org.modelsphere.sms.oo.java.db.DbJVInitBlock;
+import org.modelsphere.sms.oo.java.db.DbJVMethod;
+import org.modelsphere.sms.oo.java.db.DbJVPackage;
+import org.modelsphere.sms.oo.java.db.DbJVParameter;
+import org.modelsphere.sms.oo.java.db.DbJVPrimitiveType;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.io.Writer;
+import java.nio.file.FileSystems;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin implements Plugin2 {
 

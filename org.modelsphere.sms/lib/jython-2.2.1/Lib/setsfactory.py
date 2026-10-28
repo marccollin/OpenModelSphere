@@ -1,5 +1,7 @@
-from copy_reg import pickle, constructor
 from sets import Set as _Set, ImmutableSet as _ImmutableSet
+
+from copy_reg import constructor
+
 
 def Set(*args):
   return _Set(*args)

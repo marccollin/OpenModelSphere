@@ -43,13 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.gui.wizard2;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSeparator;
+import javax.swing.*;
+import java.awt.*;
 
 @SuppressWarnings("serial")
 public class SectionHeader extends JPanel {

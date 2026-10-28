@@ -32,9 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.oo.java.graphic.tool;
 
-import java.awt.Image;
-import java.awt.Polygon;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.graphic.GraphicNode;
@@ -49,6 +46,8 @@ import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.DbJVDataMember;
 import org.modelsphere.sms.oo.java.graphic.AdtBox;
 import org.modelsphere.sms.oo.java.international.LocaleMgr;
+
+import java.awt.*;
 
 public abstract class JVLineTool extends LineTool {
 

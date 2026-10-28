@@ -126,9 +126,12 @@ Exported functions:
                  name (None if not present).
 """
 
-import re, string, time, operator
-
 from types import *
+
+import operator
+import re
+import string
+import time
 
 try:
     unicode

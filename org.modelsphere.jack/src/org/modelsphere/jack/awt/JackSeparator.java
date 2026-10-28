@@ -43,11 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-
-import javax.swing.JComponent;
+import javax.swing.*;
+import java.awt.*;
 
 public class JackSeparator extends JComponent {
     private static final int SEP_WIDTH = 4;

@@ -42,14 +42,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.be.db.util;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-
-import javax.swing.Icon;
-import javax.swing.JFrame;
-
 import org.modelsphere.jack.awt.SelectDialog;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -58,7 +50,6 @@ import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.util.Terminology;
-import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.graphic.zone.TableCell;
 import org.modelsphere.jack.graphic.zone.TableZone;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
@@ -90,6 +81,10 @@ import org.modelsphere.sms.db.srtypes.SMSVerticalAlignment;
 import org.modelsphere.sms.db.util.DbInitialization;
 import org.modelsphere.sms.db.util.Extensibility;
 import org.modelsphere.sms.preference.DiagramAutomaticCreationOptionGroup;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * @author Grandite

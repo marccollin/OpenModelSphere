@@ -33,15 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.swing.JComponent;
-import javax.swing.JInternalFrame;
-import javax.swing.JList;
-
 import org.modelsphere.jack.awt.JackToolBar;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -66,6 +57,12 @@ import org.modelsphere.sms.actions.SMSActionsStore;
 import org.modelsphere.sms.be.db.DbBEModel;
 import org.modelsphere.sms.be.db.DbBEResource;
 import org.modelsphere.sms.be.international.LocaleMgr;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 public class ResourceToolBar extends JackToolBar implements CurrentFocusListener, DbRefreshListener {
     public static final String KEY = "ToolbarResource"; // NOT LOCALIZABLE

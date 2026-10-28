@@ -44,29 +44,10 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package org.modelsphere.jack.plugins.xml;
 
-import java.awt.Image;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.StringTokenizer;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-
-import org.modelsphere.jack.actions.AbstractActionsStore;
-import org.modelsphere.jack.awt.JackMenu;
-import org.modelsphere.jack.plugins.Plugin2;
-import org.modelsphere.jack.plugins.PluginAction;
 import org.modelsphere.jack.plugins.xml.extensions.AbstractPluginExtension;
-import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.DefaultMainFrame;
-import org.modelsphere.jack.srtool.MainFrameMenu;
 import org.modelsphere.jack.srtool.Splash;
-import org.modelsphere.jack.srtool.actions.PluginDefaultAction;
-import org.modelsphere.jack.srtool.popupMenu.ApplicationPopupMenu;
+
+import java.util.List;
 
 class XmlPluginActionFactory {
 	

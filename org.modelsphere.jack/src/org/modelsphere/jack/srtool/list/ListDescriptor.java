@@ -43,13 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.list;
 
-import javax.swing.Icon;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaRelationship;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.SemanticalModel;
+
+import javax.swing.*;
 
 public final class ListDescriptor {
     MetaClass neighborsMetaClass;

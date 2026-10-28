@@ -43,7 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.Writer;
 
 public final class Margin extends EditionCode {
     private boolean m_isIncrement;

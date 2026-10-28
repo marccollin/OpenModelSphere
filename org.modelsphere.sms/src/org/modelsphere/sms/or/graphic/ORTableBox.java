@@ -33,21 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.graphic;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.Vector;
-
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -124,6 +109,16 @@ import org.modelsphere.sms.or.db.util.AnyORObject;
 import org.modelsphere.sms.or.informix.db.DbINFIndex;
 import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.style.PrefixOptionComponent;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.Vector;
 
 public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInformation,
         org.modelsphere.sms.graphic.SMSClassifierBox {

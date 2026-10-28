@@ -43,8 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.screen.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.baseDb.screen.DefaultRenderer;
+import org.modelsphere.jack.baseDb.screen.ScreenView;
 import org.modelsphere.jack.srtool.ApplicationContext;
 
 // This renderer may be used on <relation 1> fields and on the fields <DbSemanticalObject.fName, fPhysicalName>.

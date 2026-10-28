@@ -43,19 +43,27 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.graphic;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.JComponent;
-import javax.swing.JTextField;
-
 import org.modelsphere.jack.awt.NumericTextField;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.jack.baseDb.meta.MetaField;
-import org.modelsphere.jack.graphic.*;
-import org.modelsphere.jack.graphic.zone.*;
+import org.modelsphere.jack.graphic.DiagramView;
+import org.modelsphere.jack.graphic.ZoneBox;
+import org.modelsphere.jack.graphic.zone.CellEditor;
+import org.modelsphere.jack.graphic.zone.CellID;
+import org.modelsphere.jack.graphic.zone.MatrixCellID;
+import org.modelsphere.jack.graphic.zone.MatrixZone;
+import org.modelsphere.jack.graphic.zone.TextFieldCellEditor;
+import org.modelsphere.jack.graphic.zone.ZoneCell;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.StringUtil;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class DbTextFieldCellEditor extends TextFieldCellEditor {
 

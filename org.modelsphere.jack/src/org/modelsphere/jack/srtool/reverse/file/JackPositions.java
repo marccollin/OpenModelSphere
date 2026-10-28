@@ -43,10 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.file;
 
-import java.util.Vector;
-import java.util.Stack;
-
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
+
+import java.util.Stack;
+import java.util.Vector;
 
 /*
  * Returns by Reverse.getPosition()

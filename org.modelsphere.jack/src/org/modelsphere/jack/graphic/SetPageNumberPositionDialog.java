@@ -43,21 +43,20 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Enumeration;
-
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import org.modelsphere.jack.awt.FontChooserDialog;
 import org.modelsphere.jack.awt.HotKeysSupport;
 import org.modelsphere.jack.baseDb.db.srtypes.PageNoPosition;
 import org.modelsphere.jack.debug.TestableWindow;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Enumeration;
 
 public class SetPageNumberPositionDialog extends JDialog implements TestableWindow {
     /* Use here appropriate LocalMgr calls */

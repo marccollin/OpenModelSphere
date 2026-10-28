@@ -35,7 +35,6 @@ package org.modelsphere.sms.or.informix;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
-import org.modelsphere.sms.db.DbSMSTargetSystem;
 import org.modelsphere.sms.or.db.DbORCheck;
 import org.modelsphere.sms.or.db.DbORColumn;
 import org.modelsphere.sms.or.db.DbORDataModel;
@@ -45,7 +44,6 @@ import org.modelsphere.sms.or.db.DbORTable;
 import org.modelsphere.sms.or.db.DbORTrigger;
 import org.modelsphere.sms.or.db.DbORView;
 import org.modelsphere.sms.or.generic.GEDataModelToolkit;
-import org.modelsphere.sms.or.generic.db.DbGEDataModel;
 import org.modelsphere.sms.or.informix.db.DbINFCheck;
 import org.modelsphere.sms.or.informix.db.DbINFColumn;
 import org.modelsphere.sms.or.informix.db.DbINFDataModel;
@@ -54,7 +52,6 @@ import org.modelsphere.sms.or.informix.db.DbINFPrimaryUnique;
 import org.modelsphere.sms.or.informix.db.DbINFTable;
 import org.modelsphere.sms.or.informix.db.DbINFTrigger;
 import org.modelsphere.sms.or.informix.db.DbINFView;
-import org.modelsphere.sms.or.oracle.db.DbORADataModel;
 
 public final class INFDataModelToolkit extends GEDataModelToolkit {
 

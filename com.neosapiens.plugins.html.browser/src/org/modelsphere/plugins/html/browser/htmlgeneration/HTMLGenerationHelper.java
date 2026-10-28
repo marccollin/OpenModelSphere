@@ -34,13 +34,12 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.htmlgeneration;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-
-import javax.swing.Icon;
-
 import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.plugins.html.browser.international.LocaleMgr;
+
+import javax.swing.*;
+import java.text.MessageFormat;
+import java.util.ArrayList;
 
 /**
  * This class is used to help in the creation of the data files which each

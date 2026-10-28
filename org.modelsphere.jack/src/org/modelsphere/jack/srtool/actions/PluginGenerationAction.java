@@ -46,7 +46,9 @@ package org.modelsphere.jack.srtool.actions;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
-import org.modelsphere.jack.plugins.*;
+import org.modelsphere.jack.plugins.Plugin;
+import org.modelsphere.jack.plugins.PluginAction;
+import org.modelsphere.jack.plugins.PluginServices;
 import org.modelsphere.jack.srtool.forward.JackForwardEngineeringPlugin;
 
 public class PluginGenerationAction extends PluginAction {

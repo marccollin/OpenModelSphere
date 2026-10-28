@@ -33,19 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.UIManager;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -177,6 +164,13 @@ import org.modelsphere.sms.or.oracle.db.DbORARollbackSegment;
 import org.modelsphere.sms.or.oracle.db.DbORASequence;
 import org.modelsphere.sms.or.oracle.db.DbORASubPartition;
 import org.modelsphere.sms.or.oracle.db.DbORATablespace;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public final class SMSExplorer extends Explorer {

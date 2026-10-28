@@ -34,6 +34,8 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.htmlgeneration.images;
 
+import org.modelsphere.plugins.html.browser.htmlgeneration.HTMLGenerationHelper;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -41,8 +43,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
-
-import org.modelsphere.plugins.html.browser.htmlgeneration.HTMLGenerationHelper;
 
 /**
  * This class is used to generate files containing the necessary images for

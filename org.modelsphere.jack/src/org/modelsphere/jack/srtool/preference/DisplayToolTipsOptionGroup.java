@@ -43,18 +43,24 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.preference;
 
+import org.modelsphere.jack.awt.checklist.CheckList;
+import org.modelsphere.jack.awt.checklist.CheckListItem;
+import org.modelsphere.jack.awt.checklist.CheckListListener;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.preference.OptionGroup;
+import org.modelsphere.jack.preference.OptionPanel;
+import org.modelsphere.jack.preference.PropertiesManager;
+import org.modelsphere.jack.preference.PropertiesSet;
+import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
-import java.beans.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
-
-import org.modelsphere.jack.awt.checklist.*;
-import org.modelsphere.jack.baseDb.meta.*;
-import org.modelsphere.jack.preference.*;
-import org.modelsphere.jack.srtool.international.LocaleMgr;
 
 public class DisplayToolTipsOptionGroup extends OptionGroup {
     public static final String TOOLTIPS_FIELD_VISIBILITY_PREFIX = "visibleInToolTips"; // NOT LOCALIZABLE

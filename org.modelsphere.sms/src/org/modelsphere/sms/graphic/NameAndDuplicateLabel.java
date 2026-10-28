@@ -33,12 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.graphic;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
@@ -61,6 +55,8 @@ import org.modelsphere.sms.or.db.DbORDiagram;
 import org.modelsphere.sms.or.db.DbORNotation;
 import org.modelsphere.sms.or.db.DbORStyle;
 import org.modelsphere.sms.or.db.DbORTable;
+
+import java.awt.*;
 
 public class NameAndDuplicateLabel extends SrLineLabel {
     private static final int NO_DISPLAY = 0;

@@ -3,7 +3,8 @@
 # that their names can be used with Unicode characters.
 import os
 
-from test_support import verify, TestSkipped, TESTFN_UNICODE
+from test_support import TestSkipped, TESTFN_UNICODE
+
 try:
     from test_support import TESTFN_ENCODING
     oldlocale = None

@@ -1,6 +1,6 @@
-from test.test_support import verify, verbose, TestFailed, fcmp
-from string import join
 from random import random, randint
+from string import join
+from test.test_support import verify, verbose, TestFailed, fcmp
 
 # SHIFT should match the value in longintrepr.h for best testing.
 SHIFT = 15

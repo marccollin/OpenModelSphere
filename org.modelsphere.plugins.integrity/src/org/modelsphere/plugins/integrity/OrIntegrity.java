@@ -33,17 +33,30 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.integrity;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.sms.db.srtypes.SMSMultiplicity;
-import org.modelsphere.sms.or.db.*;
+import org.modelsphere.sms.or.db.DbORAbsTable;
+import org.modelsphere.sms.or.db.DbORAssociation;
+import org.modelsphere.sms.or.db.DbORAssociationEnd;
+import org.modelsphere.sms.or.db.DbORColumn;
+import org.modelsphere.sms.or.db.DbORFKeyColumn;
+import org.modelsphere.sms.or.db.DbORForeign;
+import org.modelsphere.sms.or.db.DbORIndex;
+import org.modelsphere.sms.or.db.DbORIndexKey;
+import org.modelsphere.sms.or.db.DbORPrimaryUnique;
+import org.modelsphere.sms.or.db.DbORTable;
+import org.modelsphere.sms.or.db.DbORTypeClassifier;
 import org.modelsphere.sms.or.db.util.AnyORObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * @author pierrem

@@ -43,6 +43,23 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.tool;
 
+import org.modelsphere.jack.awt.AwtUtil;
+import org.modelsphere.jack.graphic.Attachment;
+import org.modelsphere.jack.graphic.Diagram;
+import org.modelsphere.jack.graphic.DiagramView;
+import org.modelsphere.jack.graphic.GraphicComponent;
+import org.modelsphere.jack.graphic.GraphicNode;
+import org.modelsphere.jack.graphic.GraphicUtil;
+import org.modelsphere.jack.graphic.Grid;
+import org.modelsphere.jack.graphic.Line;
+import org.modelsphere.jack.graphic.LineLabel;
+import org.modelsphere.jack.graphic.ZoneBox;
+import org.modelsphere.jack.graphic.zone.CellID;
+import org.modelsphere.jack.international.LocaleMgr;
+import org.modelsphere.jack.preference.PropertiesManager;
+import org.modelsphere.jack.preference.PropertiesSet;
+import org.modelsphere.jack.srtool.ApplicationContext;
+
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -52,16 +69,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.MessageFormat;
 import java.util.Enumeration;
-
-import javax.swing.KeyStroke;
-
-import org.modelsphere.jack.awt.AwtUtil;
-import org.modelsphere.jack.graphic.*;
-import org.modelsphere.jack.graphic.zone.CellID;
-import org.modelsphere.jack.international.LocaleMgr;
-import org.modelsphere.jack.preference.PropertiesManager;
-import org.modelsphere.jack.preference.PropertiesSet;
-import org.modelsphere.jack.srtool.ApplicationContext;
 
 public abstract class SelectTool extends Tool {
     private static final String HELP_NOSELECTION = LocaleMgr.misc.getString("HelpSelect0");

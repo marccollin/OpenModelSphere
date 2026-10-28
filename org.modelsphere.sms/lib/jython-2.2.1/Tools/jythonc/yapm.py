@@ -1,13 +1,12 @@
 # Copyright 2000 Samuele Pedroni
 # see org.python.core.SysPackageManager
 
-import sys
 import os
+import sys
+from org.python.core import PathPackageManager
 from string import strip
 
-from java import io
 
-from org.python.core import PathPackageManager
 class YaPM(PathPackageManager):
 
     def __init__(self, registry):

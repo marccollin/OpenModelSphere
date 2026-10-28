@@ -33,14 +33,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.actions;
 
-import java.io.File;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.sms.SMSFilter;
 import org.modelsphere.sms.actions.GenerateFromTemplatesAction;
 import org.modelsphere.sms.or.generic.db.DbGEDataModel;
 import org.modelsphere.sms.preference.DirectoryOptionGroup;
+
+import java.io.File;
 
 public class GenerateHTMLAction extends GenerateFromTemplatesAction /*
                                                                      * extends

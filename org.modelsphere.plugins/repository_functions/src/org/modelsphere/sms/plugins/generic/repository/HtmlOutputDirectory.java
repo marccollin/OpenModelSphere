@@ -43,14 +43,20 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.generic.repository;
 
-import java.io.*;
-import java.lang.reflect.Method;
-
 import org.modelsphere.jack.plugins.PluginMgr;
 import org.modelsphere.jack.plugins.PluginSignature;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.forward.*;
+import org.modelsphere.jack.srtool.forward.Modifier;
+import org.modelsphere.jack.srtool.forward.Rule;
+import org.modelsphere.jack.srtool.forward.RuleException;
+import org.modelsphere.jack.srtool.forward.UserDefinedField;
 import org.modelsphere.sms.preference.DirectoryOptionGroup;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.Writer;
+import java.lang.reflect.Method;
 
 /* Note: requires the presence of the HTML plug-in */
 /**

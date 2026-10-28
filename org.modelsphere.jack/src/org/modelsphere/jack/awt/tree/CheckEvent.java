@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.tree;
 
-import java.awt.Component;
+import java.awt.*;
 
 public class CheckEvent {
     private CheckTreeNode[] nodes;

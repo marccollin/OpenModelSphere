@@ -33,22 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.awt.Component;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Vector;
-
-import javax.swing.Action;
-import javax.swing.Box;
-import javax.swing.Icon;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.awt.JackMenu;
 import org.modelsphere.jack.baseDb.db.DbProject;
@@ -67,6 +51,16 @@ import org.modelsphere.sms.oo.actions.OOActionConstants;
 import org.modelsphere.sms.oo.actions.ReverseAction;
 import org.modelsphere.sms.oo.java.actions.JavaActionConstants;
 import org.modelsphere.sms.or.actions.ORActionConstants;
+
+import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Vector;
 
 public class MainFrameMenu extends org.modelsphere.jack.srtool.MainFrameMenu {
 	//locale-independent keys

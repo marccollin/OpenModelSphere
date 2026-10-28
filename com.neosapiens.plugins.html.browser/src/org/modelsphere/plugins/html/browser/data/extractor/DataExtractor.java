@@ -34,11 +34,11 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.data.extractor;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.plugins.html.browser.data.DataComponent;
+
+import java.util.ArrayList;
 
 /**
  * This class is used to extract the data of a DbObject if this DbObject can be

@@ -43,9 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.templates;
 
-import java.awt.Frame;
-import java.io.File;
-
 import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.jack.gui.task.DefaultController;
 import org.modelsphere.jack.srtool.ApplicationContext;
@@ -53,6 +50,9 @@ import org.modelsphere.jack.srtool.forward.ForwardOptions;
 import org.modelsphere.jack.srtool.forward.ForwardToolkitInterface;
 import org.modelsphere.jack.srtool.forward.ForwardWorker;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.awt.*;
+import java.io.File;
 
 public abstract class BasicForwardToolkit implements ForwardToolkitInterface {
     protected static final String NO_RULE_FOR_NAME = LocaleMgr.misc.getString("NO_RULE_FOR_NAME");

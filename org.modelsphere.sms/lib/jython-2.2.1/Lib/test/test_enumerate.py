@@ -4,8 +4,8 @@ from __future__ import generators
 
 import unittest
 from sets import Set
-
 from test import test_support
+
 
 class G:
     'Sequence using __getitem__'

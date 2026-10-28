@@ -45,13 +45,17 @@ Email: marco.savard@neosapiens.com
 
 package com.neosapiens.plugins.codegen.wrappers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.sms.db.srtypes.SMSMultiplicity;
-import org.modelsphere.sms.or.db.*;
+import org.modelsphere.sms.or.db.DbORAssociationEnd;
+import org.modelsphere.sms.or.db.DbORColumn;
+import org.modelsphere.sms.or.db.DbORFKeyColumn;
+import org.modelsphere.sms.or.db.DbORForeign;
+import org.modelsphere.sms.or.db.DbORTable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbORAssociationEndWrapper extends DbObjectWrapper {
     private DbORAssociationEnd m_end;

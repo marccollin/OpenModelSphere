@@ -33,14 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.actions;
 
-import java.awt.Image;
-import java.text.MessageFormat;
-
-import javax.swing.Icon;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -55,6 +47,10 @@ import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.db.util.PrimaryKey;
 import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.or.screen.GeneratePrimaryKeysFrame;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.MessageFormat;
 
 final class GeneratePrimaryKeysAction extends AbstractApplicationAction implements
         SelectionActionListener {

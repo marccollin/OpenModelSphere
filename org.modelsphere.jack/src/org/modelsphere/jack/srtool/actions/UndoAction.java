@@ -43,12 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.awt.event.ActionEvent;
-import javax.swing.*;
-
 import org.modelsphere.jack.actions.UndoRedoAbstractAction;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class UndoAction extends UndoRedoAbstractAction {
 

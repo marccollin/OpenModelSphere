@@ -43,8 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.graphic;
 
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.graphic.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.graphic.Diagram;
+import org.modelsphere.jack.graphic.GraphicComponent;
+import org.modelsphere.jack.graphic.GraphicNode;
+import org.modelsphere.jack.graphic.Line;
 
 public interface GraphicComponentFactory {
     public GraphicComponent createGraphic(Diagram diag, DbObject go) throws DbException;

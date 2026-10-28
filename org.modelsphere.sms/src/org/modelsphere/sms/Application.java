@@ -33,18 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintWriter;
-import java.util.Properties;
-
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.NullFrame;
 import org.modelsphere.jack.awt.ToolBarManager;
@@ -98,6 +86,14 @@ import org.modelsphere.sms.plugins.BuiltinPluginsInializer;
 import org.modelsphere.sms.screen.SMSScreenPerspective;
 import org.modelsphere.sms.screen.plugins.external.ORValidationRuleEditor;
 import org.modelsphere.sms.services.ServiceList;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintWriter;
+import java.util.Properties;
 
 /**
  * The main class of ModelSphere. The main() method of this class launches a ModelSphere session.

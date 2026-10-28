@@ -1,9 +1,8 @@
 package com.neosapiens.plugins.reverse.javasource.ui.result;
 
-import java.util.List;
-
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
+import java.util.List;
 
 //import org.modelsphere.jack.baseDb.db.DbObject;
 

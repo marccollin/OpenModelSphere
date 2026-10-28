@@ -39,14 +39,6 @@ open-modelsphere@grandite.com
  */
 package org.modelsphere.sms.preference;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Box;
-import javax.swing.JCheckBox;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.preference.OptionGroup;
 import org.modelsphere.jack.preference.OptionPanel;
@@ -54,9 +46,12 @@ import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.sms.international.LocaleMgr;
 
-import java.awt.Insets;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author nicolask

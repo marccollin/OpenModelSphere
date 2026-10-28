@@ -1,9 +1,9 @@
-import sys
 import imp
 import os
+import sys
 import unittest
-import test_support
 
+import test_support
 
 test_src = """\
 def get_name():
@@ -148,7 +148,6 @@ class ImportHooksTestCase(ImportHooksBaseTestCase):
     def doTestImports(self, importer=None):
         import hooktestmodule
         import hooktestpackage
-        import hooktestpackage.sub
         import hooktestpackage.sub.subber
         self.assertEqual(hooktestmodule.get_name(),
                          "hooktestmodule")

@@ -43,13 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.actions;
 
-import javax.swing.Icon;
-
 import org.modelsphere.jack.actions.util.DbMultiTrans;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.srtool.ApplicationContext;
+
+import javax.swing.*;
 
 public abstract class AbstractTriStatesAction extends AbstractTwoStatesAction {
 

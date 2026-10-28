@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic;
 
-import java.awt.Rectangle;
-
 import org.modelsphere.jack.util.SrVector;
+
+import java.awt.*;
 
 public final class GraphLayoutNode {
 

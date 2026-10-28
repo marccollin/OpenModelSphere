@@ -33,15 +33,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.java.genmeta;
 
-import java.io.File;
-import java.util.ArrayList;
-import org.modelsphere.jack.gui.task.Controller;
-import org.modelsphere.jack.srtool.forward.ForwardOptions;
-import org.modelsphere.jack.srtool.forward.ForwardWorker;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
+import org.modelsphere.jack.gui.task.Controller;
+import org.modelsphere.jack.srtool.forward.ForwardOptions;
+import org.modelsphere.jack.srtool.forward.ForwardWorker;
 import org.modelsphere.sms.oo.java.db.DbJVPackage;
+
+import java.io.File;
+import java.util.ArrayList;
 
 final class DbForwardWorker extends ForwardWorker {
     private DbForwardOptions m_options;

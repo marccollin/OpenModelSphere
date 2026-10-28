@@ -43,11 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.util.*;
-
-import org.modelsphere.jack.gui.task.*;
+import org.modelsphere.jack.gui.task.Controller;
+import org.modelsphere.jack.gui.task.Worker;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.text.MessageFormat;
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public abstract class ForwardWorker extends Worker {
     private static final String WARNING_ONE_FILE_DUPLICATED = LocaleMgr.message

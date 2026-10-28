@@ -1,7 +1,7 @@
 import os
+from UserList import UserList
 
 from test_support import verify, TESTFN
-from UserList import UserList
 
 # verify writelines with instance sequence
 l = UserList(['1', '2'])

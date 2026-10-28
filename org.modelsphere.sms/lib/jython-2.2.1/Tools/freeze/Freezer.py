@@ -1,11 +1,13 @@
-from org.python.core import parser
-from org.python.compiler.Module import compile
+import java
+import org
+import os
+import string
+from depend import depend
 from org.python.compiler import JavaMaker
-import org, java
-import string, os
+from org.python.compiler.Module import compile
+from org.python.core import parser
 
 from FreezeVisitor import FreezeVisitor
-from depend import depend
 
 suffix = '$py'
 prefix = 'pycode.'

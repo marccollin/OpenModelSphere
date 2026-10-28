@@ -43,28 +43,44 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.templates;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
-import java.io.Serializable;
-import java.util.*;
-import java.util.List;
+import org.modelsphere.jack.awt.AwtUtil;
+import org.modelsphere.jack.awt.beans.impl.AbstractProperty;
+import org.modelsphere.jack.awt.beans.impl.PropertyDialog;
+import org.modelsphere.jack.awt.tree.CheckEvent;
+import org.modelsphere.jack.awt.tree.CheckListener;
+import org.modelsphere.jack.awt.tree.CheckTreeModel;
+import org.modelsphere.jack.awt.tree.CheckTreeNode;
+import org.modelsphere.jack.awt.tree.CheckableTree;
+import org.modelsphere.jack.debug.Debug;
+import org.modelsphere.jack.debug.TestableWindow;
+import org.modelsphere.jack.international.LocaleMgr;
+import org.modelsphere.jack.srtool.forward.BooleanModifier;
+import org.modelsphere.jack.srtool.forward.ExternModifier;
+import org.modelsphere.jack.srtool.forward.Rule;
+import org.modelsphere.jack.srtool.forward.RuleException;
+import org.modelsphere.jack.srtool.forward.VariableDecl;
+import org.modelsphere.jack.srtool.forward.VariableScope;
+import org.modelsphere.jack.srtool.integrate.IntegrateScopeDialog;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
-
-import org.modelsphere.jack.awt.AwtUtil;
-import org.modelsphere.jack.awt.beans.impl.AbstractProperty;
-import org.modelsphere.jack.awt.beans.impl.PropertyDialog;
-import org.modelsphere.jack.awt.tree.*;
-import org.modelsphere.jack.debug.Debug;
-import org.modelsphere.jack.debug.TestableWindow;
-import org.modelsphere.jack.international.LocaleMgr;
-import org.modelsphere.jack.srtool.forward.*;
-import org.modelsphere.jack.srtool.integrate.IntegrateScopeDialog;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 public class TemplateDialog extends JDialog implements TestableWindow {
     JPanel panel1 = new JPanel();

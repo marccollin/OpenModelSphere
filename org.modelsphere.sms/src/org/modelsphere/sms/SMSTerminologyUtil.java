@@ -46,12 +46,6 @@ package org.modelsphere.sms;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 
-import java.awt.Component;
-import java.util.ArrayList;
-import java.util.HashSet;
-
-import javax.swing.Icon;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbDeadObjectException;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -91,6 +85,11 @@ import org.modelsphere.sms.or.db.DbORTrigger;
 import org.modelsphere.sms.or.db.DbORView;
 import org.modelsphere.sms.or.generic.db.DbGEView;
 import org.modelsphere.sms.screen.DbSMSTreeLookupDialog;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * @author nicolask

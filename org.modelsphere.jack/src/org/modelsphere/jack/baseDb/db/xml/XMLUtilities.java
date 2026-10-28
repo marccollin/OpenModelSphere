@@ -43,16 +43,24 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.xml;
 
-import java.text.MessageFormat;
-import java.awt.Polygon;
-import java.lang.reflect.*;
-import java.util.*;
-
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import org.modelsphere.jack.baseDb.meta.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.srtypes.SrBoolean;
+import org.modelsphere.jack.baseDb.db.srtypes.SrImage;
+import org.modelsphere.jack.baseDb.db.srtypes.SrPolygon;
+import org.modelsphere.jack.baseDb.db.srtypes.SrType;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.util.DataConversion;
+
+import java.awt.*;
+import java.lang.reflect.Field;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public final class XMLUtilities implements XMLConstants {
     private static HashMap idPool = null;

@@ -43,12 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-
-import javax.swing.ImageIcon;
-import javax.swing.UIManager;
+import javax.swing.*;
+import java.awt.*;
 
 // This class provide a way to display a color value as an image icon
 

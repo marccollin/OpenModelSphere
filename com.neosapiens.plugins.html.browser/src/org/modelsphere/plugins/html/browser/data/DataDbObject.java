@@ -34,17 +34,17 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.data;
 
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.plugins.html.browser.htmlgeneration.HTMLGenerationHelper;
+import org.modelsphere.plugins.html.browser.htmlgeneration.PropertiesFileGenerator;
+import org.modelsphere.plugins.html.browser.io.IndentWriter;
+
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.modelsphere.jack.baseDb.db.DbException;
-import org.modelsphere.plugins.html.browser.htmlgeneration.HTMLGenerationHelper;
-import org.modelsphere.plugins.html.browser.htmlgeneration.PropertiesFileGenerator;
-import org.modelsphere.plugins.html.browser.io.IndentWriter;
 
 /**
  * This class represent all the data present in a DbObject.

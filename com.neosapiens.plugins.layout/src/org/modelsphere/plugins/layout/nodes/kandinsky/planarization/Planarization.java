@@ -3,19 +3,19 @@
  */
 package org.modelsphere.plugins.layout.nodes.kandinsky.planarization;
 
+import org.jgrapht.DirectedGraph;
+import org.modelsphere.jack.srtool.features.layout.graph.Edge;
+import org.modelsphere.jack.srtool.features.layout.graph.Edge.OrientationConstraint;
+import org.modelsphere.jack.srtool.features.layout.graph.Graph;
+import org.modelsphere.jack.srtool.features.layout.graph.Vertex;
+import org.modelsphere.plugins.layout.CyclicGraphException;
+
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.jgrapht.DirectedGraph;
-import org.modelsphere.jack.srtool.features.layout.graph.Edge;
-import org.modelsphere.jack.srtool.features.layout.graph.Graph;
-import org.modelsphere.jack.srtool.features.layout.graph.Vertex;
-import org.modelsphere.jack.srtool.features.layout.graph.Edge.OrientationConstraint;
-import org.modelsphere.plugins.layout.CyclicGraphException;
 
 /**
  * Execute algorithm mixed-upward-planarization as planarization step.

@@ -42,16 +42,24 @@
  **********************************************************************/
 package org.modelsphere.sms.or.ibm.db;
 
-import java.awt.*;
-import org.modelsphere.jack.baseDb.meta.*;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import org.modelsphere.sms.or.ibm.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.srtypes.SrInteger;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
+import org.modelsphere.sms.or.db.DbORProcedure;
+import org.modelsphere.sms.or.ibm.db.srtypes.IBMFederatedOption;
+import org.modelsphere.sms.or.ibm.db.srtypes.IBMProcedureDbInfo;
+import org.modelsphere.sms.or.ibm.db.srtypes.IBMProcedureDeterministic;
+import org.modelsphere.sms.or.ibm.db.srtypes.IBMProcedureExtAction;
+import org.modelsphere.sms.or.ibm.db.srtypes.IBMProcedureFence;
+import org.modelsphere.sms.or.ibm.db.srtypes.IBMProcedureFinalCall;
+import org.modelsphere.sms.or.ibm.db.srtypes.IBMProcedureLanguage;
+import org.modelsphere.sms.or.ibm.db.srtypes.IBMProcedureNullInput;
+import org.modelsphere.sms.or.ibm.db.srtypes.IBMProcedureParallel;
+import org.modelsphere.sms.or.ibm.db.srtypes.IBMProcedureSql;
 import org.modelsphere.sms.or.ibm.international.LocaleMgr;
-import org.modelsphere.sms.or.db.*;
-import org.modelsphere.sms.or.db.srtypes.*;
-import org.modelsphere.sms.db.*;
-import org.modelsphere.sms.db.srtypes.*;
 
 /**
  * <b>Direct subclass(es)/subinterface(s) : </b>none.<br>

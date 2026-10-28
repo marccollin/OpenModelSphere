@@ -43,21 +43,30 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.jdbc;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.border.TitledBorder;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.event.*;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.debug.TestableWindow;
 import org.modelsphere.jack.io.PathFile;
-import org.modelsphere.jack.preference.*;
+import org.modelsphere.jack.preference.DriverInfo;
+import org.modelsphere.jack.preference.DriversManager;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.services.ConnectionMessage;
 import org.modelsphere.jack.text.MessageFormat;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  * 

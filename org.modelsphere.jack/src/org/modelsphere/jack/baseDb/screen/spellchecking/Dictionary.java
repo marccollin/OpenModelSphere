@@ -42,17 +42,16 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.baseDb.screen.spellchecking;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
+import com.swabunga.spell.engine.SpellDictionary;
 import org.modelsphere.jack.baseDb.screen.spellchecking.resources.en.EnglishResources;
 import org.modelsphere.jack.baseDb.screen.spellchecking.resources.fr.FrenchResources;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.util.ExceptionHandler;
 
-import com.swabunga.spell.engine.SpellDictionary;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class Dictionary {
 

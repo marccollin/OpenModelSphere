@@ -42,15 +42,22 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.db;
 
-import java.awt.*;
-import org.modelsphere.jack.baseDb.meta.*;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import org.modelsphere.sms.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.baseDb.db.srtypes.PageNoPosition;
+import org.modelsphere.jack.baseDb.db.srtypes.SrDimension;
+import org.modelsphere.jack.baseDb.db.srtypes.SrFont;
+import org.modelsphere.jack.baseDb.db.srtypes.SrPageFormat;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelation1;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
 import org.modelsphere.sms.international.LocaleMgr;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import javax.swing.Icon;
-import java.awt.print.*;
+
+import java.awt.*;
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
 
 /**
  * <b>Direct subclass(es)/subinterface(s) : </b><A

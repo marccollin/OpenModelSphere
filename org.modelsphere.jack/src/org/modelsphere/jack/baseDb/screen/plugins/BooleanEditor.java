@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import javax.swing.JCheckBox;
-
 import org.modelsphere.jack.baseDb.screen.ScreenView;
+
+import javax.swing.*;
 
 public class BooleanEditor extends JCheckBox implements org.modelsphere.jack.baseDb.screen.Editor {
 

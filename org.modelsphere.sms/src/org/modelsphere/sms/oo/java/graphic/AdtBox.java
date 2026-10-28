@@ -33,17 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.oo.java.graphic;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Vector;
-
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -126,6 +115,12 @@ import org.modelsphere.sms.oo.java.db.util.AnyAdt.Method;
 import org.modelsphere.sms.oo.java.db.util.AnyAdt.MethodsWithSameSignature;
 import org.modelsphere.sms.oo.java.international.LocaleMgr;
 import org.modelsphere.sms.style.PrefixOptionComponent;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Vector;
 
 public final class AdtBox extends GraphicNode implements ActionInformation, SMSClassifierBox {
     // zone columns index , WARNING if the values change you must also change

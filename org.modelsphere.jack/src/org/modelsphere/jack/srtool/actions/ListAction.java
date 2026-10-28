@@ -45,7 +45,9 @@ package org.modelsphere.jack.srtool.actions;
 
 import org.modelsphere.jack.actions.AbstractMenuAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;

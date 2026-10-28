@@ -43,10 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.xml;
 
-import java.io.*;
-import java.util.*;
+import org.modelsphere.jack.baseDb.db.DbException;
 
-import org.modelsphere.jack.baseDb.db.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 abstract class XMLElement implements XMLConstants {
     String name;

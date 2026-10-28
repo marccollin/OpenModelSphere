@@ -33,12 +33,28 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.integrity;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.sms.or.db.*;
+import org.modelsphere.sms.or.db.DbORAbsTable;
+import org.modelsphere.sms.or.db.DbORAssociation;
+import org.modelsphere.sms.or.db.DbORAssociationEnd;
+import org.modelsphere.sms.or.db.DbORCheck;
+import org.modelsphere.sms.or.db.DbORColumn;
+import org.modelsphere.sms.or.db.DbORCommonItem;
+import org.modelsphere.sms.or.db.DbORDomain;
+import org.modelsphere.sms.or.db.DbORFKeyColumn;
+import org.modelsphere.sms.or.db.DbORForeign;
+import org.modelsphere.sms.or.db.DbORIndex;
+import org.modelsphere.sms.or.db.DbORIndexKey;
+import org.modelsphere.sms.or.db.DbORParameter;
+import org.modelsphere.sms.or.db.DbORPrimaryUnique;
+import org.modelsphere.sms.or.db.DbORProcedure;
+import org.modelsphere.sms.or.db.DbORTable;
+import org.modelsphere.sms.or.db.DbORTrigger;
+import org.modelsphere.sms.or.db.DbORView;
+
+import java.util.ArrayList;
 
 /**
  * @author pierrem

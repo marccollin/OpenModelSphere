@@ -42,10 +42,14 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.plugins;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import org.modelsphere.jack.io.PathFile;
+import org.modelsphere.jack.plugins.io.PluginLoader;
+import org.modelsphere.jack.srtool.ApplicationContext;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -54,11 +58,10 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import org.modelsphere.jack.io.PathFile;
-import org.modelsphere.jack.plugins.io.PluginLoader;
-import org.modelsphere.jack.srtool.ApplicationContext;
-import org.w3c.dom.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class PluginsConfiguration {
     private static final String FILENAME = "plugins.xml"; // NOT LOCALIZABLE, file name

@@ -32,8 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.oo.java.actions;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.actions.AbstractDomainAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -51,6 +49,8 @@ import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.DbJVDataMember;
 import org.modelsphere.sms.oo.java.db.util.AnyAdt;
 import org.modelsphere.sms.oo.java.international.LocaleMgr;
+
+import java.util.ArrayList;
 
 public final class SetCollectionDataTypeAction extends AbstractDomainAction implements
         SelectionActionListener {

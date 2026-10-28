@@ -43,7 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.graphic;
 
-import org.modelsphere.jack.graphic.*;
+import org.modelsphere.jack.graphic.DiagramView;
+import org.modelsphere.jack.graphic.OverviewView;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 
 public class OverviewInternalFrame extends DiagramViewInternalFrame {

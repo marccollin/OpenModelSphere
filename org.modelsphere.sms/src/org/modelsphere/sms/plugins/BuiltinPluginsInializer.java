@@ -43,11 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.plugins.PluginMgr;
 import org.modelsphere.sms.or.features.dbms.ForwardToolkitPlugin;
 import org.modelsphere.sms.or.features.dbms.ReverseToolkitPlugin;
+
+import java.util.ArrayList;
 
 public final class BuiltinPluginsInializer {
 

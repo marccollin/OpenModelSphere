@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.getdomainvalues;
 
-import java.awt.event.ActionEvent;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.plugins.Plugin2;
@@ -50,6 +48,8 @@ import org.modelsphere.sms.or.db.DbORColumn;
 import org.modelsphere.sms.or.db.DbORCommonItem;
 import org.modelsphere.sms.or.db.DbORDomain;
 import org.modelsphere.sms.or.db.DbORTypeClassifier;
+
+import java.awt.event.ActionEvent;
 
 public final class DomainValuesPlugin implements Plugin2 {
     public PluginSignature getSignature() {

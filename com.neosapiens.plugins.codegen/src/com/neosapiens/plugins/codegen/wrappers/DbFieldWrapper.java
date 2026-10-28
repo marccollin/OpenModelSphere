@@ -45,9 +45,6 @@ Email: marco.savard@neosapiens.com
 
 package com.neosapiens.plugins.codegen.wrappers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.sms.db.srtypes.SMSMultiplicity;
 import org.modelsphere.sms.oo.db.DbOOAdt;
@@ -58,6 +55,9 @@ import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.DbJVDataMember;
 import org.modelsphere.sms.oo.java.db.DbJVPrimitiveType;
 import org.modelsphere.sms.oo.java.db.srtypes.JVVisibility;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbFieldWrapper extends DbObjectWrapper {
     private DbJVDataMember m_field;

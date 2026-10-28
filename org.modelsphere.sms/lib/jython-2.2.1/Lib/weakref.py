@@ -9,19 +9,17 @@ http://python.sourceforge.net/peps/pep-0205.html
 # they are called this instead of "ref" to avoid name collisions with
 # the module-global ref() function imported from _weakref.
 
-import UserDict
-
 from _weakref import \
-     getweakrefcount, \
-     getweakrefs, \
-     ref, \
-     proxy, \
-     CallableProxyType, \
-     ProxyType, \
-     ReferenceType
-
+    getweakrefcount, \
+    getweakrefs, \
+    ref, \
+    proxy, \
+    CallableProxyType, \
+    ProxyType, \
+    ReferenceType
 from exceptions import ReferenceError
 
+import UserDict
 
 ProxyTypes = (ProxyType, CallableProxyType)
 

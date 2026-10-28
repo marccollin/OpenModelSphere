@@ -1,7 +1,8 @@
-import jarray, binascii
-
-from java.util.zip import Adler32, Deflater, Inflater
+import binascii
+import jarray
 from java.lang import Long, String, StringBuffer
+from java.util.zip import Adler32, Deflater, Inflater
+
 
 class error(Exception):
     pass

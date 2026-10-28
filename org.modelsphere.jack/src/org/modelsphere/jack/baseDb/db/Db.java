@@ -43,16 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db;
 
-import java.awt.Component;
-import java.lang.reflect.Constructor;
-import java.util.HashMap;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
 import org.modelsphere.jack.awt.NullFrame;
 import org.modelsphere.jack.awt.WaitDialog;
-import org.modelsphere.jack.baseDb.db.event.*;
+import org.modelsphere.jack.baseDb.db.event.DbListener;
+import org.modelsphere.jack.baseDb.db.event.DbRefreshListener;
+import org.modelsphere.jack.baseDb.db.event.DbRefreshPassListener;
+import org.modelsphere.jack.baseDb.db.event.DbTransListener;
+import org.modelsphere.jack.baseDb.db.event.DbUndoRedoListener;
+import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
+import org.modelsphere.jack.baseDb.db.event.DbUpdatePassListener;
 import org.modelsphere.jack.baseDb.db.srtypes.DbtPassword;
 import org.modelsphere.jack.baseDb.db.srtypes.UserType;
 import org.modelsphere.jack.baseDb.international.LocaleMgr;
@@ -66,6 +65,11 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.ExceptionMessage;
 import org.modelsphere.jack.util.SrVector;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Constructor;
+import java.util.HashMap;
 
 /**
  * This is the facade of the DB modeling framework. All the instances of DbObject belong to a Db

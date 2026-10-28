@@ -43,19 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.dbms;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.util.ArrayList;
-import java.util.Hashtable;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.border.TitledBorder;
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.modelsphere.jack.awt.tree.CheckEvent;
 import org.modelsphere.jack.awt.tree.CheckListener;
 import org.modelsphere.jack.awt.tree.CheckTreeModel;
@@ -85,6 +72,13 @@ import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 import org.modelsphere.sms.or.db.DbORUser;
 import org.modelsphere.sms.or.db.util.AnyORObject;
 import org.modelsphere.sms.templates.SQLForwardEngineeringPlugin;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.tree.DefaultMutableTreeNode;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class DefaultForwardWizardStartPage extends WizardPage {
     private GridBagLayout startGridBagLayout = new GridBagLayout();

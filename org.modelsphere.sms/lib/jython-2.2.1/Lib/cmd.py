@@ -45,7 +45,8 @@ These interpreters use raw_input; thus, if the readline module is loaded,
 they automatically support Emacs-like command history and editing features.
 """
 
-import string, sys
+import string
+import sys
 
 __all__ = ["Cmd"]
 

@@ -1,5 +1,8 @@
+import os
+import sys
+import tokenize
+
 from test_support import verbose, findfile
-import tokenize, os, sys
 
 if verbose:
     print 'starting...'

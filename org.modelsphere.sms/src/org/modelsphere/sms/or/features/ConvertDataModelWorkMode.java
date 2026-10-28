@@ -33,10 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features;
 
-import java.awt.Polygon;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -77,6 +73,10 @@ import org.modelsphere.sms.or.generic.db.DbGEColumn;
 import org.modelsphere.sms.or.generic.db.DbGETable;
 import org.modelsphere.sms.or.graphic.tool.ORAssociationTool;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 final class ConvertDataModelWorkMode {
     //static final int GENERATE_REPORT = 0;

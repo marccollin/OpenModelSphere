@@ -1,6 +1,6 @@
 package org.modelsphere.plugins.layout.nodes.kandinsky.struct;
 
-import java.awt.Rectangle;
+import java.awt.*;
 
 /**
  * The Class Label.

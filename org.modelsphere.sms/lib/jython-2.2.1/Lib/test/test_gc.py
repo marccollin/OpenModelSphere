@@ -1,6 +1,8 @@
-from test_support import verify, verbose, TestFailed
-import sys
 import gc
+import sys
+
+from test_support import verify, verbose, TestFailed
+
 
 def expect(actual, expected, name):
     if actual != expected:

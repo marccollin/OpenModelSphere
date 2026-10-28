@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.html;
 
-import java.net.URL;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
+
+import java.net.URL;
 
 public final class InternalLink {
     int key;

@@ -43,9 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins;
 
+import javax.swing.*;
 import java.util.zip.ZipFile;
-
-import javax.swing.JDialog;
 
 public final class PluginConfigurationHandler {
     PluginConfigurationHandler() {

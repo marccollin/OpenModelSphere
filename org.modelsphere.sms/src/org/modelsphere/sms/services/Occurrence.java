@@ -33,12 +33,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.services;
 
+import org.modelsphere.jack.debug.Debug;
+
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Enumeration;
 import java.util.Vector;
-
-import org.modelsphere.jack.debug.Debug;
 
 /**
  * 

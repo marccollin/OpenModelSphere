@@ -1,7 +1,9 @@
 "Read and write ZIP files."
 
-import struct, os, time
 import binascii
+import os
+import struct
+import time
 
 try:
     import zlib # We may need its compression method

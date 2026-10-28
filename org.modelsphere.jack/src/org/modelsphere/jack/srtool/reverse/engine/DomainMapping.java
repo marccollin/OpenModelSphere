@@ -42,7 +42,8 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.srtool.reverse.engine;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
 
 // Class used to defined a mapping between a String value and a domain value (of any type)
 // NOTE:  toLowerCase() is applied on all key values for set and get methods

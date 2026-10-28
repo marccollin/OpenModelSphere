@@ -39,12 +39,12 @@ You can reach neosapiens inc. at:
  **********************************************************************/
 package org.modelsphere.plugins.export.links.wrappers;
 
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbUDF;
 import org.modelsphere.plugins.export.links.wrappers.Matrix.Cell;
 import org.modelsphere.plugins.export.links.wrappers.Matrix.Column;
+
+import java.util.List;
 
 public class DbUdfWrapper {
     private DbUDF m_dbUdf;

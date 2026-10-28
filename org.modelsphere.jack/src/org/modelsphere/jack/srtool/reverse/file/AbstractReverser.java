@@ -42,15 +42,15 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.srtool.reverse.file;
 
-import java.io.File;
-import java.io.StringWriter;
-import java.util.Map;
-import java.util.Vector;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.gui.task.Controller;
+
+import java.io.File;
+import java.io.StringWriter;
+import java.util.Map;
+import java.util.Vector;
 
 public abstract class AbstractReverser {
     protected Controller m_controller;

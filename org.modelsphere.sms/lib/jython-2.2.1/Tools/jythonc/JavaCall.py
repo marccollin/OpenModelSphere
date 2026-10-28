@@ -1,9 +1,9 @@
 # Copyright (c) Corporation for National Research Initiatives
 
-import java, org.python.core
+import java
+import org.python.core
+
 import jast
-
-
 
 funcs = {}
 def call(func, this, args=None):

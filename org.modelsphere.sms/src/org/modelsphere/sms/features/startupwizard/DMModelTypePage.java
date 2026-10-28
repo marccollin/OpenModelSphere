@@ -32,16 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.features.startupwizard;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Box;
-import javax.swing.ButtonGroup;
-import javax.swing.JRadioButton;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.gui.wizard2.AbstractPage;
@@ -49,6 +39,11 @@ import org.modelsphere.jack.gui.wizard2.SectionHeader;
 import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.features.international.LocaleMgr;
 import org.modelsphere.sms.or.db.DbORNotation;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 @SuppressWarnings("serial")
 class DMModelTypePage extends AbstractPage {

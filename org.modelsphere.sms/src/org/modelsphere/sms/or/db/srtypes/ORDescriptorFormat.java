@@ -43,7 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.db.srtypes;
 
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.srtypes.DbtAbstract;
 
 public final class ORDescriptorFormat extends DbtAbstract {

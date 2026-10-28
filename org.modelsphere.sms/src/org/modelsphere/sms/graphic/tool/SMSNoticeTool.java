@@ -32,11 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.graphic.tool;
 
-import java.awt.Cursor;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.graphic.GraphicComponent;
@@ -54,6 +49,8 @@ import org.modelsphere.sms.db.DbSMSPackage;
 import org.modelsphere.sms.db.DbSMSSemanticalObject;
 import org.modelsphere.sms.graphic.NoticeBox;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.awt.*;
 
 /**
  * @author Grandite

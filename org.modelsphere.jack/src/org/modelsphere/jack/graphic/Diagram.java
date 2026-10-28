@@ -43,21 +43,29 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic;
 
-import java.awt.*;
-import java.awt.font.FontRenderContext;
-import java.awt.font.TextLayout;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.awt.print.*;
-import java.util.*;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.graphic.zone.CellEditor;
 import org.modelsphere.jack.graphic.zone.CellID;
 import org.modelsphere.jack.graphic.zone.ComboBoxCellEditor;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;
 import org.modelsphere.jack.util.SrVector;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.font.FontRenderContext;
+import java.awt.font.TextLayout;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.awt.print.PageFormat;
+import java.awt.print.Pageable;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Enumeration;
+import java.util.EventObject;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public abstract class Diagram implements Pageable, Printable {
 

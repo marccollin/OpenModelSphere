@@ -67,6 +67,7 @@ Req-sent-unread-response       _CS_REQ_SENT       <response_class>
 """
 
 import errno
+
 import mimetools
 import socket
 from urlparse import urlsplit

@@ -1,6 +1,7 @@
-from test_support import verbose, TESTFN
-import random
 import os
+import random
+
+from test_support import verbose, TESTFN
 
 # From SF bug #422121:  Insecurities in dict comparison.
 

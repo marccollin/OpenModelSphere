@@ -1,7 +1,6 @@
 package org.modelsphere.plugins.layout.cluster.rectanglepacker;
 
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
 
 /**
  * Based on works by Ivan Montes <drslump@drslump.biz>, <http://blog.netxus.es> - RectanglePacker.js

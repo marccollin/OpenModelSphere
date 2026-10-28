@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.actions.AbstractDomainAction;
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.actions.SelectionActionListener;
@@ -62,6 +60,8 @@ import org.modelsphere.sms.or.db.DbORDomainModel;
 import org.modelsphere.sms.or.db.DbORDomainStyle;
 import org.modelsphere.sms.or.db.DbORStyle;
 import org.modelsphere.sms.style.FormatFrame;
+
+import java.util.ArrayList;
 
 public final class SetGoStyleAction extends AbstractDomainAction implements SelectionActionListener {
 

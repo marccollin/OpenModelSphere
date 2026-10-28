@@ -3,6 +3,7 @@
    Roger E. Masse
 """
 import cl
+
 from test_support import verbose
 
 clattrs = ['ADDED_ALGORITHM_ERROR', 'ALAW', 'ALGORITHM_ID',

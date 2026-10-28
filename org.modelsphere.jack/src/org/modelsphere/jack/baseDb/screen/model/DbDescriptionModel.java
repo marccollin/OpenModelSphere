@@ -43,14 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.model;
 
-import java.util.Vector;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbUDF;
+import org.modelsphere.jack.baseDb.db.DbUDFValue;
 import org.modelsphere.jack.baseDb.db.event.DbRefreshListener;
 import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.baseDb.screen.Renderer;
 import org.modelsphere.jack.baseDb.screen.ScreenView;
+
+import java.util.Vector;
 
 public class DbDescriptionModel extends javax.swing.AbstractListModel implements DescriptionModel,
         DbRefreshListener {

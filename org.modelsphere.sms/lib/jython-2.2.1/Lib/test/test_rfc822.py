@@ -1,7 +1,8 @@
 import rfc822
 import sys
-import test_support
 import unittest
+
+import test_support
 
 try:
     from cStringIO import StringIO

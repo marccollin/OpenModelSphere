@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.util.ArrayList;
-import java.util.Vector;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.awt.AwtUtil;
@@ -61,9 +58,10 @@ import org.modelsphere.sms.or.db.DbORCommonItem;
 import org.modelsphere.sms.or.db.DbORCommonItemModel;
 import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.db.DbORDiagram;
-import org.modelsphere.sms.or.graphic.ORTable;
 import org.modelsphere.sms.or.graphic.ORTableBox;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import java.util.ArrayList;
 
 public final class PropagateCommonItemValuesAction extends AbstractApplicationAction implements
         SelectionActionListener {

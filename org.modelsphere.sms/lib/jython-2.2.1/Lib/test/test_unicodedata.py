@@ -5,8 +5,9 @@
     (c) Copyright CNRI, All Rights Reserved. NO WARRANTY.
 
 """#"
-from test_support import verify, verbose
 import sha
+
+from test_support import verify
 
 encoding = 'utf-8'
 

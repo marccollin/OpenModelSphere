@@ -45,23 +45,8 @@ Email: marco.savard@neosapiens.com
 
 package com.neosapiens.plugins.reverse.javasource.ui;
 
-import java.awt.Cursor;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.File;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-
+import com.neosapiens.plugins.reverse.javasource.ReverseJavaSourcecodeParameters;
+import com.neosapiens.plugins.reverse.javasource.international.JavaSourceReverseLocaleMgr;
 import org.modelsphere.jack.awt.dirchooser.DirectoryChooser2;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -71,8 +56,13 @@ import org.modelsphere.jack.baseDb.db.DbRoot;
 import org.modelsphere.jack.properties.PropertySet;
 import org.modelsphere.sms.db.DbSMSProject;
 
-import com.neosapiens.plugins.reverse.javasource.ReverseJavaSourcecodeParameters;
-import com.neosapiens.plugins.reverse.javasource.international.JavaSourceReverseLocaleMgr;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.File;
 
 public class ReverseJavaSourcecodeWizardPage1 extends WizardPage 
     implements ActionListener, KeyListener {

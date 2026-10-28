@@ -43,16 +43,23 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.plugins.xml;
 
-import java.io.*;
-import java.util.Hashtable;
-import java.util.Stack;
-
 import org.modelsphere.jack.debug.Debug;
-import org.xml.sax.*;
+import org.xml.sax.AttributeList;
+import org.xml.sax.DocumentHandler;
+import org.xml.sax.HandlerBase;
+import org.xml.sax.Locator;
+import org.xml.sax.Parser;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
-import javax.xml.parsers.SAXParserFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.File;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Hashtable;
+import java.util.Stack;
 
 //
 // Simple demonstration of using SAX event-driven APIs directly.

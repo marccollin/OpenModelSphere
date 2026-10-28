@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse;
 
-import java.io.*;
+import java.io.Reader;
 
 public interface InputReadable {
     public void readInputFile(Reader reader) throws Exception;

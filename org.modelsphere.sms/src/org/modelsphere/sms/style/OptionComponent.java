@@ -33,11 +33,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.style;
 
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaField;
+
+import javax.swing.*;
 
 public abstract class OptionComponent {
 

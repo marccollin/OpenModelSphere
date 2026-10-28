@@ -44,7 +44,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.srtool.popupMenu;
 
 import org.modelsphere.jack.actions.AbstractActionsStore;
-import org.modelsphere.jack.srtool.popupMenu.AbstractPopupMenu;
 
 /**
  * 

@@ -42,11 +42,11 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.srtool.features.layout;
 
-import java.awt.Polygon;
+import org.modelsphere.jack.srtool.features.layout.graph.Node;
+
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
-
-import org.modelsphere.jack.srtool.features.layout.graph.Node;
 
 /**
  * The Class LayoutUtilities.

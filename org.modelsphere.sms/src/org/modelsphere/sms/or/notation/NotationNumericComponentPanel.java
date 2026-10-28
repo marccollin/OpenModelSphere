@@ -32,26 +32,16 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.or.notation;
 
-import java.awt.Component;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-
-import javax.swing.Box;
-import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.border.TitledBorder;
-
 import org.modelsphere.sms.notation.OptionComponent;
 import org.modelsphere.sms.or.db.srtypes.ORConnectivitiesDisplay;
 import org.modelsphere.sms.or.db.srtypes.ORConnectivityPosition;
 import org.modelsphere.sms.or.db.srtypes.ORNumericRepresentation;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public final class NotationNumericComponentPanel extends JPanel {
     private static final String kDisplay = LocaleMgr.screen.getString("displayAsNoun");

@@ -34,9 +34,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.plugins.ansi.forward.toolkit;
 
 //Java
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -72,6 +69,10 @@ import org.modelsphere.sms.plugins.TargetSystem;
 import org.modelsphere.sms.plugins.TargetSystemInfo;
 import org.modelsphere.sms.plugins.TargetSystemManager;
 import org.modelsphere.sms.templates.SQLForwardEngineeringPlugin;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 public final class AnsiForwardToolkitPlugin extends ForwardToolkitPlugin implements Plugin2{
     public AnsiForwardToolkitPlugin() {

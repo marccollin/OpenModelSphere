@@ -43,21 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.net.URL;
-import java.net.URLDecoder;
-import java.nio.file.FileSystems;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.io.PathFile;
@@ -72,7 +57,19 @@ import org.modelsphere.jack.srtool.MainFrameMenu;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.text.MessageFormat;
-import org.modelsphere.jack.util.JarUtil;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.net.URL;
+import java.nio.file.FileSystems;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class provides common services for all forward engineering plug-ins.

@@ -4,12 +4,17 @@ convenience of application and driver writers.
 
 $Id: saxutils.py,v 1.37 2005/04/13 14:02:08 syt Exp $
 """
-import os, urlparse, urllib2, types
+import _exceptions
+import os
+import saxlib
+import sys
+import types
+import urllib2
+import urlparse
+from xml.Uri import Absolutize, MakeUrllibSafe, IsAbsolute
+
 import handler
 import xmlreader
-import sys, _exceptions, saxlib
-
-from xml.Uri import Absolutize, MakeUrllibSafe,IsAbsolute
 
 try:
     _StringTypes = [types.StringType, types.UnicodeType]
@@ -174,7 +179,6 @@ class ErrorRaiser:
             raise exception
 
 # --- AttributesImpl now lives in xmlreader
-from xmlreader import AttributesImpl
 
 # --- XMLGenerator is the SAX2 ContentHandler for writing back XML
 import codecs

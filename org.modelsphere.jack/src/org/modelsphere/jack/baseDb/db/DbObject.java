@@ -43,18 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Map;
-import java.util.TimeZone;
-
-import javax.swing.Icon;
-
 import org.modelsphere.jack.baseDb.db.event.DbRefreshListener;
 import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
 import org.modelsphere.jack.baseDb.db.srtypes.DbtAbstract;
@@ -75,6 +63,17 @@ import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.jack.util.SrVector;
 import org.modelsphere.jack.util.StringUtil;
+
+import javax.swing.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * The superclass of all the generated model classes. It defines generic accessors

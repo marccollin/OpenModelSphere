@@ -32,8 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.oo.java.screen;
 
-import javax.swing.JButton;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -55,6 +53,8 @@ import org.modelsphere.sms.oo.java.db.srtypes.JVClassCategory;
 import org.modelsphere.sms.oo.java.db.util.AnyAdt;
 import org.modelsphere.sms.oo.java.international.LocaleMgr;
 import org.modelsphere.sms.oo.java.screen.model.JVListModel;
+
+import javax.swing.*;
 
 public class JVListView extends DbListView {
 

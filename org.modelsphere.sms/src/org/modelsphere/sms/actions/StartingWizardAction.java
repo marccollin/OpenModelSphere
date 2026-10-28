@@ -34,7 +34,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.actions;
 
 import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;

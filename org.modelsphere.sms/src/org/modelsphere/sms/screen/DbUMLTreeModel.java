@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen;
 
-import javax.swing.Icon;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
@@ -44,6 +42,8 @@ import org.modelsphere.jack.baseDb.screen.model.DbTreeModelListener;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.sms.be.db.DbBENotation;
+
+import javax.swing.*;
 
 public class DbUMLTreeModel extends DbTreeModel {
 

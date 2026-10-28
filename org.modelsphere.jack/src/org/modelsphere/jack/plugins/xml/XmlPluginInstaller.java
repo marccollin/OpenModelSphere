@@ -44,37 +44,28 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package org.modelsphere.jack.plugins.xml;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.StringTokenizer;
-
-import org.modelsphere.jack.plugins.Plugin;
 import org.modelsphere.jack.plugins.PluginDescriptor;
 import org.modelsphere.jack.plugins.PluginsConfiguration;
 import org.modelsphere.jack.plugins.PluginsRegistry;
 import org.modelsphere.jack.plugins.io.PluginContext;
 import org.modelsphere.jack.plugins.io.PluginLoader;
 import org.modelsphere.jack.plugins.io.XMLPluginContext;
-import org.modelsphere.jack.plugins.io.XMLPluginUtilities;
 import org.modelsphere.jack.plugins.xml.extensions.AbstractPluginExtension;
-import org.modelsphere.jack.plugins.xml.extensions.PopupExtension;
 import org.modelsphere.jack.plugins.xml.fs.FsEntry;
 import org.modelsphere.jack.plugins.xml.fs.FsFile;
 import org.modelsphere.jack.plugins.xml.fs.FsFolder;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.Splash;
 import org.modelsphere.jack.srtool.popupMenu.ApplicationPopupMenu;
+
+import java.io.File;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.StringTokenizer;
 
 public class XmlPluginInstaller {
 

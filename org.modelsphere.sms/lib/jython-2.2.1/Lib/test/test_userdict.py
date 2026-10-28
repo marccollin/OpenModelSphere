@@ -1,7 +1,8 @@
 # Check every path through every method of UserDict
 
-from test_support import verify, verbose
 from UserDict import UserDict, IterableUserDict
+
+from test_support import verify
 
 d0 = {}
 d1 = {"one": 1}

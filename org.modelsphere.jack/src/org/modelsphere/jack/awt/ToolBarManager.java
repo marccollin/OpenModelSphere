@@ -43,20 +43,25 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.Vector;
-
-import javax.swing.*;
-import javax.swing.plaf.ToolBarUI;
-import javax.swing.plaf.basic.BasicToolBarUI;
-
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.ApplicationContext;
+
+import javax.swing.*;
+import javax.swing.plaf.ToolBarUI;
+import javax.swing.plaf.basic.BasicToolBarUI;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Vector;
 
 /**
  * This class provides a way for managing multiple toolbar

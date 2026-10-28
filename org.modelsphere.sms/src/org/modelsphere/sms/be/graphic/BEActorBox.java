@@ -33,17 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.graphic;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -84,13 +73,21 @@ import org.modelsphere.sms.be.db.DbBENotation;
 import org.modelsphere.sms.be.db.DbBEQualifier;
 import org.modelsphere.sms.be.db.DbBESingleZoneDisplay;
 import org.modelsphere.sms.be.db.DbBEStyle;
-import org.modelsphere.sms.be.db.DbBEUseCase;
 import org.modelsphere.sms.db.DbSMSGraphicalObject;
 import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.db.DbSMSStereotype;
 import org.modelsphere.sms.db.srtypes.SMSNotationShape;
 import org.modelsphere.sms.db.srtypes.SMSZoneOrientation;
 import org.modelsphere.sms.graphic.SMSStereotypeEditor;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class BEActorBox extends GraphicNode implements ActionInformation, DbRefreshListener {
 

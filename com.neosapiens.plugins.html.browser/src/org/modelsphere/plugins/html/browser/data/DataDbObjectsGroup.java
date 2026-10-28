@@ -34,13 +34,13 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.data;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.plugins.html.browser.htmlgeneration.HTMLGenerationHelper;
 import org.modelsphere.plugins.html.browser.io.IndentWriter;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * This class represent a collection of DbObjects of the same type.

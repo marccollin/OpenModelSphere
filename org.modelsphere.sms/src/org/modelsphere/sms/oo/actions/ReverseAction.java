@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.oo.actions;
 
-import java.util.List;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbProject;
@@ -46,6 +44,8 @@ import org.modelsphere.sms.SMSFilter;
 import org.modelsphere.sms.features.reverse.JavaXMIReverseEngineeringPlugin;
 import org.modelsphere.sms.features.reverse.ReverseFrameWorker;
 import org.modelsphere.sms.oo.international.LocaleMgr;
+
+import java.util.List;
 
 public final class ReverseAction extends AbstractApplicationAction implements
         CurrentProjectListener {

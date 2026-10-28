@@ -43,7 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.util;
 
-import java.util.*;
+import java.util.AbstractList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Enumeration;
+import java.util.NoSuchElementException;
 
 public class SrVector extends AbstractList implements Cloneable, java.io.Serializable {
 

@@ -3,8 +3,9 @@
 # XXX This really needs some work, but what are the expected invariants?
 
 import grp
-import test_support
 import unittest
+
+import test_support
 
 
 class GroupDatabaseTestCase(unittest.TestCase):

@@ -43,9 +43,20 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.preference.context;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Map;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbRAM;
+import org.modelsphere.jack.debug.Debug;
+import org.modelsphere.jack.io.PathFile;
+import org.modelsphere.jack.srtool.ApplicationContext;
+import org.modelsphere.jack.srtool.DbApplication;
+import org.modelsphere.jack.util.ExceptionHandler;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -54,14 +65,9 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.debug.Debug;
-import org.modelsphere.jack.io.PathFile;
-import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.DbApplication;
-import org.modelsphere.jack.util.ExceptionHandler;
-import org.w3c.dom.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * IO class for reading / writing the context's file.

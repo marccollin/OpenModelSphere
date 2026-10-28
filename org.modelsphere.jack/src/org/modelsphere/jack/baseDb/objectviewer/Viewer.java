@@ -43,22 +43,19 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.objectviewer;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
+import org.modelsphere.jack.awt.JackMenu;
+import org.modelsphere.jack.awt.StatusBar;
+import org.modelsphere.jack.awt.StatusBarModel;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-
-import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
-
-import org.modelsphere.jack.awt.JackMenu;
-import org.modelsphere.jack.awt.StatusBar;
-import org.modelsphere.jack.awt.StatusBarModel;
 
 public final class Viewer extends JDialog {
     private VExplorer explorer;

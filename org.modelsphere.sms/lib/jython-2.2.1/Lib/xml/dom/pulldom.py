@@ -1,6 +1,6 @@
+import types
 import xml.sax
 import xml.sax.handler
-import types
 
 try:
     _StringTypes = [types.StringType, types.UnicodeType]

@@ -43,32 +43,21 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.choosers;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import org.modelsphere.jack.preference.OptionPanel;
+import org.modelsphere.jack.preference.PropertiesManager;
+import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
+import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.MessageFormat;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
-import org.modelsphere.jack.preference.OptionPanel;
-import org.modelsphere.jack.preference.PropertiesManager;
-import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
-import org.modelsphere.jack.srtool.international.LocaleMgr;
 
 public class PageTitlePanel extends JPanel implements ActionListener, DocumentListener {
     private static final String CURRENT_PAGE = LocaleMgr.screen.getString("CurrentPage");

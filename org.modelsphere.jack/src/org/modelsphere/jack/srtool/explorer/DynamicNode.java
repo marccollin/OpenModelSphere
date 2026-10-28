@@ -43,11 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.explorer;
 
-import javax.swing.Icon;
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.util.CollationComparator;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class DynamicNode extends DefaultMutableTreeNode implements Comparable {
 

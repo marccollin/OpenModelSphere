@@ -1,6 +1,12 @@
-import os, sys, string, random, tempfile, unittest
+import os
+import random
+import string
+import sys
+import tempfile
+import unittest
 
 from test_support import run_unittest
+
 
 class TestImport(unittest.TestCase):
 

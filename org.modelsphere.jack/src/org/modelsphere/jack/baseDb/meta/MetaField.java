@@ -43,12 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.meta;
 
-import java.lang.reflect.Field;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbProject;
-import org.modelsphere.jack.baseDb.db.event.*;
+import org.modelsphere.jack.baseDb.db.event.DbRefreshListener;
+import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
+import org.modelsphere.jack.baseDb.db.event.DbUpdateListener;
+import org.modelsphere.jack.baseDb.db.event.DbUpdateListenerCall;
 import org.modelsphere.jack.util.SrVector;
+
+import java.lang.reflect.Field;
 
 /**
  * A property defined on a meta-class. Meta-relationshio is a subclass of meta-field. <br>

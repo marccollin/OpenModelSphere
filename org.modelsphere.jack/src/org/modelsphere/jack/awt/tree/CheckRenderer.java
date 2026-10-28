@@ -42,16 +42,13 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.awt.tree;
 
-import java.awt.Component;
-import java.awt.Dimension;
+import org.modelsphere.jack.awt.CheckMultiIcon;
 
-import javax.swing.JTree;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-
-import org.modelsphere.jack.awt.CheckMultiIcon;
+import java.awt.*;
 
 /**
  * This renderer will display a node in a CheckableTree. Values (displayed text, icon, selected) are

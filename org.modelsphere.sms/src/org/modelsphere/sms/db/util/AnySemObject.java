@@ -43,16 +43,47 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.db.util;
 
-import java.util.Enumeration;
-import java.util.ArrayList;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
+import org.modelsphere.jack.baseDb.db.DbUDF;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
-import org.modelsphere.sms.be.db.*;
-import org.modelsphere.sms.db.*;
-import org.modelsphere.sms.oo.db.*;
+import org.modelsphere.sms.be.db.DbBEFlow;
+import org.modelsphere.sms.db.DbSMSBuiltInTypeNode;
+import org.modelsphere.sms.db.DbSMSBuiltInTypePackage;
+import org.modelsphere.sms.db.DbSMSLink;
+import org.modelsphere.sms.db.DbSMSLinkModel;
+import org.modelsphere.sms.db.DbSMSProject;
+import org.modelsphere.sms.db.DbSMSSemanticalObject;
+import org.modelsphere.sms.db.DbSMSStereotype;
+import org.modelsphere.sms.db.DbSMSTargetSystem;
+import org.modelsphere.sms.db.DbSMSUmlConstraint;
+import org.modelsphere.sms.db.DbSMSUmlExtensibility;
+import org.modelsphere.sms.db.DbSMSUserDefinedPackage;
+import org.modelsphere.sms.oo.db.DbOOAbsPackage;
+import org.modelsphere.sms.oo.db.DbOOAdt;
+import org.modelsphere.sms.oo.db.DbOOAssociation;
+import org.modelsphere.sms.oo.db.DbOOAssociationEnd;
+import org.modelsphere.sms.oo.db.DbOODataMember;
+import org.modelsphere.sms.oo.db.DbOOOperation;
+import org.modelsphere.sms.oo.db.DbOOParameter;
 import org.modelsphere.sms.oo.java.db.DbJVCompilationUnit;
-import org.modelsphere.sms.or.db.*;
+import org.modelsphere.sms.or.db.DbORAbsTable;
+import org.modelsphere.sms.or.db.DbORAssociation;
+import org.modelsphere.sms.or.db.DbORBuiltInType;
+import org.modelsphere.sms.or.db.DbORCheck;
+import org.modelsphere.sms.or.db.DbORColumn;
+import org.modelsphere.sms.or.db.DbORDataModel;
+import org.modelsphere.sms.or.db.DbORIndex;
+import org.modelsphere.sms.or.db.DbORPrimaryUnique;
+import org.modelsphere.sms.or.db.DbORTrigger;
+import org.modelsphere.sms.or.db.DbORUserNode;
+
+import java.util.ArrayList;
+import java.util.Enumeration;
 
 public abstract class AnySemObject {
 

@@ -33,24 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.notation;
 
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Box;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
 import org.modelsphere.jack.awt.ComponentTestable;
 import org.modelsphere.jack.awt.NumericTextField;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -60,6 +42,13 @@ import org.modelsphere.sms.be.db.srtypes.BEZoneStereotype;
 import org.modelsphere.sms.be.international.LocaleMgr;
 import org.modelsphere.sms.db.srtypes.SMSNotationShape;
 import org.modelsphere.sms.notation.OptionComponent;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public final class ActorComponentPanel extends JPanel implements ActionListener, ComponentTestable {
     private OptionComponent optionComponent;

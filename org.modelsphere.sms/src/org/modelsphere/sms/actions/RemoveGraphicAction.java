@@ -33,11 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.awt.event.KeyEvent;
-
-import javax.swing.Icon;
-import javax.swing.KeyStroke;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.actions.SelectionActionListener;
@@ -50,6 +45,9 @@ import org.modelsphere.jack.graphic.LineLabel;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.explorer.ExplorerView;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.event.KeyEvent;
 
 final class RemoveGraphicAction extends AbstractApplicationAction implements
         SelectionActionListener {

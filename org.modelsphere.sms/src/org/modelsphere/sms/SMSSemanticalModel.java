@@ -33,14 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.dnd.DnDConstants;
-import java.util.ArrayList;
-import java.util.HashSet;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -197,6 +189,12 @@ import org.modelsphere.sms.or.oracle.db.DbORASubPartition;
 import org.modelsphere.sms.or.oracle.db.DbORATable;
 import org.modelsphere.sms.or.oracle.db.DbORAView;
 import org.modelsphere.sms.screen.SMSScreenPerspective;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.dnd.DnDConstants;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public final class SMSSemanticalModel extends SemanticalModel implements SelectionListener {
 

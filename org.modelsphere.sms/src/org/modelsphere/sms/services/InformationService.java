@@ -33,14 +33,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.services;
 
+import org.modelsphere.jack.services.Service;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.Date;
-
-import org.modelsphere.jack.services.Service;
 
 /**
  * 

@@ -1,9 +1,9 @@
 # Copyright (c) Corporation for National Research Initiatives
 
+import java
 import os
 
 import jast
-import java, org
 
 EMPTYSTRING = ''
 

@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.engine;
 
-import java.util.*;
+import java.util.HashMap;
 
 interface SrxElement {
     // Transform the string value received from de srx to an Object value

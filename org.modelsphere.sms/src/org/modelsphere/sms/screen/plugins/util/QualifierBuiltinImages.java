@@ -33,13 +33,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins.util;
 
-import java.awt.Image;
+import org.modelsphere.jack.graphic.GraphicUtil;
+import org.modelsphere.sms.be.international.resources.qualifiers.LocaleMgr;
+
+import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.modelsphere.jack.graphic.GraphicUtil;
-import org.modelsphere.sms.be.international.resources.qualifiers.LocaleMgr;
 
 public class QualifierBuiltinImages {
 

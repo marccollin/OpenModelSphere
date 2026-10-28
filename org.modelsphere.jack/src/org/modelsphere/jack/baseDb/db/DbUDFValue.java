@@ -43,7 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db;
 
-import org.modelsphere.jack.baseDb.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.srtypes.SrBoolean;
+import org.modelsphere.jack.baseDb.db.srtypes.SrDouble;
+import org.modelsphere.jack.baseDb.db.srtypes.SrLong;
+import org.modelsphere.jack.baseDb.db.srtypes.SrString;
+import org.modelsphere.jack.baseDb.db.srtypes.SrType;
+import org.modelsphere.jack.baseDb.db.srtypes.UDFValueType;
 import org.modelsphere.jack.baseDb.international.LocaleMgr;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaField;

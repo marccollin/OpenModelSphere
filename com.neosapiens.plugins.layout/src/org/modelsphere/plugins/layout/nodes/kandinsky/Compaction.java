@@ -1,10 +1,10 @@
 package org.modelsphere.plugins.layout.nodes.kandinsky;
 
-import java.util.List;
-
 import org.modelsphere.plugins.layout.nodes.kandinsky.struct.AbsoluteKandinskyShape;
 import org.modelsphere.plugins.layout.nodes.kandinsky.struct.Label;
 import org.modelsphere.plugins.layout.nodes.kandinsky.struct.LoopEdgeRef;
+
+import java.util.List;
 
 /**
  * <p>

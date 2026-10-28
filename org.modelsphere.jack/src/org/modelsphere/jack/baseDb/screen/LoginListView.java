@@ -43,15 +43,22 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen;
 
-import javax.swing.JButton;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbLogin;
+import org.modelsphere.jack.baseDb.db.DbLoginGroup;
+import org.modelsphere.jack.baseDb.db.DbLoginNode;
+import org.modelsphere.jack.baseDb.db.DbLoginUser;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.jack.baseDb.db.srtypes.DbtPassword;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaRelationN;
 import org.modelsphere.jack.baseDb.screen.model.DbListModel;
 import org.modelsphere.jack.baseDb.screen.model.LoginListModel;
 import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
 
 public class LoginListView extends DbListView {
 

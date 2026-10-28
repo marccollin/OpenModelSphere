@@ -13,9 +13,10 @@ See module py_compile for details of the actual byte-compilation.
 """
 
 import os
-import stat
-import sys
 import py_compile
+import sys
+
+import stat
 
 __all__ = ["compile_dir","compile_path"]
 

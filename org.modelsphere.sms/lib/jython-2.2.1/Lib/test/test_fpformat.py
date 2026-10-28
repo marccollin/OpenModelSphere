@@ -2,9 +2,10 @@
    Tests for fpformat module
    Nick Mathewson
 '''
-from test_support import run_unittest
 import unittest
 from fpformat import fix, sci, NotANumber
+
+from test_support import run_unittest
 
 StringType = type('')
 

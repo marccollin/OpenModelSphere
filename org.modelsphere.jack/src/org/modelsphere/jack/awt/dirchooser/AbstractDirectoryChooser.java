@@ -42,20 +42,19 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.awt.dirchooser;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
-import java.awt.*;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.WindowEvent;
-import javax.swing.event.TreeSelectionListener;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.international.LocaleMgr;
 
+import javax.swing.*;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.filechooser.FileSystemView;
+import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
 import java.io.FileFilter;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Vector;
 

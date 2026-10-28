@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.dirchooser;
 
-import javax.swing.tree.*;
+import javax.swing.tree.TreePath;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.Serializable;

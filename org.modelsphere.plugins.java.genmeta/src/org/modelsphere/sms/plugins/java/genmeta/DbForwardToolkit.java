@@ -33,15 +33,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.java.genmeta;
 
-import java.io.File;
-
-import javax.swing.JFileChooser;
-
 import org.modelsphere.jack.srtool.forward.ForwardOptions;
 import org.modelsphere.jack.srtool.forward.ForwardToolkitInterface;
 import org.modelsphere.jack.srtool.forward.ForwardWorker;
 import org.modelsphere.sms.MainFrame;
 import org.modelsphere.sms.templates.BasicForwardToolkit;
+
+import javax.swing.*;
+import java.io.File;
 
 final class DbForwardToolkit extends BasicForwardToolkit implements ForwardToolkitInterface {
     protected ForwardWorker createForwardWorker(ForwardOptions options) {

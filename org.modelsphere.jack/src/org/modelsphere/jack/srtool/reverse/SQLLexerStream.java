@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse;
 
-import java.io.*;
-
 import org.modelsphere.jack.io.LexerStream;
+
+import java.io.Reader;
 
 public final class SQLLexerStream extends LexerStream {
 

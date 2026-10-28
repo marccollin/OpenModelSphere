@@ -33,21 +33,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.awt.Point;
-import java.awt.dnd.DnDConstants;
-import java.beans.PropertyVetoException;
-import java.text.MessageFormat;
-
-import javax.swing.JInternalFrame;
-
 import org.modelsphere.jack.actions.util.DbMultiTrans;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaRelationship;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.SemanticalModel;
 import org.modelsphere.jack.srtool.features.SrDragDrop;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.graphic.DiagramInternalFrame;
@@ -64,6 +55,12 @@ import org.modelsphere.sms.or.db.DbORColumn;
 import org.modelsphere.sms.or.db.DbORCommonItem;
 import org.modelsphere.sms.or.db.DbORTypeClassifier;
 import org.modelsphere.sms.or.db.util.AnyORObject;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.dnd.DnDConstants;
+import java.beans.PropertyVetoException;
+import java.text.MessageFormat;
 
 public class SMSDragDrop extends SrDragDrop {
 

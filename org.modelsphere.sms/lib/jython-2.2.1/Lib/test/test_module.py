@@ -1,7 +1,8 @@
 # Test the module type
 
-from test_support import verify, vereq, verbose, TestFailed
 from types import ModuleType as module
+
+from test_support import verify, vereq, verbose, TestFailed
 
 # An uninitialized module has no __dict__ or __name__, and __doc__ is None
 foo = module.__new__(module)

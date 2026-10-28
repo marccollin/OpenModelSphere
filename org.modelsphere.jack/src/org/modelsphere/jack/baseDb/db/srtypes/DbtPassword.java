@@ -43,9 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.srtypes;
 
-import java.security.MessageDigest;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
 
-import org.modelsphere.jack.baseDb.db.*;
+import java.security.MessageDigest;
 
 public final class DbtPassword extends DbtAbstract {
 

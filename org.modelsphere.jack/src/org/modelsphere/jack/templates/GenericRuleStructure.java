@@ -43,11 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.templates;
 
-import java.util.ArrayList;
-
-import org.modelsphere.jack.srtool.forward.*;
+import org.modelsphere.jack.srtool.forward.BooleanModifier;
+import org.modelsphere.jack.srtool.forward.StringStructure;
+import org.modelsphere.jack.srtool.forward.TemplateEnumeration;
+import org.modelsphere.jack.srtool.forward.VariableDecl;
 import org.modelsphere.jack.srtool.forward.exceptions.TemplateFormatException;
 import org.modelsphere.jack.util.StringUtil;
+
+import java.util.ArrayList;
 
 //A .tpl file is a list of several RuleStructures
 public class GenericRuleStructure {

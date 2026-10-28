@@ -43,23 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.dbms;
 
-import java.awt.CardLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.StringTokenizer;
-
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
-
 import org.modelsphere.jack.awt.tree.CheckTreeModel;
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
 import org.modelsphere.jack.awt.tree.CheckableTree;
@@ -70,6 +53,16 @@ import org.modelsphere.jack.srtool.plugins.generic.dbms.UserInfo;
 import org.modelsphere.jack.srtool.services.ConnectionMessage;
 import org.modelsphere.sms.or.db.DbORUser;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.StringTokenizer;
 
 /**
  * 

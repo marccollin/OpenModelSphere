@@ -43,17 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.dbms;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
-
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -88,6 +77,17 @@ import org.modelsphere.sms.or.db.DbORTable;
 import org.modelsphere.sms.or.db.srtypes.ORValidationRule;
 import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.templates.SQLForwardEngineeringPlugin;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
 
 public final class DefaultSynchroModel extends SMSSynchroModel {
     private static final String EOL = System.getProperty("line.separator");

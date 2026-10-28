@@ -1,5 +1,9 @@
-import Output, sys, os, string
+import Output
+import os
+import string
+import sys
 from Freezer import Freezer
+
 
 class YesNo: pass
 class Required: pass

@@ -5,9 +5,12 @@
    Roger E. Masse
 """
 
+import imageop
+import os
+import uu
+
 from test_support import verbose, unlink
 
-import imageop, uu, os
 
 def main(use_rgbimg=1):
 

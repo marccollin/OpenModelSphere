@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.screen;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -100,6 +97,9 @@ import org.modelsphere.sms.or.oracle.db.DbORATable;
 import org.modelsphere.sms.or.oracle.db.DbORATablespace;
 import org.modelsphere.sms.or.oracle.db.DbORATrigger;
 import org.modelsphere.sms.or.screen.model.ORListModel;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class ORListView extends DbListView {
 

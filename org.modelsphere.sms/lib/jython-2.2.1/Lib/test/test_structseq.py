@@ -1,6 +1,6 @@
-from test_support import vereq
-
 import time
+
+from test_support import vereq
 
 t = time.gmtime()
 astuple = tuple(t)

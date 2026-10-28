@@ -43,10 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.zone;
 
+import org.modelsphere.jack.graphic.DiagramView;
+import org.modelsphere.jack.graphic.ZoneBox;
+
 import java.awt.*;
 import java.util.Vector;
-
-import org.modelsphere.jack.graphic.*;
 
 /**
  * This abstract class define an standard zone interface and common implementation to render data in

@@ -43,11 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.actions.util.DbMultiTrans;
@@ -92,6 +87,9 @@ import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.db.DbORDiagram;
 import org.modelsphere.sms.or.db.DbORDomainModel;
 import org.modelsphere.sms.preference.DiagramAutomaticCreationOptionGroup;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public final class CreateMissingGraphicsAction extends AbstractApplicationAction implements

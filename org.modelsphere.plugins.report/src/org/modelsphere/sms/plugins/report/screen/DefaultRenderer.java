@@ -33,16 +33,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.report.screen;
 
-import java.awt.Color;
-import java.awt.Component;
+import org.modelsphere.sms.plugins.report.LocaleMgr;
 
-import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-
-import org.modelsphere.sms.plugins.report.LocaleMgr;
+import java.awt.*;
 
 public class DefaultRenderer extends JLabel implements Renderer {
 

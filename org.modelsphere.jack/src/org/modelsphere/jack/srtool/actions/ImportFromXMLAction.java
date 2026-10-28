@@ -43,17 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.io.File;
-import javax.swing.JFileChooser;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.awt.ExtensionFileFilter;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbRAM;
 import org.modelsphere.jack.baseDb.db.xml.imports.XmlFileOpener;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;
+
+import javax.swing.*;
+import java.io.File;
 
 public class ImportFromXMLAction extends AbstractApplicationAction {
 

@@ -39,15 +39,6 @@ open-modelsphere@grandite.com
  */
 package org.modelsphere.sms.actions;
 
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-
-import javax.swing.Icon;
-import javax.swing.JFrame;
-
 import org.modelsphere.jack.actions.AbstractActionsStore;
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
@@ -93,6 +84,11 @@ import org.modelsphere.sms.or.db.DbORNotation;
 import org.modelsphere.sms.or.db.DbOROperationLibrary;
 import org.modelsphere.sms.or.db.DbORStyle;
 import org.modelsphere.sms.or.db.DbORUserNode;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 /**
  * @author nicolask

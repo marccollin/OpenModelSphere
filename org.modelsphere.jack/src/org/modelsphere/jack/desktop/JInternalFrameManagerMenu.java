@@ -43,15 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.desktop;
 
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
-import javax.swing.JMenuItem;
-import javax.swing.event.MenuEvent;
-
 import org.modelsphere.jack.actions.AbstractActionsStore;
 import org.modelsphere.jack.actions.JInternalFrameAbstractAction;
 import org.modelsphere.jack.awt.JackMenu;
@@ -60,6 +51,12 @@ import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.StringUtil;
+
+import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class JInternalFrameManagerMenu extends JackMenu {
     private final int WINDOW_PERMANENT_ITEM_COUNT;

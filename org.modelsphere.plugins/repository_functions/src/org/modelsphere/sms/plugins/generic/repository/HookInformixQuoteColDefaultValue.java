@@ -43,18 +43,28 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.generic.repository;
 
-import java.io.*;
-import java.lang.reflect.Field;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.plugins.PluginMgr;
 import org.modelsphere.jack.plugins.PluginSignature;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.forward.*;
+import org.modelsphere.jack.srtool.forward.Modifier;
+import org.modelsphere.jack.srtool.forward.Property;
+import org.modelsphere.jack.srtool.forward.Rule;
+import org.modelsphere.jack.srtool.forward.RuleException;
+import org.modelsphere.jack.srtool.forward.UserDefinedField;
 import org.modelsphere.sms.or.db.DbORTypeClassifier;
 import org.modelsphere.sms.or.db.util.AnyORObject;
 import org.modelsphere.sms.or.features.dbms.DBMSUtil;
 import org.modelsphere.sms.or.informix.db.DbINFColumn;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.lang.reflect.Field;
 
 /**
  * Quotes the column's default value if the column's type requires it. For instance : NUMBER 55 =>

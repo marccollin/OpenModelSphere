@@ -38,19 +38,13 @@ import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.graphic.Diagram;
 import org.modelsphere.jack.graphic.zone.CellEditor;
-import org.modelsphere.jack.graphic.zone.ComboBoxCellEditor;
-import org.modelsphere.jack.graphic.zone.StereotypeCellEditor;
 import org.modelsphere.jack.graphic.zone.ZoneCell;
 import org.modelsphere.jack.srtool.graphic.DbTextAreaCellEditor;
 import org.modelsphere.jack.srtool.graphic.DbTextFieldCellEditor;
-import org.modelsphere.jack.srtool.graphic.DomainCellEditor;
 import org.modelsphere.jack.srtool.graphic.SrLineLabel;
 import org.modelsphere.sms.be.db.DbBEFlow;
 import org.modelsphere.sms.be.international.LocaleMgr;
-import org.modelsphere.sms.db.DbSMSStereotype;
-import org.modelsphere.sms.db.DbSMSUmlExtensibility;
 import org.modelsphere.sms.graphic.SMSStereotypeEditor;
-import org.modelsphere.sms.screen.plugins.DbSMSStereotypeEditor;
 
 public class BEFlowLabel extends SrLineLabel {
     private boolean editable = false;

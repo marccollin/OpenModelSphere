@@ -32,14 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.be.graphic.tool;
 
-import java.awt.Cursor;
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -60,16 +52,16 @@ import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.sms.be.BEModule;
 import org.modelsphere.sms.be.db.DbBEContextGo;
 import org.modelsphere.sms.be.db.DbBEDiagram;
-import org.modelsphere.sms.be.db.DbBEModel;
 import org.modelsphere.sms.be.db.DbBENotation;
-import org.modelsphere.sms.be.db.DbBEStyle;
 import org.modelsphere.sms.be.db.DbBEUseCase;
-import org.modelsphere.sms.be.db.DbBEUseCaseGo;
 import org.modelsphere.sms.be.db.util.BEUtility;
 import org.modelsphere.sms.be.features.UpdateEnvironment;
 import org.modelsphere.sms.be.graphic.BEUseCaseBox;
 import org.modelsphere.sms.be.international.LocaleMgr;
-import org.modelsphere.sms.db.util.DbInitialization;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public final class BEExplodeTool extends Tool {
 

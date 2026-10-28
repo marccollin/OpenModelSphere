@@ -43,13 +43,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.io;
 
-import java.io.*;
-import java.util.ArrayList;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.debug.TestException;
 import org.modelsphere.jack.debug.Testable;
 import org.modelsphere.jack.util.StringUtil;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.io.StringWriter;
+import java.util.ArrayList;
 
 /**
  * 

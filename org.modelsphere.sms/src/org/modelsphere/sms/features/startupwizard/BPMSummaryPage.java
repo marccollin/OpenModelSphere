@@ -32,16 +32,13 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.features.startupwizard;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-
-import javax.swing.JPanel;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.gui.wizard2.AbstractPage;
 import org.modelsphere.jack.gui.wizard2.SectionHeader;
 import org.modelsphere.sms.be.db.DbBEModel;
+
+import javax.swing.*;
+import java.awt.*;
 
 @SuppressWarnings("serial")
 class BPMSummaryPage extends AbstractPage {

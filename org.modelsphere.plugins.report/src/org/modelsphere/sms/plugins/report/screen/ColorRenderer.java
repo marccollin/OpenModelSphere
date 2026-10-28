@@ -33,11 +33,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.report.screen;
 
-import java.awt.*;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 public class ColorRenderer extends JPanel implements Renderer {
     private static Border noFocusBorder = new EmptyBorder(1, 1, 1, 1);

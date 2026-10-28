@@ -43,13 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.html;
 
+import org.modelsphere.jack.baseDb.db.DbObject;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.modelsphere.jack.baseDb.db.DbObject;
 
 public final class InternalLinkSet {
     Map<DbObject, List<InternalLink>> map = new HashMap<>(); // Map to array List - the key is the dbo

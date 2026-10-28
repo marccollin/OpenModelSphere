@@ -43,10 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.features.layout;
 
-import java.util.HashMap;
-
 import org.modelsphere.jack.srtool.features.layout.graph.Graph;
 import org.modelsphere.jack.srtool.features.layout.graph.Node;
+
+import java.util.HashMap;
 
 /**
  * The Interface ClustersLayoutAlgorithm.

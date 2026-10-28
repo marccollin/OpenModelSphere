@@ -33,19 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.style;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.actions.util.DbMultiTrans;
 import org.modelsphere.jack.awt.ColorIcon;
@@ -60,6 +47,12 @@ import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.sms.db.DbSMSGraphicalObject;
 import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class FormatFrame extends JDialog {
     private DbSMSProject project;

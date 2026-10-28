@@ -43,32 +43,33 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.io.*;
-import java.util.EventObject;
-import java.util.HashMap;
-
-import javax.swing.JComboBox;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
-
 import org.modelsphere.jack.baseDb.meta.MetaClass;
-import org.modelsphere.jack.baseDb.screen.model.*;
+import org.modelsphere.jack.baseDb.screen.model.DbDescriptionModel;
+import org.modelsphere.jack.baseDb.screen.model.DescriptionField;
+import org.modelsphere.jack.baseDb.screen.model.DescriptionModel;
+import org.modelsphere.jack.baseDb.screen.model.ReflectionDescriptionModel;
+import org.modelsphere.jack.baseDb.screen.model.ScreenModel;
 import org.modelsphere.jack.baseDb.screen.plugins.ExternalDocumentEditor;
 import org.modelsphere.jack.baseDb.screen.plugins.LookupDescriptionEditor;
-import org.modelsphere.jack.baseDb.screen.plugins.MultiExternalDocumentEditor;
-import org.modelsphere.jack.baseDb.screen.plugins.MultiLookupDescriptionEditor;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;
+
+import javax.swing.*;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.EventObject;
+import java.util.HashMap;
 
 public class DescriptionView extends ScreenView implements ListDataListener {
 

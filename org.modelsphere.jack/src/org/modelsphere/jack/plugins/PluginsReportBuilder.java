@@ -43,13 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins;
 
-import java.text.MessageFormat;
-import java.util.*;
-
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.plugins.PluginDescriptor.PLUGIN_TYPE;
 import org.modelsphere.jack.plugins.io.PluginLoader;
 import org.modelsphere.jack.srtool.ApplicationContext;
+
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 public class PluginsReportBuilder {
     private static final String kPluginLoaded = LocaleMgr.misc.getString("PluginLoaded");

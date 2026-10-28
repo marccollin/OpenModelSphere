@@ -20,11 +20,9 @@ drivers2 -- Contains the driver for that wraps a Java sax implementation in pyth
             objects.
 """
 
+from _exceptions import SAXReaderNotAvailable
+from handler import ErrorHandler
 from xmlreader import InputSource
-from handler import ContentHandler, ErrorHandler
-from _exceptions import SAXException, SAXNotRecognizedException, \
-                        SAXParseException, SAXNotSupportedException, \
-                        SAXReaderNotAvailable
 
 
 def parse(source, handler, errorHandler=ErrorHandler()):
@@ -57,7 +55,7 @@ default_parser_list = ["xml.sax.drivers2.drv_javasax"]
 # tell modulefinder that importing sax potentially imports expatreader
 _false = 0
 if _false:
-    import xml.sax.drivers2.drv_javasax
+    pass
 
 import os, sys
 if os.environ.has_key("PY_SAX_PARSER"):

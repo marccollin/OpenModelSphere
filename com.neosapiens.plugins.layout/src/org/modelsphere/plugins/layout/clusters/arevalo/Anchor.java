@@ -3,7 +3,7 @@
  */
 package org.modelsphere.plugins.layout.clusters.arevalo;
 
-import java.awt.Point;
+import java.awt.*;
 
 /**
  * An anchor is a free point where a new bounds may be added.

@@ -1,9 +1,5 @@
 package com.neosapiens.plugins.helloworld;
 
-import java.awt.event.ActionEvent;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.plugins.Plugin2;
 import org.modelsphere.jack.plugins.PluginAction;
 import org.modelsphere.jack.plugins.PluginSelectionListener;
@@ -12,6 +8,9 @@ import org.modelsphere.jack.preference.OptionGroup;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.MainFrameMenu;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class HelloWorldPlugin implements Plugin2 {
 

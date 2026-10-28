@@ -1,13 +1,13 @@
 package com.neosapiens.plugins.reverse.javasource.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.sms.oo.db.DbOOOperation;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class SearchFiltering {
 

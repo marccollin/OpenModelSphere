@@ -32,14 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.be.graphic.tool;
 
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
@@ -57,6 +49,12 @@ import org.modelsphere.sms.be.graphic.BEStoreBox;
 import org.modelsphere.sms.be.graphic.BEUseCaseBox;
 import org.modelsphere.sms.be.international.LocaleMgr;
 import org.modelsphere.sms.db.DbSMSClassifierGo;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * @author Grandite

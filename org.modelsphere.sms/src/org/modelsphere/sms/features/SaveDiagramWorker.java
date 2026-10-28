@@ -33,12 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.features;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
@@ -53,6 +47,12 @@ import org.modelsphere.sms.MainFrame;
 import org.modelsphere.sms.SMSToolkit;
 import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SaveDiagramWorker extends Worker {
 

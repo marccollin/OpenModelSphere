@@ -43,14 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
+import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
-
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 
 public class ImagePreviewer extends JComponent implements PropertyChangeListener {
     ImageIcon thumbnail = null;

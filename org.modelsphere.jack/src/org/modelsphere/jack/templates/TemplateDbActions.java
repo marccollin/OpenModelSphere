@@ -43,17 +43,41 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.templates;
 
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.debug.Debug;
+import org.modelsphere.jack.srtool.forward.BooleanModifier;
+import org.modelsphere.jack.srtool.forward.CaseModifier;
+import org.modelsphere.jack.srtool.forward.IntegerModifier;
+import org.modelsphere.jack.srtool.forward.Modifier;
+import org.modelsphere.jack.srtool.forward.RuleException;
+import org.modelsphere.jack.srtool.forward.VariableDecl;
+import org.modelsphere.jack.srtool.forward.VariableScope;
+import org.modelsphere.jack.srtool.forward.exceptions.ConceptNameNotFoundException;
+import org.modelsphere.jack.srtool.forward.exceptions.DuplicatedRulenamesException;
+import org.modelsphere.jack.srtool.forward.exceptions.IllformedNumberException;
+import org.modelsphere.jack.srtool.forward.exceptions.TemplateFormatException;
+import org.modelsphere.jack.srtool.forward.exceptions.VariableNotDefinedRuleException;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericAddToListStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericCDomStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericClearListStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericConditionStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericConnectorStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericForEachEnumStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericForEachIterStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericGetVariableStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericGroupStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericImportStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericPropertyStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericSetVariableStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericTemplateStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericUserConnStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericUserFnStructure;
+import org.modelsphere.jack.templates.parsing.ParseException;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
-
-import org.modelsphere.jack.baseDb.meta.MetaClass;
-import org.modelsphere.jack.debug.Debug;
-import org.modelsphere.jack.srtool.forward.*;
-import org.modelsphere.jack.srtool.forward.exceptions.*;
-import org.modelsphere.jack.templates.GenericRuleStructure.*;
-import org.modelsphere.jack.templates.parsing.ParseException;
 
 public final class TemplateDbActions extends TemplateActions {
     private static final int UNKNOWN = -1;

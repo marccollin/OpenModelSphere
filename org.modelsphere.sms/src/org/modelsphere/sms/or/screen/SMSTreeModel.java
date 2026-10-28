@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.screen;
 
-import javax.swing.Icon;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -49,6 +47,8 @@ import org.modelsphere.jack.util.CollationComparator;
 import org.modelsphere.jack.util.SrVector;
 import org.modelsphere.sms.SMSExplorer;
 import org.modelsphere.sms.or.db.DbORDataModel;
+
+import javax.swing.*;
 
 /**
  * @author nicolask

@@ -43,17 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.templates;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.net.URL;
-import java.nio.file.FileSystems;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -82,6 +71,16 @@ import org.modelsphere.sms.or.generic.db.DbGETable;
 import org.modelsphere.sms.or.generic.db.DbGETrigger;
 import org.modelsphere.sms.or.generic.db.DbGEView;
 import org.modelsphere.sms.preference.DirectoryOptionGroup;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.net.URL;
+import java.nio.file.FileSystems;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class provides common services for SQL generation plug-ins.

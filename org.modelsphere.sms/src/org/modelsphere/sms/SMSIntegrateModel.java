@@ -43,13 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.swing.Icon;
-
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -74,7 +67,6 @@ import org.modelsphere.jack.srtool.integrate.IntegrateNode;
 import org.modelsphere.jack.srtool.integrate.IntegrateScopeDialog;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.sms.be.db.DbBEActor;
-import org.modelsphere.sms.be.db.DbBEActorGo;
 import org.modelsphere.sms.be.db.DbBEFlow;
 import org.modelsphere.sms.be.db.DbBEModel;
 import org.modelsphere.sms.be.db.DbBEQualifier;
@@ -164,6 +156,12 @@ import org.modelsphere.sms.or.oracle.db.DbORATablespace;
 import org.modelsphere.sms.plugins.TargetSystem;
 import org.modelsphere.sms.plugins.TargetSystemInfo;
 import org.modelsphere.sms.plugins.TargetSystemManager;
+
+import javax.swing.*;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class SMSIntegrateModel extends IntegrateModel {
     protected static final String kDate = LocaleMgr.misc.getString("Date");

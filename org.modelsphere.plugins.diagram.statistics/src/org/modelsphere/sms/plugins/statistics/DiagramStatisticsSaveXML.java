@@ -46,23 +46,20 @@ package org.modelsphere.sms.plugins.statistics;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 
-import java.awt.Dimension;
-import java.io.File;
-import java.io.FileWriter;
-import java.text.MessageFormat;
-import java.util.Enumeration;
-import java.util.Vector;
-
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileFilter;
-
 import org.modelsphere.jack.debug.ConceptPair;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.FocusManager;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.util.ExceptionMessage;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.text.MessageFormat;
+import java.util.Enumeration;
+import java.util.Vector;
 
 public class DiagramStatisticsSaveXML {
 

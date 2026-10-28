@@ -43,13 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.dbms;
 
-import java.util.Hashtable;
-
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.modelsphere.jack.awt.tree.CheckTreeModel;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectScope;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.Hashtable;
 
 /**
  * 

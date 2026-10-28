@@ -1,5 +1,6 @@
-from java.applet import Applet
 import sys
+from java.applet import Applet
+
 
 class HelloWorld(Applet):
     def paint(self, g):

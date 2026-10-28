@@ -43,12 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins;
 
+import org.modelsphere.jack.io.PathFile;
+import org.modelsphere.jack.srtool.ApplicationContext;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import org.modelsphere.jack.io.PathFile;
-import org.modelsphere.jack.srtool.ApplicationContext;
 
 /**
  *

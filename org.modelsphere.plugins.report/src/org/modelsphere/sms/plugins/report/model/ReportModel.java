@@ -38,12 +38,6 @@ package org.modelsphere.sms.plugins.report.model;
 // SMS
 
 // JDK
-import java.io.File;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.List;
 
 import org.modelsphere.jack.awt.tree.CheckTreeModel;
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
@@ -64,6 +58,12 @@ import org.modelsphere.sms.db.DbSMSUmlExtensibility;
 import org.modelsphere.sms.oo.java.db.DbJVClassModel;
 import org.modelsphere.sms.plugins.report.PropertiesSet;
 import org.modelsphere.sms.plugins.report.screen.PropertiesTreeNode;
+
+import java.io.File;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 public class ReportModel {
 

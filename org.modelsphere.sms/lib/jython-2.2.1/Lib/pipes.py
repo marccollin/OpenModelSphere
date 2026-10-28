@@ -59,11 +59,11 @@ For an example, see the function test() at the end of the file.
 """                                     # '
 
 
-import re
-
 import os
-import tempfile
+
+import re
 import string
+import tempfile
 
 __all__ = ["Template"]
 

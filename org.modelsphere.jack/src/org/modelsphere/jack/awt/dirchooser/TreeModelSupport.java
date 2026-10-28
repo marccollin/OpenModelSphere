@@ -43,8 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.dirchooser;
 
-import javax.swing.event.*;
-import java.util.*;
+import javax.swing.event.TreeModelEvent;
+import javax.swing.event.TreeModelListener;
+import java.util.Enumeration;
+import java.util.Vector;
 
 class TreeModelSupport {
     private Vector vector = new Vector();

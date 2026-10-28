@@ -33,10 +33,12 @@ To do:
 """
 
 
+import os
 # Imported modules
 import sys
+
 import socket
-import os
+
 if os.name == 'java':
   from select import cpython_compatible_select as select
 else:

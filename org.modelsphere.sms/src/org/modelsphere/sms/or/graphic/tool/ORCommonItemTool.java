@@ -33,11 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.graphic.tool;
 
-import java.awt.Cursor;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.graphic.GraphicUtil;
@@ -50,6 +45,8 @@ import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.or.ORModule;
 import org.modelsphere.sms.or.db.DbORCommonItem;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import java.awt.*;
 
 public class ORCommonItemTool extends BoxTool {
 

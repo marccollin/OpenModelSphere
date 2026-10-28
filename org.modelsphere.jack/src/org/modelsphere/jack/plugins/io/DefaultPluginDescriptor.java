@@ -43,17 +43,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins.io;
 
-import java.awt.Image;
+import org.modelsphere.jack.international.LocaleMgr;
+import org.modelsphere.jack.plugins.Plugin;
+import org.modelsphere.jack.plugins.PluginConstants;
+import org.modelsphere.jack.plugins.PluginDescriptor;
+
+import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.net.URL;
 import java.util.StringTokenizer;
-
-import org.modelsphere.jack.international.LocaleMgr;
-import org.modelsphere.jack.plugins.Plugin;
-import org.modelsphere.jack.plugins.PluginConstants;
-import org.modelsphere.jack.plugins.PluginDescriptor;
 
 final class DefaultPluginDescriptor implements PluginDescriptor, PluginConstants {
     private static final Image DEFAULT_IMAGE;

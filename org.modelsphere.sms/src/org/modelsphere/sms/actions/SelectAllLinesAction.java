@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
@@ -47,6 +44,9 @@ import org.modelsphere.jack.srtool.graphic.SrLine;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.sms.be.db.DbBEFlow;
 import org.modelsphere.sms.be.text.BETextUtil;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public final class SelectAllLinesAction extends AbstractSelectAction {
     private static ArrayList EXCLUDED_MODELS = null;

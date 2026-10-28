@@ -43,10 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.util;
 
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
+
+import javax.swing.*;
 
 /**
  * A subclass of DbException, with error, warning or information levels.

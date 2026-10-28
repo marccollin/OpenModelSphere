@@ -33,20 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.beans.BeanInfo;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Serializable;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.*;
-
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.awt.ExtensionFileFilter;
@@ -84,6 +70,21 @@ import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.features.dbms.DBMSForwardOptions;
 import org.modelsphere.sms.preference.DirectoryOptionGroup;
 import org.modelsphere.sms.templates.GenericForwardEngineeringPlugin;
+
+import javax.swing.*;
+import java.beans.BeanInfo;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 

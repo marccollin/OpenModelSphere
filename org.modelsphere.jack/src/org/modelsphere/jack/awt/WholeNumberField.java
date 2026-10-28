@@ -43,12 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Toolkit;
+import javax.swing.*;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.PlainDocument;
+import java.awt.*;
 import java.text.NumberFormat;
 import java.text.ParseException;
-
-import javax.swing.JTextField;
-import javax.swing.text.*;
 
 /**
  * 

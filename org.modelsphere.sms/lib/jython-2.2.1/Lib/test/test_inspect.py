@@ -62,8 +62,13 @@ class FesteringGob(MalodorousPervert, ParrotDroppings):
 # getsourcefile, getcomments, getsource, getclasstree, getargspec,
 # getargvalues, formatargspec, formatargvalues, currentframe, stack, trace
 
+import imp
+import os
+import string
+import sys
+
 from test_support import TestFailed, TESTFN, is_jython
-import sys, imp, os, string
+
 
 def test(assertion, message, *args):
     if not assertion:

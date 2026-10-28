@@ -33,10 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.oo.actions;
 
-import java.awt.Component;
-import java.awt.Point;
-import java.util.ArrayList;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -49,6 +45,9 @@ import org.modelsphere.jack.util.DefaultComparableElement;
 import org.modelsphere.sms.SMSFilter;
 import org.modelsphere.sms.international.LocaleMgr;
 import org.modelsphere.sms.oo.java.db.util.AnyAdt;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public final class SetTypeAction extends AbstractApplicationAction implements
         SelectionActionListener {

@@ -43,8 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.db.srtypes;
 
-import java.awt.Image;
-
 import org.modelsphere.jack.baseDb.db.srtypes.DbtAbstract;
 import org.modelsphere.jack.baseDb.db.srtypes.Domain;
 import org.modelsphere.jack.baseDb.db.srtypes.IntDomain;
@@ -64,6 +62,8 @@ import org.modelsphere.jack.graphic.shape.UmlComponentShape;
 import org.modelsphere.jack.graphic.shape.UmlNodeShape;
 import org.modelsphere.jack.graphic.shape.UmlUseCaseShape;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.awt.*;
 
 public class SMSNotationShape extends IntDomain {
 

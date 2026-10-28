@@ -43,14 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import javax.swing.tree.*;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.CurrentFocusListener;
-import org.modelsphere.jack.srtool.explorer.*;
+import org.modelsphere.jack.srtool.explorer.ExplorerView;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.tree.TreePath;
 
 public class CollapseAllAction extends AbstractApplicationAction implements CurrentFocusListener {
 

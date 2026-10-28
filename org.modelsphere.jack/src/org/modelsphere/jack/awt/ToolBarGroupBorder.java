@@ -43,9 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.*;
-
 import javax.swing.border.BevelBorder;
+import java.awt.*;
 
 public class ToolBarGroupBorder extends BevelBorder {
     private boolean paintLeft = true;

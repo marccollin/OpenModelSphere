@@ -43,13 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.Serializable;
-import java.text.MessageFormat;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.srtool.forward.exceptions.VariableNotDefinedRuleException;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import java.io.Serializable;
+import java.text.MessageFormat;
 
 public class BooleanModifier extends Modifier {
     public static final int BOOLEAN_VARIABLE = 0;

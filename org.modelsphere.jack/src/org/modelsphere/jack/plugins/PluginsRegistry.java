@@ -1,10 +1,13 @@
 package org.modelsphere.jack.plugins;
 
-import java.util.*;
-
 import org.modelsphere.jack.plugins.io.PluginContext;
 import org.modelsphere.jack.plugins.io.PluginLoader;
 import org.modelsphere.jack.plugins.xml.XmlPluginDescriptor;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 public final class PluginsRegistry implements Iterable<PluginDescriptor> {
     ArrayList<PluginDescriptor> pluginDescriptors = new ArrayList<PluginDescriptor>();

@@ -3,6 +3,11 @@
  */
 package org.modelsphere.plugins.layout.nodes.kandinsky.planarization;
 
+import org.modelsphere.jack.srtool.features.layout.graph.DummyVertex;
+import org.modelsphere.jack.srtool.features.layout.graph.Edge;
+import org.modelsphere.jack.srtool.features.layout.graph.Graph;
+import org.modelsphere.jack.srtool.features.layout.graph.Vertex;
+
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,11 +15,6 @@ import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.modelsphere.jack.srtool.features.layout.graph.DummyVertex;
-import org.modelsphere.jack.srtool.features.layout.graph.Edge;
-import org.modelsphere.jack.srtool.features.layout.graph.Graph;
-import org.modelsphere.jack.srtool.features.layout.graph.Vertex;
 
 /**
  * Referred as st-graph in Automatic Layout of UML Class Diagrams.</p>

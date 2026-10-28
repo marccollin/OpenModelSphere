@@ -33,14 +33,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.awt.event.ActionEvent;
-
-import javax.swing.Action;
-import javax.swing.KeyStroke;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.baseDb.util.Terminology;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.graphic.GraphicNode;
 import org.modelsphere.jack.srtool.actions.AbstractSelectAction;
@@ -53,6 +47,9 @@ import org.modelsphere.sms.international.LocaleMgr;
 import org.modelsphere.sms.oo.java.db.DbJVClassModel;
 import org.modelsphere.sms.oo.java.db.DbJVPackage;
 import org.modelsphere.sms.or.db.DbORDataModel;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 final class SelectAllClassesAction extends AbstractSelectAction {
 

@@ -11,12 +11,13 @@ __version__ = "0.6"
 __all__ = ["SimpleHTTPRequestHandler"]
 
 import os
-import posixpath
+
 import BaseHTTPServer
-import urllib
 import cgi
-import shutil
 import mimetypes
+import posixpath
+import shutil
+import urllib
 from StringIO import StringIO
 
 

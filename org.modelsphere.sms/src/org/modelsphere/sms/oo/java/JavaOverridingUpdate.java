@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.oo.java;
 
-import java.util.Enumeration;
-import java.util.Vector;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -44,6 +41,9 @@ import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.DbJVDataMember;
 import org.modelsphere.sms.oo.java.db.DbJVMethod;
 import org.modelsphere.sms.oo.java.db.util.AnyAdt;
+
+import java.util.Enumeration;
+import java.util.Vector;
 
 public class JavaOverridingUpdate {
 

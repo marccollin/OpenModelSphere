@@ -33,16 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.oo.actions;
 
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.awt.JackPopupMenu;
@@ -64,8 +54,14 @@ import org.modelsphere.sms.oo.db.DbOOAssociationEnd;
 import org.modelsphere.sms.oo.db.DbOODataMember;
 import org.modelsphere.sms.oo.graphic.RoleLabel;
 import org.modelsphere.sms.oo.international.LocaleMgr;
-import org.modelsphere.sms.oo.java.db.DbJVDataMember;
 import org.modelsphere.sms.oo.java.db.util.AnyAdt;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public final class LinkConstraintAction extends AbstractApplicationAction implements
         SelectionActionListener {

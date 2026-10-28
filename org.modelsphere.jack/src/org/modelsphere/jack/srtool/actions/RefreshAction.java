@@ -43,20 +43,21 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.awt.event.*;
-import javax.swing.*;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.screen.DbDataEntryFrame;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.CurrentFocusListener;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
-import org.modelsphere.jack.srtool.explorer.*;
+import org.modelsphere.jack.srtool.explorer.ExplorerView;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.list.ListInternalFrame;
 import org.modelsphere.jack.text.MessageFormat;
+
+import javax.swing.*;
+import java.awt.event.KeyEvent;
 
 public class RefreshAction extends AbstractApplicationAction implements CurrentFocusListener {
 

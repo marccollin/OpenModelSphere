@@ -33,13 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.awt.StatusBar;
 import org.modelsphere.jack.awt.ToolBarManager;
 import org.modelsphere.jack.baseDb.assistant.JHtmlBallonHelp;
@@ -84,6 +77,11 @@ import org.modelsphere.sms.or.db.DbORFKeyColumn;
 import org.modelsphere.sms.or.db.DbORStyle;
 import org.modelsphere.sms.preference.DisplayWindowsOptionGroup;
 import org.modelsphere.sms.style.StyleFrame;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainFrame extends DefaultMainFrame {
     private static final long SMS_FILE_CHECKWORD = 81500477737620267L;

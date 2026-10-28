@@ -33,11 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.graphic.tool;
 
-import java.awt.Image;
-import java.awt.Polygon;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -62,8 +57,10 @@ import org.modelsphere.sms.be.text.BETextUtil;
 import org.modelsphere.sms.db.DbSMSClassifier;
 import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.db.DbSMSGraphicalObject;
-import org.modelsphere.sms.db.DbSMSNotice;
 import org.modelsphere.sms.db.DbSMSSemanticalObject;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class BEFlowTool extends LineTool {
     public static final Image kImageFlowCreationTool = GraphicUtil.loadImage(Tool.class,

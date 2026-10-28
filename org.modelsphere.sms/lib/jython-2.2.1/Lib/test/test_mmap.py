@@ -1,6 +1,7 @@
-from test.test_support import verify, vereq, TESTFN
 import mmap
-import os, re
+import os
+import re
+from test.test_support import verify, vereq, TESTFN
 
 PAGESIZE = mmap.PAGESIZE
 

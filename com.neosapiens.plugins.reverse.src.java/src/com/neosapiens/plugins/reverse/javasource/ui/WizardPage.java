@@ -45,7 +45,7 @@ Email: marco.savard@neosapiens.com
 
 package com.neosapiens.plugins.reverse.javasource.ui;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class WizardPage extends JPanel {
 

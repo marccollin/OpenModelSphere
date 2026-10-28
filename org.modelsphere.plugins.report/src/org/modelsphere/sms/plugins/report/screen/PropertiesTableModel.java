@@ -34,10 +34,11 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.plugins.report.screen;
 
 // Swing
-import javax.swing.table.AbstractTableModel;
 
 import org.modelsphere.sms.plugins.report.model.Property;
 import org.modelsphere.sms.plugins.report.model.PropertyGroup;
+
+import javax.swing.table.AbstractTableModel;
 
 // Sms
 
@@ -84,10 +85,7 @@ public class PropertiesTableModel extends AbstractTableModel {
     }
 
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        if (columnIndex == 1)
-            return true;
-
-        return false;
+        return columnIndex == 1;
     }
 
     public final String getColumnName(int col) {

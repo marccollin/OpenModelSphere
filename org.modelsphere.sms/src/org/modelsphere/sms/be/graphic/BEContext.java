@@ -43,14 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.graphic;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -91,6 +83,11 @@ import org.modelsphere.sms.db.DbSMSGraphicalObject;
 import org.modelsphere.sms.db.srtypes.SMSHorizontalAlignment;
 import org.modelsphere.sms.db.srtypes.SMSVerticalAlignment;
 import org.modelsphere.sms.db.util.DbInitialization;
+
+import java.awt.*;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class BEContext extends GraphicNode implements ActionInformation {
 

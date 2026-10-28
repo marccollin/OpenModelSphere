@@ -43,9 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or;
 
-import java.awt.event.ActionEvent;
-import java.util.*;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -73,6 +70,14 @@ import org.modelsphere.sms.or.db.DbORUser;
 import org.modelsphere.sms.or.db.DbORView;
 import org.modelsphere.sms.or.db.srtypes.ORDomainCategory;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 

@@ -3,10 +3,12 @@ Tests for uu module.
 Nick Mathewson
 """
 
-from test_support import verify, TestFailed, verbose, TESTFN
-import sys, os
+import os
+import sys
 import uu
 from StringIO import StringIO
+
+from test_support import verify, TestFailed, verbose, TESTFN
 
 teststr = "The smooth-scaled python crept over the sleeping dog\n"
 expected = """\

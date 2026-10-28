@@ -43,20 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.jdbc.bridge;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.sql.DatabaseMetaData;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.Box;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectScope;
 import org.modelsphere.jack.srtool.reverse.jdbc.JdbcMetaInfo;
@@ -71,6 +57,14 @@ import org.modelsphere.sms.or.features.dbms.DBMSReverseOptions;
 import org.modelsphere.sms.or.features.dbms.DefaultReverseWizardOptionPage;
 import org.modelsphere.sms.plugins.TargetSystem;
 import org.modelsphere.sms.plugins.TargetSystemInfo;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class JdbcReverseSpecificOptionPage extends DefaultReverseWizardOptionPage {
 

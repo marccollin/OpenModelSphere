@@ -43,10 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.xml;
 
-import java.io.*;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.io.XmlWriter;
+
+import java.io.IOException;
 
 abstract class XMLAttribute implements XMLConstants {
     protected String name;

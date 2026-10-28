@@ -1,6 +1,6 @@
+import UserList
 import sys
 import unittest
-import UserList
 import weakref
 
 import test_support

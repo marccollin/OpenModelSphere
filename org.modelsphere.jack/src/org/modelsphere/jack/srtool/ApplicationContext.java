@@ -43,13 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool;
 
-import java.awt.Image;
-import java.io.*;
-import java.util.*;
-
 import org.modelsphere.jack.actions.AbstractActionsStore;
 import org.modelsphere.jack.baseDb.db.Db;
-import org.modelsphere.jack.debug.Log;
 import org.modelsphere.jack.io.PathFile;
 import org.modelsphere.jack.plugins.io.PluginLoader;
 import org.modelsphere.jack.preference.PropertiesManager;
@@ -58,7 +53,20 @@ import org.modelsphere.jack.srtool.features.SrDragDrop;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.popupMenu.ApplicationPopupMenu;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;
-import org.modelsphere.jack.util.ExceptionHandler;
+
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.StringTokenizer;
 
 public abstract class ApplicationContext {
     // property keys for look&feel

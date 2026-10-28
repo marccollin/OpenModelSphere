@@ -34,9 +34,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.plugins.report;
 
 // JDK
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -50,6 +47,10 @@ import org.modelsphere.jack.util.StringUtil;
 import org.modelsphere.sms.MainFrame;
 import org.modelsphere.sms.SMSToolkit;
 import org.modelsphere.sms.db.DbSMSDiagram;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class JpegGenerator {
 

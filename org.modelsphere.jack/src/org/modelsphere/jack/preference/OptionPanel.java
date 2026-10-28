@@ -43,10 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.preference;
 
-import java.awt.LayoutManager;
-
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
+import java.awt.*;
 
 public abstract class OptionPanel extends JPanel {
     public OptionPanel(LayoutManager layout) {

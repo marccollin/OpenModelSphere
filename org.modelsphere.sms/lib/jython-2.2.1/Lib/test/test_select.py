@@ -8,13 +8,14 @@ except NameError:
     class object: pass
 
 import errno
+import os
 import select
 import socket
-
-import os
 import sys
-import test_support
 import unittest
+
+import test_support
+
 
 class SelectWrapper:
 

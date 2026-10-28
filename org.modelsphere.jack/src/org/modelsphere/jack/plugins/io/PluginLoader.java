@@ -43,25 +43,37 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins.io;
 
+import org.modelsphere.jack.debug.Debug;
+import org.modelsphere.jack.debug.Log;
+import org.modelsphere.jack.international.LocaleMgr;
+import org.modelsphere.jack.plugins.Plugin;
+import org.modelsphere.jack.plugins.PluginConstants;
+import org.modelsphere.jack.plugins.PluginDescriptor;
+import org.modelsphere.jack.plugins.PluginDescriptor.PLUGIN_TYPE;
+import org.modelsphere.jack.plugins.PluginSecurityManager;
+import org.modelsphere.jack.srtool.ApplicationContext;
+import org.modelsphere.jack.srtool.Splash;
+import org.modelsphere.jack.srtool.forward.Rule;
+import org.modelsphere.jack.srtool.screen.ScreenPerspective;
+import org.modelsphere.jack.text.MessageFormat;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import java.io.File;
 import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.FileSystems;
-import java.util.*;
-
-import org.modelsphere.jack.debug.Debug;
-import org.modelsphere.jack.debug.Log;
-import org.modelsphere.jack.international.LocaleMgr;
-import org.modelsphere.jack.plugins.*;
-import org.modelsphere.jack.plugins.PluginDescriptor.PLUGIN_TYPE;
-import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.Splash;
-import org.modelsphere.jack.srtool.forward.Rule;
-import org.modelsphere.jack.srtool.screen.ScreenPerspective;
-import org.modelsphere.jack.text.MessageFormat;
-import org.w3c.dom.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 public abstract class PluginLoader implements PluginConstants {
     protected static final String kMissingResource = LocaleMgr.misc.getString("MissingResource");

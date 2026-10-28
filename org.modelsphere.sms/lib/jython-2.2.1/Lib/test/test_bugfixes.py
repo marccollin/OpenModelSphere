@@ -1,6 +1,8 @@
 
 import unittest
+
 from test_support import run_suite
+
 
 class C:
   def __str__(self):

@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.explorer;
 
-import javax.swing.Icon;
+import javax.swing.*;
 
 // This class contains the grouping parameters of an explorer node.
 // Immutable class, so we allocate a singleton for each parameter set.

@@ -43,15 +43,20 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.graphic;
 
-import java.awt.*;
-
 import org.modelsphere.jack.actions.ActionInformation;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.event.DbRefreshListener;
 import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
 import org.modelsphere.jack.baseDb.meta.MetaField;
-import org.modelsphere.jack.graphic.*;
-import org.modelsphere.jack.graphic.zone.*;
+import org.modelsphere.jack.graphic.Attachment;
+import org.modelsphere.jack.graphic.Diagram;
+import org.modelsphere.jack.graphic.GraphicNode;
+import org.modelsphere.jack.graphic.zone.SingletonZone;
+import org.modelsphere.jack.graphic.zone.StringCellRenderer;
+
+import java.awt.*;
 
 public class SrAttachment extends Attachment implements ActionInformation, DbRefreshListener {
 

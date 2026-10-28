@@ -43,10 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.util;
 
+import javax.swing.filechooser.FileFilter;
 import java.io.File;
 import java.util.Vector;
-
-import javax.swing.filechooser.FileFilter;
 
 public class DirectoryScanner {
     private Vector filesList;

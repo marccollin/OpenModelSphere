@@ -43,15 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.srtypes.UDFValueType;
 import org.modelsphere.jack.baseDb.international.LocaleMgr;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.baseDb.meta.MetaRelationN;
 import org.modelsphere.jack.util.SrVector;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 

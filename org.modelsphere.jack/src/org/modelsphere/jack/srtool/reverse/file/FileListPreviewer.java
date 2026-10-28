@@ -43,15 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.file;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
-import java.util.Vector;
-import javax.swing.*;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.util.DirectoryScanner;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.util.Vector;
 
 public final class FileListPreviewer extends JPanel {
 

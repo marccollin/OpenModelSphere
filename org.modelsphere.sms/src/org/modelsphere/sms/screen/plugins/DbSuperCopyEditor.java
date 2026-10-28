@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -48,6 +45,9 @@ import org.modelsphere.sms.or.db.DbORAbsTable;
 import org.modelsphere.sms.or.db.DbORAssociation;
 import org.modelsphere.sms.or.db.DbORAssociationEnd;
 import org.modelsphere.sms.or.db.util.AnyORObject;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public final class DbSuperCopyEditor extends DbSemanticalObjectEditor {
 

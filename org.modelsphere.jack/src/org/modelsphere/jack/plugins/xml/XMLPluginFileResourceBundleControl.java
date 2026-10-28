@@ -44,18 +44,15 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package org.modelsphere.jack.plugins.xml;
 
-import java.io.File;
-import java.io.FileReader;
+import org.modelsphere.jack.plugins.xml.fs.FsEntry;
+import org.modelsphere.jack.plugins.xml.fs.FsFile;
+import org.modelsphere.jack.plugins.xml.fs.FsFolder;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
-
-import org.modelsphere.jack.baseDb.international.LocaleMgr;
-import org.modelsphere.jack.plugins.xml.fs.FsEntry;
-import org.modelsphere.jack.plugins.xml.fs.FsFile;
-import org.modelsphere.jack.plugins.xml.fs.FsFolder;
 
 public class XMLPluginFileResourceBundleControl extends ResourceBundle.Control  {
 	private FsFile m_pluginXML; 

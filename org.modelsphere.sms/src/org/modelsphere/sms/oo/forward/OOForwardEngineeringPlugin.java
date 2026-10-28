@@ -33,13 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.oo.forward;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.io.HTMLStringWriter;
@@ -49,6 +42,11 @@ import org.modelsphere.jack.srtool.forward.VariableDecl;
 import org.modelsphere.jack.srtool.forward.VariableScope;
 import org.modelsphere.sms.actions.GenerateFromTemplatesAction;
 import org.modelsphere.sms.templates.GenericForwardEngineeringPlugin;
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.List;
 
 /**
  * This class provides common services for OO code generation plug-ins.

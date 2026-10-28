@@ -43,14 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.Component;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.DocumentEvent;
-
 import org.modelsphere.jack.awt.AbstractTableCellEditor;
 import org.modelsphere.jack.awt.NumericTextField;
 import org.modelsphere.jack.baseDb.screen.Editor;
 import org.modelsphere.jack.baseDb.screen.ScreenView;
+
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
 
 public class IntegerEditor extends NumericTextField implements Editor, DocumentListener {
 

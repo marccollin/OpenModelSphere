@@ -27,7 +27,14 @@ Here are some of the useful functions provided by this module:
 __author__ = 'Ka-Ping Yee <ping@lfw.org>'
 __date__ = '1 Jan 2001'
 
-import sys, os, types, string, re, imp, tokenize
+import imp
+import os
+import re
+import string
+import sys
+import tokenize
+import types
+
 
 # ----------------------------------------------------------- type-checking
 def ismodule(object):
@@ -734,7 +741,7 @@ def getframeinfo(frame, context=1):
 
 def getlineno(frame):
     """Get the line number from a frame object, allowing for optimization."""
-    # Written by Marc-André Lemburg; revised by Jim Hugunin and Fredrik Lundh.
+    # Written by Marc-Andrï¿½ Lemburg; revised by Jim Hugunin and Fredrik Lundh.
     lineno = frame.f_lineno
     code = frame.f_code
     if hasattr(code, 'co_lnotab'):

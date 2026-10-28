@@ -1,7 +1,8 @@
 """Test the binascii C module."""
 
-from test_support import verify, verbose
 import binascii
+
+from test_support import verify
 
 # Show module doc string
 print binascii.__doc__

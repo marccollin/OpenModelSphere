@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import javax.swing.Icon;
+import javax.swing.*;
 
 public class SelectDialogItem implements Comparable {
     public String name;

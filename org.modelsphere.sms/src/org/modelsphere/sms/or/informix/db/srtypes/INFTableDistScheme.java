@@ -42,7 +42,8 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.or.informix.db.srtypes;
 
-import org.modelsphere.jack.baseDb.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.srtypes.DbtAbstract;
+import org.modelsphere.jack.baseDb.db.srtypes.Domain;
 import org.modelsphere.sms.or.informix.international.LocaleMgr;
 
 public class INFTableDistScheme extends INFDistScheme {

@@ -43,13 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.Writer;
-import java.io.IOException;
-import java.io.Serializable;
-import java.lang.reflect.Field;
-
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.text.MessageFormat;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.Writer;
+import java.lang.reflect.Field;
 
 public final class NamedRule extends Rule {
     Rule actualRule = null;

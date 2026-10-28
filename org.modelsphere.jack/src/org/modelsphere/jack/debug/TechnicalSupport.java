@@ -43,13 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.debug;
 
-import java.util.Properties;
-
-import javax.swing.UIManager;
-
 import org.modelsphere.jack.plugins.PluginMgr;
 import org.modelsphere.jack.plugins.io.PluginLoader;
 import org.modelsphere.jack.srtool.ApplicationContext;
+
+import javax.swing.*;
+import java.util.Properties;
 
 public final class TechnicalSupport {
     private static final String TECH_SUPPORT_EMAIL = "???.com"; // NOT LOCALIZABLE - email

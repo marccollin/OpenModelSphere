@@ -43,11 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.templates;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Iterator;
-
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.baseDb.meta.MetaChoice;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
@@ -158,6 +153,11 @@ import org.modelsphere.sms.or.oracle.db.DbORATable;
 import org.modelsphere.sms.or.oracle.db.DbORATablespace;
 import org.modelsphere.sms.or.oracle.db.DbORATrigger;
 import org.modelsphere.sms.or.oracle.db.DbORAView;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
 
 /**
  * This class provides a mapping between "repository" strings (such as "tableColumns", "tablename",

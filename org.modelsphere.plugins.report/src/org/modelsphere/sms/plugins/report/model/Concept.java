@@ -38,8 +38,6 @@ package org.modelsphere.sms.plugins.report.model;
 // Sms
 
 // JDK
-import java.util.ArrayList;
-import java.util.List;
 
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -59,6 +57,9 @@ import org.modelsphere.sms.or.db.DbORField;
 import org.modelsphere.sms.or.generic.db.DbGEColumn;
 import org.modelsphere.sms.or.generic.db.DbGETable;
 import org.modelsphere.sms.plugins.report.LocaleMgr;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Concept {
 

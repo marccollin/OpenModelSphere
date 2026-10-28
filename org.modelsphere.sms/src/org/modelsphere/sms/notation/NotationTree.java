@@ -33,7 +33,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.notation;
 
-import javax.swing.JTree;
+import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 

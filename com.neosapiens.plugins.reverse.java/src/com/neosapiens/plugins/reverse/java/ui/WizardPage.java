@@ -44,7 +44,7 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package com.neosapiens.plugins.reverse.java.ui;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class WizardPage extends JPanel {
     private static final long serialVersionUID = 1L;

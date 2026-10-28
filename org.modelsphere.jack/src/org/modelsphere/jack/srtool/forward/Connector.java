@@ -43,15 +43,25 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.*;
-import java.util.Hashtable;
-
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.meta.*;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.baseDb.meta.MetaChoice;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaRelation1;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
+import org.modelsphere.jack.baseDb.meta.MetaRelationship;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.jack.srtool.forward.exceptions.InvalidConnectorRuleException;
 import org.modelsphere.jack.srtool.forward.exceptions.NoChildRuleException;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Hashtable;
 
 /**
  * Optional Keywords: WhenModifier, PrefixModifier, SeparatorModifier, SuffixModifier, NullModifier

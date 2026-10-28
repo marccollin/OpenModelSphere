@@ -33,14 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.report.screen;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-
-import javax.swing.*;
-import javax.swing.text.*;
-
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.awt.ImagePreviewer;
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
@@ -48,6 +40,16 @@ import org.modelsphere.jack.io.IoUtil;
 import org.modelsphere.jack.util.StringUtil;
 import org.modelsphere.sms.plugins.report.LocaleMgr;
 import org.modelsphere.sms.plugins.report.model.ReportModel;
+
+import javax.swing.*;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.PlainDocument;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 public class ReportOptionsPane extends JPanel implements ActionListener {
 

@@ -43,20 +43,29 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.integrate;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.Icon;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
-
 import org.modelsphere.jack.awt.TextViewerDialog;
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
-import org.modelsphere.jack.awt.treeTable.*;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.awt.treeTable.TreeTableModel;
+import org.modelsphere.jack.awt.treeTable.TreeTableModelAdapter;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
+import org.modelsphere.jack.baseDb.db.DbUDF;
 import org.modelsphere.jack.baseDb.db.DbUDF.UDFMap;
+import org.modelsphere.jack.baseDb.db.DbUDFValue;
+import org.modelsphere.jack.baseDb.db.DeepCopy;
+import org.modelsphere.jack.baseDb.db.DeepCopyCustomizer;
 import org.modelsphere.jack.baseDb.db.srtypes.UDFValueType;
-import org.modelsphere.jack.baseDb.meta.*;
+import org.modelsphere.jack.baseDb.meta.MetaChoice;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelation1;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
+import org.modelsphere.jack.baseDb.meta.MetaRelationship;
 import org.modelsphere.jack.baseDb.screen.LookupDialog;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.srtool.ApplicationContext;
@@ -65,7 +74,15 @@ import org.modelsphere.jack.srtool.explorer.GroupParams;
 import org.modelsphere.jack.srtool.integrate.IntegrateNode.IntegrateProperty;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.text.MessageFormat;
-import org.modelsphere.jack.util.*;
+import org.modelsphere.jack.util.CollationComparator;
+import org.modelsphere.jack.util.ExceptionHandler;
+import org.modelsphere.jack.util.SrVector;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+import java.util.ArrayList;
+import java.util.List;
 
 public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
 

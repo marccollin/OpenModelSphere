@@ -1,7 +1,7 @@
 # Copyright (c) Corporation for National Research Initiatives
 
-import jast
 import ImportName
+import jast
 
 COMMASPACE = ', '
 

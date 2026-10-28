@@ -43,10 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import javax.swing.JOptionPane;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
 
 public class UDFValueTypeEditor extends DomainEditor {
 
@@ -58,6 +59,8 @@ public class UDFValueTypeEditor extends DomainEditor {
                 nbValues = dbo.getNbNeighbors(DbObject.fComponents);
                 dbo.getDb().commitTrans();
             } catch (Exception e) {
+                org.modelsphere.jack.util.ExceptionHandler.processUncatchedException(this, e);
+                return false;
             }
             if (nbValues != 0) {
                 if (JOptionPane.showConfirmDialog(this, LocaleMgr.message

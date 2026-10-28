@@ -44,22 +44,20 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package com.neosapiens.plugins.codegen;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.*;
-
+import com.neosapiens.plugins.codegen.international.LocaleMgr;
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.dirchooser.DirectoryChooser2;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.properties.PropertySet;
 import org.modelsphere.jack.srtool.ApplicationContext;
 
-import com.neosapiens.plugins.codegen.international.LocaleMgr;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CodeGenerationDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = 1L;

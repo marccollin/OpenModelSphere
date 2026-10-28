@@ -43,9 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.integrate;
 
-import javax.swing.Icon;
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -53,6 +50,9 @@ import org.modelsphere.jack.baseDb.util.Terminology;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.srtool.explorer.GroupParams;
 import org.modelsphere.jack.util.CollationComparator;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class IntegrateNode extends DefaultMutableTreeNode implements Comparable {
 

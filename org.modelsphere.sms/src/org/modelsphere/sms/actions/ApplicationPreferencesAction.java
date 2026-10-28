@@ -33,11 +33,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import javax.swing.JToolBar;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.ActionsOptionGroup;
-import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.ToolBarManager;
 import org.modelsphere.jack.preference.OptionDialog;
 import org.modelsphere.jack.preference.OptionGroup;
@@ -56,11 +53,12 @@ import org.modelsphere.sms.preference.DiagramPageTitleOptionGroup;
 import org.modelsphere.sms.preference.DiagramStampOptionGroup;
 import org.modelsphere.sms.preference.DirectoryOptionGroup;
 import org.modelsphere.sms.preference.DisplayGUIOptionGroup;
-import org.modelsphere.sms.preference.DisplayLFOptionGroup;
 import org.modelsphere.sms.preference.DisplayLanguageOptionGroup;
 import org.modelsphere.sms.preference.DisplayRecentModifsOptionGroup;
 import org.modelsphere.sms.preference.DisplayWindowsOptionGroup;
 import org.modelsphere.sms.preference.GeneralOptionGroup;
+
+import javax.swing.*;
 
 final class ApplicationPreferencesAction extends AbstractApplicationAction {
     private static final String kPrefDialogTitle = LocaleMgr.action.getString("applPrefTitle");

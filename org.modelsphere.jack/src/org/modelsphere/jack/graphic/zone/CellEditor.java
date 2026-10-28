@@ -43,11 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.zone;
 
-import java.awt.Rectangle;
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.graphic.DiagramView;
 import org.modelsphere.jack.graphic.ZoneBox;
+
+import javax.swing.*;
+import java.awt.*;
 
 public interface CellEditor {
 

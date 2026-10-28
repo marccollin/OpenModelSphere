@@ -42,22 +42,18 @@ open-modelsphere@grandite.com
  ***********************************************************************/
 package org.modelsphere.jack.baseDb.screen.spellchecking;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.util.List;
+import com.swabunga.spell.event.DocumentWordTokenizer;
+import com.swabunga.spell.event.Word;
+import com.swabunga.spell.event.WordTokenizer;
+import org.modelsphere.jack.baseDb.meta.MetaField;
 
-import javax.swing.JEditorPane;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
-
-import org.modelsphere.jack.baseDb.meta.MetaField;
-
-import com.swabunga.spell.event.DocumentWordTokenizer;
-import com.swabunga.spell.event.Word;
-import com.swabunga.spell.event.WordTokenizer;
+import java.awt.*;
+import java.util.List;
 
 public class SpellCheckerEditorPane extends JEditorPane implements DocumentListener {
 

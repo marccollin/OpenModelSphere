@@ -42,14 +42,10 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.db.util;
 
-import java.awt.Rectangle;
-import java.util.ArrayList;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
-import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.sms.be.db.DbBEDiagram;
 import org.modelsphere.sms.be.db.DbBEModel;
 import org.modelsphere.sms.be.db.DbBENotation;
@@ -61,6 +57,9 @@ import org.modelsphere.sms.db.DbSMSClassifierGo;
 import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.or.db.DbORNotation;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * @author Grandite

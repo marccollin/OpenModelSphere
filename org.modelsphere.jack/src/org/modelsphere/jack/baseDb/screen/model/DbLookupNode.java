@@ -43,10 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.model;
 
-import javax.swing.Icon;
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * @author nicolask

@@ -32,11 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.be.screen;
 
-import java.awt.Image;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -62,6 +57,9 @@ import org.modelsphere.sms.be.db.DbBEUseCase;
 import org.modelsphere.sms.be.db.DbBEUseCaseQualifier;
 import org.modelsphere.sms.be.db.DbBEUseCaseResource;
 import org.modelsphere.sms.db.DbSMSSemanticalObject;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class BEListView extends DbListView {
 

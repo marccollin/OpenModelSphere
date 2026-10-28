@@ -43,7 +43,20 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins.io;
 
-import java.awt.Image;
+import org.modelsphere.jack.baseDb.international.LocaleMgr;
+import org.modelsphere.jack.plugins.PluginConstants;
+import org.modelsphere.jack.plugins.PluginDescriptor;
+import org.modelsphere.jack.plugins.PluginDescriptor.PLUGIN_TYPE;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -52,17 +65,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.modelsphere.jack.baseDb.international.LocaleMgr;
-import org.modelsphere.jack.plugins.PluginConstants;
-import org.modelsphere.jack.plugins.PluginDescriptor;
-import org.modelsphere.jack.plugins.PluginDescriptor.PLUGIN_TYPE;
-import org.w3c.dom.*;
-import org.xml.sax.SAXException;
 
 public class XMLPluginUtilities implements PluginConstants {
     public static final String LICENSE = "license"; // NOT LOCALIZABLE, keyword

@@ -43,12 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic;
 
+import org.modelsphere.jack.preference.PropertiesManager;
+import org.modelsphere.jack.preference.PropertiesSet;
+
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-
-import org.modelsphere.jack.preference.PropertiesManager;
-import org.modelsphere.jack.preference.PropertiesSet;
 
 /**
  * Display a grid in the diagram background

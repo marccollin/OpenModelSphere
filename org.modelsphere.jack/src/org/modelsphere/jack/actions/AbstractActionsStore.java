@@ -43,11 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.actions;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.srtool.actions.*;
+
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 /**
  * 

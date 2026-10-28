@@ -44,12 +44,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.or.db.util;
 
 //Java
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
-import javax.swing.JOptionPane;
 
 import org.modelsphere.jack.awt.TextViewerDialog;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -94,6 +88,12 @@ import org.modelsphere.sms.or.screen.DeleteKeysAndRulesFrame.DeleteKeysOptions;
 import org.modelsphere.sms.plugins.TargetSystem;
 import org.modelsphere.sms.plugins.TargetSystemInfo;
 import org.modelsphere.sms.plugins.TargetSystemManager;
+
+import javax.swing.*;
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * 

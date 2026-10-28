@@ -33,14 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.graphic.tool;
 
-import java.awt.Image;
-import java.awt.event.MouseEvent;
-import java.beans.PropertyVetoException;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.swing.JInternalFrame;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -80,6 +72,13 @@ import org.modelsphere.sms.or.db.DbORAssociationEnd;
 import org.modelsphere.sms.or.db.DbORChoiceOrSpecialization;
 import org.modelsphere.sms.or.db.DbORTable;
 import org.modelsphere.sms.or.graphic.ORTable;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyVetoException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class SMSSelectNeighborhoodTool extends SMSSelectTool {
     private static String g_tooltext = LocaleMgr.screen.getString("SelectNeighborhoodTool");

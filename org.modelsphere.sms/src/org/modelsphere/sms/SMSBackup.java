@@ -33,10 +33,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.lang.reflect.Method;
-
 import org.modelsphere.jack.util.StringUtil;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.lang.reflect.Method;
 
 public abstract class SMSBackup {
 

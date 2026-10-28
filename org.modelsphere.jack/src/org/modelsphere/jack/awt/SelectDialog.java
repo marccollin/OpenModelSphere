@@ -43,20 +43,22 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import org.modelsphere.jack.international.LocaleMgr;
+import org.modelsphere.jack.srtool.ApplicationContext;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import org.modelsphere.jack.international.LocaleMgr;
-import org.modelsphere.jack.srtool.ApplicationContext;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class SelectDialog extends JDialog implements ActionListener, ListSelectionListener,
         MouseListener {

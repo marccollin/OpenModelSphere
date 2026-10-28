@@ -43,15 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.dbms;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class DatabaseNamePanel extends JPanel {
     private static final String LABEL_NAME = LocaleMgr.screen.getString("DatabaseForward"); // NOT LOCALIZABLE

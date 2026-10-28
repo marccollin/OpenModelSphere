@@ -43,12 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import javax.swing.*;
-
 import org.modelsphere.jack.baseDb.screen.MultiDefaultRenderer;
 
-import java.awt.Image;
-import java.awt.Component;
+import javax.swing.*;
+import java.awt.*;
 
 public class MultiSrImageRenderer extends MultiDefaultRenderer {
     public static final MultiSrImageRenderer singleton = new MultiSrImageRenderer();

@@ -33,10 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.generic;
 
-import java.awt.Image;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
@@ -77,6 +73,10 @@ import org.modelsphere.sms.or.graphic.tool.ORSpecializationTool;
 import org.modelsphere.sms.or.graphic.tool.ORSubModelTool;
 import org.modelsphere.sms.or.graphic.tool.ORTableTool;
 import org.modelsphere.sms.or.graphic.tool.ORViewTool;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GEDataModelToolkit extends SMSToolkit implements CurrentFocusListener {
     private static final String kGraphicalLink = SMSGraphicalLinkTool.GRAPHICAL_LINKS;

@@ -33,12 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.features;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -63,6 +57,11 @@ import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.db.DbORTable;
 import org.modelsphere.sms.or.db.DbORTypeClassifier;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 final class GenerateCommonItems {
     static final int GENERATE_REPORT = 0;

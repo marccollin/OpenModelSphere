@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import org.modelsphere.jack.international.LocaleMgr;
+import org.modelsphere.jack.srtool.ApplicationContext;
+import org.modelsphere.jack.text.MessageFormat;
 
 import javax.swing.*;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
@@ -53,10 +53,9 @@ import javax.swing.colorchooser.ColorChooserComponentFactory;
 import javax.swing.colorchooser.DefaultColorSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
-import org.modelsphere.jack.international.LocaleMgr;
-import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.text.MessageFormat;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class JackColorChooser implements ActionListener {
     private static final String kRessetTransparency0 = LocaleMgr.message

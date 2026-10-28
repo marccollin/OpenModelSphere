@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.preference;
 
-import java.io.File;
-
 import org.modelsphere.jack.srtool.ApplicationContext;
+
+import java.io.File;
 
 public final class DriverInfo extends PropertiesSet {
     public static final String DRIVER_NAME = "name"; // NOT LOCALIZABLE

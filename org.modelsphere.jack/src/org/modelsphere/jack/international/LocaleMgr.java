@@ -43,19 +43,27 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.international;
 
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.io.*;
-import java.lang.reflect.Field;
-import java.net.URL;
-import java.util.*;
-
-import javax.swing.AbstractButton;
-import javax.swing.ImageIcon;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.plugins.PluginsConfiguration;
 import org.modelsphere.jack.util.StringUtil;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.reflect.Field;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 /**
  * Get locale-dependent resources (such as strings, images, etc.) from the resource files

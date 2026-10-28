@@ -33,12 +33,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.oo.db.util;
 
-import java.awt.Color;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
-import org.modelsphere.sms.oo.db.*;
+import org.modelsphere.sms.oo.db.DbOOAbstractMethod;
+import org.modelsphere.sms.oo.db.DbOOParameter;
+import org.modelsphere.sms.oo.db.DbOOStyle;
 import org.modelsphere.sms.oo.international.LocaleMgr;
+
+import java.awt.*;
 
 /*
  *  Various utilities to find quickly db objects

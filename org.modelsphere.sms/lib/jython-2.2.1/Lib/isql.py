@@ -1,6 +1,9 @@
 # $Id: isql.py 3244 2007-05-28 11:33:44Z otmarhumbel $
 
-import dbexts, cmd, sys, os
+import cmd
+import dbexts
+import os
+import sys
 
 """
 Isql works in conjunction with dbexts to provide an interactive environment

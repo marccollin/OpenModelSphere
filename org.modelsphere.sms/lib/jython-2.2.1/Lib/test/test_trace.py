@@ -1,9 +1,10 @@
 # Testing the line trace facility.
 
-import test_support
-import unittest
-import sys
 import difflib
+import sys
+import unittest
+
+import test_support
 
 if not __debug__:
     raise test_support.TestSkipped, "tracing not supported under -O"

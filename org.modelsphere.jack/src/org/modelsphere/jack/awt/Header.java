@@ -43,9 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.*;
-
 import javax.swing.*;
+import java.awt.*;
 
 @SuppressWarnings("serial")
 public class Header extends JPanel {

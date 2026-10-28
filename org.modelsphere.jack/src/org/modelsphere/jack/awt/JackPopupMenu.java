@@ -43,16 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.AbstractDomainAction;
 import org.modelsphere.jack.actions.AbstractTriStatesAction;
 import org.modelsphere.jack.graphic.GraphicComponent;
+
+import javax.swing.*;
+import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class JackPopupMenu extends JPopupMenu {
 

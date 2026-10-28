@@ -1,13 +1,15 @@
 package org.modelsphere.plugins.layout.nodes.sugiyama;
 
-import java.awt.Dimension;
-import java.awt.Point;
-import java.util.*;
-
 import org.modelsphere.jack.srtool.features.layout.LayoutException;
 import org.modelsphere.jack.srtool.features.layout.graph.Node;
 import org.modelsphere.jack.srtool.features.layout.graph.Vertex;
 import org.modelsphere.plugins.layout.nodes.layerers.LayeredGraph;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 /**
  * The Class DefaultCoordinateAssigner.

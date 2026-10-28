@@ -4,17 +4,16 @@
 """Basic message object for the email package object model.
 """
 
+import binascii
 import re
 import uu
-import binascii
 import warnings
 from cStringIO import StringIO
-from types import ListType, TupleType, StringType
-
+from email import Charset
+from email import Errors
 # Intrapackage imports
 from email import Utils
-from email import Errors
-from email import Charset
+from types import ListType, TupleType, StringType
 
 SEMISPACE = '; '
 

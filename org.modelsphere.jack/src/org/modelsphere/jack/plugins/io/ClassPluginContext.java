@@ -43,10 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins.io;
 
-import java.net.URL;
-
 import org.modelsphere.jack.plugins.Plugin;
 import org.modelsphere.jack.plugins.PluginSignature;
+
+import java.net.URL;
 
 public class ClassPluginContext extends JARPluginContext {
     private PluginSignature signature;

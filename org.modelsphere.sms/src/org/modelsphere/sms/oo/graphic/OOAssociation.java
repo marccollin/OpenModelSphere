@@ -34,9 +34,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.oo.graphic;
 
 //Java
-import java.awt.Color;
-import java.awt.Font;
-import java.util.ArrayList;
 
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -71,6 +68,9 @@ import org.modelsphere.sms.oo.db.DbOODataMember;
 import org.modelsphere.sms.oo.db.DbOODiagram;
 import org.modelsphere.sms.oo.db.DbOOStyle;
 import org.modelsphere.sms.oo.db.srtypes.OOAggregation;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public final class OOAssociation extends SrLine implements DbRefreshListener {
 

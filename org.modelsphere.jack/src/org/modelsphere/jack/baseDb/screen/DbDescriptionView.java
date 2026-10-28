@@ -43,17 +43,19 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen;
 
-import java.awt.Component;
-import java.awt.Font;
-
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.baseDb.screen.model.*;
+import org.modelsphere.jack.baseDb.screen.model.DbDescriptionModel;
+import org.modelsphere.jack.baseDb.screen.model.DescriptionField;
+import org.modelsphere.jack.baseDb.screen.model.DescriptionModel;
+import org.modelsphere.jack.baseDb.screen.model.ReflectionDescriptionModel;
+import org.modelsphere.jack.baseDb.screen.model.UDFDescriptionField;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.*;
 
 public class DbDescriptionView extends DescriptionView {
 

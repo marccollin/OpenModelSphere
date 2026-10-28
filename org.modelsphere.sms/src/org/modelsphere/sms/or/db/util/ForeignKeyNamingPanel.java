@@ -42,35 +42,18 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.or.db.util;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Window;
+import org.modelsphere.jack.awt.AwtUtil;
+import org.modelsphere.jack.preference.PropertiesManager;
+import org.modelsphere.jack.preference.PropertiesSet;
+import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.MessageFormat;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-
-import org.modelsphere.jack.awt.AwtUtil;
-import org.modelsphere.jack.preference.PropertiesManager;
-import org.modelsphere.jack.preference.PropertiesSet;
-import org.modelsphere.sms.or.international.LocaleMgr;
 
 @SuppressWarnings("serial")
 public class ForeignKeyNamingPanel extends JPanel implements ActionListener, KeyListener {

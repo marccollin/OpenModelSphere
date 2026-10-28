@@ -33,12 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
-
-import javax.swing.Icon;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
@@ -152,6 +146,10 @@ import org.modelsphere.sms.or.oracle.db.DbORATablespace;
 import org.modelsphere.sms.or.oracle.db.DbORAView;
 import org.modelsphere.sms.or.screen.ORListView;
 import org.modelsphere.sms.plugins.ForwardPanel;
+
+import javax.swing.*;
+import java.util.List;
+import java.util.Vector;
 
 @SuppressWarnings("serial")
 public class SMSPropertiesFrame extends PropertiesFrame {

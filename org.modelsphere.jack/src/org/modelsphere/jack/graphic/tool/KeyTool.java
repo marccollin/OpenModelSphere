@@ -43,11 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.tool;
 
-import java.awt.event.MouseEvent;
-import java.awt.*;
+import org.modelsphere.jack.graphic.Diagram;
+import org.modelsphere.jack.graphic.GraphicComponent;
+import org.modelsphere.jack.graphic.ZoneBox;
+import org.modelsphere.jack.graphic.zone.CellID;
+import org.modelsphere.jack.graphic.zone.ZoneCell;
 
-import org.modelsphere.jack.graphic.*;
-import org.modelsphere.jack.graphic.zone.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public abstract class KeyTool extends ButtonSelectionPanelTool {
 

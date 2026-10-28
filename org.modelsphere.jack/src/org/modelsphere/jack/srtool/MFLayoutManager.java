@@ -43,16 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-
-import javax.swing.JDesktopPane;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-
 import org.modelsphere.jack.srtool.explorer.ExplorerPanel;
 import org.modelsphere.jack.srtool.screen.design.DesignPanel;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Basic interface to define a DefaultMainFrame components layout manager.

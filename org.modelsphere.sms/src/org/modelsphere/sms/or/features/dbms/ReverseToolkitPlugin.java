@@ -43,17 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.dbms;
 
-import java.awt.event.ActionEvent;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.awt.ExtensionFileFilter;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbRAM;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.baseDb.meta.MetaRelationship;
@@ -61,7 +57,11 @@ import org.modelsphere.jack.gui.task.DefaultController;
 import org.modelsphere.jack.gui.task.GuiController;
 import org.modelsphere.jack.gui.task.Worker;
 import org.modelsphere.jack.gui.wizard.WizardPage;
-import org.modelsphere.jack.plugins.*;
+import org.modelsphere.jack.plugins.Plugin;
+import org.modelsphere.jack.plugins.PluginDescriptor;
+import org.modelsphere.jack.plugins.PluginMgr;
+import org.modelsphere.jack.plugins.PluginSelectionListener;
+import org.modelsphere.jack.plugins.PluginSignature;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.MainFrameMenu;
@@ -69,14 +69,33 @@ import org.modelsphere.jack.srtool.integrate.IntegrateFrame;
 import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectScope;
 import org.modelsphere.jack.srtool.reverse.Actions;
 import org.modelsphere.jack.srtool.reverse.engine.ReverseBuilder;
-import org.modelsphere.jack.srtool.services.*;
+import org.modelsphere.jack.srtool.services.ConnectionMessage;
+import org.modelsphere.jack.srtool.services.NameListMessage;
+import org.modelsphere.jack.srtool.services.ServiceProtocolList;
+import org.modelsphere.jack.srtool.services.StatementMessage;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.sms.SMSSynchroModel.SynchroObject;
 import org.modelsphere.sms.db.DbSMSUserDefinedPackage;
-import org.modelsphere.sms.or.db.*;
+import org.modelsphere.sms.or.db.DbORAbsTable;
+import org.modelsphere.sms.or.db.DbORCheck;
+import org.modelsphere.sms.or.db.DbORDataModel;
+import org.modelsphere.sms.or.db.DbORDatabase;
+import org.modelsphere.sms.or.db.DbORDomainModel;
+import org.modelsphere.sms.or.db.DbORIndex;
+import org.modelsphere.sms.or.db.DbOROperationLibrary;
+import org.modelsphere.sms.or.db.DbORPrimaryUnique;
+import org.modelsphere.sms.or.db.DbORTrigger;
 import org.modelsphere.sms.or.db.util.AnyORObject;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public abstract class ReverseToolkitPlugin implements Plugin {
     protected static final String kReverseEng = LocaleMgr.misc.getString("ReverseEng");

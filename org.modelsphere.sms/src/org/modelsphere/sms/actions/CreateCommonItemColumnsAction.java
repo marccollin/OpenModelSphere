@@ -32,30 +32,13 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.actions;
 
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-
-import javax.swing.Icon;
-import javax.swing.tree.TreePath;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
-import org.modelsphere.jack.graphic.Diagram;
-import org.modelsphere.jack.graphic.DiagramView;
-import org.modelsphere.jack.graphic.GraphicComponent;
-import org.modelsphere.jack.graphic.ZoneBox;
-import org.modelsphere.jack.graphic.zone.CellID;
-import org.modelsphere.jack.graphic.zone.MatrixCellID;
-import org.modelsphere.jack.graphic.zone.MatrixZone;
-import org.modelsphere.jack.graphic.zone.Zone;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.explorer.ExplorerView;
-import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.util.CollationComparator;
 import org.modelsphere.jack.util.DefaultComparableElement;
 import org.modelsphere.jack.util.SrSort;
@@ -81,7 +64,10 @@ import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.or.oracle.db.DbORAColumn;
 import org.modelsphere.sms.or.oracle.db.DbORATable;
 import org.modelsphere.sms.or.oracle.db.DbORAView;
-import org.modelsphere.sms.plugins.TargetSystemInfo;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * @author nicolask

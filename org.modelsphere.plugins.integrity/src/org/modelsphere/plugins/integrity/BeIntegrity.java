@@ -33,14 +33,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.integrity;
 
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.sms.be.db.DbBEActor;
+import org.modelsphere.sms.be.db.DbBEFlow;
+import org.modelsphere.sms.be.db.DbBEModel;
+import org.modelsphere.sms.be.db.DbBEStore;
+import org.modelsphere.sms.be.db.DbBEUseCase;
+import org.modelsphere.sms.db.DbSMSClassifier;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import org.modelsphere.jack.baseDb.db.DbEnumeration;
-import org.modelsphere.jack.baseDb.db.DbException;
-import org.modelsphere.sms.be.db.*;
-import org.modelsphere.sms.db.DbSMSClassifier;
 
 /**
  * @author pierrem

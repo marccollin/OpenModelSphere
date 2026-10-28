@@ -43,25 +43,46 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.explorer;
 
-import java.awt.*;
-import java.awt.dnd.Autoscroll;
-import java.awt.event.*;
-import java.util.*;
-
-import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.event.*;
-import javax.swing.tree.*;
-
 import org.modelsphere.jack.actions.AbstractActionsStore;
 import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.awt.GradientTopBorder;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.baseDb.objectviewer.Viewer;
-import org.modelsphere.jack.srtool.*;
+import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.FocusManager;
+import org.modelsphere.jack.srtool.SelectionChangedEvent;
+import org.modelsphere.jack.srtool.SelectionListener;
+import org.modelsphere.jack.srtool.ToolTipsServices;
 import org.modelsphere.jack.srtool.features.SrDropTarget;
 import org.modelsphere.jack.util.ExceptionHandler;
+
+import javax.swing.*;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.TreeExpansionEvent;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.event.TreeWillExpandListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellEditor;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreeCellEditor;
+import javax.swing.tree.TreeCellRenderer;
+import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
+import java.awt.*;
+import java.awt.dnd.Autoscroll;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.EventObject;
+import java.util.HashSet;
 
 public class ExplorerView extends JTree implements Autoscroll, TreeSelectionListener,
         TreeWillExpandListener, SrDropTarget, SelectionListener {

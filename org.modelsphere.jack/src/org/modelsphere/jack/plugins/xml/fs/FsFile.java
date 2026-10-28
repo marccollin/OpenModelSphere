@@ -45,6 +45,8 @@ Email: marco.savard@neosapiens.com
 
 package org.modelsphere.jack.plugins.xml.fs;
 
+import org.modelsphere.jack.io.IoUtil;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -52,17 +54,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.Enumeration;
-import java.util.List;
 import java.util.StringTokenizer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-
-import org.modelsphere.jack.io.IoUtil;
 
 public class FsFile extends FsEntry {
 	

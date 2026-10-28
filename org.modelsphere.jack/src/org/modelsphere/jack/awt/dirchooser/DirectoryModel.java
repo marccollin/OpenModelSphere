@@ -44,8 +44,8 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.awt.dirchooser;
 
 import javax.swing.*;
-import javax.swing.table.*;
-import java.io.*;
+import javax.swing.table.AbstractTableModel;
+import java.io.File;
 
 class DirectoryModel extends AbstractTableModel {
     protected File directory;

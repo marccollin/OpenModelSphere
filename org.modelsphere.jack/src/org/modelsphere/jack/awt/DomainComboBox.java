@@ -43,19 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Color;
+import org.modelsphere.jack.actions.AbstractApplicationAction;
+import org.modelsphere.jack.actions.AbstractDomainAction;
+import org.modelsphere.jack.srtool.ApplicationContext;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
-import javax.swing.Action;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.Icon;
-
-import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.actions.AbstractDomainAction;
-import org.modelsphere.jack.srtool.ApplicationContext;
 
 /**
  * This class define a component for supporting the AbstractDomainAction in a JackToolbar. See

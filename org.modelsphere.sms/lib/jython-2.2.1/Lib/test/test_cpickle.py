@@ -1,8 +1,10 @@
 import cPickle
-import test_support
 import unittest
 from cStringIO import StringIO
+
+import test_support
 from pickletester import AbstractPickleTests, AbstractPickleModuleTests
+
 
 class cPickleTests(AbstractPickleTests, AbstractPickleModuleTests):
 

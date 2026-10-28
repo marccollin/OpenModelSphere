@@ -44,21 +44,29 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.awt.beans.impl;
 
 
-import java.awt.*;
-import java.awt.event.*;
-import java.beans.*;
-import java.io.Serializable;
-import java.lang.reflect.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.table.*;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.beans.BeanDialog;
 import org.modelsphere.jack.debug.Debug;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.beans.BeanDescriptor;
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BeanDialogImpl implements BeanDialog {
     private static final int ICON_KIND = BeanInfo.ICON_COLOR_16x16;

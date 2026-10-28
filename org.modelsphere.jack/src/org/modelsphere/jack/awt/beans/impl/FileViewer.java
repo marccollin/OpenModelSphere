@@ -42,19 +42,16 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.awt.beans.impl;
 
-import java.awt.Component;
-import java.awt.event.MouseEvent;
+import javax.swing.*;
+import javax.swing.event.CellEditorListener;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.EventObject;
-
-import javax.swing.JTable;
-import javax.swing.JLabel;
-import javax.swing.JFileChooser;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableCellEditor;
-import javax.swing.event.CellEditorListener;
 
 class FileViewer extends AbstractViewer {
 

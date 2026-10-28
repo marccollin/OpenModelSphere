@@ -43,15 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.Component;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JTable;
-import javax.swing.table.*;
-import javax.swing.event.*;
-
 import org.modelsphere.jack.awt.NumericTextField;
 
+import javax.swing.*;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.EventListenerList;
+import javax.swing.table.TableCellEditor;
+import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.EventObject;
 
 public class MultiLongEditor extends NumericTextField implements TableCellEditor {

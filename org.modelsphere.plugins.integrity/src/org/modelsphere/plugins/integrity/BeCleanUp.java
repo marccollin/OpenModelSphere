@@ -33,12 +33,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.integrity;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.sms.be.db.DbBEModel;
 import org.modelsphere.sms.be.db.DbBEResource;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * @author pierrem
@@ -86,8 +86,8 @@ public class BeCleanUp extends AbstractBEIntegrity {
      * Ressources non-utilisées dans les processus
      */
     private void verifyResourcesNotUsed(ArrayList aList, StringBuffer buffer) throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbBEResource semObj = (DbBEResource) (aList.get(i));
+        for (Object o : aList) {
+            DbBEResource semObj = (DbBEResource) o;
             if ((semObj.getProcessUsages() == null) || (semObj.getProcessUsages().size() == 0)) {
                 modelIntegrityReport.printError(BE_CR_RESOURCE_NOT_USED, buffer, semObj, false);
                 occurencesToClean[BE_CR_RESOURCE_NOT_USED].add(semObj);
@@ -112,7 +112,7 @@ public class BeCleanUp extends AbstractBEIntegrity {
         cleanUpSectionLinkStr = getCleanUpSectionLinkStr();
         reportMessages = getReportMessages();
         errorFlags = initializeErrorFlags();
-        workErrorFlags = (Boolean[]) errorFlags.clone();
+        workErrorFlags = errorFlags.clone();
         modelIntegrityReport = new ModelIntegrityReport(reportMessages, workErrorFlags,
                 cleanUpSectionLinkStr);
         modelIntegrityReport.setCleanUpMode(true);
@@ -120,7 +120,7 @@ public class BeCleanUp extends AbstractBEIntegrity {
         modelWarningCount = 0;
         occurencesToClean = new ArrayList[BE_CR_NB_INDEX];
         for (int i = 0; i < BE_CR_NB_INDEX; i++) {
-            occurencesToClean[i] = new ArrayList();
+            occurencesToClean[i] = new ArrayList<>();
         }
     }
 

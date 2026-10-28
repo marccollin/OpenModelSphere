@@ -42,15 +42,16 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.srtool.graphic;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
-import javax.swing.*;
-import javax.swing.event.*;
-
 import org.modelsphere.jack.baseDb.db.DbException;
-import org.modelsphere.jack.graphic.*;
+import org.modelsphere.jack.graphic.DiagramView;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.CurrentFocusListener;
+
+import javax.swing.*;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public abstract class DiagramViewInternalFrame extends JInternalFrame implements
         PropertyChangeListener, CurrentFocusListener {

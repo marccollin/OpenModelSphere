@@ -44,10 +44,13 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.awt.dirchooser;
 
 import javax.swing.*;
-import javax.swing.event.*;
-import java.awt.event.*;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import java.awt.*;
-import java.io.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileFilter;
 
 public class FileExplorer {
     public static void main(String[] argv) {

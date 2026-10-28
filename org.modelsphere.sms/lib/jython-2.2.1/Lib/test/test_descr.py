@@ -7,9 +7,9 @@
 #      at the first failure
 #    - allow specific tests to be run by specifying them on the command line
 
-from test.test_support import verify, vereq, verbose, TestFailed, TESTFN, get_original_stdout
-from copy import deepcopy
 import warnings
+from copy import deepcopy
+from test.test_support import verify, vereq, verbose, TestFailed, TESTFN, get_original_stdout
 
 warnings.filterwarnings("ignore",
          r'complex divmod\(\), // and % are deprecated$',

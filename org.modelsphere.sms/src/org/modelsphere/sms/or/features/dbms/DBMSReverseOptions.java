@@ -44,8 +44,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.or.features.dbms;
 
 //Java
-import java.util.ArrayList;
-import java.util.List;
 
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -55,6 +53,9 @@ import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectScope;
 import org.modelsphere.jack.srtool.services.ConnectionMessage;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBMSReverseOptions {
     private static final String kReverseOptions = LocaleMgr.misc.getString("ReverseOptions_");

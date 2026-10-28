@@ -43,18 +43,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.gui.wizard2;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
-
-import javax.swing.*;
-import javax.swing.border.Border;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.util.ExceptionHandler;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
 
 @SuppressWarnings("serial")
 public abstract class Wizard extends JDialog {

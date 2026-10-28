@@ -73,9 +73,9 @@ used to "move backward in time":
 """
 # XXX The docstring sucks.
 
+from math import floor as _floor
 from math import log as _log, exp as _exp, pi as _pi, e as _e
 from math import sqrt as _sqrt, acos as _acos, cos as _cos, sin as _sin
-from math import floor as _floor
 
 __all__ = ["Random","seed","random","uniform","randint","choice",
            "randrange","shuffle","normalvariate","lognormvariate",

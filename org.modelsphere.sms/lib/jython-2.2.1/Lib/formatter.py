@@ -18,10 +18,10 @@ available mechanisms for setting the properties which formatter objects
 manage and inserting data into the output.
 """
 
-import string
 import sys
 from types import StringType
 
+import string
 
 AS_IS = None
 

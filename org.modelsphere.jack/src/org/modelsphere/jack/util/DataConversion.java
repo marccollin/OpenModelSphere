@@ -43,16 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.util;
 
-import java.io.StringWriter;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.StringTokenizer;
-
 import org.modelsphere.jack.baseDb.db.srtypes.SrType;
 import org.modelsphere.jack.baseDb.db.xml.XMLConstants;
 import org.modelsphere.jack.baseDb.db.xml.XMLUtilities;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.io.UUEncoder;
+
+import java.io.StringWriter;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.StringTokenizer;
 
 /**
  * 

@@ -44,7 +44,9 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.srtool.actions;
 
 import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.CurrentProjectEvent;
 import org.modelsphere.jack.srtool.CurrentProjectListener;

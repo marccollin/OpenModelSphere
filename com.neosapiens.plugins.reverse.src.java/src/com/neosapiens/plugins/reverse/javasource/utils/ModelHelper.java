@@ -1,9 +1,5 @@
 package com.neosapiens.plugins.reverse.javasource.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -12,10 +8,13 @@ import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.DbJVClassModel;
 import org.modelsphere.sms.oo.java.db.DbJVConstructor;
 import org.modelsphere.sms.oo.java.db.DbJVDataMember;
-import org.modelsphere.sms.oo.java.db.DbJVInitBlock;
 import org.modelsphere.sms.oo.java.db.DbJVMethod;
 import org.modelsphere.sms.oo.java.db.DbJVPackage;
 import org.modelsphere.sms.oo.java.db.DbJVParameter;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class ModelHelper {
 

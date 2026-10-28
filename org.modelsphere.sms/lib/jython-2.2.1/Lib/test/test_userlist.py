@@ -2,8 +2,10 @@
 
 #imported from Python 2.3.5
 
+import test.test_support
+import unittest
 from UserList import UserList
-import unittest, test.test_support
+
 
 class UserListTest(unittest.TestCase):
 

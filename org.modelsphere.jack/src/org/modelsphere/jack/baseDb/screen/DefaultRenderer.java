@@ -43,13 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen;
 
-import java.awt.Component;
-
-import javax.swing.JLabel;
-import javax.swing.UIManager;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.screen.model.DbDescriptionModel;
@@ -57,6 +50,11 @@ import org.modelsphere.jack.baseDb.screen.model.DbListModel;
 import org.modelsphere.jack.baseDb.screen.model.ScreenModel;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.util.StringUtil;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 /**
  * The default class for rendering (displaying) individual cells in a JTable.

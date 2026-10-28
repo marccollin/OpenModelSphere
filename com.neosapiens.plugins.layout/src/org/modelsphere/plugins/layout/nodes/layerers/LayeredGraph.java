@@ -1,8 +1,18 @@
 package org.modelsphere.plugins.layout.nodes.layerers;
 
-import java.util.*;
+import org.modelsphere.jack.srtool.features.layout.graph.DummyVertex;
+import org.modelsphere.jack.srtool.features.layout.graph.Edge;
+import org.modelsphere.jack.srtool.features.layout.graph.Graph;
+import org.modelsphere.jack.srtool.features.layout.graph.Vertex;
 
-import org.modelsphere.jack.srtool.features.layout.graph.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>

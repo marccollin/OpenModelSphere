@@ -32,12 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.or.screen.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Enumeration;
-
-import javax.swing.table.AbstractTableModel;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.preference.PropertiesSet;
@@ -51,6 +45,11 @@ import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.or.oracle.db.DbORADataFile;
 import org.modelsphere.sms.or.oracle.db.DbORARedoLogFile;
 import org.modelsphere.sms.or.oracle.db.DbORARedoLogGroup;
+
+import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
 
 public class GeneratePhysicalNameModel extends AbstractTableModel {
     private static final String CONCEPTS_PARAMETERS = "CONCEPTS_PARAMETERS"; // NOT LOCALIZABLE

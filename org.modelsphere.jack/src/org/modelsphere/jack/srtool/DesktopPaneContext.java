@@ -43,21 +43,20 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool;
 
-import java.awt.Component;
-import java.awt.Point;
-import java.awt.Rectangle;
-
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
-import javax.swing.JViewport;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.preference.context.ContextComponent;
 import org.modelsphere.jack.preference.context.ContextUtils;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.graphic.DiagramInternalFrame;
-import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import javax.swing.*;
+import java.awt.*;
 
 class DesktopPaneContext implements ContextComponent {
     private static final String INTERNAL_FRAME_TAG = "internalFrame";

@@ -43,8 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.actions.AbstractMenuAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -54,7 +52,8 @@ import org.modelsphere.jack.srtool.AddElement;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
-import org.modelsphere.jack.srtool.screen.ScreenPerspective;
+
+import java.util.ArrayList;
 
 public abstract class AddAction extends AbstractMenuAction implements SelectionActionListener {
 

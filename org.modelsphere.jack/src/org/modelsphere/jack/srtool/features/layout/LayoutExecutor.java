@@ -43,13 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.features.layout;
 
+import org.modelsphere.jack.srtool.features.layout.graph.Graph;
+import org.modelsphere.jack.srtool.features.layout.graph.Node;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-
-import org.modelsphere.jack.srtool.features.layout.graph.Graph;
-import org.modelsphere.jack.srtool.features.layout.graph.Node;
 
 /**
  * The Class LayoutExecutor.

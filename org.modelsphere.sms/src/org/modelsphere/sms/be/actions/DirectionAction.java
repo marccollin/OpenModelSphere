@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.actions;
 
-import javax.swing.Icon;
-
 import org.modelsphere.jack.actions.AbstractDomainAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -46,6 +44,8 @@ import org.modelsphere.sms.SMSFilter;
 import org.modelsphere.sms.be.BEModule;
 import org.modelsphere.sms.be.db.DbBEFlow;
 import org.modelsphere.sms.be.international.LocaleMgr;
+
+import javax.swing.*;
 
 public final class DirectionAction extends AbstractDomainAction implements SelectionActionListener {
     private static final Icon kArrowImage1 = GraphicUtil.loadIcon(BEModule.class,

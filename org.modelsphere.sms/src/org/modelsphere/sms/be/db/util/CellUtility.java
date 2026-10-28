@@ -1,12 +1,8 @@
 package org.modelsphere.sms.be.db.util;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
-import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.sms.be.db.DbBEActorGo;
 import org.modelsphere.sms.be.db.DbBEContextCell;
 import org.modelsphere.sms.be.db.DbBEContextGo;
@@ -18,6 +14,8 @@ import org.modelsphere.sms.be.graphic.tool.BESelectToolCommand;
 import org.modelsphere.sms.db.srtypes.SMSHorizontalAlignment;
 import org.modelsphere.sms.db.srtypes.SMSVerticalAlignment;
 import org.modelsphere.sms.db.util.DbInitialization;
+
+import java.awt.*;
 
 public class CellUtility {
 

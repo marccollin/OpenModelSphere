@@ -57,14 +57,15 @@ example, to run all the tests except for the network tests, give the
 option '-uall,-network'.
 """
 
-import sys
-import os
-import getopt
-import traceback
-import random
 import StringIO
+import getopt
+import os
+import random
+import sys
+import traceback
 
 import test_support
+
 sys.modules['test.test_support'] = test_support
 
 # interim stuff

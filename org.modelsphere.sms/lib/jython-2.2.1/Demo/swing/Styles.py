@@ -1,5 +1,6 @@
-from pawt.swing.text import StyleContext, StyleConstants, TabSet, TabStop
 import string
+from pawt.swing.text import StyleContext, StyleConstants, TabSet, TabStop
+
 
 class Styles:
 	def __init__(self, context=None):

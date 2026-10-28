@@ -43,20 +43,20 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.io.File;
-import java.text.MessageFormat;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.baseDb.db.xml.XMLBuilder;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.FocusManager;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.io.File;
+import java.text.MessageFormat;
 
 public class ExportToXMLAction extends AbstractApplicationAction {
     private static final String SELECT = LocaleMgr.screen.getString("Select");

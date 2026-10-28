@@ -33,11 +33,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import javax.swing.JTable;
-
 import org.modelsphere.jack.baseDb.screen.plugins.MultiDbSemObjFullNameRenderer;
 import org.modelsphere.jack.srtool.list.ListTableModel;
 import org.modelsphere.jack.srtool.screen.design.DesignTableModel;
+
+import javax.swing.*;
 
 public final class MultiDbClassifierQualNameRenderer extends MultiDbSemObjFullNameRenderer {
 

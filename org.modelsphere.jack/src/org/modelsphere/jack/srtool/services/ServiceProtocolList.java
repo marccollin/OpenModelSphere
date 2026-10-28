@@ -43,9 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.services;
 
-import java.net.*;
-
 import org.modelsphere.jack.debug.Debug;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public abstract class ServiceProtocolList {
     public static final String PROPERTY_INITITIAL_PORT = "service.initial.port"; // NOT LOCALIZABLE

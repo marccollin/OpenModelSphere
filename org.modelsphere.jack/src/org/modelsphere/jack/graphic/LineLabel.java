@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic;
 
-import java.awt.*;
-
 import org.modelsphere.jack.graphic.shape.GraphicShape;
+
+import java.awt.*;
 
 public class LineLabel extends ZoneBox {
 

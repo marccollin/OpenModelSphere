@@ -89,12 +89,13 @@ Email: marco.savard@neosapiens.com
 
 package com.neosapiens.plugins.reverse.javasource;
 
+import com.neosapiens.plugins.reverse.javasource.ui.WizardParameters;
+import org.modelsphere.jack.properties.PropertySet;
+import org.modelsphere.sms.db.DbSMSProject;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import org.modelsphere.jack.properties.PropertySet;
-import org.modelsphere.sms.db.DbSMSProject;
-import com.neosapiens.plugins.reverse.javasource.ui.WizardParameters;
 
 
 public class ReverseJavaSourcecodeParameters extends WizardParameters {

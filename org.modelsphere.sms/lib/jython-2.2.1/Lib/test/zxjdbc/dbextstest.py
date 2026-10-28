@@ -5,8 +5,12 @@
 #
 # Copyright (c) 2001 brian zimmer <bzimmer@ziclix.com>
 
-import dbexts, runner, tempfile, os
+import dbexts
+import os
+import runner
+import tempfile
 from random import random
+
 
 class dbextsTestCase(runner.SQLTestCase):
 

@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.features.layout;
 
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.geom.Dimension2D;
 
 /**

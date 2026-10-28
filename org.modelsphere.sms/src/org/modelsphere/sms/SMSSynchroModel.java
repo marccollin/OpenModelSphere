@@ -43,10 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
@@ -69,6 +65,10 @@ import org.modelsphere.sms.or.db.DbORForeign;
 import org.modelsphere.sms.or.db.DbORIndex;
 import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 import org.modelsphere.sms.preference.DirectoryOptionGroup;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public abstract class SMSSynchroModel extends SMSIntegrateModel {
 

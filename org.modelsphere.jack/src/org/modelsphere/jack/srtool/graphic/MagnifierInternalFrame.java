@@ -43,12 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.graphic;
 
-import javax.swing.*;
-
-import org.modelsphere.jack.graphic.*;
+import org.modelsphere.jack.graphic.DiagramView;
+import org.modelsphere.jack.graphic.MagnifierView;
 import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
 
 public class MagnifierInternalFrame extends DiagramViewInternalFrame {
     private float zoomFactor = 1.0f;

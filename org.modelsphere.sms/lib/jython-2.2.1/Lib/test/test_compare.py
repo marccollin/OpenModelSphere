@@ -1,6 +1,5 @@
 import sys
 
-from test_support import *
 
 class Empty:
     def __repr__(self):

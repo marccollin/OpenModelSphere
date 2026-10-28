@@ -43,10 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse;
 
-import java.io.IOException;
-
 import org.modelsphere.jack.debug.Debug;
-import org.modelsphere.jack.srtool.reverse.Actions;
+
+import java.io.IOException;
 
 public final class TargetObjectBuilder extends ObjectBuilder {
 

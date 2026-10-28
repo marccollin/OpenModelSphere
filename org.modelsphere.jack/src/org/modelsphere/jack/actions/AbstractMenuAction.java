@@ -43,9 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.actions;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
-
-import javax.swing.Icon;
 
 // Currently supported for Toolbar only
 

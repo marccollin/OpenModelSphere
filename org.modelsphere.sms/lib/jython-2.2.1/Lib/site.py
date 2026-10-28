@@ -57,7 +57,9 @@ ImportError exception, it is silently ignored.
 
 """
 
-import sys, os
+import os
+import sys
+
 
 def makepath(*paths):
     dir = os.path.join(*paths)

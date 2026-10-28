@@ -3,8 +3,9 @@
 """Classes to handle Unix style, MMDF style, and MH style mailboxes."""
 
 
-import rfc822
 import os
+
+import rfc822
 
 __all__ = ["UnixMailbox","MmdfMailbox","MHMailbox","Maildir","BabylMailbox",
            "PortableUnixMailbox"]

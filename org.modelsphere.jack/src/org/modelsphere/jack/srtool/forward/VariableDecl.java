@@ -43,14 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
-import java.util.Locale;
-
 import org.modelsphere.jack.srtool.forward.exceptions.AlreadyDefinedVariableRuleException;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.text.MessageFormat;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.StringTokenizer;
 
 public final class VariableDecl implements Serializable {
     public static final int BOOLEAN = 1;

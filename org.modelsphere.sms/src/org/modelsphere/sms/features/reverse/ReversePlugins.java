@@ -33,9 +33,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.features.reverse;
 
-import java.util.Vector;
-
 import org.modelsphere.jack.baseDb.db.DbProject;
+
+import java.util.Vector;
 
 public final class ReversePlugins extends org.modelsphere.jack.srtool.reverse.file.ReversePlugins {
 

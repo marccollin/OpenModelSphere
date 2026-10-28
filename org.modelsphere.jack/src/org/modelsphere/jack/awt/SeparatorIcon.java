@@ -43,11 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-
-import javax.swing.ImageIcon;
+import javax.swing.*;
+import java.awt.*;
 
 public class SeparatorIcon extends ImageIcon {
     private static final int HEIGHT = 3;

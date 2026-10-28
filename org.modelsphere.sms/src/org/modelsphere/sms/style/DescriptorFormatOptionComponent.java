@@ -33,16 +33,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.style;
 
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.sms.international.LocaleMgr;
 import org.modelsphere.sms.or.db.srtypes.ORDescriptorFormat;
+
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
 
 public class DescriptorFormatOptionComponent extends OptionComponent {
 

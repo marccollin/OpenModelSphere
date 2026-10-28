@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.File;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
+
+import java.io.File;
 
 public interface ForwardOptions {
     public void setObjects(DbObject[] objects);

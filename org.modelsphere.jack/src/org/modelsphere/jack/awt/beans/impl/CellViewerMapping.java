@@ -43,13 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.beans.impl;
 
-import java.awt.Image;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
 
 final class CellViewerMapping {
     private Map<Class<?>, Class<? extends AbstractViewer>> m_mapping = new HashMap<>();

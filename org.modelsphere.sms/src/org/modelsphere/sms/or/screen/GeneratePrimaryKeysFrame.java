@@ -1,25 +1,5 @@
 package org.modelsphere.sms.or.screen;
 
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.util.DefaultComparableElement;
 import org.modelsphere.sms.db.DbSMSTargetSystem;
@@ -27,6 +7,12 @@ import org.modelsphere.sms.or.db.DbORBuiltInType;
 import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.db.util.PrimaryKey;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 public class GeneratePrimaryKeysFrame extends JDialog implements ActionListener {
     private DbORDataModel m_dataModel;

@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.zone;
 
-import java.awt.*;
-
 import org.modelsphere.jack.graphic.DiagramView;
+
+import java.awt.*;
 
 public abstract class AbstractSelectionCellRenderer implements CellRenderer {
 

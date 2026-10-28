@@ -43,13 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.zone;
 
-import java.awt.*;
-import java.awt.event.*;
+import org.modelsphere.jack.graphic.Diagram;
+import org.modelsphere.jack.graphic.DiagramView;
+import org.modelsphere.jack.graphic.ZoneBox;
+import org.modelsphere.jack.util.StringUtil;
+
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
-
-import org.modelsphere.jack.graphic.*;
-import org.modelsphere.jack.util.StringUtil;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public abstract class TextAreaCellEditor implements CellEditor {
 

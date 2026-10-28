@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.file;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /* parameters for the reverse */
 

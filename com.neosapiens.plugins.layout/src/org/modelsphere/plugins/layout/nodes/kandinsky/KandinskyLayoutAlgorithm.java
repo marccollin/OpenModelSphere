@@ -22,11 +22,6 @@
  */
 package org.modelsphere.plugins.layout.nodes.kandinsky;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.srtool.features.layout.LayoutException;
 import org.modelsphere.jack.srtool.features.layout.NodesLayoutAlgorithm;
 import org.modelsphere.jack.srtool.features.layout.graph.Graph;
@@ -36,6 +31,10 @@ import org.modelsphere.plugins.layout.nodes.kandinsky.planarization.UpwardPlaneS
 import org.modelsphere.plugins.layout.nodes.kandinsky.struct.AbsoluteKandinskyShape;
 import org.modelsphere.plugins.layout.nodes.kandinsky.struct.Label;
 import org.modelsphere.plugins.layout.nodes.kandinsky.struct.LoopEdgeRef;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Definitions :

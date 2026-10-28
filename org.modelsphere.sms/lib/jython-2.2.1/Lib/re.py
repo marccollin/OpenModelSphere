@@ -4,7 +4,9 @@ __all__ = [ "match", "search", "sub", "subn", "split", "findall",
     "U", "IGNORECASE", "LOCALE", "MULTILINE", "DOTALL", "VERBOSE",
     "UNICODE", "error" ]
 
-import sre, sys
+import sre
+import sys
+
 module = sys.modules['re']
 for name in __all__:
     setattr(module, name, getattr(sre, name))

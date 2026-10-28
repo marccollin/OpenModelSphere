@@ -43,11 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaRelationship;
+
+import java.util.List;
 
 /**
  * Defines an interface to apply customisation operations when of each copied instance when

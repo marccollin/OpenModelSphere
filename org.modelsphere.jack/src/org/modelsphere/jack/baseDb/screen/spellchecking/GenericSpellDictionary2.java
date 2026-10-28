@@ -19,14 +19,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 package org.modelsphere.jack.baseDb.screen.spellchecking;
 
-import java.io.*;
+import com.swabunga.spell.engine.SpellDictionaryASpell;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
-
-import com.swabunga.spell.engine.SpellDictionaryASpell;
 
 /**
  * The SpellDictionary class holds the instance of the dictionary.

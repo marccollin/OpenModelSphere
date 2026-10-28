@@ -1,6 +1,6 @@
 package org.modelsphere.plugins.layout.clusters.arevalo;
 
-import java.awt.Rectangle;
+import java.awt.*;
 
 /**
  * A bounds is the dimension of a cluster and his position in the diagram.

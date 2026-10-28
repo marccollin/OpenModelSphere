@@ -43,6 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins.io;
 
+import org.modelsphere.jack.plugins.Plugin;
+import org.modelsphere.jack.plugins.PluginDescriptor;
+import org.modelsphere.jack.srtool.forward.Rule;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -54,10 +58,6 @@ import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
-
-import org.modelsphere.jack.plugins.Plugin;
-import org.modelsphere.jack.plugins.PluginDescriptor;
-import org.modelsphere.jack.srtool.forward.Rule;
 
 public class ClassPluginLoader extends JARPluginLoader {
 

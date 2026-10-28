@@ -43,15 +43,19 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.file;
 
-import java.util.*;
-
-import org.modelsphere.jack.awt.*;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.awt.ExtensionFileFilter;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.jack.gui.task.DefaultController;
-import org.modelsphere.jack.plugins.*;
+import org.modelsphere.jack.plugins.PluginMgr;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
 
 public abstract class ReversePlugins {
     private static final String ERROR_DETAILS = org.modelsphere.jack.international.LocaleMgr.message

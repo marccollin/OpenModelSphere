@@ -43,15 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.actions;
 
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.Random;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.awt.JackPopupMenu;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.debug.Debug;
@@ -65,6 +56,14 @@ import org.modelsphere.jack.srtool.SelectionListener;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;
 import org.modelsphere.jack.util.SrVector;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.Random;
 
 /**
  * 

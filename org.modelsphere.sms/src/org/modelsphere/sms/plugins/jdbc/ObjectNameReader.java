@@ -33,13 +33,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.jdbc; //org.modelsphere.jack.srtool.reverse;
 
+import org.modelsphere.jack.io.LexerStream;
+import org.modelsphere.jack.srtool.reverse.InputReadable;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
-
-import org.modelsphere.jack.io.LexerStream;
-import org.modelsphere.jack.srtool.reverse.InputReadable;
 
 public final class ObjectNameReader implements InputReadable {
     // ObjectBuilder builder;

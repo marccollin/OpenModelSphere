@@ -45,7 +45,10 @@ package org.modelsphere.jack.baseDb.db;
 
 import org.modelsphere.jack.baseDb.db.srtypes.ZoneJustification;
 import org.modelsphere.jack.baseDb.international.LocaleMgr;
-import org.modelsphere.jack.baseDb.meta.*;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelation1;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
 
 /**
  * Defines display attributes of a single zone for graphical objects. A single zone contains only

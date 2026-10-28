@@ -45,7 +45,8 @@ package org.modelsphere.jack.srtool.actions;
 
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
-import org.modelsphere.jack.srtool.reverse.jdbc.*;
+import org.modelsphere.jack.srtool.reverse.jdbc.ActiveConnectionListener;
+import org.modelsphere.jack.srtool.reverse.jdbc.ActiveConnectionManager;
 import org.modelsphere.jack.srtool.services.ConnectionMessage;
 
 public class ConnectAction extends AbstractApplicationAction implements ActiveConnectionListener {

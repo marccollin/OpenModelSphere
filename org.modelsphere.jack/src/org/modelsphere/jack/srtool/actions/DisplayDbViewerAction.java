@@ -44,7 +44,7 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.srtool.actions;
 
 import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.baseDb.objectviewer.*;
+import org.modelsphere.jack.baseDb.objectviewer.Viewer;
 import org.modelsphere.jack.srtool.ApplicationContext;
 
 public final class DisplayDbViewerAction extends AbstractApplicationAction {

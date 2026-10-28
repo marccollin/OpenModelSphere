@@ -3,8 +3,11 @@
     taken mostly from the documentation.
     Roger E. Masse
 """
+import GL
+import gl
+import time
+
 from test_support import verbose, TestSkipped
-import gl, GL, time
 
 glattrs = ['RGBcolor', 'RGBcursor', 'RGBmode', 'RGBrange', 'RGBwritemask',
 '__doc__', '__name__', 'addtopup', 'altgetmatrix', 'arc', 'arcf',

@@ -43,10 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.FlowLayout;
-
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 public class ToolBarPanel extends JPanel {
     public ToolBarPanel() {

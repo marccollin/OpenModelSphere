@@ -32,25 +32,10 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.features.startupwizard;
 
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-
-import javax.swing.Icon;
-import javax.swing.JScrollPane;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
-
 import eu.essilab.lablib.checkboxtree.CheckboxTree;
 import eu.essilab.lablib.checkboxtree.DefaultCheckboxTreeCellRenderer;
-import eu.essilab.lablib.checkboxtree.TreeCheckingModel;
 import eu.essilab.lablib.checkboxtree.DefaultTreeCheckingModel;
-
+import eu.essilab.lablib.checkboxtree.TreeCheckingModel;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.gui.wizard2.AbstractPage;
 import org.modelsphere.jack.gui.wizard2.SectionHeader;
@@ -58,6 +43,21 @@ import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.jack.util.FileUtils;
 import org.modelsphere.sms.features.international.LocaleMgr;
 import org.modelsphere.sms.oo.java.db.DbJVPackage;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 @SuppressWarnings("serial")
 class UMLClassPackagePage extends AbstractPage {

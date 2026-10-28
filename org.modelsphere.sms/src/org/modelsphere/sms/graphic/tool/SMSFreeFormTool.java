@@ -33,11 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.graphic.tool;
 
-import java.awt.Cursor;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.graphic.GraphicUtil;
 import org.modelsphere.jack.graphic.tool.ButtonSelectionPanelTool;
@@ -47,6 +42,9 @@ import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.db.DbSMSFreeFormGo;
 import org.modelsphere.sms.db.srtypes.SMSFreeForm;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class SMSFreeFormTool extends ButtonSelectionPanelTool {
 

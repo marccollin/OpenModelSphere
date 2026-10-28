@@ -43,6 +43,23 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.dbms;
 
+import org.modelsphere.jack.debug.Debug;
+import org.modelsphere.jack.gui.task.Controller;
+import org.modelsphere.jack.gui.task.Worker;
+import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectScope;
+import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectSelection;
+import org.modelsphere.jack.srtool.plugins.generic.dbms.UserInfo;
+import org.modelsphere.jack.srtool.reverse.Actions;
+import org.modelsphere.jack.srtool.reverse.InputFileParser;
+import org.modelsphere.jack.srtool.reverse.SQLLexerStream;
+import org.modelsphere.jack.srtool.reverse.TargetObjectBuilder;
+import org.modelsphere.jack.srtool.reverse.engine.ReverseBuilder;
+import org.modelsphere.jack.srtool.services.ConnectionMessage;
+import org.modelsphere.jack.srtool.services.ServiceProtocolList;
+import org.modelsphere.jack.srtool.services.StatementMessage;
+import org.modelsphere.sms.or.db.DbORUser;
+import org.modelsphere.sms.or.international.LocaleMgr;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -62,23 +79,6 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.StringTokenizer;
-
-import org.modelsphere.jack.debug.Debug;
-import org.modelsphere.jack.gui.task.Controller;
-import org.modelsphere.jack.gui.task.Worker;
-import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectScope;
-import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectSelection;
-import org.modelsphere.jack.srtool.plugins.generic.dbms.UserInfo;
-import org.modelsphere.jack.srtool.reverse.Actions;
-import org.modelsphere.jack.srtool.reverse.InputFileParser;
-import org.modelsphere.jack.srtool.reverse.SQLLexerStream;
-import org.modelsphere.jack.srtool.reverse.TargetObjectBuilder;
-import org.modelsphere.jack.srtool.reverse.engine.ReverseBuilder;
-import org.modelsphere.jack.srtool.services.ConnectionMessage;
-import org.modelsphere.jack.srtool.services.ServiceProtocolList;
-import org.modelsphere.jack.srtool.services.StatementMessage;
-import org.modelsphere.sms.or.db.DbORUser;
-import org.modelsphere.sms.or.international.LocaleMgr;
 
 public class DBMSReverseWorker extends Worker {
     private static final String kReverseJobSynchro = LocaleMgr.misc.getString("ReverseInSynchro");

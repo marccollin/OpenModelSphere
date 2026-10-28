@@ -43,15 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins.io;
 
-import java.net.URL;
-import java.util.HashMap;
-import java.util.ResourceBundle;
-
-import javax.swing.Action;
-
 import org.modelsphere.jack.plugins.Plugin;
 import org.modelsphere.jack.plugins.Plugin2;
 import org.modelsphere.jack.preference.OptionGroup;
+
+import javax.swing.*;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.ResourceBundle;
 
 public class PluginContext {
     public static final String STATUS_TEXT = "PluginContext.status";

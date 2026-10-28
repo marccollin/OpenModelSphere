@@ -43,20 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.popupMenu;
 
-import java.util.HashSet;
-import java.util.HashMap;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.awt.Component;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.Action;
-
-import org.modelsphere.jack.actions.*;
+import org.modelsphere.jack.actions.AbstractActionsStore;
+import org.modelsphere.jack.actions.AbstractApplicationAction;
+import org.modelsphere.jack.actions.ActionInformation;
+import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.actions.util.DbMultiTrans;
-import org.modelsphere.jack.awt.*;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.awt.JackMenu;
+import org.modelsphere.jack.awt.JackPopupMenu;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.plugins.PluginAction;
@@ -70,6 +66,14 @@ import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.jack.util.SrVector;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 
 public abstract class ApplicationPopupMenu {
 

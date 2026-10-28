@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.actions.AbstractDomainAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -46,6 +44,8 @@ import org.modelsphere.sms.SMSFilter;
 import org.modelsphere.sms.be.db.DbBENotation;
 import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.util.ArrayList;
 
 public final class SetProjectDefaultBENotationAction extends AbstractDomainAction implements
         SelectionActionListener {

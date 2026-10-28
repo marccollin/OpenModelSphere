@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import javax.swing.*;
-
 import org.modelsphere.jack.baseDb.screen.MultiDefaultRenderer;
+
+import javax.swing.*;
 
 // This one will not be used
 

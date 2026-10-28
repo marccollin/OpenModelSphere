@@ -1,8 +1,5 @@
 package com.neosapiens.plugins.reverse.javasource.diagrams;
 
-import java.awt.Point;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.graphic.GraphicComponent;
@@ -12,6 +9,9 @@ import org.modelsphere.sms.oo.db.DbOODiagram;
 import org.modelsphere.sms.oo.java.db.DbJVClassModel;
 import org.modelsphere.sms.oo.java.db.DbJVPackage;
 import org.modelsphere.sms.oo.java.graphic.JVDiagramLayout;
+
+import java.awt.*;
+import java.util.List;
 
 public class DiagramCreator {
 

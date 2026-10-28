@@ -42,12 +42,12 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.baseDb.util;
 
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
-
-import org.modelsphere.jack.baseDb.db.DbException;
-import org.modelsphere.jack.baseDb.db.DbObject;
 
 /**
  * @author Grandite

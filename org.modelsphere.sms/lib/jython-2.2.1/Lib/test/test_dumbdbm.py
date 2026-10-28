@@ -3,11 +3,12 @@
    Original by Roger E. Masse
 """
 
-import os
-import test_support
-import unittest
 import dumbdbm
+import os
 import tempfile
+import unittest
+
+import test_support
 
 _fname = tempfile.mktemp()
 

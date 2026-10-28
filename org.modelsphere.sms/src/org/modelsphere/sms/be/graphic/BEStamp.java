@@ -33,10 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.graphic;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbProject;
@@ -53,8 +49,6 @@ import org.modelsphere.jack.graphic.zone.ImageCellRenderer;
 import org.modelsphere.jack.graphic.zone.MatrixZone;
 import org.modelsphere.jack.graphic.zone.StringCellRenderer;
 import org.modelsphere.jack.graphic.zone.ZoneCell;
-import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.graphic.DbTextAreaCellEditor;
 import org.modelsphere.jack.srtool.graphic.DbTextFieldCellEditor;
 import org.modelsphere.jack.srtool.graphic.Stamp;
@@ -62,6 +56,8 @@ import org.modelsphere.sms.be.international.LocaleMgr;
 import org.modelsphere.sms.db.DbSMSPackage;
 import org.modelsphere.sms.db.DbSMSStampGo;
 import org.modelsphere.sms.graphic.ImageCellEditor;
+
+import java.awt.*;
 
 public class BEStamp extends Stamp implements DbRefreshListener {
 

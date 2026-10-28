@@ -1,7 +1,9 @@
-import unittest
-from test_support import run_unittest, TESTFN
 import glob
 import os
+import unittest
+
+from test_support import run_unittest, TESTFN
+
 
 def mkdirs(fname):
     if os.path.exists(fname) or fname == '':

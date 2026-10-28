@@ -43,16 +43,21 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.services;
 
-import java.io.*;
-import java.sql.*;
-import java.util.HashMap;
-import java.util.Properties;
-
 import org.modelsphere.jack.preference.DriverInfo;
 import org.modelsphere.jack.preference.DriversManager;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
-import org.modelsphere.jack.srtool.services.ConnectionMessage;
-import org.modelsphere.jack.srtool.services.ConnectionServiceProtocol;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Properties;
 
 /**
  * 

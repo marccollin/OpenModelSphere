@@ -43,9 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import org.modelsphere.jack.actions.AbstractApplicationAction;
+import org.modelsphere.jack.actions.AbstractDomainAction;
+import org.modelsphere.jack.actions.AbstractMenuAction;
+import org.modelsphere.jack.srtool.AddElement;
+import org.modelsphere.jack.srtool.list.ListDescriptor;
+
+import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -53,16 +60,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.*;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
-
-import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.actions.AbstractDomainAction;
-import org.modelsphere.jack.actions.AbstractMenuAction;
-import org.modelsphere.jack.srtool.AddElement;
-import org.modelsphere.jack.srtool.list.ListDescriptor;
 
 /**
  * This class define a component for supporting the AbstractDomainAction in a JackMenu. See

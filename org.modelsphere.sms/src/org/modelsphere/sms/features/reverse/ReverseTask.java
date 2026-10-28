@@ -34,12 +34,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.features.reverse;
 
 //Java
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Vector;
 
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -50,6 +44,13 @@ import org.modelsphere.sms.MainFrame;
 import org.modelsphere.sms.oo.db.DbOOAbstractMethod;
 import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.DbJVCompilationUnit;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Vector;
 
 public final class ReverseTask extends org.modelsphere.jack.srtool.reverse.file.ReverseTask {
 

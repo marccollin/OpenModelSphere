@@ -33,11 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.awt.Color;
-import java.util.ArrayList;
-
-import javax.swing.Icon;
-
 import org.modelsphere.jack.actions.AbstractColorDomainAction;
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.actions.util.DbMultiTrans;
@@ -51,6 +46,10 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.graphic.DiagramImage;
 import org.modelsphere.sms.db.DbSMSGraphicalObject;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class AbstractColorAction extends AbstractColorDomainAction /*
                                                                              * implements

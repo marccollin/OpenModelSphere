@@ -42,15 +42,18 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.baseDb.assistant;
 
-import java.io.*;
-import java.net.URL;
-import java.util.Vector;
-
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.util.DirectoryScanner;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.StreamTokenizer;
+import java.net.URL;
+import java.util.Vector;
 
 public class JSearch {
 

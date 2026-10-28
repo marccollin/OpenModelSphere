@@ -33,11 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.graphic.tool;
 
-import java.awt.Cursor;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Toolkit;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -68,6 +63,8 @@ import org.modelsphere.sms.be.graphic.BEStoreBox;
 import org.modelsphere.sms.be.graphic.BEUseCaseBox;
 import org.modelsphere.sms.be.international.LocaleMgr;
 import org.modelsphere.sms.db.DbSMSSemanticalObject;
+
+import java.awt.*;
 
 public final class BEQualifierSetLinksTool extends LinkUnlinkTool {
     private static final String kTransName = LocaleMgr.misc.getString("LinkQualifier");

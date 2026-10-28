@@ -43,24 +43,27 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.*;
-import java.awt.print.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import org.modelsphere.jack.international.LocaleMgr;
 
-import javax.swing.JEditorPane;
+import javax.swing.*;
 import javax.swing.text.ChangedCharSetException;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.html.HTML;
 import javax.swing.text.html.parser.DTD;
 import javax.swing.text.html.parser.Parser;
 import javax.swing.text.html.parser.TagElement;
-
-import org.modelsphere.jack.international.LocaleMgr;
+import java.awt.*;
+import java.awt.print.PageFormat;
+import java.awt.print.Pageable;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public final class JTextComponentPrintManager implements Printable, Pageable, Runnable {
 

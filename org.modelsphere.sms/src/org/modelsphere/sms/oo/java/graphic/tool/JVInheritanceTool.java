@@ -32,9 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.oo.java.graphic.tool;
 
-import java.awt.Image;
-import java.awt.Polygon;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -55,6 +52,8 @@ import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.DbJVInheritance;
 import org.modelsphere.sms.oo.java.graphic.AdtBox;
 import org.modelsphere.sms.oo.java.international.LocaleMgr;
+
+import java.awt.*;
 
 public class JVInheritanceTool extends JVLineTool {
     public static final String kInheritanceCreationTool = LocaleMgr.screen

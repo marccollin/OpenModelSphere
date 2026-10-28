@@ -43,7 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.db.srtypes;
 
-import org.modelsphere.jack.baseDb.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.srtypes.DbtAbstract;
+import org.modelsphere.jack.baseDb.db.srtypes.Domain;
+import org.modelsphere.jack.baseDb.db.srtypes.IntDomain;
 import org.modelsphere.sms.international.LocaleMgr;
 
 public class SMSStyleCategory extends IntDomain {

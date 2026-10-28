@@ -33,12 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.graphic.tool;
 
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.util.Locale;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -75,6 +69,9 @@ import org.modelsphere.sms.or.graphic.ORChoiceSpecialization;
 import org.modelsphere.sms.or.graphic.ORTableBox;
 import org.modelsphere.sms.or.graphic.ORView;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import java.awt.*;
+import java.util.Locale;
 
 public class ORAssociationTool extends LineTool {
     public static final String kAssociationCreationTool = LocaleMgr.screen

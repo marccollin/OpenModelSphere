@@ -33,10 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.features.reverse;
 
-import java.io.File;
-import java.io.StringWriter;
-import java.util.*;
-
 import org.modelsphere.jack.actions.AbstractActionsStore;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -58,6 +54,13 @@ import org.modelsphere.sms.oo.db.DbOODiagram;
 import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.DbJVClassModel;
 import org.modelsphere.sms.oo.java.db.DbJVCompilationUnit;
+
+import java.io.File;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Map;
+import java.util.Vector;
 
 public class ConcreteReverser extends AbstractReverser {
 

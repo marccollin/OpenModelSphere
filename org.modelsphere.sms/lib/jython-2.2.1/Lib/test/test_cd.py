@@ -3,6 +3,7 @@
    Roger E. Masse
 """
 import cd
+
 from test_support import verbose
 
 cdattrs = ['BLOCKSIZE', 'CDROM', 'DATASIZE', 'ERROR', 'NODISC', 'PAUSED', 'PLAYING', 'READY',

@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.plugins.generic.dbms;
 
-import java.util.*;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
+
+import java.util.ArrayList;
 
 public class UserInfo {
     public String username;

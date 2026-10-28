@@ -43,10 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.features.layout.graph;
 
-import java.awt.Polygon;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
+
+import java.awt.*;
 
 /**
  * The Class Edge.

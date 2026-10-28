@@ -33,15 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.graphic.tool;
 
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.text.MessageFormat;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -66,6 +57,10 @@ import org.modelsphere.sms.be.text.BETextUtil;
 import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.db.DbSMSPackage;
 import org.modelsphere.sms.db.util.DbInitialization;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.MessageFormat;
 
 public class BEStoreTool extends BEContextTool {
     private String m_actionName;

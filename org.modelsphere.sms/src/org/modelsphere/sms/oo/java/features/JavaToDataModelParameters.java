@@ -1,8 +1,5 @@
 package org.modelsphere.sms.oo.java.features;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
@@ -14,6 +11,9 @@ import org.modelsphere.sms.db.DbSMSTargetSystem;
 import org.modelsphere.sms.oo.java.db.DbJVClassModel;
 import org.modelsphere.sms.oo.java.db.DbJVPrimitiveType;
 import org.modelsphere.sms.or.db.DbORBuiltInType;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class JavaToDataModelParameters {
     public DbJVClassModel classModel;

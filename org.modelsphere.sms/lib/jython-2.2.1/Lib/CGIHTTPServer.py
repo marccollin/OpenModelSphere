@@ -23,10 +23,11 @@ __all__ = ["CGIHTTPRequestHandler"]
 
 import os
 import sys
-import urllib
+
 import BaseHTTPServer
 import SimpleHTTPServer
 import select
+import urllib
 
 
 class CGIHTTPRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):

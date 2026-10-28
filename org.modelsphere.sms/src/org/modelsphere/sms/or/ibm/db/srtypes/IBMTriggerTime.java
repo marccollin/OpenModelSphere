@@ -42,7 +42,9 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.or.ibm.db.srtypes;
 
-import org.modelsphere.jack.baseDb.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.srtypes.DbtAbstract;
+import org.modelsphere.jack.baseDb.db.srtypes.Domain;
+import org.modelsphere.jack.baseDb.db.srtypes.IntDomain;
 import org.modelsphere.sms.or.ibm.international.LocaleMgr;
 
 public class IBMTriggerTime extends IntDomain {

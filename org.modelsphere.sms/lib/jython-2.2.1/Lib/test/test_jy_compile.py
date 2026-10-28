@@ -2,6 +2,7 @@
  test compile. derived from test_codeop
 """
 import unittest
+
 from test_support import run_unittest
 
 

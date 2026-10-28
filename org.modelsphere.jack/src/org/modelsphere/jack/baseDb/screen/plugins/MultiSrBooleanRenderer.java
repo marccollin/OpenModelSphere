@@ -43,10 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import javax.swing.*;
-
 import org.modelsphere.jack.baseDb.screen.MultiDefaultRenderer;
 import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
 
 public class MultiSrBooleanRenderer extends MultiDefaultRenderer {
 

@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.services;
 
-import java.util.*;
-
 import org.modelsphere.jack.services.ServiceMessage;
+
+import java.util.ArrayList;
 
 public class StatementMessage extends ServiceMessage {
     public int connectionId; // in

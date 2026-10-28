@@ -43,19 +43,26 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.Component;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.Collection;
-import java.util.ArrayList;
-import javax.swing.JButton;
-
 import org.modelsphere.jack.awt.AbstractTableCellEditor;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.screen.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.screen.DbLookupDialog;
+import org.modelsphere.jack.baseDb.screen.DefaultRenderer;
+import org.modelsphere.jack.baseDb.screen.Editor;
+import org.modelsphere.jack.baseDb.screen.Renderer;
+import org.modelsphere.jack.baseDb.screen.ScreenView;
 import org.modelsphere.jack.baseDb.screen.model.ScreenModel;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.util.DefaultComparableElement;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public abstract class DbSemanticalObjectEditor implements Editor, ActionListener {
 

@@ -32,15 +32,14 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.oo.java.graphic.tool;
 
-import java.awt.Image;
-import java.awt.Polygon;
-
 import org.modelsphere.jack.graphic.GraphicNode;
 import org.modelsphere.jack.graphic.GraphicUtil;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.sms.oo.db.srtypes.OOAggregation;
 import org.modelsphere.sms.oo.java.graphic.AdtBox;
 import org.modelsphere.sms.oo.java.international.LocaleMgr;
+
+import java.awt.*;
 
 public class JVAssociationTool extends JVLineTool {
     public static final String kAssociationCreationTool = LocaleMgr.screen

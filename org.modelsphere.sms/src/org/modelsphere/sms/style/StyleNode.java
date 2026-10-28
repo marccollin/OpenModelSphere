@@ -33,11 +33,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.style;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.sms.db.DbSMSStyle;
+
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class StyleNode extends DefaultMutableTreeNode implements Comparable {
 

@@ -45,7 +45,9 @@ open-modelsphere@grandite.com
 // LOCAL
 package org.modelsphere.sms.or.oracle.db.srtypes;
 
-import org.modelsphere.jack.baseDb.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.srtypes.DbtAbstract;
+import org.modelsphere.jack.baseDb.db.srtypes.Domain;
+import org.modelsphere.jack.baseDb.db.srtypes.IntDomain;
 import org.modelsphere.sms.or.oracle.international.LocaleMgr;
 
 public class ORACategory extends IntDomain {

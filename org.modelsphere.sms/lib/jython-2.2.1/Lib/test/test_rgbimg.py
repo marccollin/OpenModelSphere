@@ -1,8 +1,11 @@
 # Testing rgbimg module
 
-import rgbimg, os, uu
+import os
+import rgbimg
+import uu
 
 from test_support import verbose, unlink, findfile
+
 
 class error(Exception):
     pass

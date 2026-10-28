@@ -18,44 +18,32 @@ _defaulttimeout = None
 
 import errno
 import jarray
-import string
-import sys
-import threading
-import time
-import types
-
-# Java.io classes 
+# Java.io classes
 import java.io.BufferedInputStream
 import java.io.BufferedOutputStream
+import java.io.IOException
 # Java.io exceptions
 import java.io.InterruptedIOException
-import java.io.IOException
-
-# Java.lang classes
-import java.lang.String
 # Java.lang exceptions
 import java.lang.Exception
-
+# Java.lang classes
+import java.lang.String
+# Java.net exceptions
+import java.net.BindException
+import java.net.ConnectException
 # Java.net classes
 import java.net.DatagramPacket
 import java.net.InetAddress
 import java.net.InetSocketAddress
-import java.net.Socket
-# Java.net exceptions
-import java.net.BindException
-import java.net.ConnectException
 import java.net.NoRouteToHostException
 import java.net.PortUnreachableException
 import java.net.ProtocolException
+import java.net.Socket
 import java.net.SocketException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-
 # Java.nio classes
 import java.nio.ByteBuffer
-import java.nio.channels.DatagramChannel
-import java.nio.channels.ServerSocketChannel
-import java.nio.channels.SocketChannel
 # Java.nio exceptions
 import java.nio.channels.AlreadyConnectedException
 import java.nio.channels.AsynchronousCloseException
@@ -64,6 +52,7 @@ import java.nio.channels.ClosedByInterruptException
 import java.nio.channels.ClosedChannelException
 import java.nio.channels.ClosedSelectorException
 import java.nio.channels.ConnectionPendingException
+import java.nio.channels.DatagramChannel
 import java.nio.channels.IllegalBlockingModeException
 import java.nio.channels.IllegalSelectorException
 import java.nio.channels.NoConnectionPendingException
@@ -71,11 +60,16 @@ import java.nio.channels.NonReadableChannelException
 import java.nio.channels.NonWritableChannelException
 import java.nio.channels.NotYetBoundException
 import java.nio.channels.NotYetConnectedException
+import java.nio.channels.ServerSocketChannel
+import java.nio.channels.SocketChannel
 import java.nio.channels.UnresolvedAddressException
 import java.nio.channels.UnsupportedAddressTypeException
-
 import javax.net.ssl.SSLSocketFactory
 import org.python.core.PyFile
+import sys
+import time
+import types
+
 
 class error(Exception): pass
 class herror(error): pass

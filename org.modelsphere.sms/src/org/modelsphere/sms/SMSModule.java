@@ -33,21 +33,44 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.graphic.GraphicComponent;
 import org.modelsphere.jack.graphic.LineLabel;
 import org.modelsphere.jack.graphic.ZoneBox;
 import org.modelsphere.jack.srtool.features.layout.GraphFactory;
-import org.modelsphere.jack.srtool.graphic.*;
+import org.modelsphere.jack.srtool.graphic.DbGraphic;
+import org.modelsphere.jack.srtool.graphic.DiagramImage;
+import org.modelsphere.jack.srtool.graphic.FreeText;
+import org.modelsphere.jack.srtool.graphic.SrLine;
+import org.modelsphere.jack.srtool.graphic.Stamp;
 import org.modelsphere.jack.srtool.popupMenu.DbPopupMenu;
 import org.modelsphere.jack.srtool.popupMenu.StampPopupMenu;
 import org.modelsphere.jack.srtool.popupMenu.TextItemPopupMenu;
-import org.modelsphere.sms.db.*;
+import org.modelsphere.sms.db.ApplClasses;
+import org.modelsphere.sms.db.DbSMSDiagram;
+import org.modelsphere.sms.db.DbSMSFreeFormGo;
+import org.modelsphere.sms.db.DbSMSFreeGraphicGo;
+import org.modelsphere.sms.db.DbSMSFreeLineGo;
+import org.modelsphere.sms.db.DbSMSGraphicalObject;
+import org.modelsphere.sms.db.DbSMSImageGo;
+import org.modelsphere.sms.db.DbSMSLineGo;
+import org.modelsphere.sms.db.DbSMSLinkModel;
+import org.modelsphere.sms.db.DbSMSNotice;
+import org.modelsphere.sms.db.DbSMSPackage;
+import org.modelsphere.sms.db.DbSMSProject;
+import org.modelsphere.sms.db.DbSMSSemanticalObject;
+import org.modelsphere.sms.db.DbSMSStampGo;
+import org.modelsphere.sms.db.DbSMSStereotype;
+import org.modelsphere.sms.db.DbSMSStyle;
+import org.modelsphere.sms.db.DbSMSUmlConstraint;
+import org.modelsphere.sms.db.DbSMSUmlExtensibility;
+import org.modelsphere.sms.db.DbSMSUserDefinedPackage;
+import org.modelsphere.sms.db.DbSMSUserTextGo;
 import org.modelsphere.sms.features.layout.SMSGraphFactory;
 import org.modelsphere.sms.popup.SMSPopupMenuPool;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public final class SMSModule extends Module {
     private static SMSModule singleton;

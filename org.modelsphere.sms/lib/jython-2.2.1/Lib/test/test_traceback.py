@@ -1,9 +1,10 @@
 """Test cases for traceback module"""
 
+import traceback
 import unittest
+
 from test_support import run_unittest, is_jython
 
-import traceback
 
 class TracebackCases(unittest.TestCase):
     # For now, a very minimal set of tests.  I want to be sure that
@@ -22,7 +23,7 @@ class TracebackCases(unittest.TestCase):
 
     def syntax_error_without_caret(self):
         # XXX why doesn't compile raise the same traceback?
-        import badsyntax_nocaret
+        pass
 
     def test_caret(self):
         err = self.get_exception_format(self.syntax_error_with_caret,

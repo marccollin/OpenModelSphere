@@ -43,15 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import org.modelsphere.jack.graphic.shape.GraphicShape;
+import org.modelsphere.jack.graphic.zone.CellEditor;
+import org.modelsphere.jack.graphic.zone.CellID;
+import org.modelsphere.jack.graphic.zone.MatrixCellID;
+import org.modelsphere.jack.graphic.zone.MatrixZone;
+import org.modelsphere.jack.graphic.zone.Zone;
+import org.modelsphere.jack.graphic.zone.ZoneCell;
+import org.modelsphere.jack.util.SrVector;
+
+import java.awt.*;
 import java.util.Enumeration;
 import java.util.Vector;
-
-import org.modelsphere.jack.graphic.shape.GraphicShape;
-import org.modelsphere.jack.graphic.zone.*;
-import org.modelsphere.jack.util.SrVector;
 
 public class ZoneBox extends GraphicComponent {
 

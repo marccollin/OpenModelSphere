@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.actions.AbstractDomainAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -56,6 +54,8 @@ import org.modelsphere.sms.or.db.DbORCommonItemStyle;
 import org.modelsphere.sms.or.db.DbORDomainModel;
 import org.modelsphere.sms.or.db.DbORDomainStyle;
 import org.modelsphere.sms.or.db.DbORStyle;
+
+import java.util.ArrayList;
 
 public final class SetDiagramDefaultStyleAction extends AbstractDomainAction implements
         SelectionActionListener {

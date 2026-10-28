@@ -43,16 +43,21 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.integrate;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.table.*;
-import javax.swing.tree.*;
-
 import org.modelsphere.jack.awt.AwtUtil;
-import org.modelsphere.jack.awt.treeTable.*;
-import org.modelsphere.jack.awt.treeTable.TreeTable.TreeTableCellRenderer;
+import org.modelsphere.jack.awt.treeTable.TreeTable;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumnModel;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class IntegrateView extends TreeTable {
     private static final int ACT_MATCH = -1;

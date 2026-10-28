@@ -45,27 +45,32 @@ Email: marco.savard@neosapiens.com
 
 package com.neosapiens.plugins.diagramming.stretch;
 
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-
 import org.modelsphere.jack.awt.JackMenu;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.jack.plugins.Plugin2;
 import org.modelsphere.jack.plugins.PluginAction;
 import org.modelsphere.jack.plugins.PluginSelectionListener;
 import org.modelsphere.jack.plugins.PluginSignature;
 import org.modelsphere.jack.preference.OptionGroup;
-import org.modelsphere.jack.srtool.*;
+import org.modelsphere.jack.srtool.ApplicationContext;
+import org.modelsphere.jack.srtool.DefaultMainFrame;
+import org.modelsphere.jack.srtool.FocusManager;
+import org.modelsphere.jack.srtool.MainFrameMenu;
 import org.modelsphere.jack.srtool.actions.PluginDefaultAction;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.sms.actions.SMSActionsStore;
 import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.db.DbSMSGraphicalObject;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 

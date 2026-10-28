@@ -43,13 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.explorer;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-import javax.swing.UIManager;
-
 import org.modelsphere.jack.awt.Header;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.preference.context.ContextManager;
@@ -57,6 +50,9 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.CurrentFocusListener;
 import org.modelsphere.jack.srtool.FocusManager;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class ExplorerPanel extends JPanel {
     private static final String kTitle = LocaleMgr.screen.getString("Explorer");

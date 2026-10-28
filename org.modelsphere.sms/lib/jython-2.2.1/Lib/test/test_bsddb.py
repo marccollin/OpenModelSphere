@@ -3,11 +3,13 @@
    Roger E. Masse
 """
 
-import os
 import bsddb
-import dbhash # Just so we know it's imported
+import dbhash  # Just so we know it's imported
+import os
 import tempfile
+
 from test_support import verbose, verify
+
 
 def test(openmethod, what):
 

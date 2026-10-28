@@ -42,13 +42,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.or;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.net.URL;
-
-import javax.swing.JEditorPane;
-import javax.swing.text.JTextComponent;
-
 import org.modelsphere.jack.awt.TextViewerFrame;
 import org.modelsphere.jack.awt.html.InternalLink;
 import org.modelsphere.jack.awt.html.InternalLinkAdapter;
@@ -62,6 +55,12 @@ import org.modelsphere.sms.or.db.DbORProcedure;
 import org.modelsphere.sms.or.db.DbORTable;
 import org.modelsphere.sms.or.db.DbORView;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.net.URL;
 
 public final class ValidationReport {
 

@@ -43,11 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.list;
 
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbUDF;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.baseDb.util.DbPath;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.list.ListTableModel;
 
 /**
  * This class represent a column available for the ListTableModel. A ColumnDescriptor object is

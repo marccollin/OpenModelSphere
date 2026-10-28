@@ -43,8 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.themes;
 
-import javax.swing.plaf.*;
-import javax.swing.plaf.metal.*;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.plaf.metal.DefaultMetalTheme;
+import javax.swing.plaf.metal.MetalTheme;
 import java.awt.*;
 
 public class JackMetalTheme extends MetalTheme {

@@ -43,12 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.preference;
 
+import org.modelsphere.jack.srtool.ApplicationContext;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
-
-import org.modelsphere.jack.srtool.ApplicationContext;
 
 /**
  * This class manege all the properties of the application. Each PropertiesSet store its properties

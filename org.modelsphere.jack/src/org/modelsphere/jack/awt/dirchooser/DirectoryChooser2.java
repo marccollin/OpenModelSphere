@@ -43,9 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.dirchooser;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import org.modelsphere.jack.awt.AwtUtil;
+import org.modelsphere.jack.awt.NullFrame;
+import org.modelsphere.jack.debug.Debug;
+import org.modelsphere.jack.international.LocaleMgr;
+import org.modelsphere.jack.util.FileUtils;
 
 import javax.swing.*;
 import javax.swing.event.TreeExpansionEvent;
@@ -60,13 +62,9 @@ import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
-
-import org.modelsphere.jack.awt.AwtUtil;
-import org.modelsphere.jack.awt.NullFrame;
-import org.modelsphere.jack.debug.Debug;
-import org.modelsphere.jack.international.LocaleMgr;
-import org.modelsphere.jack.util.FileUtils;
-
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

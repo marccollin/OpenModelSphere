@@ -33,13 +33,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.report.screen;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.io.File;
-
-import javax.swing.JTable;
-
 import org.modelsphere.jack.awt.AbstractTableCellEditor;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
 
 public class PropertiesEditor extends AbstractTableCellEditor {
 

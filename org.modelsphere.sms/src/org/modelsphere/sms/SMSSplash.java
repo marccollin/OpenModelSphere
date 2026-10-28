@@ -33,13 +33,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.awt.Frame;
-import java.awt.Image;
-import java.util.Locale;
-
 import org.modelsphere.jack.graphic.GraphicUtil;
 import org.modelsphere.jack.international.LocaleChangeManager;
 import org.modelsphere.sms.screen.SMSScreenPerspective;
+
+import java.awt.*;
+import java.util.Locale;
 
 @SuppressWarnings("serial")
 public final class SMSSplash extends org.modelsphere.jack.srtool.Splash {

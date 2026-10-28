@@ -33,12 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.graphic.tool;
 
-import java.awt.Cursor;
-import java.awt.Image;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -85,6 +79,9 @@ import org.modelsphere.sms.oo.graphic.OOStamp;
 import org.modelsphere.sms.or.db.DbORStyle;
 import org.modelsphere.sms.or.graphic.ORAssociation;
 import org.modelsphere.sms.or.graphic.ORStamp;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class SMSSelectTool extends DbSelectTool {
     private BESelectToolCommand m_selectToolCommand = new BESelectToolCommand();

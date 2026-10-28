@@ -43,17 +43,20 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.features;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Vector;
-import java.util.ArrayList;
-import java.util.regex.PatternSyntaxException;
-import javax.swing.*;
-import javax.swing.border.*;
-
 import org.modelsphere.jack.awt.HotKeysSupport;
 import org.modelsphere.jack.debug.TestableWindow;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Vector;
+import java.util.regex.PatternSyntaxException;
 
 public class DbFindDialog extends JDialog implements ActionListener, TestableWindow {
 

@@ -33,9 +33,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.lang.reflect.Method;
-
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.lang.reflect.Method;
 
 public abstract class SMSUpgrade {
 
@@ -50,7 +50,7 @@ public abstract class SMSUpgrade {
             Method method = dbClass.getDeclaredMethod("upgradeClasses", new Class[] { deletedFields
                     .getClass() }); // NOT LOCALIZABLE
             Boolean done = (Boolean) method.invoke(null, new Object[] { deletedFields });
-            if (done.booleanValue())
+            if (done)
                 System.out.println(LocaleMgr.message.getString("upgradeCompleted"));
         } catch (Exception e) {
         }

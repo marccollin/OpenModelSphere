@@ -43,12 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.gui.task;
 
-import java.io.FileWriter;
-import java.util.Date;
-import java.text.DateFormat;
-
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.text.MessageFormat;
+
+import java.io.FileWriter;
+import java.text.DateFormat;
+import java.util.Date;
 
 public class Controller {
     protected static final String kAborted = LocaleMgr.screen.getString("Aborted");

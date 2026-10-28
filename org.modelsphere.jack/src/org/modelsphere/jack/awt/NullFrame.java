@@ -43,11 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
 import org.modelsphere.jack.srtool.ApplicationContext;
+
+import javax.swing.*;
 
 // This is a frame used to provide if the DefaultMainFrame is not initialized yet.
 // This frame never become visible unless '-DnullFrameVisible' is specified on VM startup (QA purposes).

@@ -2,12 +2,12 @@
 AMAK: 20050515: This module is a brand new test_select module, which gives much wider coverage.
 """
 
+import select
+import socket
 import time
-import test_support
 import unittest
 
-import socket
-import select
+import test_support
 
 SERVER_ADDRESS = ("localhost", 54321)
 

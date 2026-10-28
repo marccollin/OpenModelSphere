@@ -8,19 +8,18 @@ javashell attempts to determine a suitable command shell for the host
 operating system, and uses that shell to determine environment variables
 and to provide subshell execution functionality.
 """
-from java.lang import System, Runtime
-from java.io import IOException
-from java.io import InputStreamReader
-from java.io import BufferedReader
-from UserDict import UserDict
 import jarray
-import string
 import sys
 import types
+from java.io import BufferedReader
+from java.io import IOException
+from java.io import InputStreamReader
+from java.lang import System, Runtime
 
+import string
 # circular dependency to let javaos import javashell lazily
 # without breaking LazyDict out into a new top-level module
-from javaos import LazyDict 
+from javaos import LazyDict
 
 __all__ = [ "shellexecute", "environ", "putenv", "getenv" ]
 

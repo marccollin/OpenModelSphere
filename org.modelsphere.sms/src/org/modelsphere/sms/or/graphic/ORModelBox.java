@@ -33,21 +33,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.graphic;
 
-import java.util.Vector;
-
 import org.modelsphere.jack.baseDb.db.DbException;
-import org.modelsphere.jack.graphic.zone.CellEditor;
 import org.modelsphere.jack.graphic.zone.ColumnCellsOption;
-import org.modelsphere.jack.graphic.zone.StereotypeCellEditor;
 import org.modelsphere.jack.graphic.zone.ZoneCell;
 import org.modelsphere.sms.db.DbSMSPackageGo;
-import org.modelsphere.sms.db.DbSMSStereotype;
-import org.modelsphere.sms.db.DbSMSUmlExtensibility;
 import org.modelsphere.sms.graphic.PackageBox;
 import org.modelsphere.sms.graphic.SMSStereotypeEditor;
 import org.modelsphere.sms.or.db.DbORDiagram;
 import org.modelsphere.sms.or.db.DbORPackage;
 import org.modelsphere.sms.or.db.DbORStyle;
+
+import java.util.Vector;
 
 public class ORModelBox extends PackageBox {
     public ORModelBox(org.modelsphere.jack.graphic.Diagram diag, DbSMSPackageGo newPackageGO)

@@ -32,13 +32,13 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.or.screen;
 
-import java.awt.Component;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.screen.DbTreeLookupDialog;
 import org.modelsphere.jack.baseDb.screen.model.DbTreeModel;
 import org.modelsphere.jack.baseDb.screen.model.DbTreeModelListener;
+
+import java.awt.*;
 
 /**
  * @author nicolask

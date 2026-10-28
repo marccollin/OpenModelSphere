@@ -1,8 +1,9 @@
 # Test the atexit module.
-from test_support import TESTFN, vereq, is_jython
 import atexit
-from os import popen, unlink
 import sys
+from os import popen, unlink
+
+from test_support import TESTFN, vereq, is_jython
 
 executable = sys.executable
 if is_jython:

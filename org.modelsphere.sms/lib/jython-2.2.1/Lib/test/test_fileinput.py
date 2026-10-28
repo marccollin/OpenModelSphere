@@ -3,10 +3,14 @@ Tests for fileinput module.
 Nick Mathewson
 '''
 
-from test_support import verify, verbose, TESTFN
-import sys, os, re
+import os
+import re
+import sys
 from StringIO import StringIO
 from fileinput import FileInput
+
+from test_support import verify, verbose, TESTFN
+
 
 # The fileinput module has 2 interfaces: the FileInput class which does
 # all the work, and a few functions (input, etc.) that use a global _state

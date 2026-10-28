@@ -86,23 +86,23 @@ public final class ORPNGParameters {
     }
 
     public final Boolean isUnique() {
-        return new Boolean(unique);
+        return unique;
     }
 
     public final void setUnique(Boolean b) {
-        unique = b.booleanValue();
+        unique = b;
     }
 
     public final Integer getLength() {
-        return new Integer(length);
+        return length;
     }
 
     public final void setLength(Integer i) {
-        length = i.intValue();
+        length = i;
     }
 
     public final Integer getNbrCharByWord() {
-        return new Integer(nbrCharByWord);
+        return nbrCharByWord;
     }
 
     public final void setNbrCharByWord(Integer i) {

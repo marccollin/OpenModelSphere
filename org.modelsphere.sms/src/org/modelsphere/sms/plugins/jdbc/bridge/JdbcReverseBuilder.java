@@ -43,9 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.jdbc.bridge;
 
-import java.sql.Types;
-import java.util.HashMap;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.srtool.reverse.engine.Constraint;
@@ -90,6 +87,9 @@ import org.modelsphere.sms.or.generic.db.DbGETable;
 import org.modelsphere.sms.or.generic.db.DbGEView;
 import org.modelsphere.sms.plugins.TargetSystemInfo;
 import org.modelsphere.sms.plugins.TargetSystemManager;
+
+import java.sql.Types;
+import java.util.HashMap;
 
 public class JdbcReverseBuilder extends GenericBuilder {
     protected static final int UNKNOWN = 0;

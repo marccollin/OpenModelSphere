@@ -1,6 +1,8 @@
 """Python part of the warnings subsystem."""
 
-import sys, re, types
+import re
+import sys
+import types
 
 __all__ = ["warn", "showwarning", "formatwarning", "filterwarnings",
            "resetwarnings"]

@@ -43,14 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.util;
 
-import java.awt.Component;
-import java.awt.Font;
-import java.io.*;
-import java.lang.reflect.InvocationTargetException;
-import java.util.StringTokenizer;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.awt.NullFrame;
 import org.modelsphere.jack.awt.StatusBar;
 import org.modelsphere.jack.awt.TextViewerDialog;
@@ -62,6 +54,16 @@ import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.python.core.PyException;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.util.StringTokenizer;
 
 /**
  * A class that handlers uncaught exceptions.

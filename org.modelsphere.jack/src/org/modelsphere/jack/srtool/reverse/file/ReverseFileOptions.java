@@ -43,16 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.file;
 
+import org.modelsphere.jack.gui.task.Controller;
+
 import java.io.File;
-import java.io.InputStream;
-import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.Vector;
-import java.util.HashMap;
-
-import org.modelsphere.jack.gui.task.Controller;
 
 /*
  * Options to parameterize the reverse engineering

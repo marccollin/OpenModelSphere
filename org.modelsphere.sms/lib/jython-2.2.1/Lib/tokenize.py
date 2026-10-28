@@ -28,10 +28,11 @@ __author__ = 'Ka-Ping Yee <ping@lfw.org>'
 __credits__ = \
     'GvR, ESR, Tim Peters, Thomas Wouters, Fred Drake, Skip Montanaro'
 
-import string, re
+import re
+import string
+import token
 from token import *
 
-import token
 __all__ = [x for x in dir(token) if x[0] != '_'] + ["COMMENT", "tokenize",
            "generate_tokens", "NL"]
 del token

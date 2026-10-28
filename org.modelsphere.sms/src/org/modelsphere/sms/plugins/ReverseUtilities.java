@@ -43,8 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -66,6 +64,8 @@ import org.modelsphere.sms.or.db.DbORForeign;
 import org.modelsphere.sms.or.db.DbORIndex;
 import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 import org.modelsphere.sms.or.db.DbORTable;
+
+import java.util.ArrayList;
 
 public abstract class ReverseUtilities {
 

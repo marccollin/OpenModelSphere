@@ -43,14 +43,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.debug.TestableWindow;
 import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class ProgressBarDialog extends JDialog implements TestableWindow {
 

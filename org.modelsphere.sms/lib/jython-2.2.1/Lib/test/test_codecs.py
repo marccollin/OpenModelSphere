@@ -1,6 +1,9 @@
-import test_support,unittest
-import codecs
 import StringIO
+import codecs
+
+import test_support
+import unittest
+
 
 class UTF16Test(unittest.TestCase):
 

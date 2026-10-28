@@ -43,13 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen;
 
-import java.awt.Component;
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -58,6 +51,11 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.util.CollationComparator;
 import org.modelsphere.jack.util.DefaultComparableElement;
 import org.modelsphere.jack.util.SrSort;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 public abstract class DbLookupDialog {
 

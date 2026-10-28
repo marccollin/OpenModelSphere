@@ -43,13 +43,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen;
 
-import javax.swing.JOptionPane;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbUDF;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.screen.model.DbListModel;
 import org.modelsphere.jack.baseDb.screen.model.UDFListModel;
 import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
 
 public class UDFListView extends DbListView {
 

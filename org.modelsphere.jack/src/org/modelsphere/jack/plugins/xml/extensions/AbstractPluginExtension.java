@@ -44,11 +44,11 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package org.modelsphere.jack.plugins.xml.extensions;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.modelsphere.jack.plugins.io.PluginContext;
 import org.modelsphere.jack.plugins.xml.XmlPluginDescriptor;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class AbstractPluginExtension {
 

@@ -7,7 +7,8 @@ Written by Marc-Andre Lemburg (mal@lemburg.com).
 
 """#"
 
-import struct, __builtin__
+import __builtin__
+import struct
 
 ### Registry and builtin stateless codec functions
 
@@ -621,7 +622,7 @@ def make_encoding_map(decoding_map):
 # package
 _false = 0
 if _false:
-    import encodings
+    pass
 
 ### Tests
 

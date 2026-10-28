@@ -1,11 +1,12 @@
 """
  test some jython internals
 """
+import jarray
+import java
 import unittest
+
 from test_support import run_suite
 
-import java
-import jarray
 
 class WeakIdentityMapTests(unittest.TestCase):
 

@@ -5,6 +5,9 @@ binhex(inputfilename, outputfilename)
 hexbin(inputfilename, outputfilename)
 """
 
+import binascii
+import os
+import struct
 #
 # Jack Jansen, CWI, August 1995.
 #
@@ -22,9 +25,6 @@ hexbin(inputfilename, outputfilename)
 # escaped *value* of 0x90. All coders I've seen appear to ignore this nicety...
 #
 import sys
-import os
-import struct
-import binascii
 
 __all__ = ["binhex","hexbin","Error"]
 

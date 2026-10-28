@@ -128,9 +128,10 @@ BaseServer:
 __version__ = "0.4"
 
 
-import socket
-import sys
 import os
+import sys
+
+import socket
 
 __all__ = ["TCPServer","UDPServer","ForkingUDPServer","ForkingTCPServer",
            "ThreadingUDPServer","ThreadingTCPServer","BaseRequestHandler",

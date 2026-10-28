@@ -1,10 +1,11 @@
 """Proposed new threading module, emulating a subset of Java's threading model."""
 
 import sys
-import time
 import thread
-import traceback
+import time
+
 import StringIO
+import traceback
 
 # Rename some stuff so "from threading import *" is safe
 

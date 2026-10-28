@@ -47,7 +47,9 @@ import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
-import org.modelsphere.jack.srtool.reverse.jdbc.*;
+import org.modelsphere.jack.srtool.reverse.jdbc.ActiveConnectionListener;
+import org.modelsphere.jack.srtool.reverse.jdbc.ActiveConnectionManager;
+import org.modelsphere.jack.srtool.reverse.jdbc.ConnectionInfoDialog;
 import org.modelsphere.jack.srtool.services.ConnectionMessage;
 
 public class ConnectionInfoAction extends AbstractApplicationAction implements

@@ -1,10 +1,8 @@
-import test_support
 import unittest
-
 from cStringIO import StringIO
 from quopri import *
 
-
+import test_support
 
 ENCSAMPLE = """\
 Here's a bunch of special=20

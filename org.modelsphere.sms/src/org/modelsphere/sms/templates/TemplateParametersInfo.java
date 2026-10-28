@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.templates;
 
-import java.awt.Image;
+import java.awt.*;
 import java.beans.BeanDescriptor;
 import java.beans.BeanInfo;
 import java.beans.EventSetDescriptor;

@@ -43,20 +43,24 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.engine;
 
-import java.util.*;
-import java.lang.reflect.*;
-
-import org.modelsphere.jack.actions.AbstractActionsStore;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.meta.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.gui.task.Controller;
-import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.actions.ShowDiagramAction;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.reverse.Actions;
 import org.modelsphere.jack.srtool.reverse.SRXConstants;
 import org.modelsphere.jack.text.MessageFormat;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 
 public abstract class ReverseBuilder implements Actions, SRXConstants {
     public static final String kReverse = LocaleMgr.screen.getString("ReverseEngineering");

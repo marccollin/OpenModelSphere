@@ -43,7 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.io;
 
-import java.io.*;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.Writer;
 
 /**
  * 

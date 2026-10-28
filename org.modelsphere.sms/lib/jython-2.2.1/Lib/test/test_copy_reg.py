@@ -1,6 +1,7 @@
 import copy_reg
-import test_support
 import unittest
+
+import test_support
 
 
 class C:

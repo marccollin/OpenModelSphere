@@ -1,5 +1,10 @@
 # Copyright (c) Corporation for National Research Initiatives
-import java, jarray, os, time, sys, thread
+import jarray
+import java
+import os
+import sys
+import thread
+import time
 from java.lang import System
 
 runtime = java.lang.Runtime.getRuntime()

@@ -43,14 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.graphic;
 
-import javax.swing.JInternalFrame;
-import javax.swing.JDesktopPane;
-import javax.swing.ImageIcon;
-
 import org.modelsphere.jack.srtool.ApplicationContext;
 
-import java.awt.Point;
-import java.awt.Rectangle;
+import javax.swing.*;
+import java.awt.*;
 import java.util.HashMap;
 
 /**

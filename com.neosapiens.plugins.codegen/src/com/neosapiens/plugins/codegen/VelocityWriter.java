@@ -44,13 +44,17 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package com.neosapiens.plugins.codegen;
 
-import java.io.*;
-import java.util.Properties;
-
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.modelsphere.jack.gui.task.Controller;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Properties;
 
 public class VelocityWriter {
     private static VelocityEngine g_engine = null;

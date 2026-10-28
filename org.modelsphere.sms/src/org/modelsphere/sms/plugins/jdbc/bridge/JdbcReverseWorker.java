@@ -43,8 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.jdbc.bridge;
 
-import java.sql.SQLException;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.gui.task.Worker;
 import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectScope;
@@ -57,6 +55,8 @@ import org.modelsphere.jack.srtool.reverse.jdbc.JdbcReader;
 import org.modelsphere.jack.srtool.services.ConnectionMessage;
 import org.modelsphere.sms.or.features.dbms.DBMSReverseOptions;
 import org.modelsphere.sms.or.features.dbms.DBMSUtil;
+
+import java.sql.SQLException;
 
 public final class JdbcReverseWorker extends Worker {
 

@@ -83,8 +83,9 @@ ConfigParser -- responsible for for parsing a list of
         write the configuration state in .ini format
 """
 
-import re
 import types
+
+import re
 
 __all__ = ["NoSectionError","DuplicateSectionError","NoOptionError",
            "InterpolationError","InterpolationDepthError","ParsingError",

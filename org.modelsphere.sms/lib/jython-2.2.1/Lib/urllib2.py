@@ -87,24 +87,25 @@ f = urllib2.urlopen('http://www.python.org/')
 # gopher can return a socket.error
 # check digest against correct (i.e. non-apache) implementation
 
-import socket
-import httplib
-import inspect
-import re
-import base64
-import types
-import urlparse
 import md5
-import mimetypes
-import mimetools
-import rfc822
-import ftplib
+import os
 import sys
 import time
-import os
-import stat
+import types
+
+import base64
+import ftplib
 import gopherlib
+import httplib
+import inspect
+import mimetools
+import mimetypes
 import posixpath
+import re
+import rfc822
+import socket
+import stat
+import urlparse
 
 try:
     from cStringIO import StringIO
@@ -126,7 +127,7 @@ from urllib import unwrap, unquote, splittype, splithost, \
 from urllib import getproxies
 
 # support for FileHandler
-from urllib import localhost, url2pathname
+from urllib import url2pathname
 
 __version__ = "2.0a1"
 

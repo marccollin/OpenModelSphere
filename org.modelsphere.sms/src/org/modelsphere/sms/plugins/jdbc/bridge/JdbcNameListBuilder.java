@@ -43,11 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.jdbc.bridge;
 
+import org.modelsphere.jack.srtool.reverse.jdbc.JdbcBuilder;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import org.modelsphere.jack.srtool.reverse.jdbc.JdbcBuilder;
 
 /**
  * This service executes JDBC API calls

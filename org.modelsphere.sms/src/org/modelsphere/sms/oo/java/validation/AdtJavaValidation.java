@@ -32,10 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.oo.java.validation;
 
-import java.io.StringWriter;
-import java.util.Enumeration;
-import java.util.Vector;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -46,7 +42,6 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.SemanticalModel;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.sms.db.DbSMSPackage;
-import org.modelsphere.sms.db.DbSMSSemanticalObject;
 import org.modelsphere.sms.oo.db.DbOOAbstractMethod;
 import org.modelsphere.sms.oo.db.DbOOAdt;
 import org.modelsphere.sms.oo.db.DbOOAssociationEnd;
@@ -64,6 +59,10 @@ import org.modelsphere.sms.oo.java.db.util.AnyAdt.AccessData;
 import org.modelsphere.sms.oo.java.db.util.AnyAdt.Method;
 import org.modelsphere.sms.oo.java.db.util.AnyAdt.MethodsWithSameSignature;
 import org.modelsphere.sms.oo.java.international.LocaleMgr;
+
+import java.io.StringWriter;
+import java.util.Enumeration;
+import java.util.Vector;
 
 // do Java Validation for an adt
 // note:  it's possible to optimize AdtJavaValidation code (for example, process

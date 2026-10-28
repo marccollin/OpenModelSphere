@@ -43,11 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.awt.Image;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -69,6 +64,11 @@ import org.modelsphere.sms.graphic.tool.SMSSelectTool;
 import org.modelsphere.sms.graphic.tool.SMSStampTool;
 import org.modelsphere.sms.graphic.tool.SMSTextTool;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 /**
  * This class provide a way for actions and other fontionnalities to make abstraction of the active

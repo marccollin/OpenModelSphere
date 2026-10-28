@@ -1,10 +1,10 @@
 package com.neosapiens.plugins.reverse.javasource.actions;
 
+import com.neosapiens.plugins.reverse.javasource.utils.DeclarationOfClassOrInterface;
+import com.neosapiens.plugins.reverse.javasource.utils.DeclarationOfMethod;
+import com.neosapiens.plugins.reverse.javasource.utils.FieldOfClass;
 import com.neosapiens.plugins.reverse.javasource.utils.InitializationBlockOfClass;
 import com.neosapiens.plugins.reverse.javasource.utils.ParameterOfMethode;
-import com.neosapiens.plugins.reverse.javasource.utils.FieldOfClass;
-import com.neosapiens.plugins.reverse.javasource.utils.DeclarationOfMethod;
-import com.neosapiens.plugins.reverse.javasource.utils.DeclarationOfClassOrInterface;
 
 
 public class OutputSemanticAction implements SemanticAction {

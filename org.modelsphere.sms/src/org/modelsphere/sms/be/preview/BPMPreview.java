@@ -33,17 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.preview;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Serializable;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.text.DecimalFormat;
-import java.text.MessageFormat;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -60,6 +49,17 @@ import org.modelsphere.sms.be.db.DbBEUseCase;
 import org.modelsphere.sms.be.db.DbBEUseCaseResource;
 import org.modelsphere.sms.be.db.srtypes.BETimeUnit;
 import org.modelsphere.sms.be.international.LocaleMgr;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.text.DecimalFormat;
+import java.text.MessageFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BPMPreview extends JackForwardEngineeringPlugin {
     private static final String TIME_ALLOCATION = LocaleMgr.misc.getString("TimeAllocation");

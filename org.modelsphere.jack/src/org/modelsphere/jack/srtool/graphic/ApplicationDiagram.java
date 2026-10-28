@@ -43,17 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.graphic;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.print.PageFormat;
-import java.util.HashSet;
-
-import javax.swing.JPopupMenu;
-import javax.swing.SwingUtilities;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.awt.JackPopupMenu;
 import org.modelsphere.jack.awt.choosers.PageTitlePanel;
@@ -71,7 +60,6 @@ import org.modelsphere.jack.graphic.Diagram;
 import org.modelsphere.jack.graphic.DiagramView;
 import org.modelsphere.jack.graphic.GraphicComponent;
 import org.modelsphere.jack.graphic.GraphicNode;
-import org.modelsphere.jack.graphic.Grid;
 import org.modelsphere.jack.graphic.ZoneBox;
 import org.modelsphere.jack.graphic.tool.ToolButtonGroup;
 import org.modelsphere.jack.graphic.zone.CellID;
@@ -79,6 +67,11 @@ import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.print.PageFormat;
+import java.util.HashSet;
 
 public class ApplicationDiagram extends Diagram implements DbRefreshListener {
 

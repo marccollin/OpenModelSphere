@@ -170,6 +170,8 @@ x = ~1 ^ 1 & 1 | 1 & 1 ^ -1
 x = -1*1/1 + 1*1 - ---1*1
 
 # selector
-import sys, time
+import sys
+import time
+
 x = sys.modules['time'].time()
 

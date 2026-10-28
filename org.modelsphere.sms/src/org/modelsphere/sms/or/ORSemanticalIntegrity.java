@@ -32,8 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.or;
 
-import java.util.HashMap;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -46,12 +44,10 @@ import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.baseDb.util.Terminology;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.sms.db.DbSMSAbstractPackage;
 import org.modelsphere.sms.db.DbSMSAssociationEnd;
 import org.modelsphere.sms.db.DbSMSBuiltInTypePackage;
 import org.modelsphere.sms.db.DbSMSTargetSystem;
 import org.modelsphere.sms.db.srtypes.SMSMultiplicity;
-import org.modelsphere.sms.oo.db.DbOODataMember;
 import org.modelsphere.sms.or.db.DbORAbsTable;
 import org.modelsphere.sms.or.db.DbORAssociation;
 import org.modelsphere.sms.or.db.DbORAssociationEnd;
@@ -70,6 +66,8 @@ import org.modelsphere.sms.or.db.DbORTable;
 import org.modelsphere.sms.or.db.DbORView;
 import org.modelsphere.sms.plugins.TargetSystemInfo;
 import org.modelsphere.sms.plugins.TargetSystemManager;
+
+import java.util.HashMap;
 
 public final class ORSemanticalIntegrity implements DbUpdateListener {
     //private static final String UNVALIDATED = "{0} Unvalidated";

@@ -33,7 +33,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.report.model;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class HtmlColor extends Color {
 

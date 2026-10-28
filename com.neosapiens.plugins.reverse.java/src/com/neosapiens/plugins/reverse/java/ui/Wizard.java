@@ -44,17 +44,15 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package com.neosapiens.plugins.reverse.java.ui;
 
+import com.neosapiens.plugins.reverse.java.international.LocaleMgr;
+import org.modelsphere.jack.awt.AwtUtil;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.swing.*;
-
-import org.modelsphere.jack.awt.AwtUtil;
-
-import com.neosapiens.plugins.reverse.java.international.LocaleMgr;
 
 public class Wizard<P extends WizardParameters> {
     private JPanel cards;

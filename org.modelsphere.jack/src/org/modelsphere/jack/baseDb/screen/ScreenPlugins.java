@@ -43,17 +43,19 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen;
 
-import java.util.HashMap;
-import java.util.Iterator;
-
-import javax.swing.JComponent;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbUDF;
+import org.modelsphere.jack.baseDb.db.DbUDFValue;
 import org.modelsphere.jack.baseDb.db.srtypes.Domain;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.util.StringUtil;
+
+import javax.swing.*;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public abstract class ScreenPlugins {
 

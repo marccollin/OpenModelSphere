@@ -3,7 +3,10 @@
 # hashing algorithms.
 #
 
-import md5, sha, hmac
+import hmac
+import md5
+import sha
+
 
 def check_hash_module(module, key=None):
     assert hasattr(module, 'digest_size'), "Must have digest_size"

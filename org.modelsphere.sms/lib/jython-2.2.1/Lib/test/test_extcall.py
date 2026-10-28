@@ -1,5 +1,7 @@
-from test_support import verify, verbose, TestFailed, sortdict
 from UserList import UserList
+
+from test_support import verify, TestFailed, sortdict
+
 
 def f(*a, **k):
     print a, sortdict(k)

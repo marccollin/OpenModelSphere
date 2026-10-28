@@ -1,6 +1,8 @@
 import parser
-import test_support
 import unittest
+
+import test_support
+
 
 #
 #  First, we test that we can generate trees from valid source fragments,

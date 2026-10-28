@@ -44,7 +44,6 @@ package org.modelsphere.sms.or.ibm.db.util;
 
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.sms.or.ibm.db.DbIBMBufferPool;
 import org.modelsphere.sms.or.ibm.db.DbIBMCheck;
 import org.modelsphere.sms.or.ibm.db.DbIBMColumn;

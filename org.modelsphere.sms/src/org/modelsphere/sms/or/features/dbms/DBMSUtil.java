@@ -43,11 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.dbms;
 
-import java.io.StringWriter;
-import java.util.StringTokenizer;
-
 import org.modelsphere.jack.srtool.services.ConnectionMessage;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import java.io.StringWriter;
+import java.util.StringTokenizer;
 
 public final class DBMSUtil {
     public static final String NULL_USER = LocaleMgr.misc.getString("UnknownUser");

@@ -43,12 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.tool;
 
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.*;
-
-import org.modelsphere.jack.awt.*;
+import org.modelsphere.jack.awt.JackComboBox;
+import org.modelsphere.jack.awt.SeparatorIcon;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.graphic.DiagramView;
 import org.modelsphere.jack.international.LocaleMgr;
@@ -56,6 +52,11 @@ import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.CurrentFocusListener;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ZoomCombo extends JackComboBox implements CurrentFocusListener {
 

@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.actions;
 
-import java.awt.AWTEvent;
+import java.awt.*;
 
 public class ApplicationActionEvent {
 

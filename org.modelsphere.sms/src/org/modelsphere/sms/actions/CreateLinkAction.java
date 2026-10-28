@@ -33,12 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -58,6 +52,10 @@ import org.modelsphere.sms.db.DbSMSSemanticalObject;
 import org.modelsphere.sms.db.util.AnySemObject;
 import org.modelsphere.sms.international.LocaleMgr;
 import org.modelsphere.sms.screen.SMSLinkFrameExt;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class CreateLinkAction extends AbstractApplicationAction implements
         SelectionActionListener {

@@ -45,7 +45,6 @@ package org.modelsphere.jack.srtool.actions;
 
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.features.SafeMode;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 
 public class ExitAction extends AbstractApplicationAction {

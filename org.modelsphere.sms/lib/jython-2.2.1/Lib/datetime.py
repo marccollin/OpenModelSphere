@@ -14,8 +14,8 @@ Sources for time zone and DST data: http://www.twinsun.com/tz/tz-link.htm
 
 """
 
-import time as _time
 import math as _math
+import time as _time
 
 MINYEAR = 1
 MAXYEAR = 9999

@@ -43,9 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.file;
 
-import java.util.*;
-
 import org.modelsphere.jack.baseDb.db.DbProject;
+
+import java.util.ArrayList;
+import java.util.Vector;
 
 public class ReverseOptions {
     Vector m_fileVector;

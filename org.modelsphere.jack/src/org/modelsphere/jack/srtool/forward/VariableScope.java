@@ -44,7 +44,14 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.srtool.forward;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 //
 // Encapsulates the hashMap used to store variables

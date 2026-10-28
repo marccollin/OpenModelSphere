@@ -33,12 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.graphic;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -74,6 +68,11 @@ import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.db.DbSMSSemanticalObject;
 import org.modelsphere.sms.db.DbSMSStereotype;
 import org.modelsphere.sms.graphic.NameAndDuplicateLabel;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 
 public class BEFlow extends SrLine implements DbRefreshListener {
 

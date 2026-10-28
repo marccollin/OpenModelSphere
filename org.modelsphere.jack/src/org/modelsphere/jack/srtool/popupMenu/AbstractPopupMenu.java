@@ -43,8 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.popupMenu;
 
-import java.lang.System;
-
 public abstract class AbstractPopupMenu {
 
     protected static final String[] mergeArray(String[] array1, String[] array2) {

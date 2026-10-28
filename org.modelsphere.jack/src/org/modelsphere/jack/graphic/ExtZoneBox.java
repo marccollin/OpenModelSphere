@@ -43,11 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
-
 import org.modelsphere.jack.graphic.shape.GraphicShape;
 import org.modelsphere.jack.graphic.zone.Zone;
+
+import java.awt.*;
 
 /**
  * @author nicolask

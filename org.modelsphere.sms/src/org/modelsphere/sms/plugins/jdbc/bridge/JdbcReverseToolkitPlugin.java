@@ -63,7 +63,6 @@ import org.modelsphere.sms.or.generic.db.DbGEProcedure;
 import org.modelsphere.sms.or.generic.db.DbGETable;
 import org.modelsphere.sms.or.generic.db.DbGEView;
 import org.modelsphere.sms.plugins.TargetSystem;
-import org.modelsphere.sms.plugins.jdbc.bridge.LocaleMgr;
 
 public class JdbcReverseToolkitPlugin extends ReverseToolkitPlugin {
     private static final String jobTitleKey = LocaleMgr.misc.getString("JdbcReverseEng");

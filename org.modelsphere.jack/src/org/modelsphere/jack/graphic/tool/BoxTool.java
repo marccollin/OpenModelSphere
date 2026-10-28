@@ -43,25 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.tool;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.Cursor;
-import java.awt.Point;
-import java.awt.Image;
-import java.awt.Rectangle;
-
-import javax.swing.JComponent;
-
-import org.modelsphere.jack.graphic.DiagramView;
 import org.modelsphere.jack.graphic.GraphicComponent;
-import org.modelsphere.jack.graphic.Line;
 import org.modelsphere.jack.graphic.ZoneBox;
-import org.modelsphere.jack.graphic.zone.CellEditor;
 import org.modelsphere.jack.graphic.zone.CellID;
 import org.modelsphere.jack.graphic.zone.Zone;
-import org.modelsphere.jack.graphic.zone.ZoneCell;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public abstract class BoxTool extends Tool {
     private static final String HELP = LocaleMgr.misc.getString("HelpBox");

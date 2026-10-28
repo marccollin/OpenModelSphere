@@ -38,8 +38,22 @@ import org.modelsphere.sms.Module;
 import org.modelsphere.sms.actions.ActionFactory;
 import org.modelsphere.sms.actions.SMSActionsStore;
 import org.modelsphere.sms.be.actions.BEActionFactory;
-import org.modelsphere.sms.be.db.*;
-import org.modelsphere.sms.be.graphic.*;
+import org.modelsphere.sms.be.db.ApplClasses;
+import org.modelsphere.sms.be.db.DbBEActor;
+import org.modelsphere.sms.be.db.DbBEContextCell;
+import org.modelsphere.sms.be.db.DbBEContextGo;
+import org.modelsphere.sms.be.db.DbBEDiagram;
+import org.modelsphere.sms.be.db.DbBEFlow;
+import org.modelsphere.sms.be.db.DbBEModel;
+import org.modelsphere.sms.be.db.DbBEStore;
+import org.modelsphere.sms.be.db.DbBEUseCase;
+import org.modelsphere.sms.be.graphic.BEActorBox;
+import org.modelsphere.sms.be.graphic.BEContext;
+import org.modelsphere.sms.be.graphic.BEFlow;
+import org.modelsphere.sms.be.graphic.BEFlowLabel;
+import org.modelsphere.sms.be.graphic.BEQualifier;
+import org.modelsphere.sms.be.graphic.BEStoreBox;
+import org.modelsphere.sms.be.graphic.BEUseCaseBox;
 import org.modelsphere.sms.be.popup.BEPopupMenuPool;
 
 public final class BEModule extends Module {

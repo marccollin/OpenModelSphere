@@ -43,9 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
@@ -53,6 +50,9 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.graphic.SrLineLabel;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public final class SelectAllLabelsAction extends AbstractSelectAction implements
         SelectionActionListener {

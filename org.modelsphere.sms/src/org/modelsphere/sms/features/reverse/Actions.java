@@ -33,10 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.features.reverse;
 
-import java.io.ObjectInputStream;
-import java.util.HashMap;
-import java.util.Vector;
-
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.srtool.reverse.file.ReverseException;
@@ -46,6 +42,10 @@ import org.modelsphere.sms.oo.db.DbOOAbstractMethod;
 import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.DbJVDataMember;
 import org.modelsphere.sms.oo.java.db.DbJVParameter;
+
+import java.io.ObjectInputStream;
+import java.util.HashMap;
+import java.util.Vector;
 
 public interface Actions extends org.modelsphere.jack.srtool.reverse.file.Actions {
 

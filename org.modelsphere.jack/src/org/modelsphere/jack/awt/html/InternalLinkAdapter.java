@@ -43,12 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.html;
 
-import java.awt.Cursor;
-
-import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
-import javax.swing.text.JTextComponent;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -56,6 +50,11 @@ import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.ExceptionHandler;
+
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
 
 public abstract class InternalLinkAdapter implements HyperlinkListener {
     private static final String kObjectNotFound = LocaleMgr.misc.getString("ObjectNotFound");

@@ -4,9 +4,9 @@ Python namespace.  Like Console.py, this is a demo only, and needs a lot
 of work before it would be a truly valuable tool.
 """
 
+import java
 from pawt import swing
 from types import *
-import java
 
 leaves = (None, TypeType, IntType, StringType, FloatType, NoneType,
 	  BuiltinFunctionType, BuiltinMethodType)

@@ -32,11 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.be.actions;
 
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -55,6 +50,10 @@ import org.modelsphere.sms.be.db.DbBEUseCase;
 import org.modelsphere.sms.be.db.DbBEUseCaseQualifier;
 import org.modelsphere.sms.be.db.DbBEUseCaseResource;
 import org.modelsphere.sms.be.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * @author Nicolask

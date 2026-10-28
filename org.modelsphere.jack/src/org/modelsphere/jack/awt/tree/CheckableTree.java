@@ -42,16 +42,23 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.awt.tree;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.EventListener;
+import org.modelsphere.jack.debug.TestableWindow;
 
 import javax.swing.*;
-import javax.swing.tree.*;
-
-import org.modelsphere.jack.debug.TestableWindow;
-import org.modelsphere.jack.international.LocaleMgr;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.EventListener;
 
 /**
  * This class works is a JTree except that it supports the check items

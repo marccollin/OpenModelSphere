@@ -43,16 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins;
 
-import java.awt.Window;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
-import javax.swing.JMenu;
-
 import org.modelsphere.jack.actions.AbstractActionsStore;
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.awt.AwtUtil;
@@ -75,6 +65,15 @@ import org.modelsphere.jack.srtool.actions.PluginDefaultAction;
 import org.modelsphere.jack.srtool.actions.PluginGenerationAction;
 import org.modelsphere.jack.srtool.forward.JackForwardEngineeringPlugin;
 import org.modelsphere.jack.srtool.popupMenu.ApplicationPopupMenu;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Uses for reverse, forward and jdbc driver plugins.

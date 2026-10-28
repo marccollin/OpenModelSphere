@@ -1,6 +1,8 @@
 """This is a test"""
-import __future__
 from __future__ import nested_scopes
+
+import __future__
+
 
 def f(x):
     def g(y):

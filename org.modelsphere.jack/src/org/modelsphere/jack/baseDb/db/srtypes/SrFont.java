@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.srtypes;
 
-import java.awt.Font;
+import java.awt.*;
 
 public final class SrFont extends SrType {
 

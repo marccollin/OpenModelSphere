@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.zone;
 
-import java.awt.*;
+import org.modelsphere.jack.graphic.Diagram;
 
-import org.modelsphere.jack.graphic.*;
+import java.awt.*;
 
 /**
  * Each cell of a zone can contains a CellRenderingOption thru the ZoneCell Class. A

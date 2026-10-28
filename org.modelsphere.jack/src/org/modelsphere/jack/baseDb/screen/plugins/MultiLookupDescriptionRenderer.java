@@ -43,15 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.table.*;
-
 import org.modelsphere.jack.baseDb.screen.MultiDefaultRenderer;
 import org.modelsphere.jack.srtool.list.ListTable;
 import org.modelsphere.jack.srtool.screen.design.DesignPanel;
 import org.modelsphere.jack.srtool.screen.design.DesignTableModel;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableModel;
+import java.awt.*;
 
 public class MultiLookupDescriptionRenderer extends MultiDefaultRenderer {
     private static JPanel panel;

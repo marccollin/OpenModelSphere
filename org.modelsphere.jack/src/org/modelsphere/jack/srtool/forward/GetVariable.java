@@ -43,10 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.*;
-
 import org.modelsphere.jack.srtool.forward.exceptions.VariableNotDefinedRuleException;
 import org.modelsphere.jack.srtool.forward.exceptions.VariableNotInitializedRuleException;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.Writer;
 
 public final class GetVariable extends Rule {
 

@@ -1,10 +1,10 @@
 package org.modelsphere.plugins.layout.nodes.sugiyama;
 
-import java.util.List;
-
 import org.modelsphere.jack.srtool.features.layout.LayoutException;
 import org.modelsphere.jack.srtool.features.layout.graph.Vertex;
 import org.modelsphere.plugins.layout.nodes.layerers.LayeredGraph;
+
+import java.util.List;
 
 /**
  * The Class QuickSmartNodeOrderer.

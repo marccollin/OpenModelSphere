@@ -43,13 +43,21 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.graphic;
 
-import java.util.HashMap;
-import java.awt.*;
-
 import org.modelsphere.jack.actions.ActionInformation;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.graphic.*;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.graphic.Diagram;
+import org.modelsphere.jack.graphic.GraphLayout;
+import org.modelsphere.jack.graphic.GraphLayoutLink;
+import org.modelsphere.jack.graphic.GraphLayoutNode;
+import org.modelsphere.jack.graphic.GraphicComponent;
+import org.modelsphere.jack.graphic.GraphicUtil;
 import org.modelsphere.jack.util.SrVector;
+
+import java.awt.*;
+import java.util.HashMap;
 
 public abstract class DiagramLayout {
 

@@ -42,11 +42,10 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.srtool.actions;
 
-import java.awt.event.ActionEvent;
-
-import javax.swing.KeyStroke;
-
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class SelectAllAction extends AbstractSelectAction {
 

@@ -229,4 +229,3 @@ EventExceptionStrings = MessageSource.__dict__['EventExceptionStrings']
 FtExceptionStrings = MessageSource.__dict__['FtExceptionStrings']
 RangeExceptionStrings = MessageSource.__dict__['RangeExceptionStrings']
 
-from domreg import getDOMImplementation,registerDOMImplementation

@@ -43,9 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.*;
-
 import javax.swing.*;
+import java.awt.*;
 
 public final class WaitDialog extends JDialog {
     private JLabel text = new JLabel();

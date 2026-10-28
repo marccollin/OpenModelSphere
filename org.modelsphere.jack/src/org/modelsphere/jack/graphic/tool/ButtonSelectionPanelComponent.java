@@ -43,13 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.tool;
 
+import org.modelsphere.jack.awt.PopupButton;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.*;
-
-import org.modelsphere.jack.awt.PopupButton;
 
 /**
  * This is the default component for a ButtonSelectionPanel

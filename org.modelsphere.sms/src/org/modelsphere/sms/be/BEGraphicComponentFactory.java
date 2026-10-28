@@ -47,10 +47,8 @@ import org.modelsphere.sms.be.db.DbBEUseCaseGo;
 import org.modelsphere.sms.be.graphic.BEActorBox;
 import org.modelsphere.sms.be.graphic.BEContext;
 import org.modelsphere.sms.be.graphic.BEFlow;
-import org.modelsphere.sms.be.graphic.BEStamp;
 import org.modelsphere.sms.be.graphic.BEStoreBox;
 import org.modelsphere.sms.be.graphic.BEUseCaseBox;
-import org.modelsphere.sms.db.DbSMSStampGo;
 
 public final class BEGraphicComponentFactory extends SMSComponentFactory {
 

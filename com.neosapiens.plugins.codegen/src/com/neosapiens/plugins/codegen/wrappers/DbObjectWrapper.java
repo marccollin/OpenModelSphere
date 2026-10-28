@@ -45,9 +45,9 @@ Email: marco.savard@neosapiens.com
 
 package com.neosapiens.plugins.codegen.wrappers;
 
-import java.util.List;
-
 import org.modelsphere.sms.oo.java.db.srtypes.JVVisibility;
+
+import java.util.List;
 
 public abstract class DbObjectWrapper {
 

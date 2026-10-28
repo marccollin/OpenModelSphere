@@ -43,6 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins;
 
+import org.modelsphere.sms.international.LocaleMgr;
+import org.modelsphere.sms.or.db.util.AnyORObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -50,9 +53,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.StringTokenizer;
-
-import org.modelsphere.sms.international.LocaleMgr;
-import org.modelsphere.sms.or.db.util.AnyORObject;
 
 // A TargetSystemInfo object stores all the information contained in a <.typ> file.
 public final class TargetSystemInfo {

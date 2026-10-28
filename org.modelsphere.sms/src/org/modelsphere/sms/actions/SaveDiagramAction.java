@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.awt.event.ActionEvent;
-import java.util.Enumeration;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.awt.AwtUtil;
@@ -53,6 +50,9 @@ import org.modelsphere.sms.SMSToolkit;
 import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.features.SaveDiagramDialog;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.awt.event.ActionEvent;
+import java.util.Enumeration;
 
 public class SaveDiagramAction extends AbstractApplicationAction implements SelectionActionListener {
 

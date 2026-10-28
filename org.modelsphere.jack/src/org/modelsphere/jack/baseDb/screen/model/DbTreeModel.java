@@ -43,12 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import javax.swing.Icon;
-import javax.swing.tree.DefaultTreeModel;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -58,6 +52,11 @@ import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.util.CollationComparator;
 import org.modelsphere.jack.util.SrVector;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultTreeModel;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DbTreeModel extends DefaultTreeModel {
 

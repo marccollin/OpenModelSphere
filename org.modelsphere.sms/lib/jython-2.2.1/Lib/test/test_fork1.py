@@ -10,8 +10,12 @@ While BeOS doesn't officially support fork and native threading in
 the same application, the present example should work just fine.  DC
 """
 
-import os, sys, time, thread
-from test_support import verify, verbose, TestSkipped
+import os
+import sys
+import thread
+import time
+
+from test_support import verify, TestSkipped
 
 try:
     os.fork

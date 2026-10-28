@@ -1,9 +1,9 @@
 """Test cases for the fnmatch module."""
 
-import test_support
 import unittest
-
 from fnmatch import fnmatch, fnmatchcase
+
+import test_support
 
 
 class FnmatchTestCase(unittest.TestCase):

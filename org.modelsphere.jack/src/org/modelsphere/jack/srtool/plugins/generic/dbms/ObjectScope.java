@@ -43,11 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.plugins.generic.dbms;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * 

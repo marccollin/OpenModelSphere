@@ -23,6 +23,7 @@ read_mime_types(file) -- parse one file, return a dictionary or None
 """
 
 import os
+
 import posixpath
 import urllib
 

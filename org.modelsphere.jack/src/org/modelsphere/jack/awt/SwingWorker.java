@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 /**
  * An abstract class that you subclass to perform GUI-related work in a dedicated thread. For

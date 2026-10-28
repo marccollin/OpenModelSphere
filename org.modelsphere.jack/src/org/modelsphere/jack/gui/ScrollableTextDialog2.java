@@ -43,17 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.gui;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
-
-import javax.swing.*;
-
-import org.modelsphere.jack.international.LocaleMgr;
 
 /**
  * Shows a dialog that contains a scrollable text area, and a close button.

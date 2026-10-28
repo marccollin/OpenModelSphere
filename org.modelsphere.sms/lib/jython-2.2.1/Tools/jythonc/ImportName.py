@@ -1,13 +1,11 @@
 # Copyright (c) Corporation for National Research Initiatives
 
-import sys
 import os
-
+import sys
 from org.python.core import PyModule, PyJavaClass, PyClass, \
-     PyJavaPackage, PyBeanEventProperty
+    PyJavaPackage, PyBeanEventProperty
 
 from util import lookup
-
 
 
 def wrapJava(mod):

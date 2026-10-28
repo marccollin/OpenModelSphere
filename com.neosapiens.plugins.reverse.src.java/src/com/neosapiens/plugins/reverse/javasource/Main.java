@@ -1,18 +1,16 @@
 package com.neosapiens.plugins.reverse.javasource;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-
+import com.neosapiens.plugins.reverse.javasource.actions.OutputSemanticAction;
+import com.neosapiens.plugins.reverse.javasource.actions.SemanticAction;
+import com.neosapiens.plugins.reverse.javasource.parsing.Java1_6Lexer;
+import com.neosapiens.plugins.reverse.javasource.parsing.Java1_6Parser;
 import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.TokenStream;
 
-import com.neosapiens.plugins.reverse.javasource.actions.OutputSemanticAction;
-import com.neosapiens.plugins.reverse.javasource.actions.SemanticAction;
-import com.neosapiens.plugins.reverse.javasource.parsing.Java1_6Lexer;
-import com.neosapiens.plugins.reverse.javasource.parsing.Java1_6Parser;
+import java.io.File;
+import java.io.IOException;
 
 public class Main {
 

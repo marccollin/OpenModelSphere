@@ -43,10 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.*;
-import javax.swing.*;
+import org.modelsphere.jack.baseDb.screen.DefaultRenderer;
+import org.modelsphere.jack.baseDb.screen.DescriptionView;
+import org.modelsphere.jack.baseDb.screen.ListView;
+import org.modelsphere.jack.baseDb.screen.ScreenView;
 
-import org.modelsphere.jack.baseDb.screen.*;
+import javax.swing.*;
+import java.awt.*;
 
 public class LookupDescriptionRenderer extends DefaultRenderer {
     private static JPanel panel;

@@ -42,13 +42,13 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.srtool.features.layout;
 
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbGraphicalObjectI;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.graphic.Diagram;
 import org.modelsphere.jack.srtool.features.layout.graph.Graph;
+
+import java.util.List;
 
 /**
  * A factory for creating Graph objects.

@@ -33,15 +33,19 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Insets;
+import org.modelsphere.jack.awt.AwtUtil;
+import org.modelsphere.jack.awt.ExtensionFileFilter;
+import org.modelsphere.jack.awt.ImagePreviewer;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.sms.db.DbSMSStereotype;
+import org.modelsphere.sms.db.util.Extensibility;
+import org.modelsphere.sms.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -54,28 +58,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.HashMap;
-
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.TitledBorder;
-
-import org.modelsphere.jack.awt.AwtUtil;
-import org.modelsphere.jack.awt.ExtensionFileFilter;
-import org.modelsphere.jack.awt.ImagePreviewer;
-import org.modelsphere.jack.baseDb.db.Db;
-import org.modelsphere.jack.baseDb.db.DbException;
-import org.modelsphere.sms.db.DbSMSStereotype;
-import org.modelsphere.sms.db.util.Extensibility;
-import org.modelsphere.sms.international.LocaleMgr;
 
 public class StereotypeIconChooser extends JPanel {
     JRadioButton defaultOption = new JRadioButton();

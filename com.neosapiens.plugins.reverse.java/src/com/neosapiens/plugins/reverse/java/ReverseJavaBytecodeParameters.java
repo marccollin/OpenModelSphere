@@ -89,14 +89,13 @@ Email: marco.savard@neosapiens.com
 
 package com.neosapiens.plugins.reverse.java;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.neosapiens.plugins.reverse.java.ui.WizardParameters;
 import org.modelsphere.jack.properties.PropertySet;
 import org.modelsphere.sms.db.DbSMSProject;
 
-import com.neosapiens.plugins.reverse.java.ui.WizardParameters;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReverseJavaBytecodeParameters extends WizardParameters {
 

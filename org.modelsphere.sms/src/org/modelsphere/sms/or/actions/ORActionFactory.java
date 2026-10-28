@@ -39,11 +39,9 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.sms.actions.ActionFactory;
 import org.modelsphere.sms.actions.CreateCommonItemColumnsAction;
-import org.modelsphere.sms.actions.CreateLinkAction;
 import org.modelsphere.sms.actions.DeleteOrphanCommonItemsAction;
 import org.modelsphere.sms.actions.GenerateCommonItemsAction;
 import org.modelsphere.sms.actions.PropagateCommonItemValuesAction;
-import org.modelsphere.sms.actions.SMSActionsStore;
 
 public class ORActionFactory implements ActionFactory, ORActionConstants {
     private static ORActionFactory singleton;

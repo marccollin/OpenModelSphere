@@ -33,10 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.graphic.tool;
 
-import java.awt.Cursor;
-import java.awt.Image;
-import java.awt.Rectangle;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.graphic.tool.BoxTool;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
@@ -44,6 +40,8 @@ import org.modelsphere.jack.srtool.graphic.FreeText;
 import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.db.DbSMSUserTextGo;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.awt.*;
 
 public class SMSTextTool extends BoxTool {
 

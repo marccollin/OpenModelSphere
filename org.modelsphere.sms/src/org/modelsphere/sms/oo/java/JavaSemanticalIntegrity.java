@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.oo.java;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -51,6 +48,9 @@ import org.modelsphere.sms.oo.java.db.DbJVDataMember;
 import org.modelsphere.sms.oo.java.db.DbJVInheritance;
 import org.modelsphere.sms.oo.java.db.DbJVMethod;
 import org.modelsphere.sms.oo.java.db.DbJVParameter;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public final class JavaSemanticalIntegrity implements DbUpdateListener, DbUpdatePassListener {
 

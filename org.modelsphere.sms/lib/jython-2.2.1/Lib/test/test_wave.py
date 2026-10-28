@@ -1,6 +1,9 @@
-from test_support import TestFailed
-import os, tempfile
+import os
+import tempfile
 import wave
+
+from test_support import TestFailed
+
 
 def check(t, msg=None):
     if not t:

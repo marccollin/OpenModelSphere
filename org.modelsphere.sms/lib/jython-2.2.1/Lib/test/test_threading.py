@@ -2,10 +2,11 @@
 
 # Create a bunch of threads, let each do some work, wait until all are done
 
-from test_support import verbose
 import random
 import threading
 import time
+
+from test_support import verbose
 
 # This takes about n/3 seconds to run (about n/3 clumps of tasks, times
 # about 1 second per clump).

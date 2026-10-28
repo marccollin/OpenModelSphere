@@ -1,6 +1,8 @@
+import org
+import string
 from org.python.parser import Visitor
 from org.python.parser.PythonGrammarTreeConstants import *
-import string, org
+
 
 class FreezeVisitor(Visitor):
 	def __init__(self, events, props, packages=None, classes=None, proxies=None,

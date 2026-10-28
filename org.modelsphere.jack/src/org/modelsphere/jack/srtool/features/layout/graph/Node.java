@@ -42,14 +42,12 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.srtool.features.layout.graph;
 
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.graphic.GraphicComponent;
 import org.modelsphere.jack.srtool.graphic.DbGraphic;
+
+import java.awt.*;
 
 /**
  * The Class Node.

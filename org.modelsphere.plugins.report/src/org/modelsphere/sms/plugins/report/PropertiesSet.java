@@ -33,11 +33,19 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.report;
 
-import java.io.*;
-import java.util.*;
-
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.ApplicationContext;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Set;
 
 /*
  This class is inspired (copied) a lot from org.modelsphere.jack.preference.PropertiesSet

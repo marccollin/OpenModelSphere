@@ -1,7 +1,9 @@
-import unittest
-import test_support
 import base64
+import unittest
 from binascii import Error as binascii_error
+
+import test_support
+
 
 class Base64TestCase(unittest.TestCase):
     def test_encode_string(self):

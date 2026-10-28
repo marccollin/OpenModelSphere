@@ -43,12 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import javax.swing.JComboBox;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.srtypes.Domain;
 import org.modelsphere.jack.baseDb.screen.ScreenView;
-import org.modelsphere.jack.baseDb.screen.model.*;
+import org.modelsphere.jack.baseDb.screen.model.DbDescriptionModel;
+import org.modelsphere.jack.baseDb.screen.model.DbListModel;
+import org.modelsphere.jack.baseDb.screen.model.ScreenModel;
+
+import javax.swing.*;
 
 public class DomainEditor extends JComboBox implements org.modelsphere.jack.baseDb.screen.Editor {
 

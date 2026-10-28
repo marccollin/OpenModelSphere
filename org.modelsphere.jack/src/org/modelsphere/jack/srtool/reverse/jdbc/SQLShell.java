@@ -43,18 +43,25 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.jdbc;
 
-import java.io.*;
-import java.util.*;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.script.Shell;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.reverse.SQLLexerStream;
-import org.modelsphere.jack.srtool.reverse.jdbc.ActiveConnectionManager;
 import org.modelsphere.jack.srtool.services.ConnectionMessage;
 import org.modelsphere.jack.srtool.services.ServiceProtocolList;
 import org.modelsphere.jack.srtool.services.StatementMessage;
 import org.modelsphere.jack.text.MessageFormat;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public final class SQLShell extends Shell {
     private static final String SQL_SHELL = LocaleMgr.misc.getString("SQL_SHELL");

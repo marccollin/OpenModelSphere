@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.engine;
 
-import java.util.*;
+import java.util.HashMap;
 
 public final class SrxPrimitiveElement implements SrxElement {
     // Fields used to access and convert the SRX Value to a compatible DB Value

@@ -1,39 +1,35 @@
 # Copyright (C) 2001,2002,2003 Python Software Foundation
 # email package unit tests
 
+import base64
+import difflib
+import email
 import os
 import sys
 import time
-import base64
-import difflib
 import unittest
 import warnings
 from cStringIO import StringIO
-from types import StringType, ListType
-
-import email
-
-from email.Charset import Charset
-from email.Header import Header, decode_header, make_header
-from email.Parser import Parser, HeaderParser
-from email.Generator import Generator, DecodedGenerator
-from email.Message import Message
-from email.MIMEAudio import MIMEAudio
-from email.MIMEText import MIMEText
-from email.MIMEImage import MIMEImage
-from email.MIMEBase import MIMEBase
-from email.MIMEMessage import MIMEMessage
-from email.MIMEMultipart import MIMEMultipart
-from email import Utils
-from email import Errors
 from email import Encoders
+from email import Errors
 from email import Iterators
+from email import Utils
 from email import base64MIME
 from email import quopriMIME
-
-from test.test_support import findfile, run_unittest
+from email.Charset import Charset
+from email.Generator import Generator, DecodedGenerator
+from email.Header import Header, decode_header, make_header
+from email.MIMEAudio import MIMEAudio
+from email.MIMEBase import MIMEBase
+from email.MIMEImage import MIMEImage
+from email.MIMEMessage import MIMEMessage
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
+from email.Message import Message
+from email.Parser import Parser, HeaderParser
 from email.test import __file__ as landmark
-
+from test.test_support import findfile, run_unittest
+from types import StringType, ListType
 
 NL = '\n'
 EMPTYSTRING = ''

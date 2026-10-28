@@ -33,21 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen;
 
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import org.modelsphere.jack.awt.HotKeysSupport;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -59,6 +44,11 @@ import org.modelsphere.sms.db.DbSMSLinkModel;
 import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.db.util.AnySemObject;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SMSLinkFrame extends JDialog {
     private static final String kUnspecified = LocaleMgr.screen.getString("Unspecified");

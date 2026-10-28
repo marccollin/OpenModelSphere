@@ -43,16 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.Writer;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.Hashtable;
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import org.modelsphere.jack.srtool.forward.exceptions.EndlessLoopRuleException;
 import org.modelsphere.jack.srtool.forward.exceptions.VariableNotDefinedRuleException;
 import org.modelsphere.jack.templates.GenericModifierStructure;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
 
 public class ForEach extends Rule {
 

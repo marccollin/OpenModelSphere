@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.text.MessageFormat;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -55,6 +53,8 @@ import org.modelsphere.sms.or.actions.ORActionFactory;
 import org.modelsphere.sms.or.db.DbORCommonItemModel;
 import org.modelsphere.sms.or.db.DbORDiagram;
 import org.modelsphere.sms.or.db.DbORModel;
+
+import java.text.MessageFormat;
 
 final class IntegrateAction extends AbstractApplicationAction implements SelectionActionListener {
     private static final String kIntegrateDots = LocaleMgr.action.getString("integrateDots");

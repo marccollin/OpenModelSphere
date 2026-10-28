@@ -44,10 +44,9 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package com.neosapiens.plugins.reverse.java.ui;
 
-import javax.swing.JFrame;
-import javax.swing.UIManager;
-
 import com.neosapiens.plugins.reverse.java.ReverseJavaBytecodeParameters;
+
+import javax.swing.*;
 
 public class WizardTest {
 

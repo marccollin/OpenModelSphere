@@ -43,19 +43,31 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.graphic;
 
-import java.awt.Rectangle;
-import java.awt.Font;
-import java.awt.Color;
-
 import org.modelsphere.jack.actions.ActionInformation;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbGraphicalObjectI;
+import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.event.DbRefreshListener;
 import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
-import org.modelsphere.jack.graphic.*;
+import org.modelsphere.jack.graphic.Diagram;
+import org.modelsphere.jack.graphic.DiagramView;
+import org.modelsphere.jack.graphic.ExtZoneBox;
+import org.modelsphere.jack.graphic.GraphicComponent;
+import org.modelsphere.jack.graphic.GraphicUtil;
 import org.modelsphere.jack.graphic.shape.RectangleShape;
-import org.modelsphere.jack.graphic.zone.*;
+import org.modelsphere.jack.graphic.zone.CellEditor;
+import org.modelsphere.jack.graphic.zone.CellID;
+import org.modelsphere.jack.graphic.zone.CellRenderingOption;
+import org.modelsphere.jack.graphic.zone.SingletonCellID;
+import org.modelsphere.jack.graphic.zone.SingletonZone;
+import org.modelsphere.jack.graphic.zone.StringCellRenderer;
+import org.modelsphere.jack.graphic.zone.TextAreaCellEditor;
+import org.modelsphere.jack.graphic.zone.ZoneCell;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import java.awt.*;
 
 public class FreeText extends ExtZoneBox implements DbRefreshListener, ActionInformation {
     private static final Color TRANSPARENT = new Color(255, 255, 255, 0);

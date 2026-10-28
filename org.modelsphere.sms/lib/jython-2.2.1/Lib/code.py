@@ -6,6 +6,7 @@
 
 
 import sys
+
 import traceback
 from codeop import CommandCompiler, compile_command
 

@@ -43,18 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins;
 
-import java.awt.Component;
-import java.io.File;
-import java.io.Serializable;
-import java.nio.file.FileSystems;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -71,6 +59,17 @@ import org.modelsphere.sms.db.DbSMSBuiltInTypePackage;
 import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.db.DbSMSTargetSystem;
 import org.modelsphere.sms.or.db.util.AnyORObject;
+
+import java.awt.*;
+import java.io.File;
+import java.io.Serializable;
+import java.nio.file.FileSystems;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public final class TargetSystem {
 

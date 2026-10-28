@@ -1,5 +1,6 @@
-from test_support import verbose, have_unicode
 import sys
+
+from test_support import verbose, have_unicode
 
 # test string formatting operator (I am not sure if this is being tested
 # elsewhere but, surely, some of the given cases are *not* tested because

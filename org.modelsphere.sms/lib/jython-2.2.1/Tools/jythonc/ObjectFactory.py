@@ -1,8 +1,8 @@
 # Copyright (c) Corporation for National Research Initiatives
-import jast
-import org, java
-from Object import Object, PyObject, Generic
 from org.python.parser import ast
+
+import jast
+from Object import Object, PyObject, Generic
 
 
 def makeAnys(args):

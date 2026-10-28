@@ -34,14 +34,14 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.plugins.report.model;
 
 // JDK
-import java.awt.Color;
-
-import javax.swing.text.html.HTML;
 
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.sms.plugins.report.LocaleMgr;
+
+import javax.swing.text.html.HTML;
+import java.awt.*;
 
 // Jack
 

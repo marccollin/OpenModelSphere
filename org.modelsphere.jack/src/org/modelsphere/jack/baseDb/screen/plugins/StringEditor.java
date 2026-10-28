@@ -43,15 +43,20 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.Component;
-import javax.swing.JTextField;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.DocumentEvent;
-
 import org.modelsphere.jack.awt.AbstractTableCellEditor;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.screen.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.screen.DefaultRenderer;
+import org.modelsphere.jack.baseDb.screen.Editor;
+import org.modelsphere.jack.baseDb.screen.Renderer;
+import org.modelsphere.jack.baseDb.screen.ScreenView;
 import org.modelsphere.jack.baseDb.screen.model.ScreenModel;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
 
 // Yhis editor may work with the DefaultRenderer or the DbSemObjFullNameRenderer
 public class StringEditor extends JTextField implements Editor, DocumentListener {

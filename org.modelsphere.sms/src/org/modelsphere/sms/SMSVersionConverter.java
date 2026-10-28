@@ -33,11 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbLoginNode;
@@ -81,6 +76,11 @@ import org.modelsphere.sms.or.db.DbORDiagram;
 import org.modelsphere.sms.or.db.DbORDomainStyle;
 import org.modelsphere.sms.or.db.DbORNotation;
 import org.modelsphere.sms.or.db.DbORStyle;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public final class SMSVersionConverter implements VersionConverter {
 

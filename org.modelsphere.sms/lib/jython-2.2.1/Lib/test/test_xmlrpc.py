@@ -1,7 +1,8 @@
 import sys
-import test_support
 import unittest
 import xmlrpclib
+
+import test_support
 
 alist = [{'astring': 'foo@bar.baz.spam',
           'afloat': 7283.43,

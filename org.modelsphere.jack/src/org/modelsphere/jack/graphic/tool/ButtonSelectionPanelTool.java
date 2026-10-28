@@ -43,14 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.tool;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.preference.PropertiesSet;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public abstract class ButtonSelectionPanelTool extends Tool {
     static final String SELECTED_INDEX_PROPERTY = "Selected"; // NOT LOCALIZABLE

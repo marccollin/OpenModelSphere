@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import javax.swing.JDialog;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.awt.AwtUtil;
@@ -57,6 +55,8 @@ import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.db.DbORDiagram;
 import org.modelsphere.sms.or.db.DbORTable;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
 
 public final class GenerateCommonItemsAction extends AbstractApplicationAction implements
         SelectionActionListener {

@@ -33,18 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.graphic.tool;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.text.MessageFormat;
-import java.util.Locale;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -77,6 +65,12 @@ import org.modelsphere.sms.or.db.DbORTableGo;
 import org.modelsphere.sms.or.db.srtypes.ORChoiceSpecializationCategory;
 import org.modelsphere.sms.or.graphic.ORTableBox;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.text.MessageFormat;
+import java.util.Locale;
 
 public class ORSpecializationTool extends Tool {
 

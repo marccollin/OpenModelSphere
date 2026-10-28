@@ -2,14 +2,12 @@
 AMAK: 20070515: New select implementation that uses java.nio
 """
 
+import errno
 import java.nio.channels.SelectableChannel
 import java.nio.channels.SelectionKey
 import java.nio.channels.Selector
 from java.nio.channels.SelectionKey import OP_ACCEPT, OP_CONNECT, OP_WRITE, OP_READ
 
-import socket
-
-import errno
 
 class error(Exception): pass
 

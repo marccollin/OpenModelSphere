@@ -42,10 +42,10 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import javax.swing.SwingConstants;
-
 import org.modelsphere.jack.baseDb.screen.DefaultRenderer;
 import org.modelsphere.jack.baseDb.screen.ScreenView;
+
+import javax.swing.*;
 
 /**
  * @author Grandite

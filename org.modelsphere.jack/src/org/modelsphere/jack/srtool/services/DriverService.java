@@ -42,10 +42,17 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.srtool.services;
 
-import java.io.*;
-
-import org.modelsphere.jack.preference.*;
+import org.modelsphere.jack.preference.DriverInfo;
+import org.modelsphere.jack.preference.DriversManager;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 public final class DriverService extends DriverServiceProtocol {
 

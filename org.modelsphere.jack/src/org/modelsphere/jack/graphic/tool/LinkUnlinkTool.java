@@ -43,11 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.tool;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.JList;
+import org.modelsphere.jack.graphic.Diagram;
+import org.modelsphere.jack.graphic.GraphicComponent;
 
-import org.modelsphere.jack.graphic.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public abstract class LinkUnlinkTool extends Tool {
     private Cursor cursor;

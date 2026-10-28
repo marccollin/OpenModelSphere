@@ -3,9 +3,9 @@
    Nick Mathewson
 """
 import unittest
-from test_support import run_unittest, is_jython
-
 from codeop import compile_command
+
+from test_support import run_unittest, is_jython
 
 if is_jython:
     import sys

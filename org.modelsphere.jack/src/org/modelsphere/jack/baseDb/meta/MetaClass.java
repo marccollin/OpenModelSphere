@@ -43,17 +43,21 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.meta;
 
-import java.awt.Image;
-import java.lang.reflect.Field;
-import java.text.MessageFormat;
-import java.util.*;
-
-import javax.swing.Icon;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.srtypes.SrType;
 import org.modelsphere.jack.graphic.GraphicUtil;
 import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Field;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 /**
  * The central concept of the meta package. Each DbObject instance is associated to a MetaClass (in

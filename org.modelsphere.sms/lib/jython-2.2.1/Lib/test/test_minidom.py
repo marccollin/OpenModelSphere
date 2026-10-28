@@ -1,11 +1,11 @@
 # test for xml.dom.minidom
 
-from xml.dom.minidom import parse, Node, Document, parseString
-from xml.dom import HierarchyRequestErr
-
 import os
 import sys
 import traceback
+from xml.dom import HierarchyRequestErr
+from xml.dom.minidom import parse, Node, Document, parseString
+
 from test_support import verbose
 
 if __name__ == "__main__":

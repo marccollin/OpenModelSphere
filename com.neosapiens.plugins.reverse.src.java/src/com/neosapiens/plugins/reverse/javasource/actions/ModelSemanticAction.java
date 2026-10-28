@@ -1,15 +1,14 @@
 package com.neosapiens.plugins.reverse.javasource.actions;
 
-import java.lang.reflect.Modifier;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import com.neosapiens.plugins.reverse.javasource.international.JavaSourceReverseLocaleMgr;
+import com.neosapiens.plugins.reverse.javasource.utils.DeclarationOfClassOrInterface;
+import com.neosapiens.plugins.reverse.javasource.utils.DeclarationOfMethod;
+import com.neosapiens.plugins.reverse.javasource.utils.FieldOfClass;
+import com.neosapiens.plugins.reverse.javasource.utils.InitializationBlockOfClass;
+import com.neosapiens.plugins.reverse.javasource.utils.ModelHelper;
+import com.neosapiens.plugins.reverse.javasource.utils.ParameterOfMethode;
+import com.neosapiens.plugins.reverse.javasource.utils.PutClassesFirstComparator;
+import com.neosapiens.plugins.reverse.javasource.utils.SemanticDeclaration;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -35,15 +34,15 @@ import org.modelsphere.sms.oo.java.db.DbJVPrimitiveType;
 import org.modelsphere.sms.oo.java.db.srtypes.JVClassCategory;
 import org.modelsphere.sms.oo.java.db.srtypes.JVVisibility;
 
-import com.neosapiens.plugins.reverse.javasource.international.JavaSourceReverseLocaleMgr;
-import com.neosapiens.plugins.reverse.javasource.utils.DeclarationOfClassOrInterface;
-import com.neosapiens.plugins.reverse.javasource.utils.DeclarationOfMethod;
-import com.neosapiens.plugins.reverse.javasource.utils.FieldOfClass;
-import com.neosapiens.plugins.reverse.javasource.utils.InitializationBlockOfClass;
-import com.neosapiens.plugins.reverse.javasource.utils.ModelHelper;
-import com.neosapiens.plugins.reverse.javasource.utils.ParameterOfMethode;
-import com.neosapiens.plugins.reverse.javasource.utils.PutClassesFirstComparator;
-import com.neosapiens.plugins.reverse.javasource.utils.SemanticDeclaration;
+import java.lang.reflect.Modifier;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class ModelSemanticAction implements SemanticAction {
 

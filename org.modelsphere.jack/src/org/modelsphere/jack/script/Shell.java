@@ -43,21 +43,31 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.script;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.beans.PropertyVetoException;
-import java.io.*;
-import java.util.ArrayList;
-
-import javax.swing.*;
-import javax.swing.plaf.TabbedPaneUI;
-
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.awt.JTextAreaFix;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.graphic.CascadingJInternalFrame;
 import org.modelsphere.jack.text.MessageFormat;
+
+import javax.swing.*;
+import javax.swing.plaf.TabbedPaneUI;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyVetoException;
+import java.io.ByteArrayOutputStream;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
+import java.util.ArrayList;
 
 public abstract class Shell extends CascadingJInternalFrame {
     private static final String kClose = LocaleMgr.screen.getString("Close");

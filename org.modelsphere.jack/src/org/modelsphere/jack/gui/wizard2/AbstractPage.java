@@ -43,10 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.gui.wizard2;
 
-import java.awt.LayoutManager;
-
-import javax.swing.JComponent;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 @SuppressWarnings("serial")
 public abstract class AbstractPage extends JPanel implements Page {

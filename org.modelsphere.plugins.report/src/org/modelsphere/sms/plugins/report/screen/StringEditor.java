@@ -33,12 +33,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.report.screen;
 
-import java.awt.Component;
-
-import javax.swing.JTable;
-import javax.swing.JTextField;
-
 import org.modelsphere.jack.awt.AbstractTableCellEditor;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class StringEditor extends JTextField implements Editor {
 

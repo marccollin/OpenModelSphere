@@ -43,16 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool;
 
-import java.awt.event.ActionEvent;
-import java.util.HashMap;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.awt.JackMenu;
 import org.modelsphere.jack.preference.RecentFiles;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.util.StringUtil;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.util.HashMap;
 
 public class MainFrameMenu {
     public static final String MENU_FILE = "file"; // NOT LOCALIZABLE - Property Key

@@ -43,10 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Component;
-import java.beans.PropertyChangeListener;
-
 import javax.swing.*;
+import java.awt.*;
+import java.beans.PropertyChangeListener;
 
 /**
  * Add support for displaying SeparatorIcon, or other icons

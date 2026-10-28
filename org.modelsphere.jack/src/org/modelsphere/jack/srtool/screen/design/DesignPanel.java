@@ -43,40 +43,36 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.screen.design;
 
+import org.modelsphere.jack.actions.util.DbMultiTrans;
+import org.modelsphere.jack.awt.Header;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbUDFValue;
+import org.modelsphere.jack.baseDb.db.event.DbRefreshListener;
+import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
+import org.modelsphere.jack.preference.PropertiesManager;
+import org.modelsphere.jack.preference.PropertiesSet;
+import org.modelsphere.jack.srtool.ApplicationContext;
+import org.modelsphere.jack.srtool.DefaultMainFrame;
+import org.modelsphere.jack.srtool.SelectionChangedEvent;
+import org.modelsphere.jack.srtool.SelectionListener;
+import org.modelsphere.jack.srtool.international.LocaleMgr;
+import org.modelsphere.jack.util.ExceptionHandler;
+
+import javax.swing.*;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.lang.reflect.Method;
-import java.util.*;
 import java.util.List;
-
-import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.*;
-import javax.swing.table.*;
-
-import org.modelsphere.jack.actions.util.DbMultiTrans;
-import org.modelsphere.jack.awt.AwtUtil;
-import org.modelsphere.jack.awt.Header;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.event.DbRefreshListener;
-import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
-import org.modelsphere.jack.baseDb.db.srtypes.UDFValueType;
-import org.modelsphere.jack.baseDb.meta.*;
-import org.modelsphere.jack.baseDb.screen.MultiDefaultRenderer;
-import org.modelsphere.jack.baseDb.screen.ScreenPlugins;
-import org.modelsphere.jack.baseDb.screen.plugins.MultiDbSemanticalObjectRenderer;
-import org.modelsphere.jack.baseDb.util.TerminologyUtil;
-import org.modelsphere.jack.preference.PropertiesManager;
-import org.modelsphere.jack.preference.PropertiesSet;
-import org.modelsphere.jack.srtool.*;
-import org.modelsphere.jack.srtool.international.LocaleMgr;
-import org.modelsphere.jack.util.DefaultComparableElement;
-import org.modelsphere.jack.util.ExceptionHandler;
+import java.util.StringTokenizer;
 
 public class DesignPanel extends JPanel implements AncestorListener, SelectionListener,
         MouseMotionListener, MouseListener {

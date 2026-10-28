@@ -36,14 +36,14 @@ package org.modelsphere.sms.plugins.report.screen;
 // Jack
 
 // JDK
-import java.awt.Component;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
-import javax.swing.JTable;
 
 import org.modelsphere.jack.awt.AbstractTableCellEditor;
 import org.modelsphere.jack.awt.NumericTextField;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class IntegerEditor extends NumericTextField implements Editor {
 

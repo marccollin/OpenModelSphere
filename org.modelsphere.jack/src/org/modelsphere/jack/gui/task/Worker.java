@@ -43,11 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.gui.task;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Date;
-
 import org.modelsphere.jack.debug.Debug;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 
 /**
  * This class and the Controller class provide a framework to handle and execute a task.
