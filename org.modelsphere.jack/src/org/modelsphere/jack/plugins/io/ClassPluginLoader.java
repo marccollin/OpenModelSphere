@@ -120,33 +120,31 @@ public class ClassPluginLoader extends JARPluginLoader {
         try {
             // Check for jar file
             if (file.getName().toLowerCase().endsWith(".jar")) {
-                // file extension
-                JarFile jar = new JarFile(file);
-                if (jar == null)
-                    return null;
-                URL jarurl = file.toURI().toURL();
-                if (jarurl == null)
-                    return null;
+                try (JarFile jar = new JarFile(file)) {
+                    URL jarurl = file.toURI().toURL();
+                    if (jarurl == null)
+                        return null;
 
-                ClassPluginContext context = (ClassPluginContext) createPluginContext(jarurl);
-                PluginManifest manifest = context.getPluginManifest();
+                    ClassPluginContext context = (ClassPluginContext) createPluginContext(jarurl);
+                    PluginManifest manifest = context.getPluginManifest();
 
-                String entryPoint = manifest == null ? null : manifest.getPluginClassName();
+                    String entryPoint = manifest == null ? null : manifest.getPluginClassName();
 
-                if (entryPoint == null) {
-                    ClassLoader pluginloader = new URLClassLoader(new URL[] { jarurl },
-                            defaultClassLoader);
-                    // Allow many repository functions in one jar if no class specified in manifest
-                    Enumeration<JarEntry> enumeration = jar.entries();
-                    while (enumeration.hasMoreElements()) {
-                        JarEntry entry = enumeration.nextElement();
-                        if (!entry.getName().toLowerCase().endsWith(CLASS_EXTENSION))
-                            continue;
-                        // TODO --- This override the descriptor on each iteration
-                        DefaultPluginDescriptor descriptor = addFromJar(jarurl, entry.getName(),
-                                pluginloader, Rule.class);
-                        if (descriptor != null) {
-                            descriptors.add(descriptor);
+                    if (entryPoint == null) {
+                        ClassLoader pluginloader = new URLClassLoader(new URL[] { jarurl },
+                                defaultClassLoader);
+                        // Allow many repository functions in one jar if no class specified in manifest
+                        Enumeration<JarEntry> enumeration = jar.entries();
+                        while (enumeration.hasMoreElements()) {
+                            JarEntry entry = enumeration.nextElement();
+                            if (!entry.getName().toLowerCase().endsWith(CLASS_EXTENSION))
+                                continue;
+                            // TODO --- This override the descriptor on each iteration
+                            DefaultPluginDescriptor descriptor = addFromJar(jarurl, entry.getName(),
+                                    pluginloader, Rule.class);
+                            if (descriptor != null) {
+                                descriptors.add(descriptor);
+                            }
                         }
                     }
                 }
