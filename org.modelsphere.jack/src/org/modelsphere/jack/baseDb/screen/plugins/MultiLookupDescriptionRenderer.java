@@ -57,14 +57,14 @@ import java.awt.*;
 public class MultiLookupDescriptionRenderer extends MultiDefaultRenderer {
     private static JPanel panel;
     private static JLabel label;
-    private static JButton textEditorBtn = new JButton();
+    private static final JButton textEditorBtn = new JButton();
 
     public static final Icon kTextToWrite = org.modelsphere.jack.srtool.international.LocaleMgr.screen
             .getImageIcon("TextToWrite");
     public static final Icon kTextWritten = org.modelsphere.jack.srtool.international.LocaleMgr.screen
             .getImageIcon("TextWritten");
 
-    private static Border noFocusBorder = new EmptyBorder(1, 2, 1, 2);
+    private static final Border noFocusBorder = new EmptyBorder(1, 2, 1, 2);
 
     public static final MultiLookupDescriptionRenderer singleton = new MultiLookupDescriptionRenderer();
 
@@ -94,8 +94,8 @@ public class MultiLookupDescriptionRenderer extends MultiDefaultRenderer {
             }
         }
         TableModel model = table.getModel();
-        boolean valuesDiffer = model instanceof DesignTableModel ? ((DesignTableModel) model)
-                .isValuesDiffer(row) : false;
+        boolean valuesDiffer = model instanceof DesignTableModel
+                && ((DesignTableModel) model).isValuesDiffer(row);
         if (valuesDiffer && !isSelected) {
             label.setForeground(table.getForeground());
             label.setBackground(DesignPanel.DIFFER_NO_FOCUS_COLOR);

@@ -60,10 +60,8 @@ import java.util.Iterator;
  */
 public final class SMSSemanticalMetaClassEditor implements Editor {
 
-    private Object oldValue;
-    private DbObject parentDbo;
     private org.modelsphere.jack.baseDb.screen.Renderer renderer;
-    private Component comp = null;
+    private Component comp;
 
     private static final String kTableOrEntity = org.modelsphere.sms.international.LocaleMgr.screen
             .getString("TableOrEntity");
@@ -72,19 +70,18 @@ public final class SMSSemanticalMetaClassEditor implements Editor {
     private static final String kColumnOrAttribute = org.modelsphere.sms.international.LocaleMgr.screen
             .getString("ColumnOrAttribute");
 
-    private ArrayList semanticalMetaClasses = null;
+    private ArrayList<DefaultComparableElement> semanticalMetaClasses;
 
     public final Component getTableCellEditorComponent(ScreenView screenView,
             AbstractTableCellEditor editor, Object value, boolean isSelected, int row, int column) {
-        oldValue = value;
         ScreenModel model = screenView.getModel();
-        parentDbo = (DbObject) model.getParentValue(row);
+        DbObject parentDbo = (DbObject) model.getParentValue(row);
 
         renderer = model.getRenderer(row, column);
         try {
             if (semanticalMetaClasses == null) {
-                semanticalMetaClasses = new ArrayList();
-                Enumeration enumeration = MetaClass.enumMetaClasses();
+                semanticalMetaClasses = new ArrayList<>();
+                Enumeration<?> enumeration = MetaClass.enumMetaClasses();
                 while (enumeration.hasMoreElements()) {
                     MetaClass metaclass = (MetaClass) enumeration.nextElement();
                     if (((metaclass.getFlags() & MetaClass.UML_EXTENSIBILITY_FILTER) != 0)
@@ -107,7 +104,7 @@ public final class SMSSemanticalMetaClassEditor implements Editor {
                 Collections.sort(semanticalMetaClasses);
             }
 
-            JComboBox combo = new JComboBox();
+            JComboBox<DefaultComparableElement> combo = new JComboBox<>();
             int selInd = -1;
 
             String currentMetaclassName = (String) value;
@@ -118,9 +115,9 @@ public final class SMSSemanticalMetaClassEditor implements Editor {
                 currentMetaclass = DbSMSSemanticalObject.metaClass;
 
             parentDbo.getDb().beginTrans(Db.READ_TRANS);
-            Iterator iter = semanticalMetaClasses.iterator();
+            Iterator<DefaultComparableElement> iter = semanticalMetaClasses.iterator();
             while (iter.hasNext()) {
-                MetaClass metaclass = (MetaClass) ((DefaultComparableElement) iter.next()).object;
+                MetaClass metaclass = (MetaClass) iter.next().object;
                 if (metaclass == DbORAbsTable.metaClass)
                     combo.addItem(new DefaultComparableElement(metaclass, kTableOrEntity));
                 else if (metaclass == DbSMSAssociation.metaClass)
