@@ -45,7 +45,7 @@ package org.modelsphere.jack.srtool.reverse;
 
 import org.modelsphere.jack.debug.Debug;
 
-import java.io.IOException;
+import java.util.Locale;
 
 public final class TargetObjectBuilder extends ObjectBuilder {
 
@@ -65,14 +65,11 @@ public final class TargetObjectBuilder extends ObjectBuilder {
 
     public void makeOccurrence(String occ) throws Exception {
         // from occ, via Mapping, find dboj
-        String lowercase = occ.toLowerCase();
+        String lowercase = occ.toLowerCase(Locale.ROOT);
         currentOccurrenceId = -1;
 
-        try {
-            // via actions, create it
-            actions.processOccurrenceId(currentOccurrenceId, lowercase);
-        } catch (IOException ex) {
-        }
+        // via actions, create it
+        actions.processOccurrenceId(currentOccurrenceId, lowercase);
     }
 
     public void makeStringAttr(String attr, String val) throws Exception {

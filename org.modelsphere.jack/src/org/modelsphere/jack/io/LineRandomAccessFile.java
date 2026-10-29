@@ -75,11 +75,20 @@ public final class LineRandomAccessFile extends RandomAccessFile implements Test
 
         super(file, readOnly);
 
-        // Build a vector containing positions of each line
-        do {
-            long filepos = getFilePointer();
-            m_absolutePositions.add(Long.valueOf(filepos));
-        } while (readLine() != null);
+        try {
+            // Build a vector containing positions of each line
+            do {
+                long filepos = getFilePointer();
+                m_absolutePositions.add(Long.valueOf(filepos));
+            } while (readLine() != null);
+        } catch (IOException ex) {
+            try {
+                close();
+            } catch (IOException closeEx) {
+                ex.addSuppressed(closeEx);
+            }
+            throw ex;
+        }
     }
 
     /** Get current line number */
@@ -185,7 +194,6 @@ public final class LineRandomAccessFile extends RandomAccessFile implements Test
             writer.close();
             File file = writer.getFile();
             input = new LineRandomAccessFile(file);
-            file.delete();
         } catch (IOException ex) {
             throw new TestException(ex.toString());
         }

@@ -46,10 +46,11 @@ package org.modelsphere.jack.srtool.reverse;
 import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.jack.io.TemporaryFileWriter;
 
-import java.io.EOFException;
 import java.io.File;
+import java.io.EOFException;
 import java.io.RandomAccessFile;
 import java.io.Reader;
+import java.util.Locale;
 
 public final class InputFileParser implements InputReadable, SRXConstants {
     private Controller controller;
@@ -66,7 +67,7 @@ public final class InputFileParser implements InputReadable, SRXConstants {
 
     private String isNewOccurrence(String line) {
         String newOccurrence = null;
-        String lowerCase = line.toLowerCase();
+        String lowerCase = line.toLowerCase(Locale.ROOT);
 
         if (lowerCase.startsWith(kOccurrenceTypeAlt)) {
             newOccurrence = lowerCase.substring(kOccurrenceTypeAlt.length());
@@ -79,7 +80,7 @@ public final class InputFileParser implements InputReadable, SRXConstants {
 
     private String getFirstWord(String line) {
         String firstWord = null;
-        String lowerCase = line.toLowerCase();
+        String lowerCase = line.toLowerCase(Locale.ROOT);
         int index = lowerCase.indexOf(' ');
         if (index != -1) {
             firstWord = lowerCase.substring(0, lowerCase.indexOf(' '));
@@ -93,7 +94,7 @@ public final class InputFileParser implements InputReadable, SRXConstants {
     private boolean isTextAttr(String word) {
         boolean found = false;
         for (int i = 0; i < kTextKeywords.length; i++) {
-            String lowercase = word.toLowerCase();
+            String lowercase = word.toLowerCase(Locale.ROOT);
             if (lowercase.equals(kTextKeywords[i])) {
                 found = true;
                 break;
@@ -109,86 +110,91 @@ public final class InputFileParser implements InputReadable, SRXConstants {
 
     private void readTextAttrStatement(String attr, String line, RandomAccessFile file)
             throws Exception {
-        String value = "";
+        StringBuilder value = new StringBuilder();
+        boolean terminated = false;
         do {
             int index = line.indexOf(kEOT);
             if (index == -1) {
-                value += line + '\n';
+                value.append(line).append('\n');
             } else {
                 if (index == 0) {
                     // remove last \n before the kEOT (part of the srx format)
-                    if (value.length() > 0 && value.lastIndexOf('\n') == (value.length() - 1))
-                        value = value.substring(0, value.length() - 1);
+                    if (value.length() > 0 && value.charAt(value.length() - 1) == '\n') {
+                        value.setLength(value.length() - 1);
+                    }
                 } else
-                    value += line.substring(0, index - 1); // -1 is for removing
+                    value.append(line, 0, index - 1); // -1 is for removing
                 // the space before
                 // kEOT (part of the
                 // srx format)
+                terminated = true;
                 break;
             }
             line = file.readLine();
         } while (line != null);
 
-        builder.makeTextAttr(attr, value);
+        if (!terminated) {
+            throw new EOFException("Unterminated text attribute: " + attr);
+        }
+        builder.makeTextAttr(attr, value.toString());
     }
 
     public void readInputFile(Reader reader) throws Exception {
         // dump reader's output into a temporary file
         TemporaryFileWriter writer = new TemporaryFileWriter();
-        writer.dump(reader);
-        writer.close();
-
-        // read from the temporary file
-        File tempFile = writer.getFile();
-        RandomAccessFile file = new RandomAccessFile(tempFile, "r"); // NOT
-        // LOCALIZABLE,
-        // io
-        // constant
-
+        Throwable failure = null;
         try {
-            String line;
-            while (controller == null || (controller != null && controller.checkPoint())) {
-                line = file.readLine();
-                if (line == null) {
-                    break;
-                }
+            writer.dump(reader);
+            writer.close();
 
-                String newOccurrence = isNewOccurrence(line);
-                if (newOccurrence != null) {
-                    builder.makeOccurrence(newOccurrence.trim());
-                } else {
-                    String firstWord = getFirstWord(line);
-                    if (firstWord != null) { // otherwise ignore
-                        if (firstWord.startsWith("--")) {
-                            // ignore comments
-                        } else if (!isTextAttr(firstWord)) {
-                            // if word not one of {"comments", "oid_text", .."},
-                            // read attr string
-                            line = line.substring(1 + firstWord.length());
-                            readLineAttrStatement(firstWord, line);
-                        } else {
-                            // else read attr text
-                            line = line.substring(1 + firstWord.length());
-                            readTextAttrStatement(firstWord, line, file);
+            // read from the temporary file
+            File tempFile = writer.getFile();
+            try (RandomAccessFile file = new RandomAccessFile(tempFile, "r")) { // NOT
+                // LOCALIZABLE,
+                // io
+                // constant
+                String line;
+                while (controller == null || controller.checkPoint()) {
+                    line = file.readLine();
+                    if (line == null) {
+                        break;
+                    }
+
+                    String newOccurrence = isNewOccurrence(line);
+                    if (newOccurrence != null) {
+                        builder.makeOccurrence(newOccurrence.trim());
+                    } else {
+                        String firstWord = getFirstWord(line);
+                        if (firstWord != null) { // otherwise ignore
+                            if (firstWord.startsWith("--")) {
+                                // ignore comments
+                            } else if (!isTextAttr(firstWord)) {
+                                // if word not one of {"comments", "oid_text", .."},
+                                // read attr string
+                                line = line.substring(1 + firstWord.length());
+                                readLineAttrStatement(firstWord, line);
+                            } else {
+                                // else read attr text
+                                line = line.substring(1 + firstWord.length());
+                                readTextAttrStatement(firstWord, line, file);
+                            } // end if
                         } // end if
                     } // end if
-                } // end if
-            } // end while
-        } catch (EOFException ex) {
-            // Excepting this exception to exit from the loop
+                }
+            }
+        } catch (Exception | Error ex) {
+            failure = ex;
+            throw ex;
+        } finally {
+            try {
+                writer.cleanup();
+            } catch (RuntimeException cleanupEx) {
+                if (failure == null) {
+                    throw cleanupEx;
+                }
+                failure.addSuppressed(cleanupEx);
+            }
         }
-
-        /*
-         * InputFileParserStream parser = new InputFileParserStream(reader);
-         * 
-         * //read until end of file boolean done = false; while (!done && ( controler == null ||
-         * (controler != null && controler.checkPoint()))) { //try { int tokenID =
-         * parser.nextToken();
-         * 
-         * //only keep statement tokens switch (tokenID) { case LexerStream.TT_WORD:
-         * parser.readStatement(parser.sval); break; case LexerStream.TT_EOF: done = true; break;
-         * default: break; } } //end while
-         */
     } // end readInputFile()
 
     // INNER CLASSES

@@ -49,7 +49,7 @@ import java.util.Iterator;
 // NOTE:  toLowerCase() is applied on all key values for set and get methods
 
 public final class DomainMapping {
-    HashMap map = new HashMap(5);
+    HashMap<String, Object> map = new HashMap<>(5);
     Object defaultValue = null;
 
     // defaultvalue: The default value for this domain mapping
@@ -83,9 +83,9 @@ public final class DomainMapping {
         s += "defaultValue = " + defaultValue; // NOT LOCALIZABLE
         s += ", map = [ "; // NOT LOCALIZABLE
         if (map != null) {
-            Iterator iter = map.keySet().iterator();
+            Iterator<String> iter = map.keySet().iterator();
             while (iter.hasNext()) {
-                Object key = iter.next();
+                String key = iter.next();
                 Object value = map.get(key);
                 s += "(key=" + key; // NOT LOCALIZABLE
                 s += ", value=" + value + ")"; // NOT LOCALIZABLE
