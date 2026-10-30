@@ -79,6 +79,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 public class DefaultForwardWizardStartPage extends WizardPage {
@@ -272,7 +273,7 @@ public class DefaultForwardWizardStartPage extends WizardPage {
                         populateObjectScopeWithEnum((DbEnumeration) dbEnum, options, concept,
                                 userScope);
                     else if (dbEnum instanceof ArrayList) {
-                        ArrayList listEnum = (ArrayList) dbEnum;
+                        List<?> listEnum = (List<?>) dbEnum;
                         for (int j = 0; j < listEnum.size(); j++) {
                             populateObjectScopeWithEnum((DbEnumeration) listEnum.get(j), options,
                                     concept, userScope);
@@ -290,10 +291,10 @@ public class DefaultForwardWizardStartPage extends WizardPage {
             // For Owned Objects, use the username
             DbObject obj = dbEnum.nextElement();
             if (obj instanceof DbORPrimaryUnique) {
-                if (concept.conceptID == SQLForwardEngineeringPlugin.UniqueId.intValue()
+                if (concept.conceptID == SQLForwardEngineeringPlugin.UniqueId
                         && ((DbORPrimaryUnique) obj).isPrimary())
                     continue;
-                else if (concept.conceptID == SQLForwardEngineeringPlugin.PrimaryId.intValue()
+                else if (concept.conceptID == SQLForwardEngineeringPlugin.PrimaryId
                         && !((DbORPrimaryUnique) obj).isPrimary())
                     continue;
             }

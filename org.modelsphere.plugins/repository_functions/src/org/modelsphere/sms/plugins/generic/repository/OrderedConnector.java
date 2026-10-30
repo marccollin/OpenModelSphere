@@ -62,6 +62,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * For any object, lists by alphabetical order. <br>
@@ -120,7 +121,7 @@ public abstract class OrderedConnector extends Connector.UserConnector {
             }
 
             int size = 0;
-            ArrayList elems = new ArrayList();
+            List<DefaultComparableElement> elems = new ArrayList<>();
 
             int i = 0;
             try {

@@ -96,7 +96,7 @@ public class FindInDiagramAction extends AbstractDomainAction implements Selecti
                 //find the graphical object that was selected in the array,
                 //then connect to the line label that interests us
                 AssociationRoles ar = null;
-                ArrayList arrayOfLabels = (ArrayList) vecGos.get(0);
+                List<?> arrayOfLabels = (List<?>) vecGos.get(0);
                 for (int i = 0; i < arrayOfLabels.size(); i++) {
                     ar = (AssociationRoles) arrayOfLabels.get(i);
                     if (ar.getAssociationGo() == objRetVal)
@@ -113,7 +113,7 @@ public class FindInDiagramAction extends AbstractDomainAction implements Selecti
                     if (gc == null) {
                         DbObject semObj = ApplicationContext.getFocusManager()
                                 .getSelectedSemanticalObjects()[0];
-                        ArrayList listOfLabels = ApplicationContext.getSemanticalModel()
+                        List<?> listOfLabels = ApplicationContext.getSemanticalModel()
                                 .getLineLabels(semObj);
                         if (listOfLabels != null) {
                             for (int i = 0; i < listOfLabels.size(); i++) {
@@ -163,11 +163,11 @@ public class FindInDiagramAction extends AbstractDomainAction implements Selecti
             setEnabled(false);
             return;
         } else if (nb == 1 && vecGos.get(0) instanceof ArrayList) {
-            ArrayList listOfLabels = (ArrayList) vecGos.get(0);
+            List<?> listOfLabels = (List<?>) vecGos.get(0);
 
             // Regroup duplicate elements for each diagrams - needed for displaying the duplicate number
-            List diagList = new ArrayList();
-            List diagObjectsList = new ArrayList();
+            List<Object> diagList = new ArrayList<>();
+            List<List<DbObject>> diagObjectsList = new ArrayList<>();
             if (listOfLabels.size() == 0) {
                 setEnabled(false);
                 return;
@@ -177,11 +177,11 @@ public class FindInDiagramAction extends AbstractDomainAction implements Selecti
                 DbObject go = ar.getAssociationGo();
                 Object diag = go.getComposite();
                 if (diagList.contains(diag)) {
-                    ArrayList diagObjects = (ArrayList) diagObjectsList.get(diagList.indexOf(diag));
+                    List<DbObject> diagObjects = diagObjectsList.get(diagList.indexOf(diag));
                     diagObjects.add(go);
                 } else {
                     diagList.add(diag);
-                    List diagObjects = new ArrayList();
+                    List<DbObject> diagObjects = new ArrayList<>();
                     diagObjects.add(go);
                     diagObjectsList.add(diagObjects);
                 }
@@ -192,10 +192,10 @@ public class FindInDiagramAction extends AbstractDomainAction implements Selecti
             int valuesCursor = 0;
             int diagcount = diagList.size();
             for (int i = 0; i < diagcount; i++) {
-                ArrayList diagObjects = (ArrayList) diagObjectsList.get(i);
+                List<DbObject> diagObjects = diagObjectsList.get(i);
                 int diagGosCount = diagObjects.size();
                 for (int j = 0; j < diagGosCount; j++) {
-                    DbObject go = (DbObject) diagObjects.get(j);
+                    DbObject go = diagObjects.get(j);
                     DbObject diag = go.getComposite();
                     String packName = diag.getComposite().getSemanticalName(DbObject.LONG_FORM);
                     String title = MessageFormat.format(kDiagTitle, new Object[] { packName,
@@ -208,17 +208,17 @@ public class FindInDiagramAction extends AbstractDomainAction implements Selecti
             setEnabled(true);
         } else {
             // Regroup duplicate elements for each diagrams - needed for displaying the duplicate number
-            List diagList = new ArrayList();
-            List diagObjectsList = new ArrayList();
+            List<Object> diagList = new ArrayList<>();
+            List<List<DbObject>> diagObjectsList = new ArrayList<>();
             for (int i = 0; i < vecGos.size(); i++) {
                 DbObject go = (DbObject) vecGos.get(i);
                 Object diag = go.getComposite();
                 if (diagList.contains(diag)) {
-                    ArrayList diagObjects = (ArrayList) diagObjectsList.get(diagList.indexOf(diag));
+                    List<DbObject> diagObjects = diagObjectsList.get(diagList.indexOf(diag));
                     diagObjects.add(go);
                 } else {
                     diagList.add(diag);
-                    List diagObjects = new ArrayList();
+                    List<DbObject> diagObjects = new ArrayList<>();
                     diagObjects.add(go);
                     diagObjectsList.add(diagObjects);
                 }
@@ -229,10 +229,10 @@ public class FindInDiagramAction extends AbstractDomainAction implements Selecti
             int valuesCursor = 0;
             int diagcount = diagList.size();
             for (int i = 0; i < diagcount; i++) {
-                ArrayList diagObjects = (ArrayList) diagObjectsList.get(i);
+                List<DbObject> diagObjects = diagObjectsList.get(i);
                 int diagGosCount = diagObjects.size();
                 for (int j = 0; j < diagGosCount; j++) {
-                    DbObject go = (DbObject) diagObjects.get(j);
+                    DbObject go = diagObjects.get(j);
                     DbObject diag = go.getComposite();
                     String packName = diag.getComposite().getSemanticalName(DbObject.LONG_FORM);
                     String title = MessageFormat.format(kDiagTitle, new Object[] { packName,
@@ -255,7 +255,7 @@ public class FindInDiagramAction extends AbstractDomainAction implements Selecti
 
         DbRelationN gos = ApplicationContext.getSemanticalModel().getGos(objects[0]);
         if (gos == null) {
-            ArrayList listOfLabels = ApplicationContext.getSemanticalModel().getLineLabels(
+            List<?> listOfLabels = ApplicationContext.getSemanticalModel().getLineLabels(
                     objects[0]);
             if (listOfLabels != null) {
                 vecGos.add(listOfLabels);

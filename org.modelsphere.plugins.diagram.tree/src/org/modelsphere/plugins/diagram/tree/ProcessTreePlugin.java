@@ -86,7 +86,7 @@ import java.awt.*;
 import java.awt.print.PageFormat;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Enumeration;
 
 public final class ProcessTreePlugin extends OOForwardEngineeringPlugin implements Plugin2 {
@@ -386,7 +386,7 @@ public final class ProcessTreePlugin extends OOForwardEngineeringPlugin implemen
 
     private void arrangeLevel(DbSMSDiagram diagram, ProcessTreeModel model, int level,
             TreeDiagramOptions options) throws DbException {
-        ArrayList list = model.getNodesByLevels(level);
+        List<?> list = model.getNodesByLevels(level);
         int nb = list.size();
         for (int i = 0; i < nb; i++) {
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) list.get(i);

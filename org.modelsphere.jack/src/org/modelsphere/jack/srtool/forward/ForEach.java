@@ -152,8 +152,8 @@ public class ForEach extends Rule {
             throws /* DbException, */IOException, RuleException {
         boolean expanded = false;
 
-        ArrayList list = (ArrayList) m_list.getValue();
-        Iterator iter = list.iterator();
+        List<?> list = (List<?>) m_list.getValue();
+        Iterator<?> iter = list.iterator();
         while (iter.hasNext()) {
             // set enumerator
             Serializable o = (Serializable) iter.next();
@@ -171,11 +171,11 @@ public class ForEach extends Rule {
         boolean expanded = false;
 
         // find duplicates
-        ArrayList list = (ArrayList) m_list.getValue();
-        List uniList = new ArrayList(); // list of unique occurrences
-        List dupList = new ArrayList(); // list od duplicated occurrences
+        List<?> list = (List<?>) m_list.getValue();
+        List<Serializable> uniList = new ArrayList<>(); // list of unique occurrences
+        List<Serializable> dupList = new ArrayList<>(); // list od duplicated occurrences
 
-        Iterator iter = list.iterator();
+        Iterator<?> iter = list.iterator();
         while (iter.hasNext()) {
             Serializable o = (Serializable) iter.next();
 
@@ -217,4 +217,3 @@ public class ForEach extends Rule {
     } // end expand()
 
 } // end ForEach
-

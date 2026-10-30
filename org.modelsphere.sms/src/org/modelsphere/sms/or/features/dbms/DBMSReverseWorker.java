@@ -220,13 +220,13 @@ public class DBMSReverseWorker extends Worker {
             errMsg = ex.toString();
         }
 
-        ArrayList list = statementMsg.resultList;
+        List<?> list = statementMsg.resultList;
         int len = list.size();
-        for (int i = 0; i < len; i++) {
-            ArrayList sublist = (ArrayList) list.get(i);
+        for (Object o : list) {
+            List<?> sublist = (List<?>) o;
             int sublen = sublist.size();
-            for (int j = 0; j < sublen; j++) {
-                String s = (String) sublist.get(j);
+            for (Object object : sublist) {
+                String s = (String) object;
                 writer.write(s);
             }
         }
@@ -533,7 +533,7 @@ public class DBMSReverseWorker extends Worker {
         if (!userAdded)
             return null;
 
-        if (filter.length() > 0)
+        if (!filter.isEmpty())
             filter = " (" + filter + ") ";
 
         return filter;
@@ -553,7 +553,7 @@ public class DBMSReverseWorker extends Worker {
                 first = false;
             }
         }
-        if (list.length() > 0) {
+        if (!list.isEmpty()) {
             list = (in ? "" : " NOT") + " IN (" + list + ") "; // NOT
             // LOCALIZABLE -
             // sql tag
@@ -657,7 +657,7 @@ public class DBMSReverseWorker extends Worker {
             Iterator iter1 = srxResult.iterator();
             while (iter1.hasNext()) {
                 String result = new String("");
-                ArrayList srxObject = (ArrayList) iter1.next();
+                List<?> srxObject = (List<?>) iter1.next();
                 if (srxObject != null) {
                     Iterator iter2 = srxObject.iterator();
                     while (iter2.hasNext()) {

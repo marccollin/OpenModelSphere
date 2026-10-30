@@ -48,13 +48,14 @@ import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 //Contents moved in ReverseWorker
 public abstract class ReverseTask extends LongTask {
 
-    protected ReverseTask(Vector aFileVector, ArrayList aReverseList, DbProject targetProj,
-            DefaultMainFrame mainFrame) {
+    protected ReverseTask(Vector aFileVector, List aReverseList, DbProject targetProj,
+                          DefaultMainFrame mainFrame) {
         super();
     }
 

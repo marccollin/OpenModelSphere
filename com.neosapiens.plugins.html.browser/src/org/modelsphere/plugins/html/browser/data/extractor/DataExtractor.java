@@ -39,6 +39,7 @@ import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.plugins.html.browser.data.DataComponent;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is used to extract the data of a DbObject if this DbObject can be
@@ -50,8 +51,8 @@ import java.util.ArrayList;
  */
 public class DataExtractor
 {
-	/** ArrayList which contains all the handlers for data extraction */
-	private ArrayList<DataExtractionHandler> handlers;
+	/** List which contains all the handlers for data extraction */
+	private List<DataExtractionHandler> handlers;
 
 	/**
 	 * Constructor

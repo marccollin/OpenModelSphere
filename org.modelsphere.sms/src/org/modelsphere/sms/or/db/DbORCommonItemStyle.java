@@ -244,9 +244,8 @@ public final class DbORCommonItemStyle extends DbSMSStyle {
      *            org.modelsphere.jack.baseDb.db.DbObject
      **/
     public void copyOptions(DbObject srcStyle) throws DbException {
-        for (int i = 0; i < commonItem_optionGroups.length; i++) {
-            for (int j = 0; j < commonItem_optionGroups[i].length; j++) {
-                MetaField metaField = commonItem_optionGroups[i][j];
+        for (MetaField[] commonItemOptionGroup : commonItem_optionGroups) {
+            for (MetaField metaField : commonItemOptionGroup) {
                 basicSet(metaField, ((DbORCommonItemStyle) srcStyle).find(metaField));
             }
         }

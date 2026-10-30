@@ -50,11 +50,12 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Vector;
 
 public final class ReverseTask extends org.modelsphere.jack.srtool.reverse.file.ReverseTask {
 
-    public ReverseTask(Vector aFileVector, ArrayList aReverseList, DbProject targetProj) {
+    public ReverseTask(Vector aFileVector, List aReverseList, DbProject targetProj) {
         super(aFileVector, aReverseList, targetProj, MainFrame.getSingleton());
     }
 

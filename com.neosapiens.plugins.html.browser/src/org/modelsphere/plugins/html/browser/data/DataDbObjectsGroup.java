@@ -41,6 +41,7 @@ import org.modelsphere.plugins.html.browser.io.IndentWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * This class represent a collection of DbObjects of the same type.
@@ -50,8 +51,8 @@ import java.util.Collections;
  */
 public class DataDbObjectsGroup extends DataComponent
 {
-	/** ArrayList containing the group of objects */
-	private ArrayList<DataComponent> components;
+	/** List containing the group of objects */
+	private List<DataComponent> components;
 
 	/**
 	 * Constructor
