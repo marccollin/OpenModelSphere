@@ -221,7 +221,7 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
                 modifiedFields[i] = (MetaField) newModifiedFields.get(i);
 
             if (sequenceModified) { // add equivalent drop/create
-                ArrayList equivalences = getEquivalentDropCreateFor(synobj.refDbo, synobj.physDbo);
+                List<SynchroObject> equivalences = getEquivalentDropCreateFor(synobj.refDbo, synobj.physDbo);
                 if (equivalences != null && equivalences.size() > 0) {
                     Iterator iterator = equivalences.iterator();
                     while (iterator.hasNext()) {
@@ -293,7 +293,7 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
                         if (node != null)
                             rDbo = node.getLeftDbo();
                     }
-                    ArrayList equivalences = getEquivalentDropCreateFor(rDbo, pDbo);
+                    List<SynchroObject> equivalences = getEquivalentDropCreateFor(rDbo, pDbo);
                     if (equivalences != null && equivalences.size() > 0) {
                         Iterator iterator = equivalences.iterator();
                         while (iterator.hasNext()) {
@@ -335,7 +335,7 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
                 }
                 Debug.assert2(rDbo != null && pDbo != null,
                         "DefaultSynchroModel:  No matching object found in IntegrateModel."); // NOT LOCALIZABLE
-                ArrayList equivalences = getEquivalentDropCreateFor(rDbo, pDbo);
+                List<SynchroObject> equivalences = getEquivalentDropCreateFor(rDbo, pDbo);
                 if (equivalences != null && equivalences.size() > 0) {
                     Iterator iterator = equivalences.iterator();
                     while (iterator.hasNext()) {
@@ -478,8 +478,8 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
         return null;
     }
 
-    private ArrayList getEquivalentDropCreateFor(DbObject rDbo, DbObject pDbo) throws DbException {
-        ArrayList objs = new ArrayList(5);
+    private List<SynchroObject> getEquivalentDropCreateFor(DbObject rDbo, DbObject pDbo) throws DbException {
+        List<SynchroObject> objs = new ArrayList<>(5);
         if (rDbo == null && pDbo == null)
             return objs;
         SynchroObject objAdd = new SynchroObject(pDbo, rDbo, SynchroObject.ACT_ADD, getSyncOrder(

@@ -57,6 +57,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.EventObject;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * 
@@ -77,7 +78,7 @@ public final class MultiSMSSemanticalMetaClassEditor implements TableCellEditor 
     private static final String kColumnOrAttribute = org.modelsphere.sms.international.LocaleMgr.screen
             .getString("ColumnOrAttribute");
 
-    private ArrayList semanticalMetaClasses = null;
+    private List<DefaultComparableElement> semanticalMetaClasses = null;
 
     protected final ActionListener listener = new ComboActionListener();
 
@@ -90,7 +91,7 @@ public final class MultiSMSSemanticalMetaClassEditor implements TableCellEditor 
 
         try {
             if (semanticalMetaClasses == null) {
-                semanticalMetaClasses = new ArrayList();
+                semanticalMetaClasses = new ArrayList<>();
                 Enumeration enumeration = MetaClass.enumMetaClasses();
                 while (enumeration.hasMoreElements()) {
                     MetaClass metaclass = (MetaClass) enumeration.nextElement();
@@ -124,9 +125,9 @@ public final class MultiSMSSemanticalMetaClassEditor implements TableCellEditor 
                 currentMetaclass = DbSMSSemanticalObject.metaClass;
 
             parentDbos[0].getDb().beginTrans(Db.READ_TRANS);
-            Iterator iter = semanticalMetaClasses.iterator();
+            Iterator<DefaultComparableElement> iter = semanticalMetaClasses.iterator();
             while (iter.hasNext()) {
-                MetaClass metaclass = (MetaClass) ((DefaultComparableElement) iter.next()).object;
+                MetaClass metaclass = (MetaClass) iter.next().object;
                 if (metaclass == DbORAbsTable.metaClass)
                     combo.addItem(new DefaultComparableElement(metaclass, kTableOrEntity));
                 else if (metaclass == DbSMSAssociation.metaClass)

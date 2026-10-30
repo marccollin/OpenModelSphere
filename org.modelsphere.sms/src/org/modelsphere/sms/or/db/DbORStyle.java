@@ -50,6 +50,7 @@ import org.modelsphere.sms.or.international.LocaleMgr;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
 <b>Direct subclass(es)/subinterface(s) : </b>none.<br>
@@ -509,7 +510,7 @@ public final class DbORStyle extends DbSMSStyle {
   }
 
   static final long serialVersionUID = 0;
-  private static HashMap fieldMap;
+  private static Map<String, MetaField> fieldMap;
   public static MetaField[] or_displayOptions;
   public static Boolean[] or_displayOptionDefaultValues;
   public static MetaField[] or_descriptorOptions;
@@ -711,11 +712,11 @@ public final class DbORStyle extends DbSMSStyle {
   public final MetaField getMetaField(String name) {
     if (fieldMap == null) {
       MetaField[] fields = metaClass.getAllMetaFields();
-      fieldMap = new HashMap(fields.length + fields.length/2);
+      fieldMap = new HashMap<>(fields.length + fields.length/2);
       for (int i = 0;  i < fields.length;  i++)
         fieldMap.put(fields[i].getJName(), fields[i]);
     }
-    return (MetaField)fieldMap.get(name);
+    return fieldMap.get(name);
   }
 
   //Setters

@@ -57,6 +57,7 @@ import org.modelsphere.sms.db.DbSMSStyle;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <b>Direct subclass(es)/subinterface(s) : </b>none.<br>
@@ -403,7 +404,7 @@ public final class DbBEStyle extends DbSMSStyle {
     }
 
     static final long serialVersionUID = 0;
-    private static HashMap fieldMap;
+    private static Map<String, MetaField> fieldMap;
     public static String[] be_listOptionTabs;
     public static final String SEQUENCE_KEYWORD = "%#";
     public static Object[][] be_optionValueGroups;
@@ -579,11 +580,11 @@ public final class DbBEStyle extends DbSMSStyle {
     public final MetaField getMetaField(String name) {
         if (fieldMap == null) {
             MetaField[] fields = metaClass.getAllMetaFields();
-            fieldMap = new HashMap(fields.length + fields.length / 2);
+            fieldMap = new HashMap<>(fields.length + fields.length / 2);
             for (int i = 0; i < fields.length; i++)
                 fieldMap.put(fields[i].getJName(), fields[i]);
         }
-        return (MetaField) fieldMap.get(name);
+        return fieldMap.get(name);
     }
 
     //Setters

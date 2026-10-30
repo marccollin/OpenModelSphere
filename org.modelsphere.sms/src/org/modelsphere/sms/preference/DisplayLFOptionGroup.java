@@ -53,7 +53,7 @@ import java.util.List;
 
 public class DisplayLFOptionGroup extends OptionGroup {
     private static String CUSTOM_LF_PROPERTIES = "lf";
-    private static ArrayList customLFs = null;
+    private static List<DisplayLFOptionPanel.LFDescription> customLFs = null;
 
     private static class DisplayLFOptionPanel extends OptionPanel implements ActionListener {
         private JComboBox lfCombo;
@@ -181,7 +181,7 @@ public class DisplayLFOptionGroup extends OptionGroup {
             }
 
             if (customLFs == null) {
-                customLFs = new ArrayList();
+                customLFs = new ArrayList<>();
                 int index = 0;
                 PropertiesSet customLF = PropertiesManager.getPropertiesSet(CUSTOM_LF_PROPERTIES);
                 String lfcustom = customLF.getPropertyString(javax.swing.LookAndFeel.class, "LF"

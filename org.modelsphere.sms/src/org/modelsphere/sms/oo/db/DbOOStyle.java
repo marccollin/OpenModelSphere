@@ -48,6 +48,7 @@ import org.modelsphere.sms.oo.international.LocaleMgr;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
 <b>Direct subclass(es)/subinterface(s) : </b>none.<br>
@@ -410,7 +411,7 @@ public final class DbOOStyle extends DbSMSStyle {
   }
 
   static final long serialVersionUID = 0;
-  private static HashMap fieldMap;
+  private static Map<String, MetaField> fieldMap;
   public static MetaField[] oojv_displayOptions;
   public static MetaField[] oojv_fontOptions;
   public static MetaField[] oojv_prefixOptions;
@@ -560,11 +561,11 @@ public final class DbOOStyle extends DbSMSStyle {
   public MetaField getMetaField(String name) {
     if (fieldMap == null) {
       MetaField[] fields = metaClass.getAllMetaFields();
-      fieldMap = new HashMap(fields.length + fields.length/2);
+      fieldMap = new HashMap<>(fields.length + fields.length/2);
       for (int i = 0;  i < fields.length;  i++)
         fieldMap.put(fields[i].getJName(), fields[i]);
     }
-    return (MetaField)fieldMap.get(name);
+    return fieldMap.get(name);
   }
 
 /**

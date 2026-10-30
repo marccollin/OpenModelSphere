@@ -181,7 +181,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
         return 0;
     }
 
-    protected void forwardTo(DbObject semObj, ArrayList generatedFiles) throws DbException,
+    protected void forwardTo(DbObject semObj, List generatedFiles) throws DbException,
             IOException, RuleException {
         // has to be coded
     }
@@ -324,7 +324,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
     private Modifier[] createModifiers(GenericRuleStructure currentRS, Modifier optionalModifier)
             throws VariableNotDefinedRuleException {
         Modifier[] modifiers;
-        List modifierList = new ArrayList();
+        List<Modifier> modifierList = new ArrayList<>();
         if (optionalModifier != null) {
             modifierList.add(optionalModifier);
         }
@@ -390,7 +390,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
         nb = modifierList.size();
         modifiers = new Modifier[nb];
         for (int i = 0; i < nb; i++) {
-            modifiers[i] = (Modifier) modifierList.get(i);
+            modifiers[i] = modifierList.get(i);
         }
 
         return modifiers;
@@ -567,13 +567,13 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
         String[] subr = currentRS.m_stringRules;
         String[] dom = currentRS.m_stringDomains;
         String[] tmpRules = null;
-        List rulesList = new ArrayList();
+        List<Rule> rulesList = new ArrayList<>();
 
         for (String string : subr) {
 
             if (currentRS.m_ruleCategory == GenericRuleStructure.CDOM) {
                 TemplateEnumeration enumeration = new TemplateEnumeration(string);
-                List ruleList = new ArrayList();
+                List<String> ruleList = new ArrayList<>();
                 while (enumeration.hasMoreElements()) {
                     StringStructure ss = (StringStructure) enumeration.nextElement();
                     if (ss.stringRule != null) {
@@ -586,7 +586,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
                 tmpRules = new String[ruleList.size()];
 
                 for (int i = 0; i < ruleList.size(); i++) {
-                    String s = (String) ruleList.get(i);
+                    String s = ruleList.get(i);
                     tmpRules[i] = s;
                 } //end for i
             } // end if
@@ -602,7 +602,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
         Rule[] rules = new Rule[rulesList.size()];
 
         for (int b = 0; b < rulesList.size(); b++) {
-            rules[b] = (Rule) rulesList.get(b);
+            rules[b] = rulesList.get(b);
         }
         rule = new CharacterDomain(rulename, dom, subr);
         return rule;

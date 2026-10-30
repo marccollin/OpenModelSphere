@@ -61,6 +61,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -100,8 +101,8 @@ public final class NodeSelectionPanel extends JPanel implements ActionListener {
 
     private boolean newAllowed = true;
 
-    // Do not display and allow selection of object contains in this ArrayList
-    private ArrayList excludedObjs = null;
+    // Do not display or allow selection of objects contained in this list.
+    private List<?> excludedObjs = null;
 
     private DbTreeModelListener nodeFilter = new DbTreeModelListener() {
         public boolean filterNode(DbObject dbo) throws DbException {

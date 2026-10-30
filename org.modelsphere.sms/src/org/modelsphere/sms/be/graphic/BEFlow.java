@@ -74,11 +74,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public class BEFlow extends SrLine implements DbRefreshListener {
 
     private DbBEDiagram dbDiagram;
-    private HashSet zonesSources;
+    private Set<Object> zonesSources;
     private DbBENotation notation;
     private List zones = null;
     private List allLabels = null;
@@ -211,7 +212,7 @@ public class BEFlow extends SrLine implements DbRefreshListener {
         }
 
         if (display) {
-            zonesSources = new HashSet();
+            zonesSources = new HashSet<>();
             zones = notation.getFlowZones();
             Iterator i = zones.iterator();
             BEFlowLabel labels = null;
