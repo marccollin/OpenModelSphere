@@ -120,14 +120,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.Vector;
 import java.util.List;
 
 public final class AdtBox extends GraphicNode implements ActionInformation, SMSClassifierBox {
     // zone columns index , WARNING if the values change you must also change
-    // the
-    // addColumn order in setZones
-    // the adt prefix
+    // the addColumn order in setZones the adt prefix
     private static final int ADT_PREFIX_IDX = 0;
     // the adt name
     private static final int ADT_NAME_IDX = 1;
@@ -1946,7 +1945,7 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
      */
     private static class BoxRefreshTg implements DbRefreshListener, DbRefreshPassListener {
 
-        private HashSet refreshedAdts = null;
+        private Set<DbOOClass> refreshedAdts = null;
 
         BoxRefreshTg() {
         }
@@ -1996,7 +1995,7 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
          */
         private void refreshAdt(DbOOClass adt) throws DbException {
             if (refreshedAdts == null)
-                refreshedAdts = new HashSet();
+                refreshedAdts = new HashSet<>();
             if (!refreshedAdts.add(adt)) // already done in this transaction
                 return;
             DbRelationN adtGos = adt.getClassifierGos();
@@ -2090,4 +2089,3 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
         boolean isEnumeration;
     }
 } // end AdtBox
-

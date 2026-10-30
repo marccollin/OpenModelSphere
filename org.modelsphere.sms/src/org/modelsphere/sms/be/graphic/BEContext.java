@@ -88,6 +88,7 @@ import java.awt.*;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.Map;
 
 public class BEContext extends GraphicNode implements ActionInformation {
@@ -504,7 +505,7 @@ public class BEContext extends GraphicNode implements ActionInformation {
      */
     private static class BoxRefreshTg implements DbRefreshListener, DbRefreshPassListener {
 
-        private HashSet refreshedBoxs = null;
+        private Set<DbBEUseCase> refreshedBoxs = null;
 
         BoxRefreshTg() {
         }
@@ -542,7 +543,7 @@ public class BEContext extends GraphicNode implements ActionInformation {
          */
         private void refreshBox(DbBEUseCase useCase) throws DbException {
             if (refreshedBoxs == null)
-                refreshedBoxs = new HashSet();
+                refreshedBoxs = new HashSet<>();
             if (!refreshedBoxs.add(useCase)) // already done in this transaction
                 return;
             useCase.getDb().beginReadTrans();
@@ -600,4 +601,3 @@ public class BEContext extends GraphicNode implements ActionInformation {
         }
     } // end BoxGoRefreshTg
 } // end BEContext
-

@@ -161,7 +161,7 @@ public final class ForeignKey {
     private boolean reorderPuCols;
     private MetaClass[] metaClasses;
     private List<DbORAssociationEnd> assocEnds; // ordered list of assocEnds to be generated
-    private HashSet<DbORPrimaryUnique> puKeySet; // primary/unique keys with dependencies processed
+    private Set<DbORPrimaryUnique> puKeySet; // primary/unique keys with dependencies processed
     private SrVector[] changeLists;
 
     // Generate the foreign keys on a complete model.

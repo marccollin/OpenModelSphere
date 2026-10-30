@@ -80,6 +80,7 @@ import org.modelsphere.sms.or.international.LocaleMgr;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.Vector;
 import java.util.List;
 
@@ -434,7 +435,7 @@ public class ORCommonItemBox extends GraphicNode implements ActionInformation {
      */
     private static class BoxRefreshTg implements DbRefreshListener, DbRefreshPassListener {
 
-        private HashSet refreshedBoxs = null;
+        private Set<DbORCommonItem> refreshedBoxs = null;
 
         BoxRefreshTg() {
         }
@@ -474,7 +475,7 @@ public class ORCommonItemBox extends GraphicNode implements ActionInformation {
          */
         private void refreshBox(DbORCommonItem commonItem) throws DbException {
             if (refreshedBoxs == null)
-                refreshedBoxs = new HashSet();
+                refreshedBoxs = new HashSet<>();
             if (!refreshedBoxs.add(commonItem)) // already done in this transaction
                 return;
             DbRelationN commonItemGos = commonItem.getCommonItemGos();

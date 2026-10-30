@@ -85,6 +85,7 @@ import org.modelsphere.sms.or.db.util.AnyORObject;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.Vector;
 import java.util.List;
 
@@ -584,7 +585,7 @@ public class ORTypeBox extends GraphicNode implements ActionInformation,
      */
     private static class BoxRefreshTg implements DbRefreshListener, DbRefreshPassListener {
 
-        private HashSet refreshedTypes = null;
+        private Set<DbORTypeClassifier> refreshedTypes = null;
 
         BoxRefreshTg() {
         }
@@ -642,7 +643,7 @@ public class ORTypeBox extends GraphicNode implements ActionInformation,
          */
         private void refreshType(DbORTypeClassifier type) throws DbException {
             if (refreshedTypes == null)
-                refreshedTypes = new HashSet();
+                refreshedTypes = new HashSet<>();
             if (!refreshedTypes.add(type)) // already done in this transaction
                 return;
             DbRelationN typeGos = type.getClassifierGos();

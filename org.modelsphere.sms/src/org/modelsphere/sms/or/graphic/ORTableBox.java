@@ -232,9 +232,9 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
     protected DbORAbsTable tableSO;
 
     private DbORPrimaryUnique primaryKey;
-    private ArrayList<DbORPrimaryUnique> uniqueKeys;
-    private ArrayList<DbORForeign> foreignKeys;
-    private ArrayList<DbORIndex> indexes;
+    private List<DbORPrimaryUnique> uniqueKeys;
+    private List<DbORForeign> foreignKeys;
+    private List<DbORIndex> indexes;
 
     // the zones
     private static final int MINIMAL_HEIGHT = 16;
@@ -1151,7 +1151,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
             uKConstraintZone.removeAllRows();
 
             for (int rowCtr = 0; rowCtr < uniqueKeys.size(); rowCtr++) {
-                DbORPrimaryUnique unique = (DbORPrimaryUnique) uniqueKeys.get(rowCtr);
+                DbORPrimaryUnique unique = uniqueKeys.get(rowCtr);
                 uKConstraintZone.addRow();
                 uKConstraintZone.set(rowCtr, UK_PREFIX_IDX, new ZoneCell(unique,
                         getPrefixData(unique)));
@@ -1175,7 +1175,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
             fKConstraintZone.removeAllRows();
 
             for (int rowCtr = 0; rowCtr < foreignKeys.size(); rowCtr++) {
-                DbORForeign fk = (DbORForeign) foreignKeys.get(rowCtr);
+                DbORForeign fk = foreignKeys.get(rowCtr);
                 fKConstraintZone.addRow();
                 fKConstraintZone.set(rowCtr, FK_PREFIX_IDX, new ZoneCell(fk, getPrefixData(fk)));
                 fKConstraintZone.set(rowCtr, FK_NAME_IDX, getNameZoneCell(fk,

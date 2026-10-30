@@ -88,6 +88,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class BEActorBox extends GraphicNode implements ActionInformation, DbRefreshListener {
 
@@ -510,7 +511,7 @@ public class BEActorBox extends GraphicNode implements ActionInformation, DbRefr
      */
     private static class BoxRefreshTg implements DbRefreshListener, DbRefreshPassListener {
 
-        private HashSet refreshedBoxs = null;
+        private Set<DbBEActor> refreshedBoxs = null;
 
         BoxRefreshTg() {
         }
@@ -543,7 +544,7 @@ public class BEActorBox extends GraphicNode implements ActionInformation, DbRefr
          */
         private void refreshBox(DbBEActor actor) throws DbException {
             if (refreshedBoxs == null)
-                refreshedBoxs = new HashSet();
+                refreshedBoxs = new HashSet<>();
             if (!refreshedBoxs.add(actor)) // already done in this transaction
                 return;
             DbRelationN actorGos = actor.getClassifierGos();

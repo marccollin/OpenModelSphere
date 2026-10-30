@@ -51,6 +51,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 
 /**
  * 
@@ -69,7 +70,7 @@ public final class SMSSemanticalMetaClassEditor implements Editor {
     private static final String kColumnOrAttribute = org.modelsphere.sms.international.LocaleMgr.screen
             .getString("ColumnOrAttribute");
 
-    private ArrayList<DefaultComparableElement> semanticalMetaClasses;
+    private List<DefaultComparableElement> semanticalMetaClasses;
 
     public final Component getTableCellEditorComponent(ScreenView screenView,
             AbstractTableCellEditor editor, Object value, boolean isSelected, int row, int column) {

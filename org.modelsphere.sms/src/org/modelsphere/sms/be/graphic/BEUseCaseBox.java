@@ -97,6 +97,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRefreshListener {
 
@@ -838,7 +839,7 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
      */
     private static class BoxRefreshTg implements DbRefreshListener, DbRefreshPassListener {
 
-        private HashSet refreshedBoxs = null;
+        private Set<DbBEUseCase> refreshedBoxs = null;
 
         BoxRefreshTg() {
         }
@@ -875,7 +876,7 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
          */
         private void refreshBox(DbBEUseCase useCase) throws DbException {
             if (refreshedBoxs == null)
-                refreshedBoxs = new HashSet();
+                refreshedBoxs = new HashSet<>();
             if (!refreshedBoxs.add(useCase)) // already done in this transaction
                 return;
             useCase.getDb().beginReadTrans();
