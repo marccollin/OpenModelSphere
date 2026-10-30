@@ -144,16 +144,15 @@ public class ApplicationDiagram extends Diagram implements DbRefreshListener {
         GraphicComponent[] selComps = getSelectedComponents();
         if (selComps.length == 0)
             return new Object[0];
-        Set selObjs = new HashSet();
-        for (int i = 0; i < selComps.length; i++) {
-            GraphicComponent gc = selComps[i];
+        Set<Object> selObjs = new HashSet<>();
+        for (GraphicComponent gc : selComps) {
             if (gc.selectAtCellLevel()) {
                 CellID[] cellIds = ((ZoneBox) gc).getSelectedCells();
                 if (cellIds.length == 0)
                     selObjs.add(gc);
                 else {
-                    for (int j = 0; j < cellIds.length; j++) {
-                        Object obj = ((ZoneBox) gc).getCell(cellIds[j]).getObject();
+                    for (CellID cellId : cellIds) {
+                        Object obj = ((ZoneBox) gc).getCell(cellId).getObject();
                         selObjs.add(obj == ((ActionInformation) gc).getSemanticalObject() ? gc
                                 : obj);
                     }

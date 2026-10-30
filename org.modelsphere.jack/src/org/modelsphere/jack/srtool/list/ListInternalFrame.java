@@ -75,7 +75,7 @@ public class ListInternalFrame extends CascadingJInternalFrame implements DbRefr
     private DbObject root;
     private DbProject project;
     private MetaClass neighborsMetaClass;
-    Boolean bIsRelationships = Boolean.valueOf(false);
+    Boolean bIsRelationships = Boolean.FALSE;
 
     public Boolean isRelationships() {
         return bIsRelationships;
@@ -180,9 +180,9 @@ public class ListInternalFrame extends CascadingJInternalFrame implements DbRefr
         int[] selectedRows = table.getSelectedRows();
         if (selectedRows == null || selectedRows.length == 0)
             return new Object[0];
-        List selection = new ArrayList();
-        for (int i = 0; i < selectedRows.length; i++) {
-            selection.add(model.getDbObjectAt(selectedRows[i]));
+        List<DbObject> selection = new ArrayList<>();
+        for (int selectedRow : selectedRows) {
+            selection.add(model.getDbObjectAt(selectedRow));
         }
         Object[] selarray = new Object[selection.size()];
         for (int i = 0; i < selarray.length; i++) {

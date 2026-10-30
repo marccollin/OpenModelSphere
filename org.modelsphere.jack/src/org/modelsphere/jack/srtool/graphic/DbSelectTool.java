@@ -105,7 +105,7 @@ public class DbSelectTool extends SelectTool {
             db.beginTrans(Db.WRITE_TRANS, LocaleMgr.action.getString("mergeDuplicate"));
             Rectangle sourceRect = (Rectangle) sourceGo.get(DbGraphic.fGraphicalObjectRectangle);
             Line[] lines = sourceNode.getLines();
-            Set proceedLines = new HashSet();
+            Set<Line> proceedLines = new HashSet<>();
             // reconnect each line to destination go
             for (int i = 0; i < lines.length; i++) {
                 Line line = lines[i];

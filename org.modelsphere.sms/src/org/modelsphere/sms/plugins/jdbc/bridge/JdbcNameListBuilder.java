@@ -55,11 +55,11 @@ import java.util.List;
 public class JdbcNameListBuilder extends JdbcBuilder {
     private static final String USERSEP = ".";
     private static final String OCCSEP = ",";
-    private List nameList = new ArrayList();
-    private List typeList = new ArrayList();
-    private List tableSortList = new ArrayList();
-    private List viewSortList = new ArrayList();
-    private List procSortList = new ArrayList();
+    private List<String> nameList = new ArrayList<>();
+    private List<String> typeList = new ArrayList<>();
+    private List<String> tableSortList = new ArrayList<>();
+    private List<String> viewSortList = new ArrayList<>();
+    private List<String> procSortList = new ArrayList<>();
     private String sortBuffer = null;
     private String userNames = null;
 
@@ -112,42 +112,42 @@ public class JdbcNameListBuilder extends JdbcBuilder {
     }
 
     void installType(int index) {
-        String typeNames = new String();
+        String typeNames = "";
         Collections.sort(typeList);
-        for (int i = 0; i < typeList.size(); i++) {
-            typeNames = typeNames.concat((String) typeList.get(i));
+        for (String s : typeList) {
+            typeNames = typeNames.concat(s);
         }
         nameList.add(index, typeNames);
     }
 
     void installTable(int index) {
-        String tableNames = new String();
+        String tableNames = "";
         Collections.sort(tableSortList);
-        for (int i = 0; i < tableSortList.size(); i++) {
-            tableNames = tableNames.concat((String) tableSortList.get(i));
+        for (String s : tableSortList) {
+            tableNames = tableNames.concat(s);
         }
         nameList.add(index, tableNames);
     }
 
     void installView(int index) {
-        String viewNames = new String();
+        String viewNames = "";
         Collections.sort(viewSortList);
-        for (int i = 0; i < viewSortList.size(); i++) {
-            viewNames = viewNames.concat((String) viewSortList.get(i));
+        for (String s : viewSortList) {
+            viewNames = viewNames.concat(s);
         }
         nameList.add(index, viewNames);
     }
 
     void installProc(int index) {
-        String procNames = new String();
+        String procNames = "";
         Collections.sort(procSortList);
-        for (int i = 0; i < procSortList.size(); i++) {
-            procNames = procNames.concat((String) procSortList.get(i));
+        for (String s : procSortList) {
+            procNames = procNames.concat(s);
         }
         nameList.add(index, procNames);
     }
 
-    List getNameList() {
+    List<String> getNameList() {
         return nameList;
     }
 }

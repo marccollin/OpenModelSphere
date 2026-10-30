@@ -315,7 +315,7 @@ public class ORListView extends DbListView {
         if (listRelations[0] == DbORAIndex.fPartitionKeyColumns
                 || listRelations[0] == DbORAIndex.fSubpartitionKeyColumns
                 || listRelations[0] == DbINFIndex.fFragmentationKeyColumns) {
-            List indexedElements = new ArrayList();
+            List<DbObject> indexedElements = new ArrayList<>();
             DbEnumeration enumKeys = semObj.getComponents().elements(DbORIndexKey.metaClass);
 
             while (enumKeys.hasMoreElements()) {
@@ -329,7 +329,7 @@ public class ORListView extends DbListView {
         }
 
         if (listRelations[0] == DbORDomainModel.fDatabasesDefaultDomains) {
-            List databases = new ArrayList();
+            List<DbORDatabase> databases = new ArrayList<>();
             DbEnumeration dbEnum = semObj.getProject().componentTree(DbORDatabase.metaClass);
             while (dbEnum.hasMoreElements()) {
                 DbORDatabase dbo = (DbORDatabase) dbEnum.nextElement();

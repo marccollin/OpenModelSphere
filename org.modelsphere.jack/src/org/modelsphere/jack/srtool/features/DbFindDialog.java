@@ -267,8 +267,8 @@ public class DbFindDialog extends JDialog implements ActionListener, TestableWin
 
     private void doFind(boolean withDispose) {
         String textToFind = getComboBoxText(findCombo);
-        ArrayList scopeOptions = getScopeValue();
-        if (textToFind != null && textToFind.length() != 0) {
+        List<Boolean> scopeOptions = getScopeValue();
+        if (textToFind != null && !textToFind.isEmpty()) {
             try {
                 saveSearchToRecentSearch(textToFind);
                 // Save CheckBox Value for next search
@@ -303,8 +303,8 @@ public class DbFindDialog extends JDialog implements ActionListener, TestableWin
         return -1;
     }
 
-    private ArrayList getScopeValue() {
-        ArrayList scopeOptions = new ArrayList();
+    private List<Boolean> getScopeValue() {
+        List<Boolean> scopeOptions = new ArrayList<>();
 
         scopeOptions.add(Boolean.valueOf(nameCB.isSelected()));
         scopeOptions.add(Boolean.valueOf(codedNameCB.isSelected()));
@@ -378,4 +378,3 @@ public class DbFindDialog extends JDialog implements ActionListener, TestableWin
      */
 
 } // end DbFindDialog
-

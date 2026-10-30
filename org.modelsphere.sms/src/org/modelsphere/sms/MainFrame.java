@@ -176,12 +176,12 @@ public class MainFrame extends DefaultMainFrame {
     public void installToolBars() {
 
         JComponent toolComponent = null;
-        List creationComponents = new ArrayList();
-        List drawingComponents = new ArrayList();
-        List resourceComponents = new ArrayList();
-        List resourceTools = new ArrayList();
-        List qualifierComponents = new ArrayList();
-        List qualifierTools = new ArrayList();
+        List<JComponent> creationComponents = new ArrayList<>();
+        List<JComponent> drawingComponents = new ArrayList<>();
+        List<JComponent> resourceComponents = new ArrayList<>();
+        List<Tool> resourceTools = new ArrayList<>();
+        List<JComponent> qualifierComponents = new ArrayList<>();
+        List<Tool> qualifierTools = new ArrayList<>();
         diagramsToolGroup = new ToolButtonGroup();
         Tool[] tools = SMSToolkit.getTools();
         for (int i = 0; i < tools.length; i++) {
@@ -294,20 +294,16 @@ public class MainFrame extends DefaultMainFrame {
 
     private final Dimension getDefaultInternalFrameSize(int sizeoption) {
         Dimension desktopsize = getJDesktopPane().getSize();
-        switch (sizeoption) {
-        case WINDOWS_MEDIUM:
-            return new Dimension(720, 520);
-        case WINDOWS_LARGE:
-            return new Dimension(900, 650);
-        case WINDOWS_DESKTOPSIZE:
-            return new Dimension(Math.max(desktopsize.width, 300), Math
+        return switch (sizeoption) {
+            case WINDOWS_MEDIUM -> new Dimension(720, 520);
+            case WINDOWS_LARGE -> new Dimension(900, 650);
+            case WINDOWS_DESKTOPSIZE -> new Dimension(Math.max(desktopsize.width, 300), Math
                     .max(desktopsize.height, 200));
-        case WINDOWS_SMALL:
-            return new Dimension(540, 350);
-        default: // WINDOWS_3_4_DESKTOPSIZE:
-            return new Dimension(Math.max((desktopsize.width * 75) / 100, 350), Math.max(
-                    (desktopsize.height * 75) / 100, 250));
-        }
+            case WINDOWS_SMALL -> new Dimension(540, 350);
+            default -> // WINDOWS_3_4_DESKTOPSIZE:
+                    new Dimension(Math.max((desktopsize.width * 75) / 100, 350), Math.max(
+                            (desktopsize.height * 75) / 100, 250));
+        };
     }
 
     private void setInternalFrameBounds(CascadingJInternalFrame frame, int sizeoption) {
@@ -399,8 +395,7 @@ public class MainFrame extends DefaultMainFrame {
 
     @Override
     public boolean saveCurrentProject(DbProject selProject, boolean saveAs) {
-        if (selProject instanceof DbSMSProject) {
-            DbSMSProject proj = (DbSMSProject) selProject;
+        if (selProject instanceof DbSMSProject proj) {
             DisplayRecentModifications.notifySaveProject(proj);
         }
 

@@ -62,7 +62,7 @@ import java.util.Map;
  */
 public class CascadingJInternalFrame extends JInternalFrame {
     private String pointCascadeName = null;
-    private static Map pointCascadeHashMap = new HashMap();
+    private static Map<String, PointCascade> pointCascadeHashMap = new HashMap<>();
     /** The name of the default PointCascade **/
     public static final String defaultCascadeName = "_default_"; // NOT LOCALIZABLE, property key
 
@@ -209,7 +209,7 @@ public class CascadingJInternalFrame extends JInternalFrame {
 
         PointCascade pointCascade = null;
         if (!firstFrame)
-            pointCascade = (PointCascade) (pointCascadeHashMap.get(cascadeName));
+            pointCascade = pointCascadeHashMap.get(cascadeName);
         if (pointCascade == null) {
             pointCascade = new PointCascade();
             CascadingJInternalFrame.setPointCascade(cascadeName, pointCascade);
@@ -280,7 +280,7 @@ public class CascadingJInternalFrame extends JInternalFrame {
      *            the new height of the instance
      **/
     private void setBounds_(int x, int y, int width, int height) {
-        if (getAutoposition() == true) {
+        if (getAutoposition()) {
             Point frameLocation = getLocation();
             x = frameLocation.x;
             y = frameLocation.y;

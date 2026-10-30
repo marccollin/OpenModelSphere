@@ -105,14 +105,14 @@ public class JdbcReverseOptions {
     }
 
     public List getTargetSystems() {
-        List tsList = new ArrayList();
+        List<TargetSystemInfo> tsList = new ArrayList<>();
         TargetSystemInfo targetInfo = null;
         Iterator iter = TargetSystemManager.getSingleton().getAllTargetSystemInfos().iterator();
         while (iter.hasNext()) {
             targetInfo = (TargetSystemInfo) iter.next();
             boolean addTarget = true;
-            for (int i = 0; i < jdbcUnsupportedTargetSystems.length; i++) {
-                if (jdbcUnsupportedTargetSystems[i] == targetInfo.getRootID()) {
+            for (int jdbcUnsupportedTargetSystem : jdbcUnsupportedTargetSystems) {
+                if (jdbcUnsupportedTargetSystem == targetInfo.getRootID()) {
                     addTarget = false;
                     break;
                 }

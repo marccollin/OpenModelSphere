@@ -356,7 +356,7 @@ public class BEUtility {
             } //end while
             dbEnum.close();
 
-            if (keepName == false) {
+            if (!keepName) {
                 DbEnumeration projectEnum = notation.getProject().getComponents().elements(
                         DbBENotation.metaClass);
                 String masterNotationName = "";
@@ -364,7 +364,7 @@ public class BEUtility {
                 DbBENotation masterNotation = null;
                 while (projectEnum.hasMoreElements()) {
                     DbBENotation dbBENota = (DbBENotation) projectEnum.nextElement();
-                    if (dbBENota.getNotationID().intValue() == masterNotationID) {
+                    if (dbBENota.getNotationID() == masterNotationID) {
                         masterNotation = dbBENota;
                         break;
                     }
@@ -480,7 +480,7 @@ public class BEUtility {
             DbBEContextGo contextGo = createFrame(beDiagram, (DbSMSClassifier) so);
 
             Dimension dim = ApplicationDiagram.getPageSize(beDiagram.getPageFormat(), beDiagram
-                    .getPrintScale().intValue());
+                    .getPrintScale());
             if (dim == null) {
                 return;
             }
@@ -510,17 +510,17 @@ public class BEUtility {
         int margin = 0;
 
         Integer iValue = notation.getActorDefaultWidth();
-        int value = (iValue == null) ? 0 : iValue.intValue();
+        int value = (iValue == null) ? 0 : iValue;
         if (margin < value)
             margin = value;
 
         iValue = notation.getStoreDefaultWidth();
-        value = (iValue == null) ? 0 : iValue.intValue();
+        value = (iValue == null) ? 0 : iValue;
         if (margin < value)
             margin = value;
 
         iValue = notation.getUseCaseDefaultWidth();
-        value = (iValue == null) ? 0 : iValue.intValue();
+        value = (iValue == null) ? 0 : iValue;
         if (margin < value)
             margin = value;
 
@@ -612,7 +612,7 @@ public class BEUtility {
 
         int masterNotationID = notation.getMasterNotationID().intValue();
         Boolean hasFrame = notation.getHasFrame();
-        if ((hasFrame == null) || (!hasFrame.booleanValue())) {
+        if ((hasFrame == null) || (!hasFrame)) {
             return null;
         }
 
@@ -637,7 +637,7 @@ public class BEUtility {
 
     private int createActorCells(DbBEContextGo frame, DbBENotation notation, DbBEUseCase context,
             int xPos) throws DbException {
-        List actorList = new ArrayList();
+        List<DbSMSClassifier> actorList = new ArrayList<>();
         DbRelationN relN = context.getFirstEndFlows();
         DbEnumeration dbEnum = relN.elements(DbBEFlow.metaClass);
         while (dbEnum.hasMoreElements()) {
@@ -670,7 +670,7 @@ public class BEUtility {
 
         DbBEDiagram diagram = (DbBEDiagram) frame.getCompositeOfType(DbBEDiagram.metaClass);
         Dimension dim = ApplicationDiagram.getPageSize(diagram.getPageFormat(), diagram
-                .getPrintScale().intValue());
+                .getPrintScale());
         int margin = computeMargin(notation); //compute margin according default size of notation components 
         int rectX = margin + MARGIN_GAP;
         int width = (int) (dim.getWidth() - (2 * (margin + MARGIN_GAP)));
@@ -688,13 +688,13 @@ public class BEUtility {
     } //end createActorCells()
 
     public DbBENotation getMasterNotation(DbBENotation notation) throws DbException {
-        int masterNotationID = notation.getMasterNotationID().intValue();
+        int masterNotationID = notation.getMasterNotationID();
         DbBENotation beNotation = null;
         DbEnumeration projectEnum = notation.getProject().getComponents().elements(
                 DbBENotation.metaClass);
         while (projectEnum.hasMoreElements()) {
             DbBENotation dbBENota = (DbBENotation) projectEnum.nextElement();
-            if (dbBENota.getNotationID().intValue() == masterNotationID) {
+            if (dbBENota.getNotationID() == masterNotationID) {
                 beNotation = dbBENota;
                 break;
             }
@@ -711,8 +711,8 @@ public class BEUtility {
         DbBEContextCell cell = new DbBEContextCell(frame, x, y);
         cell.setBottomBorder(notation.getDefButtomBorder());
         cell.setRightBorder(notation.getDefRightBorder());
-        int horizontal = notation.getDefHorizontalAlignment().intValue();
-        int vertical = notation.getDefVerticalAlignment().intValue();
+        int horizontal = notation.getDefHorizontalAlignment();
+        int vertical = notation.getDefVerticalAlignment();
         SMSHorizontalAlignment horizontalAlign = DbInitialization
                 .convertToHorizontalAlignment(horizontal);
         SMSVerticalAlignment verticalAlign = DbInitialization.convertToVerticalAlignment(vertical);
@@ -724,7 +724,7 @@ public class BEUtility {
         //created by specifying a use case, if the use case is linked to an actor, the
         //actor is placed above the role line, so we don't have to create a store above
         //this role line).
-        if (notation.getNotationID().intValue() == DbInitialization.UML_SEQUENCE_DIAGRAM) {
+        if (notation.getNotationID() == DbInitialization.UML_SEQUENCE_DIAGRAM) {
             if (caller != CREATE_ACTOR_CELL_CALLER) {
 
                 Terminology terminology = Terminology.findTerminology(notation);
@@ -780,11 +780,11 @@ public class BEUtility {
             displayText = name + " (" + usecase.getName() + ")";
         } else {
             String extAlphaId = usecase.getSourceAlphanumericIdentifier();
-            if (extAlphaId != null && extAlphaId.length() > 0) {
+            if (extAlphaId != null && !extAlphaId.isEmpty()) {
                 displayText = extAlphaId + EXTERNAL_SUFFIX;
             } else {
                 String extNumId = usecase.getSourceNumericIdentifier();
-                if (extNumId != null && extNumId.length() > 0) {
+                if (extNumId != null && !extNumId.isEmpty()) {
                     displayText = extNumId + EXTERNAL_SUFFIX;
                 } else {
                     displayText = usecase.getSemanticalName(DbObject.LONG_FORM) + EXTERNAL_SUFFIX;
@@ -797,13 +797,11 @@ public class BEUtility {
     } //end getDisplayText()
 
     public String getDisplayText(DbBEStore store) throws DbException {
-        String name = store.getSemanticalName(DbObject.SHORT_FORM);
-        return name;
+        return store.getSemanticalName(DbObject.SHORT_FORM);
     } //end getDisplayText()
 
     public String getDisplayText(DbBEActor actor) throws DbException {
-        String name = actor.getSemanticalName(DbObject.SHORT_FORM);
-        return name;
+        return actor.getSemanticalName(DbObject.SHORT_FORM);
     } //end getDisplayText()
 
     public String getDisplayText(DbBEFlow flow) throws DbException {
@@ -817,8 +815,7 @@ public class BEUtility {
         DbBENotation notation = diagram.getNotation();
         MetaClass mc = DbBEContextGo.metaClass;
         Terminology terminology = Terminology.findTerminology(notation);
-        String term = (terminology == null) ? mc.getGUIName() : terminology.getTerm(mc);
-        return term;
+        return (terminology == null) ? mc.getGUIName() : terminology.getTerm(mc);
     } //end getDisplayText()
 
     public String getDisplayText(DbBEContextCell cell) throws DbException {
@@ -831,9 +828,8 @@ public class BEUtility {
         Terminology terminology = Terminology.findTerminology(notation);
         String term = (terminology == null) ? mc.getGUIName() : terminology.getTerm(mc);
 
-        String text = MessageFormat.format("{0} ({1},{2})", new Object[] { term, cell.getX(),
+        return MessageFormat.format("{0} ({1},{2})", new Object[] { term, cell.getX(),
                 cell.getY() });
-        return text;
     } //end getDisplayText()
 
     public DbBEDiagram getExplodedDiagram(DbBEUseCase process) throws DbException {
@@ -875,8 +871,8 @@ public class BEUtility {
             computeCellDimensions(contextGo); //compute m_rowHeights & m_rowHeights
 
             //Rectangle frameRect = contextGo.getRectangle();
-            int xCell = cell.getX().intValue();
-            int yCell = cell.getY().intValue();
+            int xCell = cell.getX();
+            int yCell = cell.getY();
 
             Rectangle cellRect = TableCell.computeCellRectangle(rect, xCell, yCell, m_rowHeights,
                     m_colWidths);
@@ -893,10 +889,10 @@ public class BEUtility {
         DbEnumeration dbEnum = relN.elements(DbBEContextCell.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbBEContextCell cell = (DbBEContextCell) dbEnum.nextElement();
-            int x = cell.getX().intValue();
-            int y = cell.getY().intValue();
-            double wx = cell.getXweight().doubleValue();
-            double wy = cell.getYweight().doubleValue();
+            int x = cell.getX();
+            int y = cell.getY();
+            double wx = cell.getXweight();
+            double wy = cell.getYweight();
             boolean rightBorder = cell.isRightBorder();
             boolean bottomBorder = cell.isBottomBorder();
             String text = cell.getDescription();
@@ -991,11 +987,10 @@ public class BEUtility {
         DbBEContextGo contextGo = (DbBEContextGo) cell.getCompositeOfType(DbBEContextGo.metaClass);
         Rectangle contextRect = contextGo.getRectangle();
 
-        int x = cell.getX().intValue();
-        int y = cell.getY().intValue();
+        int x = cell.getX();
+        int y = cell.getY();
 
-        Rectangle rect = TableCell.computeCellRectangle(contextRect, x, y, rowHeights, colWidths);
-        return rect;
+        return TableCell.computeCellRectangle(contextRect, x, y, rowHeights, colWidths);
     } //end getCellRect()
 
 } //end BEUtility

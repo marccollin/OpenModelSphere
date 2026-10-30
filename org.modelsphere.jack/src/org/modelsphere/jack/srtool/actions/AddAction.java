@@ -165,7 +165,7 @@ public abstract class AddAction extends AbstractMenuAction implements SelectionA
             return;
         }
 
-        List values = new ArrayList();
+        List<AddElement> values = new ArrayList<>();
         for (int i = 0; i < elementsincluded.length; i++) {
             if (elementsincluded[i]) {
                 values.add(elements[i]);
@@ -174,7 +174,7 @@ public abstract class AddAction extends AbstractMenuAction implements SelectionA
         }
 
         for (int i = 0; i < values.size(); i++) {
-            String name = ((AddElement) values.get(i)).getName();
+            String name = values.get(i).getName();
             if (name != null)
                 if (name.equals("-"))
                     values.set(i, null);

@@ -72,7 +72,7 @@ public class FindOption {
     private List scopeOptions = new ArrayList();
 
     public FindOption(String textToFind, boolean caseSensitive, boolean wholeWord, boolean useGrep,
-            boolean recursive, ArrayList scopeOptions) throws PatternSyntaxException {
+            boolean recursive, List scopeOptions) throws PatternSyntaxException {
         this.textToFind = textToFind;
         this.caseSensitive = caseSensitive;
         this.wholeWord = wholeWord;
@@ -113,19 +113,19 @@ public class FindOption {
 
     public boolean selectedInScope(MetaField field) {
         if (field == DbSemanticalObject.fName || field == DbGraphic.fDiagramName)
-            return ((Boolean) scopeOptions.get(NAME)).booleanValue();
+            return (Boolean) scopeOptions.get(NAME);
         else if (field == DbSemanticalObject.fPhysicalName)
-            return ((Boolean) scopeOptions.get(CODED_NAME)).booleanValue();
+            return (Boolean) scopeOptions.get(CODED_NAME);
         else if (field == DbSemanticalObject.fAlias)
-            return ((Boolean) scopeOptions.get(ALIAS)).booleanValue();
+            return (Boolean) scopeOptions.get(ALIAS);
         else if (field == DbSemanticalObject.fDescription)
-            return ((Boolean) scopeOptions.get(DESCRIPTION)).booleanValue();
+            return (Boolean) scopeOptions.get(DESCRIPTION);
         else
-            return ((Boolean) scopeOptions.get(ALL_OTHER_TEXT)).booleanValue();
+            return (Boolean) scopeOptions.get(ALL_OTHER_TEXT);
     }
 
     public boolean browseUDF() {
-        return ((Boolean) scopeOptions.get(ALL_OTHER_TEXT)).booleanValue();
+        return (Boolean) scopeOptions.get(ALL_OTHER_TEXT);
     }
 
     public String getTextToFind() {

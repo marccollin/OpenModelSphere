@@ -53,7 +53,7 @@ import java.util.List;
  * This service executes JDBC API calls
  **/
 public class JdbcCatalogListBuilder extends JdbcBuilder {
-    private List nameList = new ArrayList();
+    private List<String> nameList = new ArrayList<>();
 
     JdbcCatalogListBuilder() {
     }

@@ -223,12 +223,12 @@ public final class ORSemanticalIntegrity implements DbUpdateListener {
         // it does not match; recreate the index keys from the constraint columns.
         int i;
         DbRelationN indCols = index.getComponents();
-        Map old = new HashMap();
+        Map<DbObject, DbORIndexKey> old = new HashMap<>();
         for (i = indCols.size(); --i >= 0;) {
             DbObject dbo = indCols.elementAt(i);
             if (dbo instanceof DbORIndexKey) {
                 if (((DbORIndexKey) dbo).getIndexedElement() != null)
-                    old.put(((DbORIndexKey) dbo).getIndexedElement(), dbo);
+                    old.put(((DbORIndexKey) dbo).getIndexedElement(), (DbORIndexKey) dbo);
                 dbo.remove();
             }
         }
@@ -239,10 +239,10 @@ public final class ORSemanticalIntegrity implements DbUpdateListener {
                     .elementAt(i) : ((DbORFKeyColumn) pufCols.elementAt(i)).getColumn());
             DbORIndexKey indCol = new DbORIndexKey(index);
             indCol.setIndexedElement(pufCol);
-            Object oldIndexKey = old.get(pufCol);
+            DbORIndexKey oldIndexKey = old.get(pufCol);
             if (oldIndexKey != null) {
-                indCol.setSortOption(((DbORIndexKey) oldIndexKey).getSortOption());
-                indCol.setExpression(((DbORIndexKey) oldIndexKey).getExpression());
+                indCol.setSortOption(oldIndexKey.getSortOption());
+                indCol.setExpression(oldIndexKey.getExpression());
             }
         }
         old.clear();
@@ -332,14 +332,13 @@ public final class ORSemanticalIntegrity implements DbUpdateListener {
      * are part of FKs
      */
     private void updateTableCalculatedFields(DbUpdateEvent event) throws DbException {
-        if ((event.dbo == null) || !(event.dbo instanceof DbORTable))
+        if ((event.dbo == null) || !(event.dbo instanceof DbORTable table))
             return;
 
         if (event.op == Db.REMOVE_FROM_RELN)
             return;
 
         //if table is going to be deleted, return
-        DbORTable table = (DbORTable) event.dbo;
         DbObject composite = table.getComposite();
         if (composite == null)
             return;
@@ -731,4 +730,3 @@ public final class ORSemanticalIntegrity implements DbUpdateListener {
      */
     // //end updateAssociationCalculatedFields()
 } //end ORSemanticalIntegrity
-

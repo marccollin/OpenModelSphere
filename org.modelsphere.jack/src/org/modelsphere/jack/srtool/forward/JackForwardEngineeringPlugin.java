@@ -321,7 +321,7 @@ public abstract class JackForwardEngineeringPlugin implements Plugin {
     }
 
     protected final DbObject[] cleanRedundantForward(DbObject[] semObjs) throws DbException {
-        List tempVector = new ArrayList();
+        List<DbObject> tempVector = new ArrayList<>();
         for (DbObject semObj : semObjs) {
             boolean accept = true;
             int maxI = semObjs.length - 1;
@@ -334,7 +334,7 @@ public abstract class JackForwardEngineeringPlugin implements Plugin {
             if (accept)
                 tempVector.add(semObj);
         }
-        return (DbObject[]) tempVector.toArray(new DbObject[tempVector.size()]);
+        return tempVector.toArray(new DbObject[tempVector.size()]);
     }
 
     // For internal use only (called by ForwardTask)

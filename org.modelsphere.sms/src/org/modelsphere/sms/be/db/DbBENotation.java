@@ -410,8 +410,8 @@ public final class DbBENotation extends DbSMSNotation {
      *            org.modelsphere.sms.be.db.srtypes.BEZoneStereotype
      * @return arraylist
      **/
-    private List getAllZonesOfType(BEZoneStereotype stereotype) throws DbException {
-        List zones = new ArrayList();
+    private List<DbBESingleZoneDisplay> getAllZonesOfType(BEZoneStereotype stereotype) throws DbException {
+        List<DbBESingleZoneDisplay> zones = new ArrayList<>();
         DbEnumeration dbEnum = this.getComponents().elements(DbBESingleZoneDisplay.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbBESingleZoneDisplay zone = (DbBESingleZoneDisplay) dbEnum.nextElement();
@@ -810,7 +810,7 @@ public final class DbBENotation extends DbSMSNotation {
      * @return boolean
      **/
     public final boolean isBuiltIn() throws DbException {
-        return getBuiltIn().booleanValue();
+        return getBuiltIn();
     }
 
     /**

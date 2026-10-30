@@ -144,21 +144,21 @@ public abstract class SMSSynchroModel extends SMSIntegrateModel {
 
     private void fillSyncObjs(IntegrateNode node) {
         int syncAction = 0;
-        List metafields = new ArrayList();
-        List customfields = new ArrayList();
+        List<MetaField> metafields = new ArrayList<>();
+        List<String> customfields = new ArrayList<>();
         if (node.getAction() == ACT_DELETE_RIGHT)
             syncAction = SynchroObject.ACT_DELETE;
         else if (node.getAction() == ACT_ADD_IN_RIGHT)
             syncAction = SynchroObject.ACT_ADD;
         else if (node.getProperties() != null) {
             IntegrateProperty[] props = node.getProperties();
-            for (int i = 0; i < props.length; i++) {
-                if (props[i].getAction() == ACT_MODIFY_RIGHT) {
-                    syncAction |= getSyncAction(props[i].getProperty());
-                    if (props[i].getProperty() instanceof MetaField)
-                        metafields.add(props[i].getProperty());
-                    if (props[i].getProperty() instanceof String)
-                        customfields.add(props[i].getProperty());
+            for (IntegrateProperty prop : props) {
+                if (prop.getAction() == ACT_MODIFY_RIGHT) {
+                    syncAction |= getSyncAction(prop.getProperty());
+                    if (prop.getProperty() instanceof MetaField)
+                        metafields.add((MetaField) prop.getProperty());
+                    if (prop.getProperty() instanceof String)
+                        customfields.add((String) prop.getProperty());
                 }
             }
         }
@@ -166,10 +166,10 @@ public abstract class SMSSynchroModel extends SMSIntegrateModel {
             int order = getSyncOrder(node.getRightDbo(), node.getLeftDbo(), syncAction);
             MetaField[] modifiedFields = new MetaField[metafields.size()];
             for (int i = 0; i < modifiedFields.length; i++)
-                modifiedFields[i] = (MetaField) metafields.get(i);
+                modifiedFields[i] = metafields.get(i);
             String[] modifiedCustomFields = new String[customfields.size()];
             for (int i = 0; i < modifiedCustomFields.length; i++)
-                modifiedCustomFields[i] = (String) customfields.get(i);
+                modifiedCustomFields[i] = customfields.get(i);
             syncObjs.add(new SynchroObject(node.getRightDbo(), node.getLeftDbo(), syncAction,
                     order, modifiedFields.length == 0 ? null : modifiedFields,
                     modifiedCustomFields.length == 0 ? null : modifiedCustomFields));

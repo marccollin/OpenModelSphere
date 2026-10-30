@@ -72,7 +72,7 @@ public class DbUtility {
 
     //Called by sms.actions.AddAction.doActionPerformed()
     public static DbSMSDiagram selectOneDiagram(DbSMSClassifier classifier) throws DbException {
-        List list = new ArrayList();
+        List<DbSMSDiagram> list = new ArrayList<>();
 
         DbRelationN relN = classifier.getClassifierGos();
         DbEnumeration dbEnum = relN.elements(DbSMSClassifierGo.metaClass);
@@ -86,7 +86,7 @@ public class DbUtility {
         } //end while
         dbEnum.close();
 
-        DbSMSDiagram diagram = (list.size() == 0) ? null : (DbSMSDiagram) list.get(0);
+        DbSMSDiagram diagram = (list.isEmpty()) ? null : list.get(0);
         return diagram;
     } //end selectOneDiagram()
 
@@ -136,8 +136,7 @@ public class DbUtility {
 
     public static boolean notationIsEntityRelationship(DbORNotation notation) throws DbException {
         String name = notation.getName();
-        boolean isER = name.equals(ENTITY_RELATIONSHIP_TXT);
-        return isER;
+        return name.equals(ENTITY_RELATIONSHIP_TXT);
     } //end notationIsEntityRelationship
 
     public static void onSetRectangle(Rectangle value) {
