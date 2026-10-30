@@ -166,7 +166,7 @@ public class DefaultReverseWizardObjectsPage extends WizardPage {
         occurrenceTreePanel.add("empty", new JScrollPane()); // NOT LOCALIZABLE
         CardLayout layout = (CardLayout) occurrenceTreePanel.getLayout();
         cardLayoutLastItem++;
-        cardLayoutComponentTable.put("empty", new Integer(cardLayoutLastItem - 1)); // associate name & rank // NOT
+        cardLayoutComponentTable.put("empty", cardLayoutLastItem - 1); // associate name & rank // NOT
         // LOCALIZABLE
 
         // For unowned objects...
@@ -212,7 +212,7 @@ public class DefaultReverseWizardObjectsPage extends WizardPage {
         panel.add(name, comp);
         CardLayout layout = (CardLayout) panel.getLayout();
         cardLayoutLastItem++;
-        cardLayoutComponentTable.put(name, new Integer(cardLayoutLastItem - 1)); // associate
+        cardLayoutComponentTable.put(name, cardLayoutLastItem - 1); // associate
         // name
         // &
         // rank

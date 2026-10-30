@@ -178,8 +178,7 @@ public class HTMLReportWorker extends Worker
 	/**
 	 * This function extracts all the data of the selected project.
 	 * 
-	 * @param The
-	 *            DataComponent extracted by the previous function.
+	 * @param dataRoot The DataComponent extracted by the previous function.
 	 * @throws IOException
 	 */
 	private void generateReportFiles(DataComponent dataRoot) throws IOException, DbException

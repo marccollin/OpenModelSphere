@@ -104,6 +104,7 @@ public final class ORDescriptorFormat extends DbtAbstract {
         return (bold == format.bold && italic == format.italic && underline == format.underline);
     }
 
+    @Override
     public String toString() {
         String str = "";
         str = str + "Bold: " + (bold == true ? "true" : "false") + "| Italic: "

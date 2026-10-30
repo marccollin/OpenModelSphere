@@ -148,6 +148,7 @@ public abstract class Rule implements Plugin, Serializable {
 
     //////////////////
     //OVERRIDES Object
+    @Override
     public String toString() {
         return m_ruleName;
     }

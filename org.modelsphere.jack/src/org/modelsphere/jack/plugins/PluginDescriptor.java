@@ -55,6 +55,7 @@ public interface PluginDescriptor extends Comparable<PluginDescriptor> {
             return null;
         }
 
+        @Override
         public String toString() {
             return type.getName();
         }

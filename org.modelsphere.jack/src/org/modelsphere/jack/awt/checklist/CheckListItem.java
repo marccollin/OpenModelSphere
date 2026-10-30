@@ -68,6 +68,7 @@ public class CheckListItem implements Comparable {
         return name.compareTo(((CheckListItem) obj).name);
     }
 
+    @Override
     public String toString() {
         return name;
     }

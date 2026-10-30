@@ -122,7 +122,7 @@ public abstract class DbORDataModel extends DbORModel {
   public DbORDataModel(DbObject composite, DbSMSTargetSystem targetSystem, int logicalMode) throws DbException {
     super(composite, targetSystem);
     setDefaultInitialValues();
-    set(fLogicalMode, new Integer(logicalMode));
+    set(fLogicalMode, logicalMode);
 
   }
 
@@ -139,7 +139,7 @@ public abstract class DbORDataModel extends DbORModel {
   }
 
   private void setDefaultInitialValues() throws DbException {
-    setLogicalMode(new Integer(LOGICAL_MODE_OBJECT_RELATIONAL));
+    setLogicalMode(LOGICAL_MODE_OBJECT_RELATIONAL);
     setIsConverted(Boolean.FALSE);
     TerminologyUtil terminologyUtil = TerminologyUtil.getInstance();  
       setName(terminologyUtil.findModelTerminology(this).getTerm(metaClass));

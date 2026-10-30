@@ -104,6 +104,7 @@ public abstract class StereotypeCellEditor extends ComboBoxCellEditor {
 
     }
 
+    @Override
     public String toString() {
         if (value != null)
             return value.toString();

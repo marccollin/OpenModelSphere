@@ -84,6 +84,7 @@ public class DisplayLFOptionGroup extends OptionGroup {
                 return this.lfClassName.compareTo(((LFDescription) obj).lfClassName);
             }
 
+            @Override
             public String toString() {
                 return lfStr;
             }

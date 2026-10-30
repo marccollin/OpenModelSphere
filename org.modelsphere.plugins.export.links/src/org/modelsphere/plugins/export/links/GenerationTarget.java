@@ -80,6 +80,7 @@ public class GenerationTarget {
         return m_targetName;
     }
 
+    @Override
     public String toString() {
         return getName();
     }

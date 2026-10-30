@@ -69,6 +69,7 @@ public class ObjectSelection implements Serializable {
         isSelected = b;
     }
 
+    @Override
     public String toString() {
         return (name != null ? name : ""); // NOT LOCALIZABLE
     }

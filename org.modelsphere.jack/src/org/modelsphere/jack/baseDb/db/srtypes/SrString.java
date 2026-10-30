@@ -71,6 +71,7 @@ public final class SrString extends SrType {
         return value.equals(((SrString) obj).value);
     }
 
+    @Override
     public String toString() {
         return "\"" + value + "\""; // NOT LOCALIZABLE
     }

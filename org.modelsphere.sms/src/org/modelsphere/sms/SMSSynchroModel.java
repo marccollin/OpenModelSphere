@@ -255,6 +255,7 @@ public abstract class SMSSynchroModel extends SMSIntegrateModel {
         }
 
         // For debug purpose only
+        @Override
         public String toString() {
             if (!Debug.isDebug())
                 return super.toString();

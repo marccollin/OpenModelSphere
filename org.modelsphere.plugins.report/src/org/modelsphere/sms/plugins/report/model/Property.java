@@ -69,6 +69,7 @@ public class Property {
         m_value = newValue;
     }
 
+    @Override
     public String toString() {
         return m_label;
     }

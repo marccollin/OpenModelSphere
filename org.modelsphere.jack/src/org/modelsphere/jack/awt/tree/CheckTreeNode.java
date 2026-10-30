@@ -89,6 +89,7 @@ public class CheckTreeNode extends DefaultMutableTreeNode {
         displayText = (text == null ? "" : text);
     }
 
+    @Override
     public String toString() {
         return displayText;
     }

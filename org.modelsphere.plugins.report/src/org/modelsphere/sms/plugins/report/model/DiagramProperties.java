@@ -77,6 +77,7 @@ public class DiagramProperties implements Properties {
         return m_concept;
     }
 
+    @Override
     public String toString() {
         return m_concept.toString();
     }

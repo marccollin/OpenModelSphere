@@ -181,7 +181,7 @@ public final class NameListService extends NameListServiceProtocol {
                     index++;
                     // check if this statement id is marked as <to skip>
                     if (nameListMessage.ignoredStatementIds != null
-                            && nameListMessage.ignoredStatementIds.contains(new Integer(index))) {
+                            && nameListMessage.ignoredStatementIds.contains(index)) {
                         if (commaSeparated) {
                             buffer.flush();
                             buffer.newLine();

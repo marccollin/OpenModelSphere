@@ -576,6 +576,7 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
             return newname.compareTo("");
         }
 
+        @Override
         public String toString() {
             return newname;
         }

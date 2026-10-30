@@ -141,6 +141,7 @@ public class ConceptComponentProperties implements Properties {
         return groups;
     }
 
+    @Override
     public String toString() {
         /*
          * if(m_parameter!=null) return m_parameter.getGUIName(true, true);

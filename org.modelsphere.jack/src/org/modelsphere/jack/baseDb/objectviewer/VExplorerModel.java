@@ -78,6 +78,7 @@ class VExplorerModel extends DefaultTreeModel {
             this.display = display;
         }
 
+        @Override
         public String toString() {
             return display;
         }

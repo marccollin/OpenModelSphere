@@ -144,6 +144,7 @@ public class ConceptProperties implements Properties {
         return m_concept;
     }
 
+    @Override
     public String toString() {
         return m_concept.toString();
     }

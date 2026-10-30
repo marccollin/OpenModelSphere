@@ -45,6 +45,7 @@ public class HtmlColor extends Color {
         this(color.getRed(), color.getGreen(), color.getBlue());
     }
 
+    @Override
     public String toString() {
         String str = "#";
         String red = Integer.toHexString(this.getRed()).toUpperCase();

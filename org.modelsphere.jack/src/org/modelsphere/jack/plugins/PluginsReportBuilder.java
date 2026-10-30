@@ -179,6 +179,7 @@ public class PluginsReportBuilder {
         return checked;
     }
 
+    @Override
     public String toString() {
         return text.toString();
     }

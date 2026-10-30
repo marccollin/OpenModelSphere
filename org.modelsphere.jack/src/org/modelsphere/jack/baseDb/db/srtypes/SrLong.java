@@ -71,6 +71,7 @@ public final class SrLong extends SrType {
         return (value == ((SrLong) obj).value);
     }
 
+    @Override
     public String toString() {
         return Long.toString(value);
     }

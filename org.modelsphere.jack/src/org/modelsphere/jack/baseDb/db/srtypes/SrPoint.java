@@ -76,6 +76,7 @@ public final class SrPoint extends SrType {
         return (x == point.x && y == point.y);
     }
 
+    @Override
     public String toString() {
         return "x=" + x + ",y=" + y; // NOT LOCALIZABLE
     }

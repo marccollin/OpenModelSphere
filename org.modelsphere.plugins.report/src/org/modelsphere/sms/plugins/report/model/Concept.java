@@ -169,6 +169,7 @@ public class Concept {
         return occurences;
     }
 
+    @Override
     public String toString() {
 
         String str = null;

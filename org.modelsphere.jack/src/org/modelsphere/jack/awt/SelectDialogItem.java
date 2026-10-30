@@ -77,6 +77,7 @@ public class SelectDialogItem implements Comparable {
         return name.compareTo(((SelectDialogItem) obj).name);
     }
 
+    @Override
     public String toString() {
         return name;
     }

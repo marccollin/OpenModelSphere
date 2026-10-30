@@ -263,6 +263,7 @@ public final class ListDescriptor {
         this.displayText = sDisplayText;
     }
 
+    @Override
     public String toString() {
         if (displayText != null)
             return displayText;

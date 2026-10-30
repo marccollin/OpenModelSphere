@@ -146,6 +146,7 @@ public class DBMSReverseOptions {
         return objectsScope;
     }
 
+    @Override
     public String toString() {
         String eol = "\n";
         String indent = "\t"; // NOT LOCALIZABLE

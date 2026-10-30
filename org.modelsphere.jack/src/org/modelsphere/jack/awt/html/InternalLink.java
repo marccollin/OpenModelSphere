@@ -84,6 +84,7 @@ public final class InternalLink {
         return action;
     }
 
+    @Override
     public String toString() {
         if (imageUrl == null)
             return "<A HREF=\"key=" + new Integer(key).toString() + "\">" + text + "</A>"; // NOT LOCALIZABLE

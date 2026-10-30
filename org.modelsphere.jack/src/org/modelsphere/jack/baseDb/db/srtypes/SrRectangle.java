@@ -80,6 +80,7 @@ public final class SrRectangle extends SrType {
         return (x == rect.x && y == rect.y && width == rect.width && height == rect.height);
     }
 
+    @Override
     public String toString() {
         return "x=" + x + ",y=" + y + ",width=" + width + ",height=" + height; // NOT
         // LOCALIZABLE

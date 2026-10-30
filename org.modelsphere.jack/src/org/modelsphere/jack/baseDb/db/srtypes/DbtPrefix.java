@@ -127,6 +127,7 @@ public final class DbtPrefix extends DbtAbstract {
                 prefix.imageName));
     }
 
+    @Override
     public String toString() {
         String str = "";
         switch (displayedComponent) {

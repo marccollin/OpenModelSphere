@@ -230,6 +230,7 @@ public class HtmlWriter extends Writer {
         m_nestedWriter.write(line.toString());
     } // end write()
 
+    @Override
     public String toString() {
         return m_nestedWriter.toString();
     }

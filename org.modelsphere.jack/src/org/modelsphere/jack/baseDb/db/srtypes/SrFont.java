@@ -86,6 +86,7 @@ public final class SrFont extends SrType {
         return (name.equals(font.name) && style == font.style && size == font.size);
     }
 
+    @Override
     public String toString() {
         String strStyle;
         if ((style & Font.BOLD) != 0)

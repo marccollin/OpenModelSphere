@@ -363,6 +363,7 @@ public class ObjectScope implements Serializable {
         return select;
     }
 
+    @Override
     public String toString() {
         return (conceptName != null ? conceptName : ""); // NOT LOCALIZABLE
     }

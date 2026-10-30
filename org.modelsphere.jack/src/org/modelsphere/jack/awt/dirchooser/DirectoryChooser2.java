@@ -438,6 +438,7 @@ public final class DirectoryChooser2 extends JDialog {
             this(file, false);
         }
 
+        @Override
         public String toString() {
             return display;
         }

@@ -73,6 +73,7 @@ public final class SrColor extends SrType {
         return (rgb == ((SrColor) obj).rgb);
     }
 
+    @Override
     public String toString() {
         return "r=" + ((rgb >> 16) & 0xFF) + ",g=" + ((rgb >> 8) & 0xFF) + ",b=" + (rgb & 0xFF);
     }

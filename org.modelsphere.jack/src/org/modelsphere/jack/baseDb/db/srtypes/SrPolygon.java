@@ -87,6 +87,7 @@ public final class SrPolygon extends SrType {
         return true;
     }
 
+    @Override
     public String toString() {
         String str = "";
         for (int i = 0; i < xs.length; i++) {

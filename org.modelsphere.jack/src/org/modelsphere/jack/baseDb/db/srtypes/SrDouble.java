@@ -71,6 +71,7 @@ public final class SrDouble extends SrType {
         return (value == ((SrDouble) obj).value);
     }
 
+    @Override
     public String toString() {
         return Double.toString(value);
     }

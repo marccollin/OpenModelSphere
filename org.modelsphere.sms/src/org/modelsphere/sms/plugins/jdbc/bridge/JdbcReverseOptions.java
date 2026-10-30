@@ -123,6 +123,7 @@ public class JdbcReverseOptions {
         return tsList;
     }
 
+    @Override
     public String toString() {
         String s = "\t";
         s += (catalogName == null ? "" : MessageFormat.format(LocaleMgr.misc.getString("Catalog0"),

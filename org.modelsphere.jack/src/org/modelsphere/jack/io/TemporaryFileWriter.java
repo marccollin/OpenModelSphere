@@ -83,6 +83,7 @@ public final class TemporaryFileWriter extends Writer {
 
     // ////////////////////////
     // OVERRIDES Object
+    @Override
     public String toString() {
         if (m_file == null) {
             return "";

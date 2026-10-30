@@ -54,6 +54,7 @@ public class BookInfo {
         this.bookURL = bookURL;
     }
 
+    @Override
     public String toString() {
         return bookName;
     }

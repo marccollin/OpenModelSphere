@@ -306,11 +306,10 @@ public final class ValidationReport {
         writer.write(EOL + EOL);
         if (errorCount > 0)
             writer.write(MessageFormat.format(kErrorCount0,
-                    new Object[] { new Integer(errorCount) })
-                    + EOL);
+                    new Object[] { errorCount }) + EOL);
         if (warningCount > 0)
-            writer.write(MessageFormat.format(kWarningCount0, new Object[] { new Integer(
-                    warningCount) })
+            writer.write(MessageFormat.format(kWarningCount0, new Object[] {
+                    warningCount })
                     + EOL);
         if (errorCount == 0 && warningCount == 0)
             writer.write(kNoErrorFound + EOL);

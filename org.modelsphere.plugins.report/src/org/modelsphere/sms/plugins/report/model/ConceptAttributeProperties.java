@@ -123,6 +123,7 @@ public class ConceptAttributeProperties implements Properties {
         return groups;
     }
 
+    @Override
     public String toString() {
         return m_metaField.getGUIName();
     }

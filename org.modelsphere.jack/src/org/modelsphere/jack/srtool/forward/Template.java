@@ -279,6 +279,7 @@ public final class Template extends Rule {
 
     // ////////////////
     // OVERRIDES Object
+    @Override
     public String toString() {
         return (m_ruleName + "(" + format + ")");
     } // NOT LOCALIZABLE
