@@ -62,9 +62,10 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public final class XMLUtilities implements XMLConstants {
-    private static HashMap idPool = null;
+    private static Map<MetaClass, String> idPool = null;
 
     static String getIndent(int indent) {
         if (indent <= 0)
@@ -133,12 +134,12 @@ public final class XMLUtilities implements XMLConstants {
         if (idPool == null) {
             initIDPool();
         }
-        return (String) idPool.get(metaclass);
+        return idPool.get(metaclass);
     }
 
     private static void initIDPool() {
-        idPool = new HashMap();
-        List shortNameList = new ArrayList(); // validation only
+        idPool = new HashMap<>();
+        List<String> shortNameList = new ArrayList<>(); // validation only
         Enumeration allmetaclasses = MetaClass.enumMetaClasses();
         while (allmetaclasses.hasMoreElements()) {
             MetaClass mc = (MetaClass) allmetaclasses.nextElement();
@@ -161,9 +162,9 @@ public final class XMLUtilities implements XMLConstants {
             initIDPool();
         }
         XMLElement idpool = new DefaultElement(TAG_ID_POOL);
-        Iterator metaclasses = idPool.keySet().iterator();
+        Iterator<MetaClass> metaclasses = idPool.keySet().iterator();
         while (metaclasses.hasNext()) {
-            MetaClass metaclass = (MetaClass) metaclasses.next();
+            MetaClass metaclass = metaclasses.next();
             XMLElement id = new DefaultElement(TAG_ID);
             id.add(new DefaultAttribute(ID_SHORT, idPool.get(metaclass)));
             id.add(new DefaultAttribute(ID_LONG, metaclass.getJClass().getName()));

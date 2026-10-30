@@ -154,25 +154,25 @@ public class DisplayLFOptionGroup extends OptionGroup {
             MetalTheme[] themes = ThemeBank.themes;
             String osname = (String) System.getProperty("os.name"); // NOT
             // LOCALIZABLE
-            List lfValues = new ArrayList();
-            List themeValues = new ArrayList();
+            List<LFDescription> lfValues = new ArrayList<>();
+            List<ThemeDescription> themeValues = new ArrayList<>();
             if (osname == null)
                 osname = ""; // NOT LOCALIZABLE
-            for (int i = 0; i < lfs.length; i++) {
-                if (((osname.toLowerCase().indexOf("windows") == -1) && lfs[i].getClassName()
+            for (LookAndFeelInfo lf : lfs) {
+                if (((osname.toLowerCase().indexOf("windows") == -1) && lf.getClassName()
                         .equals("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"))
                         || // NOT LOCALIZABLE
-                        ((osname.toLowerCase().indexOf("sunos") == -1) && lfs[i].getClassName()
+                        ((osname.toLowerCase().indexOf("sunos") == -1) && lf.getClassName()
                                 .equals("com.sun.java.swing.plaf.motif.MotifLookAndFeel"))) { // NOT
                     // LOCALIZABLE
                     continue;
                 }
-                LFDescription lfDescription = new LFDescription(lfs[i].getName(), lfs[i]
+                LFDescription lfDescription = new LFDescription(lf.getName(), lf
                         .getClassName());
                 if (customLFs != null && customLFs.contains(lfDescription))
                     continue;
                 lfValues.add(lfDescription);
-                if (lfs[i].getClassName().equals("javax.swing.plaf.metal.MetalLookAndFeel")) { // NOT
+                if (lf.getClassName().equals("javax.swing.plaf.metal.MetalLookAndFeel")) { // NOT
                     // LOCALIZABLE
                     for (int j = 0; j < themes.length; j++) {
                         themeValues.add(new ThemeDescription(themes[j].getName()));
@@ -187,7 +187,7 @@ public class DisplayLFOptionGroup extends OptionGroup {
                 String lfcustom = customLF.getPropertyString(javax.swing.LookAndFeel.class, "LF"
                         + index, "");
                 try {
-                    while (lfcustom.length() > 0) {
+                    while (!lfcustom.isEmpty()) {
                         Class lfClass = Class.forName(lfcustom);
                         if (lfClass != null) {
                             LookAndFeel lkFeel = (LookAndFeel) lfClass.newInstance();

@@ -75,6 +75,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public abstract class ApplicationPopupMenu {
@@ -96,7 +97,7 @@ public abstract class ApplicationPopupMenu {
      */
     protected static Object[] instanceWithPopupMenu = null;
 
-    private static HashMap itemNameMap = null;
+    private static Map<String, Integer> itemNameMap = null;
     private static Object[] popupMenuByClass = null;
 
     private static final int DISCARD = 0x10000;
@@ -132,16 +133,15 @@ public abstract class ApplicationPopupMenu {
 
         if (selObjects.length > 0 && !useContainer) {
             Set classes = new HashSet();
-            for (int i = 0; i < selObjects.length; i++) {
-                Object object = selObjects[i];
+            for (Object object : selObjects) {
                 if (!classes.add(object.getClass()))
                     continue;
                 int[] indices = getItemIndices(object);
                 if (indices == null)
                     return null;
-                for (int j = 0; j < indices.length; j++) {
-                    if ((indices[j] & DISCARD) == 0)
-                        selArray[indices[j]]++;
+                for (int index : indices) {
+                    if ((index & DISCARD) == 0)
+                        selArray[index]++;
                 }
                 selCount++;
             }
@@ -175,15 +175,15 @@ public abstract class ApplicationPopupMenu {
             //DbMultiTrans.commitTrans(selObjects);
 
             List arrayToCommit = new ArrayList();
-            for (int w = 0; w < selObjects.length; w++) {
+            for (Object selObject : selObjects) {
                 Db db = null;
-                if (selObjects[w] instanceof DbObject)
-                    db = ((DbObject) selObjects[w]).getDb();
-                else if (selObjects[w] instanceof ActionInformation)
-                    db = ((ActionInformation) selObjects[w]).getDb();
+                if (selObject instanceof DbObject)
+                    db = ((DbObject) selObject).getDb();
+                else if (selObject instanceof ActionInformation)
+                    db = ((ActionInformation) selObject).getDb();
                 if (db != null)
                     if (db.getTransMode() != Db.TRANS_NONE)
-                        arrayToCommit.add(selObjects[w]);
+                        arrayToCommit.add(selObject);
             }
             DbMultiTrans.commitTrans(arrayToCommit.toArray());
 
@@ -205,7 +205,7 @@ public abstract class ApplicationPopupMenu {
         JackPopupMenu popup = new JackPopupMenu();
         JackMenu generateMenu = null;
         JackMenu selectMenu = null;
-        ArrayList pluginMenuActions = null;
+        List pluginMenuActions = null;
 
         // check if not the last item and
         // check if two SEPARATOR without item menu
@@ -333,7 +333,7 @@ public abstract class ApplicationPopupMenu {
         DbObject[] objs = ApplicationContext.getFocusManager().getSelectedSemanticalObjects();
         boolean bShow = TerminologyUtil.getShowPhysicalConcepts(objs);
         boolean bIsPureERSet = TerminologyUtil.getInstance().isPureERSet(objs);
-        if (!bIsPureERSet && bShow == false) {
+        if (!bIsPureERSet && !bShow) {
             popup = new JackPopupMenu();
             JMenuItem menu = new JMenuItem(kRestrictedConcept);
             menu.setEnabled(false);
@@ -383,10 +383,10 @@ public abstract class ApplicationPopupMenu {
     private static void initialize() {
         if (itemNameMap != null)
             return;
-        itemNameMap = new HashMap();
+        itemNameMap = new HashMap<>();
         int i;
         for (i = 0; i < itemMenuNames.length; i++)
-            itemNameMap.put(itemMenuNames[i], Integer.valueOf(i));
+            itemNameMap.put(itemMenuNames[i], i);
 
         popupMenuByClass = new Object[instanceWithPopupMenu.length];
         for (i = 0; i < popupMenuByClass.length; i += 2) {
@@ -405,7 +405,7 @@ public abstract class ApplicationPopupMenu {
                 discard = DISCARD;
                 name = name.substring(1);
             }
-            Integer index = (Integer) itemNameMap.get(name);
+            Integer index = itemNameMap.get(name);
             if (index == null) {
                 String msg = "INTERNAL ERROR : String '"
                         + name

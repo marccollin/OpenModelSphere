@@ -58,6 +58,7 @@ import org.modelsphere.sms.or.international.LocaleMgr;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <b>Direct subclass(es)/subinterface(s) : </b>none.<br>
@@ -152,7 +153,7 @@ public final class DbORCommonItemStyle extends DbSMSStyle {
     }
 
     static final long serialVersionUID = 0;
-    private static HashMap fieldMap;
+    private static Map<String, MetaField> fieldMap;
     public static String[] commonItem_listOptionTabs;
     public static final String SEQUENCE_KEYWORD = "%#";
     public static Object[][] commonItem_optionValueGroups;
@@ -239,7 +240,7 @@ public final class DbORCommonItemStyle extends DbSMSStyle {
     }
 
     /**
-     * @param srcstyle
+     * @param srcStyle
      *            org.modelsphere.jack.baseDb.db.DbObject
      **/
     public void copyOptions(DbObject srcStyle) throws DbException {
@@ -259,11 +260,11 @@ public final class DbORCommonItemStyle extends DbSMSStyle {
     public final MetaField getMetaField(String name) {
         if (fieldMap == null) {
             MetaField[] fields = metaClass.getAllMetaFields();
-            fieldMap = new HashMap(fields.length + fields.length / 2);
+            fieldMap = new HashMap<>(fields.length + fields.length / 2);
             for (int i = 0; i < fields.length; i++)
                 fieldMap.put(fields[i].getJName(), fields[i]);
         }
-        return (MetaField) fieldMap.get(name);
+        return fieldMap.get(name);
     }
 
     //Setters

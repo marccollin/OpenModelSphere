@@ -59,7 +59,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -302,8 +302,7 @@ public class LocaleMgr {
         String value = line.substring(idx + 1);
 
         Locale[] locales = Locale.getAvailableLocales();
-        for (int i = 0; i < locales.length; i++) {
-            Locale currLocale = locales[i];
+        for (Locale currLocale : locales) {
             String s = currLocale.toString();
             if (value.equals(s)) {
                 locale = currLocale;
@@ -454,7 +453,7 @@ public class LocaleMgr {
         if (g_equivalenceMapping == null) {
             return res;
         } else {
-            String value = (String) g_equivalenceMapping.get(res);
+            String value = g_equivalenceMapping.get(res);
             if (value == null) {
                 value = res;
             }
@@ -462,9 +461,9 @@ public class LocaleMgr {
         } //end if
     } //end getResourceEquivalent()
 
-    private static HashMap g_equivalenceMapping = null;
+    private static Map<String, String> g_equivalenceMapping = null;
 
-    private static void setEquivalenceMapping(HashMap mapping) {
+    private static void setEquivalenceMapping(Map<String, String> mapping) {
         g_equivalenceMapping = mapping;
     }
 

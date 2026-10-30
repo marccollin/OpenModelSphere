@@ -47,6 +47,7 @@ import org.modelsphere.jack.baseDb.db.DbObject;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -57,14 +58,14 @@ import java.util.Set;
  */
 public abstract class TerminologyManager {
 
-    private HashMap notationMap = null;
+    private Map<String, Terminology> notationMap = null;
     protected static TerminologyManager g_singleInstance = null; // singleton
 
     //
     // protected methods
     // 
     protected TerminologyManager() {
-        notationMap = new HashMap();
+        notationMap = new HashMap<>();
     }
 
     //
@@ -124,7 +125,7 @@ public abstract class TerminologyManager {
         Terminology terminology;
 
         String key = getTerminologyName(notation);
-        terminology = (Terminology) notationMap.get(key);
+        terminology = notationMap.get(key);
 
         if (terminology == null) // creates "default" if required
             terminology = createTerminology(notation);
@@ -133,18 +134,18 @@ public abstract class TerminologyManager {
     } // end findTerminology()
 
     public Terminology findTerminologyByName(String terminologyName) {
-        Set keys = notationMap.keySet();
+        Set<String> keys = notationMap.keySet();
         Terminology terminology = null;
         if (terminologyName == null)
             return null;
 
         boolean done = false;
-        Iterator iter = keys.iterator();
+        Iterator<String> iter = keys.iterator();
         while (iter.hasNext() && !done) {
-            String notationName = (String) iter.next();
+            String notationName = iter.next();
             if (notationName != null) {
                 if (notationName.equals(terminologyName)) {
-                    terminology = (Terminology) notationMap.get(notationName);
+                    terminology = notationMap.get(notationName);
                     done = true;
                 }
             }

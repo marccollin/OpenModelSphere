@@ -57,6 +57,8 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
@@ -103,8 +105,8 @@ public class XmlWriter extends Writer {
     private static String SEPARATORS2 = ""; // NOT LOCALIZABLE (Note: SEPARATORS
     // is updated in setMapping())
 
-    private static ArrayList g_replacementList;
-    private static HashMap g_replacementMapping;
+    private static List<String> g_replacementList;
+    private static Map<String, String> g_replacementMapping;
 
     private static void setMapping(char replacementChar, String replacementString) {
         int idx = (int) replacementChar;
@@ -119,12 +121,12 @@ public class XmlWriter extends Writer {
     private void init() {
         if (!init) {
             // create 256 null elements
-            g_replacementList = new ArrayList();
+            g_replacementList = new ArrayList<>();
             for (int i = 0; i < 256; i++) {
                 g_replacementList.add(null);
             } // end for
 
-            g_replacementMapping = new HashMap();
+            g_replacementMapping = new HashMap<>();
             // these 5 entities are pre-defined in XML
             setMapping('&', "&amp;"); // NOT LOCALIZABLE - HTML tag
             setMapping('>', "&gt;"); // NOT LOCALIZABLE - HTML tag
@@ -183,7 +185,7 @@ public class XmlWriter extends Writer {
             m_nestedWriter.write(BR);
             break;
         default:
-            String replacement = (String) g_replacementList.get((int) c);
+            String replacement = g_replacementList.get((int) c);
             if (replacement != null) {
                 m_nestedWriter.write(replacement);
             } else {
@@ -218,7 +220,7 @@ public class XmlWriter extends Writer {
         StringTokenizer st = new StringTokenizer(str, separators, true);
         while (st.hasMoreTokens()) {
             String token = st.nextToken();
-            String replacement = (String) g_replacementMapping.get(token);
+            String replacement = g_replacementMapping.get(token);
             if (replacement != null) {
                 line.append(replacement);
                 charinline += 1;

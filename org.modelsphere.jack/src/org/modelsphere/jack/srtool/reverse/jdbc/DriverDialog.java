@@ -113,7 +113,7 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
     private DriverPanel driverPanel = new DriverPanel();
 
     private DriverData selectedDriver = null;
-    private ArrayList drivers = null;
+    private List<DriverData> drivers = null;
 
     private boolean changed = false;
 
@@ -200,7 +200,7 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
     } //end initGUI()
 
     private void loadDriverList() {
-        drivers = new ArrayList();
+        drivers = new ArrayList<>();
         String[] driverkeys = DriversManager.getDrivers();
         for (int i = 0; i < driverkeys.length; i++) {
             DriverInfo driver = DriversManager.getDriver(driverkeys[i]);
@@ -332,11 +332,11 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
 
         if (drivers == null)
             return true;
-        List toRename = new ArrayList();
-        List toAdd = new ArrayList();
-        Iterator iter = drivers.iterator();
+        List<DriverData> toRename = new ArrayList<>();
+        List<DriverData> toAdd = new ArrayList<>();
+        Iterator<DriverData> iter = drivers.iterator();
         while (iter.hasNext()) {
-            DriverData driverData = (DriverData) iter.next();
+            DriverData driverData = iter.next();
 
             if (driverData.newdriver) {
                 toAdd.add(driverData);
@@ -506,9 +506,9 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
             return false;
         if (driver.newname.length() == 0)
             return false;
-        Iterator iterator = drivers.iterator();
+        Iterator<DriverData> iterator = drivers.iterator();
         while (iterator.hasNext()) {
-            DriverData driverData = (DriverData) iterator.next();
+            DriverData driverData = iterator.next();
             if (driver != driverData && driverData.newname.equalsIgnoreCase(driver.newname)) {
                 return false;
             }
