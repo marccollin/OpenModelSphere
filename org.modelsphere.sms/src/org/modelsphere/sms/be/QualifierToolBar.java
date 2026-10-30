@@ -190,7 +190,7 @@ public class QualifierToolBar extends JackToolBar implements CurrentFocusListene
         Object[] backupSelection = list.getSelectedValues();
 
         list.removeAll();
-        List listItems = new ArrayList();
+        List<DefaultComparableElement> listItems = new ArrayList<>();
         DbObject model = (dbo instanceof DbBEModel ? dbo : dbo
                 .getCompositeOfType(DbBEModel.metaClass));
         if (model != null) {

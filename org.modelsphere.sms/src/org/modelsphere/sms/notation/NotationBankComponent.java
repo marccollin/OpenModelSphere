@@ -393,7 +393,7 @@ public class NotationBankComponent extends JPanel implements DbRefreshListener,
             DbSMSNotation notation = (DbSMSNotation) parentNode.getUserObject();
 
             notation.getDb().beginTrans(Db.READ_TRANS);
-            List diagList = new ArrayList();
+            List<DbObject> diagList = new ArrayList<>();
             // Add to diagList all the diagrams linked to this notation.
             DbEnumeration dbEnum = null;
             if (notation instanceof DbORNotation)
@@ -436,7 +436,7 @@ public class NotationBankComponent extends JPanel implements DbRefreshListener,
             }
 
             String[] items = new String[diagList.size()];
-            Iterator iter = diagList.iterator();
+            Iterator<DbObject> iter = diagList.iterator();
             for (int i = 0; iter.hasNext(); i++) {
                 DbSMSDiagram diag = (DbSMSDiagram) iter.next();
                 String packName = diag.getComposite().getSemanticalName(DbObject.LONG_FORM);

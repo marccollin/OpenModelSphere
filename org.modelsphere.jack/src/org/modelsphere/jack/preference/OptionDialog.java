@@ -99,7 +99,7 @@ public final class OptionDialog extends JDialog implements ActionListener {
     private RootOptionGroup rootOptionGroup = new RootOptionGroup();
     private JTree tree = new JTree();
 
-    private Map optionPanelLoaded = new HashMap(); // The key is the option group.
+    private Map<OptionGroup, OptionPanel> optionPanelLoaded = new HashMap<>(); // The key is the option group.
 
     private JSplitPane splitPane = new JSplitPane() {
         public void updateUI() {
@@ -128,7 +128,7 @@ public final class OptionDialog extends JDialog implements ActionListener {
         private void updateGroupUI(OptionGroup group) {
             if (group == null)
                 return;
-            JComponent panel = (JComponent) optionPanelLoaded.get(group);
+            JComponent panel = optionPanelLoaded.get(group);
             if (panel != null && optionPanelContainer.getComponentCount() > 0
                     && panel != optionPanelContainer.getComponent(0))
                 optionPanelLoaded.remove(group);
@@ -141,7 +141,7 @@ public final class OptionDialog extends JDialog implements ActionListener {
         }
     };
 
-    private List unsavedProperties = new ArrayList();
+    private List<OptionUpdate> unsavedProperties = new ArrayList<>();
 
     private PropertyChangeListener preferencesListener = new PropertyChangeListener() {
         public void propertyChange(PropertyChangeEvent evt) {
@@ -223,8 +223,8 @@ public final class OptionDialog extends JDialog implements ActionListener {
             super(group);
 
             OptionGroup[] groups = group.getOptionGroups();
-            for (int i = 0; i < groups.length; i++) {
-                add(new OptionTreeNode(groups[i]));
+            for (OptionGroup optionGroup : groups) {
+                add(new OptionTreeNode(optionGroup));
             }
         }
 
@@ -241,7 +241,7 @@ public final class OptionDialog extends JDialog implements ActionListener {
         OptionPanel panel = null;
         if (optionGroup != null) {
             // get used panel for this optionGroup or get a new one from optionGroup
-            panel = (OptionPanel) optionPanelLoaded.get(optionGroup);
+            panel = optionPanelLoaded.get(optionGroup);
             if (panel == null) {
                 panel = optionGroup.createOptionPanel();
                 if (panel != null) {
@@ -373,9 +373,9 @@ public final class OptionDialog extends JDialog implements ActionListener {
     }
 
     private void applyChanges() {
-        Iterator iter = unsavedProperties.iterator();
+        Iterator<OptionUpdate> iter = unsavedProperties.iterator();
         while (iter.hasNext()) {
-            OptionUpdate update = (OptionUpdate) iter.next();
+            OptionUpdate update = iter.next();
             if (update.value == null)
                 continue;
             if (update.value instanceof String) {
@@ -436,7 +436,7 @@ public final class OptionDialog extends JDialog implements ActionListener {
             if (!value.toString().equals(oldvalue))
                 unsavedProperties.add(update);
         } else {
-            update = (OptionUpdate) unsavedProperties.get(index);
+            update = unsavedProperties.get(index);
             // if value equals initial value, remove the update object
             String oldvalue = update.set.getProperty(cls, key);
             if (value.toString().equals(oldvalue))

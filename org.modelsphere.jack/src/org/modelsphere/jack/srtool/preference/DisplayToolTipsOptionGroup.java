@@ -118,7 +118,7 @@ public class DisplayToolTipsOptionGroup extends OptionGroup {
             for (Object o : items) {
                 CheckListItem item = (CheckListItem) o;
                 item.setSelected(preferences.getPropertyBoolean(DisplayToolTipsOptionGroup.class,
-                        getKey((MetaField) item.getUserObject()), Boolean.FALSE).booleanValue());
+                        getKey((MetaField) item.getUserObject()), Boolean.FALSE));
             }
             list.repaint();
         }
@@ -160,7 +160,7 @@ public class DisplayToolTipsOptionGroup extends OptionGroup {
     protected OptionPanel createOptionPanel() {
         if (availableMetaFields == null)
             return null;
-        List items = new ArrayList();
+        List<CheckListItem> items = new ArrayList<>();
         for (MetaField availableMetaField : availableMetaFields) {
             items.add(new CheckListItem(availableMetaField.getMetaClass().getGUIName(false,
                     false)
@@ -184,7 +184,7 @@ public class DisplayToolTipsOptionGroup extends OptionGroup {
     public static MetaField[] getToolTipsMetaFields() {
         if (toolTipsMetaFields != null)
             return toolTipsMetaFields;
-        List tempfields = new ArrayList();
+        List<MetaField> tempfields = new ArrayList<>();
         PropertiesSet preferences = PropertiesManager.getPreferencePropertiesSet();
 
         for (MetaField availableMetaField : availableMetaFields) {
@@ -196,7 +196,7 @@ public class DisplayToolTipsOptionGroup extends OptionGroup {
 
         toolTipsMetaFields = new MetaField[tempfields.size()];
         for (int i = 0; i < toolTipsMetaFields.length; i++) {
-            toolTipsMetaFields[i] = (MetaField) tempfields.get(i);
+            toolTipsMetaFields[i] = tempfields.get(i);
         }
 
         return toolTipsMetaFields;

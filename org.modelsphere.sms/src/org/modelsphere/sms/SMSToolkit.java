@@ -111,7 +111,7 @@ public abstract class SMSToolkit {
     // - tool
     // image
 
-    private static Hashtable toolkits = new Hashtable(20);
+    private static Map<MetaClass, SMSToolkit> toolkits = new Hashtable<>(20);
 
     // The default toolkit is considered as a Null Object.
     // Getting the toolkit doesn't need a (toolkit != null) verification.
@@ -152,15 +152,15 @@ public abstract class SMSToolkit {
      * Note: The 'null toolkit' instance of DefaultSMSToolkit will not be returned.
      */
     static final SMSToolkit[] getToolkits() {
-        List list = new ArrayList(toolkits.values());
-        List noduplicatelist = new ArrayList();
-        for (Object o : list) {
+        List<SMSToolkit> list = new ArrayList<>(toolkits.values());
+        List<SMSToolkit> noduplicatelist = new ArrayList<>();
+        for (SMSToolkit o : list) {
             if (!noduplicatelist.contains(o) && (o != null))
                 noduplicatelist.add(o);
         }
         SMSToolkit[] objs = new SMSToolkit[noduplicatelist.size()];
         for (int i = 0; i < noduplicatelist.size(); i++) {
-            objs[i] = (SMSToolkit) noduplicatelist.get(i);
+            objs[i] = noduplicatelist.get(i);
         }
         return objs;
     }
@@ -182,8 +182,8 @@ public abstract class SMSToolkit {
                 if ((focusobjects == null) || (focusobjects.length == 0))
                     return defaultToolkit;
                 SMSToolkit candidatekit = null;
-                for (int i = 0; i < focusobjects.length; i++) {
-                    SMSToolkit objectkit = getToolkit(focusobjects[i]);
+                for (DbObject dbObject : focusobjects) {
+                    SMSToolkit objectkit = getToolkit(dbObject);
                     if ((objectkit != candidatekit) && (candidatekit != null))
                         return defaultToolkit;
                     candidatekit = objectkit;

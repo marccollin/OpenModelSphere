@@ -68,7 +68,7 @@ import java.util.List;
 public final class JTextComponentPrintManager implements Printable, Pageable, Runnable {
 
     private List<String> printList;
-    private List pages;
+    private List<List<String>> pages;
     private PageFormat curPageFormat;
     private PrinterJob printerJob;
     private int pageCount;
@@ -92,7 +92,7 @@ public final class JTextComponentPrintManager implements Printable, Pageable, Ru
         // LOCALIZABLE
         else {
             final String text = textComponent.getText();
-            printList = new ArrayList();
+            printList = new ArrayList<>();
             if ((textComponent instanceof JEditorPane)
                     && (((JEditorPane) textComponent).getContentType().indexOf("html") != 0)) { // NOT LOCALIZABLE
                 StringReader reader = new StringReader(text);
@@ -195,22 +195,22 @@ public final class JTextComponentPrintManager implements Printable, Pageable, Ru
         return Printable.PAGE_EXISTS;
     }
 
-    private List repaginate(PageFormat pf, Graphics g) {
+    private List<List<String>> repaginate(PageFormat pf, Graphics g) {
         if (pf == null || g == null) {
-            return new ArrayList();
+            return new ArrayList<>();
         }
 
         int maxh = (int) pf.getImageableHeight();
         int maxw = (int) pf.getImageableWidth();
         int lineh = font.getSize();
-        List pgs = new ArrayList<>();
-        Iterator it = printList.iterator();
+        List<List<String>> pgs = new ArrayList<>();
+        Iterator<String> it = printList.iterator();
         FontMetrics fm = g.getFontMetrics();
 
         while (it.hasNext())
             try {
                 String item = it.next().toString();
-                List page = new ArrayList();
+                List<String> page = new ArrayList<>();
                 int pageh = 0;
                 BufferedReader reader = new BufferedReader(new StringReader(item));
                 String line;
@@ -219,7 +219,7 @@ public final class JTextComponentPrintManager implements Printable, Pageable, Ru
                     do {
                         if (pageh + lineh > maxh) {
                             pgs.add(page);
-                            page = new ArrayList();
+                            page = new ArrayList<>();
                             pageh = 0;
                         }
                         int endIndex = getStringEndIndex(fm, line, beginIndex, maxw);
@@ -257,9 +257,8 @@ public final class JTextComponentPrintManager implements Printable, Pageable, Ru
         int xo = (int) pf.getImageableX();
         int yo = (int) pf.getImageableY();
         int y = font.getSize();
-        List page = (List) pages.get(idx);
-        for (Object o : page) {
-            String line = (String) o;
+        List<String> page = pages.get(idx);
+        for (String line : page) {
             if (line != null && !line.isEmpty()) // To avoid a bug in 1.2.x
                 g.drawString(line, xo, y + yo);
             y += font.getSize();
