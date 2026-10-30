@@ -56,7 +56,7 @@ import java.util.List;
 public final class DbORIndexConstraintEditor extends DbSemanticalObjectShortEditor {
 
     protected final Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        List dbos = new ArrayList();
+        List<DbObject> dbos = new ArrayList<>();
         DbEnumeration dbEnum = parentDbo.getComposite().getComponents().elements();
         while (dbEnum.hasMoreElements()) {
             DbObject dbo = dbEnum.nextElement();

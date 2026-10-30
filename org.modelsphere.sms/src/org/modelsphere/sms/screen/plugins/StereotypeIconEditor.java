@@ -103,7 +103,7 @@ public class StereotypeIconEditor implements Editor {
     // MultiStereotypeIconEditor.getTableCellEditorComponent()
     static void refreshStereotypedObjects(MainFrame owner, DbSMSStereotype stereotype)
             throws DbException {
-        List internalFrameList = new ArrayList(); // list of affected
+        List<DiagramInternalFrame> internalFrameList = new ArrayList<>(); // list of affected
         // internal frames
         DbRelationN relN = stereotype.getStereotypedObjects();
 
@@ -165,9 +165,9 @@ public class StereotypeIconEditor implements Editor {
         dbEnum.close();
 
         // Refresh all internal frames affected
-        Iterator iter = internalFrameList.iterator();
+        Iterator<DiagramInternalFrame> iter = internalFrameList.iterator();
         while (iter.hasNext()) {
-            DiagramInternalFrame frame = (DiagramInternalFrame) iter.next();
+            DiagramInternalFrame frame = iter.next();
             if (frame != null) {
                 frame.refresh();
             }

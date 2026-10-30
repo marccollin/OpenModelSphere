@@ -57,7 +57,7 @@ import java.util.List;
 public final class MultiDbSMSStereotypeEditor extends MultiDbSemanticalObjectShortEditor {
 
     protected final Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        List dbos = new ArrayList();
+        List<DbSMSStereotype> dbos = new ArrayList<>();
 
         // Check for a special case
         if (parentDbo instanceof DbJVClass) {

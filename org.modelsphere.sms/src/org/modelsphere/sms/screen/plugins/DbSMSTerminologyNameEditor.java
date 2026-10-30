@@ -147,12 +147,12 @@ public class DbSMSTerminologyNameEditor implements Editor {
     }
 
     protected final Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        List dbos = new ArrayList();
+        List<DbObject> dbos = new ArrayList<>();
         if (parentDbo instanceof DbBEUseCase) {
             DbBEUseCase useCase = (DbBEUseCase) parentDbo;
             if (useCase.getTerminologyName() == null)
                 return dbos;
-            if (useCase.getTerminologyName().length() == 0)
+            if (useCase.getTerminologyName().isEmpty())
                 return dbos;
         }
         DbEnumeration dbEnum = parentDbo.getProject().getComponents().elements(

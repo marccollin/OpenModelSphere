@@ -150,7 +150,7 @@ public class MultiDbSMSTerminologyNameEditor implements TableCellEditor {
     }
 
     protected final Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        List dbos = new ArrayList();
+        List<DbObject> dbos = new ArrayList<>();
         if (parentDbo instanceof DbBEUseCase) {
             DbBEUseCase useCase = (DbBEUseCase) parentDbo;
             if (useCase.getTerminologyName() == null)
@@ -177,8 +177,8 @@ public class MultiDbSMSTerminologyNameEditor implements TableCellEditor {
     }
 
     protected final Collection getSelectionSet(DbObject[] parentDbos) throws DbException {
-        List childs = new ArrayList();
-        Collection tempchilds = null;
+        List<Object> childs = new ArrayList<>();
+        Collection<?> tempchilds = null;
         for (int i = 0; i < parentDbos.length; i++) {
             tempchilds = getSelectionSet(parentDbos[i]);
             if (tempchilds == null) {
@@ -188,7 +188,7 @@ public class MultiDbSMSTerminologyNameEditor implements TableCellEditor {
             if (i == 0)
                 childs.addAll(tempchilds);
             else {
-                Iterator iter = childs.iterator();
+                Iterator<Object> iter = childs.iterator();
                 while (iter.hasNext()) {
                     Object element = iter.next();
                     if (tempchilds.contains(element))
@@ -196,7 +196,7 @@ public class MultiDbSMSTerminologyNameEditor implements TableCellEditor {
                     iter.remove();
                 }
             }
-            if (childs.size() == 0)
+            if (childs.isEmpty())
                 break;
         }
         return childs;
@@ -289,8 +289,7 @@ public class MultiDbSMSTerminologyNameEditor implements TableCellEditor {
                                         ApplicationContext.getApplicationName(),
                                         JOptionPane.INFORMATION_MESSAGE);
 
-                        for (int i = 0; i < parentDbos.length; i++)
-                            parentDbos[i].getDb().abortTrans();
+                        for (DbObject parentDbo : parentDbos) parentDbo.getDb().abortTrans();
 
                         cancelCellEditing();
                     } else
