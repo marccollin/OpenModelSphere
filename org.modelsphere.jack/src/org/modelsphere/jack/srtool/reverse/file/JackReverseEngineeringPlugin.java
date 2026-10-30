@@ -133,7 +133,7 @@ public abstract class JackReverseEngineeringPlugin implements Plugin {
      * @returns the priority (positive integer). '1' is the highest priority.
      * 
      */
-    private int DEFAULT_PRIORITY = 10;
+    private static final int DEFAULT_PRIORITY = 10;
 
     public int getPriority() {
         return DEFAULT_PRIORITY;
@@ -181,9 +181,7 @@ public abstract class JackReverseEngineeringPlugin implements Plugin {
         // by default, return the length of the file
         // we assume that a 10-K .java file takes the same time to reverse that
         // a 10-K .class file
-        long len = file.length();
-
-        return len;
+        return file.length();
     }
 
     public abstract DbObject createNewPackage(Class modelClaz, DbProject project)

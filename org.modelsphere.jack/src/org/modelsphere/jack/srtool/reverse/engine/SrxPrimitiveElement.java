@@ -43,58 +43,53 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.engine;
 
-import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public final class SrxPrimitiveElement implements SrxElement {
     // Fields used to access and convert the SRX Value to a compatible DB Value
-    Class type; // The type of the parameter of the dbobject setter method.
-    String fieldTag; // The tag representing the value
+    private final Class<?> type; // The type of the parameter of the dbobject setter method.
+    private final String fieldTag; // The tag representing the value
 
-    public SrxPrimitiveElement(String fieldTag, Class type) {
+    public SrxPrimitiveElement(String fieldTag, Class<?> type) {
         this.fieldTag = fieldTag;
         this.type = type;
     }
 
-    public Object getValue(Object hookContainer, HashMap currentObject) throws Exception {
+    String getFieldTag() {
+        return fieldTag;
+    }
+
+    @Override
+    public Object getValue(Object hookContainer, Map currentObject) {
         if (fieldTag == null || currentObject == null)
             return null;
         String value = (String) currentObject.get(fieldTag);
-        if (type != null)
-            return convertStringValue(value);
+        return convertStringValue(value);
+    }
+
+    private Object convertStringValue(String s) {
+        if ((type == null) || (s == null) || s.trim().isEmpty())
+            return null;
+        String trimmedValue = s.trim();
+        if (type == Integer.class)
+            return Integer.valueOf(trimmedValue);
+        if (type == Boolean.class)
+            return parseBoolean(s);
+        if (type == Double.class)
+            return Double.valueOf(trimmedValue);
+        if (type == Long.class)
+            return Long.valueOf(trimmedValue);
+        if (type == Float.class)
+            return Float.valueOf(trimmedValue);
+        if (type == String.class)
+            return s;
         return null;
     }
 
-    private Object convertStringValue(String s) throws Exception {
-        if ((type == null) || (s == null) || s.trim().equals(""))
-            return null;
-        Object result = null;
-        // try{
-        if (type == Integer.class)
-            result = new Integer(s);
-        else if (type == Boolean.class)
-            result = parseBoolean(s);
-        else if (type == Double.class)
-            result = new Double(s);
-        else if (type == Long.class)
-            result = new Long(s);
-        else if (type == Float.class)
-            result = new Float(s);
-        else if (type == String.class)
-            result = s;
-        // }
-        // catch (Exception e){ // No db transaction, catch all exception from
-        // type convertions
-        // result = ReverseBuilder.INVALID_OBJECT;
-        // }
-        return result;
-    }
-
     // Parse this string value for a Boolean.
-    private Boolean parseBoolean(String s) throws Exception {
-        if (s == null) // ok to consider null as false????
-            return Boolean.FALSE;
-
-        String sTrim = s.trim().toLowerCase();
+    private Boolean parseBoolean(String s) {
+        String sTrim = s.trim().toLowerCase(Locale.ROOT);
 
         // try with true, false, yes, no, and french values
         if (sTrim.equals("true"))
@@ -123,33 +118,20 @@ public final class SrxPrimitiveElement implements SrxElement {
             return Boolean.FALSE; // NOT LOCALIZABLE - Detection of true false
         // on DBMS's
 
-        if (sTrim.length() > 0) {
-            // try with 0, 1, t, f, y, n, and french values
-            if (sTrim.charAt(0) == '1' || sTrim.charAt(0) == 't' || sTrim.charAt(0) == 'v' // NOT LOCALIZABLE - Detection of
-                    // true false on DBMS's
-                    || sTrim.charAt(0) == 'y' || sTrim.charAt(0) == 'o') // NOT
-                // LOCALIZABLE
-                // -
-                // Detection
-                // of
-                // true
-                // false
-                // on
-                // DBMS's
-                return Boolean.TRUE;
-            if (sTrim.charAt(0) == '0' || sTrim.charAt(0) == 'f' || sTrim.charAt(0) == 'n') // NOT LOCALIZABLE - Detection of
-                // true false on DBMS's
-                return Boolean.FALSE;
-        }
+        // Also accept single-character boolean representations used by DBMSs.
+        if (sTrim.equals("1") || sTrim.equals("t") || sTrim.equals("v") || sTrim.equals("y")
+                || sTrim.equals("o"))
+            return Boolean.TRUE;
+        if (sTrim.equals("0") || sTrim.equals("f") || sTrim.equals("n"))
+            return Boolean.FALSE;
 
-        // Try with the system default parsing method
-        return Boolean.getBoolean(s) ? Boolean.TRUE : Boolean.FALSE;
+        throw new IllegalArgumentException("Unrecognized boolean value: " + s);
     }
 
-    public String getDebugInfo(HashMap currentObject) throws Exception {
+    @Override
+    public String getDebugInfo(Map currentObject) {
         return "[SrxPrimitiveElement] tag= " + fieldTag + ", type= " + type + ", tagvalue= "
-                + currentObject.get(fieldTag); // NOT
-        // LOCALIZABLE
+                + currentObject.get(fieldTag); // NOT LOCALIZABLE
     }
 
 }

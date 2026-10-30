@@ -57,9 +57,6 @@ public abstract class AbstractReverser {
     protected long m_fileLength;
     protected long m_totalSize;
 
-    public AbstractReverser() {
-    }
-
     // When a file is large (ex: a .jar file), update the progresion while the
     // big file is being reversed
     public void setPartialProgression(Controller controller, long fileLength, long totalSize) {

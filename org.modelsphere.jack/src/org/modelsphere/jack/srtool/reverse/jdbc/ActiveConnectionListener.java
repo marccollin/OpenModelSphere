@@ -46,6 +46,6 @@ package org.modelsphere.jack.srtool.reverse.jdbc;
 import org.modelsphere.jack.srtool.services.ConnectionMessage;
 
 public interface ActiveConnectionListener {
-    public void activeConnectionChanged(ConnectionMessage cm);
+    void activeConnectionChanged(ConnectionMessage cm);
 
 }

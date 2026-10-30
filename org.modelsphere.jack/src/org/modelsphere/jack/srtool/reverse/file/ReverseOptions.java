@@ -49,10 +49,10 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public class ReverseOptions {
-    Vector m_fileVector;
-    DbProject m_proj;
-    ArrayList m_reverseList;
-    AbstractReverser m_reverser;
+    final Vector m_fileVector;
+    final DbProject m_proj;
+    final ArrayList m_reverseList;
+    final AbstractReverser m_reverser;
 
     public ReverseOptions(Vector fileVector, DbProject proj, ArrayList reverseList,
             AbstractReverser reverser) {

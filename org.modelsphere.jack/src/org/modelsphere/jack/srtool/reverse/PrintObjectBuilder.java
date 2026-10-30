@@ -47,18 +47,22 @@ import org.modelsphere.jack.debug.Debug;
 
 public final class PrintObjectBuilder extends ObjectBuilder {
 
+    @Override
     void makeComment(String cmt) {
         Debug.trace("Comments: " + cmt);
     }
 
+    @Override
     void makeOccurrence(String occ) {
         Debug.trace("Occurrence: " + occ);
     }
 
+    @Override
     void makeStringAttr(String attr, String val) {
         Debug.trace("Attribute: " + attr + " = " + val);
     }
 
+    @Override
     void makeTextAttr(String attr, String val) {
         Debug.trace("Text: " + attr + " = " + val);
     }

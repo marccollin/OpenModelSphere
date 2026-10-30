@@ -122,7 +122,7 @@ public final class ConnectionInfoDialog extends JDialog implements ActionListene
                 + (cm == null ? kNotConnected : cm.jdbcDriverMajorVersion + "."
                         + cm.jdbcDriverMinorVersion) + "<br>"; // NOT LOCALIZABLE - HTML
         sInfo += "<b>" + kDriverJDBCCompliant + "</b><br>"
-                + (cm == null ? kNotConnected : new Boolean(cm.jdbcDriverJDBCCompliant).toString()); // NOT LOCALIZABLE - HTML
+                + (cm == null ? kNotConnected : Boolean.toString(cm.jdbcDriverJDBCCompliant)); // NOT LOCALIZABLE - HTML
         sInfo += "</body>"; // NOT LOCALIZABLE - HTML
         if (includeHtmlTag)
             sInfo += "</html>"; // NOT LOCALIZABLE - HTML

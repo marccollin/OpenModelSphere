@@ -67,7 +67,7 @@ public abstract class ReversePlugins {
             .getString("AllSupportedTypes");
 
     // Returns the list of Reverse classes.
-    public static final ArrayList getReverseList() {
+    public static ArrayList getReverseList() {
         PluginMgr mgr = PluginMgr.getSingleInstance();
         List reverseList = mgr.getPluginsRegistry().getPluginClasses(
                 JackReverseEngineeringPlugin.class);

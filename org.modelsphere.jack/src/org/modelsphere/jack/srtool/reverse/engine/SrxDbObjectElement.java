@@ -48,6 +48,7 @@ import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public final class SrxDbObjectElement implements SrxElement {
     // This option specify that if an object defined in the srx
@@ -56,21 +57,21 @@ public final class SrxDbObjectElement implements SrxElement {
     // Be careful using this option. MetaClasses must be instanciable.
     public static final int CREATE_IF_NOT_FOUND = 0x01;
 
-    private DbObject dbo0; // The first object to used for searching the
+    private final DbObject dbo0; // The first object to used for searching the
     // matching dbo
     // Usually dataModel, database, ... (root object)
-    private MetaClass dbo1MetaClass; // The MetaClass of the component dbo1 (in
+    private final MetaClass dbo1MetaClass; // The MetaClass of the component dbo1 (in
     // composite dbo0)
-    private String dbo1ValueTag; // The Tag naming dbo1.
-    private Constraint[] dbo1Constraints; // The Constraints to apply when
+    private final String dbo1ValueTag; // The Tag naming dbo1.
+    private final Constraint[] dbo1Constraints; // The Constraints to apply when
     // searching dbo1 within dbo0
-    private MetaClass dbo2MetaClass; // The MetaClass of the component dbo2 (in
+    private final MetaClass dbo2MetaClass; // The MetaClass of the component dbo2 (in
     // composite dbo1)
-    private String dbo2ValueTag; // The Tag naming dbo2
-    private Constraint[] dbo2Constraints; // The Constraints to apply when
+    private final String dbo2ValueTag; // The Tag naming dbo2
+    private final Constraint[] dbo2Constraints; // The Constraints to apply when
     // searching dbo2 within dbo1
-    private boolean useComponentsTree = false;
-    private int options = 0;
+    private final boolean useComponentsTree;
+    private final int options;
 
     // If dbo1 parameters are null, dbo0 will be consider as the dbo for setting
     // the metafield value.
@@ -162,7 +163,8 @@ public final class SrxDbObjectElement implements SrxElement {
                 useComponentTree, options);
     }
 
-    public Object getValue(Object hookContainer, HashMap currentObject) throws Exception {
+    @Override
+    public Object getValue(Object hookContainer, Map currentObject) throws Exception {
         boolean create = (options & CREATE_IF_NOT_FOUND) != 0;
         if (dbo0 == null)
             return null;
@@ -171,21 +173,17 @@ public final class SrxDbObjectElement implements SrxElement {
             return dbo0;
 
         // Search level 1 - Search dbo1 in composite dbo0
-        DbObject dbo1 = null;
         String dbo1Name = (String) currentObject.get(dbo1ValueTag);
         if (dbo1Name == null)
             return create ? dbo0.createComponent(dbo1MetaClass) : null;
-        dbo1 = findComponentByName(hookContainer, currentObject, dbo0, dbo1MetaClass, dbo1Name,
+        DbObject dbo1 = findComponentByName(hookContainer, currentObject, dbo0, dbo1MetaClass, dbo1Name,
                 dbo1Constraints, useComponentsTree);
         if (dbo1 == null) {
-            DbObject result = null;
             if (!create)
-                result = null;
-            else {
-                result = dbo0.createComponent(dbo1MetaClass);
-                if (result != null)
-                    result.setName(dbo1Name);
-            }
+                return null;
+            DbObject result = dbo0.createComponent(dbo1MetaClass);
+            if (result != null)
+                result.setName(dbo1Name);
             return result;
         }
 
@@ -199,14 +197,11 @@ public final class SrxDbObjectElement implements SrxElement {
         DbObject dbo2 = findComponentByName(hookContainer, currentObject, dbo1, dbo2MetaClass,
                 dbo2Name, dbo2Constraints, useComponentsTree);
         if (dbo2 == null) {
-            DbObject result = null;
             if (!create)
-                result = null;
-            else {
-                result = dbo1.createComponent(dbo2MetaClass);
-                if (result != null)
-                    result.setName(dbo2Name);
-            }
+                return null;
+            DbObject result = dbo1.createComponent(dbo2MetaClass);
+            if (result != null)
+                result.setName(dbo2Name);
             return result;
         }
 
@@ -217,7 +212,7 @@ public final class SrxDbObjectElement implements SrxElement {
     // <composite> dbobject.
     // The component must have a name equals to <name> and respects the
     // specified <constraints>.
-    public static final DbObject findComponentByName(Object hookContainer, HashMap currentObject,
+    public static DbObject findComponentByName(Object hookContainer, HashMap currentObject,
             DbObject composite, MetaClass componentMetaClass, String name, Constraint[] constraints)
             throws Exception {
         return findComponentByName(hookContainer, currentObject, composite, componentMetaClass,
@@ -230,7 +225,7 @@ public final class SrxDbObjectElement implements SrxElement {
     // specified <constraints>.
     // useComponentsTree value of true will search in all the component tree of
     // the composite object (not only direct components of the composite)
-    public static final DbObject findComponentByName(Object hookContainer, HashMap currentObject,
+    public static DbObject findComponentByName(Object hookContainer, Map currentObject,
             DbObject composite, MetaClass componentMetaClass, String name,
             Constraint[] constraints, boolean useComponentsTree) throws Exception {
         if (composite == null)
@@ -240,24 +235,21 @@ public final class SrxDbObjectElement implements SrxElement {
                 : composite.getComponents().elements(componentMetaClass);
         while (dbEnum.hasMoreElements()) {
             DbObject child = dbEnum.nextElement();
-            if (name != null) {
-                if (name.equals(child.getSemanticalName(DbObject.SHORT_FORM))) {
-                    // verify constraints
-                    if (constraints == null) {
-                        childFound = child;
-                        break;
-                    }
-                    boolean constraintok = true;
-                    for (int i = 0; (i < constraints.length) && constraintok; i++) {
-                        Constraint constraint = constraints[i];
-                        if (constraint != null)
-                            constraintok = constraint.dBEqualsSRX(hookContainer, currentObject,
-                                    child);
-                    }
-                    if (constraintok) {
-                        childFound = child;
-                        break;
-                    }
+            if (name != null && name.equals(child.getSemanticalName(DbObject.SHORT_FORM))) {
+                // verify constraints
+                if (constraints == null) {
+                    childFound = child;
+                    break;
+                }
+                boolean constraintok = true;
+                for (int i = 0; (i < constraints.length) && constraintok; i++) {
+                    Constraint constraint = constraints[i];
+                    if (constraint != null)
+                        constraintok = constraint.dBEqualsSRX(hookContainer, currentObject, child);
+                }
+                if (constraintok) {
+                    childFound = child;
+                    break;
                 }
             }
         }
@@ -265,7 +257,8 @@ public final class SrxDbObjectElement implements SrxElement {
         return childFound;
     }
 
-    public String getDebugInfo(HashMap currentObject) throws Exception {
+    @Override
+    public String getDebugInfo(Map currentObject) throws Exception {
         String s = "[SrxDbObjectElement] "; // NOT LOCALIZABLE
         if (dbo0 != null) {
             s += "\n dbo0 = " + dbo0.getName(); // NOT LOCALIZABLE
@@ -278,9 +271,9 @@ public final class SrxDbObjectElement implements SrxElement {
             // LOCALIZABLE
             if (dbo1Constraints != null) { // NOT LOCALIZABLE
                 s += "\n dbo1Constraints = {";
-                for (int i = 0; i < dbo1Constraints.length; i++) {
-                    if (dbo1Constraints[i] != null)
-                        s += dbo1Constraints[i].getDebugInfo(currentObject);
+                for (Constraint constraint : dbo1Constraints) {
+                    if (constraint != null)
+                        s += constraint.getDebugInfo(currentObject);
                 }
                 s += "}";
             }
@@ -293,9 +286,9 @@ public final class SrxDbObjectElement implements SrxElement {
             // LOCALIZABLE
             if (dbo2Constraints != null) {
                 s += "\n dbo2Constraints = {"; // NOT LOCALIZABLE
-                for (int i = 0; i < dbo2Constraints.length; i++) {
-                    if (dbo2Constraints[i] != null)
-                        s += dbo2Constraints[i].getDebugInfo(currentObject);
+                for (Constraint constraint : dbo2Constraints) {
+                    if (constraint != null)
+                        s += constraint.getDebugInfo(currentObject);
                 }
                 s += "}"; // NOT LOCALIZABLE
             }

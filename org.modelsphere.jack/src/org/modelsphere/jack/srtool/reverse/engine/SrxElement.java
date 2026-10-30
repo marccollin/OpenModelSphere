@@ -43,15 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.engine;
 
-import java.util.HashMap;
+import java.util.Map;
 
 interface SrxElement {
     // Transform the string value received from de srx to an Object value
     // If an Exception occurs and not thrown (or any other other error that may
     // invalidate the reverse),
     // return the ReverseBuilder.INVALID_OBJECT object.
-    public Object getValue(Object hookContainer, HashMap currentObject) throws Exception;
+    public Object getValue(Object hookContainer, Map currentObject) throws Exception;
 
     // Return an explicit info String for this srxElement
-    public String getDebugInfo(HashMap currentObject) throws Exception;
+    public String getDebugInfo(Map currentObject) throws Exception;
 }

@@ -51,8 +51,8 @@ public final class JdbcMetaInfo {
     // JDBC String patterns
     public static String ZERO_OR_MORE = "%"; // name pattern
     // JDBC driver levels
-    private static int LEVEL1DRIVER = 1;
-    private static int LEVEL2DRIVER = 2;
+    private static final int LEVEL1DRIVER = 1;
+    private static final int LEVEL2DRIVER = 2;
     // JDBC Table types
     public static final String JDBCTABLE = "TABLE"; // NOT LOCALIZABLE
     public static final String JDBCVIEW = "VIEW"; // NOT LOCALIZABLE

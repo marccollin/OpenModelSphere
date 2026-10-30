@@ -43,28 +43,30 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.engine;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public final class SrxDomainElement implements SrxElement {
     // Fields used to access and convert the SRX Value to a compatible DB Value
-    private DomainMapping domainMapping; // The domain mapping to use for
+    private final DomainMapping domainMapping; // The domain mapping to use for
     // setting the correct object value
     // on the metafield
-    private String fieldTag; // The tag representing the value
+    private final String fieldTag; // The tag representing the value
 
     public SrxDomainElement(String fieldTag, DomainMapping domainMapping) {
         this.fieldTag = fieldTag;
         this.domainMapping = domainMapping;
     }
 
-    public Object getValue(Object hookContainer, HashMap currentObject) throws Exception {
+    @Override
+    public Object getValue(Object hookContainer, Map currentObject) {
         if (fieldTag == null || domainMapping == null)
             return null;
         String value = (String) currentObject.get(fieldTag);
         return domainMapping.get(value);
     }
 
-    public String getDebugInfo(HashMap currentObject) throws Exception {
+    @Override
+    public String getDebugInfo(Map currentObject) {
         return "[SrxDomainElement] tag= " + fieldTag + ", domainMapping= " + domainMapping
                 + ", tagvalue= " + currentObject.get(fieldTag); // NOT LOCALIZABLE
     }

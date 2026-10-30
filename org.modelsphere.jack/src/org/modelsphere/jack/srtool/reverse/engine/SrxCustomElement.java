@@ -44,17 +44,17 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.srtool.reverse.engine;
 
 import java.lang.reflect.Method;
-import java.util.HashMap;
+import java.util.Map;
 
 public final class SrxCustomElement implements SrxElement {
     // Fields used to access and convert the SRX Value to a compatible DB Value
-    private String hook; // Name of the method to call for getting the object
+    private final String hook; // Name of the method to call for getting the object
     // value.
     // Hook signature = ""public Object hookName() throws DbException""
     // The return object must be a value object assignable on a Db metaField.
-    private Parser parser; // If specified, the parser will be called to get the
+    private final Parser parser; // If specified, the parser will be called to get the
     // Object to set from the String value
-    private String fieldTag; // The tag representing the value
+    private final String fieldTag; // The tag representing the value
 
     // see fields for comments
     private SrxCustomElement(String fieldTag, Parser parser, String hook) {
@@ -73,14 +73,14 @@ public final class SrxCustomElement implements SrxElement {
         this(fieldTag, parser, null);
     }
 
-    public Object getValue(Object hookContainer, HashMap currentObject) throws Exception {
+    @Override
+    public Object getValue(Object hookContainer, Map currentObject) throws Exception {
         if (currentObject == null)
             return null;
-        Object result = null;
         if (hook != null && hookContainer != null) {
             // try{
             Method hookmethod = hookContainer.getClass().getMethod(hook, null);
-            result = hookmethod.invoke(hookContainer, null);
+            return hookmethod.invoke(hookContainer, null);
             // }
             /*
              * catch (NoSuchMethodException e){ Debug.trace("Invalid Hook for fieldTag <" + fieldTag
@@ -95,13 +95,13 @@ public final class SrxCustomElement implements SrxElement {
              * fieldTag +">, hook <" + hook + "> : IllegalArgumentException" ); //result =
              * ReverseBuilder.INVALID_OBJECT; e. throw e; }
              */
-        } else
-            result = (parser != null && fieldTag != null) ? parser.parse((String) currentObject
+        }
+        return (parser != null && fieldTag != null) ? parser.parse((String) currentObject
                     .get(fieldTag)) : null;
-        return result;
     }
 
-    public String getDebugInfo(HashMap currentObject) throws Exception {
+    @Override
+    public String getDebugInfo(Map currentObject) throws Exception {
         return "[SrxCustomElement] tag= " + fieldTag + ", hook= " + hook + ", parser= " + parser
                 + ", tagvalue= " + currentObject.get(fieldTag); // NOT LOCALIZABLE
     }

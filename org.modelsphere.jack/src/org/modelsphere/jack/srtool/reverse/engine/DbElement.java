@@ -59,11 +59,11 @@ import java.util.HashMap;
 
 public final class DbElement {
     // Fields used to access the DB Value or to set the DB Value
-    private MetaRelation1[] path; // Path to the metafield to set.
+    private final MetaRelation1[] path; // Path to the metafield to set.
     // The path doesn't include the metafield to set. Only the path to follow
     // for reaching the object
     // containing the specified metaField.
-    MetaField metaField; // Metafield to set.
+    final MetaField metaField; // Metafield to set.
 
     public DbElement(MetaRelation1[] path, MetaField metafield) {
         this.path = path;
@@ -115,6 +115,7 @@ public final class DbElement {
     public final Object getValue(Object hookContainer, DbObject dbObject) throws DbException {
         DbObject pathobject = dbObject;
         pathobject = navigateToPath(pathobject);
+        //pathobject is not take in consideration, a bug?
         if ((dbObject != null) && dbObject.hasField(metaField)) {
             return dbObject.get(metaField);
         }

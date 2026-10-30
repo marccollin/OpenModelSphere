@@ -53,7 +53,7 @@ import java.util.List;
 
 public final class ObjectNameReader implements InputReadable {
     // ObjectBuilder builder;
-    List nameList;
+    private final List nameList;
 
     public ObjectNameReader(List anArray) {
         nameList = anArray;

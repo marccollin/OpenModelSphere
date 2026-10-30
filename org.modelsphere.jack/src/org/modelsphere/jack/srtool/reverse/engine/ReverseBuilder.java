@@ -648,7 +648,7 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
             FieldMapping fieldmap = (FieldMapping) iter.next();
             if ((fieldmap.options > 0) && (fieldmap.srxElement instanceof SrxPrimitiveElement)) {
                 toMergeFieldMaps.add(fieldmap);
-                toMergeKeys.add(((SrxPrimitiveElement) fieldmap.srxElement).fieldTag);
+                toMergeKeys.add(((SrxPrimitiveElement) fieldmap.srxElement).getFieldTag());
             }
         }
 

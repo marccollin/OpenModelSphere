@@ -59,10 +59,12 @@ public final class TargetObjectBuilder extends ObjectBuilder {
         actions = someActions;
     }
 
+    @Override
     void makeComment(String cmt) throws Exception {
         Debug.trace("Comments: " + cmt);
     }
 
+    @Override
     public void makeOccurrence(String occ) throws Exception {
         // from occ, via Mapping, find dboj
         String lowercase = occ.toLowerCase(Locale.ROOT);
@@ -72,6 +74,7 @@ public final class TargetObjectBuilder extends ObjectBuilder {
         actions.processOccurrenceId(currentOccurrenceId, lowercase);
     }
 
+    @Override
     public void makeStringAttr(String attr, String val) throws Exception {
 
         // if occurrence's identifier (eg: table's name)
@@ -88,6 +91,7 @@ public final class TargetObjectBuilder extends ObjectBuilder {
         // Debug.trace("  attr " + attr + " = " + val);
     }
 
+    @Override
     public void makeTextAttr(String attr, String val) throws Exception {
         actions.setAttribute(attr, val);
     }

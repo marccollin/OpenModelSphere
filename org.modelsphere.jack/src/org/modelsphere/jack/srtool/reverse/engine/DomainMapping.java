@@ -43,14 +43,13 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.srtool.reverse.engine;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 // Class used to defined a mapping between a String value and a domain value (of any type)
 // NOTE:  toLowerCase() is applied on all key values for set and get methods
 
 public final class DomainMapping {
-    HashMap<String, Object> map = new HashMap<>(5);
-    Object defaultValue = null;
+    final HashMap<String, Object> map = new HashMap<>(5);
+    final Object defaultValue;
 
     // defaultvalue: The default value for this domain mapping
     // Can be null (the bd set method will set a null value)
@@ -78,20 +77,17 @@ public final class DomainMapping {
     }
 
     // For debug purposes
+    @Override
     public String toString() {
-        String s = "";
-        s += "defaultValue = " + defaultValue; // NOT LOCALIZABLE
-        s += ", map = [ "; // NOT LOCALIZABLE
-        if (map != null) {
-            Iterator<String> iter = map.keySet().iterator();
-            while (iter.hasNext()) {
-                String key = iter.next();
-                Object value = map.get(key);
-                s += "(key=" + key; // NOT LOCALIZABLE
-                s += ", value=" + value + ")"; // NOT LOCALIZABLE
-            }
+        StringBuilder s = new StringBuilder();
+        s.append("defaultValue = ").append(defaultValue); // NOT LOCALIZABLE
+        s.append(", map = [ "); // NOT LOCALIZABLE
+        for (String key : map.keySet()) {
+            Object value = map.get(key);
+            s.append("(key=").append(key); // NOT LOCALIZABLE
+            s.append(", value=").append(value).append(")"); // NOT LOCALIZABLE
         }
-        s += " ]"; // NOT LOCALIZABLE
-        return s;
+        s.append(" ]"); // NOT LOCALIZABLE
+        return s.toString();
     }
 }
