@@ -71,8 +71,8 @@ public final class UpdateEnvironment {
 
     private DbBEUseCase useCase;
     private boolean addGo = true;
-    private List useCaseDiags = new ArrayList();
-    private Map flowSemObjectMap = new HashMap();
+    private List<DbBEDiagram> useCaseDiags = new ArrayList<>();
+    private Map<DbBEFlow, DbSMSClassifier> flowSemObjectMap = new HashMap<>();
     private DeepCopyCustomizer copyCustomizer = new CopyCustomizer();
     private List addedClassifierGos = new ArrayList();
     private boolean m_updatedEnvironment = false;
@@ -106,7 +106,7 @@ public final class UpdateEnvironment {
             if (!(useCaseDiags.get(i) instanceof DbBEDiagram))
                 continue;
             ApplicationContext.getDefaultMainFrame().addDiagramInternalFrame(
-                    (DbBEDiagram) useCaseDiags.get(i));
+                    useCaseDiags.get(i));
             diagcount++;
         }
     } // end execute()
@@ -147,15 +147,14 @@ public final class UpdateEnvironment {
 
         if (flowSemObjectMap.isEmpty())
             return;
-        Iterator iter = flowSemObjectMap.keySet().iterator();
-        while (iter.hasNext()) {
+        for (DbBEFlow dbBEFlow : flowSemObjectMap.keySet()) {
             List<DbBEFlow> matchedFlowsList = new ArrayList<>();
             DbSMSClassifier end1 = null;
             DbSMSClassifier end2 = null;
-            DbBEFlow flow = (DbBEFlow) iter.next();
+            DbBEFlow flow = dbBEFlow;
             end1 = flow.getFirstEnd();
             end2 = flow.getSecondEnd();
-            DbSMSClassifier classifier = (DbSMSClassifier) flowSemObjectMap.get(flow);
+            DbSMSClassifier classifier = flowSemObjectMap.get(flow);
             boolean recursive = DbObject.valuesAreEqual(useCase, classifier);
             boolean addEnd1 = true;
             boolean addEnd2 = true;
@@ -192,8 +191,8 @@ public final class UpdateEnvironment {
             if (matchedFlowsList.size() < nbAdd) { // need to create
                 int count = nbAdd - matchedFlowsList.size();
                 for (int i = 0; i < count; i++) {
-                    DbObject[] newFlows = new DbObject[] {};
-                    newFlows = DbObject.deepCopy(new DbObject[] { flow }, this.useCase,
+                    DbObject[] newFlows = new DbObject[]{};
+                    newFlows = DbObject.deepCopy(new DbObject[]{flow}, this.useCase,
                             this.copyCustomizer, false);
                     DbBEFlow newFlow = (DbBEFlow) newFlows[0];
                     if (recursive) {
@@ -216,10 +215,9 @@ public final class UpdateEnvironment {
 
     private void updateFlowDiagrams(DbBEFlow flow, List matchedFlows, DbSMSClassifier classifier,
             DbBEDiagram parentDiagram, DbBEContextGo frame) throws DbException {
-        for (int i = 0; i < useCaseDiags.size(); i++) {
-            DbBEDiagram diagram = (DbBEDiagram) useCaseDiags.get(i);
-            for (int j = 0; j < matchedFlows.size(); j++) {
-                DbBEFlow matchedFlow = (DbBEFlow) matchedFlows.get(j);
+        for (DbBEDiagram diagram : useCaseDiags) {
+            for (Object o : matchedFlows) {
+                DbBEFlow matchedFlow = (DbBEFlow) o;
                 DbRelationN flowGos = ApplicationContext.getSemanticalModel().getGos(matchedFlow);
                 boolean addGos = true;
                 if (flowGos != null) {
@@ -253,8 +251,7 @@ public final class UpdateEnvironment {
         m_leftMargin += 20;
         m_rightMargin -= 20;
 
-        for (int i = 0; i < useCaseDiags.size(); i++) {
-            DbBEDiagram diagram = (DbBEDiagram) useCaseDiags.get(i);
+        for (DbBEDiagram diagram : useCaseDiags) {
             DbRelationN relN = diagram.getComponents();
             DbEnumeration dbEnum = relN.elements(DbBEContextGo.metaClass);
             while (dbEnum.hasMoreElements()) {
@@ -317,7 +314,7 @@ public final class UpdateEnvironment {
         int masterNotationID = diagram.getNotation().getMasterNotationID().intValue();
         DbBENotation parentNotation = (parentDiagram == null) ? null : parentDiagram.getNotation();
         int parentMasterNotationID = (parentNotation == null) ? 0 : parentNotation
-                .getMasterNotationID().intValue();
+                .getMasterNotationID();
         // String parentName = (parentNotation == null) ? "" :
         // parentNotation.getName();
 
@@ -402,7 +399,7 @@ public final class UpdateEnvironment {
             throws DbException {
         // get diagram dimension
         Dimension dim = ApplicationDiagram.getPageSize(diagram.getPageFormat(), diagram
-                .getPrintScale().intValue());
+                .getPrintScale());
         Rectangle rect = classGo.getRectangle();
         int offset = 120; // distance between frame and top
         int gap = 100; // process height
@@ -448,7 +445,7 @@ public final class UpdateEnvironment {
                 throws DbException {
             /* Keep only the destination object */
             if ((metaRel == DbBEFlow.fFirstEnd) || (metaRel == DbBEFlow.fSecondEnd)) {
-                DbSMSClassifier classifier = (DbSMSClassifier) flowSemObjectMap.get(srcObj);
+                DbSMSClassifier classifier = flowSemObjectMap.get(srcObj);
                 if (DbObject.valuesAreEqual(classifier, srcNeighbor))
                     return srcNeighbor;
             }

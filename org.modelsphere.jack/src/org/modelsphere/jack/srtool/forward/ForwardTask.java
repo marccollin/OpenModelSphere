@@ -61,7 +61,7 @@ public final class ForwardTask extends LongTask {
     private JackForwardEngineeringPlugin forward;
     private DbObject[] semObjs;
     private int[] steps;
-    private ArrayList m_generatedFileList = new ArrayList();
+    private List<Object> m_generatedFileList = new ArrayList<>();
 
     public ForwardTask(JackForwardEngineeringPlugin forward, DbObject[] semObjs) throws DbException {
         this.forward = forward;
@@ -92,7 +92,7 @@ public final class ForwardTask extends LongTask {
         worker.start();
     }
 
-    public final ArrayList getGeneratedFileList() {
+    public final List getGeneratedFileList() {
         return m_generatedFileList;
     }
 

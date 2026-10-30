@@ -212,7 +212,7 @@ public final class SrxDbObjectElement implements SrxElement {
     // <composite> dbobject.
     // The component must have a name equals to <name> and respects the
     // specified <constraints>.
-    public static DbObject findComponentByName(Object hookContainer, HashMap currentObject,
+    public static DbObject findComponentByName(Object hookContainer, Map currentObject,
             DbObject composite, MetaClass componentMetaClass, String name, Constraint[] constraints)
             throws Exception {
         return findComponentByName(hookContainer, currentObject, composite, componentMetaClass,

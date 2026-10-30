@@ -69,7 +69,7 @@ public class FindOption {
     private boolean recursive;
   //  private RE re = null;
     private Pattern pattern = null;
-    private List scopeOptions = new ArrayList();
+    private List<?> scopeOptions = new ArrayList<>();
 
     public FindOption(String textToFind, boolean caseSensitive, boolean wholeWord, boolean useGrep,
             boolean recursive, List scopeOptions) throws PatternSyntaxException {

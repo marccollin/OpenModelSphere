@@ -384,8 +384,8 @@ final class ConvertDataModelWorkMode {
          * Conversion des mod�les relationnels en mod�les conceptuels
          */
         private void convertORRelationship(DbORDataModel model) throws DbException {
-            List assocOriginList = new ArrayList();
-            List assocWithViewList = new ArrayList();
+            List<DbORAssociation> assocOriginList = new ArrayList<>();
+            List<DbORAssociation> assocWithViewList = new ArrayList<>();
             DbORAssociation originAssoc = null;
             DbORAssociation viewAssoc = null;
             DbORAssociationGo originAssocGo = null;
@@ -439,7 +439,7 @@ final class ConvertDataModelWorkMode {
             if (nbViewAssoc > 0) {
                 getController().println(wMsgNoAssocWithView);
                 for (int i = 0; i < nbViewAssoc; i++) {
-                    viewAssoc = (DbORAssociation) assocWithViewList.get(i);
+                    viewAssoc = assocWithViewList.get(i);
                     String dispName = getDisplayName(viewAssoc);
                     getController().println(dispName);
 
@@ -449,10 +449,10 @@ final class ConvertDataModelWorkMode {
             }
 
             int nb = assocOriginList.size();
-            for (Object o : assocOriginList) {
+            for (DbORAssociation association : assocOriginList) {
                 if (!getController().checkPoint()) //if user has CANCELled
                     break;
-                originAssoc = (DbORAssociation) o;
+                originAssoc = association;
                 srcClassifier = originAssoc.getFrontEnd().getClassifier();
                 destClassifier = originAssoc.getBackEnd().getClassifier();
 
@@ -1261,10 +1261,10 @@ final class ConvertDataModelWorkMode {
                                     .getFrontEndGo();
                             DbORAbsTable currentParentTable = (DbORAbsTable) parentTableGo.getSO();
                             //int nbParent = parentWithAssoc.length;
-                            for (int n = 0; n < parentWithAssoc.length; n++) {
-                                DbORAbsTable keepParentTable = (DbORAbsTable) parentWithAssoc[n][0];
+                            for (Object[] objects : parentWithAssoc) {
+                                DbORAbsTable keepParentTable = (DbORAbsTable) objects[0];
                                 if (keepParentTable.equals(currentParentTable)) {
-                                    keepOrAssociation = (DbORAssociation) parentWithAssoc[n][1];
+                                    keepOrAssociation = (DbORAssociation) objects[1];
                                 }
                             }
                             DbORAssociationGo orAssocGO = new DbORAssociationGo(diagram,
@@ -1458,7 +1458,7 @@ final class ConvertDataModelWorkMode {
         private String getDisplayName(DbObject dbo) throws DbException {
             String dboDisplayName = null;
             if (dbo.getName() != null) {
-                if (dbo.getName().length() != 0)
+                if (!dbo.getName().isEmpty())
                     dboDisplayName = dbo.getName();
                 else {
                     dboDisplayName = ApplicationContext.getSemanticalModel().getDisplayText(dbo,

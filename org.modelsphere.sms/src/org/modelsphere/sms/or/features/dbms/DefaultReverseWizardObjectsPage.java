@@ -198,7 +198,7 @@ public class DefaultReverseWizardObjectsPage extends WizardPage {
 
     // Create the Occurences Tree for unowned and owned objects
     private void addComponentToCardLayout(JPanel panel, String name, DBMSReverseOptions options,
-            String objName, List arrayObjs) {
+            String objName, java.util.List arrayObjs) {
 
         CheckableTree occurrenceTree = new CheckableTree();
         occurrenceTree.setModel(new OccurrenceTreeModel(
@@ -371,7 +371,7 @@ public class DefaultReverseWizardObjectsPage extends WizardPage {
 
     // INNER CLASS
     private class OccurrenceTreeModel extends CheckTreeModel {
-        OccurrenceTreeModel(DefaultMutableTreeNode root, ArrayList arrayObjs) {
+        OccurrenceTreeModel(DefaultMutableTreeNode root, java.util.List arrayObjs) {
             super(root);
             DefaultMutableTreeNode parent;
 

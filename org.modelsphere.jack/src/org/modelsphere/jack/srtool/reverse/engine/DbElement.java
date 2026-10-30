@@ -55,7 +55,7 @@ import org.modelsphere.jack.baseDb.meta.MetaRelationN;
 import org.modelsphere.jack.debug.Debug;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
+import java.util.Map;
 
 public final class DbElement {
     // Fields used to access the DB Value or to set the DB Value
@@ -81,18 +81,18 @@ public final class DbElement {
             return start;
         DbObject end = start;
         int pathlength = path.length;
-        for (int i = 0; i < pathlength; i++) {
-            if (!end.hasField(path[i])) {
+        for (MetaRelation1 metaRelation1 : path) {
+            if (!end.hasField(metaRelation1)) {
                 end = null;
                 Debug.trace("Cannot reach MetaField: <"
                         + (metaField == null ? "" : metaField.getJName())
-                        + ">.  Invalid path MetaField: <" + path[i].getJName() + ">.");
+                        + ">.  Invalid path MetaField: <" + metaRelation1.getJName() + ">.");
                 break;
             }
-            Object temp = end.get(path[i]);
+            Object temp = end.get(metaRelation1);
             if ((temp == null) || !(temp instanceof DbObject)) {
                 end = null;
-                Debug.trace("Invalid MetaField in path: <" + path[i].getJName()
+                Debug.trace("Invalid MetaField in path: <" + metaRelation1.getJName()
                         + "> : Expecting non null DbObject instance. ");
                 break;
             }
@@ -102,7 +102,7 @@ public final class DbElement {
     }
 
     // Return the value of metaField for the currentObject
-    public final Object getValue(Object hookContainer, HashMap currentObject) throws DbException {
+    public final Object getValue(Object hookContainer, Map currentObject) throws DbException {
         DbObject pathobject = (DbObject) currentObject.get(ReverseBuilder.CURRENT_OBJECT);
         pathobject = navigateToPath(pathobject);
         if ((pathobject != null) && pathobject.hasField(metaField)) {
@@ -122,7 +122,7 @@ public final class DbElement {
         return null;
     }
 
-    public final void setValue(Object hookContainer, HashMap currentObject, Object value)
+    public final void setValue(Object hookContainer, Map currentObject, Object value)
             throws DbException {
         if (metaField != null) {
             DbObject pathobject = (DbObject) currentObject.get(ReverseBuilder.CURRENT_OBJECT);

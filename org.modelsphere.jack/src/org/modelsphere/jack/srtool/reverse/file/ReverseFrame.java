@@ -344,10 +344,10 @@ public abstract class ReverseFrame extends JDialog {
                 // //multiple selection
                 DefaultListModel packageToAdd = ((FileListPreviewer) m_PackageChooser
                         .getAccessory()).getFilesFromList();
-                for (int i = 0; i < packages.length; i++) {
-                    if (packages[i] != null) {
-                        if (packages[i].exists())
-                            packageToAdd.addElement(packages[i]);
+                for (File aPackage : packages) {
+                    if (aPackage != null) {
+                        if (aPackage.exists())
+                            packageToAdd.addElement(aPackage);
                     }
                 }
                 for (int i = 0; i < packageToAdd.size(); i++) {
@@ -393,7 +393,7 @@ public abstract class ReverseFrame extends JDialog {
     private final void getFilesFromPackages() {
         DirectoryScanner dirScan = new DirectoryScanner();
         Vector filesVector;
-        Vector extVector = new Vector();
+        List<String> extVector = new Vector<>();
         m_packages = m_packageModel.elements();
 
         // Build extension vector
@@ -401,7 +401,7 @@ public abstract class ReverseFrame extends JDialog {
         while (enumeration.hasMoreElements()) {
             ExtensionFileFilter currFilter = (ExtensionFileFilter) enumeration.nextElement();
             String ext = currFilter.getExtension();
-            extVector.addElement(ext);
+            extVector.add(ext);
         } // end while
 
         // For each package
@@ -444,9 +444,9 @@ public abstract class ReverseFrame extends JDialog {
     }
 
     protected final boolean nothingToReverse() {
-        boolean filesToReverse = fileList.getModel().getSize() > 0 ? true : false;
-        boolean packageToReverse = packageList.getModel().getSize() > 0 ? true : false;
-        return (filesToReverse || packageToReverse ? false : true);
+        boolean filesToReverse = fileList.getModel().getSize() > 0;
+        boolean packageToReverse = packageList.getModel().getSize() > 0;
+        return (!filesToReverse && !packageToReverse);
     }
 
     protected final void init_actionListeners() {

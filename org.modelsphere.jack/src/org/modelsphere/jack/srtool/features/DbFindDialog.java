@@ -62,7 +62,7 @@ import java.util.List;
 public class DbFindDialog extends JDialog implements ActionListener, TestableWindow {
 
     private static final int MAX_RECENT_SEARCHES = 10;
-    private static Vector recentSearches = null;
+    private static Vector<String> recentSearches = null;
     private static boolean caseSensitiveValue = false;
     private static boolean wholeWordsOnlyValue = false;
     private static boolean regularExpressionsValue = false;
@@ -245,7 +245,7 @@ public class DbFindDialog extends JDialog implements ActionListener, TestableWin
 
     private void saveSearchToRecentSearch(String newSearch) {
         if (recentSearches == null)
-            recentSearches = new Vector();
+            recentSearches = new Vector<>();
         int index = searchStringInRecents(newSearch);
         if (index != -1)
             recentSearches.removeElementAt(index);

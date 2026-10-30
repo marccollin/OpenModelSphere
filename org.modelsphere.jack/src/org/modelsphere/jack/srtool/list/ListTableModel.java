@@ -108,7 +108,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
 
     // The available metafields and udfs for this model (displayed or not)
     // Contains a ColumnDescriptor object for each possible columns.  This contains the title for all columns.
-    private List columnDescriptors = new ArrayList();
+    private List<ColumnDescriptor> columnDescriptors = new ArrayList<>();
 
     // The root composite
     DbObject root;
@@ -143,7 +143,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
     }
 
     public boolean isColumnEditable(int column) {
-        return !((ColumnDescriptor) columnDescriptors.get(column)).bDisabled;
+        return !columnDescriptors.get(column).bDisabled;
     }
 
     public ListTableModel(DbObject root, ListDescriptor descriptor) throws DbException {
@@ -270,9 +270,9 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
     private void initStructure(boolean load) throws DbException {
         columns.clear();
         // remove all udfs ColumnDescriptor - must be refrehed
-        Iterator iter = columnDescriptors.iterator();
+        Iterator<ColumnDescriptor> iter = columnDescriptors.iterator();
         while (iter.hasNext()) {
-            ColumnDescriptor descriptor = (ColumnDescriptor) iter.next();
+            ColumnDescriptor descriptor = iter.next();
             if (descriptor.object instanceof DbUDF)
                 iter.remove();
         }
@@ -289,7 +289,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
         // Define the columns model contents (visible columns)
         iter = columnDescriptors.iterator();
         while (iter.hasNext()) {
-            ColumnDescriptor descriptor = (ColumnDescriptor) iter.next();
+            ColumnDescriptor descriptor = iter.next();
             int index = loadIndex(descriptor);
             if (index == -1 && load)
                 continue;
@@ -634,7 +634,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
     ColumnDescriptor[] getColumnDescriptors() {
         ColumnDescriptor[] descriptors = new ColumnDescriptor[columnDescriptors.size()];
         for (int i = 0; i < descriptors.length; i++)
-            descriptors[i] = (ColumnDescriptor) columnDescriptors.get(i);
+            descriptors[i] = columnDescriptors.get(i);
         return descriptors;
     }
 
@@ -756,8 +756,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
         DbObject[] selObjs = list.getSelectedDbObjects();
 
         List newVisibleDescriptors = Arrays.asList(descriptors);
-        for (Object columnDescriptor : columnDescriptors) {
-            ColumnDescriptor descriptor = (ColumnDescriptor) columnDescriptor;
+        for (ColumnDescriptor descriptor : columnDescriptors) {
             int index = indexInModelOf(descriptor); // index in visible columns
             // already shown
             if ((index > -1) && newVisibleDescriptors.contains(descriptor)) {
@@ -1072,9 +1071,8 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
         String key = neighborsMetaClass.getJClass().getName() + "_"; // NOT LOCALIZABLE
         key += descriptor.getID();
         key += "_index"; // NOT LOCALIZABLE
-        int index = LIST_PROPERTIES_SET.getPropertyInteger(root.getMetaClass().getJClass(), key,
+        return LIST_PROPERTIES_SET.getPropertyInteger(root.getMetaClass().getJClass(), key,
                 1);
-        return index;
     }
 
     private void saveIndex(ColumnDescriptor descriptor, int index) {
@@ -1153,8 +1151,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
         final DbObject[] selection = list.getSelectedDbObjects();
         saveColumnsPreferences();
         Collections.sort(columns);
-        for (Object columnDescriptor : columnDescriptors) {
-            ColumnDescriptor descriptor = (ColumnDescriptor) columnDescriptor;
+        for (ColumnDescriptor descriptor : columnDescriptors) {
             int index = indexInModelOf(descriptor);
             if (index == -1) {
                 saveIndex(descriptor, index);

@@ -113,7 +113,7 @@ public class JdbcReverseBuilder extends GenericBuilder {
     protected Constraint tableOwnerConstraint2 = null;
     protected Constraint procOwnerConstraint = null;
 
-    protected static HashMap typeMap = new HashMap(); // JDBC type definition
+    protected static Map typeMap = new HashMap(); // JDBC type definition
 
     public JdbcReverseBuilder() {
         initTypeMap();

@@ -45,6 +45,7 @@ package org.modelsphere.jack.preference;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecentFiles implements PropertiesProvider {
     public static final String PROPERTY_NB_RECENT_FILE = "RecentFilesDisplayed"; // NOT LOCALIZABLE
@@ -56,7 +57,7 @@ public class RecentFiles implements PropertiesProvider {
     private static int DEFAULT_NB_OF_VISIBLE_RF = 9; // maximun visible recent files in gui
     private static final boolean DEFAULT_VIEW_RF = true; // if the recent files are visible in gui
 
-    private ArrayList files;
+    private List<String> files;
     private int nbOfVisibleRF;
     private boolean viewRF;
     private PropertiesSet appPref;
@@ -70,7 +71,7 @@ public class RecentFiles implements PropertiesProvider {
             DEFAULT_NB_OF_VISIBLE_RF = preferences.getPropertyInteger(RecentFiles.class,
                     PROPERTY_NB_RECENT_FILE, PROPERTY_NB_RECENT_FILE_DEFAULT).intValue();
             nbOfVisibleRF = DEFAULT_NB_OF_VISIBLE_RF;
-            files = new ArrayList(DEFAULT_NB_OF_STORED_RF);
+            files = new ArrayList<>(DEFAULT_NB_OF_STORED_RF);
             viewRF = DEFAULT_VIEW_RF;
             PropertiesManager.registerPropertiesProvider(this);
             for (int i = DEFAULT_NB_OF_STORED_RF - 1; i >= 0; i--) {
@@ -95,7 +96,7 @@ public class RecentFiles implements PropertiesProvider {
     public final void clean() {
         int i = 0;
         while (i < files.size()) {
-            File file = new File((String) files.get(i));
+            File file = new File(files.get(i));
             if (!file.exists())
                 files.remove(i);
             else
@@ -109,7 +110,7 @@ public class RecentFiles implements PropertiesProvider {
         }
         for (int i = 0; i < files.size(); i++) {
             if (files.get(i) != null)
-                appPref.setProperty(RecentFiles.class, "" + i, (String) files.get(i));
+                appPref.setProperty(RecentFiles.class, "" + i, files.get(i));
         }
     }
 
@@ -118,7 +119,7 @@ public class RecentFiles implements PropertiesProvider {
     }
 
     public final String elementAt(int index) {
-        return (String) files.get(index);
+        return files.get(index);
     }
 
     public final int getNbVisibleRF() {
@@ -139,7 +140,6 @@ public class RecentFiles implements PropertiesProvider {
     }
 
     public final void registerDefaultPreferences() {
-        files.ensureCapacity(DEFAULT_NB_OF_STORED_RF);
         nbOfVisibleRF = DEFAULT_NB_OF_VISIBLE_RF;
         viewRF = DEFAULT_VIEW_RF;
     }

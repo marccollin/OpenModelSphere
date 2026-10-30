@@ -53,7 +53,7 @@ public class UserInfo {
     public DbObject user;
     public boolean isSelected = true;
     public int id;
-    public ArrayList occurences = new ArrayList();
+    public List occurences = new ArrayList();
 
     public UserInfo(String aUserName) {
         username = aUserName;

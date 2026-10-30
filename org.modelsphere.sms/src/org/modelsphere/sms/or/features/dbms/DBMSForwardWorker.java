@@ -165,7 +165,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
             return;
         }
 
-        ArrayList generatedFiles = new ArrayList();
+        List generatedFiles = new ArrayList();
         String filename = m_options.getOutputFile();
         FileWriter fileWriter = new FileWriter(filename);
         PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -175,7 +175,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
         ObjectScope userScope = ObjectScope.findConceptInObjectScopeWithConceptName(scope,
                 DbORUser.metaClass.getGUIName());
         CheckTreeNode treeNode = m_options.getCheckTreeNode();
-        ArrayList excludeList = DBMSForwardOptions.getExcludeList(treeNode);
+        List excludeList = DBMSForwardOptions.getExcludeList(treeNode);
         DbSMSAbstractPackage pack = m_options.getAbstractPackage();
         pack.getDb().beginTrans(Db.READ_TRANS);
 
@@ -218,7 +218,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
 
     private final void doCreationStatements(FileWriter fileWriter, ObjectScope[] scope,
             ObjectScope userScope, int statementType, SQLForwardEngineeringPlugin sqlForward,
-            Controller controller, ArrayList excludeList, boolean isHtml) throws DbException,
+            Controller controller, List excludeList, boolean isHtml) throws DbException,
             IOException, RuleException {
         writeStatementTypeComment(fileWriter, DBMSForwardOptions.CREATE_STATEMENTS, sqlForward,
                 isHtml);
@@ -232,7 +232,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
 
     private final void doDropStatements(FileWriter fileWriter, ObjectScope[] scope,
             ObjectScope userScope, int statementType, SQLForwardEngineeringPlugin sqlForward,
-            Controller controller, ArrayList excludeList, boolean isHtml) throws DbException,
+            Controller controller, List excludeList, boolean isHtml) throws DbException,
             IOException, RuleException {
         writeStatementTypeComment(fileWriter, DBMSForwardOptions.DROP_STATEMENTS, sqlForward,
                 isHtml);
@@ -246,7 +246,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
 
     private final void doStatement(FileWriter fileWriter, ObjectScope objectScope,
             ObjectScope userScope, ObjectScope[] scope, int statementType,
-            SQLForwardEngineeringPlugin sqlForward, Controller controller, ArrayList excludeList)
+            SQLForwardEngineeringPlugin sqlForward, Controller controller, List excludeList)
             throws DbException, IOException, RuleException {
 
         String conceptName = objectScope.conceptName;
@@ -266,8 +266,8 @@ public final class DBMSForwardWorker extends ForwardWorker {
             return;
         }
 
-        ArrayList objectSelectionToForward = new ArrayList();
-        ArrayList occurences = objectScope.occurences;
+        List objectSelectionToForward = new ArrayList();
+        List occurences = objectScope.occurences;
 
         // Owned Object (objects that can be owned by a user, like table, view,
         // column, index, pk, uk, ect.)
@@ -276,7 +276,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
             for (int j = 0; j < nbOccurrences && getController().checkPoint(); j++) {
                 UserInfo userInfo = (UserInfo) occurences.get(j);
                 if (ObjectScope.isOccurenceIsSelectedByObject(userScope, userInfo.user)) {
-                    ArrayList userOccurences = userInfo.occurences;
+                    List userOccurences = userInfo.occurences;
                     for (int k = 0; k < userOccurences.size() && getController().checkPoint(); k++) {
                         ObjectSelection objectSelection = (ObjectSelection) userOccurences.get(k);
                         if (objectSelection.getIsSelected()) {
@@ -298,8 +298,8 @@ public final class DBMSForwardWorker extends ForwardWorker {
 
         Collections.sort(objectSelectionToForward, new CollationComparator());
         int objectSelectionToForwardSize = objectSelectionToForward.size();
-        for (int i = 0; i < objectSelectionToForwardSize; i++) {
-            ObjectSelection objectSelection = (ObjectSelection) objectSelectionToForward.get(i);
+        for (Object o : objectSelectionToForward) {
+            ObjectSelection objectSelection = (ObjectSelection) o;
             if (parent != null) {
                 DbObject composite = objectSelection.occurence.getComposite();
                 boolean isSelected = ObjectScope.isOccurenceIsSelectedByObject(parent, composite);
@@ -316,7 +316,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
 
     private final void generateStatement(FileWriter fileWriter, ObjectScope objectScope,
             ObjectScope[] scope, int statementType, SQLForwardEngineeringPlugin sqlForward,
-            ObjectSelection objectSelection, Controller controller, ArrayList excludeList)
+            ObjectSelection objectSelection, Controller controller, List excludeList)
             throws DbException, IOException, RuleException {
 
         if (objectScope.childrenID != null) {
@@ -454,7 +454,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
 
     private final void expandRule(Rule rule, FileWriter fileWriter, DbObject obj,
             ObjectScope objectScope, SQLForwardEngineeringPlugin sqlForward, Controller controller,
-            ArrayList excludeList) throws DbException, IOException, RuleException {
+                                  List excludeList) throws DbException, IOException, RuleException {
         StringWriter stringWriter = new StringWriter();
 
         DbObject refObject = null;

@@ -100,7 +100,7 @@ public class ReverseWorker extends Worker {
         int totalReverseCount = uniqueFileVector.size();
         Enumeration enumeration = uniqueFileVector.elements();
         List reverseList = getInstantiatedReverseList();
-        Hashtable modelTable = new Hashtable();
+        Map<Class, DbObject> modelTable = new Hashtable<>();
         Vector obsoleteObjectVector = new Vector();
         Map diagMap = new HashMap(); // set to null if we do not want
         // graphics
@@ -150,7 +150,7 @@ public class ReverseWorker extends Worker {
                 // and put the package and its instance in hash table
 
                 if ((modelClaz != null) && modelTable.containsKey(modelClaz)) {
-                    pack = (DbObject) modelTable.get(modelClaz);
+                    pack = modelTable.get(modelClaz);
                 } else {
                     newlyCreatedPackage = reverse.createNewPackage(modelClaz, project);
                     pack = newlyCreatedPackage;

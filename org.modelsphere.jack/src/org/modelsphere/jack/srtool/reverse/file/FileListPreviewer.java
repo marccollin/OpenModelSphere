@@ -51,7 +51,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.util.Vector;
+import java.util.List;
 
 public final class FileListPreviewer extends JPanel {
 
@@ -183,10 +183,10 @@ public final class FileListPreviewer extends JPanel {
             if (selectedFile != null) {
                 if (selectedFile.isDirectory()) {
                     DirectoryScanner dirScan = new DirectoryScanner();
-                    Vector filesList = dirScan.getDirList(selectedFile, true);
-                    for (int i = 0; i < filesList.size(); i++) {
-                        if (fileModel.indexOf((File) filesList.elementAt(i)) == -1)
-                            fileModel.addElement((File) filesList.elementAt(i));
+                    List<?> filesList = dirScan.getDirList(selectedFile, true);
+                    for (Object o : filesList) {
+                        if (fileModel.indexOf((File) o) == -1)
+                            fileModel.addElement((File) o);
                     }
                 }
             }
@@ -203,11 +203,11 @@ public final class FileListPreviewer extends JPanel {
         public void actionPerformed(ActionEvent e) {
             // To do: Multiple selection (when the bug will solve, see above)
             DirectoryScanner dirScan = new DirectoryScanner();
-            Vector filesList = dirScan.getFilesList(fileChooser.getCurrentDirectory(), false,
+            List<?> filesList = dirScan.getFilesList(fileChooser.getCurrentDirectory(), false,
                     fileChooser.getFileFilter());
-            for (int i = 0; i < filesList.size(); i++) {
-                if (fileModel.indexOf((File) filesList.elementAt(i)) == -1)
-                    fileModel.addElement((File) filesList.elementAt(i));
+            for (Object o : filesList) {
+                if (fileModel.indexOf((File) o) == -1)
+                    fileModel.addElement((File) o);
             }
         }
     }

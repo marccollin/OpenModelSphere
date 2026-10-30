@@ -157,7 +157,7 @@ public final class DirectoryChooser2 extends JDialog {
     }
 
     final class DirectoryComboBoxModel extends AbstractListModel implements ComboBoxModel {
-        Vector directories = new Vector();
+        List<File> directories = new Vector<>();
         int[] depths = null;
         File selectedDirectory = null;
 
@@ -189,19 +189,19 @@ public final class DirectoryChooser2 extends JDialog {
 
             File sf = canonical;
             File f = sf;
-            Vector path = new Vector(10);
+            List<File> path = new Vector<>(10);
             do {
-                path.addElement(f);
+                path.add(f);
             } while ((f = f.getParentFile()) != null);
 
             int pathCount = path.size();
             // Insert chain at appropriate place in vector
             for (int i = 0; i < pathCount; i++) {
-                f = (File) path.get(i);
+                f = path.get(i);
                 if (directories.contains(f)) {
                     int topIndex = directories.indexOf(f);
                     for (int j = i - 1; j >= 0; j--) {
-                        directories.insertElementAt(path.get(j), topIndex + i - j);
+                        directories.add(topIndex + i - j, path.get(j));
                     }
                     break;
                 }
@@ -213,12 +213,12 @@ public final class DirectoryChooser2 extends JDialog {
         private void calculateDepths() {
             depths = new int[directories.size()];
             for (int i = 0; i < depths.length; i++) {
-                File dir = (File) directories.get(i);
+                File dir = directories.get(i);
                 File parent = dir.getParentFile();
                 depths[i] = 0;
                 if (parent != null) {
                     for (int j = i - 1; j >= 0; j--) {
-                        if (parent.equals((File) directories.get(j))) {
+                        if (parent.equals(directories.get(j))) {
                             depths[i] = depths[j] + 1;
                             break;
                         }
@@ -234,7 +234,7 @@ public final class DirectoryChooser2 extends JDialog {
         public void setSelectedItem(Object selectedDirectory) {
             this.selectedDirectory = (File) selectedDirectory;
             if (this.selectedDirectory == null && !directories.isEmpty())
-                this.selectedDirectory = (File) directories.get(0);
+                this.selectedDirectory = directories.get(0);
             fireContentsChanged(this, -1, -1);
         }
 
@@ -247,7 +247,7 @@ public final class DirectoryChooser2 extends JDialog {
         }
 
         public Object getElementAt(int index) {
-            return directories.elementAt(index);
+            return directories.get(index);
         }
     }
 

@@ -537,12 +537,12 @@ public class GeneratePhysicalNameFrame extends JDialog {
     }
 
     private final Map<String, String> convertAccentedCharactersToReplaceStringToHashMap() {
-        HashMap<String, String> hm = new HashMap<>();
+        Map<String, String> hm = new HashMap<>();
         StringTokenizer st = new StringTokenizer(accentedCharactersToReplace, ";"); // NOT LOCALIZABLE
         try {
             while (st.hasMoreTokens()) {
                 String token = st.nextToken();
-                if (token.indexOf("=") != -1) { // NOT LOCALIZABLE
+                if (token.contains("=")) { // NOT LOCALIZABLE
                     String key = token.substring(0, token.indexOf("=")); // NOT
                     // LOCALIZABLE
                     String value = token.substring(token.indexOf("=") + 1, token.length()); // NOT LOCALIZABLE
@@ -579,8 +579,8 @@ public class GeneratePhysicalNameFrame extends JDialog {
         TableModel tableModel = conceptsTable.getModel();
         tableModel.removeTableModelListener(tableModelListener);
         int[] selectedRows = conceptsTable.getSelectedRows();
-        for (int i = 0; i < selectedRows.length; i++) {
-            tableModel.setValueAt(value, selectedRows[i], col);
+        for (int selectedRow : selectedRows) {
+            tableModel.setValueAt(value, selectedRow, col);
         }
         tableModel.addTableModelListener(tableModelListener);
     }

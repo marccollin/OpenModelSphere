@@ -340,14 +340,11 @@ public final class MergeUseCase {
     // catched,
     // generating an error. The exception is catched now. [MS]
     private void copyMissingUDFsFor(MetaClass metaclass) throws DbException {
-        List udfs = Arrays.asList(DbUDF.getUDF(sourceModel.getProject(), metaclass));
+        List<DbUDF> udfs = Arrays.asList(DbUDF.getUDF(sourceModel.getProject(), metaclass));
 
-        List toCreate = new ArrayList();
+        List<DbUDF> toCreate = new ArrayList<>();
         DbProject project = targetModel.getProject();
-        Iterator iter = udfs.iterator();
-        while (iter.hasNext()) {
-            DbUDF udf = (DbUDF) iter.next();
-
+        for (DbUDF udf : udfs) {
             String name = udf.getName();
             if (DbUDF.getUDF(project, metaclass, name) != null) {
                 continue;
@@ -488,7 +485,7 @@ public final class MergeUseCase {
     }
 
     private void matchExternalProcesses() throws DbException {
-        List externalUseCases = new ArrayList();
+        List<DbBEUseCase> externalUseCases = new ArrayList<>();
         // beware: sub external processes must be kept external. They are not
         // part of this split-merge operation
         DbEnumeration dbEnum = source.getComponents().elements(DbBEUseCase.metaClass);
@@ -500,8 +497,7 @@ public final class MergeUseCase {
         }
         dbEnum.close();
 
-        for (Object externalUseCase : externalUseCases) {
-            DbBEUseCase usecase = (DbBEUseCase) externalUseCase;
+        for (DbBEUseCase usecase : externalUseCases) {
             DbBEUseCase matchingUsecase = getMatchingDbBEUseCase(usecase);
             if (matchingUsecase == null) {
                 String usecaseInfo = usecase.getName() + " ("; // NOT
@@ -524,7 +520,7 @@ public final class MergeUseCase {
         String numericId = usecase.getSourceNumericIdentifier();
         String alphaId = usecase.getSourceAlphanumericIdentifier();
         DbBEUseCase matchingUsecase = null;
-        if (numericId != null && numericId.length() > 0) {
+        if (numericId != null && !numericId.isEmpty()) {
             matchingUsecase = resolveDbUseCaseID(targetModel, numericId, true);
         }
         if (matchingUsecase == null && alphaId != null && !alphaId.isEmpty()) {
@@ -589,7 +585,7 @@ public final class MergeUseCase {
     // (DbBEUseCaseResource.metaClass, DbBEUseCaseQualifier.metaClass has been
     // processed previously)
     private void copyComponents() throws DbException {
-        List dbos = new ArrayList();
+        List<DbObject> dbos = new ArrayList<>();
         DbEnumeration dbEnum = source.getComponents().elements();
         while (dbEnum.hasMoreElements()) {
             DbObject dbo = (DbObject) dbEnum.nextElement();
@@ -608,7 +604,7 @@ public final class MergeUseCase {
     }
 
     private DbObject[] deepCopy(List components, DbObject targetComposite) throws DbException {
-        if (components == null || components.size() == 0)
+        if (components == null || components.isEmpty())
             return null;
         DbObject[] sourceDbos = new DbObject[components.size()];
         for (int i = 0; i < sourceDbos.length; i++)
@@ -618,9 +614,8 @@ public final class MergeUseCase {
     }
 
     private void mergeComponents() throws DbException {
-        Iterator iter = toMerge.iterator();
-        while (iter.hasNext()) {
-            MergeInfo info = (MergeInfo) iter.next();
+        for (Object o : toMerge) {
+            MergeInfo info = (MergeInfo) o;
             println(info.target, REPORT_INDENT, true);
             merge(info.source, info.target);
         }

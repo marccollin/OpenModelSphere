@@ -185,8 +185,8 @@ public abstract class ORValidationPlugin implements Plugin {
     public static int maxColInConstraint;
     public static String specialChars;
     public HashSet reservedWordsSet;
-    public HashMap physicalNameMaxLenMap;
-    public HashMap dataTypesMap;
+    public Map physicalNameMaxLenMap;
+    public Map dataTypesMap;
     protected String[] validationMessages;
     protected Boolean[] errorFlags;
     protected int errorCount;
@@ -273,13 +273,13 @@ public abstract class ORValidationPlugin implements Plugin {
 
     private void validateObjects(DbObject[] objects, int nbErrors) {
         try {
-            for (int i = 0; i < objects.length; i++) {
-                if (objects[i] instanceof DbORModel) {
-                    validateModel((DbORModel) objects[i], nbErrors);
+            for (DbObject object : objects) {
+                if (object instanceof DbORModel) {
+                    validateModel((DbORModel) object, nbErrors);
                 } else {
                     //get the isValidated flag of its class model composite
-                    objects[i].getDb().beginReadTrans();
-                    DbORModel orModel = (DbORModel) objects[i]
+                    object.getDb().beginReadTrans();
+                    DbORModel orModel = (DbORModel) object
                             .getCompositeOfType(DbORModel.metaClass);
                     String modelName = (orModel == null) ? null : orModel.getName();
                     boolean isValidated = (orModel == null) ? false : orModel.isIsValidated();
@@ -287,7 +287,7 @@ public abstract class ORValidationPlugin implements Plugin {
 
                     if (orModel != null) {
                         if (isValidated && (nbErrors > 0)) {
-                            validateModel((DbORModel) objects[i], nbErrors);
+                            validateModel((DbORModel) object, nbErrors);
                         } //end if
                     } //end if
                 } //end if
@@ -396,9 +396,8 @@ public abstract class ORValidationPlugin implements Plugin {
             return null;
         if (map.containsKey(name))
             return null;
-        Iterator iter = map.keySet().iterator();
-        while (iter.hasNext()) {
-            String key = (String) iter.next();
+        for (Object o : map.keySet()) {
+            String key = (String) o;
             if (key.equalsIgnoreCase(name)) {
                 DbSemanticalObject semObjFound = (DbSemanticalObject) (map.get(key));
                 return semObjFound;
@@ -437,7 +436,7 @@ public abstract class ORValidationPlugin implements Plugin {
     }
 
     public List getOccurrences(DbORModel model, MetaClass metaclass) throws DbException {
-        List occurences = new ArrayList();
+        List<DbObject> occurences = new ArrayList<>();
 
         if (model == null || metaclass == null)
             return occurences;
@@ -591,8 +590,8 @@ public abstract class ORValidationPlugin implements Plugin {
         Map physicalNameMap = new HashMap();
 
         if (metaClass != null) {
-            for (int i = 0; i < aList.size(); i++) {
-                DbSemanticalObject semObj = (DbSemanticalObject) (aList.get(i));
+            for (Object o : aList) {
+                DbSemanticalObject semObj = (DbSemanticalObject) o;
 
                 physicalNameMap.clear();
                 DbEnumeration dbEnum = semObj.getComponents().elements(metaClass);
@@ -603,8 +602,8 @@ public abstract class ORValidationPlugin implements Plugin {
                 dbEnum.close();
             }
         } else {
-            for (int i = 0; i < aList.size(); i++) {
-                DbSemanticalObject semObj = (DbSemanticalObject) (aList.get(i));
+            for (Object o : aList) {
+                DbSemanticalObject semObj = (DbSemanticalObject) o;
                 validatePhysicalNamesAux(semObj, buffer, physicalNameMap);
             }
         }
@@ -816,8 +815,8 @@ public abstract class ORValidationPlugin implements Plugin {
      */
     public void validateIntructionsOfTriggers(List aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORTrigger semObj = (DbORTrigger) (aList.get(i));
+        for (Object o : aList) {
+            DbORTrigger semObj = (DbORTrigger) o;
             if ((semObj.getBody() == null) || (semObj.getBody().isEmpty())) {
                 validationReport.printGenericError(G_TRIGGER_NO_BODY, buffer, semObj, true);//printError(17, buffer, composite+getName(trigger))
                 warningCount++;
@@ -830,8 +829,8 @@ public abstract class ORValidationPlugin implements Plugin {
      */
     public void validateInstructionsOfProcedures(List aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORProcedure semObj = (DbORProcedure) (aList.get(i));
+        for (Object o : aList) {
+            DbORProcedure semObj = (DbORProcedure) o;
             if ((semObj.getBody() == null) || (semObj.getBody().isEmpty())) {
                 validationReport.printGenericError(G_PROCEDURE_NO_BODY, buffer, semObj, true);//printError(18, buffer, composite+getName(procedure))
                 warningCount++;
@@ -859,8 +858,8 @@ public abstract class ORValidationPlugin implements Plugin {
      */
     public void validateInstructionsOfCheckConstraints(List aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORCheck semObj = (DbORCheck) (aList.get(i));
+        for (Object o : aList) {
+            DbORCheck semObj = (DbORCheck) o;
             if ((semObj.getCondition() == null) || (semObj.getCondition().isEmpty())) {
                 validationReport.printGenericError(G_CHECK_NO_CONDITION, buffer, semObj, true);//printError(19, buffer, composite+getName(check))
                 warningCount++;

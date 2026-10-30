@@ -196,7 +196,7 @@ abstract class AbstractDirectoryChooser {
             m_theChooser = chooser;
             GridBagLayout layout = new GridBagLayout();
             this.setLayout(layout);
-            Vector vec = new Vector();
+            Vector<File> vec = new Vector<>();
             vec.add(root);
             File[] roots = getRoots(fsv);
 
@@ -215,7 +215,7 @@ abstract class AbstractDirectoryChooser {
 
         private File[] getRoots(FileSystemView fsv) {
             if (roots == null) {
-                Vector vec = new Vector();
+                Vector<File> vec = new Vector<>();
                 if (isWindows()) {
                     vec.add(new File("A:\\"));
                     for (char ch = 'C'; ch <= 'Z'; ch++) {
@@ -227,7 +227,7 @@ abstract class AbstractDirectoryChooser {
                     } // end for
                     roots = new File[vec.size()];
                     for (int i = 0; i < vec.size(); i++) {
-                        roots[i] = (File) vec.elementAt(i);
+                        roots[i] = vec.elementAt(i);
                     }
                 } else { // Not Windwos 2000
                     roots = fsv.getRoots();

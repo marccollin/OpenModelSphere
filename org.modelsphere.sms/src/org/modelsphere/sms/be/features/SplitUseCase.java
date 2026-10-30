@@ -406,19 +406,19 @@ public final class SplitUseCase {
 
         MetaField[] metafields = DbBEUseCase.metaClass.getAllMetaFields();
         // copy non relationship metafields
-        for (int i = 0; i < metafields.length; i++) {
-            if (metafields[i] instanceof MetaRelationship)
+        for (MetaField metafield : metafields) {
+            if (metafield instanceof MetaRelationship)
                 continue;
-            duplicate.set(metafields[i], source.get(metafields[i]));
+            duplicate.set(metafield, source.get(metafield));
         }
         // copy metafields values
         DbUDF[] udfs = DbUDF.getUDF(source.getProject(), DbBEUseCase.metaClass);
-        for (int i = 0; i < udfs.length; i++) {
-            DbUDF targetUDF = DbUDF.getUDF(composite.getProject(), DbBEUseCase.metaClass, udfs[i]
+        for (DbUDF udf : udfs) {
+            DbUDF targetUDF = DbUDF.getUDF(composite.getProject(), DbBEUseCase.metaClass, udf
                     .getName());
             if (targetUDF == null) // should not happen
                 continue;
-            duplicate.set(targetUDF, source.get(udfs[i]));
+            duplicate.set(targetUDF, source.get(udf));
         }
 
         // copy all components excepts usecases and flows -
@@ -428,7 +428,7 @@ public final class SplitUseCase {
         // creating their target composite (the root context in target)
         // Basically, those components are the link objects between the root
         // usecase and resources or qualifiers
-        List components = new ArrayList();
+        List<DbObject> components = new ArrayList<>();
         DbEnumeration dbEnum = source.getComponents().elements(DbBEUseCaseResource.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbObject dbo = dbEnum.nextElement();
@@ -474,7 +474,7 @@ public final class SplitUseCase {
         // object
         // because a process can be link with a flow and without any graphical
         // representations.)
-        List externalUseCases = new ArrayList();
+        List<DbObject> externalUseCases = new ArrayList<>();
         DbEnumeration dbEnum = usecase.componentTree(DbBEFlow.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbBEFlow flow = (DbBEFlow) dbEnum.nextElement();
@@ -565,7 +565,7 @@ public final class SplitUseCase {
     // (DbBEUseCaseResource.metaClass, DbBEUseCaseQualifier.metaClass has been
     // processed previously)
     private void copyContextComponents() throws DbException {
-        List dbos = new ArrayList();
+        List<DbObject> dbos = new ArrayList<>();
         DbEnumeration dbEnum = usecase.getComponents().elements();
         while (dbEnum.hasMoreElements()) {
             DbObject dbo = (DbObject) dbEnum.nextElement();
@@ -608,7 +608,7 @@ public final class SplitUseCase {
 
     // copy UML Extensibilities, actors, stores, qualifiers and resources
     private void copyModelComponents() throws DbException {
-        List components = new ArrayList();
+        List<DbObject> components = new ArrayList<>();
         DbEnumeration dbEnum = null;
         if (!sameProject) {
             // copy missing UML Extensibilities
@@ -662,7 +662,7 @@ public final class SplitUseCase {
     }
 
     private DbObject[] deepCopy(List components, DbObject targetComposite) throws DbException {
-        if (components == null || components.size() == 0)
+        if (components == null || components.isEmpty())
             return null;
         DbObject[] sourceDbos = new DbObject[components.size()];
         for (int i = 0; i < sourceDbos.length; i++)
