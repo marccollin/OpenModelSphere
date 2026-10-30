@@ -178,6 +178,7 @@ public class MultiDbSemanticalObjectEditor implements TableCellEditor {
     class DelegateListener implements ActionListener, MouseListener {
         private Point lastMouseEventPoint = null;
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             try {
                 Db db = parentDbos[0].getDb();

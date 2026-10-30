@@ -81,6 +81,7 @@ public class TextViewerFrame extends JInternalFrame implements DocumentListener 
         controller = new TextViewerController(this, str, useHTML, file, mailToEnabled);
         getTextPanel().getDocument().addDocumentListener(this);
         getTextPanel().addKeyListener(new KeyAdapter() {
+            @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
                     controller.closeViewer();

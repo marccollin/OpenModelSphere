@@ -267,6 +267,7 @@ public final class DirectoryChooser extends AbstractDirectoryChooser {
 
         private void addListeners() {
             m_selectBtn.addActionListener(new ActionListener() {
+                @Override
                 public void actionPerformed(ActionEvent ev) {
                     m_theDialog.m_result = JFileChooser.APPROVE_OPTION;
                     m_theDialog.m_cancelled = false;

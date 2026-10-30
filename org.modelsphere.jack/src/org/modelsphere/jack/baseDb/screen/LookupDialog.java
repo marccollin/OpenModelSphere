@@ -122,6 +122,7 @@ public class LookupDialog extends JDialog {
                 : ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         if (selMode != SELECT_NONE) {
             list.addListSelectionListener(new ListSelectionListener() {
+                @Override
                 public void valueChanged(ListSelectionEvent e) {
                     manageSelectButton();
                 }

@@ -446,6 +446,7 @@ public class DesignPanel extends JPanel implements AncestorListener, SelectionLi
         table.setToolTipText(text);
     }
 
+    @Override
     public void mouseClicked(MouseEvent e) {
     }
 

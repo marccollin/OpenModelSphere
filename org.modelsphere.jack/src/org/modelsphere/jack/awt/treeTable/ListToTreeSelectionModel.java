@@ -106,6 +106,7 @@ class ListToTreeSelectionModel extends DefaultTreeSelectionModel {
     }
 
     class ListSelectionHandler implements ListSelectionListener {
+        @Override
         public void valueChanged(ListSelectionEvent e) {
             updateSelectedPathsFromSelectedRows();
         }

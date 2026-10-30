@@ -129,6 +129,7 @@ public class PropertiesFrameHeader extends JPanel implements MouseListener {
         childValue.setText("<html><body>" + cName + "<body><html>"); // NOT LOCALIZABLE
     }
 
+    @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == parentValue) {
             try {

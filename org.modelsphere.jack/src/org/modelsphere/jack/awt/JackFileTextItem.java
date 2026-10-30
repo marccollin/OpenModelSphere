@@ -73,6 +73,7 @@ public class JackFileTextItem extends JPanel implements ActionListener {
                 -6));
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == fileChooserButton) {
             JFrame frame = (JFrame) AwtUtil.getParentFrame(this);

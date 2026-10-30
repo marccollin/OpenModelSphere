@@ -232,6 +232,7 @@ public abstract class ScreenView extends JPanel implements LocaleChangeListener,
         Vector vecButton = new Vector();
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ActionListener buttonListener = new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == addBtn)
                     addAction();

@@ -95,6 +95,7 @@ public class ExternalDocumentDialog extends JDialog implements ActionListener {
         return m_command;
     }
 
+    @Override
     public void actionPerformed(ActionEvent ev) {
         Object src = ev.getSource();
         if (src.equals(buttonClose)) {

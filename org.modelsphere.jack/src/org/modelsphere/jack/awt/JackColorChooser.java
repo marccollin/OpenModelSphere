@@ -196,6 +196,7 @@ public class JackColorChooser implements ActionListener {
 
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("OK")) { // NOT LOCALIZABLE - Hard coded
             // in swings as of 1.4.0!

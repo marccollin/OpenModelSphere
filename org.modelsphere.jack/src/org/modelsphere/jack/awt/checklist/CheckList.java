@@ -69,6 +69,7 @@ public class CheckList extends JList implements ListSelectionListener, MouseList
         listenerList.remove(CheckListListener.class, listener);
     }
 
+    @Override
     public void mouseClicked(MouseEvent e) {
         if (iconRect == null) {
             Icon checkIcon = UIManager.getIcon("CheckBox.icon"); // NOT

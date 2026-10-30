@@ -212,6 +212,7 @@ class TextViewerController implements ActionListener {// , HyperlinkListener {
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     vMUpdater = new Timer(2000, new ActionListener() {
+                        @Override
                         public void actionPerformed(ActionEvent e) {
                             currentVMTotalMemory.setText(new Long(Runtime.getRuntime()
                                     .totalMemory() / 1024).toString()

@@ -76,6 +76,7 @@ class DomainComboBox extends JackComboBox {
         setMaximumRowCount(15);
         removeActionListener(a);
         addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 fireAction();
             }

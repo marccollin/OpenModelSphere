@@ -142,6 +142,7 @@ public final class DefaultController extends GuiController {
 
         setDetailVisible(detailVisible);
         detailButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 setDetailVisible(!detailVisible);
             }

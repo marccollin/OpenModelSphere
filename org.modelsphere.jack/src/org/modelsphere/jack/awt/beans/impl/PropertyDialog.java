@@ -154,6 +154,7 @@ public class PropertyDialog extends JDialog {
         jButton2.setText(buttonText); // localize button here
 
         this.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent e) {
                 dialog.stopCellEditing();
             }

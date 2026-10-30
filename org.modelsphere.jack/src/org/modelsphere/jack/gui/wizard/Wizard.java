@@ -150,6 +150,7 @@ public final class Wizard extends JDialog {
                 GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(6, 6, 12, 12), 0, 0));
 
         cancelButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 cancelPerformed();
             }

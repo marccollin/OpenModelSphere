@@ -95,6 +95,7 @@ public class DbTreeLookupDialog extends JDialog {
     private JTree tree = new JTree();
     private JButton selectBtn = new JButton(LocaleMgr.screen.getString("Select"));
     private ActionListener cancelAction = new ActionListener() {
+        @Override
         public void actionPerformed(ActionEvent e) {
             userAction = CANCEL;
             dispose();

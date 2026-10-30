@@ -72,6 +72,7 @@ public class CheckableTree extends JTree implements TestableWindow, ActionListen
     private JPopupMenu popup;
     private JMenuItem mi;
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("check")) {
             int[] selectedRows = getSelectionRows();

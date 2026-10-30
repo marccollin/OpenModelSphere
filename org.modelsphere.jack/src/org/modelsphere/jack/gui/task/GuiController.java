@@ -217,6 +217,7 @@ public abstract class GuiController extends Controller implements ActionListener
         window = getWindow();
         if (window != null) {
             window.addWindowListener(new WindowAdapter() {
+                @Override
                 public void windowClosing(WindowEvent e) {
                     dispose_();
                 }

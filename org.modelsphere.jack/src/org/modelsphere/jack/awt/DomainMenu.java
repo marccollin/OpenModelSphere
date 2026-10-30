@@ -325,6 +325,7 @@ final class DomainMenu extends JackMenu implements ActionListener {
         return dim;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
         if (actionCommand != null && (getAction() instanceof AbstractMenuAction)

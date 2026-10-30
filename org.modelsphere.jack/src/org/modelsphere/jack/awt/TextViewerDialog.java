@@ -90,6 +90,7 @@ public class TextViewerDialog extends JDialog implements DocumentListener {
         controller = new TextViewerController(this, text, useHTML, null, mailToEnable, enableVMMenu);
         getTextPanel().getDocument().addDocumentListener(this);
         getTextPanel().addKeyListener(new KeyAdapter() {
+            @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
                     controller.closeViewer();

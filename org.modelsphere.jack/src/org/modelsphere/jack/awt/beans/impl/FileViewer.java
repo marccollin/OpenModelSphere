@@ -122,6 +122,7 @@ class FileViewer extends AbstractViewer {
     };
 
     private MouseListener m_listener = new MouseAdapter() {
+        @Override
         public void mousePressed(MouseEvent e) {
             JFileChooser fc = (m_currentFile == null) ? new JFileChooser() : new JFileChooser(
                     m_currentFile.getParentFile());

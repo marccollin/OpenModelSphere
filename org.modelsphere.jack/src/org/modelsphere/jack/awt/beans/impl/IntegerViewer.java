@@ -194,6 +194,7 @@ final class IntegerViewer extends AbstractViewer {
     } // end normalizeInteger()
 
     private ActionListener m_actionListener = new ActionListener() {
+        @Override
         public void actionPerformed(ActionEvent ev) {
             String text = m_textField.getText();
             Integer intValue = Integer.decode(text);

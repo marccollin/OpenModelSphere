@@ -101,6 +101,7 @@ public class PageTitlePanel extends JPanel implements ActionListener, DocumentLi
     }
 
     //Implements ActionListener
+    @Override
     public void actionPerformed(ActionEvent ev) {
         Object src = ev.getSource();
 

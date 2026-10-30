@@ -158,6 +158,7 @@ public final class ToolBarManager implements ActionListener, /* PropertiesProvid
         }
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == hideAllToolBarItem) {
             setToolBarsVisible(false);

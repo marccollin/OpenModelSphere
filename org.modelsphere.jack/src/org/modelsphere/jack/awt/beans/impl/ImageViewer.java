@@ -171,6 +171,7 @@ class ImageViewer extends AbstractViewer {
     // block
 
     private MouseListener m_listener = new MouseAdapter() {
+        @Override
         public void mousePressed(MouseEvent e) {
             JFileChooser fc = (g_lastVisitedFile == null) ? new JFileChooser() : new JFileChooser(
                     g_lastVisitedFile);

@@ -144,6 +144,7 @@ public class ProgressBarDialog extends JDialog implements TestableWindow {
         public void windowIconified(WindowEvent e) {
         }
 
+        @Override
         public void windowOpened(WindowEvent e) {
         }
     }

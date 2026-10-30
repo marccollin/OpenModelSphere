@@ -390,6 +390,7 @@ public class BeanDialogImpl implements BeanDialog {
             m_table = this;
             setRenderersAndEditors(dm);
             this.addMouseListener(new MouseAdapter() {
+                @Override
                 public void mouseClicked(MouseEvent e) {
                     dialog.stopCellEditing();
                 }

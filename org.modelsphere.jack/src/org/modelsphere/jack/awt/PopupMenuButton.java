@@ -71,6 +71,7 @@ public class PopupMenuButton extends JButton implements ActionListener {
         setText(null);
         setFocusable(false);
         addMouseListener(new MouseAdapter() {
+            @Override
             public void mousePressed(MouseEvent e) {
                 showPopup();
             }

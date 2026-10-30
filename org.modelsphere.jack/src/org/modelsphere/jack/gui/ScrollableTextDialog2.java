@@ -93,6 +93,7 @@ public class ScrollableTextDialog2 extends JDialog {
         // add listener
         final ScrollableTextDialog2 thisDialog = this;
         m_closeBtn.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent ev) {
                 thisDialog.dispose();
             }

@@ -94,6 +94,7 @@ public class ScrollableTextDialog extends JDialog implements TestableWindow {
     private void addListener() {
         final ScrollableTextDialog thisDialog = this;
         jButton1.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent ev) {
                 thisDialog.dispose();
             }

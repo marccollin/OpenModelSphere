@@ -343,6 +343,7 @@ public class RunningPanel extends JPanel implements MouseListener {
         setVisibleMessage(notRunningMessage);
     }
 
+    @Override
     public void mouseClicked(MouseEvent e) {
     }
 

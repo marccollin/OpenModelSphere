@@ -102,6 +102,7 @@ final class BooleanViewer extends AbstractViewer {
     };
 
     private ActionListener listener = new ActionListener() {
+        @Override
         public void actionPerformed(ActionEvent ev) {
             boolean selected = m_checkbox.isSelected();
             setValueInModel(selected);

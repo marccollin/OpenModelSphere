@@ -141,6 +141,7 @@ public class JOptionPane2 extends JOptionPane {
 
         // add listener
         jButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent ev) {
                 g_selection = getSelection(buttons);
                 dialog.setVisible(false);

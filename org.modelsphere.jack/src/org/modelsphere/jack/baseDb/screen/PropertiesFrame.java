@@ -482,6 +482,7 @@ public class PropertiesFrame extends CascadingJInternalFrame implements Printabl
         helpBtn.setEnabled(screenContext.isHelpInstalled());
         helpBtn.setMnemonic(LocaleMgr.screen.getMnemonic("help"));
         helpBtn.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 screenContext.showHelpFrame(semObj);
             }

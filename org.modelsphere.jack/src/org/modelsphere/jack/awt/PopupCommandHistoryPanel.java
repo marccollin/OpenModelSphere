@@ -140,6 +140,7 @@ public class PopupCommandHistoryPanel extends PopupButton {
             list.setModel(new DefaultListModel());
 
             list.addListSelectionListener(new ListSelectionListener() {
+                @Override
                 public void valueChanged(ListSelectionEvent e) {
                     if (e.getValueIsAdjusting() && e.getFirstIndex() != -1) {
                         list.setSelectionInterval(0, e.getLastIndex());

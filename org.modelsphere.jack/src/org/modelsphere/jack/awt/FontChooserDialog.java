@@ -193,6 +193,7 @@ public class FontChooserDialog extends JDialog implements ComponentTestable {
 
         /* main components actionListner Installation */
         list.addListSelectionListener(new ListSelectionListener() {
+            @Override
             public void valueChanged(ListSelectionEvent e) {
                 manageSelectButton();
                 if (!e.getValueIsAdjusting())

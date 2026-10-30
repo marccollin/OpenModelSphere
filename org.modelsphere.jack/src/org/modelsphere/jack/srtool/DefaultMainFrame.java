@@ -424,6 +424,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
         }); 
         
         this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 if (prepareToExitApplication()) {
                     dispose();

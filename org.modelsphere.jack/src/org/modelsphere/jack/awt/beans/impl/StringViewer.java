@@ -109,6 +109,7 @@ final class StringViewer extends AbstractViewer {
     };
 
     private ActionListener m_actionListener = new ActionListener() {
+        @Override
         public void actionPerformed(ActionEvent ev) {
             String text = m_textField.getText();
             setValueInModel(text);

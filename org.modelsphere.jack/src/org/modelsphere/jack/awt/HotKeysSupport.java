@@ -236,6 +236,7 @@ public class HotKeysSupport implements WindowListener {
         }
     }
 
+    @Override
     public void windowOpened(WindowEvent e) {
     }
 

@@ -92,6 +92,7 @@ public final class LogDialog extends JDialog implements TestableWindow {
         this.setLocationRelativeTo(frame);
         initValues();
         KeyAdapter keyAdapter = new KeyAdapter() {
+            @Override
             public void keyTyped(KeyEvent e) {
                 char car = e.getKeyChar();
                 if (!Character.isDigit(car) && "-+\b".indexOf(car) == -1) { // NOT LOCALIZABLE

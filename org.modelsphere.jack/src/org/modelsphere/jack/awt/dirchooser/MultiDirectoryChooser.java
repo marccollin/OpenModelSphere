@@ -281,6 +281,7 @@ public final class MultiDirectoryChooser extends AbstractDirectoryChooser {
 
         private void addListeners() {
             m_directoryList.addListSelectionListener(new ListSelectionListener() {
+                @Override
                 public void valueChanged(ListSelectionEvent ev) {
                     m_removeBtn.setEnabled(true);
                 }

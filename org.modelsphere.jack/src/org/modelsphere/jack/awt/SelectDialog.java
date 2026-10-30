@@ -171,6 +171,7 @@ public class SelectDialog extends JDialog implements ActionListener, ListSelecti
         init(items, options);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == okButton) {
             // check option SELECT_MIN_1

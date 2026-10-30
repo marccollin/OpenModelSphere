@@ -128,6 +128,7 @@ public class ListView extends ScreenView {
         installEditorAndRenderer(model);
         adjustTableColumnWidth(model);
         table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (getPropertiesFrame().getCurrentPanel() == ListView.this)
                     screenContext.selectionChanged(getPropertiesFrame());

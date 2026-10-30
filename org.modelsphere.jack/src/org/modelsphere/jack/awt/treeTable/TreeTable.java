@@ -103,6 +103,7 @@ public class TreeTable extends JTable {
                     // Action
                     // key
 
+                    @Override
                     public void actionPerformed(ActionEvent e) {
                         if (m_tree != null) {
                             final int selRow = m_tree.getLeadSelectionRow();

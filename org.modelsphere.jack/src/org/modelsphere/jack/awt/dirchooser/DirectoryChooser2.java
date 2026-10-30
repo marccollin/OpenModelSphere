@@ -280,6 +280,7 @@ public final class DirectoryChooser2 extends JDialog {
         public void treeWillCollapse(TreeExpansionEvent event) {
         }
 
+        @Override
         public void valueChanged(TreeSelectionEvent e) {
             Object selectedPath = getLastSelectedPathComponent();
             if (selectedPath instanceof DirectoryTreeNode) {

@@ -157,6 +157,7 @@ public abstract class AbstractTableCellEditor implements javax.swing.table.Table
     // Implementing ActionListener interface, it's the resposability of the
     // sub-classes to
     // call the addActionListener method to its component
+    @Override
     public void actionPerformed(ActionEvent e) {
         stopCellEditing();
     }

@@ -240,6 +240,7 @@ public class MultiDbSemanticalObjectShortEditor implements TableCellEditor {
     }
 
     class ComboActionListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             stopCellEditing();
         }
