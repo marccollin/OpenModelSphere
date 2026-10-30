@@ -80,6 +80,7 @@ import org.modelsphere.sms.or.db.DbORTableGo;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 
@@ -89,7 +90,7 @@ import java.util.HashMap;
 
 public abstract class AnyGo {
 
-    public static DbSMSDiagram getDiagram(HashMap diagMap, DbSMSPackage pack) throws DbException {
+    public static DbSMSDiagram getDiagram(Map diagMap, DbSMSPackage pack) throws DbException {
         Object diag = diagMap.get(pack);
         if (diag == null) { // null means we did not map yet this package to a diagram
             // If a package has no diagram, we map it to a dummy object, to avoid remapping it each time.
@@ -127,7 +128,7 @@ public abstract class AnyGo {
     }
 
     // Do not create a graphic rep if inner class.
-    public static void createClassifierGo(HashMap diagMap, DbSMSClassifier adt) throws DbException {
+    public static void createClassifierGo(Map diagMap, DbSMSClassifier adt) throws DbException {
         DbObject parent = adt.getComposite();
         if (parent instanceof DbSMSPackage) {
             DbSMSDiagram diag = getDiagram(diagMap, (DbSMSPackage) parent);
@@ -150,7 +151,7 @@ public abstract class AnyGo {
     }
 
     // Create a graphic rep in the subclass diagram only if "extends" inheritance.
-    public static void createOOInheritanceGo(HashMap diagMap, DbOOInheritance inher)
+    public static void createOOInheritanceGo(Map diagMap, DbOOInheritance inher)
             throws DbException {
         DbSMSPackage pack = (DbSMSPackage) inher.getSubClass().getCompositeOfType(
                 DbSMSPackage.metaClass);
@@ -169,7 +170,7 @@ public abstract class AnyGo {
     }
 
     // Create a graphic rep in the diagram of each navigable member.
-    public static void createOOAssociationGo(HashMap diagMap, DbOOAssociation assoc)
+    public static void createOOAssociationGo(Map diagMap, DbOOAssociation assoc)
             throws DbException {
         DbSMSPackage frontPack = null;
         DbOOAssociationEnd end = assoc.getFrontEnd();

@@ -54,6 +54,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * For an exception, returns a unique identification number. <br>
@@ -69,7 +70,7 @@ public final class ExceptionId extends UserDefinedField {
             "$Revision: 4 $", ApplicationContext.APPLICATION_AUTHOR, "$Date: 2009/04/14 14:00p $",
             212); // NOT LOCALIZABLE
 
-    static HashMap map = new HashMap();
+    static Map map = new HashMap();
     private static int counter = 0;
 
     public static void reset() {

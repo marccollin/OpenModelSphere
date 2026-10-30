@@ -18,7 +18,7 @@ public class InternalTables2 extends InternalTables1 {
     protected WeakHashMap adapters;
 
     protected Object getAdapter(Object o,String evc) {
-        HashMap ads = (HashMap)this.adapters.get(o);
+        Map ads = (HashMap)this.adapters.get(o);
         if (ads == null) {
             return null;
         }
@@ -30,7 +30,7 @@ public class InternalTables2 extends InternalTables1 {
     }
 
     protected void putAdapter(Object o,String evc,Object ad) {
-        HashMap ads = (HashMap)this.adapters.get(o);
+        Map ads = (HashMap)this.adapters.get(o);
         if (ads == null) {
             ads = new HashMap();
             this.adapters.put(o,ads);

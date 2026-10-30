@@ -994,7 +994,7 @@ public class PyType extends PyObject implements Serializable {
     }
 
     private static void fillInClassic(Class c, Class base, PyObject dict) {
-        HashMap propnames = new HashMap();
+        Map propnames = new HashMap();
         Method[] methods = c.getMethods();
         for(int i = 0; i < methods.length; i++) {
             Method meth = methods[i];
@@ -1149,7 +1149,7 @@ public class PyType extends PyObject implements Serializable {
         newtype.non_instantiable = dict.__finditem__("__new__") == null;
     }
 
-    private static HashMap class_to_type;
+    private static Map class_to_type;
 
     public static interface Newstyle {
     }

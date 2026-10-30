@@ -9,7 +9,7 @@ public class IdImpl2 extends IdImpl {
     public static class WeakIdentityMap {
         
         private ReferenceQueue refqueue = new ReferenceQueue();
-        private HashMap hashmap = new HashMap();
+        private Map hashmap = new HashMap();
         
         private void cleanup() {
             Object k;

@@ -51,6 +51,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 public final class ReverseTask extends org.modelsphere.jack.srtool.reverse.file.ReverseTask {
@@ -154,8 +155,8 @@ public final class ReverseTask extends org.modelsphere.jack.srtool.reverse.file.
     }
 
     protected String reverseCurrentFile(Hashtable modelTable,
-            org.modelsphere.jack.srtool.reverse.file.JackReverseEngineeringPlugin reverse,
-            Class modelClaz, Vector obsoleteObjectVector, HashMap diagMap, File file)
+                                        org.modelsphere.jack.srtool.reverse.file.JackReverseEngineeringPlugin reverse,
+                                        Class modelClaz, Vector obsoleteObjectVector, Map diagMap, File file)
             throws Exception {
         String errMsg;
         /*

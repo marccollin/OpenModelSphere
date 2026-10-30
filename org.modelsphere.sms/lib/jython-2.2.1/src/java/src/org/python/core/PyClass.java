@@ -34,7 +34,7 @@ public class PyClass extends PyObject {
     protected Class proxyClass;
 
     // xxx map 'super__*' names -> array of methods
-    protected java.util.HashMap super__methods;
+    protected java.util.Map super__methods;
 
     public static PyClass __class__;
 

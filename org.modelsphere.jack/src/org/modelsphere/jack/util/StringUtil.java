@@ -54,6 +54,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
@@ -500,7 +501,7 @@ public final class StringUtil implements Testable {
     //
     // UK equivalent
     //
-    private static HashMap g_ukMapping = null;
+    private static Map g_ukMapping = null;
 
     public static String getUKEquivalent(String str) {
         /*
