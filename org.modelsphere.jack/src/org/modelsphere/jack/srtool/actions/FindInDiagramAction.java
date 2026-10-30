@@ -198,7 +198,7 @@ public class FindInDiagramAction extends AbstractDomainAction implements Selecti
                     DbObject diag = go.getComposite();
                     String packName = diag.getComposite().getSemanticalName(DbObject.LONG_FORM);
                     String title = MessageFormat.format(kDiagTitle, new Object[] { packName,
-                            diag.getName(), new Integer(j + 1), new Integer(diagGosCount) });
+                            diag.getName(), Integer.valueOf(j + 1), Integer.valueOf(diagGosCount) });
                     values[valuesCursor] = new DefaultComparableElement(go, title);
                     valuesCursor++;
                 }
@@ -235,7 +235,7 @@ public class FindInDiagramAction extends AbstractDomainAction implements Selecti
                     DbObject diag = go.getComposite();
                     String packName = diag.getComposite().getSemanticalName(DbObject.LONG_FORM);
                     String title = MessageFormat.format(kDiagTitle, new Object[] { packName,
-                            diag.getName(), new Integer(j + 1), new Integer(diagGosCount) });
+                            diag.getName(), Integer.valueOf(j + 1), Integer.valueOf(diagGosCount) });
                     values[valuesCursor] = new DefaultComparableElement(go, title);
                     valuesCursor++;
                 }

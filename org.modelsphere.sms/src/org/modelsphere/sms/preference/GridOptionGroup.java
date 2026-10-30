@@ -81,16 +81,16 @@ public class GridOptionGroup extends OptionGroup {
         public void init() {
             PropertiesSet options = PropertiesManager.APPLICATION_PROPERTIES_SET;
             Integer value = options.getPropertyInteger(Grid.class, Grid.PROPERTY_NB_OF_CELLS_IN_X,
-                    new Integer(Grid.PROPERTY_NB_OF_CELLS_IN_X_DEFAULT));
+                    Integer.valueOf(Grid.PROPERTY_NB_OF_CELLS_IN_X_DEFAULT));
             portNumber.setText(value.toString());
         }
 
         public void actionPerformed(ActionEvent e) {
             Object source = e.getSource();
             if (source == defButton) {
-                portNumber.setText(new Integer(Grid.PROPERTY_NB_OF_CELLS_IN_X_DEFAULT).toString());
+                portNumber.setText(Integer.valueOf(Grid.PROPERTY_NB_OF_CELLS_IN_X_DEFAULT).toString());
                 fireOptionChanged(PropertiesManager.APPLICATION_PROPERTIES_SET,
-                        GridOptionGroup.class, Grid.PROPERTY_NB_OF_CELLS_IN_X, new Integer(
+                        GridOptionGroup.class, Grid.PROPERTY_NB_OF_CELLS_IN_X, Integer.valueOf(
                                 Grid.PROPERTY_NB_OF_CELLS_IN_X_DEFAULT));
             }
         }
@@ -100,7 +100,7 @@ public class GridOptionGroup extends OptionGroup {
 
         public void focusLost(FocusEvent e) {
             if (e.getSource() == portNumber) {
-                int value = new Integer(portNumber.getText()).intValue();
+                int value = Integer.valueOf(portNumber.getText()).intValue();
                 if (value < 1025 || value > 65529) { // Usually 65534 but we use
                     // 6 ports starting with
                     // the provide number
@@ -110,7 +110,7 @@ public class GridOptionGroup extends OptionGroup {
                     portNumber
                             .setText((PropertiesManager.APPLICATION_PROPERTIES_SET
                                     .getPropertyInteger(Grid.class, Grid.PROPERTY_NB_OF_CELLS_IN_X,
-                                            new Integer(Grid.PROPERTY_NB_OF_CELLS_IN_X_DEFAULT))
+                                            Integer.valueOf(Grid.PROPERTY_NB_OF_CELLS_IN_X_DEFAULT))
                                     .toString()));
                 }
             }
@@ -127,7 +127,7 @@ public class GridOptionGroup extends OptionGroup {
         private void validatePortValue() {
             if (portNumber.getText().length() == 0)
                 return;
-            Integer value = new Integer(portNumber.getText());
+            Integer value = Integer.valueOf(portNumber.getText());
             if (value.intValue() < 1025 || value.intValue() > 65529) { // Usually
                 // 65534
                 // but

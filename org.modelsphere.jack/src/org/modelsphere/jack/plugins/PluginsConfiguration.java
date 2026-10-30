@@ -172,7 +172,7 @@ public final class PluginsConfiguration {
             Document document = parser.newDocument();
 
             Element rootElement = document.createElement("plugins");
-            rootElement.setAttribute("build", new Integer(ApplicationContext.APPLICATION_BUILD_ID)
+            rootElement.setAttribute("build", Integer.valueOf(ApplicationContext.APPLICATION_BUILD_ID)
                     .toString());
             document.appendChild(rootElement);
 

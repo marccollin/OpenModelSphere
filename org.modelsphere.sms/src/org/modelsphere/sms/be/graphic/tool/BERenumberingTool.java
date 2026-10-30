@@ -205,7 +205,7 @@ public final class BERenumberingTool extends Tool {
 
         // increment counter for the next call
         int inc = renumbering.getIncrement().intValue();
-        renumbering.setCounter(new Integer(id + inc));
+        renumbering.setCounter(Integer.valueOf(id + inc));
 
         return id;
     } // end computeIdentifier()
@@ -360,13 +360,13 @@ public final class BERenumberingTool extends Tool {
             throws DbException {
         if (semObj instanceof DbBEUseCase) {
             DbBEUseCase usecase = (DbBEUseCase) semObj;
-            usecase.setNumericIdentifier(new Integer(identifier));
+            usecase.setNumericIdentifier(Integer.valueOf(identifier));
         } else if (semObj instanceof DbBEActor) {
             DbBEActor actor = (DbBEActor) semObj;
-            actor.setIdentifier(new Integer(identifier));
+            actor.setIdentifier(Integer.valueOf(identifier));
         } else if (semObj instanceof DbBEStore) {
             DbBEStore store = (DbBEStore) semObj;
-            store.setIdentifier(new Integer(identifier));
+            store.setIdentifier(Integer.valueOf(identifier));
         } else if (semObj instanceof DbBEFlow) {
             DbBEFlow flow = (DbBEFlow) semObj;
             String id = getStrValue(identifier, flowIdPrefrix);

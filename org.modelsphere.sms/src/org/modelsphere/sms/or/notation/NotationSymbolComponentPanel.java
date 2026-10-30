@@ -128,12 +128,12 @@ public final class NotationSymbolComponentPanel extends JPanel {
         // init a client property so that we can use one method to deal with all
         // symbol combo
         // The object value represent the index in the 'values' array.
-        min0.putClientProperty(VALUE_INDEX_PROPERTY, new Integer(3));
-        min1.putClientProperty(VALUE_INDEX_PROPERTY, new Integer(4));
-        max1.putClientProperty(VALUE_INDEX_PROPERTY, new Integer(5));
-        maxN.putClientProperty(VALUE_INDEX_PROPERTY, new Integer(6));
-        keyDependency.putClientProperty(VALUE_INDEX_PROPERTY, new Integer(8));
-        childDirection.putClientProperty(VALUE_INDEX_PROPERTY, new Integer(10));
+        min0.putClientProperty(VALUE_INDEX_PROPERTY, Integer.valueOf(3));
+        min1.putClientProperty(VALUE_INDEX_PROPERTY, Integer.valueOf(4));
+        max1.putClientProperty(VALUE_INDEX_PROPERTY, Integer.valueOf(5));
+        maxN.putClientProperty(VALUE_INDEX_PROPERTY, Integer.valueOf(6));
+        keyDependency.putClientProperty(VALUE_INDEX_PROPERTY, Integer.valueOf(8));
+        childDirection.putClientProperty(VALUE_INDEX_PROPERTY, Integer.valueOf(10));
 
     }
 

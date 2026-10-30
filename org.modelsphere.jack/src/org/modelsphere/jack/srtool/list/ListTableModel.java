@@ -1137,7 +1137,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
             return 0;
         String key = neighborsMetaClass.getJClass().getName() + "_sort"; // NOT LOCALIZABLE
         int orderring = LIST_PROPERTIES_SET.getPropertyInteger(root.getMetaClass().getJClass(),
-                key, new Integer(0)).intValue();
+                key, Integer.valueOf(0)).intValue();
         return orderring;
     }
 

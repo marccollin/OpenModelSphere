@@ -95,8 +95,8 @@ public class CellUtility {
         int verAligment = (va == null) ? 0 : va.intValue();
         boolean buttomBorder = (bb == null) ? true : bb.booleanValue();
         boolean rightBorder = (rb == null) ? true : rb.booleanValue();
-        cell.setXweight(new Double(1.0));
-        cell.setYweight(new Double(1.0));
+        cell.setXweight(Double.valueOf(1.0));
+        cell.setYweight(Double.valueOf(1.0));
 
         SMSHorizontalAlignment horizontalAlign = DbInitialization
                 .convertToHorizontalAlignment(horAligment);

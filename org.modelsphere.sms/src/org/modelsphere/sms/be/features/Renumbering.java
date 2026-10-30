@@ -59,8 +59,8 @@ public final class Renumbering extends JDialog implements TestableWindow {
             .getString("OK");
     private static final String DEFAULT = LocaleMgr.screen.getString("default");
 
-    private static final Integer DEFAULT_COUNTER = new Integer(0);
-    private static final Integer DEFAULT_INCREMENT = new Integer(1);
+    private static final Integer DEFAULT_COUNTER = Integer.valueOf(0);
+    private static final Integer DEFAULT_INCREMENT = Integer.valueOf(1);
 
     private Integer m_counter = DEFAULT_COUNTER; // default value
     private Integer m_increment = DEFAULT_INCREMENT; // default value
@@ -170,10 +170,10 @@ public final class Renumbering extends JDialog implements TestableWindow {
                 try {
                     if (counterField.getText().length() != 0)
                         Renumbering.getSingleInstance().setCounter(
-                                new Integer(Integer.parseInt(counterField.getText())));
+                                Integer.valueOf(Integer.parseInt(counterField.getText())));
                     if (incrementField.getText().length() != 0)
                         Renumbering.getSingleInstance().setIncrement(
-                                new Integer(Integer.parseInt(incrementField.getText())));
+                                Integer.valueOf(Integer.parseInt(incrementField.getText())));
                 } catch (Exception ex) {
                 } // This should not happen, already validated by the
                 // NumericTextField

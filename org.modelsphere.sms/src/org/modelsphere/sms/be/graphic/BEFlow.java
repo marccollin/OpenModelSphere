@@ -450,7 +450,7 @@ public class BEFlow extends SrLine implements DbRefreshListener {
             return "";
         String pattern = "({0}/{1})";
         return MessageFormat.format(pattern,
-                new Object[] { new Integer(index), new Integer(count) });
+                new Object[] { Integer.valueOf(index), Integer.valueOf(count) });
     }
 
 }

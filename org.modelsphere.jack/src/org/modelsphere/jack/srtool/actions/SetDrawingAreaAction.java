@@ -80,7 +80,7 @@ public final class SetDrawingAreaAction extends AbstractApplicationAction implem
                 diagGO.getDb().beginTrans(Db.WRITE_TRANS,
                         LocaleMgr.action.getString("drawingSizeUpdate"));
                 diagGO.set(DbGraphic.fDiagramNbPages, dialog.getNbPages());
-                diagGO.set(DbGraphic.fDiagramPrintScale, new Integer(dialog.getPrintScale()));
+                diagGO.set(DbGraphic.fDiagramPrintScale, Integer.valueOf(dialog.getPrintScale()));
 
                 // Pan graphical objects
                 Dimension pan = dialog.getPan();

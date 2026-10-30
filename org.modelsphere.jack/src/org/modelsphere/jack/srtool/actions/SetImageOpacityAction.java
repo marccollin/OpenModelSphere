@@ -70,7 +70,7 @@ public final class SetImageOpacityAction extends AbstractDomainAction implements
     protected final void doActionPerformed() {
         try {
             Object[] objects = ApplicationContext.getFocusManager().getSelectedObjects();
-            Float selValue = new Float(possibleOpacityValues[getSelectedIndex()]);
+            Float selValue = Float.valueOf(possibleOpacityValues[getSelectedIndex()]);
             DbMultiTrans.beginTrans(Db.WRITE_TRANS, objects, kSetImageOpacity);
             for (int i = 0; i < objects.length; i++) {
                 ((DiagramImage) objects[i]).getGraphicalObject().set(

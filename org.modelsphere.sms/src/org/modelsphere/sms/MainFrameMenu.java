@@ -80,10 +80,10 @@ public class MainFrameMenu extends org.modelsphere.jack.srtool.MainFrameMenu {
 	
     // provided to override default action name for their respective plugins
     private static final String kGenerateJava = LocaleMgr.action.getString("GenerateJava");
-    private static final Integer kGenJavaMnemonic = new Integer(LocaleMgr.action
+    private static final Integer kGenJavaMnemonic = Integer.valueOf(LocaleMgr.action
             .getMnemonic("GenerateJava"));
     private static final String kGenerateXMI = LocaleMgr.action.getString("GenerateXMI");
-    private static final Integer kGenXMIMnemonic = new Integer(LocaleMgr.action
+    private static final Integer kGenXMIMnemonic = Integer.valueOf(LocaleMgr.action
             .getMnemonic("GenerateXMI"));
     private static final String kGenerate = LocaleMgr.misc.getString("Generate");
     private static final String kDataModel = LocaleMgr.misc.getString("DataModel");
@@ -99,12 +99,12 @@ public class MainFrameMenu extends org.modelsphere.jack.srtool.MainFrameMenu {
             .getString("bpmmodel");
     private static final String kGenerateProcessTree = org.modelsphere.sms.be.international.LocaleMgr.misc
             .getString("generateUpdateProcessTree");
-    private static final Integer kGenProcessTreeMnemonic = new Integer(0);
+    private static final Integer kGenProcessTreeMnemonic = Integer.valueOf(0);
     private static final String kValidateBPM = LocaleMgr.action.getString("Validate") + "...";
-    private static final Integer kValidateMnemonic = new Integer(LocaleMgr.action
+    private static final Integer kValidateMnemonic = Integer.valueOf(LocaleMgr.action
             .getMnemonic("Validate"));
     private static final String kCleanUpModel = LocaleMgr.action.getString("CleanUpModel");
-    private static final Integer kCleanUpModelMnemonic = new Integer(LocaleMgr.action
+    private static final Integer kCleanUpModelMnemonic = Integer.valueOf(LocaleMgr.action
             .getMnemonic("CleanUpModel"));
     private static final Icon kCleanUpMdelIcon = LocaleMgr.action.getImageIcon("CleanUpModel");
     private static final String kNew = LocaleMgr.screen.getString("new");

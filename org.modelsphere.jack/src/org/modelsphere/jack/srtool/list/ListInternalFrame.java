@@ -74,7 +74,7 @@ public class ListInternalFrame extends CascadingJInternalFrame implements DbRefr
     private DbObject root;
     private DbProject project;
     private MetaClass neighborsMetaClass;
-    Boolean bIsRelationships = new Boolean(false);
+    Boolean bIsRelationships = Boolean.valueOf(false);
 
     public Boolean isRelationships() {
         return bIsRelationships;

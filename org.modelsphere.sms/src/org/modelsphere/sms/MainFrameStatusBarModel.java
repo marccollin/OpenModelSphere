@@ -264,16 +264,16 @@ public class MainFrameStatusBarModel implements StatusBarModel, CurrentProjectLi
         if (org.modelsphere.jack.debug.Debug.isDebug()) {
             if (!autoupdate) {
                 stopAutoUpdateMemoryInfo();
-                currentVMTotalMemory.setText(new Long(Runtime.getRuntime().totalMemory())
+                currentVMTotalMemory.setText(Long.valueOf(Runtime.getRuntime().totalMemory())
                         .toString());
-                currentVMFreeMemory.setText(new Long(Runtime.getRuntime().freeMemory()).toString());
+                currentVMFreeMemory.setText(Long.valueOf(Runtime.getRuntime().freeMemory()).toString());
             } else {
                 vMUpdater = new Timer(2000, new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        currentVMTotalMemory.setText(new Long(
+                        currentVMTotalMemory.setText(Long.valueOf(
                                 Runtime.getRuntime().totalMemory() / 1024).toString()
                                 + " " + KB);
-                        currentVMFreeMemory.setText(new Long(
+                        currentVMFreeMemory.setText(Long.valueOf(
                                 Runtime.getRuntime().freeMemory() / 1024).toString()
                                 + " " + KB);
                     }

@@ -56,7 +56,7 @@ public final class NoEqualCharacterRuleException extends RuleException {
 
     public static String buildMessage(int i, String parameter) {
         String msg = MessageFormat.format(MESSAGE_PATTERN,
-                new Object[] { new Integer(i), parameter });
+                new Object[] { Integer.valueOf(i), parameter });
         return msg;
     } // end buildMessage();
 

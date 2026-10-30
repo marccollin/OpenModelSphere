@@ -238,7 +238,7 @@ public class DiagramStampOptionGroup extends OptionGroup {
                 }
             } else if (source == useStampImageCBox) {
                 fireOptionChanged(prefs, DiagramStampOptionGroup.class, USE_STAMP_IMAGE,
-                        new Boolean(useStampImageCBox.isSelected()));
+                        Boolean.valueOf(useStampImageCBox.isSelected()));
                 stampImageFileTextField.setEnabled(useStampImageCBox.isSelected());
                 defaultStampImageButton.setEnabled(useStampImageCBox.isSelected());
                 browseStampImageButton.setEnabled(useStampImageCBox.isSelected());

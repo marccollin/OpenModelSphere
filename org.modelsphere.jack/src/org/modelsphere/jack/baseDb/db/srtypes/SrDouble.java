@@ -58,7 +58,7 @@ public final class SrDouble extends SrType {
     }
 
     public final Object toApplType() {
-        return new Double(value);
+        return Double.valueOf(value);
     }
 
     public boolean equals(Object obj) {

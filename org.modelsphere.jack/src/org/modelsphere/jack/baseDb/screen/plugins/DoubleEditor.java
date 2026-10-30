@@ -91,7 +91,7 @@ public class DoubleEditor extends NumericTextField implements Editor, DocumentLi
         if (text.length() == 0)
             return null;
         try {
-            return new Double(Double.parseDouble(text));
+            return Double.valueOf(Double.parseDouble(text));
         } catch (NumberFormatException ex) {
             return oldValue;
         }

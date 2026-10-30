@@ -137,7 +137,7 @@ public class TriStateCheckBoxMenuItem extends JCheckBoxMenuItem {
             updateFontUI();
             setSelected(triState == STATE_ON);
             setEnabled(triState != STATE_NOT_APPLICABLE);
-            putClientProperty(AbstractTriStatesAction.STATE, new Integer(triState));
+            putClientProperty(AbstractTriStatesAction.STATE, Integer.valueOf(triState));
         }
     }
 

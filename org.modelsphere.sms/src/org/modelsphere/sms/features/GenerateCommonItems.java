@@ -581,9 +581,9 @@ final class GenerateCommonItems {
                 item.setTypeUseStyle(style);
                 item.setVisibility(JVVisibility.getInstance(visib.getValue()));
                 item.setStatic(Boolean.valueOf(isStatic));
-                item.setFinal(new Boolean(isFinal));
-                item.setTransient(new Boolean(isTransient));
-                item.setVolatile(new Boolean(isVolatile));
+                item.setFinal(Boolean.valueOf(isFinal));
+                item.setTransient(Boolean.valueOf(isTransient));
+                item.setVolatile(Boolean.valueOf(isVolatile));
                 item.setUmlStereotype(stereotype);
                 item.setDescription(desc);
 

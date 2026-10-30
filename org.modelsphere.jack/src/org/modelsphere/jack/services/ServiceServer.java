@@ -202,7 +202,7 @@ public class ServiceServer {
     }
 
     public void addService(Service service, int port) throws IOException {
-        Integer key = new Integer(port); // the hashtable key
+        Integer key = Integer.valueOf(port); // the hashtable key
         // Check whether a service is already on that port
         if (services.get(key) != null) {
 
@@ -229,7 +229,7 @@ public class ServiceServer {
      * connections
      **/
     public void removeService(int port) {
-        Integer key = new Integer(port); // hashtable key
+        Integer key = Integer.valueOf(port); // hashtable key
         // Look up the Listener object for the port in the hashtable of services
         final Listener listener = (Listener) services.get(key);
         if (listener == null)

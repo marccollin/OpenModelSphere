@@ -886,7 +886,7 @@ public final class SMSSemanticalModel extends SemanticalModel implements Selecti
                         // it
 
                         // add the relationships item //otherwise do nothing
-                        ListDescriptor newDescriptor = new ListDescriptor(ldEntity, new Boolean(
+                        ListDescriptor newDescriptor = new ListDescriptor(ldEntity, Boolean.valueOf(
                                 true));
                         String sDisplayText = terminology.getTerm(DbOOClass.metaClass, true);
                         newDescriptor.setDisplayText(sDisplayText);
@@ -904,7 +904,7 @@ public final class SMSSemanticalModel extends SemanticalModel implements Selecti
 
                         listDesc = (ListDescriptor[]) newArray;
 
-                        listDesc[0] = new ListDescriptor(listDesc[0], new Boolean(false));
+                        listDesc[0] = new ListDescriptor(listDesc[0], Boolean.valueOf(false));
                     }
                 }
             }

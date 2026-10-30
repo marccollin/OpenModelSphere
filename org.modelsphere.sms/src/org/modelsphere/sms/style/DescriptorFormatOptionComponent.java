@@ -157,7 +157,7 @@ public class DescriptorFormatOptionComponent extends OptionComponent {
                 // LOCALIZABLE
                 return null;
             }
-            return new Boolean(colValue);
+            return Boolean.valueOf(colValue);
         }
     }
 }

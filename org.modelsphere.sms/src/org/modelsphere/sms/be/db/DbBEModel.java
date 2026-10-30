@@ -202,7 +202,7 @@ public final class DbBEModel extends DbSMSPackage {
                 maxId = intValue.intValue();
         }
         dbEnum.close();
-        return new Integer(maxId + 1);
+        return Integer.valueOf(maxId + 1);
     }
 
     /**
@@ -217,7 +217,7 @@ public final class DbBEModel extends DbSMSPackage {
                 maxId = intValue.intValue();
         }
         dbEnum.close();
-        return new Integer(maxId + 1);
+        return Integer.valueOf(maxId + 1);
     }
 
     /**

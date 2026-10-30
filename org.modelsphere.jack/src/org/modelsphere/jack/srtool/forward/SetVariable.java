@@ -239,7 +239,7 @@ public final class SetVariable extends Rule {
                         // LOCALIZABLE,
                         // keyword
                         int i = Integer.parseInt(m_sourceVariable.getValue().toString());
-                        value = new Integer(i);
+                        value = Integer.valueOf(i);
                     }
                     break;
                 case SET_COMPUTE:
@@ -248,13 +248,13 @@ public final class SetVariable extends Rule {
                 case SET_BOOLEAN:
                     BooleanModifier bm = (BooleanModifier) m_modifier;
                     boolean bValue = bm.evaluate(object);
-                    value = new Boolean(bValue);
+                    value = Boolean.valueOf(bValue);
                     expanded = true;
                     break;
                 case SET_INTEGER:
                     IntegerModifier im = (IntegerModifier) m_modifier;
                     int intValue = im.evaluate(object);
-                    value = new Integer(intValue);
+                    value = Integer.valueOf(intValue);
                     expanded = true;
                     break;
                 case SET_STRING:

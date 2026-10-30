@@ -86,17 +86,17 @@ public final class DiagramGridOptionGroup extends OptionGroup implements ActionL
         public void init() {
 
             Boolean b = options.getPropertyBoolean(Grid.class, Grid.PROPERTY_HIDE_GRID,
-                    new Boolean(Grid.PROPERTY_HIDE_GRID_DEFAULT));
+                    Boolean.valueOf(Grid.PROPERTY_HIDE_GRID_DEFAULT));
             Boolean c = options.getPropertyBoolean(Grid.class, Grid.PROPERTY_GRID_ACTIVE,
-                    new Boolean(Grid.PROPERTY_GRID_ACTIVE_DEFAULT));
+                    Boolean.valueOf(Grid.PROPERTY_GRID_ACTIVE_DEFAULT));
             Integer x = options.getPropertyInteger(Grid.class, Grid.PROPERTY_NB_OF_CELLS_IN_X,
-                    new Integer(5));
+                    Integer.valueOf(5));
             Integer y = options.getPropertyInteger(Grid.class, Grid.PROPERTY_NB_OF_CELLS_IN_Y,
-                    new Integer(5));
+                    Integer.valueOf(5));
             Integer perc = options.getPropertyInteger(Grid.class, Grid.PROPERTY_PERCENT_OF_CELL,
-                    new Integer(50));
+                    Integer.valueOf(50));
             Integer ic = options.getPropertyInteger(Grid.class, Grid.PROPERTY_GRID_COLOR,
-                    new Integer(0));
+                    Integer.valueOf(0));
             Color color = new Color(ic.intValue());
 
             GridOptionPanel.GridOptions gridOptions = new GridOptionPanel.GridOptions(!b

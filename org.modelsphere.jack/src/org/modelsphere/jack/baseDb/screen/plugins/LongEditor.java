@@ -91,7 +91,7 @@ public class LongEditor extends NumericTextField implements Editor, DocumentList
         if (text.length() == 0)
             return null;
         try {
-            return new Long(Long.parseLong(text));
+            return Long.valueOf(Long.parseLong(text));
         } catch (NumberFormatException ex) {
             return oldValue;
         }

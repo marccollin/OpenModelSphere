@@ -175,7 +175,7 @@ public class BEFlowTool extends LineTool {
                     util.initFlow(flow, notation);
                     DbBEFlowGo flowGo = new DbBEFlowGo(diagGO, sourceGo, destGo, flow);
                     flowGo.setPolyline(poly);
-                    flowGo.setRightAngle(new Boolean(rightAngle));
+                    flowGo.setRightAngle(Boolean.valueOf(rightAngle));
                 } // end if
             } // end if
         } // end if

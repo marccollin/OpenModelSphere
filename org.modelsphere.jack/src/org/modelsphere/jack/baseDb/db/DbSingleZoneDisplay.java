@@ -138,9 +138,9 @@ public abstract class DbSingleZoneDisplay extends DbZoneDisplay {
             ZoneJustification justification, boolean separator) throws DbException {
         super(composite);
         setMetaField(metaField);
-        setDisplayed(new Boolean(displayed));
+        setDisplayed(Boolean.valueOf(displayed));
         setJustification(justification);
-        setSeparator(new Boolean(separator));
+        setSeparator(Boolean.valueOf(separator));
         setDefaultInitialValues();
     }
 
@@ -160,9 +160,9 @@ public abstract class DbSingleZoneDisplay extends DbZoneDisplay {
             ZoneJustification justification, boolean separator) throws DbException {
         super(composite);
         setUdf(udf);
-        setDisplayed(new Boolean(displayed));
+        setDisplayed(Boolean.valueOf(displayed));
         setJustification(justification);
-        setSeparator(new Boolean(separator));
+        setSeparator(Boolean.valueOf(separator));
         setDefaultInitialValues();
     }
 
@@ -181,9 +181,9 @@ public abstract class DbSingleZoneDisplay extends DbZoneDisplay {
         super(composite);
         setUdf(null);
         setMetaField(null);
-        setDisplayed(new Boolean(displayed));
+        setDisplayed(Boolean.valueOf(displayed));
         setJustification(justification);
-        setSeparator(new Boolean(separator));
+        setSeparator(Boolean.valueOf(separator));
         setDefaultInitialValues();
     }
 

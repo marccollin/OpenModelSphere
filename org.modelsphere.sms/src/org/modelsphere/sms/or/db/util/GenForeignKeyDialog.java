@@ -292,7 +292,7 @@ public class GenForeignKeyDialog extends JDialog {
         setOrphanBackup = setOrphanBtn.isSelected();
         checkBoxesBackup = new Boolean[checkBoxes.length];
         for (int i = 0; i < checkBoxes.length; i++) {
-            checkBoxesBackup[i] = new Boolean(checkBoxes[i].isSelected());
+            checkBoxesBackup[i] = Boolean.valueOf(checkBoxes[i].isSelected());
         }
     }
 

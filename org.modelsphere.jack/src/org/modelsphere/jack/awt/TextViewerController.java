@@ -214,10 +214,10 @@ class TextViewerController implements ActionListener {// , HyperlinkListener {
                     vMUpdater = new Timer(2000, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            currentVMTotalMemory.setText(new Long(Runtime.getRuntime()
+                            currentVMTotalMemory.setText(Long.valueOf(Runtime.getRuntime()
                                     .totalMemory() / 1024).toString()
                                     + " " + KB);
-                            currentVMFreeMemory.setText(new Long(
+                            currentVMFreeMemory.setText(Long.valueOf(
                                     Runtime.getRuntime().freeMemory() / 1024).toString()
                                     + " " + KB);
                         }

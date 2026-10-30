@@ -66,7 +66,7 @@ public abstract class Splash extends JDialog implements ActionListener {
     static {
         buildString = "("
                 + MessageFormat.format(LocaleMgr.screen.getString("Build0"),
-                        new Object[] { new Integer(ApplicationContext.APPLICATION_BUILD_ID) })
+                        new Object[] { Integer.valueOf(ApplicationContext.APPLICATION_BUILD_ID) })
                 + ")";
         copyrightString = LocaleMgr.screen.getString("Copyright");
 

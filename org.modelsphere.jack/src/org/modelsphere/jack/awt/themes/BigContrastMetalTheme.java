@@ -133,7 +133,7 @@ public class BigContrastMetalTheme extends ContrastMetalTheme {
         table.put("ScrollPane.border", blackLineBorder); // NOT LOCALIZABLE,
         // property key
 
-        table.put("ScrollBar.width", new Integer(25)); // NOT LOCALIZABLE,
+        table.put("ScrollBar.width", Integer.valueOf(25)); // NOT LOCALIZABLE,
         // property key
     }
 }

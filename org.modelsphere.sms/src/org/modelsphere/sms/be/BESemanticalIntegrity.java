@@ -711,9 +711,9 @@ public final class BESemanticalIntegrity implements DbUpdateListener {
             processRsrcTime = getConvertValue(resultTime, commonTimeUnit);
         }
 
-        process.setResourceCost(new Double(processRsrcCost));
-        process.setResourceTime(useCaseRsrcUnitDiff == 0 ? new Double(processRsrcTime)
-                : new Double(getUndefinedValue()));
+        process.setResourceCost(Double.valueOf(processRsrcCost));
+        process.setResourceTime(useCaseRsrcUnitDiff == 0 ? Double.valueOf(processRsrcTime)
+                : Double.valueOf(getUndefinedValue()));
         if ((useCaseRsrcUnitDiff == 0) && (commonTimeUnit > 0))
             process.setResourceTimeUnit(BETimeUnit.getInstance(commonTimeUnit));
         else

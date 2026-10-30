@@ -384,7 +384,7 @@ public abstract class ApplicationPopupMenu {
         itemNameMap = new HashMap();
         int i;
         for (i = 0; i < itemMenuNames.length; i++)
-            itemNameMap.put(itemMenuNames[i], new Integer(i));
+            itemNameMap.put(itemMenuNames[i], Integer.valueOf(i));
 
         popupMenuByClass = new Object[instanceWithPopupMenu.length];
         for (i = 0; i < popupMenuByClass.length; i += 2) {

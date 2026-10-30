@@ -112,7 +112,7 @@ public final class DbSMSImageGo extends DbSMSGraphicalObject {
     }
 
     private void setDefaultInitialValues() throws DbException {
-        setOpacityFactor(new Float(1.0f));
+        setOpacityFactor(Float.valueOf(1.0f));
     }
 
     /**

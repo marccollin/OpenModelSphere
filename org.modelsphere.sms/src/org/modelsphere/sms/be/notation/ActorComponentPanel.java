@@ -199,7 +199,7 @@ public final class ActorComponentPanel extends JPanel implements ActionListener,
         try {
             if (width.getText() == null || width.getText().length() == 0)
                 return;
-            optionComponent.setValue(new Integer(width.getText()), 0);
+            optionComponent.setValue(Integer.valueOf(width.getText()), 0);
         } catch (NumberFormatException e) {
         }
     }
@@ -210,7 +210,7 @@ public final class ActorComponentPanel extends JPanel implements ActionListener,
         try {
             if (height.getText() == null || height.getText().length() == 0)
                 return;
-            optionComponent.setValue(new Integer(height.getText()), 1);
+            optionComponent.setValue(Integer.valueOf(height.getText()), 1);
         } catch (NumberFormatException e) {
         }
     }

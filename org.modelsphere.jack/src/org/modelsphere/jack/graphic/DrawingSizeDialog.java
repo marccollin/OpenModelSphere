@@ -244,8 +244,8 @@ public class DrawingSizeDialog extends JDialog implements ChangeListener {
 
     private void refreshSizeLabel() {
         String pattern = LocaleMgr.screen.getString("drawingAreaInPages");
-        String text = MessageFormat.format(pattern, new Object[] { new Integer(nbPages.height),
-                new Integer(nbPages.width) });
+        String text = MessageFormat.format(pattern, new Object[] { Integer.valueOf(nbPages.height),
+                Integer.valueOf(nbPages.width) });
         sizeLabel.setText(text);
     }
 

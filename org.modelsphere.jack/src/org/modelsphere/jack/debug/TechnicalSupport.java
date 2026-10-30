@@ -105,7 +105,7 @@ public final class TechnicalSupport {
         char[] chars = linesep == null ? new char[] {} : linesep.toCharArray();
         String charsint = "";
         for (int i = 0; i < chars.length; i++) {
-            charsint += new Integer((int) chars[i]).toString() + " ";
+            charsint += Integer.valueOf((int) chars[i]).toString() + " ";
         }
         info += "line.separator = " + charsint + "\n"; // NOT LOCALIZABLE
         info += "path.separator = " + System.getProperty("path.separator") + "\n"; // NOT LOCALIZABLE

@@ -69,7 +69,7 @@ public class SMSFreeLineTool extends LineTool {
 
             DbSMSFreeLineGo lineGo = new DbSMSFreeLineGo(diagGO);
             lineGo.setPolyline(poly);
-            lineGo.setRightAngle(new Boolean(rightAngle));
+            lineGo.setRightAngle(Boolean.valueOf(rightAngle));
 
             diagGO.getDb().commitTrans();
         } catch (Exception ex) {

@@ -305,11 +305,11 @@ public class DbFindDialog extends JDialog implements ActionListener, TestableWin
     private ArrayList getScopeValue() {
         ArrayList scopeOptions = new ArrayList();
 
-        scopeOptions.add(new Boolean(nameCB.isSelected()));
-        scopeOptions.add(new Boolean(codedNameCB.isSelected()));
-        scopeOptions.add(new Boolean(aliasCB.isSelected()));
-        scopeOptions.add(new Boolean(descriptionCB.isSelected()));
-        scopeOptions.add(new Boolean(allOtherTextCB.isSelected()));
+        scopeOptions.add(Boolean.valueOf(nameCB.isSelected()));
+        scopeOptions.add(Boolean.valueOf(codedNameCB.isSelected()));
+        scopeOptions.add(Boolean.valueOf(aliasCB.isSelected()));
+        scopeOptions.add(Boolean.valueOf(descriptionCB.isSelected()));
+        scopeOptions.add(Boolean.valueOf(allOtherTextCB.isSelected()));
         return scopeOptions;
     }
 

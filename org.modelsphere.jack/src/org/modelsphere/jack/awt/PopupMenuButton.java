@@ -434,10 +434,10 @@ public class PopupMenuButton extends JButton implements ActionListener {
         /*
          * if (action != null){ action.setSelectedPrivate_(index, this); }
          */
-        fireActionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, new Integer(index)
+        fireActionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Integer.valueOf(index)
                 .toString()
                 + AbstractMenuAction.ACTION_COMMAND_SUB_VALUE_SEPARATOR
-                + new Integer(subindex).toString(), 0));
+                + Integer.valueOf(subindex).toString(), 0));
     }
 
     // This class provide a way to popup

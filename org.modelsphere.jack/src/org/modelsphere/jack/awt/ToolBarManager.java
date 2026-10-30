@@ -214,13 +214,13 @@ public final class ToolBarManager implements ActionListener, /* PropertiesProvid
 
             Dimension defaultSize = diag.getPreferredSize();
             int x = propSet.getPropertyInteger(ToolBarManager.class, item.key + DIALOG_LOC_X,
-                    new Integer(refLoc.x + deltax + (adjSize.width * 2 / 3))).intValue();
+                    Integer.valueOf(refLoc.x + deltax + (adjSize.width * 2 / 3))).intValue();
             int y = propSet.getPropertyInteger(ToolBarManager.class, item.key + DIALOG_LOC_Y,
-                    new Integer(refLoc.y + deltay + (adjSize.height + 10))).intValue();
+                    Integer.valueOf(refLoc.y + deltay + (adjSize.height + 10))).intValue();
             int w = propSet.getPropertyInteger(ToolBarManager.class, item.key + DIALOG_LOC_WIDTH,
-                    new Integer(defaultSize.width)).intValue();
+                    Integer.valueOf(defaultSize.width)).intValue();
             int h = propSet.getPropertyInteger(ToolBarManager.class, item.key + DIALOG_LOC_HEIGHT,
-                    new Integer(defaultSize.height)).intValue();
+                    Integer.valueOf(defaultSize.height)).intValue();
             w = Math.max(w, MIN_WIDTH);
             h = Math.max(h, MIN_HEIGHT);
 
@@ -312,10 +312,10 @@ public final class ToolBarManager implements ActionListener, /* PropertiesProvid
                         return;
                     Point p = toolBar.getLocation();
                     int x = propSet.getPropertyInteger(ToolBarPanel.class,
-                            item.key + FLOATING_LOC_X_PROPERTY_EXTENTION, new Integer(p.x + 20))
+                            item.key + FLOATING_LOC_X_PROPERTY_EXTENTION, Integer.valueOf(p.x + 20))
                             .intValue();
                     int y = propSet.getPropertyInteger(ToolBarPanel.class,
-                            item.key + FLOATING_LOC_Y_PROPERTY_EXTENTION, new Integer(p.y + 40))
+                            item.key + FLOATING_LOC_Y_PROPERTY_EXTENTION, Integer.valueOf(p.y + 40))
                             .intValue();
                     Point p2 = new Point(x, y);
                     final Point p3 = new Point(p2);

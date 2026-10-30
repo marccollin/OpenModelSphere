@@ -389,7 +389,7 @@ public class XmlImportWorker extends Worker {
             } else {
                 String IMPORT_PATTERN = "{0} {1} {2}.";
                 String msg = MessageFormat.format(IMPORT_PATTERN, new Object[] { IMPORT,
-                        new Integer(nbObjs), DbSemanticalObject.metaClass.getGUIName(true) });
+                        Integer.valueOf(nbObjs), DbSemanticalObject.metaClass.getGUIName(true) });
                 getController().println(msg);
                 db.commitTrans();
             } //end if
@@ -566,16 +566,16 @@ public class XmlImportWorker extends Worker {
                 actualValue = rawValue;
             } else if (type == boolean.class) {
                 boolean b = rawValue.equals("1") ? true : false;
-                actualValue = new Boolean(b);
+                actualValue = Boolean.valueOf(b);
             } else if (type == int.class) {
                 int i = Integer.parseInt(rawValue, 16);
-                actualValue = new Integer(i);
+                actualValue = Integer.valueOf(i);
             } else if (type == float.class) {
                 float fl = Float.parseFloat(rawValue);
-                actualValue = new Float(fl);
+                actualValue = Float.valueOf(fl);
             } else if (type == double.class) {
                 double d = Double.parseDouble(rawValue);
-                actualValue = new Double(d);
+                actualValue = Double.valueOf(d);
             } else if (SrType.class.isAssignableFrom(type)) {
                 actualValue = getSrActualValue(f, rawValue);
             } else {
@@ -789,7 +789,7 @@ public class XmlImportWorker extends Worker {
                 //each intDomain has a getInstance() static method with an integer a sole parameter
                 Method method = claz.getMethod("getInstance", new Class[] { int.class });
                 //create a default instance
-                defValue = method.invoke(null, new Object[] { new Integer(1) });
+                defValue = method.invoke(null, new Object[] { Integer.valueOf(1) });
             } catch (Exception ex) {
                 defValue = null;
             } //end try

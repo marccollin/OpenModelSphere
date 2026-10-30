@@ -167,7 +167,7 @@ public final class DbBEQualifier extends DbSMSSemanticalObject {
             // if the icon we are setting is one of these images
             if (value.equals(imageList[i])) {
                 //set the index as the qualifier Id
-                String qualifierId = new Integer(i).toString();
+                String qualifierId = Integer.valueOf(i).toString();
                 while (qualifierId.length() < 4)
                     qualifierId = "0" + qualifierId; // NOT LOCALIZABLE 
                 basicSet(fQualifierId, qualifierId);

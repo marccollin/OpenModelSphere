@@ -117,7 +117,7 @@ public final class JdbcReverseWorker extends Worker {
                         case JdbcReverseToolkitPlugin.TYPEID:
                         case JdbcReverseToolkitPlugin.UDTID:
                             reverseTypes(reader, ObjectScope.findConceptInObjectScopeWithConceptID(
-                                    scope, new Integer(JdbcReverseToolkitPlugin.TYPEID)), scope[i]);
+                                    scope, Integer.valueOf(JdbcReverseToolkitPlugin.TYPEID)), scope[i]);
                             break;
                         case JdbcReverseToolkitPlugin.TABLEID:
                         case JdbcReverseToolkitPlugin.COLUMNID:
@@ -125,22 +125,22 @@ public final class JdbcReverseWorker extends Worker {
                         case JdbcReverseToolkitPlugin.FKID:
                         case JdbcReverseToolkitPlugin.INDEXID:
                             reverseTables(reader, ObjectScope
-                                    .findConceptInObjectScopeWithConceptID(scope, new Integer(
+                                    .findConceptInObjectScopeWithConceptID(scope, Integer.valueOf(
                                             JdbcReverseToolkitPlugin.USERID)), ObjectScope
-                                    .findConceptInObjectScopeWithConceptID(scope, new Integer(
+                                    .findConceptInObjectScopeWithConceptID(scope, Integer.valueOf(
                                             JdbcReverseToolkitPlugin.TABLEID)), scope[i]);
                             break;
                         case JdbcReverseToolkitPlugin.VIEWID:
                         case JdbcReverseToolkitPlugin.COLUMNVIEWID:
                             reverseViews(reader, ObjectScope.findConceptInObjectScopeWithConceptID(
-                                    scope, new Integer(JdbcReverseToolkitPlugin.USERID)),
+                                    scope, Integer.valueOf(JdbcReverseToolkitPlugin.USERID)),
                                     ObjectScope.findConceptInObjectScopeWithConceptID(scope,
-                                            new Integer(JdbcReverseToolkitPlugin.VIEWID)), scope[i]);
+                                            Integer.valueOf(JdbcReverseToolkitPlugin.VIEWID)), scope[i]);
                             break;
                         case JdbcReverseToolkitPlugin.PROCID:
                         case JdbcReverseToolkitPlugin.PROCCOLID:
                             reverseProcedures(reader, ObjectScope
-                                    .findConceptInObjectScopeWithConceptID(scope, new Integer(
+                                    .findConceptInObjectScopeWithConceptID(scope, Integer.valueOf(
                                             JdbcReverseToolkitPlugin.PROCID)), scope[i]);
                             break;
                         }

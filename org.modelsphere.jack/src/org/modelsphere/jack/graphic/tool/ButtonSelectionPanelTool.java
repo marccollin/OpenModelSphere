@@ -80,7 +80,7 @@ public abstract class ButtonSelectionPanelTool extends Tool {
         else {
             PropertiesSet preferences = PropertiesManager.getPreferencePropertiesSet();
             auxiliaryIndex = (preferences == null) ? 0 : preferences.getPropertyInteger(getClass(),
-                    SELECTED_INDEX_PROPERTY, new Integer(defaultPreferenceIndex)).intValue();
+                    SELECTED_INDEX_PROPERTY, Integer.valueOf(defaultPreferenceIndex)).intValue();
         }
 
         // cursors = loadDefaultCursors();

@@ -217,8 +217,8 @@ public final class LogDialog extends JDialog implements TestableWindow {
         lPlugins.setSelected((config & Log.LOG_PLUGIN) != 0);
         lTrace.setSelected((config & Log.LOG_TRACE) != 0);
         lServices.setSelected((config & Log.LOG_SERVICES) != 0);
-        lSize.setText(new Integer(Log.getMaxSize()).toString());
-        lCleanup.setText(new Integer(Log.getCleanupSize()).toString());
+        lSize.setText(Integer.valueOf(Log.getMaxSize()).toString());
+        lCleanup.setText(Integer.valueOf(Log.getCleanupSize()).toString());
     }
 
     private void saveConfig() {
@@ -240,11 +240,11 @@ public final class LogDialog extends JDialog implements TestableWindow {
         int newsize = Log.getMaxSize();
         int newcleanupsize = Log.getCleanupSize();
         try {
-            newsize = new Integer(Integer.parseInt(lSizeText)).intValue();
+            newsize = Integer.valueOf(Integer.parseInt(lSizeText)).intValue();
         } catch (NumberFormatException ex) {
         }
         try {
-            newcleanupsize = new Integer(Integer.parseInt(lCleanupText)).intValue();
+            newcleanupsize = Integer.valueOf(Integer.parseInt(lCleanupText)).intValue();
         } catch (NumberFormatException ex) {
         }
         Log.configureMaxSize(newsize, newcleanupsize);

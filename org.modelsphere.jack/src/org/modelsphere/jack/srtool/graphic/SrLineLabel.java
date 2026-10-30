@@ -138,7 +138,7 @@ public abstract class SrLineLabel extends LineLabel implements ActionInformation
     }
 
     public final void resizeLabel(int width) throws DbException {
-        lineGo.set(maxWidthMF, new Integer(width));
+        lineGo.set(maxWidthMF, Integer.valueOf(width));
     }
 
     public final DbObject getSemanticalObject() {

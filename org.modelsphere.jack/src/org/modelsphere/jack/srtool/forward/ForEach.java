@@ -118,7 +118,7 @@ public class ForEach extends Rule {
 
         // start iterator
         int currentValue = m_start.evaluate(obj);
-        m_targetVariable.setValue(new Integer(currentValue));
+        m_targetVariable.setValue(Integer.valueOf(currentValue));
 
         // while end value not reached
         int nbIterations = 0;
@@ -133,7 +133,7 @@ public class ForEach extends Rule {
 
             // increment iterator
             currentValue++;
-            m_targetVariable.setValue(new Integer(currentValue));
+            m_targetVariable.setValue(Integer.valueOf(currentValue));
 
             // prevent endless loop
             nbIterations++;

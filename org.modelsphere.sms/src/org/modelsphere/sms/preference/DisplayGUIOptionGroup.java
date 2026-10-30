@@ -181,17 +181,17 @@ public class DisplayGUIOptionGroup extends OptionGroup {
             PropertiesSet prefs = PropertiesManager.getPreferencePropertiesSet();
 
             if (source == leftrightLayout) {
-                fireOptionChanged(prefs, DefaultMainFrame.class, PROPERTY_LAYOUT, new Integer(
+                fireOptionChanged(prefs, DefaultMainFrame.class, PROPERTY_LAYOUT, Integer.valueOf(
                         DefaultMainFrame.LAYOUT_LEFT_RIGHT));
                 if (leftrightLayout.isSelected())
                     selected = DefaultMainFrame.LAYOUT_LEFT_RIGHT;
             } else if (source == leftbottomLayout) {
-                fireOptionChanged(prefs, DefaultMainFrame.class, PROPERTY_LAYOUT, new Integer(
+                fireOptionChanged(prefs, DefaultMainFrame.class, PROPERTY_LAYOUT, Integer.valueOf(
                         DefaultMainFrame.LAYOUT_LEFT_BOTTOM));
                 if (leftbottomLayout.isSelected())
                     selected = DefaultMainFrame.LAYOUT_LEFT_BOTTOM;
             } else if (source == leftleftLayout) {
-                fireOptionChanged(prefs, DefaultMainFrame.class, PROPERTY_LAYOUT, new Integer(
+                fireOptionChanged(prefs, DefaultMainFrame.class, PROPERTY_LAYOUT, Integer.valueOf(
                         DefaultMainFrame.LAYOUT_LEFT_LEFT));
                 if (leftleftLayout.isSelected())
                     selected = DefaultMainFrame.LAYOUT_LEFT_LEFT;

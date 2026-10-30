@@ -166,7 +166,7 @@ public abstract class DbSMSDiagram extends DbObject {
     }
 
     private void setDefaultInitialValues() throws DbException {
-        setPrintScale(new Integer(60));
+        setPrintScale(Integer.valueOf(60));
         setNbPages(new Dimension(1, 1));
         setName(LocaleMgr.misc.getString("diagram"));
         PageFormat format = new PageFormat();

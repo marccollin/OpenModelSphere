@@ -250,7 +250,7 @@ public final class DbBEUseCase extends DbSMSClassifier {
             Terminology term = terminologyUtil.findModelTerminology(model);
             setName(term.getTerm(DbBEUseCaseGo.metaClass));
             setTerminologyName(model.getTerminologyName());
-            setNumericIdentifier(new Integer(0));
+            setNumericIdentifier(Integer.valueOf(0));
         } else {
             DbBEUseCase useCase = (DbBEUseCase) getComposite();
             TerminologyUtil terminologyUtil = TerminologyUtil.getInstance();
@@ -378,7 +378,7 @@ public final class DbBEUseCase extends DbSMSClassifier {
                 maxId = intValue.intValue();
         }
         dbEnum.close();
-        return new Integer(maxId + 1);
+        return Integer.valueOf(maxId + 1);
 
     }
 
@@ -402,7 +402,7 @@ public final class DbBEUseCase extends DbSMSClassifier {
             count = count + 1;
         }
         dbEnum.close();
-        return new String(new Integer(count).toString());
+        return new String(Integer.valueOf(count).toString());
 
     }
 

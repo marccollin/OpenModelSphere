@@ -83,7 +83,7 @@ public class MultiLongEditor extends NumericTextField implements TableCellEditor
         if (text.length() == 0)
             return null;
         try {
-            return new Long(Long.parseLong(text));
+            return Long.valueOf(Long.parseLong(text));
         } catch (NumberFormatException ex) {
             return null;
         }

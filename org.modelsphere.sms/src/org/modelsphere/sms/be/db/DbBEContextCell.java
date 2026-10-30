@@ -173,8 +173,8 @@ public final class DbBEContextCell extends DbObject {
      **/
     public DbBEContextCell(DbObject composite, int x, int y) throws DbException {
         super(composite);
-        setX(new Integer(x));
-        setY(new Integer(y));
+        setX(Integer.valueOf(x));
+        setY(Integer.valueOf(y));
         org.modelsphere.sms.db.util.DbInitialization.initCellValues(this);
     }
 

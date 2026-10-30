@@ -80,7 +80,7 @@ public final class DbBEQualifierIconEditor implements Editor {
         ArrayList images = new ArrayList();
         try {
             int count = 1;
-            String fileName = new Integer(count).toString();
+            String fileName = Integer.valueOf(count).toString();
             while (fileName.length() < 4)
                 fileName = "0" + fileName; // NOT LOCALIZABLE
             Image image = GraphicUtil.loadImage(BEModule.class,
@@ -89,7 +89,7 @@ public final class DbBEQualifierIconEditor implements Editor {
             while (image != null) {
                 images.add(image);
                 count++;
-                fileName = new Integer(count).toString();
+                fileName = Integer.valueOf(count).toString();
                 while (fileName.length() < 4)
                     fileName = "0" + fileName; // NOT LOCALIZABLE
                 image = GraphicUtil.loadImage(BEModule.class, "international/resources/qualifiers/"

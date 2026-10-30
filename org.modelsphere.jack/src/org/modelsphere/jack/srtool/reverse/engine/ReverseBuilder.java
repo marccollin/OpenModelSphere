@@ -478,13 +478,13 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
         if (occurrenceId != -1) { // Concept defined in class
             // 'org.modelsphere.jack.srtool.reverse.Mapping'
             currentObject = new HashMap(NEW_MAP_OBJECT_SIZE);
-            currentObject.put(CURRENT_OBJECT_CONCEPT_ID, new Integer(occurrenceId));
+            currentObject.put(CURRENT_OBJECT_CONCEPT_ID, Integer.valueOf(occurrenceId));
             currentObject.put(CURRENT_OBJECT_CONCEPT_NAME, conceptName);
         } else if ((conceptName != null) && (compositionMapping.get(conceptName) != null)) { // user
             // defined
             // concept
             currentObject = new HashMap(NEW_MAP_OBJECT_SIZE);
-            currentObject.put(CURRENT_OBJECT_CONCEPT_ID, new Integer(USER_DEFINED_CONCEPT_ID));
+            currentObject.put(CURRENT_OBJECT_CONCEPT_ID, Integer.valueOf(USER_DEFINED_CONCEPT_ID));
             currentObject.put(CURRENT_OBJECT_CONCEPT_NAME, conceptName);
         } else if (!ignoredConcept.contains(conceptName)) {
             Debug.trace("Unsupported concept:  " + conceptName);
@@ -600,11 +600,11 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
         String group = (String) conceptGroupInOutputRepport.get(concept);
         Integer count = (Integer) occurrencesCounters.get(group == null ? concept : group);
         if (count == null)
-            count = new Integer(1);
+            count = Integer.valueOf(1);
         else {
             int oldcount = count.intValue();
             oldcount++;
-            count = new Integer(oldcount);
+            count = Integer.valueOf(oldcount);
         }
         occurrencesCounters.put((group == null ? concept : group), count);
     }

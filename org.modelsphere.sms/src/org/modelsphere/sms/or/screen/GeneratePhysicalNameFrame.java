@@ -232,7 +232,7 @@ public class GeneratePhysicalNameFrame extends JDialog {
 
     ItemListener uniqueCheckBoxListener = new ItemListener() {
         public void itemStateChanged(ItemEvent e) {
-            updateTableColumn(4, new Boolean(uniqueCheckBox.isSelected()));
+            updateTableColumn(4, Boolean.valueOf(uniqueCheckBox.isSelected()));
         }
     };
 
@@ -263,7 +263,7 @@ public class GeneratePhysicalNameFrame extends JDialog {
                 GeneratePhysicalNameFrame.class, WORD_DELIMITERS, ""); // NOT
         // LOCALIZABLE
         useDictionary = physicalNameGenerationPropertiesSet.getPropertyBoolean(
-                GeneratePhysicalNameFrame.class, USE_DICTIONARY, new Boolean(useDictionary))
+                GeneratePhysicalNameFrame.class, USE_DICTIONARY, Boolean.valueOf(useDictionary))
                 .booleanValue();
         accentedCharactersToReplace = physicalNameGenerationPropertiesSet.getPropertyString(
                 GeneratePhysicalNameFrame.class, ACCENTED_CHARACTERS_TO_REPLACE,
@@ -334,7 +334,7 @@ public class GeneratePhysicalNameFrame extends JDialog {
         integerField.setHorizontalAlignment(WholeNumberField.RIGHT);
         DefaultCellEditor integerEditor = new DefaultCellEditor(integerField) {
             public Object getCellEditorValue() {
-                return new Integer(integerField.getValue());
+                return Integer.valueOf(integerField.getValue());
             }
         };
         conceptsTable.setDefaultEditor(Integer.class, integerEditor);
@@ -599,7 +599,7 @@ public class GeneratePhysicalNameFrame extends JDialog {
             status = EMPTY_COMBOBOX_VALUE;
             replacementChar = GeneratePhysicalNameModel.DEFAULT_REPLACEMENT_STRING;
             length = String.valueOf(GeneratePhysicalNameModel.DEFAULT_LENGTH);
-            Unique = new Boolean(GeneratePhysicalNameModel.DEFAULT_UNIQUE);
+            Unique = Boolean.valueOf(GeneratePhysicalNameModel.DEFAULT_UNIQUE);
             nbCharByWord = String.valueOf(GeneratePhysicalNameModel.DEFAULT_NCBW);
             caseChange = EMPTY_COMBOBOX_VALUE;
         }
@@ -680,7 +680,7 @@ public class GeneratePhysicalNameFrame extends JDialog {
             Dimension dim = null;
             synchronized (target.getTreeLock()) {
                 Insets insets = target.getInsets();
-                dim = new Dimension(100, new Double(caseCombo.getPreferredSize().getHeight())
+                dim = new Dimension(100, Double.valueOf(caseCombo.getPreferredSize().getHeight())
                         .intValue()
                         + insets.top + insets.bottom);
             }
@@ -691,7 +691,7 @@ public class GeneratePhysicalNameFrame extends JDialog {
             Dimension dim = null;
             synchronized (target.getTreeLock()) {
                 Insets insets = target.getInsets();
-                dim = new Dimension(100, new Double(caseCombo.getPreferredSize().getHeight())
+                dim = new Dimension(100, Double.valueOf(caseCombo.getPreferredSize().getHeight())
                         .intValue()
                         + insets.top + insets.bottom);
             }

@@ -497,11 +497,11 @@ public class ModelIntegrityReport {
         writer.write("<b><i>"); // NOT LOCALIZABLE
         writer.write(EOL + EOL);
         if (modelErrorCount > 0)
-            writer.write(MessageFormat.format(kErrorCount0, new Object[] { new Integer(
+            writer.write(MessageFormat.format(kErrorCount0, new Object[] { Integer.valueOf(
                     modelErrorCount) })
                     + EOL);
         if (modelWarningCount > 0)
-            writer.write(MessageFormat.format(kWarningCount0, new Object[] { new Integer(
+            writer.write(MessageFormat.format(kWarningCount0, new Object[] { Integer.valueOf(
                     modelWarningCount) })
                     + EOL);
         if (modelErrorCount == 0 && modelWarningCount == 0)

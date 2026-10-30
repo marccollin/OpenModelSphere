@@ -255,8 +255,8 @@ public final class DbBENotation extends DbSMSNotation {
         useCaseOptions = new MetaField[] { fUseCaseDefaultWidth, fUseCaseDefaultHeight,
                 fUseCaseShape, fUseCaseZoneOrientation };
 
-        useCaseOptionDefaultValues = new Object[] { new Integer(USECASE_DEFAULT_WIDTH),
-                new Integer(USECASE_DEFAULT_HEIGHT),
+        useCaseOptionDefaultValues = new Object[] { Integer.valueOf(USECASE_DEFAULT_WIDTH),
+                Integer.valueOf(USECASE_DEFAULT_HEIGHT),
                 SMSNotationShape.getInstance(SMSNotationShape.ROUND_RECTANGLE),
                 SMSZoneOrientation.getInstance(SMSZoneOrientation.HORIZONTAL) };
 
@@ -264,8 +264,8 @@ public final class DbBENotation extends DbSMSNotation {
         actorOptions = new MetaField[] { fActorDefaultWidth, fActorDefaultHeight, fActorIdPrefix,
                 fActorShape, fActorZoneOrientation };
 
-        actorOptionDefaultValues = new Object[] { new Integer(ACTOR_DEFAULT_WIDTH),
-                new Integer(ACTOR_DEFAULT_HEIGHT), ACTOR_ID_PREFIX,
+        actorOptionDefaultValues = new Object[] { Integer.valueOf(ACTOR_DEFAULT_WIDTH),
+                Integer.valueOf(ACTOR_DEFAULT_HEIGHT), ACTOR_ID_PREFIX,
                 SMSNotationShape.getInstance(SMSNotationShape.SHADOW_RECTANGLE),
                 SMSZoneOrientation.getInstance(SMSZoneOrientation.HORIZONTAL) };
 
@@ -273,8 +273,8 @@ public final class DbBENotation extends DbSMSNotation {
         storeOptions = new MetaField[] { fStoreDefaultWidth, fStoreDefaultHeight, fStoreIdPrefix,
                 fStoreShape, fStoreZoneOrientation };
 
-        storeOptionDefaultValues = new Object[] { new Integer(STORE_DEFAULT_WIDTH),
-                new Integer(STORE_DEFAULT_HEIGHT), STORE_ID_PREFIX,
+        storeOptionDefaultValues = new Object[] { Integer.valueOf(STORE_DEFAULT_WIDTH),
+                Integer.valueOf(STORE_DEFAULT_HEIGHT), STORE_ID_PREFIX,
                 SMSNotationShape.getInstance(SMSNotationShape.OPENED_RECTANGLE_RIGHT),
                 SMSZoneOrientation.getInstance(SMSZoneOrientation.PERPENDICULAR) };
 
@@ -362,8 +362,8 @@ public final class DbBENotation extends DbSMSNotation {
         setConstraintCenter(Boolean.FALSE);
         setDefButtomBorder(Boolean.TRUE);
         setDefRightBorder(Boolean.TRUE);
-        setDefVerticalAlignment(new Integer(0));
-        setDefHorizontalAlignment(new Integer(0));
+        setDefVerticalAlignment(Integer.valueOf(0));
+        setDefHorizontalAlignment(Integer.valueOf(0));
         setHasFrame(Boolean.TRUE);
         setDisplayStereotypesAsIcons(Boolean.FALSE);
     }

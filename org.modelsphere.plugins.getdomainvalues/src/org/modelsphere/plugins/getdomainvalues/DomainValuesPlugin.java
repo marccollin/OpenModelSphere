@@ -78,8 +78,8 @@ public final class DomainValuesPlugin implements Plugin2 {
                     attr.setNbDecimal(((DbORDomain) type).getNbDecimal());
 
                     if (attr instanceof DbORColumn) {
-                        ((DbORColumn) attr).setNull(new Boolean(((DbORDomain) type).isNull()));
-                        ((DbORColumn) attr).setReference(new Boolean(((DbORDomain) type)
+                        ((DbORColumn) attr).setNull(Boolean.valueOf(((DbORDomain) type).isNull()));
+                        ((DbORColumn) attr).setReference(Boolean.valueOf(((DbORDomain) type)
                                 .isReference()));
                     }
                 }
@@ -91,7 +91,7 @@ public final class DomainValuesPlugin implements Plugin2 {
                     attr.setLength(((DbORDomain) type).getLength());
                     attr.setNbDecimal(((DbORDomain) type).getNbDecimal());
 
-                    ((DbORCommonItem) attr).setNull(new Boolean(((DbORDomain) type).isNull()));
+                    ((DbORCommonItem) attr).setNull(Boolean.valueOf(((DbORDomain) type).isNull()));
                     //((DbORCommonItem)attr).setReference(new Boolean(((DbORDomain)type).isReference()));
                 }
             }

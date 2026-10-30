@@ -106,7 +106,7 @@ public class SrAttachment extends Attachment implements ActionInformation, DbRef
     }
 
     public final void resize(int width) throws DbException {
-        nodeGo.set(maxWidthMF, new Integer(width));
+        nodeGo.set(maxWidthMF, Integer.valueOf(width));
     }
 
     public final DbObject getSemanticalObject() {

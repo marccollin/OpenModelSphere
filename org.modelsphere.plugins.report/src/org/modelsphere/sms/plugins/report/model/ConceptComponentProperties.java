@@ -86,21 +86,21 @@ public class ConceptComponentProperties implements Properties {
             new PropertyGroup(TABLE_DIMENSIONS_GROUP, // NOT LOCALIZABLE
                     new Property[] {
                             new Property(LocaleMgr.misc.getString(WIDTH_PROPERTY_KEY),
-                                    WIDTH_PROPERTY_KEY, new Integer(600)), // NOT LOCALIZABLE
+                                    WIDTH_PROPERTY_KEY, Integer.valueOf(600)), // NOT LOCALIZABLE
                             new Property(LocaleMgr.misc.getString(WIDTHUNIT_PROPERTY_KEY),
                                     WIDTHUNIT_PROPERTY_KEY, new UnitDomain(2)), // NOT LOCALIZABLE
                             //        new Property(LocaleMgr.misc.getString(HEIGHT_PROPERTY_KEY), HEIGHT_PROPERTY_KEY, new Integer(0)), // NOT LOCALIZABLE
                             //        new Property(LocaleMgr.misc.getString(HEIGHTUNIT_PR/OPERTY_KEY), HEIGHTUNIT_PROPERTY_KEY, new UnitDomain(1)), // NOT LOCALIZABLE
                             new Property(LocaleMgr.misc.getString(BORDER_PROPERTY_KEY),
-                                    BORDER_PROPERTY_KEY, new Integer(2)), // NOT LOCALIZABLE
+                                    BORDER_PROPERTY_KEY, Integer.valueOf(2)), // NOT LOCALIZABLE
                             new Property(LocaleMgr.misc.getString(CELLSPACING_PROPERTY_KEY),
-                                    CELLSPACING_PROPERTY_KEY, new Integer(0)), // NOT LOCALIZABLE
+                                    CELLSPACING_PROPERTY_KEY, Integer.valueOf(0)), // NOT LOCALIZABLE
                             new Property(LocaleMgr.misc.getString(CELLPADDING_PROPERTY_KEY),
-                                    CELLPADDING_PROPERTY_KEY, new Integer(3)), // NOT LOCALIZABLE
+                                    CELLPADDING_PROPERTY_KEY, Integer.valueOf(3)), // NOT LOCALIZABLE
                             new Property(LocaleMgr.misc.getString(HORIZONTALMARGIN_PROPERTY_KEY),
-                                    HORIZONTALMARGIN_PROPERTY_KEY, new Integer(0)), // NOT LOCALIZABLE
+                                    HORIZONTALMARGIN_PROPERTY_KEY, Integer.valueOf(0)), // NOT LOCALIZABLE
                             new Property(LocaleMgr.misc.getString(VERTICALMARGIN_PROPERTY_KEY),
-                                    VERTICALMARGIN_PROPERTY_KEY, new Integer(0)), // NOT LOCALIZABLE
+                                    VERTICALMARGIN_PROPERTY_KEY, Integer.valueOf(0)), // NOT LOCALIZABLE
                             new Property(LocaleMgr.misc.getString(ALIGNMENT_PROPERTY_KEY),
                                     ALIGNMENT_PROPERTY_KEY, TableAlignmentDomain
                                             .getInstance(TableAlignmentDomain.LEFT),

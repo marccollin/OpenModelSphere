@@ -48,7 +48,7 @@ import java.util.ArrayList;
 
 public class RecentFiles implements PropertiesProvider {
     public static final String PROPERTY_NB_RECENT_FILE = "RecentFilesDisplayed"; // NOT LOCALIZABLE
-    public static final Integer PROPERTY_NB_RECENT_FILE_DEFAULT = new Integer(9);
+    public static final Integer PROPERTY_NB_RECENT_FILE_DEFAULT = Integer.valueOf(9);
     public static final int PROPERTY_NB_RECENT_FILE_MIN = 1;
     public static final int PROPERTY_NB_RECENT_FILE_MAX = 30;
 

@@ -207,7 +207,7 @@ public final class AddAction extends org.modelsphere.jack.srtool.actions.AddActi
                 bExpandModelNode = true;
             }
         }
-        return new Object[] { object, new Boolean(abortOverride), new Boolean(bExpandModelNode) };
+        return new Object[] { object, Boolean.valueOf(abortOverride), Boolean.valueOf(bExpandModelNode) };
     }
 
     private void autoCreateDiagramFrame(DbObject object) throws DbException {

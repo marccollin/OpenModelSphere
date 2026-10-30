@@ -259,7 +259,7 @@ public abstract class AbstractColorAction extends AbstractColorDomainAction /*
         if (preferences != null) {
             for (int i = 0; i < PopupColorPanel.COL_COUNT; i++) {
                 int rgba = preferences.getPropertyInteger(AbstractColorAction.class,
-                        CUSTOM_COLOR_PROPERTY + i + ".rgba", new Integer(-1)).intValue();
+                        CUSTOM_COLOR_PROPERTY + i + ".rgba", Integer.valueOf(-1)).intValue();
                 if (rgba == -1)
                     continue;
                 tempColors.add(new Color(rgba, true));

@@ -75,7 +75,7 @@ public class DiagramInternalFrame extends CascadingJInternalFrame implements
         PropertiesSet preferences = PropertiesManager.getPreferencePropertiesSet();
         view.setZoomFactor(preferences.getPropertyFloat(DiagramView.class,
                 DiagramView.ZOOM_FACTOR_PROPERTY,
-                new Float(DiagramView.ZOOM_FACTOR_PROPERTY_DEFAULT)).floatValue());
+                Float.valueOf(DiagramView.ZOOM_FACTOR_PROPERTY_DEFAULT)).floatValue());
 
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());

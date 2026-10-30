@@ -473,7 +473,7 @@ public final class BESelectToolCommand {
                 double oldCellYWeight = cell.getYweight().doubleValue();
                 Rectangle oldCellRect = util.getCellRectangle(cell);
                 double newCellYWeight = oldCellYWeight + ratio;
-                cell.setYweight(new Double(newCellYWeight));
+                cell.setYweight(Double.valueOf(newCellYWeight));
                 double newHeight = (oldCellRect.height / oldCellYWeight) * newCellYWeight;
                 Rectangle newCellRect = new Rectangle(oldCellRect.x, oldCellRect.y,
                         oldCellRect.width, (int) newHeight);
@@ -496,7 +496,7 @@ public final class BESelectToolCommand {
                 double oldCellXWeight = cell.getXweight().doubleValue();
                 Rectangle oldCellRect = util.getCellRectangle(cell);
                 double newCellXWeight = oldCellXWeight + ratio;
-                cell.setXweight(new Double(newCellXWeight));
+                cell.setXweight(Double.valueOf(newCellXWeight));
                 double newWidth = (oldCellRect.width / oldCellXWeight) * newCellXWeight;
                 Rectangle newCellRect = new Rectangle(oldCellRect.x, oldCellRect.y, (int) newWidth,
                         oldCellRect.height);

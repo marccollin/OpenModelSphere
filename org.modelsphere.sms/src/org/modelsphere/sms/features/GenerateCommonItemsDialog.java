@@ -486,7 +486,7 @@ public class GenerateCommonItemsDialog extends JDialog {
                 if (nbItems == 0) {
                     report = NO_ITEM_GENERATED;
                 } else {
-                    report = MessageFormat.format(ITEMS_GENERATED_PATN, new Object[] { new Integer(
+                    report = MessageFormat.format(ITEMS_GENERATED_PATN, new Object[] { Integer.valueOf(
                             nbItems) });
                 }
                 m_textArea.append(report);

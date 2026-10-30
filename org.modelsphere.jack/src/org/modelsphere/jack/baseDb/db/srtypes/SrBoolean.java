@@ -75,7 +75,7 @@ public final class SrBoolean extends Domain {
     }
 
     public DbtAbstract duplicate() {
-        return new SrBoolean(new Boolean(value));
+        return new SrBoolean(Boolean.valueOf(value));
     }
 
     static final long serialVersionUID = 9213187441216640025L;

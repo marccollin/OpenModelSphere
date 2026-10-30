@@ -62,7 +62,7 @@ public class MagnifierInternalFrame extends DiagramViewInternalFrame {
         PropertiesSet preferences = PropertiesManager.getPreferencePropertiesSet();
         setZoomFactor(preferences.getPropertyFloat(MagnifierView.class,
                 MagnifierView.ZOOM_FACTOR_PROPERTY,
-                new Float(MagnifierView.ZOOM_FACTOR_PROPERTY_DEFAULT)).floatValue());
+                Float.valueOf(MagnifierView.ZOOM_FACTOR_PROPERTY_DEFAULT)).floatValue());
     }
 
     protected void createViewComponent(DiagramView diagView) {

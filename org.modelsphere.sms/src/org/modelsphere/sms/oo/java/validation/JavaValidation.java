@@ -194,7 +194,7 @@ public class JavaValidation implements HyperlinkListener {
 
         String pattern = LocaleMgr.validation.getString("ErrorNbr0");
         writer.write(MessageFormat.format(pattern,
-                new Object[] { new Integer(circularityNbErrors) }));
+                new Object[] { Integer.valueOf(circularityNbErrors) }));
         writer.write(LocaleMgr.validation.getString("CyclicInheritanceByThePath"));
         boolean first = true;
         for (Enumeration e = adtsPath.elements(); e.hasMoreElements();) {

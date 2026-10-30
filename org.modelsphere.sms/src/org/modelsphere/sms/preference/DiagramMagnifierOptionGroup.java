@@ -115,12 +115,12 @@ public class DiagramMagnifierOptionGroup extends OptionGroup {
 
             int zoom = (int) (prefs.getPropertyFloat(MagnifierView.class,
                     MagnifierView.ZOOM_FACTOR_PROPERTY,
-                    new Float(MagnifierView.ZOOM_FACTOR_PROPERTY_DEFAULT)).floatValue() * 100);
+                    Float.valueOf(MagnifierView.ZOOM_FACTOR_PROPERTY_DEFAULT)).floatValue() * 100);
             magnifierZoom.setValue(zoom);
 
             zoom = (int) (prefs.getPropertyFloat(DiagramView.class,
                     DiagramView.ZOOM_FACTOR_PROPERTY,
-                    new Float(DiagramView.ZOOM_FACTOR_PROPERTY_DEFAULT)).floatValue() * 100);
+                    Float.valueOf(DiagramView.ZOOM_FACTOR_PROPERTY_DEFAULT)).floatValue() * 100);
             defaultZoom.setValue(zoom);
         }
 
@@ -129,24 +129,24 @@ public class DiagramMagnifierOptionGroup extends OptionGroup {
             Object source = e.getSource();
             if (source == magnifierZoom && !magnifierZoom.getValueIsAdjusting())
                 fireOptionChanged(prefs, MagnifierView.class, MagnifierView.ZOOM_FACTOR_PROPERTY,
-                        new Float((float) (((float) magnifierZoom.getValue()) / 100)));
+                        Float.valueOf((float) (((float) magnifierZoom.getValue()) / 100)));
             if (source == defaultZoom && !defaultZoom.getValueIsAdjusting())
                 fireOptionChanged(prefs, DiagramView.class, DiagramView.ZOOM_FACTOR_PROPERTY,
-                        new Float((float) (((float) defaultZoom.getValue()) / 100)));
+                        Float.valueOf((float) (((float) defaultZoom.getValue()) / 100)));
         }
 
         public void actionPerformed(ActionEvent e) {
             Object source = e.getSource();
             if (source == defButton) {
                 PropertiesSet prefs = PropertiesManager.getPreferencePropertiesSet();
-                magnifierZoom.setValue((int) (new Float(
+                magnifierZoom.setValue((int) (Float.valueOf(
                         MagnifierView.ZOOM_FACTOR_PROPERTY_DEFAULT * 100)).floatValue());
                 fireOptionChanged(prefs, MagnifierView.class, MagnifierView.ZOOM_FACTOR_PROPERTY,
-                        new Float(MagnifierView.ZOOM_FACTOR_PROPERTY_DEFAULT));
-                defaultZoom.setValue((int) (new Float(
+                        Float.valueOf(MagnifierView.ZOOM_FACTOR_PROPERTY_DEFAULT));
+                defaultZoom.setValue((int) (Float.valueOf(
                         DiagramView.ZOOM_FACTOR_PROPERTY_DEFAULT * 100)).floatValue());
                 fireOptionChanged(prefs, DiagramView.class, DiagramView.ZOOM_FACTOR_PROPERTY,
-                        new Float(DiagramView.ZOOM_FACTOR_PROPERTY_DEFAULT));
+                        Float.valueOf(DiagramView.ZOOM_FACTOR_PROPERTY_DEFAULT));
             }
         }
 

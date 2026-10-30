@@ -106,8 +106,8 @@ public class ListTable extends JTable implements ActionListener, MouseMotionList
 
     private static final int ROW_EXTRA_HEIGHT = 0;
 
-    protected static final Integer ASC = new Integer(1);
-    protected static final Integer DESC = new Integer(-1);
+    protected static final Integer ASC = Integer.valueOf(1);
+    protected static final Integer DESC = Integer.valueOf(-1);
 
     private static final int MAX_LINE_COUNT_IN_TOOLTIPS = 12;
     private static final int MAX_CHAR_COUNT_IN_TOOLTIPS = 800;

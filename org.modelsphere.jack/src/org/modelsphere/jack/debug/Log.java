@@ -121,12 +121,12 @@ public final class Log {
             PropertiesSet debugpreference = PropertiesManager
                     .getPropertiesSet(Debug.DEBUG_PROPERTIES);
             int maxsize = debugpreference.getPropertyInteger(Log.class, MAX_SIZE_PROPERTY,
-                    new Integer((int) (maxSize / 1024))).intValue();
+                    Integer.valueOf((int) (maxSize / 1024))).intValue();
             int cleanupsize = debugpreference.getPropertyInteger(Log.class, CLEANUP_SIZE_PROPERTY,
-                    new Integer((int) (cleanupSize / 1024))).intValue();
+                    Integer.valueOf((int) (cleanupSize / 1024))).intValue();
             configureMaxSize(maxsize, cleanupsize);
             int config = debugpreference.getPropertyInteger(Log.class, CONFIG_PROPERTY,
-                    new Integer(configuration)).intValue();
+                    Integer.valueOf(configuration)).intValue();
             configureOptions(config);
         }
     }

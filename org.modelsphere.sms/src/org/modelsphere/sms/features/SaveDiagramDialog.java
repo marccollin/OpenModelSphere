@@ -840,7 +840,7 @@ public final class SaveDiagramDialog extends JDialog {
     public int getScaleFromPreference() {
         PropertiesSet appSet = PropertiesManager.APPLICATION_PROPERTIES_SET;
         return appSet.getPropertyInteger(SaveDiagramDialog.class, SAVE_DIAG_SCALE,
-                new Integer(DEFAULT_SCALE)).intValue();
+                Integer.valueOf(DEFAULT_SCALE)).intValue();
     }
 
     public void setScaleInPreference() {
@@ -851,7 +851,7 @@ public final class SaveDiagramDialog extends JDialog {
     public int getQualityFromPreference() {
         PropertiesSet appSet = PropertiesManager.APPLICATION_PROPERTIES_SET;
         return appSet.getPropertyInteger(SaveDiagramDialog.class, SAVE_DIAG_QUALITY,
-                new Integer(DEFAULT_QUALITY)).intValue();
+                Integer.valueOf(DEFAULT_QUALITY)).intValue();
     }
 
     public void setQualityInPreference() {

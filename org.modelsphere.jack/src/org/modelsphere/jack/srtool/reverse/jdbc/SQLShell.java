@@ -173,13 +173,13 @@ public final class SQLShell extends Shell {
 
                 if (resultList.size() > 0 && statementMsg.columnList.size() > 0) {
                     resultCount++;
-                    String paneTitle = MessageFormat.format(kResult0, new Object[] { new Integer(
+                    String paneTitle = MessageFormat.format(kResult0, new Object[] { Integer.valueOf(
                             resultCount) });
                     addSecondaryOutputPanel(new SQLShellResultSetPanel(statementMsg), paneTitle);
                 }
             } // end if
             else {
-                result += MessageFormat.format(kUpdate0, new Object[] { new Integer(updateCount) })
+                result += MessageFormat.format(kUpdate0, new Object[] { Integer.valueOf(updateCount) })
                         + "\n"; // NOT LOCALIZABLE, escade code
             }
 

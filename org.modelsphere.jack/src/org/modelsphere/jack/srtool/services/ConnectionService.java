@@ -72,7 +72,7 @@ public final class ConnectionService extends ConnectionServiceProtocol {
     private static int currentConnectionID = 0;
 
     public static Connection getConnection(int connectionId) {
-        Connection connection = (Connection) connectionMap.get(new Integer(connectionId));
+        Connection connection = (Connection) connectionMap.get(Integer.valueOf(connectionId));
         return connection;
     }
 
@@ -113,7 +113,7 @@ public final class ConnectionService extends ConnectionServiceProtocol {
                     connection = DriverManager.getConnection(url, info);
 
                     currentConnectionID++;
-                    connectionMap.put(new Integer(currentConnectionID), connection);
+                    connectionMap.put(Integer.valueOf(currentConnectionID), connection);
                     DatabaseMetaData metadata = connection.getMetaData();
                     connectionMessage.databaseProductName = metadata.getDatabaseProductName();
                     connectionMessage.databaseProductVersion = metadata.getDatabaseProductVersion();

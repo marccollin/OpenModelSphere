@@ -211,13 +211,13 @@ public class Controller {
         if (state == STATE_ABORTED || state == STATE_ABORTING) {
             if (errorsCountEnabled && errorsCount > 0 && warningsCount > 0) {
                 println(MessageFormat.format(kCanceledWECount, new Object[] { jobTitle,
-                        new Integer(errorsCount), new Integer(warningsCount) }));
+                        Integer.valueOf(errorsCount), Integer.valueOf(warningsCount) }));
             } else if (errorsCountEnabled && errorsCount > 0) {
                 println(MessageFormat.format(kCanceledErrorCount, new Object[] { jobTitle,
-                        new Integer(errorsCount) }));
+                        Integer.valueOf(errorsCount) }));
             } else if (errorsCountEnabled && warningsCount > 0) {
                 println(MessageFormat.format(kCanceledWarningCount, new Object[] { jobTitle,
-                        new Integer(warningsCount) }));
+                        Integer.valueOf(warningsCount) }));
             } else {
                 println(MessageFormat.format(kCanceled, new Object[] { jobTitle }));
             } // end if
@@ -226,13 +226,13 @@ public class Controller {
         } else {
             if (errorsCountEnabled && errorsCount > 0 && warningsCount > 0)
                 println(MessageFormat.format(kCompletedWECount, new Object[] { jobTitle,
-                        new Integer(errorsCount), new Integer(warningsCount) }));
+                        Integer.valueOf(errorsCount), Integer.valueOf(warningsCount) }));
             else if (errorsCountEnabled && errorsCount > 0)
                 println(MessageFormat.format(kCompletedErrorCount, new Object[] { jobTitle,
-                        new Integer(errorsCount) }));
+                        Integer.valueOf(errorsCount) }));
             else if (errorsCountEnabled && warningsCount > 0)
                 println(MessageFormat.format(kCompletedWarningCount, new Object[] { jobTitle,
-                        new Integer(warningsCount) }));
+                        Integer.valueOf(warningsCount) }));
             else
                 println(MessageFormat.format(kCompleted, new Object[] { jobTitle }));
         }

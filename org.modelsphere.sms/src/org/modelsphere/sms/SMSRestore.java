@@ -57,8 +57,8 @@ public abstract class SMSRestore {
                     new Class[] { String.class, int.class, long.class, String.class,
                             VersionConverter.class });
             Boolean done = (Boolean) method.invoke(null, new Object[] {
-                    Application.REPOSITORY_ROOT_NAME, new Integer(SMSVersionConverter.VERSION),
-                    new Long(SMSBackup.CHECKWORD), fileName, converter });
+                    Application.REPOSITORY_ROOT_NAME, Integer.valueOf(SMSVersionConverter.VERSION),
+                    Long.valueOf(SMSBackup.CHECKWORD), fileName, converter });
             if (done.booleanValue())
                 System.out.println(LocaleMgr.message.getString("restoreCompleted"));
         } catch (Exception e) {

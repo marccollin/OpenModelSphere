@@ -375,7 +375,7 @@ public abstract class Shell extends CascadingJInternalFrame {
         public String getPrompt() {
             int historyCount = history.size() - callBack + 1;
             String prompt = MessageFormat.format(shellInitializer.promptPattern,
-                    new Object[] { new Integer(historyCount) });
+                    new Object[] { Integer.valueOf(historyCount) });
             return prompt;
         }
 

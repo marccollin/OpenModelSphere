@@ -450,9 +450,9 @@ public final class SMSExplorer extends Explorer {
                         // be sorted
                         // with a numeric order (ie: 1, 10, 11, 100 instead of
                         // 1, 10, 100, 11)
-                        int1 = value1 == null ? new Integer(0) : new Integer(Integer
+                        int1 = value1 == null ? Integer.valueOf(0) : Integer.valueOf(Integer
                                 .parseInt(value1));
-                        int2 = value2 == null ? new Integer(0) : new Integer(Integer
+                        int2 = value2 == null ? Integer.valueOf(0) : Integer.valueOf(Integer
                                 .parseInt(value2));
                     } catch (Exception e) {
                     }

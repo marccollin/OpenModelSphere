@@ -261,7 +261,7 @@ public class AdtJavaValidation {
         char firstChar = name.charAt(0);
         if (!Character.isJavaIdentifierStart(firstChar)) {
             String errorMsg = MessageFormat.format(INVALID_START, new Object[] { hyperlink,
-                    new Character(firstChar) });
+                    Character.valueOf(firstChar) });
             writeGenericError(errorMsg, semObj);
             return;
         } //end if
@@ -289,7 +289,7 @@ public class AdtJavaValidation {
                     //a dot is a valid character in a compilation unit identifier (such as Applet.java)
                     if ((ch != '.') || !(semObj instanceof DbJVCompilationUnit)) {
                         String errorMsg = MessageFormat.format(INVALID_PART, new Object[] {
-                                hyperlink, new Character(ch) });
+                                hyperlink, Character.valueOf(ch) });
                         writeGenericError(errorMsg, semObj);
                         return;
                     }
@@ -1037,7 +1037,7 @@ public class AdtJavaValidation {
 
     private void writeErrorNb(int errorNb) {
         writer.write(MessageFormat.format(LocaleMgr.validation.getString("ErrorNbr0"),
-                new Object[] { new Integer(errorNb) }));
+                new Object[] { Integer.valueOf(errorNb) }));
     }
 
     private void writeAdtErrorTitle() throws DbException {
@@ -1070,7 +1070,7 @@ public class AdtJavaValidation {
             else
                 pattern = LocaleMgr.validation.getString("Nb0DupClas1NameClas1");
         }
-        writer.write(MessageFormat.format(pattern, new Object[] { new Integer(nbDuplicates),
+        writer.write(MessageFormat.format(pattern, new Object[] { Integer.valueOf(nbDuplicates),
                 adtInstanceType }));
         pattern = LocaleMgr.validation.getString("CannotSameNameClassInSameContainer0");
         writer.write(MessageFormat.format(pattern, new Object[] { containerString }));
@@ -1098,7 +1098,7 @@ public class AdtJavaValidation {
                 pattern = LocaleMgr.validation.getString("AXxx0DupCompilNameXxx1_Xxx2");
         }
         writer.write(MessageFormat.format(pattern, new Object[] {
-                new Integer(nbDuplicates),
+                Integer.valueOf(nbDuplicates),
                 JavaValidation.getHyperLinkSemanticalObject(adt.getCompilationUnit(),
                         DbObject.SHORT_FORM), adtInstanceType }));
         pattern = LocaleMgr.validation.getString("CannotSameNameCompilInSameContainer0");
@@ -1376,7 +1376,7 @@ public class AdtJavaValidation {
             else
                 pattern = LocaleMgr.validation.getString("AXxx0DupFNameXxx1_Xxx2");
         }
-        writer.write(MessageFormat.format(pattern, new Object[] { new Integer(nbDuplicates),
+        writer.write(MessageFormat.format(pattern, new Object[] { Integer.valueOf(nbDuplicates),
                 JavaValidation.getHyperLinkSemanticalObject(field, DbObject.SHORT_FORM),
                 adtInstanceType }));
         writer.write(LocaleMgr.validation.getString("CannotHaveTwoFieldsSameName"));
@@ -1401,7 +1401,7 @@ public class AdtJavaValidation {
             else
                 pattern = LocaleMgr.validation.getString("AXxx0DupCINameXxx1_Xxx2");
         }
-        writer.write(MessageFormat.format(pattern, new Object[] { new Integer(nbDuplicates),
+        writer.write(MessageFormat.format(pattern, new Object[] { Integer.valueOf(nbDuplicates),
                 JavaValidation.getHyperLinkSemanticalObject(nestedAdt, DbObject.SHORT_FORM),
                 adtInstanceType }));
         writer.write(LocaleMgr.validation.getString("CannotHaveTwoMemberCISameName"));
@@ -1431,7 +1431,7 @@ public class AdtJavaValidation {
         SemanticalModel semanticalModel = ApplicationContext.getSemanticalModel();
         String classGUIName = semanticalModel.getClassDisplayText(operation, null);
         String operationInstanceType = classGUIName.toLowerCase();
-        writer.write(MessageFormat.format(pattern, new Object[] { new Integer(nbDuplicates),
+        writer.write(MessageFormat.format(pattern, new Object[] { Integer.valueOf(nbDuplicates),
                 operationInstanceType, JavaValidation.getHyperLinkSemanticalObject(operation),
                 adtInstanceType }));
         pattern = LocaleMgr.validation.getString("CannotHaveTwoMethod0sSameSignature");

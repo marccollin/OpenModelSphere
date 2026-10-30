@@ -97,7 +97,7 @@ public final class VariableDecl implements Serializable {
         case INTEGER:
             IntegerModifier im = (IntegerModifier) value;
             int result = im.evaluate(null);
-            struct.m_value = new Integer(result);
+            struct.m_value = Integer.valueOf(result);
             break;
         case LIST:
             struct.m_value = new ArrayList();

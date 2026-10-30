@@ -158,11 +158,11 @@ public class DbTextFieldCellEditor extends TextFieldCellEditor {
                     && StringUtil.isEmptyString(text))
                 return;
             if (theValue instanceof Integer)
-                theValue = new Integer(text);
+                theValue = Integer.valueOf(text);
             else if (theValue instanceof Double)
-                theValue = new Double(text);
+                theValue = Double.valueOf(text);
             else if (theValue instanceof Long)
-                theValue = new Long(text);
+                theValue = Long.valueOf(text);
             else
                 theValue = text;
             String pattern = LocaleMgr.action.getString("change01");

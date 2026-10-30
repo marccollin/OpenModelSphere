@@ -336,13 +336,13 @@ public abstract class GuiController extends Controller implements ActionListener
             int seconds = calendar.get(Calendar.SECOND);
             String dateString = "";
             if (hours != 0)
-                dateString = MessageFormat.format(HOURS_MIN_SEC, new Object[] { new Integer(hours),
-                        new Integer(minutes), new Integer(seconds) });
+                dateString = MessageFormat.format(HOURS_MIN_SEC, new Object[] { Integer.valueOf(hours),
+                        Integer.valueOf(minutes), Integer.valueOf(seconds) });
             else if (minutes != 0)
-                dateString = MessageFormat.format(MIN_SEC, new Object[] { new Integer(minutes),
-                        new Integer(seconds) });
+                dateString = MessageFormat.format(MIN_SEC, new Object[] { Integer.valueOf(minutes),
+                        Integer.valueOf(seconds) });
             else
-                dateString = MessageFormat.format(SEC, new Object[] { new Integer(seconds) });
+                dateString = MessageFormat.format(SEC, new Object[] { Integer.valueOf(seconds) });
 
             final String updateString = dateString;
             doUpdate(new Runnable() {

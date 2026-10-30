@@ -183,25 +183,25 @@ public class DiagramAutomaticCreationOptionGroup extends OptionGroup {
             Object source = e.getSource();
             if (source == createDataModelDiagramCBox)
                 fireOptionChanged(preferences, DiagramAutomaticCreationOptionGroup.class,
-                        CREATE_DATA_MODEL_DIAGRAMS, new Boolean(createDataModelDiagramCBox
+                        CREATE_DATA_MODEL_DIAGRAMS, Boolean.valueOf(createDataModelDiagramCBox
                                 .isSelected()));
             else if (source == createDomainModelDiagramCBox)
                 fireOptionChanged(preferences, DiagramAutomaticCreationOptionGroup.class,
-                        CREATE_DOMAIN_MODEL_DIAGRAMS, new Boolean(createDomainModelDiagramCBox
+                        CREATE_DOMAIN_MODEL_DIAGRAMS, Boolean.valueOf(createDomainModelDiagramCBox
                                 .isSelected()));
             else if (source == createCommonItemModelDiagramCBox)
                 fireOptionChanged(preferences, DiagramAutomaticCreationOptionGroup.class,
-                        CREATE_COMMONITEM_MODEL_DIAGRAMS, new Boolean(
+                        CREATE_COMMONITEM_MODEL_DIAGRAMS, Boolean.valueOf(
                                 createCommonItemModelDiagramCBox.isSelected()));
             else if (source == createJavaDiagramCBox)
                 fireOptionChanged(preferences, DiagramAutomaticCreationOptionGroup.class,
-                        CREATE_JAVA_DIAGRAMS, new Boolean(createJavaDiagramCBox.isSelected()));
+                        CREATE_JAVA_DIAGRAMS, Boolean.valueOf(createJavaDiagramCBox.isSelected()));
             else if (source == createBPMDiagramCBox)
                 fireOptionChanged(preferences, DiagramAutomaticCreationOptionGroup.class,
-                        CREATE_BPM_DIAGRAMS, new Boolean(createBPMDiagramCBox.isSelected()));
+                        CREATE_BPM_DIAGRAMS, Boolean.valueOf(createBPMDiagramCBox.isSelected()));
             else if (source == createBPMDiagramFrameCBox)
                 fireOptionChanged(preferences, DiagramAutomaticCreationOptionGroup.class,
-                        CREATE_BPM_DIAGRAM_FRAMES, new Boolean(createBPMDiagramFrameCBox
+                        CREATE_BPM_DIAGRAM_FRAMES, Boolean.valueOf(createBPMDiagramFrameCBox
                                 .isSelected()));
             else if (source == defButton) {
                 createDataModelDiagramCBox.setSelected(CREATE_DATA_MODEL_DIAGRAMS_DEFAULT

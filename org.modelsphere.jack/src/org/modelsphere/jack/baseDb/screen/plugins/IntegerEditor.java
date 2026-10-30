@@ -91,7 +91,7 @@ public class IntegerEditor extends NumericTextField implements Editor, DocumentL
         if (text.length() == 0)
             return null;
         try {
-            return new Integer(Integer.parseInt(text));
+            return Integer.valueOf(Integer.parseInt(text));
         } catch (NumberFormatException ex) {
             return oldValue;
         }

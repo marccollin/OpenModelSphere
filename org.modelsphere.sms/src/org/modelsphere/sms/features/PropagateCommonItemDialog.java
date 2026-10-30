@@ -426,9 +426,9 @@ public class PropagateCommonItemDialog extends JDialog {
             field.setTypeUseStyle(style);
             field.setVisibility(visib);
             field.setStatic(Boolean.valueOf(isStatic));
-            field.setFinal(new Boolean(isFinal));
-            field.setTransient(new Boolean(isTransient));
-            field.setVolatile(new Boolean(isVolatile));
+            field.setFinal(Boolean.valueOf(isFinal));
+            field.setTransient(Boolean.valueOf(isTransient));
+            field.setVolatile(Boolean.valueOf(isVolatile));
 
             //set optional properties
             if ((options & NAME) != 0) {
@@ -525,9 +525,9 @@ public class PropagateCommonItemDialog extends JDialog {
             field.setTypeUseStyle(style);
             field.setVisibility(visib);
             field.setStatic(Boolean.valueOf(isStatic));
-            field.setFinal(new Boolean(isFinal));
-            field.setTransient(new Boolean(isTransient));
-            field.setVolatile(new Boolean(isVolatile));
+            field.setFinal(Boolean.valueOf(isFinal));
+            field.setTransient(Boolean.valueOf(isTransient));
+            field.setVolatile(Boolean.valueOf(isVolatile));
 
             //set optional properties
             if ((options & NAME) != 0) {

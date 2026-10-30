@@ -112,7 +112,7 @@ public final class SMSGraphicalLinkTool extends LineTool {
             linkGo.setPolyline(poly);
             Point p = new Point(0, 0);
             linkGo.setCenterOffset(p);
-            linkGo.setRightAngle(new Boolean(this.rightAngle));
+            linkGo.setRightAngle(Boolean.valueOf(this.rightAngle));
             
             //set color of default style
             DbSMSStyle style = diagram.getStyle();

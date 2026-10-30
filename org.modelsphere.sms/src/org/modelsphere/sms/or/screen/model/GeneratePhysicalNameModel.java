@@ -101,8 +101,8 @@ public class GeneratePhysicalNameModel extends AbstractTableModel {
     private final void populateParameters() {
         for (int i = 0; i < listConcepts.length; i++) {
             parameters[i] = new ORPNGParameters((MetaClass) listConcepts[i], DEFAULT_STATUS,
-                    DEFAULT_REPLACEMENT_STRING, new Integer(DEFAULT_LENGTH), new Boolean(
-                            DEFAULT_UNIQUE), new Integer(DEFAULT_NCBW), DEFAULT_CASE);
+                    DEFAULT_REPLACEMENT_STRING, Integer.valueOf(DEFAULT_LENGTH), Boolean.valueOf(
+                            DEFAULT_UNIQUE), Integer.valueOf(DEFAULT_NCBW), DEFAULT_CASE);
         }
     }
 
@@ -110,8 +110,8 @@ public class GeneratePhysicalNameModel extends AbstractTableModel {
         String defaultParametersString = ""; //NOT LOCALIZABLE
         for (int i = 0; i < listConcepts.length; i++) {
             ORPNGParameters param = new ORPNGParameters((MetaClass) listConcepts[i],
-                    DEFAULT_STATUS, DEFAULT_REPLACEMENT_STRING, new Integer(DEFAULT_LENGTH),
-                    new Boolean(DEFAULT_UNIQUE), new Integer(DEFAULT_NCBW), DEFAULT_CASE);
+                    DEFAULT_STATUS, DEFAULT_REPLACEMENT_STRING, Integer.valueOf(DEFAULT_LENGTH),
+                    Boolean.valueOf(DEFAULT_UNIQUE), Integer.valueOf(DEFAULT_NCBW), DEFAULT_CASE);
             defaultParametersString = defaultParametersString + param.toString()
                     + CONCEPT_PARAM_SEPARATOR;
         }
@@ -174,7 +174,7 @@ public class GeneratePhysicalNameModel extends AbstractTableModel {
     public void setValueAt(Object value, int row, int col) {
         if (parameters[0].get(col) instanceof Integer && !(value instanceof Integer)) {
             try {
-                Integer iValue = new Integer(value.toString());
+                Integer iValue = Integer.valueOf(value.toString());
                 if (col == 3) {
                     Integer length = iValue;
                     Integer wordLength = (Integer) getValueAt(row, 5);

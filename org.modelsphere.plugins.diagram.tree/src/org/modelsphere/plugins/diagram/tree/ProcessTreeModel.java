@@ -89,7 +89,7 @@ class ProcessTreeModel extends DefaultTreeModel {
         } else { //compute weigth
             Enumeration enumeration = node.children();
             if (!enumeration.hasMoreElements()) { //leaf has a weigth of 1
-                content.weight = new Integer(1);
+                content.weight = Integer.valueOf(1);
                 weight = 1;
             } else {
                 while (enumeration.hasMoreElements()) {
@@ -98,7 +98,7 @@ class ProcessTreeModel extends DefaultTreeModel {
                     int childWeight = getWeight(child, isSpan);
                     weight += isSpan ? childWeight : 1;
                 } //end while
-                content.weight = new Integer(weight);
+                content.weight = Integer.valueOf(weight);
             } //end if
         } //end if
 
@@ -117,7 +117,7 @@ class ProcessTreeModel extends DefaultTreeModel {
         DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
         if (parent == null) { //if root
             gap = isCenter ? (content.weight.intValue() / 2) : 0;
-            content.position = new Integer(gap);
+            content.position = Integer.valueOf(gap);
         } else {
             ProcessTreeModel.NodeContent parentContent = (ProcessTreeModel.NodeContent) parent
                     .getUserObject();
@@ -131,7 +131,7 @@ class ProcessTreeModel extends DefaultTreeModel {
             ProcessTreeModel.NodeContent childContent = (ProcessTreeModel.NodeContent) child
                     .getUserObject();
             gap = isCenter ? (childContent.weight.intValue() / 2) : 0;
-            childContent.position = new Integer(parentOrigin + cumulatedPosition + gap);
+            childContent.position = Integer.valueOf(parentOrigin + cumulatedPosition + gap);
 
             cumulatedPosition += childContent.weight.intValue();
             setPosition(child, isCenter, isSpan, gap);

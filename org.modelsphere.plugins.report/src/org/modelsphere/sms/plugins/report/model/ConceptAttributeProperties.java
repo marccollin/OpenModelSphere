@@ -81,7 +81,7 @@ public class ConceptAttributeProperties implements Properties {
                             //new Property(LocaleMgr.misc.getString(WIDTH_PROPERTY_KEY), WIDTH_PROPERTY_KEY, new String()), // NOT LOCALIZABLE
                             //new Property(LocaleMgr.misc.getString(WIDTHUNIT_PROPERTY_KEY), WIDTHUNIT_PROPERTY_KEY, UnitDomain.getInstance(1)), // NOT LOCALIZABLE
                             new Property(LocaleMgr.misc.getString(HEIGHT_PROPERTY_KEY),
-                                    HEIGHT_PROPERTY_KEY, new Integer(0)), // NOT LOCALIZABLE
+                                    HEIGHT_PROPERTY_KEY, Integer.valueOf(0)), // NOT LOCALIZABLE
                             new Property(LocaleMgr.misc.getString(HEIGHTUNIT_PROPERTY_KEY),
                                     HEIGHTUNIT_PROPERTY_KEY, UnitDomain.getInstance(1)) // NOT LOCALIZABLE
                     }),
