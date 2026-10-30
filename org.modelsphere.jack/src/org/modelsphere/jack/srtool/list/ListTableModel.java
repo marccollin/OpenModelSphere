@@ -132,7 +132,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
     ListDescriptor descriptor;
 
     // Optimization
-    private List addedObjects = new ArrayList();
+    private List<Integer> addedObjects = new ArrayList<>();
 
     // Optimization
     //private ArrayList     updatedObjects      = new ArrayList();
@@ -209,7 +209,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
         if (includeComposite) {
             // Find a super common name for all possible composite metaclasses of the component metaclasses
             boolean[] compositePath = neighborsMetaClass.markCompositePaths();
-            List compositeMetaClasses = new ArrayList();
+            List<MetaClass> compositeMetaClasses = new ArrayList<>();
             Enumeration enumeration = MetaClass.enumMetaClasses();
             while (enumeration.hasMoreElements()) {
                 MetaClass metaclass = (MetaClass) enumeration.nextElement();
@@ -223,8 +223,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
             if (descriptor.compositeName == null) {
                 displayText = kComposite;
                 MetaClass metaclass0 = null;
-                for (Object compositeMetaClass : compositeMetaClasses) {
-                    MetaClass metaclass1 = (MetaClass) compositeMetaClass;
+                for (MetaClass metaclass1 : compositeMetaClasses) {
                     if (metaclass0 == null) {
                         metaclass0 = metaclass1;
                         continue;
@@ -549,8 +548,8 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     DbObject[] selectionBackup = list.getSelectedDbObjects();
-                    int firstidx = (Integer) addedObjects.get(0);
-                    int lastidx = ((Integer) addedObjects.get(addedObjects.size() - 1)).intValue();
+                    int firstidx = addedObjects.get(0);
+                    int lastidx = addedObjects.get(addedObjects.size() - 1);
                     // flush the list of added idx to process
                     addedObjects.clear();
                     fireTableRowsInserted(firstidx, lastidx);
@@ -850,7 +849,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
     private void saveColumnsPreferences() {
         Iterator iter = columns.iterator();
         int index = -1;
-        List rowsConverted = new ArrayList();
+        List<Integer> rowsConverted = new ArrayList<>();
         while (iter.hasNext()) {
             index++;
             ColumnInfo col = (ColumnInfo) iter.next();

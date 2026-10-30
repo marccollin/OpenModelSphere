@@ -274,7 +274,7 @@ public final class NodeSelectionPanel extends JPanel implements ActionListener {
         return selbutton;
     }
 
-    public void setExcludedObjects(ArrayList excludedObjs) {
+    public void setExcludedObjects(List excludedObjs) {
         this.excludedObjs = excludedObjs;
     }
 

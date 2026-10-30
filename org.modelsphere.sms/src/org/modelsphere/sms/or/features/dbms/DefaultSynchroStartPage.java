@@ -177,7 +177,7 @@ public class DefaultSynchroStartPage extends WizardPage {
         databasePanel.setLookupText(kSelectDatabase);
         databasePanel.setButtonText(kSelect);
         databasePanel.setEnabled(true);
-        ArrayList excludedObjs = new ArrayList();
+        List<DbObject> excludedObjs = new ArrayList<>();
         excludedObjs.add(options.synchroSourceDatabase);
         databasePanel.setExcludedObjects(excludedObjs);
         databasePanel.addNodeSelectionChangeListener(new NodeSelectionChangeListener() {

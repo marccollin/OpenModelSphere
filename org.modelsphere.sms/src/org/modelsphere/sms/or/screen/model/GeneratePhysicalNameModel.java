@@ -132,10 +132,9 @@ public class GeneratePhysicalNameModel extends AbstractTableModel {
         populateParameters();
     }
 
-    public final ArrayList getParametersToGenerate() {
-        ArrayList toGenerate = new ArrayList();
-        for (int i = 0; i < parameters.length; i++) {
-            ORPNGParameters param = parameters[i];
+    public final List getParametersToGenerate() {
+        List<ORPNGParameters> toGenerate = new ArrayList<>();
+        for (ORPNGParameters param : parameters) {
             if ((param.getStatus() == ORPNGStatus.getInstance(ORPNGStatus.PARTIAL))
                     || (param.getStatus() == ORPNGStatus.getInstance(ORPNGStatus.COMPLETE)))
                 toGenerate.add(param);
@@ -165,11 +164,7 @@ public class GeneratePhysicalNameModel extends AbstractTableModel {
     }
 
     public boolean isCellEditable(int row, int col) {
-        if (col < 1) {
-            return false;
-        } else {
-            return true;
-        }
+        return col >= 1;
     }
 
     public void setValueAt(Object value, int row, int col) {
@@ -302,9 +297,9 @@ public class GeneratePhysicalNameModel extends AbstractTableModel {
 
     private final MetaClass getMetaClassFromString(String metaClassString) {
         MetaClass metaClass = null;
-        for (int i = 0; i < listConcepts.length; i++) {
-            if (((MetaClass) listConcepts[i]).getGUIName().equals(metaClassString)) {
-                metaClass = (MetaClass) listConcepts[i];
+        for (Object listConcept : listConcepts) {
+            if (((MetaClass) listConcept).getGUIName().equals(metaClassString)) {
+                metaClass = (MetaClass) listConcept;
                 break;
             }
         }

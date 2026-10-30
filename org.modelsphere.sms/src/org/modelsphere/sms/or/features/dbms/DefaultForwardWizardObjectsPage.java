@@ -121,7 +121,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
     private GenerationParametersAction m_generationParametersAction;
 
     int cardLayoutCurrentItem = 0, cardLayoutLastItem = 0;
-    Hashtable cardLayoutComponentTable = new Hashtable();
+    Map<Object, Integer> cardLayoutComponentTable = new Hashtable<>();
 
     private DatabaseNamePanel databaseNamePanel = null;
 
@@ -334,8 +334,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
         cardLayoutComponentTable.put("empty", cardLayoutLastItem - 1); //NOT LOCALIZABLE, associate name & rank
 
         // For unowned objects...
-        for (int i = 0; i < scope.length; i++) {
-            ObjectScope concept = scope[i];
+        for (ObjectScope concept : scope) {
             if (!concept.isOwnedObject && concept.isSelected && concept.showOccurences) {
                 s += "." + concept.conceptName;
                 addComponentToCardLayout(occurrenceTreePanel, concept.conceptID, options,
@@ -344,8 +343,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
         } //end for
 
         // For owned objects...
-        for (int i = 0; i < scope.length; i++) {
-            ObjectScope concept = scope[i];
+        for (ObjectScope concept : scope) {
             boolean createOccurenceTree = false;
             if (concept.isOwnedObject && concept.isSelected && concept.showOccurences) {
                 createOccurenceTree = true;
@@ -413,11 +411,11 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
         CardLayout layout = (CardLayout) panel.getLayout();
 
         //another way to implement layout.show()
-        Integer iPosition = (Integer) cardLayoutComponentTable.get(id);
+        Integer iPosition = cardLayoutComponentTable.get(id);
 
         //iPositon null if user selects a non-leaf node: do nothing in this case
         if (iPosition == null)
-            iPosition = (Integer) cardLayoutComponentTable.get("empty"); //NOT LOCALIZABLE
+            iPosition = cardLayoutComponentTable.get("empty"); //NOT LOCALIZABLE
 
         cardLayoutCurrentItem = iPosition;
         layout.first(panel);
@@ -455,8 +453,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
                 try {
                     abstractPackage.getDb().beginTrans(Db.READ_TRANS);
                     // First, add all unowned objects...
-                    for (int i = 0; i < scope.length; i++) {
-                        ObjectScope concept = scope[i];
+                    for (ObjectScope concept : scope) {
                         if (!concept.isOwnedObject && concept.isSelected && concept.showOccurences) {
                             concept.conceptID = id;
                             id++;
@@ -482,13 +479,12 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
                         } //end for
                     } //end if
 
-                    for (int i = 0; i < listNode.size(); i++) {
-                        root.add(listNode.get(i));
+                    for (DefaultMutableTreeNode defaultMutableTreeNode : listNode) {
+                        root.add(defaultMutableTreeNode);
                     } //end for
 
                     // Third, add all owned objects associated with the user...
-                    for (int i = 0; i < scope.length; i++) {
-                        ObjectScope concept = scope[i];
+                    for (ObjectScope concept : scope) {
                         boolean addConcept = false;
                         if (concept.isOwnedObject && concept.isSelected && concept.showOccurences) {
                             addConcept = true;
@@ -584,8 +580,8 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
             DefaultMutableTreeNode parent;
             try {
                 options.getAbstractPackage().getDb().beginTrans(Db.READ_TRANS);
-                for (int i = 0; i < arrayObjs.size(); i++) {
-                    ObjectSelection obj = (ObjectSelection) arrayObjs.get(i);
+                for (Object arrayObj : arrayObjs) {
+                    ObjectSelection obj = (ObjectSelection) arrayObj;
                     parent = new OccurrenceNode(obj, 0, false, true);
                     root.add(parent);
                 }

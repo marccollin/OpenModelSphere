@@ -99,7 +99,7 @@ public class ObjectScope implements Serializable {
     public Integer[] childrenID = null;
     public boolean isInitiallyChecked = true;
 
-    public ArrayList occurences = new ArrayList();
+    public List occurences = new ArrayList();
 
     public ObjectScope(String aMappingName, String name, int conceptID, Object parentID,
             boolean showConcept, boolean showOccurences, boolean isOwnedObject, Object SQLGetID) {
@@ -207,8 +207,7 @@ public class ObjectScope implements Serializable {
     // Find a specific concept in an ObjectScope array with the conceptName
     public static ObjectScope findConceptInObjectScopeWithConceptName(ObjectScope[] scope,
             String conceptName) {
-        for (int i = 0; i < scope.length; i++) {
-            ObjectScope concept = scope[i];
+        for (ObjectScope concept : scope) {
             if (concept.conceptName.equalsIgnoreCase(conceptName))
                 return concept;
         }
@@ -218,8 +217,7 @@ public class ObjectScope implements Serializable {
     // Find a specific concept in an ObjectScope array with the mappingName
     public static ObjectScope findConceptInObjectScopeWithMappingName(ObjectScope[] scope,
             String mappingName) {
-        for (int i = 0; i < scope.length; i++) {
-            ObjectScope concept = scope[i];
+        for (ObjectScope concept : scope) {
             if (concept.mappingName.equalsIgnoreCase(mappingName))
                 return concept;
         }
@@ -231,8 +229,7 @@ public class ObjectScope implements Serializable {
     // Find a specific concept in an ObjectScope array with the metaClass
     public static ObjectScope findConceptInObjectScopeWithMetaClass(ObjectScope[] scope,
             MetaClass metaClass) {
-        for (int i = 0; i < scope.length; i++) {
-            ObjectScope concept = scope[i];
+        for (ObjectScope concept : scope) {
             if (concept.metaClass == metaClass)
                 return concept;
         }
@@ -245,20 +242,14 @@ public class ObjectScope implements Serializable {
         MetaClass metaclass = MetaClass.find(metaClassName);
         if (metaclass == null) // obsolete metaClass
             return null;
-        for (int i = 0; i < scope.length; i++) {
-            ObjectScope concept = scope[i];
-            if (concept.metaClass == metaclass)
-                return concept;
-        }
-        return null;
+        return findConceptInObjectScopeWithMetaClass(scope, metaclass);
     }
 
     // Find a specific concept in the ObjectScope array with the conceptID
     public static ObjectScope findConceptInObjectScopeWithConceptID(ObjectScope[] scope,
             Object conceptID) {
-        for (int i = 0; i < scope.length; i++) {
-            ObjectScope concept = scope[i];
-            if (concept.conceptID == ((Integer) conceptID).intValue())
+        for (ObjectScope concept : scope) {
+            if (concept.conceptID == (Integer) conceptID)
                 return concept;
         }
         return null;
@@ -268,10 +259,7 @@ public class ObjectScope implements Serializable {
     // must be an arraylit of ObjectSelection
     public static boolean findOccurenceByName(ObjectScope scope, String occurenceName) {
         ObjectSelection objSelection = findObjectOccurenceByName(scope, occurenceName);
-        if (objSelection != null)
-            return true;
-
-        return false;
+        return objSelection != null;
     }
 
     public static ObjectSelection findObjectOccurenceByName(ObjectScope scope, String occurenceName) {

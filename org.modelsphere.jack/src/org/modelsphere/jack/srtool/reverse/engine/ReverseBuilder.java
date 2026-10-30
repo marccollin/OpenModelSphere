@@ -200,9 +200,9 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
     private List conceptInOutputRepport = new ArrayList(10);
     private Map conceptGroupInOutputRepport = new HashMap(5);
     private String repportSummary = new String();
-    private Map occurrencesCounters = new HashMap(10);
-    private Map guiNamesSingular = new HashMap(10);
-    private Map guiNamesPlural = new HashMap(10);
+    private Map<String, Integer> occurrencesCounters = new HashMap<>(10);
+    private Map<String, String> guiNamesSingular = new HashMap<>(10);
+    private Map<String, String> guiNamesPlural = new HashMap<>(10);
     private List repportSummarySequence = new ArrayList(10);
 
     public final void init(DbProject project, Object configuration) throws Exception {
@@ -600,7 +600,7 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
         if (concept == null)
             return;
         String group = (String) conceptGroupInOutputRepport.get(concept);
-        Integer count = (Integer) occurrencesCounters.get(group == null ? concept : group);
+        Integer count = occurrencesCounters.get(group == null ? concept : group);
         if (count == null)
             count = Integer.valueOf(1);
         else {
@@ -945,11 +945,11 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
         Iterator iter1 = repportSummarySequence.iterator();
         while (iter1.hasNext()) {
             String conceptOrGroup = (String) iter1.next();
-            Integer count = (Integer) occurrencesCounters.get(conceptOrGroup);
+            Integer count = occurrencesCounters.get(conceptOrGroup);
             if (count == null)
                 continue;
-            String guiname = (count.intValue() < 2) ? (String) guiNamesSingular.get(conceptOrGroup)
-                    : (String) guiNamesPlural.get(conceptOrGroup);
+            String guiname = (count.intValue() < 2) ? guiNamesSingular.get(conceptOrGroup)
+                    : guiNamesPlural.get(conceptOrGroup);
             if (guiname == null)
                 continue;
             String conceptsummary = EOL

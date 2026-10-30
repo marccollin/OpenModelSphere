@@ -81,10 +81,10 @@ public final class DeepCopy {
     private DbProject srcProject;
     private DbProject destProject;
     private DeepCopyCustomizer customizer;
-    private List srcRoots = new ArrayList();
-    private Set srcObjects = new HashSet();
+    private List<DbObject> srcRoots = new ArrayList<>();
+    private Set<DbObject> srcObjects = new HashSet<>();
     private UDFMap udfMap = null;
-    private List objsToRemove = new ArrayList();
+    private List<DbObject> objsToRemove = new ArrayList<>();
 
     // beginMatching must be done prior to DeepCopy object instantiation.
     public DeepCopy(DbProject srcProject, DbProject destProject, DeepCopyCustomizer customizer)
@@ -113,14 +113,13 @@ public final class DeepCopy {
 
     // Must be called after all calls to <create>, to complete the copy operation.
     public final void fill() throws DbException {
-        for (Object srcObject : srcObjects) {
-            DbObject srcObj = (DbObject) srcObject;
+        for (DbObject srcObj : srcObjects) {
             copyUdfValues(srcObj);
             fillAux(srcObj);
         }
         if (customizer != null)
             customizer.endCopy(srcRoots);
-        for (Object o : objsToRemove) ((DbObject) o).remove();
+        for (DbObject dbo : objsToRemove) dbo.remove();
     }
 
     // deepCopy step 1: create all the objects without links, except composite 

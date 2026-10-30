@@ -636,8 +636,8 @@ public class TemplateDialog extends JDialog implements TestableWindow {
 
     private static void test(Object fieldTreeObject, String scopedir) {
         CheckTreeNode fieldTree = (CheckTreeNode) fieldTreeObject;
-        List m_tmpls = new ArrayList();
-        List m_conds = new ArrayList();
+        List<Rule> m_tmpls = new ArrayList<>();
+        List<VariableDecl.VariableStructure> m_conds = new ArrayList<>();
         JDialog owner = new JDialog();
         org.modelsphere.jack.srtool.forward.VariableScope varList = getVarList();
 
@@ -654,8 +654,8 @@ public class TemplateDialog extends JDialog implements TestableWindow {
 
     public Window createTestWindow(Container owner) {
         CheckTreeNode fieldTree = (CheckTreeNode) getTestFieldTree();
-        List m_tmpls = new ArrayList();
-        List m_conds = new ArrayList();
+        List<Rule> m_tmpls = new ArrayList<>();
+        List<VariableDecl.VariableStructure> m_conds = new ArrayList<>();
         JDialog owner2 = new JDialog();
         org.modelsphere.jack.srtool.forward.VariableScope varList = getVarList();
 

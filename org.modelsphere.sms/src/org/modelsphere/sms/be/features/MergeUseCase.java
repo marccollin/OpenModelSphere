@@ -535,8 +535,8 @@ public final class MergeUseCase {
 
     private DbBEUseCase resolveDbUseCaseID(DbBEModel model, String sPath, boolean numeric)
             throws DbException {
-        List path = getPath(sPath, numeric);
-        if (path.size() == 0)
+        List<String> path = getPath(sPath, numeric);
+        if (path.isEmpty())
             return null;
         DbObject composite = model;
         for (int i = 0; i < path.size() && composite != null; i++) {
@@ -560,15 +560,15 @@ public final class MergeUseCase {
         return (DbBEUseCase) composite;
     }
 
-    private List getPath(String s, boolean numeric) {
-        List path = new ArrayList();
+    private List<String> getPath(String s, boolean numeric) {
+        List<String> path = new ArrayList<>();
         if (s == null || s.isEmpty())
             return path;
         StringTokenizer st = new StringTokenizer(s, ".", false);
         while (st.hasMoreTokens()) {
             String token = st.nextToken();
             try {
-                Object pathElement = null;
+                String pathElement = null;
                 if (numeric)
                     pathElement = token;
                 else
@@ -635,13 +635,13 @@ public final class MergeUseCase {
         if (source.getMetaClass() != target.getMetaClass())
             return;
         MetaField[] metafields = source.getMetaClass().getAllMetaFields();
-        for (int i = 0; i < metafields.length; i++) {
-            if (metafields[i] == DbObject.fComponents || metafields[i] == DbObject.fComposite
-                    || metafields[i] == DbBEUseCase.fExternal
-                    || metafields[i] == DbBEUseCase.fSourceAlphanumericIdentifier
-                    || metafields[i] == DbBEUseCase.fSourceNumericIdentifier)
+        for (MetaField metafield : metafields) {
+            if (metafield == DbObject.fComponents || metafield == DbObject.fComposite
+                    || metafield == DbBEUseCase.fExternal
+                    || metafield == DbBEUseCase.fSourceAlphanumericIdentifier
+                    || metafield == DbBEUseCase.fSourceNumericIdentifier)
                 continue;
-            if (metafields[i] == DbSemanticalObject.fDescription) {
+            if (metafield == DbSemanticalObject.fDescription) {
                 String sDescr = (String) source.get(DbSemanticalObject.fDescription);
                 String tDescr = (String) target.get(DbSemanticalObject.fDescription);
                 if (tDescr != null && sDescr != null && mergeComments && !sDescr.equals(tDescr))
@@ -650,20 +650,20 @@ public final class MergeUseCase {
                     target.set(DbSemanticalObject.fDescription, sDescr);
                 continue;
             }
-            if (metafields[i] == DbSMSSemanticalObject.fUmlStereotype) {
+            if (metafield == DbSMSSemanticalObject.fUmlStereotype) {
                 DbObject sourcestereotype = (DbObject) source
                         .get(DbSMSSemanticalObject.fUmlStereotype);
                 DbObject targetstereotype = sourcestereotype == null ? null
                         : ((DbSMSProject) target.getProject()).getUmlExtensibility()
-                                .findComponentByName(DbSMSStereotype.metaClass,
-                                        sourcestereotype.getName());
+                        .findComponentByName(DbSMSStereotype.metaClass,
+                                sourcestereotype.getName());
                 target.set(DbSMSSemanticalObject.fUmlStereotype, targetstereotype);
                 continue;
             }
-            if (metafields[i] instanceof MetaRelationship) {
+            if (metafield instanceof MetaRelationship) {
                 continue;
             }
-            target.set(metafields[i], source.get(metafields[i]));
+            target.set(metafield, source.get(metafield));
         }
 
         if (mergeQualifiers) {

@@ -73,6 +73,7 @@ import org.modelsphere.sms.or.international.LocaleMgr;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -322,7 +323,7 @@ public abstract class ORValidationPlugin implements Plugin {
     public DbORTypeClassifier getOriginType(DbORTypeClassifier type) throws DbException {
         DbORTypeClassifier startType = type;
         DbORTypeClassifier sourceType;
-        List domList = new ArrayList();
+        List<DbORTypeClassifier> domList = new ArrayList<>();
 
         while ((type != null) && (type instanceof DbORDomain)) {
             sourceType = ((DbORDomain) type).getSourceType();
@@ -407,20 +408,18 @@ public abstract class ORValidationPlugin implements Plugin {
     }
 
     public void initReservedWords(String[] reservedWords) {
-        for (int i = 0; i < reservedWords.length; i++) {
-            reservedWordsSet.add(reservedWords[i]);
-        }
+        Collections.addAll(reservedWordsSet, reservedWords);
     }
 
     public void initPhysNameMaxLen(Object[][] physNameMaxLen) {
-        for (int i = 0; i < physNameMaxLen.length; i++) {
-            physicalNameMaxLenMap.put(physNameMaxLen[i][0], physNameMaxLen[i][1]);
+        for (Object[] objects : physNameMaxLen) {
+            physicalNameMaxLenMap.put(objects[0], objects[1]);
         }
     }
 
     public void initDataTypes(Object[][] dataTypes) {
-        for (int i = 0; i < dataTypes.length; i++) {
-            dataTypesMap.put(dataTypes[i][0], dataTypes[i][1]);
+        for (Object[] dataType : dataTypes) {
+            dataTypesMap.put(dataType[0], dataType[1]);
         }
     }
 

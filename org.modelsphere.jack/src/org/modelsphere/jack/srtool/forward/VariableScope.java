@@ -45,7 +45,6 @@ package org.modelsphere.jack.srtool.forward;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -59,7 +58,7 @@ import java.util.List;
 // One variable scope per plug-in
 //
 public class VariableScope implements Serializable {
-    Map m_hashmap = new HashMap(); // map variable names and variable structs
+    Map<String, VariableDecl.VariableStructure> m_hashmap = new HashMap<>(); // map variable names and variable structs
     String m_scopename;
 
     public VariableScope(String scopename) {
@@ -75,20 +74,19 @@ public class VariableScope implements Serializable {
     }
 
     public VariableDecl.VariableStructure getVariable(String varname) {
-        return (VariableDecl.VariableStructure) m_hashmap.get(varname);
+        return m_hashmap.get(varname);
     }
 
     public void setVariable(String varname, Serializable value) {
-        VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) m_hashmap
+        VariableDecl.VariableStructure variable = m_hashmap
                 .remove(varname);
         variable.setValue(value);
         m_hashmap.put(varname, variable);
     }
 
     public Iterator getIterator() {
-        Collection coll = m_hashmap.entrySet();
-        List list = new ArrayList(coll);
-        Comparator comparator = new VariableComparator();
+        List<Map.Entry<String, VariableDecl.VariableStructure>> list = new ArrayList<>(m_hashmap.entrySet());
+        Comparator<Map.Entry<String, VariableDecl.VariableStructure>> comparator = new VariableComparator();
         Collections.sort(list, comparator);
         Iterator iter = list.iterator();
         return iter;
@@ -110,18 +108,14 @@ public class VariableScope implements Serializable {
     //
     // INNER CLASS
     //
-    private static class VariableComparator implements Comparator {
+    private static class VariableComparator implements Comparator<Map.Entry<String, VariableDecl.VariableStructure>> {
         VariableComparator() {
         }
 
-        public int compare(Object o1, Object o2) {
-            Map.Entry entry1 = (Map.Entry) o1;
-            Map.Entry entry2 = (Map.Entry) o2;
-
-            VariableDecl.VariableStructure var1 = (VariableDecl.VariableStructure) entry1
-                    .getValue();
-            VariableDecl.VariableStructure var2 = (VariableDecl.VariableStructure) entry2
-                    .getValue();
+        public int compare(Map.Entry<String, VariableDecl.VariableStructure> entry1,
+                Map.Entry<String, VariableDecl.VariableStructure> entry2) {
+            VariableDecl.VariableStructure var1 = entry1.getValue();
+            VariableDecl.VariableStructure var2 = entry2.getValue();
 
             int diff = (var1.getOrder() - var2.getOrder()); // order 10 before
             // order 20

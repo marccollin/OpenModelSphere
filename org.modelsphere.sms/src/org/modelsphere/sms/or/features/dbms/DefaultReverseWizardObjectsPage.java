@@ -96,7 +96,7 @@ public class DefaultReverseWizardObjectsPage extends WizardPage {
     private CardLayout cardLayoutOccurrence = new CardLayout();
 
     int cardLayoutCurrentItem = 0, cardLayoutLastItem = 0;
-    Hashtable cardLayoutComponentTable = new Hashtable();
+    Map<String, Integer> cardLayoutComponentTable = new Hashtable<>();
 
     public DefaultReverseWizardObjectsPage() {
         super();
@@ -171,8 +171,7 @@ public class DefaultReverseWizardObjectsPage extends WizardPage {
         // LOCALIZABLE
 
         // For unowned objects...
-        for (int i = 0; i < scope.length; i++) {
-            ObjectScope concept = scope[i];
+        for (ObjectScope concept : scope) {
             if (!concept.isOwnedObject && concept.isSelected && concept.showOccurences) {
                 s += "." + concept.conceptName; // NOT LOCALIZABLE
                 addComponentToCardLayout(occurrenceTreePanel, s, options, concept.conceptName,
@@ -181,8 +180,7 @@ public class DefaultReverseWizardObjectsPage extends WizardPage {
         }
 
         // For owned objects...
-        for (int i = 0; i < scope.length; i++) {
-            ObjectScope concept = scope[i];
+        for (ObjectScope concept : scope) {
             if (concept.isOwnedObject && concept.isSelected && concept.showOccurences) {
 
                 for (int j = 0; j < concept.occurences.size(); j++) {
@@ -200,7 +198,7 @@ public class DefaultReverseWizardObjectsPage extends WizardPage {
 
     // Create the Occurences Tree for unowned and owned objects
     private void addComponentToCardLayout(JPanel panel, String name, DBMSReverseOptions options,
-            String objName, ArrayList arrayObjs) {
+            String objName, List arrayObjs) {
 
         CheckableTree occurrenceTree = new CheckableTree();
         occurrenceTree.setModel(new OccurrenceTreeModel(
@@ -223,15 +221,15 @@ public class DefaultReverseWizardObjectsPage extends WizardPage {
         CardLayout layout = (CardLayout) panel.getLayout();
 
         // another way to implement layout.show()
-        Integer iPosition = (Integer) cardLayoutComponentTable.get(key);
+        Integer iPosition = cardLayoutComponentTable.get(key);
 
         // iPositon null if user selects a non-leaf node: do nothing in this
         // case
         if (iPosition == null)
-            iPosition = (Integer) cardLayoutComponentTable.get("empty"); // NOT
+            iPosition = cardLayoutComponentTable.get("empty"); // NOT
         // LOCALIZABLE
 
-        cardLayoutCurrentItem = iPosition.intValue();
+        cardLayoutCurrentItem = iPosition;
         layout.first(panel);
         for (int i = 0; i < cardLayoutCurrentItem; i++) {
             layout.next(panel);
@@ -240,7 +238,7 @@ public class DefaultReverseWizardObjectsPage extends WizardPage {
     }
 
     private String getComponentName(String pathName) {
-        String compName = "";
+        StringBuilder compName = new StringBuilder();
 
         StringTokenizer st = new StringTokenizer(pathName, "["); // NOT
         // LOCALIZABLE
@@ -249,11 +247,11 @@ public class DefaultReverseWizardObjectsPage extends WizardPage {
             int pos = s.indexOf("["); // NOT LOCALIZABLE
             if (pos != -1)
                 s = s.substring(pos + 1);
-            compName += s.trim();
+            compName.append(s.trim());
             if (st.hasMoreTokens())
-                compName += "."; // NOT LOCALIZABLE
+                compName.append("."); // NOT LOCALIZABLE
         }
-        return compName;
+        return compName.toString();
     }
 
     public final boolean terminate(Object opt, boolean saveData) {
@@ -298,8 +296,7 @@ public class DefaultReverseWizardObjectsPage extends WizardPage {
                     DbORUser.metaClass.getGUIName());
 
             // First, add all unowned objects...
-            for (int i = 0; i < scope.length; i++) {
-                ObjectScope concept = scope[i];
+            for (ObjectScope concept : scope) {
                 if (!concept.isOwnedObject && concept.isSelected && concept.showOccurences) {
                     parent = new DefaultMutableTreeNode(concept, true);
                     root.add(parent);
@@ -315,8 +312,7 @@ public class DefaultReverseWizardObjectsPage extends WizardPage {
             }
 
             // Third, add all owned objects associated with the user...
-            for (int i = 0; i < scope.length; i++) {
-                ObjectScope concept = scope[i];
+            for (ObjectScope concept : scope) {
                 if (concept.isOwnedObject && concept.isSelected && concept.showOccurences) {
                     // add username
                     for (int j = 0; j < concept.occurences.size(); j++) {
@@ -379,8 +375,8 @@ public class DefaultReverseWizardObjectsPage extends WizardPage {
             super(root);
             DefaultMutableTreeNode parent;
 
-            for (int i = 0; i < arrayObjs.size(); i++) {
-                ObjectSelection obj = (ObjectSelection) arrayObjs.get(i);
+            for (Object arrayObj : arrayObjs) {
+                ObjectSelection obj = (ObjectSelection) arrayObj;
                 parent = new OccurrenceNode(obj, 0, false, true);
                 root.add(parent);
             }

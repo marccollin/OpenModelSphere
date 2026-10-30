@@ -40,12 +40,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.List;
 
 public final class ObjectNameReader implements InputReadable {
     // ObjectBuilder builder;
-    ArrayList nameList;
+    List nameList;
 
-    public ObjectNameReader(ArrayList anArray) {
+    public ObjectNameReader(List anArray) {
         nameList = anArray;
     }
 

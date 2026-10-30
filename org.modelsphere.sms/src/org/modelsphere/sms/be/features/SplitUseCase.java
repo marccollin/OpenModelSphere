@@ -350,7 +350,7 @@ public final class SplitUseCase {
     private void copyStyles() throws DbException {
         DbEnumeration dbEnum = sourceModel.getProject().getComponents().elements(
                 DbBEStyle.metaClass);
-        List styles = new ArrayList();
+        List<DbObject> styles = new ArrayList<>();
         while (dbEnum.hasMoreElements()) {
             // todo filter used styles only ???
             DbObject dbo = dbEnum.nextElement();
@@ -368,7 +368,7 @@ public final class SplitUseCase {
     private void copyNotations() throws DbException {
         DbEnumeration dbEnum = sourceModel.getProject().getComponents().elements(
                 DbBENotation.metaClass);
-        List notations = new ArrayList();
+        List<DbObject> notations = new ArrayList<>();
         while (dbEnum.hasMoreElements()) {
             // todo filter used notations only ???
             DbObject dbo = dbEnum.nextElement();

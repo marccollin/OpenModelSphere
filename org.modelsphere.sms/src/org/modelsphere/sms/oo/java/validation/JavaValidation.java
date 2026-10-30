@@ -77,7 +77,7 @@ public class JavaValidation implements HyperlinkListener {
 
     private TextViewerFrame textFrame;
     private StringWriter writer = new StringWriter();
-    private Set classes = new HashSet();
+    private Set<DbJVClass> classes = new HashSet<>();
     private int circularityNbErrors = 0;
     private Db validatingDb = null;
 
@@ -88,13 +88,12 @@ public class JavaValidation implements HyperlinkListener {
     public boolean execute(DbObject[] roots) throws DbException {
         int nbErrorsFound = 0;
         validatingDb = roots[0].getDb();
-        for (int i = 0; i < roots.length; i++) {
-            if (roots[i] instanceof DbJVClass)
-                classes.add(roots[i]);
-            AnyAdt.getClassesAux(classes, roots[i]);
+        for (DbObject root : roots) {
+            if (root instanceof DbJVClass)
+                classes.add((DbJVClass) root);
+            AnyAdt.getClassesAux(classes, root);
         }
-        boolean validationFailed = doJavaValidation();
-        return validationFailed;
+        return doJavaValidation();
     } //end execute()
 
     private boolean doJavaValidation() throws DbException {
@@ -111,8 +110,7 @@ public class JavaValidation implements HyperlinkListener {
         Vector circularClasses = new Vector();
         List<DefaultComparableElement> sortedElements = new ArrayList<>(classes.size());
 
-        for (Iterator iter = classes.iterator(); iter.hasNext();) {
-            DbJVClass aClass = (DbJVClass) iter.next();
+        for (DbJVClass aClass : classes) {
             sortedElements.add(new DefaultComparableElement(aClass, aClass.getName()));
         }
         Collections.sort(sortedElements, new CollationComparator());
@@ -122,8 +120,8 @@ public class JavaValidation implements HyperlinkListener {
             sortedClasses[i] = (DbJVClass) sortedElements.get(i).object;
         }
 
-        for (int i = 0; i < sortedClasses.length; i++) {
-            AnyAdt.validateCircularity(sortedClasses[i], circularClasses, new Vector(),
+        for (DbJVClass sortedClass : sortedClasses) {
+            AnyAdt.validateCircularity(sortedClass, circularClasses, new Vector(),
                     validatedClasses, new InheritanceCircularityListener() {
                         public void circularityPathFound(Vector circularityPath) throws DbException {
                             writeCircularityError(circularityPath);
@@ -131,8 +129,8 @@ public class JavaValidation implements HyperlinkListener {
                     });
         }
         // validation: classes errors
-        for (int i = 0; i < sortedClasses.length; i++) {
-            new AdtJavaValidation(sortedClasses[i], circularClasses.contains(sortedClasses[i]),
+        for (DbJVClass sortedClass : sortedClasses) {
+            new AdtJavaValidation(sortedClass, circularClasses.contains(sortedClass),
                     writer);
         }
 
@@ -153,17 +151,16 @@ public class JavaValidation implements HyperlinkListener {
         return validationFailed;
     } //end doJavaValidation()
 
-    private void findAllClassesToValidate(Set initialClasses) throws DbException {
-        Set ancestors = new HashSet();
-        Set typingClasses = new HashSet();
-        Set throwedExceptions = new HashSet();
-        for (Iterator iter = initialClasses.iterator(); iter.hasNext();) {
-            DbJVClass aClass = (DbJVClass) iter.next();
+    private void findAllClassesToValidate(Set<DbJVClass> initialClasses) throws DbException {
+        Set<Object> ancestors = new HashSet<>();
+        Set<Object> typingClasses = new HashSet<>();
+        Set<Object> throwedExceptions = new HashSet<>();
+        for (DbJVClass aClass : initialClasses) {
             AnyAdt.findAncestors(aClass, ancestors);
             AnyAdt.findTypingAdts(aClass, typingClasses);
             AnyAdt.findThrowedExceptions(aClass, throwedExceptions);
         }
-        Set additionalClasses = new HashSet();
+        Set<DbJVClass> additionalClasses = new HashSet<>();
         addToClasses(ancestors, additionalClasses);
         addToClasses(typingClasses, additionalClasses);
         addToClasses(throwedExceptions, additionalClasses);
@@ -171,9 +168,8 @@ public class JavaValidation implements HyperlinkListener {
             findAllClassesToValidate(additionalClasses);
     }
 
-    private void addToClasses(Set classesToAdd, Set additionalClasses) {
-        for (Iterator iter = classesToAdd.iterator(); iter.hasNext();) {
-            Object obj = iter.next();
+    private void addToClasses(Set<?> classesToAdd, Set<DbJVClass> additionalClasses) {
+        for (Object obj : classesToAdd) {
             if (obj instanceof DbJVClass) { // can be DbJVPrimitiveType
                 DbJVClass aClass = (DbJVClass) obj;
                 if (!classes.contains(aClass)) {
@@ -243,9 +239,8 @@ public class JavaValidation implements HyperlinkListener {
         userName = replaceBlanks(userName);
 
         String hyperlinkFmt = "<a href=\"{0}:{1}\">{2}</a>"; //NOT LOCALIZABLE, hyperklink
-        String hyperlink = MessageFormat.format(hyperlinkFmt, new Object[] { projectName, hrefName,
+        return MessageFormat.format(hyperlinkFmt, new Object[] { projectName, hrefName,
                 userName });
-        return hyperlink;
     }
 
     /*
@@ -289,7 +284,7 @@ public class JavaValidation implements HyperlinkListener {
         if (fullName == null)
             fullName = UNNAMED;
 
-        if (fullName.equals("")) {
+        if (fullName.isEmpty()) {
             fullName = UNNAMED;
         } //end if
 
@@ -306,7 +301,7 @@ public class JavaValidation implements HyperlinkListener {
                 if (parentName == null)
                     parentName = UNNAMED;
 
-                if (parentName.equals("")) {
+                if (parentName.isEmpty()) {
                     parentName = UNNAMED;
                 } //end if
 
@@ -456,8 +451,7 @@ public class JavaValidation implements HyperlinkListener {
                 "..", "....", "..Class.." };
 
         int nb = tests.length;
-        for (int i = 0; i < nb; i++) {
-            String test = tests[i];
+        for (String test : tests) {
             String result = replaceBlanks(test);
             System.out.println("'" + test + "'   gives   '" + result + "'");
         } //end for

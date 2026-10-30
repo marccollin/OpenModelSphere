@@ -149,7 +149,7 @@ public final class UpdateEnvironment {
             return;
         Iterator iter = flowSemObjectMap.keySet().iterator();
         while (iter.hasNext()) {
-            List matchedFlowsList = new ArrayList();
+            List<DbBEFlow> matchedFlowsList = new ArrayList<>();
             DbSMSClassifier end1 = null;
             DbSMSClassifier end2 = null;
             DbBEFlow flow = (DbBEFlow) iter.next();

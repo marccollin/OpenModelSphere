@@ -320,7 +320,7 @@ final class ChangingTargetSystem {
 
         private void recoverSubModelFromSource(Map convertedModelsMap, DbORDataModel srcModel,
                                                String destTargetSystem) throws DbException {
-            List srcList = new ArrayList();
+            List<DbORDataModel> srcList = new ArrayList<>();
             DbORDataModel destModel = (DbORDataModel) convertedModelsMap.get(srcModel);
 
             // PASS 1 : delete converted submodels
@@ -363,7 +363,7 @@ final class ChangingTargetSystem {
             // continue to sub models
             int nb = srcList.size();
             for (int i = 0; i < nb; i++) {
-                DbORDataModel src = (DbORDataModel) srcList.get(i);
+                DbORDataModel src = srcList.get(i);
                 recoverSubModelFromSource(convertedModelsMap, src, destTargetSystem);
             } // end for
 
@@ -522,8 +522,8 @@ final class ChangingTargetSystem {
 
             if ((m_options.m_params & CONVERT_SUB_MODELS) != 0) {
                 // for each sub data model
-                List sourceSubModels = new ArrayList();
-                List targetSubModels = new ArrayList();
+                List<DbORDataModel> sourceSubModels = new ArrayList<>();
+                List<DbORDataModel> targetSubModels = new ArrayList<>();
 
                 DbRelationN relN = sourceModel.getComponents();
                 DbEnumeration dbEnum = relN.elements(DbORDataModel.metaClass);
@@ -546,7 +546,7 @@ final class ChangingTargetSystem {
                 for (int i = 0; i < nb; i++) {
                     convertedModelsMap.put(sourceSubModels.get(i), targetSubModels.get(i));
                     setTargetDependantProperties(convertedModelsMap,
-                            (DbORDataModel) sourceSubModels.get(i), customizer);
+                            sourceSubModels.get(i), customizer);
                 } // end for
             } // end if
 

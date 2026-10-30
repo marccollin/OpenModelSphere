@@ -109,7 +109,7 @@ public class GeneratePhysicalNameFrame extends JDialog {
     private String wordDelimiters = null;
     private String dictionaryFileName = null;
     private String accentedCharactersToReplace = null;
-    private HashMap accentedCharactersToReplaceHashMap = null;
+    private Map<String, String> accentedCharactersToReplaceHashMap = null;
     private PhysicalNameDictionary dictionary = null;
     private static final String EMPTY_COMBOBOX_VALUE = new String(""); // NOT
     // LOCALIZABLE
@@ -532,12 +532,12 @@ public class GeneratePhysicalNameFrame extends JDialog {
         return wordDelimiters;
     }
 
-    public final HashMap getAccentedCharactersToReplace() {
+    public final Map getAccentedCharactersToReplace() {
         return accentedCharactersToReplaceHashMap;
     }
 
-    private final HashMap convertAccentedCharactersToReplaceStringToHashMap() {
-        HashMap hm = new HashMap();
+    private final Map<String, String> convertAccentedCharactersToReplaceStringToHashMap() {
+        HashMap<String, String> hm = new HashMap<>();
         StringTokenizer st = new StringTokenizer(accentedCharactersToReplace, ";"); // NOT LOCALIZABLE
         try {
             while (st.hasMoreTokens()) {
@@ -605,18 +605,18 @@ public class GeneratePhysicalNameFrame extends JDialog {
             caseChange = EMPTY_COMBOBOX_VALUE;
         }
 
-        for (int i = 0; i < selectedRows.length; i++) {
+        for (int selectedRow : selectedRows) {
             if (status == null)
-                status = tableModel.getValueAt(selectedRows[i], 1);
-            else if (status != tableModel.getValueAt(selectedRows[i], 1))
+                status = tableModel.getValueAt(selectedRow, 1);
+            else if (status != tableModel.getValueAt(selectedRow, 1))
                 status = EMPTY_COMBOBOX_VALUE;
-            replacementChar = (String) tableModel.getValueAt(selectedRows[i], 2);
-            length = String.valueOf(tableModel.getValueAt(selectedRows[i], 3));
-            Unique = (Boolean) tableModel.getValueAt(selectedRows[i], 4);
-            nbCharByWord = String.valueOf(tableModel.getValueAt(selectedRows[i], 5));
+            replacementChar = (String) tableModel.getValueAt(selectedRow, 2);
+            length = String.valueOf(tableModel.getValueAt(selectedRow, 3));
+            Unique = (Boolean) tableModel.getValueAt(selectedRow, 4);
+            nbCharByWord = String.valueOf(tableModel.getValueAt(selectedRow, 5));
             if (caseChange == null)
-                caseChange = tableModel.getValueAt(selectedRows[i], 6);
-            else if (caseChange != tableModel.getValueAt(selectedRows[i], 6))
+                caseChange = tableModel.getValueAt(selectedRow, 6);
+            else if (caseChange != tableModel.getValueAt(selectedRow, 6))
                 caseChange = EMPTY_COMBOBOX_VALUE;
 
         }
