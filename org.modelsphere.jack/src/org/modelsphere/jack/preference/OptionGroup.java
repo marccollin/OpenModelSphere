@@ -47,7 +47,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OptionGroup {
-    private List optionGroups = new ArrayList(5);
+    private List<OptionGroup> optionGroups = new ArrayList<>(5);
 
     private String title = "";
 

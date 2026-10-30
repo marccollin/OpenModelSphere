@@ -69,11 +69,11 @@ import java.util.Map;
 public final class ConnectionService extends ConnectionServiceProtocol {
     public static final String kNoSuchDriver = LocaleMgr.message.getString("NoSuchDriver");
 
-    private static Map connectionMap = new HashMap();
+    private static Map<Integer, Connection> connectionMap = new HashMap<>();
     private static int currentConnectionID = 0;
 
     public static Connection getConnection(int connectionId) {
-        Connection connection = (Connection) connectionMap.get(Integer.valueOf(connectionId));
+        Connection connection = connectionMap.get(Integer.valueOf(connectionId));
         return connection;
     }
 

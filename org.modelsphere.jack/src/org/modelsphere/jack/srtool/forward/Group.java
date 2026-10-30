@@ -73,7 +73,7 @@ public final class Group extends Rule {
     // set actual subrules from its string rule;
     public void setActualSubRules(Hashtable table) throws RuleException {
         if (stringRules != null) {
-            List list = new ArrayList();
+            List<Rule> list = new ArrayList<>();
             StringTokenizer st = new StringTokenizer(stringRules, ",");
             while (st.hasMoreTokens()) {
                 String token = st.nextToken();
@@ -85,7 +85,7 @@ public final class Group extends Rule {
             int nb = list.size();
             rules = new Rule[nb];
             for (int i = 0; i < nb; i++) {
-                rules[i] = (Rule) list.get(i);
+                rules[i] = list.get(i);
             } // end for
         } // end if
 
@@ -111,9 +111,8 @@ public final class Group extends Rule {
                 StringWriter elementBuffer = new StringWriter();
 
                 int nb = rules.length;
-                for (int i = 0; i < nb; i++) {
+                for (Rule rule : rules) {
                     // expand rule in the element buffer
-                    Rule rule = rules[i];
                     if (rule == null) {
                         String msg = SubruleMissingRuleException.buildMessage(m_ruleName,
                                 stringRules);

@@ -63,7 +63,7 @@ public class LexerStream extends StreamTokenizer {
     public static final int TT_STATEMENT = -6;
     public static final int FORCED_DOUBLE_QUOTE = 64; // @
 
-    private List commentList = new ArrayList();
+    private List<String> commentList = new ArrayList<>();
     private StatementList statementList = new StatementList();
     private int quoteChar = '\0';
     private boolean secondDoubleQuoteToken = false;

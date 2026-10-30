@@ -73,7 +73,7 @@ public class MainFrameMenu {
     //menu file
     JackMenu menuForRecentFile = new JackMenu(RECENT_FILES);
 
-    private Map keyMapping = new HashMap(8);
+    private Map<String, JMenu> keyMapping = new HashMap<>(8);
 
     protected MainFrameMenu(DefaultMainFrame mf) {
         this.mf = mf;
@@ -101,7 +101,7 @@ public class MainFrameMenu {
     }
 
     public JMenu getMenuForKey(String key) {
-        return (JMenu) keyMapping.get(key);
+        return keyMapping.get(key);
     }
 
     public final void updateRecentFiles() {
@@ -119,8 +119,7 @@ public class MainFrameMenu {
 
                 recentFiles.clean();
 
-                int max = recentFiles.getNbVisibleRF() < recentFiles.size() ? recentFiles
-                        .getNbVisibleRF() : recentFiles.size();
+                int max = Math.min(recentFiles.getNbVisibleRF(), recentFiles.size());
 
                 while (i < max) {
                     String fileName = recentFiles.elementAt(i);

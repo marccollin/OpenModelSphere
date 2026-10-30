@@ -67,7 +67,7 @@ public final class JarUtil {
     public static File[] createTemporaryFiles(JarFile jarfile, String extension) throws IOException {
         if (jarfile == null || extension == null)
             return null;
-        List files = new ArrayList();
+        List<File> files = new ArrayList<>();
         extension = extension.toLowerCase();
         Enumeration entries = jarfile.entries();
         while (entries.hasMoreElements()) {
@@ -79,7 +79,7 @@ public final class JarUtil {
         }
         File[] arrayfiles = new File[files.size()];
         for (int i = 0; i < arrayfiles.length; i++)
-            arrayfiles[i] = (File) files.get(i);
+            arrayfiles[i] = files.get(i);
         return arrayfiles;
     }
 

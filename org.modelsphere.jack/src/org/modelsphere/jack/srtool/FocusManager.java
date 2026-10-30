@@ -435,7 +435,7 @@ public final class FocusManager implements DbRefreshListener {
      * in the graphic.
      */
     private DbObject[] convertIntoSemanticalObjects(Object[] objs) {
-        Set semObjSet = new HashSet(objs.length + objs.length / 2);
+        Set<DbObject> semObjSet = new HashSet<>(objs.length + objs.length / 2);
         for (int i = 0; i < objs.length; i++) {
             DbObject semObj = null;
             if (objs[i] instanceof DbObject)
@@ -446,7 +446,7 @@ public final class FocusManager implements DbRefreshListener {
                 semObjSet.add(semObj);
         }
         DbObject[] semObjs = new DbObject[semObjSet.size()];
-        return (DbObject[]) semObjSet.toArray(semObjs);
+        return semObjSet.toArray(semObjs);
     }
 
     public boolean isGuiLocked() {
