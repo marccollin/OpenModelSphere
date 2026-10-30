@@ -145,7 +145,7 @@ public final class Viewer extends JDialog {
                 Viewer.this.dispose();
             } else if (event.getSource() == newviewer) {
                 Object root = explorer.getModel().getRoot();
-                List tempRoots = new ArrayList();
+                List<Object> tempRoots = new ArrayList<>();
                 Enumeration enumeration = ((DefaultMutableTreeNode) root).children();
                 while (enumeration.hasMoreElements()) {
                     tempRoots.add(((DefaultMutableTreeNode) enumeration.nextElement())
@@ -156,7 +156,7 @@ public final class Viewer extends JDialog {
                 TreePath[] selectedPath = explorer.getSelectionPaths();
                 if (selectedPath == null)
                     return;
-                List tempRoots = new ArrayList();
+                List<Object> tempRoots = new ArrayList<>();
                 for (TreePath treePath : selectedPath) {
                     Object obj = treePath.getLastPathComponent();
                     tempRoots.add(((DefaultMutableTreeNode) obj).getUserObject());

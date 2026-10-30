@@ -67,7 +67,7 @@ public abstract class DiagramLayout {
     private DbObject diagGo;
     private GraphicComponent[] selComps;
     private GraphLayout layout;
-    private Map nodeMap = new HashMap();
+    private Map<DbObject, GraphLayoutNode> nodeMap = new HashMap<>();
     private SrVector recursiveLinks = new SrVector();
     private Point posArea;
     private Dimension dimArea;
@@ -113,10 +113,10 @@ public abstract class DiagramLayout {
             }
             dbEnum.close();
         } else {
-            for (int i = 0; i < selComps.length; i++) {
+            for (GraphicComponent selComp : selComps) {
                 DbObject go = null;
-                if (selComps[i] instanceof ActionInformation)
-                    go = ((ActionInformation) selComps[i]).getGraphicalObject();
+                if (selComp instanceof ActionInformation)
+                    go = ((ActionInformation) selComp).getGraphicalObject();
                 if (go == null || !isNode(go) || nodeMap.containsKey(go))
                     continue;
                 Rectangle rect = DbGraphic.getRectangle(go);
@@ -147,7 +147,7 @@ public abstract class DiagramLayout {
             while (dbEnum.hasMoreElements()) {
                 DbObject lineGo = dbEnum.nextElement();
                 DbObject backGo = (DbObject) lineGo.get(DbGraphic.fLineGoBackEndGo);
-                GraphLayoutNode backNode = (GraphLayoutNode) nodeMap.get(backGo);
+                GraphLayoutNode backNode = nodeMap.get(backGo);
                 if (backNode == null)
                     continue; /* not selected */
                 if (backNode == frontNode) {

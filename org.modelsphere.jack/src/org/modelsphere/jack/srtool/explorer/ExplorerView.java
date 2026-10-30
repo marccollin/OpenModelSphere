@@ -302,9 +302,9 @@ public class ExplorerView extends JTree implements Autoscroll, TreeSelectionList
                             TreePath[] selectedPath = getSelectionPaths();
                             if (selectedPath == null)
                                 return;
-                            List tempRoots = new ArrayList();
-                            for (int i = 0; i < selectedPath.length; i++) {
-                                Object obj = selectedPath[i].getLastPathComponent();
+                            List<Object> tempRoots = new ArrayList<>();
+                            for (TreePath treePath : selectedPath) {
+                                Object obj = treePath.getLastPathComponent();
                                 tempRoots.add(((DefaultMutableTreeNode) obj).getUserObject());
                             }
                             Viewer.showViewer(ApplicationContext.getDefaultMainFrame(), tempRoots
@@ -653,7 +653,7 @@ public class ExplorerView extends JTree implements Autoscroll, TreeSelectionList
         TreePath[] treePaths = getSelectionPaths();
         if (treePaths == null)
             return new Object[0];
-        Set objs = new HashSet();
+        Set<Object> objs = new HashSet<>();
         for (int i = 0; i < treePaths.length; i++) {
             DynamicNode node = (DynamicNode) treePaths[i].getLastPathComponent();
             if (node.getUserObject() instanceof GroupParams) {

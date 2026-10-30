@@ -58,9 +58,9 @@ import java.util.List;
  *         Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
 public class TableZone extends SingletonZone {
-    private List m_cellList = new ArrayList();
+    private List<TableCell> m_cellList = new ArrayList<>();
 
-    private List getCellList() {
+    private List<TableCell> getCellList() {
         return m_cellList;
     }
 
@@ -88,10 +88,10 @@ public class TableZone extends SingletonZone {
             boolean drawSel, boolean bottomClipped) {
         computeSizeOfRowsAndColumns();
 
-        Iterator iter = m_cellList.iterator();
+        Iterator<TableCell> iter = m_cellList.iterator();
         Rectangle zoomedRect = (diagView == null) ? rect : diagView.zoom(rect);
         while (iter.hasNext()) {
-            TableCell cell = (TableCell) iter.next();
+            TableCell cell = iter.next();
             cell.paint(g, zoomedRect, m_rowHeights, m_colWidths);
         } // end while
 
@@ -129,8 +129,7 @@ public class TableZone extends SingletonZone {
         m_rowHeights = new double[dim.height];
         m_colWidths = new double[dim.width];
 
-        for (Object o : m_cellList) {
-            TableCell cell = (TableCell) o;
+        for (TableCell cell : m_cellList) {
             int x = cell.getX();
             int y = cell.getY();
             double xw = cell.getXW();
@@ -151,8 +150,7 @@ public class TableZone extends SingletonZone {
             computeSizeOfRowsAndColumns();
         }
 
-        for (Object o : m_cellList) {
-            TableCell cell = (TableCell) o;
+        for (TableCell cell : m_cellList) {
             int x = cell.getX();
             int y = cell.getY();
 
@@ -186,8 +184,7 @@ public class TableZone extends SingletonZone {
     private Dimension computeNbRowsAndColumns() {
         int maxX = -1;
         int maxY = -1;
-        for (Object o : m_cellList) {
-            TableCell cell = (TableCell) o;
+        for (TableCell cell : m_cellList) {
             int x = cell.getX();
             int y = cell.getY();
             if (x > maxX)
@@ -197,8 +194,7 @@ public class TableZone extends SingletonZone {
                 maxY = y;
         } // end while
 
-        Dimension dim = new Dimension(maxX + 1, maxY + 1);
-        return dim;
+        return new Dimension(maxX + 1, maxY + 1);
     } // end computeNbRowsAndColumns()
 
     private static double sum(double[] array) {
@@ -237,8 +233,7 @@ public class TableZone extends SingletonZone {
         }
 
         public void resizeCells() {
-            for (Object o : zone.getCellList()) {
-                TableCell cell = (TableCell) o;
+            for (TableCell cell : zone.getCellList()) {
                 // cell.
             } // end while
         } // end resizeCells()

@@ -79,7 +79,7 @@ public class DbTreeModel extends DefaultTreeModel {
         DbLookupNode rootNode = (DbLookupNode) getRoot();
         rootNode.loaded = true;
         int i;
-        List rootNodes = new ArrayList();
+        List<DbLookupNode> rootNodes = new ArrayList<>();
         for (i = 0; i < roots.length; i++) {
             roots[i].getDb().beginTrans(Db.READ_TRANS);
             DbLookupNode node = createNode(roots[i]);
@@ -88,8 +88,8 @@ public class DbTreeModel extends DefaultTreeModel {
         }
         Object[] temp = rootNodes.toArray();
         Arrays.sort(temp);
-        for (int j = 0; j < temp.length; j++) {
-            rootNode.add((DbLookupNode) temp[j]);
+        for (Object o : temp) {
+            rootNode.add((DbLookupNode) o);
         }
 
         for (i = 0; i < roots.length; i++)
@@ -120,8 +120,7 @@ public class DbTreeModel extends DefaultTreeModel {
 
         nodes.sort(new CollationComparator());
         int nb = nodes.size();
-        for (int i = 0; i < nb; i++)
-            parentNode.add((DbLookupNode) nodes.get(i));
+        for (Object node : nodes) parentNode.add((DbLookupNode) node);
     }
 
     public final DbLookupNode findNode(DbObject dbo) throws DbException {
@@ -133,8 +132,8 @@ public class DbTreeModel extends DefaultTreeModel {
         db.beginTrans(Db.READ_TRANS);
         buildPath: while (dbo != null) {
             path.add(dbo);
-            for (int i = 0; i < roots.length; i++)
-                if (dbo == roots[i])
+            for (DbObject dbObject : roots)
+                if (dbo == dbObject)
                     break buildPath;
             dbo = dbo.getComposite();
         }
@@ -216,8 +215,8 @@ public class DbTreeModel extends DefaultTreeModel {
 
     // Return true if <dbo> is an instance of the wanted classes.
     protected boolean isInstance(DbObject dbo) {
-        for (int i = 0; i < metaClasses.length; i++) {
-            if (metaClasses[i].getJClass().isInstance(dbo))
+        for (MetaClass metaClass : metaClasses) {
+            if (metaClass.getJClass().isInstance(dbo))
                 return true;
         }
         return false;

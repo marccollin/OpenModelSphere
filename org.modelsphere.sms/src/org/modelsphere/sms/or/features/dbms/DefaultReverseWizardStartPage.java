@@ -102,24 +102,24 @@ public class DefaultReverseWizardStartPage extends WizardPage implements
         setLayout(new GridBagLayout());
         // get all possible roots
         Db[] dbs = Db.getDbs();
-        List projects = new ArrayList();
+        List<DbObject> projects = new ArrayList<>();
         try {
-            for (int i = 0; i < dbs.length; i++) {
-                dbs[i].beginTrans(Db.READ_TRANS);
-                DbEnumeration dbEnum = dbs[i].getRoot().getComponents().elements(
+            for (Db db : dbs) {
+                db.beginTrans(Db.READ_TRANS);
+                DbEnumeration dbEnum = db.getRoot().getComponents().elements(
                         DbProject.metaClass);
                 while (dbEnum.hasMoreElements())
                     projects.add(dbEnum.nextElement());
                 dbEnum.close();
-                dbs[i].commitTrans();
+                db.commitTrans();
             }
         } catch (DbException e) {
             ExceptionHandler.processUncatchedException(this, e);
-            projects = new ArrayList();
+            projects = new ArrayList<>();
         }
         DbObject[] roots = new DbObject[projects.size()];
         for (int i = 0; i < projects.size(); i++) {
-            roots[i] = (DbObject) projects.get(i);
+            roots[i] = projects.get(i);
         }
 
         rootModelPanel = new NodeSelectionPanel(new MetaClass[] { DbSMSProject.metaClass,

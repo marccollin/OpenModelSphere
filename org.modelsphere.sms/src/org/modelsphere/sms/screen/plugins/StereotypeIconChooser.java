@@ -77,7 +77,7 @@ public class StereotypeIconChooser extends JPanel {
     JTextField imageName = new JTextField();
     JPanel okCancelPanel = new JPanel();
 
-    private static Map g_stereotypeMap = new HashMap(); //keep previous values
+    private static Map<DbSMSStereotype, StereotypeStructure> g_stereotypeMap = new HashMap<>(); //keep previous values
     private StereotypeStructure m_stereotypeStruct;
     private DbSMSStereotype m_stereotype;
     private boolean isCancelled = true; //until OK is pressed
@@ -116,7 +116,7 @@ public class StereotypeIconChooser extends JPanel {
     public StereotypeIconChooser(DbSMSStereotype stereotype) throws DbException {
         try {
             m_stereotype = stereotype;
-            m_stereotypeStruct = (StereotypeStructure) g_stereotypeMap.get(stereotype);
+            m_stereotypeStruct = g_stereotypeMap.get(stereotype);
             if (m_stereotypeStruct == null) {
                 stereotype.getDb().beginReadTrans();
                 String name = stereotype.getName();
@@ -290,9 +290,7 @@ public class StereotypeIconChooser extends JPanel {
 
         okButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                if (g_stereotypeMap.containsKey(m_stereotype)) {
-                    g_stereotypeMap.remove(m_stereotype);
-                }
+                g_stereotypeMap.remove(m_stereotype);
 
                 g_stereotypeMap.put(m_stereotype, m_stereotypeStruct);
                 isCancelled = false;

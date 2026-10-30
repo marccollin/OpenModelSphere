@@ -108,7 +108,7 @@ public abstract class UndoRedoAbstractAction extends AbstractApplicationAction i
     protected final void refresh() {
         DbProject project = ApplicationContext.getFocusManager().getCurrentProject();
         String name = (project != null ? getNextCommandName(project.getDb(), 0) : null);
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         if (name != null) {
             putValue(Action.NAME, MessageFormat.format(pattern, new Object[] { name }));
             setEnabled(true);
@@ -127,7 +127,7 @@ public abstract class UndoRedoAbstractAction extends AbstractApplicationAction i
         }
         String[] commands = new String[list.size()];
         for (int i = 0; i < commands.length; i++)
-            commands[i] = (String) list.get(i);
+            commands[i] = list.get(i);
         putValue(COMMANDS, commands);
     }
 

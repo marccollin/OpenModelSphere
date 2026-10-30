@@ -83,7 +83,7 @@ public abstract class ReversePlugins {
     }
 
     public final void setFilters(Vector filterVector, SourceChooser fileChooser) {
-        Vector extVector = new Vector();
+        List<String> extVector = new Vector<>();
         List<?> reverseList = getReverseObjectList();
         Iterator<?> iter = reverseList.iterator();
 
@@ -91,7 +91,7 @@ public abstract class ReversePlugins {
             JackReverseEngineeringPlugin reverse = (JackReverseEngineeringPlugin) iter.next();
             String ext = reverse.getExtension();
             String def = reverse.getDisplayName();
-            extVector.addElement(ext);
+            extVector.add(ext);
             ExtensionFileFilter filter = new ExtensionFileFilter(new String[] { ext }, def);
             filterVector.addElement(filter);
             fileChooser.addChoosableFileFilter(filter);
@@ -99,7 +99,7 @@ public abstract class ReversePlugins {
 
         String[] extList = new String[extVector.size()];
         for (int i = 0; i < extVector.size(); i++) {
-            extList[i] = (String) extVector.elementAt(i);
+            extList[i] = extVector.get(i);
         } //end for
 
         ExtensionFileFilter filter = new ExtensionFileFilter(extList, ALL_SUPPORTED_TYPES);

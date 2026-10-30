@@ -306,11 +306,11 @@ public class DbFindDialog extends JDialog implements ActionListener, TestableWin
     private List<Boolean> getScopeValue() {
         List<Boolean> scopeOptions = new ArrayList<>();
 
-        scopeOptions.add(Boolean.valueOf(nameCB.isSelected()));
-        scopeOptions.add(Boolean.valueOf(codedNameCB.isSelected()));
-        scopeOptions.add(Boolean.valueOf(aliasCB.isSelected()));
-        scopeOptions.add(Boolean.valueOf(descriptionCB.isSelected()));
-        scopeOptions.add(Boolean.valueOf(allOtherTextCB.isSelected()));
+        scopeOptions.add(nameCB.isSelected());
+        scopeOptions.add(codedNameCB.isSelected());
+        scopeOptions.add(aliasCB.isSelected());
+        scopeOptions.add(descriptionCB.isSelected());
+        scopeOptions.add(allOtherTextCB.isSelected());
         return scopeOptions;
     }
 
@@ -369,8 +369,7 @@ public class DbFindDialog extends JDialog implements ActionListener, TestableWin
     } // end runDemo()
 
     public Window createTestWindow(Container owner) {
-        DbFindDialog dialog = new DbFindDialog();
-        return dialog;
+        return new DbFindDialog();
     }
 
     /*

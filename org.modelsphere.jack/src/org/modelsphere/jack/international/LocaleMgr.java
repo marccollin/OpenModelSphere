@@ -119,7 +119,7 @@ public class LocaleMgr {
         return m_resName;
     }
 
-    private List m_parentChain = new ArrayList();
+    private List<String> m_parentChain = new ArrayList<>();
 
     protected LocaleMgr(String resName) {
         m_resName = resName;
@@ -199,8 +199,7 @@ public class LocaleMgr {
         //get the "locale.properties" file
         String folderPath = System.getProperty("user.dir"); //NOT LOCALIZABLE, property
         String filename = "locale.properties"; //NOT LOCALIZABLE, independant from current language
-        File file = new File(folderPath, filename);
-        return file;
+        return new File(folderPath, filename);
     } //getLocalePropertyFile
 
     //get locale stored in "locale.properties" file
@@ -412,9 +411,9 @@ public class LocaleMgr {
     private String getRes(String key) {
         String res = null;
         String msg = null;
-        Iterator iter = m_parentChain.iterator();
+        Iterator<String> iter = m_parentChain.iterator();
         while (iter.hasNext()) { //iterates in the parent chain
-            String resName = (String) iter.next();
+            String resName = iter.next();
             ResourceBundle bundle = findResourceBundle(resName);
             try {
                 res = bundle.getString(key);

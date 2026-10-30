@@ -75,7 +75,7 @@ final class MergeColumnAction extends AbstractApplicationAction implements Selec
             DbORTypeClassifier type = mergeCol.getType();
             DbORColumn source = (mergeCol.getFKeyColumns().size() != 0 ? ForeignKey
                     .getUltimateSource(mergeCol) : null);
-            List cols = new ArrayList();
+            List<DbORColumn> cols = new ArrayList<>();
             DbEnumeration dbEnum = mergeCol.getComposite().getComponents().elements(
                     DbORColumn.metaClass);
             while (dbEnum.hasMoreElements()) {

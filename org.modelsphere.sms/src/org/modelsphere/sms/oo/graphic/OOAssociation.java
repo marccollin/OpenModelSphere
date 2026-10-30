@@ -72,6 +72,7 @@ import org.modelsphere.sms.oo.db.srtypes.OOAggregation;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public final class OOAssociation extends SrLine implements DbRefreshListener {
 
@@ -311,8 +312,8 @@ public final class OOAssociation extends SrLine implements DbRefreshListener {
 
     private void chainLabels() {
         LineLabel frontLabel, backLabel;
-        List frontLabelList = new ArrayList();
-        List backLabelList = new ArrayList();
+        List<LineLabel> frontLabelList = new ArrayList<>();
+        List<LineLabel> backLabelList = new ArrayList<>();
 
         if (frontMultiLabel != null)
             frontLabelList.add(frontMultiLabel);
@@ -321,11 +322,10 @@ public final class OOAssociation extends SrLine implements DbRefreshListener {
         if (frontUmlLabel != null)
             frontLabelList.add(frontUmlLabel);
 
-        if (frontLabelList.size() > 0) {
+        if (!frontLabelList.isEmpty()) {
             LineLabel lineLabel = null;
             LineLabel lastLabel = null;
-            for (int i = 0; i < frontLabelList.size(); i++) {
-                LineLabel label = (LineLabel) frontLabelList.get(i);
+            for (LineLabel label : frontLabelList) {
                 if (lineLabel == null)
                     lineLabel = label;
                 else
@@ -345,11 +345,10 @@ public final class OOAssociation extends SrLine implements DbRefreshListener {
         if (backUmlLabel != null)
             backLabelList.add(backUmlLabel);
 
-        if (backLabelList.size() > 0) {
+        if (!backLabelList.isEmpty()) {
             LineLabel lineLabel = null;
             LineLabel lastLabel = null;
-            for (int i = 0; i < backLabelList.size(); i++) {
-                LineLabel label = (LineLabel) backLabelList.get(i);
+            for (LineLabel label : backLabelList) {
                 if (lineLabel == null)
                     lineLabel = label;
                 else
@@ -429,8 +428,7 @@ public final class OOAssociation extends SrLine implements DbRefreshListener {
 
         String value = "";
         if (nameShown && typeShown) {
-            boolean typeBefore = (((Boolean) assocGo.find(DbOOStyle.fOojv_umlTypeBeforeName))
-                    .booleanValue());
+            boolean typeBefore = ((Boolean) assocGo.find(DbOOStyle.fOojv_umlTypeBeforeName));
             if (typeBefore) {
                 value = type + "\n" + name; //NOT LOCALIZABLE
             } else {
@@ -447,12 +445,10 @@ public final class OOAssociation extends SrLine implements DbRefreshListener {
 
     private String buildUmlLineEndDisplayString(DbOODataMember member) throws DbException {
         String display = "";
-        if (((Boolean) getAssociationGO().find(DbOOStyle.fOojv_umlStereotypeDisplayed))
-                .booleanValue())
+        if ((Boolean) getAssociationGO().find(DbOOStyle.fOojv_umlStereotypeDisplayed))
             display = this.getUMLStereotypeName(member);
-        if (((Boolean) getAssociationGO().find(DbOOStyle.fOojv_umlConstraintDisplayed))
-                .booleanValue()) {
-            if (!display.equals(""))
+        if ((Boolean) getAssociationGO().find(DbOOStyle.fOojv_umlConstraintDisplayed)) {
+            if (!display.isEmpty())
                 display = display + "  "; //NOT LOCALIZABLE
             display = display + this.getUMLConstraintsName(member);
         }
@@ -510,29 +506,27 @@ public final class OOAssociation extends SrLine implements DbRefreshListener {
         if (nameDisplayed)
             label = (name == null) ? duplicate : name.concat("  " + duplicate);
 
-        if (((Boolean) getAssociationGO().find(DbOOStyle.fOojv_umlStereotypeDisplayed))
-                .booleanValue()) {
+        if ((Boolean) getAssociationGO().find(DbOOStyle.fOojv_umlStereotypeDisplayed)) {
             String stereotypeName = getUMLStereotypeName((DbOOAssociation) semObj);
-            if (stereotypeName != "")
+            if (!Objects.equals(stereotypeName, ""))
                 label = stereotypeName + " " + label; // NOT LOCALIZABLE
         }
-        if (((Boolean) getAssociationGO().find(DbOOStyle.fOojv_umlConstraintDisplayed))
-                .booleanValue()) {
+        if ((Boolean) getAssociationGO().find(DbOOStyle.fOojv_umlConstraintDisplayed)) {
             String constraintsName = getUMLConstraintsName((DbOOAssociation) semObj);
-            if (constraintsName != "")
+            if (!Objects.equals(constraintsName, ""))
                 label = label + " " + constraintsName; // NOT LOCALIZABLE
         }
 
         NameAndDuplicateLabel currentLabel = (NameAndDuplicateLabel) getCenterLabel();
 
-        if (label == "") { // NOT LOCALIZABLE
+        if (label.isEmpty()) { // NOT LOCALIZABLE
             if (currentLabel != null) {
                 setCenterLabel(null);
                 currentLabel.delete(false);
             }
         } else {
             if (currentLabel == null) {
-                if (assocDir.booleanValue())
+                if (assocDir!=null && assocDir)
                     currentLabel = new NameAndDirectionLabel(getDiagram(), semObj, this,
                             DbOOAssociationGo.fCenterOffset, nameDisplayed, assocGo, "Name");
                 else
@@ -564,7 +558,7 @@ public final class OOAssociation extends SrLine implements DbRefreshListener {
             return "";
         String pattern = "{0}/{1}";
         return MessageFormat.format(pattern,
-                new Object[] { Integer.valueOf(index), Integer.valueOf(count) });
+                new Object[] {index, Integer.valueOf(count) });
     }
 
     ///////////////////////////////////////////////

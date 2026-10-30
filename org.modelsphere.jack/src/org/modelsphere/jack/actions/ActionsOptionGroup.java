@@ -146,7 +146,7 @@ public class ActionsOptionGroup extends OptionGroup {
 
     protected OptionPanel createOptionPanel() {
         Component[] components = toolbar.getComponents();
-        List items = new ArrayList();
+        List<CheckListItem> items = new ArrayList<>();
         AbstractApplicationAction applAction = null;
         for (Component component : components) {
             Action action = null;

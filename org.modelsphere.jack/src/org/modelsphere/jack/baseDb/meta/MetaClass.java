@@ -81,7 +81,7 @@ public final class MetaClass {
     public final static int NO_UDF = 0x0010;
     public final static int UML_EXTENSIBILITY_FILTER = 0x0020;
 
-    private static Map metaClasses = new HashMap();
+    private static Map<String, MetaClass> metaClasses = new HashMap<>();
     private static int maxLevel = 0;
 
     private String GUIName;
@@ -99,7 +99,7 @@ public final class MetaClass {
     // Called once during application initialization, immediatly after loading
     // all the meta classes.
     public static void initMetaClasses() {
-        for (Object o : metaClasses.values()) ((MetaClass) o).initAux();
+        for (MetaClass metaClass : metaClasses.values()) metaClass.initAux();
     }
 
     private void initAux() {
@@ -157,7 +157,7 @@ public final class MetaClass {
     } // end initAux()
 
     public static MetaClass find(String className) {
-        return (MetaClass) metaClasses.get(className);
+        return metaClasses.get(className);
     }
 
     public static Enumeration enumMetaClasses() {
@@ -595,4 +595,3 @@ public final class MetaClass {
         }
     } // end EnumMetaClassHierarchy
 } // end MetaClass
-

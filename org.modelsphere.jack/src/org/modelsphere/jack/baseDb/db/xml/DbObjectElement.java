@@ -104,14 +104,14 @@ class DbObjectElement extends XMLElement {
             if (DbRelationN.class.isAssignableFrom(type)) {
                 DbRelationN values = (DbRelationN) value;
                 DbEnumeration dbEnum = values.elements();
-                List elements = new ArrayList();
+                List<DbObject> elements = new ArrayList<>();
                 while (dbEnum.hasMoreElements()) {
                     elements.add(dbEnum.nextElement());
                 }
                 dbEnum.close();
                 DbObject[] dbos = new DbObject[elements.size()];
                 for (int j = 0; j < dbos.length; j++)
-                    dbos[j] = (DbObject) elements.get(j);
+                    dbos[j] = elements.get(j);
                 if (dbos.length > 0)
                     add(new AssociationAttribute((MetaRelationship) fields[i], dbos));
                 continue;
@@ -210,4 +210,3 @@ class DbObjectElement extends XMLElement {
     } // end writeAttributes()
 
 } // end DbObjectElement
-

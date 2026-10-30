@@ -164,7 +164,7 @@ public final class StatementService extends StatementServiceProtocol implements 
                 // mode
                 if (resultMode == MODE_NO_FORMAT) {
                     while (rs.next()) {
-                        List row = new ArrayList();
+                        List<String> row = new ArrayList<>();
                         for (int j = 1; j <= nbCols; j++) {
                             try {
                                 Object value = null;
@@ -193,7 +193,7 @@ public final class StatementService extends StatementServiceProtocol implements 
                 } else { // use column name as tag and append a EOL after each
                     // column - informix
                     while (rs.next()) {
-                        List row = new ArrayList();
+                        List<String> row = new ArrayList<>();
                         for (int j = 1; j <= nbCols; j++) {
                             try {
                                 Object value = null;
@@ -212,7 +212,7 @@ public final class StatementService extends StatementServiceProtocol implements 
                                 String colName = metadata.getColumnName(j);
                                 if (colName.toLowerCase().equals(kEOT)) {
                                     if (row.size() > 1) {
-                                        String lastAddedRow = (String) row.get(row.size() - 1);
+                                        String lastAddedRow = row.get(row.size() - 1);
                                         int idx = lastAddedRow.lastIndexOf(EOL);
                                         if (idx != -1) { // Remove previously
                                             // EOL added

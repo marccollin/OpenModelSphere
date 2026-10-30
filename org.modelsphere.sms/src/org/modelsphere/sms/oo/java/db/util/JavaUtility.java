@@ -106,8 +106,7 @@ public class JavaUtility {
             return "";
 
         char ch = Character.toLowerCase(originalName.charAt(0));
-        String newName = (len > 1) ? (ch + originalName.substring(1)) : ch + "";
-        return newName;
+        return (len > 1) ? (ch + originalName.substring(1)) : ch + "";
     }
 
     public String capitalize(String originalName) {
@@ -512,18 +511,16 @@ public class JavaUtility {
         JavaToolkit toolkit = JavaToolkit.getSingleton();
 
         Object[] jarFiles = toolkit.getSystemJarFiles();
-        List classList = new ArrayList();
+        List<String> classList = new ArrayList<>();
         toolkit.fillClassList(jarFiles, packageList, classList);
 
-        for (Object o : classList) {
-            String className = (String) o;
+        for (String className : classList) {
             findBuiltinType(classModel, className);
         } // end while
     } // end createBuiltInClasses()
 
     public JavaInfo getJavaVersion(File jreHome) {
-        JavaInfo info = new JavaInfo(jreHome);
-        return info;
+        return new JavaInfo(jreHome);
     }
 
     public static class JavaInfo {

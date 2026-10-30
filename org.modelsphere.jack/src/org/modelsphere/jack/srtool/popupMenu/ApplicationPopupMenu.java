@@ -132,7 +132,7 @@ public abstract class ApplicationPopupMenu {
         Object[] selObjects = focusManager.getSelectedObjects();
 
         if (selObjects.length > 0 && !useContainer) {
-            Set classes = new HashSet();
+            Set<Class<?>> classes = new HashSet<>();
             for (Object object : selObjects) {
                 if (!classes.add(object.getClass()))
                     continue;
@@ -174,7 +174,7 @@ public abstract class ApplicationPopupMenu {
             }
             //DbMultiTrans.commitTrans(selObjects);
 
-            List arrayToCommit = new ArrayList();
+            List<Object> arrayToCommit = new ArrayList<>();
             for (Object selObject : selObjects) {
                 Db db = null;
                 if (selObject instanceof DbObject)

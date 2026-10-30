@@ -89,9 +89,9 @@ class VExplorerModel extends DefaultTreeModel {
         if (rootObjects == null) {
             rootObjects = Db.getDbs();
         }
-        List roots = new ArrayList();
+        List<ObjectTreeNode> roots = new ArrayList<>();
         try {
-            for (int i = 0; rootObjects != null && i < rootObjects.length; i++) {
+            for (int i = 0; i < rootObjects.length; i++) {
                 Db db = null;
                 if (rootObjects[i] instanceof Db)
                     db = (Db) rootObjects[i];
@@ -111,8 +111,8 @@ class VExplorerModel extends DefaultTreeModel {
         }
         RootNode root = new RootNode();
         setRoot(root);
-        for (Object o : roots) {
-            root.add((ObjectTreeNode) o);
+        for (ObjectTreeNode node : roots) {
+            root.add(node);
         }
     }
 
@@ -132,8 +132,7 @@ class VExplorerModel extends DefaultTreeModel {
             if (db != null)
                 db.beginReadTrans();
 
-            if (!(obj instanceof DbObject)
-                    || (obj instanceof DbObject && ((DbObject) obj).isAlive())) {
+            if (!(obj instanceof DbObject) || ((DbObject) obj).isAlive()) {
                 expand(((ObjectTreeNode) node));
             }
 
@@ -202,13 +201,13 @@ class VExplorerModel extends DefaultTreeModel {
 
     private ObjectTreeNode[] getReflexionFieldNodes(Object obj) {
         ObjectTreeNode[] nodes = null;
-        List nodesAux = new ArrayList();
+        List<ObjectTreeNode> nodesAux = new ArrayList<>();
         String display = null;
         Object value = null;
         try {
             Class c = obj.getClass();
             Field[] fields = c.getDeclaredFields();
-            for (int i = 0; fields != null && i < fields.length; i++) {
+            for (int i = 0; i < fields.length; i++) {
                 int modifiers = fields[i].getModifiers();
                 if (!Modifier.isPublic(modifiers)
                         || // We don't hava access to others
@@ -233,7 +232,7 @@ class VExplorerModel extends DefaultTreeModel {
         for (int i = 0; nodes != null && i < nodes.length; i++) {
             if (nodes == null)
                 nodes = new ObjectTreeNode[nodesAux.size()];
-            nodes[i] = (ObjectTreeNode) nodesAux.get(i);
+            nodes[i] = nodesAux.get(i);
         }
         return nodes;
     }
