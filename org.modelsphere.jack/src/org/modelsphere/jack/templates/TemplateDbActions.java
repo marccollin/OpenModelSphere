@@ -161,8 +161,8 @@ public final class TemplateDbActions extends TemplateActions {
         m_previousKindOfRule = GenericRuleStructure.CDOM;
     }
 
-    private ArrayList m_DList = new ArrayList();
-    private ArrayList m_RList = new ArrayList();
+    private List<String> m_DList = new ArrayList<>();
+    private List<String> m_RList = new ArrayList<>();
 
     public void processCharacterDomainClause(String domain, String value) {
         // remove starting and ending doubles quotes
@@ -541,8 +541,8 @@ public final class TemplateDbActions extends TemplateActions {
         m_variable = null;
         m_value = null;
         m_condition = null;
-        m_DList = new ArrayList();
-        m_RList = new ArrayList();
+        m_DList = new ArrayList<>();
+        m_RList = new ArrayList<>();
         m_beanClassfile = null;
 
         // erase qualifiers
@@ -584,7 +584,7 @@ public final class TemplateDbActions extends TemplateActions {
 
     private GenericModifierStructure[] createModifierStruct() {
         GenericModifierStructure[] modifiers;
-        ArrayList list = new ArrayList();
+        List<GenericModifierStructure> list = new ArrayList<>();
 
         GenericModifierStructure mod = null;
 
@@ -742,8 +742,8 @@ public final class TemplateDbActions extends TemplateActions {
         String[] dom = new String[m_DList.size()];
         String[] rlz = new String[m_RList.size()];
         for (int i = 0; i < m_DList.size(); i++) {
-            dom[i] = removeDoubleQuotes((String) m_DList.get(i));
-            rlz[i] = removeDoubleQuotes((String) m_RList.get(i));
+            dom[i] = removeDoubleQuotes(m_DList.get(i));
+            rlz[i] = removeDoubleQuotes(m_RList.get(i));
         }
 
         GenericRuleStructure rs = new GenericCDomStructure(m_previousDeclName, dom, rlz, modifiers);

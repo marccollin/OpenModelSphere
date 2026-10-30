@@ -88,12 +88,15 @@ import org.modelsphere.sms.db.srtypes.SMSNotationShape;
 import org.modelsphere.sms.db.srtypes.SMSZoneOrientation;
 import org.modelsphere.sms.graphic.SMSStereotypeEditor;
 
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRefreshListener {
 
@@ -119,12 +122,12 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
     protected DbBEUseCaseGo useCaseGO;
     protected DbBEUseCase useCaseSO;
     protected DbBENotation notation;
-    private HashMap zonesMap = null;
+    private Map zonesMap = null;
     private DbBEDiagram beDiagram;
-    private ArrayList zones = null;
-    private ArrayList resources = null;
+    private List zones = null;
+    private List resources = null;
     private BEQualifier qualifiersGo = null;
-    private ArrayList qualifiers = null;
+    private List qualifiers = null;
     private String boxName = null;
     private DbObject composite = null;
 
@@ -470,7 +473,7 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
     private void populateZones() throws DbException {
         boxName = useCaseSO.getName();
         int zonePos = 0;
-        ArrayList zones = notation.getUseCaseZones();
+        List zones = notation.getUseCaseZones();
         Iterator i = zones.iterator();
         while (i.hasNext()) {
             DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();

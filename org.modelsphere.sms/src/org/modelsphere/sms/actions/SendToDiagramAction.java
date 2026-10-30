@@ -538,7 +538,7 @@ public class SendToDiagramAction extends AbstractDomainAction implements Selecti
     // If a line is selected, return also the DbGraphicalObjects corresponding to the nodes of the line
     private DbSMSGraphicalObject[] getSourceGos(Object[] objects, DbSMSDiagram diagGO)
             throws DbException {
-        HashSet srcGoSet = new HashSet(objects.length * 2);
+        Set<DbObject> srcGoSet = new HashSet<>(objects.length * 2);
         for (int i = 0; i < objects.length; i++) {
             if (objects[i] instanceof LineLabel || objects[i] instanceof Attachment)
                 continue;
@@ -567,7 +567,7 @@ public class SendToDiagramAction extends AbstractDomainAction implements Selecti
                 srcGoSet.add(((ActionInformation) objects[i]).getGraphicalObject());
         }
         DbSMSGraphicalObject[] srcGos = new DbSMSGraphicalObject[srcGoSet.size()];
-        return (DbSMSGraphicalObject[]) srcGoSet.toArray(srcGos);
+        return srcGoSet.toArray(srcGos);
     }
 
     private void translateDestGos(DbObject[] dstGos, int x, int y) throws DbException {

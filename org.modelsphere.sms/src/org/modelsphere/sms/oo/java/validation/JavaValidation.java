@@ -77,7 +77,7 @@ public class JavaValidation implements HyperlinkListener {
 
     private TextViewerFrame textFrame;
     private StringWriter writer = new StringWriter();
-    private HashSet classes = new HashSet();
+    private Set classes = new HashSet();
     private int circularityNbErrors = 0;
     private Db validatingDb = null;
 
@@ -109,7 +109,7 @@ public class JavaValidation implements HyperlinkListener {
         // validation: classes circularity errors (an adt cannot be a subadt of itself, directly or indirectly)
         Vector validatedClasses = new Vector();
         Vector circularClasses = new Vector();
-        ArrayList sortedElements = new ArrayList(classes.size());
+        List<DefaultComparableElement> sortedElements = new ArrayList<>(classes.size());
 
         for (Iterator iter = classes.iterator(); iter.hasNext();) {
             DbJVClass aClass = (DbJVClass) iter.next();
@@ -119,7 +119,7 @@ public class JavaValidation implements HyperlinkListener {
 
         DbJVClass[] sortedClasses = new DbJVClass[sortedElements.size()];
         for (int i = 0; i < sortedElements.size(); i++) {
-            sortedClasses[i] = (DbJVClass) ((DefaultComparableElement) sortedElements.get(i)).object;
+            sortedClasses[i] = (DbJVClass) sortedElements.get(i).object;
         }
 
         for (int i = 0; i < sortedClasses.length; i++) {
@@ -153,17 +153,17 @@ public class JavaValidation implements HyperlinkListener {
         return validationFailed;
     } //end doJavaValidation()
 
-    private void findAllClassesToValidate(HashSet initialClasses) throws DbException {
-        HashSet ancestors = new HashSet();
-        HashSet typingClasses = new HashSet();
-        HashSet throwedExceptions = new HashSet();
+    private void findAllClassesToValidate(Set initialClasses) throws DbException {
+        Set ancestors = new HashSet();
+        Set typingClasses = new HashSet();
+        Set throwedExceptions = new HashSet();
         for (Iterator iter = initialClasses.iterator(); iter.hasNext();) {
             DbJVClass aClass = (DbJVClass) iter.next();
             AnyAdt.findAncestors(aClass, ancestors);
             AnyAdt.findTypingAdts(aClass, typingClasses);
             AnyAdt.findThrowedExceptions(aClass, throwedExceptions);
         }
-        HashSet additionalClasses = new HashSet();
+        Set additionalClasses = new HashSet();
         addToClasses(ancestors, additionalClasses);
         addToClasses(typingClasses, additionalClasses);
         addToClasses(throwedExceptions, additionalClasses);
@@ -171,7 +171,7 @@ public class JavaValidation implements HyperlinkListener {
             findAllClassesToValidate(additionalClasses);
     }
 
-    private void addToClasses(HashSet classesToAdd, HashSet additionalClasses) {
+    private void addToClasses(Set classesToAdd, Set additionalClasses) {
         for (Iterator iter = classesToAdd.iterator(); iter.hasNext();) {
             Object obj = iter.next();
             if (obj instanceof DbJVClass) { // can be DbJVPrimitiveType

@@ -334,7 +334,7 @@ public class BEActorBox extends GraphicNode implements ActionInformation, DbRefr
     private void populateZones() throws DbException {
         boxName = actorSO.getName();
         int zonePos = 0;
-        ArrayList zones = notation.getActorZones();
+        List zones = notation.getActorZones();
         Iterator i = zones.iterator();
         while (i.hasNext()) {
             DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();

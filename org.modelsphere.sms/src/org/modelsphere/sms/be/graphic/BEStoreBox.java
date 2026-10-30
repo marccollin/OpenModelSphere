@@ -87,6 +87,8 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefreshListener {
 
@@ -106,11 +108,11 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
     protected DbBEStoreGo storeGO;
     protected DbBEStore storeSO;
     protected DbBENotation notation;
-    private HashMap zonesMap = null;
+    private Map zonesMap = null;
     private DbBEDiagram beDiagram;
-    private ArrayList zones = null;
+    private List zones = null;
     private BEQualifier qualifiersGo = null;
-    private ArrayList qualifiers = null;
+    private List qualifiers = null;
     private String boxName = null;
 
     // listeners
@@ -326,7 +328,7 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
     private void populateZones() throws DbException {
         boxName = storeSO.getName();
         int zonePos = 0;
-        ArrayList zones = notation.getStoreZones();
+        List zones = notation.getStoreZones();
         Iterator i = zones.iterator();
         while (i.hasNext()) {
             DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();

@@ -145,9 +145,9 @@ public class XmlImportWorker extends Worker {
                 return;
             }
 
-            ArrayList keyList = new ArrayList();
-            HashMap elementMap = new HashMap();
-            HashMap idMap = new HashMap();
+            List<String> keyList = new ArrayList<>();
+            Map<String, ElementStructure> elementMap = new HashMap<>();
+            Map<String, String> idMap = new HashMap<>();
             NodeReader.HeaderStructure struct = new NodeReader.HeaderStructure();
             NodeReader reader = new NodeReader(elementMap, keyList, idMap, struct);
             reader.readNode(document, null);
@@ -212,7 +212,8 @@ public class XmlImportWorker extends Worker {
     } //end getDocument()
 
     //Called by the unit test
-    private void displayResult(HashMap elementMap, ArrayList keyList, HashMap idMap) {
+    private void displayResult(Map<String, ElementStructure> elementMap, List<String> keyList,
+            Map<String, String> idMap) {
         Iterator iter = keyList.iterator();
         while (iter.hasNext()) {
             String key = (String) iter.next();
@@ -234,7 +235,8 @@ public class XmlImportWorker extends Worker {
      *            NOTES : We assume that the first element is a DBSMSProject. We create all the
      *            objects without links, except composite.
      */
-    private void createElements(Db db, HashMap elementMap, ArrayList keyList, HashMap idMap,
+    private void createElements(Db db, Map<String, ElementStructure> elementMap,
+            List<String> keyList, Map<String, String> idMap,
             final DefaultMainFrame mainFrame, NodeReader.HeaderStructure headerStruct) {
         GuiController controller = (GuiController) getController();
         int totalSize = elementMap.size(); //used to calculate progression in a progress bar

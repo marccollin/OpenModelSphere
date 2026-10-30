@@ -70,16 +70,17 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 class NodeReader {
-    private HashMap m_elementMap;
-    private ArrayList m_keyList;
-    private HashMap m_idMap;
+    private Map<String, ElementStructure> m_elementMap;
+    private List<String> m_keyList;
+    private Map<String, String> m_idMap;
     private HeaderStructure m_struct;
 
-    NodeReader(HashMap elementMap, ArrayList keyList, HashMap idMap, HeaderStructure struct) {
+    NodeReader(Map<String, ElementStructure> elementMap, List<String> keyList,
+            Map<String, String> idMap, HeaderStructure struct) {
         m_elementMap = elementMap;
         m_keyList = keyList;
         m_idMap = idMap;
@@ -140,7 +141,7 @@ class NodeReader {
         } // end switch
     } // end read()
 
-    private static List g_propertyList = new ArrayList();
+    private static List<ElementStructure.Property> g_propertyList = new ArrayList<>();
 
     private String readNodeContent(Node node, String parentId) {
         g_propertyList.clear();
@@ -181,7 +182,7 @@ class NodeReader {
         nb = g_propertyList.size();
         ElementStructure.Property[] props = new ElementStructure.Property[nb];
         for (int i = 0; i < nb; i++) {
-            props[i] = (ElementStructure.Property) g_propertyList.get(i);
+            props[i] = g_propertyList.get(i);
 
         } // end for
         ElementStructure struct = new ElementStructure(parentId, concept, props);

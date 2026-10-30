@@ -53,7 +53,7 @@ import java.util.List;
 public class BEFlowQualifier extends SrLineLabel {
 
     public BEFlowQualifier(Diagram diag, DbObject semObj, BEFlow flow, MetaField offsetMF,
-            ArrayList qualifiers) throws DbException {
+            List qualifiers) throws DbException {
         super(diag, semObj, flow, offsetMF, "");
         zone.setCellRenderer(new CompositeCellRenderer());
         Iterator i = qualifiers.iterator();

@@ -581,7 +581,7 @@ public final class DirectoryChooser2 extends JDialog {
     // Note : 700 ms to run, needs to be optimized
     private DirectoryChooserModel m_model = null; // set at instantiation i/o
     // one each getNode() call
-    private final ArrayList m_parentFiles = new ArrayList(); // set at
+    private final List<File> m_parentFiles = new ArrayList<>(); // set at
 
     private FileTreeNode getNode(File file) {
         if (m_model == null) {

@@ -153,12 +153,11 @@ public abstract class SMSToolkit {
      */
     static final SMSToolkit[] getToolkits() {
         List list = new ArrayList(toolkits.values());
-        ArrayList noduplicatelist = new ArrayList();
+        List noduplicatelist = new ArrayList();
         for (Object o : list) {
             if (!noduplicatelist.contains(o) && (o != null))
                 noduplicatelist.add(o);
         }
-        noduplicatelist.trimToSize();
         SMSToolkit[] objs = new SMSToolkit[noduplicatelist.size()];
         for (int i = 0; i < noduplicatelist.size(); i++) {
             objs[i] = (SMSToolkit) noduplicatelist.get(i);

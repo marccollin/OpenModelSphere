@@ -102,7 +102,7 @@ public class ReverseWorker extends Worker {
         List reverseList = getInstantiatedReverseList();
         Hashtable modelTable = new Hashtable();
         Vector obsoleteObjectVector = new Vector();
-        HashMap diagMap = new HashMap(); // set to null if we do not want
+        Map diagMap = new HashMap(); // set to null if we do not want
         // graphics
         StringWriter logBuffer = new StringWriter();
         int successfulReverseCount = 0;

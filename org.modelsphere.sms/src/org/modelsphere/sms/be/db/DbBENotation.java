@@ -256,8 +256,8 @@ public final class DbBENotation extends DbSMSNotation {
         useCaseOptions = new MetaField[] { fUseCaseDefaultWidth, fUseCaseDefaultHeight,
                 fUseCaseShape, fUseCaseZoneOrientation };
 
-        useCaseOptionDefaultValues = new Object[] { Integer.valueOf(USECASE_DEFAULT_WIDTH),
-                Integer.valueOf(USECASE_DEFAULT_HEIGHT),
+        useCaseOptionDefaultValues = new Object[] {USECASE_DEFAULT_WIDTH,
+                USECASE_DEFAULT_HEIGHT,
                 SMSNotationShape.getInstance(SMSNotationShape.ROUND_RECTANGLE),
                 SMSZoneOrientation.getInstance(SMSZoneOrientation.HORIZONTAL) };
 
@@ -265,8 +265,8 @@ public final class DbBENotation extends DbSMSNotation {
         actorOptions = new MetaField[] { fActorDefaultWidth, fActorDefaultHeight, fActorIdPrefix,
                 fActorShape, fActorZoneOrientation };
 
-        actorOptionDefaultValues = new Object[] { Integer.valueOf(ACTOR_DEFAULT_WIDTH),
-                Integer.valueOf(ACTOR_DEFAULT_HEIGHT), ACTOR_ID_PREFIX,
+        actorOptionDefaultValues = new Object[] {ACTOR_DEFAULT_WIDTH,
+                ACTOR_DEFAULT_HEIGHT, ACTOR_ID_PREFIX,
                 SMSNotationShape.getInstance(SMSNotationShape.SHADOW_RECTANGLE),
                 SMSZoneOrientation.getInstance(SMSZoneOrientation.HORIZONTAL) };
 
@@ -363,8 +363,8 @@ public final class DbBENotation extends DbSMSNotation {
         setConstraintCenter(Boolean.FALSE);
         setDefButtomBorder(Boolean.TRUE);
         setDefRightBorder(Boolean.TRUE);
-        setDefVerticalAlignment(Integer.valueOf(0));
-        setDefHorizontalAlignment(Integer.valueOf(0));
+        setDefVerticalAlignment(0);
+        setDefHorizontalAlignment(0);
         setHasFrame(Boolean.TRUE);
         setDisplayStereotypesAsIcons(Boolean.FALSE);
     }
@@ -374,7 +374,7 @@ public final class DbBENotation extends DbSMSNotation {
      * 
      * @return arraylist
      **/
-    public final ArrayList getUseCaseZones() throws DbException {
+    public final List getUseCaseZones() throws DbException {
         return getAllZonesOfType(BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
     }
 
@@ -383,7 +383,7 @@ public final class DbBENotation extends DbSMSNotation {
      * 
      * @return arraylist
      **/
-    public final ArrayList getActorZones() throws DbException {
+    public final List getActorZones() throws DbException {
         return getAllZonesOfType(BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
     }
 
@@ -392,7 +392,7 @@ public final class DbBENotation extends DbSMSNotation {
      * 
      * @return arraylist
      **/
-    public final ArrayList getFlowZones() throws DbException {
+    public final List getFlowZones() throws DbException {
         return getAllZonesOfType(BEZoneStereotype.getInstance(BEZoneStereotype.FLOW));
     }
 
@@ -401,7 +401,7 @@ public final class DbBENotation extends DbSMSNotation {
      * 
      * @return arraylist
      **/
-    public final ArrayList getStoreZones() throws DbException {
+    public final List getStoreZones() throws DbException {
         return getAllZonesOfType(BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
     }
 
@@ -410,8 +410,8 @@ public final class DbBENotation extends DbSMSNotation {
      *            org.modelsphere.sms.be.db.srtypes.BEZoneStereotype
      * @return arraylist
      **/
-    private ArrayList getAllZonesOfType(BEZoneStereotype stereotype) throws DbException {
-        ArrayList zones = new ArrayList();
+    private List getAllZonesOfType(BEZoneStereotype stereotype) throws DbException {
+        List zones = new ArrayList();
         DbEnumeration dbEnum = this.getComponents().elements(DbBESingleZoneDisplay.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbBESingleZoneDisplay zone = (DbBESingleZoneDisplay) dbEnum.nextElement();
@@ -436,29 +436,28 @@ public final class DbBENotation extends DbSMSNotation {
     }
 
     /**
-     * @param srcnotation
+     * @param srcNotation
      *            org.modelsphere.sms.be.db.DbBENotation
      **/
     public void copyOptions(DbBENotation srcNotation) throws DbException {
 
         // copy all options fields
-        for (int i = 0; i < optionGroups.length; i++) {
-            for (int j = 0; j < optionGroups[i].length; j++) {
-                MetaField metaField = optionGroups[i][j];
+        for (MetaField[] optionGroup : optionGroups) {
+            for (MetaField metaField : optionGroup) {
                 basicSet(metaField, srcNotation.get(metaField));
             }
         }
         // copy all zone
         DbEnumeration dbEnum = srcNotation.getComponents()
                 .elements(DbBESingleZoneDisplay.metaClass);
-        ArrayList zones = new ArrayList();
+        List<DbObject> zones = new ArrayList<>();
         while (dbEnum.hasMoreElements())
             zones.add(dbEnum.nextElement());
         dbEnum.close();
-        if (zones.size() > 0) {
+        if (!zones.isEmpty()) {
             DbObject[] sources = new DbObject[zones.size()];
             for (int i = 0; i < sources.length; i++)
-                sources[i] = (DbObject) zones.get(i);
+                sources[i] = zones.get(i);
             DbObject.deepCopy(sources, this, null);
         }
     }

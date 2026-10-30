@@ -73,16 +73,17 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 public class BEFlow extends SrLine implements DbRefreshListener {
 
     private DbBEDiagram dbDiagram;
     private HashSet zonesSources;
     private DbBENotation notation;
-    private ArrayList zones = null;
-    private ArrayList allLabels = null;
+    private List zones = null;
+    private List allLabels = null;
     private BEFlowQualifier qualifiersGo = null;
-    private ArrayList qualifiers = null;
+    private List qualifiers = null;
 
     public BEFlow(Diagram diag, DbBEFlowGo newFlowGO, GraphicNode node1, GraphicNode node2)
             throws DbException {
@@ -185,7 +186,7 @@ public class BEFlow extends SrLine implements DbRefreshListener {
         String name = semObj.getName();
         if (name == null || name.compareTo("") == 0) {
             display = false;
-            ArrayList al = notation.getFlowZones();
+            List al = notation.getFlowZones();
             if (al.size() != 0) {
                 DbBESingleZoneDisplay zonedisp = (DbBESingleZoneDisplay) al.get(0);
                 if (zonedisp != null)

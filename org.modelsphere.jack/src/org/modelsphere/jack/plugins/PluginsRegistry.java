@@ -10,8 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public final class PluginsRegistry implements Iterable<PluginDescriptor> {
-    ArrayList<PluginDescriptor> pluginDescriptors = new ArrayList<PluginDescriptor>();
-    ArrayList<PluginDescriptor> removedDescriptors = new ArrayList<PluginDescriptor>();
+    List<PluginDescriptor> pluginDescriptors = new ArrayList<PluginDescriptor>();
+    List<PluginDescriptor> removedDescriptors = new ArrayList<PluginDescriptor>();
 
     private List<PluginListener> pluginListeners = new ArrayList<PluginListener>();
 

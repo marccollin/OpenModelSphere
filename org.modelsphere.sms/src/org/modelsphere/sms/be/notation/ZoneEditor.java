@@ -518,7 +518,7 @@ public final class ZoneEditor extends JPanel implements ActionListener {
     private void loadSelected() throws DbException {
         editor.removeAll();
         List listvalues = new ArrayList();
-        ArrayList zones = null;
+        List zones = null;
         int orientation = 0;
         SMSZoneOrientation horizontalOrientation = SMSZoneOrientation
                 .getInstance(SMSZoneOrientation.HORIZONTAL);
