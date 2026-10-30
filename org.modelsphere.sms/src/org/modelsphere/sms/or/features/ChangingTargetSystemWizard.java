@@ -876,7 +876,7 @@ public class ChangingTargetSystemWizard extends JDialog {
         radioBtn2.setText(CONVERT_THE_DEPLOYMENT_DATABASE);
     } // end setOptionText()
 
-    private void findDomainModels(ArrayList list, DbObject composite, DbSMSTargetSystem destTarget)
+    private void findDomainModels(List list, DbObject composite, DbSMSTargetSystem destTarget)
             throws DbException {
         DbRelationN relN = composite.getComponents();
         DbEnumeration dbEnum = relN.elements(DbORDomainModel.metaClass);

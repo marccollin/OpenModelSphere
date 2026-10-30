@@ -39,6 +39,7 @@ import org.modelsphere.sms.be.db.DbBEResource;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author pierrem
@@ -85,7 +86,7 @@ public class BeCleanUp extends AbstractBEIntegrity {
     /**
      * Ressources non-utilisées dans les processus
      */
-    private void verifyResourcesNotUsed(ArrayList aList, StringBuffer buffer) throws DbException {
+    private void verifyResourcesNotUsed(List aList, StringBuffer buffer) throws DbException {
         for (Object o : aList) {
             DbBEResource semObj = (DbBEResource) o;
             if ((semObj.getProcessUsages() == null) || (semObj.getProcessUsages().size() == 0)) {

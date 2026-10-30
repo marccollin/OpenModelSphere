@@ -53,6 +53,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 abstract class ExtractFileWriter {
     protected static final String MSG_PATTERN = org.modelsphere.jack.srtool.international.LocaleMgr.message
@@ -67,7 +68,7 @@ abstract class ExtractFileWriter {
         m_controller = controller;
     }
 
-    protected File createFile(DbORDataModel dataModel, File directory, ArrayList fileList)
+    protected File createFile(DbORDataModel dataModel, File directory, List fileList)
             throws IOException, DbException {
         // create file and write file header
         String filename = dataModel.getName() + TEXT_EXT;
@@ -200,7 +201,7 @@ abstract class ExtractFileWriter {
     //
     abstract void writeHeader(PrintWriter writer, DbORDataModel dataModel) throws DbException;
 
-    abstract void writeDataModel(DbORDataModel dataModel, File directory, ArrayList fileList)
+    abstract void writeDataModel(DbORDataModel dataModel, File directory, List fileList)
             throws IOException, DbException;
 
     abstract void writeTable(DbORTable table, PrintWriter writer) throws DbException;

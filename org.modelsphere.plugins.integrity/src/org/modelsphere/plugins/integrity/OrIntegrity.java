@@ -186,7 +186,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
     /**
      * Regle :
      */
-    private void verifyForeignkeyColumnIntegrity(ArrayList aList, StringBuffer buffer)
+    private void verifyForeignkeyColumnIntegrity(List aList, StringBuffer buffer)
             throws DbException {
         for (int i = 0; i < aList.size(); i++) {
             DbORFKeyColumn semObj = (DbORFKeyColumn) (aList.get(i));
@@ -228,7 +228,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
     /**
      * 
      */
-    private void verifyRoleUpdateRule(ArrayList aList, StringBuffer buffer) throws DbException {
+    private void verifyRoleUpdateRule(List aList, StringBuffer buffer) throws DbException {
         for (int i = 0; i < aList.size(); i++) {
             DbORAssociationEnd semObj = (DbORAssociationEnd) (aList.get(i));
             if (semObj.getUpdateRule() == null) {
@@ -241,7 +241,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
     /**
      * 
      */
-    private void verifyBadAssociation(ArrayList aList, StringBuffer buffer) throws DbException {
+    private void verifyBadAssociation(List aList, StringBuffer buffer) throws DbException {
         for (int i = 0; i < aList.size(); i++) {
             DbORAssociation semObj = (DbORAssociation) (aList.get(i));
             DbORAssociationEnd backEnd = semObj.getBackEnd();
@@ -265,7 +265,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
      * 
      * check minimum connectivity - if == 0 - fk columns should be null possible
      */
-    private void verifyChildMinConnectivity0(ArrayList aList, StringBuffer buffer)
+    private void verifyChildMinConnectivity0(List aList, StringBuffer buffer)
             throws DbException {
         for (int i = 0; i < aList.size(); i++) {
             DbORForeign semObj = (DbORForeign) (aList.get(i));
@@ -322,7 +322,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
      * Regle : Lors d'une connectivité minimale 1, les colonnes de clés étrangeres correspondantes
      * NE doivent PAS etre valeur nulle possible.
      */
-    private void verifyChildMinConnectivity1(ArrayList aList, StringBuffer buffer)
+    private void verifyChildMinConnectivity1(List aList, StringBuffer buffer)
             throws DbException {
         for (Object o : aList) {
             DbORForeign semObj = (DbORForeign) o;
@@ -379,7 +379,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
         }//fin for   
     }// fin verifyChildMinConnectivity1
 
-    private void verifyParentMaxConnectivity1(ArrayList aList, StringBuffer buffer)
+    private void verifyParentMaxConnectivity1(List aList, StringBuffer buffer)
             throws DbException {
         for (Object o : aList) {
             DbORForeign semObj = (DbORForeign) o;
@@ -497,7 +497,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
         }
     }
 
-    private void verifyParentMaxConnectivityN(ArrayList aList, StringBuffer buffer)
+    private void verifyParentMaxConnectivityN(List aList, StringBuffer buffer)
             throws DbException {
         for (Object o : aList) {
             DbORForeign semObj = (DbORForeign) o;
@@ -727,7 +727,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
     /**
      * Association binaire avec d�pendance sur plus d'un arc
      */
-    protected void verifyBinaryRelationWithTooManyDependence(ArrayList aList, StringBuffer buffer)
+    protected void verifyBinaryRelationWithTooManyDependence(List aList, StringBuffer buffer)
             throws DbException {
         for (Object o : aList) {
             int nbArcWithDependence = 0;

@@ -55,7 +55,7 @@ import java.util.HashSet;
 public final class SMSGraphicalLink extends SrLine implements DbRefreshListener {
 
     private HashSet zonesSources;
-    private ArrayList zones = null;
+    private List zones = null;
 
     public SMSGraphicalLink(Diagram diag, DbSMSLinkGo newLinkGO, GraphicNode node1,
             GraphicNode node2) throws DbException {

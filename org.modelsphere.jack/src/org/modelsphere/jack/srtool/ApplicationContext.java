@@ -383,7 +383,7 @@ public abstract class ApplicationContext {
     } //end getArgList()
 
     //called by sms.features.SafeMode, jack.plugins.PluginsDialog
-    public static void setArgList(File file, ArrayList list) throws IOException {
+    public static void setArgList(File file, List list) throws IOException {
         File renamedFile = new File(file.getParent(), file.getName() + PathFile.BACKUP_EXTENSION);
         if (renamedFile.exists()) {
             renamedFile.delete();

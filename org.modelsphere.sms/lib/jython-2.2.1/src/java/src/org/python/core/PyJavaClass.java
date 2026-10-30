@@ -259,7 +259,7 @@ public class PyJavaClass extends PyClass
         if (!JavaAccessibility.accessIsMutable())
             // returns just the public fields
             return c.getFields();
-        java.util.ArrayList fields = new java.util.ArrayList();
+        java.util.List fields = new java.util.ArrayList();
         while (c != null) {
             // get all declared fields for this class, mutate their
             // accessibility and pop it into the array for later

@@ -42,6 +42,7 @@ import org.modelsphere.sms.or.db.DbORDomain;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author pierrem
@@ -166,10 +167,10 @@ public class OrCleanUp extends AbstractORIntegrity {
     /**
      *  
      */
-    private void verifyCheckConstraintWithoutColumn(ArrayList aList, StringBuffer buffer)
+    private void verifyCheckConstraintWithoutColumn(List aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORCheck semObj = (DbORCheck) (aList.get(i));
+        for (Object o : aList) {
+            DbORCheck semObj = (DbORCheck) o;
             if (semObj.getColumn() == null) {
                 modelIntegrityReport.printError(OR_CR_CHECK_WITHOUT_COL, buffer, semObj, true);
                 occurencesToClean[OR_CR_CHECK_WITHOUT_COL].add(semObj);
@@ -192,7 +193,7 @@ public class OrCleanUp extends AbstractORIntegrity {
     /**
      * Domaines non utilisés
      */
-    private void verifyDomainNotUsed(ArrayList aList, StringBuffer buffer) throws DbException {
+    private void verifyDomainNotUsed(List aList, StringBuffer buffer) throws DbException {
         for (int i = 0; i < aList.size(); i++) {
             DbORDomain semObj = (DbORDomain) (aList.get(i));
             DbEnumeration attributes = semObj.getTypedAttributes().elements();
@@ -208,7 +209,7 @@ public class OrCleanUp extends AbstractORIntegrity {
     /**
      * Item commun sans colonne
      */
-    private void verifyCommonItemWithoutColumn(ArrayList aList, StringBuffer buffer)
+    private void verifyCommonItemWithoutColumn(List aList, StringBuffer buffer)
             throws DbException {
         for (int i = 0; i < aList.size(); i++) {
             DbORCommonItem semObj = (DbORCommonItem) (aList.get(i));

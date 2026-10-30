@@ -249,8 +249,8 @@ public final class AnsiForwardToolkitPlugin extends ForwardToolkitPlugin impleme
     public boolean isContainedInArray(int[] array, int elem) {
         boolean contained = false;
         int nb = array.length;
-        for (int i = 0; i < nb; i++) {
-            if (array[i] == elem) {
+        for (int j : array) {
+            if (j == elem) {
                 contained = true;
                 break;
             } //end if

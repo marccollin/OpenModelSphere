@@ -126,7 +126,7 @@ public abstract class ReverseToolkitPlugin implements Plugin {
     private static List<KitTargetMapping> toolkitsTarget = new ArrayList<>(20);
     // Supported extension file filters
     private static List<KitFileExtensionMapping> toolkitsExtension = new ArrayList<>(20);
-    private static ArrayList extensionFileFilters = new ArrayList(5);
+    private static List extensionFileFilters = new ArrayList(5);
 
     // Optimization purposes
     private static ReverseToolkitPlugin lastKit = null;
@@ -392,7 +392,7 @@ public abstract class ReverseToolkitPlugin implements Plugin {
         lastKit = null;
     }
 
-    public static final ArrayList getExtensionFileFilters() {
+    public static final List getExtensionFileFilters() {
         return extensionFileFilters;
     }
 

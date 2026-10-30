@@ -57,6 +57,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -100,7 +101,7 @@ class AnsiExtractFileWriter extends ExtractFileWriter {
         writer.println();
     } // end writeHeader()
 
-    protected void writeDataModel(DbORDataModel dataModel, File directory, ArrayList fileList)
+    protected void writeDataModel(DbORDataModel dataModel, File directory, List fileList)
             throws IOException, DbException {
         // create file and write file header
         File file = createFile(dataModel, directory, fileList);

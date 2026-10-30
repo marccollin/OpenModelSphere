@@ -70,6 +70,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 /**
@@ -135,7 +136,7 @@ class OracleExtractFileWriter extends ExtractFileWriter {
         writer.println("--******** END OF HEADER *********"); // NOT LOCALIZABLE
     } // end writeHeader()
 
-    protected void writeDataModel(DbORDataModel dataModel, File directory, ArrayList fileList)
+    protected void writeDataModel(DbORDataModel dataModel, File directory, List fileList)
             throws IOException, DbException {
         // create file and write file header
         File file = createFile(dataModel, directory, fileList);
@@ -729,10 +730,8 @@ class OracleExtractFileWriter extends ExtractFileWriter {
         // get delete rule
         ORValidationRule rule = end.getDeleteRule();
         int value = rule.getValue();
-        switch (value) {
-        case ORValidationRule.NONE:
+        if (value == ORValidationRule.NONE) {
             writer.println("del_rule NO ACTION");
-            break;
         } // end switch
 
         // deferrable
@@ -904,7 +903,7 @@ class OracleExtractFileWriter extends ExtractFileWriter {
         // increment
         Integer cache = sequence.getCacheValue();
         if (cache != null) {
-            writer.println("cache " + cache.intValue());
+            writer.println("cache " + cache);
         } // end if
     } // end writeSequence()
 } // end OracleExtractFileWriter
