@@ -70,6 +70,7 @@ import java.awt.*;
 import java.awt.event.ContainerEvent;
 import java.awt.event.ContainerListener;
 import java.util.HashSet;
+import java.util.Set;
 
 public final class FocusManager implements DbRefreshListener {
 
@@ -434,7 +435,7 @@ public final class FocusManager implements DbRefreshListener {
      * in the graphic.
      */
     private DbObject[] convertIntoSemanticalObjects(Object[] objs) {
-        HashSet semObjSet = new HashSet(objs.length + objs.length / 2);
+        Set semObjSet = new HashSet(objs.length + objs.length / 2);
         for (int i = 0; i < objs.length; i++) {
             DbObject semObj = null;
             if (objs[i] instanceof DbObject)

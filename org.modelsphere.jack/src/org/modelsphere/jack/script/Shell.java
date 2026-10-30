@@ -68,6 +68,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Shell extends CascadingJInternalFrame {
     private static final String kClose = LocaleMgr.screen.getString("Close");
@@ -358,7 +359,7 @@ public abstract class Shell extends CascadingJInternalFrame {
     public class CommandLine extends JTextAreaFix {
         private ShellKeyListener shellKeyListener = new ShellKeyListener(this);
         private JTextArea resultArea;
-        private ArrayList history = new ArrayList();
+        private List history = new ArrayList();
         private int callBack = 0;
 
         CommandLine(JTextArea aResultArea) {

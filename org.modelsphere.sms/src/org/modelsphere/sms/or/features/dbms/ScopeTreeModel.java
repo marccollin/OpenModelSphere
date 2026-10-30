@@ -49,6 +49,7 @@ import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectScope;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * 
@@ -59,7 +60,7 @@ final class ScopeTreeModel extends CheckTreeModel {
     ScopeTreeModel(DefaultMutableTreeNode root, DBMSReverseOptions options) {
         super(root);
 
-        Hashtable table = new Hashtable();
+        Map table = new Hashtable();
         ObjectScope[] scope = options.getObjectsScope();
 
         if (scope == null)

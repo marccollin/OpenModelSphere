@@ -69,6 +69,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class provide a way for actions and other fontionnalities to make abstraction of the active

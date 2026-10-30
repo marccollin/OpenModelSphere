@@ -54,6 +54,7 @@ import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AddAction extends AbstractMenuAction implements SelectionActionListener {
 
@@ -164,7 +165,7 @@ public abstract class AddAction extends AbstractMenuAction implements SelectionA
             return;
         }
 
-        ArrayList values = new ArrayList();
+        List values = new ArrayList();
         for (int i = 0; i < elementsincluded.length; i++) {
             if (elementsincluded[i]) {
                 values.add(elements[i]);

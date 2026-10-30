@@ -43,11 +43,12 @@ import org.modelsphere.sms.or.oracle.db.DbORANestedTableStorage;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class DbORANestedTableStorageEditor extends DbSemanticalObjectEditor {
 
     protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList dbos = new ArrayList();
+        List dbos = new ArrayList();
         DbEnumeration dbEnum = parentDbo.getCompositeOfType(DbORAbsTable.metaClass).getComponents()
                 .elements(DbORANestedTableStorage.metaClass);
         while (dbEnum.hasMoreElements()) {

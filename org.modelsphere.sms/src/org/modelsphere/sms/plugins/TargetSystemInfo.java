@@ -53,6 +53,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.Map;
 
 // A TargetSystemInfo object stores all the information contained in a <.typ> file.
 public final class TargetSystemInfo {
@@ -76,10 +77,10 @@ public final class TargetSystemInfo {
     private String version = "";
     private int targetID = -1;
     private int rootID = -1;
-    private HashMap typeMap = new HashMap(); // type to logical type mapping
+    private Map typeMap = new HashMap(); // type to logical type mapping
     // (key = type name, object =
     // TypeInfo object)
-    private HashMap logicalTypeMap = new HashMap(); // logical type to type
+    private Map logicalTypeMap = new HashMap(); // logical type to type
 
     // mapping (key = logical
     // type name, object = type

@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Vector;
+import java.util.List;
 
 /**
  * 
@@ -50,7 +51,7 @@ import java.util.Vector;
  */
 
 public final class DbReverseService implements org.modelsphere.jack.services.Service {
-    private Vector vec_reply = new Vector();
+    private List vec_reply = new Vector();
 
     public void serve(InputStream i, OutputStream o) throws IOException {
         ServiceList.getSingleInstance();

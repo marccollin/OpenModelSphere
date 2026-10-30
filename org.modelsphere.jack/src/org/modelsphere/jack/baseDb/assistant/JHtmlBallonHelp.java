@@ -69,6 +69,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.Vector;
+import java.util.List;
 
 public abstract class JHtmlBallonHelp extends JInternalFrame implements MouseListener,
         ListSelectionListener {

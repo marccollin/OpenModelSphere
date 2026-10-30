@@ -57,6 +57,7 @@ import org.modelsphere.jack.srtool.international.LocaleMgr;
 
 import java.awt.*;
 import java.util.HashSet;
+import java.util.Set;
 
 public class DbSelectTool extends SelectTool {
 
@@ -104,7 +105,7 @@ public class DbSelectTool extends SelectTool {
             db.beginTrans(Db.WRITE_TRANS, LocaleMgr.action.getString("mergeDuplicate"));
             Rectangle sourceRect = (Rectangle) sourceGo.get(DbGraphic.fGraphicalObjectRectangle);
             Line[] lines = sourceNode.getLines();
-            HashSet proceedLines = new HashSet();
+            Set proceedLines = new HashSet();
             // reconnect each line to destination go
             for (int i = 0; i < lines.length; i++) {
                 Line line = lines[i];

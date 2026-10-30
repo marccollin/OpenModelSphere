@@ -64,6 +64,7 @@ import org.modelsphere.sms.oo.java.db.srtypes.JVVisibility;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Vector;
+import java.util.List;
 
 public abstract class AnyAdt {
     public static final int PACKAGE_ADT = 1;

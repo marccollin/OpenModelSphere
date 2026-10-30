@@ -73,6 +73,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 public final class ZoneEditor extends JPanel implements ActionListener {
     private static final int HORIZONTAL_ORIENTATION = 0;
@@ -516,7 +517,7 @@ public final class ZoneEditor extends JPanel implements ActionListener {
 
     private void loadSelected() throws DbException {
         editor.removeAll();
-        ArrayList listvalues = new ArrayList();
+        List listvalues = new ArrayList();
         ArrayList zones = null;
         int orientation = 0;
         SMSZoneOrientation horizontalOrientation = SMSZoneOrientation
@@ -567,7 +568,7 @@ public final class ZoneEditor extends JPanel implements ActionListener {
     }
 
     private void loadAvailable() throws DbException {
-        ArrayList listvalues = new ArrayList();
+        List listvalues = new ArrayList();
         MetaClass metaclass = null;
         if (stereotype.equals(BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR)))
             metaclass = DbBEActor.metaClass;
@@ -578,7 +579,7 @@ public final class ZoneEditor extends JPanel implements ActionListener {
         else
             metaclass = DbBEUseCase.metaClass;
 
-        ArrayList zones = new ArrayList();
+        List zones = new ArrayList();
         try {
             Class claz = metaclass.getJClass();
             Field field = (Field) claz.getField("notationFields"); // NOT LOCALIZABLE
@@ -614,7 +615,7 @@ public final class ZoneEditor extends JPanel implements ActionListener {
     }
 
     private DbBESingleZoneDisplay[] getZones() throws DbException {
-        ArrayList zonelist = new ArrayList();
+        List zonelist = new ArrayList();
         DbEnumeration dbEnum = notation.getComponents().elements(DbBESingleZoneDisplay.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbBESingleZoneDisplay zone = (DbBESingleZoneDisplay) dbEnum.nextElement();

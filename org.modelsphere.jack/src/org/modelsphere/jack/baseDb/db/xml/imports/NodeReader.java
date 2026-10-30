@@ -71,6 +71,7 @@ import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 class NodeReader {
     private HashMap m_elementMap;
@@ -139,7 +140,7 @@ class NodeReader {
         } // end switch
     } // end read()
 
-    private static ArrayList g_propertyList = new ArrayList();
+    private static List g_propertyList = new ArrayList();
 
     private String readNodeContent(Node node, String parentId) {
         g_propertyList.clear();

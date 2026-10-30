@@ -48,9 +48,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DefaultWizardModel implements WizardModel {
-    private ArrayList<WizardModelListener> wizardListeners = new ArrayList<WizardModelListener>();
+    private List<WizardModelListener> wizardListeners = new ArrayList<WizardModelListener>();
 
-    private ArrayList<Page> pages = new ArrayList<Page>();
+    private List<Page> pages = new ArrayList<Page>();
 
     private int pageID = -1;
 

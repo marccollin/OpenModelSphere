@@ -198,7 +198,7 @@ public final class PluginMgr {
 
         ((BuiltInPluginLoader) PluginLoader.getBuiltInInstance()).setBuiltInPlugins(builtInPlugins);
 
-        ArrayList<PluginDescriptor> tempPlugins = new ArrayList<PluginDescriptor>();
+        List<PluginDescriptor> tempPlugins = new ArrayList<PluginDescriptor>();
 
         // add built ins first
         if (builtInPlugins != null) {
@@ -209,7 +209,7 @@ public final class PluginMgr {
         }
 
         // keep Plugin classes not instance of Rule class (must be init after all Rule plugins)
-        ArrayList<PluginDescriptor> notRuleClassStructs = new ArrayList<PluginDescriptor>();
+        List<PluginDescriptor> notRuleClassStructs = new ArrayList<PluginDescriptor>();
 
         PluginsConfiguration pluginsConfiguration = PluginsConfiguration.getSingleton();
 
@@ -350,7 +350,7 @@ public final class PluginMgr {
 
     private class PopupMap {
         Class<?> clazz;
-        ArrayList<String> keys = new ArrayList<String>();
+        List<String> keys = new ArrayList<String>();
 
         PopupMap(Class<?> c) {
             this.clazz = c;
@@ -407,7 +407,7 @@ public final class PluginMgr {
         MainFrameMenu menumanager = frame.getMainFrameMenu();
 
         Iterator<PluginDescriptor> iter = pluginsRegistry.iterator();
-        ArrayList<String> separatorAdded = new ArrayList<String>(5);
+        List<String> separatorAdded = new ArrayList<String>(5);
         AbstractActionsStore actionstore = ApplicationContext.getActionStore();
 
         while (iter.hasNext()) {
@@ -438,8 +438,8 @@ public final class PluginMgr {
         }
 
         ApplicationPopupMenu applpopup = ApplicationContext.getApplPopupMenu();
-        HashMap<Class<? extends Object>, PopupMap> popupmaps = new HashMap<Class<? extends Object>, PopupMap>();
-        ArrayList<String> actionkeys = new ArrayList<String>();
+        Map<Class<? extends Object>, PopupMap> popupmaps = new HashMap<Class<? extends Object>, PopupMap>();
+        List<String> actionkeys = new ArrayList<String>();
 
         Iterator<PluginDescriptor> iter2 = pluginsRegistry.iterator();
         while (iter2.hasNext()) {
@@ -467,7 +467,7 @@ public final class PluginMgr {
         }
 
         Iterator<Class<? extends Object>> iter3 = popupmaps.keySet().iterator();
-        ArrayList<Object> popups = new ArrayList<Object>();
+        List<Object> popups = new ArrayList<Object>();
         while (iter3.hasNext()) {
             PopupMap map = (PopupMap) popupmaps.get(iter3.next());
             Object[] actionkeysobj = map.keys.toArray();

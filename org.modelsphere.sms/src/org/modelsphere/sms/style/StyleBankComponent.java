@@ -78,6 +78,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 public class StyleBankComponent extends JPanel implements DbRefreshListener, TreeSelectionListener,
         TreeModelListener {
@@ -317,7 +318,7 @@ public class StyleBankComponent extends JPanel implements DbRefreshListener, Tre
             DbSMSStyle style = (DbSMSStyle) parentNode.getUserObject();
 
             style.getDb().beginTrans(Db.READ_TRANS);
-            HashSet diagSet = new HashSet(); // use a Set to eliminate
+            Set diagSet = new HashSet(); // use a Set to eliminate
             // duplicates
             // Add to the Set all the diagrams linked to this style.
             DbEnumeration dbEnum = style.getDiagrams().elements();

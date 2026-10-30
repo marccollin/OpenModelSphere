@@ -48,6 +48,7 @@ import org.modelsphere.jack.debug.Debug;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * This class and the Controller class provide a framework to handle and execute a task.
@@ -89,7 +90,7 @@ public abstract class Worker extends Thread {
     // protected int errorCount = 0;
     private boolean errorCountEnabled = true;
 
-    private ArrayList subThreads = new ArrayList();
+    private List subThreads = new ArrayList();
 
     public Worker() {
         super(new ThreadGroup("worker group"), "main worker"); // NOT LOCALIZABLE, thread name not visible to user

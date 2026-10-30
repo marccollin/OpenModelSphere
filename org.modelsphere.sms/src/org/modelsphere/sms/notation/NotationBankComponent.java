@@ -87,6 +87,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 
 public class NotationBankComponent extends JPanel implements DbRefreshListener,
         TreeSelectionListener, TreeModelListener {
@@ -392,7 +393,7 @@ public class NotationBankComponent extends JPanel implements DbRefreshListener,
             DbSMSNotation notation = (DbSMSNotation) parentNode.getUserObject();
 
             notation.getDb().beginTrans(Db.READ_TRANS);
-            ArrayList diagList = new ArrayList();
+            List diagList = new ArrayList();
             // Add to diagList all the diagrams linked to this notation.
             DbEnumeration dbEnum = null;
             if (notation instanceof DbORNotation)

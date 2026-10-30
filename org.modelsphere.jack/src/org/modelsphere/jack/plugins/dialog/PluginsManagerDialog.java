@@ -65,6 +65,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public class PluginsManagerDialog extends JDialog implements Comparator<PluginDescriptor> {
@@ -84,8 +85,8 @@ public class PluginsManagerDialog extends JDialog implements Comparator<PluginDe
 
     private Boolean pluginEnabledInitialValue;
 
-    private ArrayList<PluginDescriptor> removed = new ArrayList<PluginDescriptor>();
-    private ArrayList<PluginDescriptor> added = new ArrayList<PluginDescriptor>();
+    private List<PluginDescriptor> removed = new ArrayList<PluginDescriptor>();
+    private List<PluginDescriptor> added = new ArrayList<PluginDescriptor>();
 
     PluginListener pluginListener = new PluginListener() {
 

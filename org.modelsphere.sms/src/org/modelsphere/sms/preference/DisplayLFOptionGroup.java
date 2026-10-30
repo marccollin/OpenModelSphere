@@ -49,6 +49,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class DisplayLFOptionGroup extends OptionGroup {
     private static String CUSTOM_LF_PROPERTIES = "lf";
@@ -153,8 +154,8 @@ public class DisplayLFOptionGroup extends OptionGroup {
             MetalTheme[] themes = ThemeBank.themes;
             String osname = (String) System.getProperty("os.name"); // NOT
             // LOCALIZABLE
-            ArrayList lfValues = new ArrayList();
-            ArrayList themeValues = new ArrayList();
+            List lfValues = new ArrayList();
+            List themeValues = new ArrayList();
             if (osname == null)
                 osname = ""; // NOT LOCALIZABLE
             for (int i = 0; i < lfs.length; i++) {

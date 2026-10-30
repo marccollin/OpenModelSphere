@@ -58,6 +58,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.Map;
 
 /**
  * 
@@ -68,7 +69,7 @@ import java.util.Properties;
 public final class ConnectionService extends ConnectionServiceProtocol {
     public static final String kNoSuchDriver = LocaleMgr.message.getString("NoSuchDriver");
 
-    private static HashMap connectionMap = new HashMap();
+    private static Map connectionMap = new HashMap();
     private static int currentConnectionID = 0;
 
     public static Connection getConnection(int connectionId) {

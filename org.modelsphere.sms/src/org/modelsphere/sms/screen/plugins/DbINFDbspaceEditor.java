@@ -43,6 +43,7 @@ import org.modelsphere.sms.or.informix.db.DbINFDbspace;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class DbINFDbspaceEditor extends DbSemanticalObjectEditor {
 
@@ -50,7 +51,7 @@ public class DbINFDbspaceEditor extends DbSemanticalObjectEditor {
     private DbEnumeration dbEnum;
 
     protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList dbspaces = new ArrayList();
+        List dbspaces = new ArrayList();
         /*
          * if (parentDbo instanceof DbORDatabase){ int a = 3; return null; } else {
          */

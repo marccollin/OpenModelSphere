@@ -60,6 +60,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 public abstract class DbSemanticalObjectShortEditor implements Editor {
 
@@ -126,7 +127,7 @@ public abstract class DbSemanticalObjectShortEditor implements Editor {
     }
 
     protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList dbos = new ArrayList();
+        List dbos = new ArrayList();
         DbEnumeration dbEnum = getSelectionEnum(parentDbo);
         if (dbEnum != null) {
             while (dbEnum.hasMoreElements())

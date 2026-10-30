@@ -46,6 +46,7 @@ import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.international.LocaleMgr;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public final class SetProjectDefaultBENotationAction extends AbstractDomainAction implements
         SelectionActionListener {
@@ -55,7 +56,7 @@ public final class SetProjectDefaultBENotationAction extends AbstractDomainActio
     private static final String kSetDefaultNotation = LocaleMgr.action
             .getString("setdefaultBEnotation");
 
-    private ArrayList notations = new ArrayList(0); // null object means
+    private List notations = new ArrayList(0); // null object means
 
     // separator
 

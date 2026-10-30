@@ -59,6 +59,7 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 class ExplorerContext implements ContextComponent {
     private static final String EXPANDED_TAG = "expanded";
@@ -261,7 +262,7 @@ class ExplorerContext implements ContextComponent {
         if (expanded == null)
             return true;
 
-        ArrayList<DynamicNode> expandedNodes = new ArrayList<DynamicNode>();
+        List<DynamicNode> expandedNodes = new ArrayList<DynamicNode>();
 
         while (expanded.hasMoreElements()) {
             TreePath treePath = expanded.nextElement();

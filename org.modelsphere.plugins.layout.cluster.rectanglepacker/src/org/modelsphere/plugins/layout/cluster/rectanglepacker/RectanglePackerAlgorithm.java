@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RectanglePackerAlgorithm implements ClustersLayoutAlgorithm {
     private static final int CLUSTERS_GAP = 10;
@@ -49,7 +50,7 @@ public class RectanglePackerAlgorithm implements ClustersLayoutAlgorithm {
     }
 
     private void layout() {
-        ArrayList<Integer> randomClusters = new ArrayList<Integer>();
+        List<Integer> randomClusters = new ArrayList<Integer>();
         for (int i = 0; i < clustersCount; i++) {
             randomClusters.add(i + 1);
         }
@@ -88,7 +89,7 @@ public class RectanglePackerAlgorithm implements ClustersLayoutAlgorithm {
     private boolean layoutClusters(List<Integer> clusters) {
         RectanglePacker packer = new RectanglePacker((int) dimension.getWidth() - NODES_GAP * 2,
                 (int) dimension.getHeight() - NODES_GAP * 2);
-        HashMap<Integer, Point> translations = new HashMap<Integer, Point>();
+        Map<Integer, Point> translations = new HashMap<Integer, Point>();
         for (int i = 1; i < clustersCount + 1; i++) {
             int cluster = clusters.get(i - 1);
 

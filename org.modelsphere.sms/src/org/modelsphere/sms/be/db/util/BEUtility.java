@@ -85,6 +85,7 @@ import org.modelsphere.sms.preference.DiagramAutomaticCreationOptionGroup;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Grandite
@@ -318,7 +319,7 @@ public class BEUtility {
             ////
             // add all UML notations, including the user-defined notations based on UML master notations.
 
-            ArrayList<String> al = new ArrayList<String>();
+            List<String> al = new ArrayList<String>();
             DbEnumeration projectEnum = project.getComponents().elements(DbBENotation.metaClass);
             while (projectEnum.hasMoreElements()) {
                 DbBENotation dbBENota = (DbBENotation) projectEnum.nextElement();
@@ -404,7 +405,7 @@ public class BEUtility {
             compositeTerm = ((DbBEModel) composite).getTerminologyName();
 
         //set the new terminology unless it's a leaf
-        ArrayList<DbBEUseCase> useCaseList = new ArrayList<DbBEUseCase>();
+        List<DbBEUseCase> useCaseList = new ArrayList<DbBEUseCase>();
         DbEnumeration dbEnum = useCaseOrModel.getComponents().elements(DbBEUseCase.metaClass);
         boolean isLeaf = true;
         while (dbEnum.hasMoreElements()) {
@@ -636,7 +637,7 @@ public class BEUtility {
 
     private int createActorCells(DbBEContextGo frame, DbBENotation notation, DbBEUseCase context,
             int xPos) throws DbException {
-        ArrayList actorList = new ArrayList();
+        List actorList = new ArrayList();
         DbRelationN relN = context.getFirstEndFlows();
         DbEnumeration dbEnum = relN.elements(DbBEFlow.metaClass);
         while (dbEnum.hasMoreElements()) {

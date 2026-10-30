@@ -50,6 +50,7 @@ import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 
 public class GeneratePhysicalNameModel extends AbstractTableModel {
     private static final String CONCEPTS_PARAMETERS = "CONCEPTS_PARAMETERS"; // NOT LOCALIZABLE

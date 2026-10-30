@@ -228,7 +228,7 @@ public final class JdbcReverseSpecificOptionPage extends DefaultReverseWizardOpt
     private void populateTargetSystem(DBMSReverseOptions options) throws SQLException {
         JdbcReverseOptions jdbcOptions = (JdbcReverseOptions) options.getSpecificDBMSOptions();
         ArrayList tsList = (ArrayList) jdbcOptions.getTargetSystems();
-        ArrayList compareList = new ArrayList();
+        List compareList = new ArrayList();
         TargetSystemInfo targetInfo = null;
 
         for (int i = 0; i < tsList.size(); i++) {

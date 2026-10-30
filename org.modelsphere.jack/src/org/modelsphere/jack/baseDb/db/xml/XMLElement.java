@@ -48,11 +48,12 @@ import org.modelsphere.jack.baseDb.db.DbException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 abstract class XMLElement implements XMLConstants {
     String name;
-    private ArrayList attributes = new ArrayList();
-    private ArrayList elements = new ArrayList();
+    private List attributes = new ArrayList();
+    private List elements = new ArrayList();
 
     XMLElement(String name) {
         this.name = name;

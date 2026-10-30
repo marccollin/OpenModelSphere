@@ -62,6 +62,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A very simple service. It displays the current time on the server to the client, and closes the
@@ -163,7 +164,7 @@ public final class StatementService extends StatementServiceProtocol implements 
                 // mode
                 if (resultMode == MODE_NO_FORMAT) {
                     while (rs.next()) {
-                        ArrayList row = new ArrayList();
+                        List row = new ArrayList();
                         for (int j = 1; j <= nbCols; j++) {
                             try {
                                 Object value = null;
@@ -192,7 +193,7 @@ public final class StatementService extends StatementServiceProtocol implements 
                 } else { // use column name as tag and append a EOL after each
                     // column - informix
                     while (rs.next()) {
-                        ArrayList row = new ArrayList();
+                        List row = new ArrayList();
                         for (int j = 1; j <= nbCols; j++) {
                             try {
                                 Object value = null;

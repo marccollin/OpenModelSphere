@@ -66,6 +66,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EventObject;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author Nicolask
@@ -146,7 +147,7 @@ public class DbSMSTerminologyNameEditor implements Editor {
     }
 
     protected final Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList dbos = new ArrayList();
+        List dbos = new ArrayList();
         if (parentDbo instanceof DbBEUseCase) {
             DbBEUseCase useCase = (DbBEUseCase) parentDbo;
             if (useCase.getTerminologyName() == null)

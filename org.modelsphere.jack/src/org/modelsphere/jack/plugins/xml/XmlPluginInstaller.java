@@ -348,7 +348,7 @@ public class XmlPluginInstaller {
 
 	private static class PopupMap {
         Class<?> clazz;
-        ArrayList<String> keys = new ArrayList<String>();
+        List<String> keys = new ArrayList<String>();
 
         PopupMap(Class<?> c) {
             this.clazz = c;

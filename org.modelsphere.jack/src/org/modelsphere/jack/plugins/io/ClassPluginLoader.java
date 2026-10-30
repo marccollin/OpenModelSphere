@@ -116,7 +116,7 @@ public class ClassPluginLoader extends JARPluginLoader {
         if (file == null || !file.isFile()) {
             return null;
         }
-        List<DefaultPluginDescriptor> descriptors = new ArrayList<DefaultPluginDescriptor>();
+        ArrayList<DefaultPluginDescriptor> descriptors = new ArrayList<DefaultPluginDescriptor>();
         try {
             // Check for jar file
             if (file.getName().toLowerCase().endsWith(".jar")) {

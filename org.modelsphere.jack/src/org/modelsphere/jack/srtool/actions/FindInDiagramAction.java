@@ -64,6 +64,7 @@ import org.modelsphere.jack.util.DefaultComparableElement;
 import org.modelsphere.jack.util.SrVector;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public class FindInDiagramAction extends AbstractDomainAction implements SelectionActionListener {
@@ -165,8 +166,8 @@ public class FindInDiagramAction extends AbstractDomainAction implements Selecti
             ArrayList listOfLabels = (ArrayList) vecGos.get(0);
 
             // Regroup duplicate elements for each diagrams - needed for displaying the duplicate number
-            ArrayList diagList = new ArrayList();
-            ArrayList diagObjectsList = new ArrayList();
+            List diagList = new ArrayList();
+            List diagObjectsList = new ArrayList();
             if (listOfLabels.size() == 0) {
                 setEnabled(false);
                 return;
@@ -180,7 +181,7 @@ public class FindInDiagramAction extends AbstractDomainAction implements Selecti
                     diagObjects.add(go);
                 } else {
                     diagList.add(diag);
-                    ArrayList diagObjects = new ArrayList();
+                    List diagObjects = new ArrayList();
                     diagObjects.add(go);
                     diagObjectsList.add(diagObjects);
                 }
@@ -207,8 +208,8 @@ public class FindInDiagramAction extends AbstractDomainAction implements Selecti
             setEnabled(true);
         } else {
             // Regroup duplicate elements for each diagrams - needed for displaying the duplicate number
-            ArrayList diagList = new ArrayList();
-            ArrayList diagObjectsList = new ArrayList();
+            List diagList = new ArrayList();
+            List diagObjectsList = new ArrayList();
             for (int i = 0; i < vecGos.size(); i++) {
                 DbObject go = (DbObject) vecGos.get(i);
                 Object diag = go.getComposite();
@@ -217,7 +218,7 @@ public class FindInDiagramAction extends AbstractDomainAction implements Selecti
                     diagObjects.add(go);
                 } else {
                     diagList.add(diag);
-                    ArrayList diagObjects = new ArrayList();
+                    List diagObjects = new ArrayList();
                     diagObjects.add(go);
                     diagObjectsList.add(diagObjects);
                 }

@@ -52,6 +52,7 @@ import org.modelsphere.jack.util.StringUtil;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MainFrameMenu {
     public static final String MENU_FILE = "file"; // NOT LOCALIZABLE - Property Key
@@ -72,7 +73,7 @@ public class MainFrameMenu {
     //menu file
     JackMenu menuForRecentFile = new JackMenu(RECENT_FILES);
 
-    private HashMap keyMapping = new HashMap(8);
+    private Map keyMapping = new HashMap(8);
 
     protected MainFrameMenu(DefaultMainFrame mf) {
         this.mf = mf;

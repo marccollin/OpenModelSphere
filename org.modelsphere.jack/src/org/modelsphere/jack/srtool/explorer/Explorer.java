@@ -306,7 +306,7 @@ public class Explorer extends DefaultTreeModel implements DbRefreshListener {
             children.sort(getComparator(dbParent));
         }
         
-        ArrayList groupNodeList = new ArrayList();
+        List groupNodeList = new ArrayList();
         DynamicNode groupNode = null;
         Enumeration enumeration = children.elements();
         while (enumeration.hasMoreElements()) {

@@ -48,6 +48,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
+import java.util.List;
 
 public class BEFlowQualifier extends SrLineLabel {
 

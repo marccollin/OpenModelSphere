@@ -79,6 +79,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class DefaultForwardWizardStartPage extends WizardPage {
     private GridBagLayout startGridBagLayout = new GridBagLayout();
@@ -367,7 +368,7 @@ public class DefaultForwardWizardStartPage extends WizardPage {
         ConceptTreeModel(DefaultMutableTreeNode root, DBMSForwardOptions options) {
             super(root);
 
-            Hashtable table = new Hashtable();
+            Map table = new Hashtable();
             ObjectScope[] scope = options.getObjectsScope();
 
             for (int i = 0; i < scope.length; i++) {

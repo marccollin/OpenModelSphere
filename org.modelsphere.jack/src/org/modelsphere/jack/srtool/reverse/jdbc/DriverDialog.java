@@ -67,6 +67,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * 
@@ -331,8 +332,8 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
 
         if (drivers == null)
             return true;
-        ArrayList toRename = new ArrayList();
-        ArrayList toAdd = new ArrayList();
+        List toRename = new ArrayList();
+        List toAdd = new ArrayList();
         Iterator iter = drivers.iterator();
         while (iter.hasNext()) {
             DriverData driverData = (DriverData) iter.next();

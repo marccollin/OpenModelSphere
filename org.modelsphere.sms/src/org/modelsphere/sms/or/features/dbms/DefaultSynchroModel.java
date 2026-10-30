@@ -88,6 +88,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 public final class DefaultSynchroModel extends SMSSynchroModel {
     private static final String EOL = System.getProperty("line.separator");

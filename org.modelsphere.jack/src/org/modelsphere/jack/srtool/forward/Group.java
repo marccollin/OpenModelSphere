@@ -53,6 +53,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.StringTokenizer;
+import java.util.List;
 
 public final class Group extends Rule {
     Rule[] rules;
@@ -72,7 +73,7 @@ public final class Group extends Rule {
     // set actual subrules from its string rule;
     public void setActualSubRules(Hashtable table) throws RuleException {
         if (stringRules != null) {
-            ArrayList list = new ArrayList();
+            List list = new ArrayList();
             StringTokenizer st = new StringTokenizer(stringRules, ",");
             while (st.hasMoreTokens()) {
                 String token = st.nextToken();

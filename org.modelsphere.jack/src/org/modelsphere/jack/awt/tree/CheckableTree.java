@@ -59,6 +59,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.EventListener;
+import java.util.List;
 
 /**
  * This class works is a JTree except that it supports the check items
@@ -181,7 +182,7 @@ public class CheckableTree extends JTree implements TestableWindow, ActionListen
 
         boolean newState = !((CheckTreeNode) clickPath.getLastPathComponent()).isSelected();
         TreePath[] paths = getSelectionPaths();
-        ArrayList<CheckTreeNode> nodeList = new ArrayList<>();
+        List<CheckTreeNode> nodeList = new ArrayList<>();
         int i;
         for (i = 0; i < paths.length; i++) {
             Object node = paths[i].getLastPathComponent();

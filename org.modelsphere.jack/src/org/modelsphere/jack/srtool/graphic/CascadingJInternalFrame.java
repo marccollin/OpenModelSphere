@@ -48,6 +48,7 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 
@@ -61,7 +62,7 @@ import java.util.HashMap;
  */
 public class CascadingJInternalFrame extends JInternalFrame {
     private String pointCascadeName = null;
-    private static HashMap pointCascadeHashMap = new HashMap();
+    private static Map pointCascadeHashMap = new HashMap();
     /** The name of the default PointCascade **/
     public static final String defaultCascadeName = "_default_"; // NOT LOCALIZABLE, property key
 

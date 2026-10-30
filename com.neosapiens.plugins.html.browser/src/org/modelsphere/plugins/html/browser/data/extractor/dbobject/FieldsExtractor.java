@@ -82,7 +82,7 @@ public class FieldsExtractor
 	@SuppressWarnings("unchecked")
 	public Map<String, String> extractFields() throws DbException
 	{
-		LinkedHashMap<String, String> fieldsMap = new LinkedHashMap<String, String>();
+		Map<String, String> fieldsMap = new LinkedHashMap<String, String>();
 
 		List<MetaField> fields = object.getMetaClass().getScreenMetaFields();
 		fields = sortFields(fields);

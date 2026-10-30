@@ -75,6 +75,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.List;
 
 public final class OptionDialog extends JDialog implements ActionListener {
     private static final String kPluginsOptionGroup = LocaleMgr.screen
@@ -98,7 +99,7 @@ public final class OptionDialog extends JDialog implements ActionListener {
     private RootOptionGroup rootOptionGroup = new RootOptionGroup();
     private JTree tree = new JTree();
 
-    private HashMap optionPanelLoaded = new HashMap(); // The key is the option group.
+    private Map optionPanelLoaded = new HashMap(); // The key is the option group.
 
     private JSplitPane splitPane = new JSplitPane() {
         public void updateUI() {
@@ -140,7 +141,7 @@ public final class OptionDialog extends JDialog implements ActionListener {
         }
     };
 
-    private ArrayList unsavedProperties = new ArrayList();
+    private List unsavedProperties = new ArrayList();
 
     private PropertyChangeListener preferencesListener = new PropertyChangeListener() {
         public void propertyChange(PropertyChangeEvent evt) {

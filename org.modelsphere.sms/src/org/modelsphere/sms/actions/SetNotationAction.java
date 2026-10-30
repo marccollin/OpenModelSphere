@@ -61,6 +61,7 @@ import org.modelsphere.sms.or.db.DbORDomainModel;
 import org.modelsphere.sms.or.db.DbORNotation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public final class SetNotationAction extends AbstractDomainAction implements
         SelectionActionListener {
@@ -73,7 +74,7 @@ public final class SetNotationAction extends AbstractDomainAction implements
 
     private TerminologyUtil terminologyUtil = TerminologyUtil.getInstance();
 
-    private ArrayList dbos = new ArrayList(0);
+    private List dbos = new ArrayList(0);
 
     private boolean m_bDiagramIsUML = false;
 

@@ -100,6 +100,7 @@ import org.modelsphere.sms.or.screen.model.ORListModel;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class ORListView extends DbListView {
 
@@ -314,7 +315,7 @@ public class ORListView extends DbListView {
         if (listRelations[0] == DbORAIndex.fPartitionKeyColumns
                 || listRelations[0] == DbORAIndex.fSubpartitionKeyColumns
                 || listRelations[0] == DbINFIndex.fFragmentationKeyColumns) {
-            ArrayList indexedElements = new ArrayList();
+            List indexedElements = new ArrayList();
             DbEnumeration enumKeys = semObj.getComponents().elements(DbORIndexKey.metaClass);
 
             while (enumKeys.hasMoreElements()) {
@@ -328,7 +329,7 @@ public class ORListView extends DbListView {
         }
 
         if (listRelations[0] == DbORDomainModel.fDatabasesDefaultDomains) {
-            ArrayList databases = new ArrayList();
+            List databases = new ArrayList();
             DbEnumeration dbEnum = semObj.getProject().componentTree(DbORDatabase.metaClass);
             while (dbEnum.hasMoreElements()) {
                 DbORDatabase dbo = (DbORDatabase) dbEnum.nextElement();

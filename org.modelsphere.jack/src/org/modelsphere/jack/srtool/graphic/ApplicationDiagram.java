@@ -72,6 +72,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.print.PageFormat;
 import java.util.HashSet;
+import java.util.Set;
 
 public class ApplicationDiagram extends Diagram implements DbRefreshListener {
 
@@ -143,7 +144,7 @@ public class ApplicationDiagram extends Diagram implements DbRefreshListener {
         GraphicComponent[] selComps = getSelectedComponents();
         if (selComps.length == 0)
             return new Object[0];
-        HashSet selObjs = new HashSet();
+        Set selObjs = new HashSet();
         for (int i = 0; i < selComps.length; i++) {
             GraphicComponent gc = selComps[i];
             if (gc.selectAtCellLevel()) {

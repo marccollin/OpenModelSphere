@@ -105,7 +105,7 @@ public class JdbcReverseOptions {
     }
 
     public List getTargetSystems() {
-        ArrayList tsList = new ArrayList();
+        List tsList = new ArrayList();
         TargetSystemInfo targetInfo = null;
         Iterator iter = TargetSystemManager.getSingleton().getAllTargetSystemInfos().iterator();
         while (iter.hasNext()) {

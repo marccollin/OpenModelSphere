@@ -71,6 +71,7 @@ import org.modelsphere.sms.oo.db.srtypes.OOAggregation;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public final class OOAssociation extends SrLine implements DbRefreshListener {
 
@@ -310,8 +311,8 @@ public final class OOAssociation extends SrLine implements DbRefreshListener {
 
     private void chainLabels() {
         LineLabel frontLabel, backLabel;
-        ArrayList frontLabelList = new ArrayList();
-        ArrayList backLabelList = new ArrayList();
+        List frontLabelList = new ArrayList();
+        List backLabelList = new ArrayList();
 
         if (frontMultiLabel != null)
             frontLabelList.add(frontMultiLabel);

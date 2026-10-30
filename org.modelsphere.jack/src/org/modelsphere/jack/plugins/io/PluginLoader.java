@@ -684,7 +684,7 @@ public abstract class PluginLoader implements PluginConstants {
     }
 
     private static int[] splitVersion(String version) {
-        ArrayList<Integer> versions = new ArrayList<Integer>();
+        List<Integer> versions = new ArrayList<Integer>();
         // Split by non-alphanumeric characters but keep segments
         String[] tokens = version.split("[._\\-\\s()\\[\\]{}]");
         

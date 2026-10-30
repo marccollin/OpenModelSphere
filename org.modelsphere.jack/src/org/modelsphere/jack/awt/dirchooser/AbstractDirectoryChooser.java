@@ -57,6 +57,7 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Vector;
+import java.util.List;
 
 //Contains DirectoryChooser's & MultiDirectoryChooser's common stuff
 abstract class AbstractDirectoryChooser {

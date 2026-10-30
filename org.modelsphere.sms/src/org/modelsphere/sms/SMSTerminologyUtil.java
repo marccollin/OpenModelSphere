@@ -90,6 +90,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author nicolask
@@ -403,8 +405,8 @@ public final class SMSTerminologyUtil extends TerminologyUtil {
             DbRelationN relN = model.getComponents();
             DbEnumeration dbEnum = relN.elements(DbORDiagram.metaClass);
 
-            ArrayList array = new ArrayList();
-            HashSet notationsCollection = new HashSet();
+            List array = new ArrayList();
+            Set notationsCollection = new HashSet();
 
             while (dbEnum.hasMoreElements()) {
                 DbObject object = dbEnum.nextElement();

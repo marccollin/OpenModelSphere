@@ -61,7 +61,7 @@ class XMLPluginLoader extends PluginLoader {
     protected List<PluginDescriptor> scan(File directory, File scanRoot) {
         if (!scanRoot.equals(getPluginsDirectory()))
             return null;
-        ArrayList<PluginDescriptor> scannedPluginInfo = new ArrayList<PluginDescriptor>();
+        List<PluginDescriptor> scannedPluginInfo = new ArrayList<PluginDescriptor>();
         File[] files = directory.listFiles();
         if (files == null)
             return scannedPluginInfo;

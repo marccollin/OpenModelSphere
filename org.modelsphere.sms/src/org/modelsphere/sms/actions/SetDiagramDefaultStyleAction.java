@@ -56,6 +56,7 @@ import org.modelsphere.sms.or.db.DbORDomainStyle;
 import org.modelsphere.sms.or.db.DbORStyle;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public final class SetDiagramDefaultStyleAction extends AbstractDomainAction implements
         SelectionActionListener {
@@ -64,7 +65,7 @@ public final class SetDiagramDefaultStyleAction extends AbstractDomainAction imp
             .getString("DiagramDefaultStyle");
     private static final String kSetDefaultStyle = LocaleMgr.action.getString("setdefaultstyle");
 
-    private ArrayList styles = new ArrayList(0); // null object means separator
+    private List styles = new ArrayList(0); // null object means separator
 
     public SetDiagramDefaultStyleAction() {
         super(kDiagDefaultStyle);

@@ -55,6 +55,7 @@ import org.modelsphere.jack.baseDb.screen.Renderer;
 import org.modelsphere.jack.baseDb.screen.ScreenView;
 
 import java.util.Vector;
+import java.util.List;
 
 public class DbDescriptionModel extends javax.swing.AbstractListModel implements DescriptionModel,
         DbRefreshListener {

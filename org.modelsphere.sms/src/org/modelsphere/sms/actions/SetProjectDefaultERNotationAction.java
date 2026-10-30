@@ -47,6 +47,7 @@ import org.modelsphere.sms.international.LocaleMgr;
 import org.modelsphere.sms.or.db.DbORNotation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public final class SetProjectDefaultERNotationAction extends AbstractDomainAction implements
         SelectionActionListener {
@@ -56,7 +57,7 @@ public final class SetProjectDefaultERNotationAction extends AbstractDomainActio
     private static final String kSetERDefaultNotation = LocaleMgr.action
             .getString("setdefaultERnotation");
 
-    private ArrayList notations = new ArrayList(0); // null object means
+    private List notations = new ArrayList(0); // null object means
 
     // separator
 

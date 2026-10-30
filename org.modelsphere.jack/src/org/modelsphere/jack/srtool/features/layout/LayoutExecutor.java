@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The Class LayoutExecutor.
@@ -197,7 +198,7 @@ public class LayoutExecutor {
      * @return the cluster nodes
      */
     List<Node> getClusterNodes(int cluster) {
-        List<Node> clusterNodes = new ArrayList<Node>();
+        ArrayList<Node> clusterNodes = new ArrayList<Node>();
         for (Node node : clusters.keySet()) {
             Integer c = clusters.get(node);
             if (c == cluster) {

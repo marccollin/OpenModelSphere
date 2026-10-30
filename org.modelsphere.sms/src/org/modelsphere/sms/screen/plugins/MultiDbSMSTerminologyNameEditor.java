@@ -72,6 +72,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EventObject;
 import java.util.Iterator;
+import java.util.List;
 
 public class MultiDbSMSTerminologyNameEditor implements TableCellEditor {
 
@@ -149,7 +150,7 @@ public class MultiDbSMSTerminologyNameEditor implements TableCellEditor {
     }
 
     protected final Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList dbos = new ArrayList();
+        List dbos = new ArrayList();
         if (parentDbo instanceof DbBEUseCase) {
             DbBEUseCase useCase = (DbBEUseCase) parentDbo;
             if (useCase.getTerminologyName() == null)
@@ -176,7 +177,7 @@ public class MultiDbSMSTerminologyNameEditor implements TableCellEditor {
     }
 
     protected final Collection getSelectionSet(DbObject[] parentDbos) throws DbException {
-        ArrayList childs = new ArrayList();
+        List childs = new ArrayList();
         Collection tempchilds = null;
         for (int i = 0; i < parentDbos.length; i++) {
             tempchilds = getSelectionSet(parentDbos[i]);

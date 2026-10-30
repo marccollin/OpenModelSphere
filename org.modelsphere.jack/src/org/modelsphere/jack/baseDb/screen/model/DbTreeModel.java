@@ -57,6 +57,7 @@ import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class DbTreeModel extends DefaultTreeModel {
 
@@ -78,7 +79,7 @@ public class DbTreeModel extends DefaultTreeModel {
         DbLookupNode rootNode = (DbLookupNode) getRoot();
         rootNode.loaded = true;
         int i;
-        ArrayList rootNodes = new ArrayList();
+        List rootNodes = new ArrayList();
         for (i = 0; i < roots.length; i++) {
             roots[i].getDb().beginTrans(Db.READ_TRANS);
             DbLookupNode node = createNode(roots[i]);

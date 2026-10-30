@@ -88,6 +88,7 @@ import java.awt.*;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 public class BEContext extends GraphicNode implements ActionInformation {
 
@@ -107,7 +108,7 @@ public class BEContext extends GraphicNode implements ActionInformation {
     protected DbBENotation notation;
     private SingletonZone nameZone;
     private TableZone tableZone;
-    private HashMap zonesMap = new HashMap();
+    private Map zonesMap = new HashMap();
     private boolean displayFrameBox;
 
     // listeners

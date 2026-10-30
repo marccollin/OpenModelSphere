@@ -66,7 +66,7 @@ class JARPluginLoader extends PluginLoader {
 
     @Override
     protected List<PluginDescriptor> scan(File directory, File scanRoot) {
-        ArrayList<PluginDescriptor> scannedPluginInfo = new ArrayList<PluginDescriptor>();
+        List<PluginDescriptor> scannedPluginInfo = new ArrayList<PluginDescriptor>();
         File[] files = directory.listFiles();
         if (files == null) // not a directory
             return scannedPluginInfo;

@@ -42,11 +42,12 @@ import org.modelsphere.sms.or.db.util.AnyORObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class MultiDbORDatabaseDefaultDomainModelEditor extends MultiDbSemanticalObjectEditor {
 
     protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList domainModels = new ArrayList();
+        List domainModels = new ArrayList();
         DbEnumeration dbEnum = parentDbo.getProject().componentTree(DbORDomainModel.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbORDomainModel dbo = (DbORDomainModel) dbEnum.nextElement();

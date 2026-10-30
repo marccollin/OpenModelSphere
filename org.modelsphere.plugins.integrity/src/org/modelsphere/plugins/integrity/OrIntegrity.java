@@ -57,6 +57,7 @@ import org.modelsphere.sms.or.db.util.AnyORObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author pierrem
@@ -271,7 +272,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
             DbORAssociationEnd assoc_end = semObj.getAssociationEnd();
             SMSMultiplicity multiplicity = assoc_end.getMultiplicity();
             DbORAbsTable table = (DbORAbsTable) semObj.getComposite();
-            ArrayList badColumns = new ArrayList(5);
+            List badColumns = new ArrayList(5);
             DbEnumeration columns = semObj.getComponents().elements(DbORFKeyColumn.metaClass);
             while (columns.hasMoreElements()) {
                 DbORColumn column = ((DbORFKeyColumn) columns.nextElement()).getColumn();
@@ -328,7 +329,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
             DbORAssociationEnd assoc_end = semObj.getAssociationEnd();
             SMSMultiplicity multiplicity = assoc_end.getMultiplicity();
             DbORAbsTable table = (DbORAbsTable) semObj.getComposite();
-            ArrayList badColumns = new ArrayList(5);
+            List badColumns = new ArrayList(5);
             DbEnumeration columns = semObj.getComponents().elements(DbORFKeyColumn.metaClass);
             while (columns.hasMoreElements()) {
                 DbORColumn column = ((DbORFKeyColumn) columns.nextElement()).getColumn();
@@ -432,7 +433,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
                 if (!index.isUnique())
                     continue;
                 DbEnumeration indexcomp = index.getComponents().elements(DbORIndexKey.metaClass);
-                ArrayList indexCols = new ArrayList(5);
+                List indexCols = new ArrayList(5);
                 while (indexcomp.hasMoreElements()) {
                     indexCols.add(((DbORIndexKey) indexcomp.nextElement()).getIndexedElement());
                 }
@@ -549,7 +550,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
                         continue;
                     DbEnumeration indexcomp = index.getComponents()
                             .elements(DbORIndexKey.metaClass);
-                    ArrayList indexCols = new ArrayList(5);
+                    List indexCols = new ArrayList(5);
                     while (indexcomp.hasMoreElements()) {
                         indexCols.add(((DbORIndexKey) indexcomp.nextElement()).getIndexedElement());
                     }
@@ -677,7 +678,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
      * Entit�s sans cl�s
      */
     protected void verifyEntityWithoutKeys(ArrayList aList, StringBuffer buffer) throws DbException {
-        ArrayList keyList = new ArrayList();
+        List keyList = new ArrayList();
 
         for (int i = 0; i < aList.size(); i++) {
             DbORTable semObj = (DbORTable) (aList.get(i));

@@ -63,6 +63,7 @@ import org.modelsphere.jack.debug.Debug;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.List;
 
 class DbObjectElement extends XMLElement {
 
@@ -103,7 +104,7 @@ class DbObjectElement extends XMLElement {
             if (DbRelationN.class.isAssignableFrom(type)) {
                 DbRelationN values = (DbRelationN) value;
                 DbEnumeration dbEnum = values.elements();
-                ArrayList elements = new ArrayList();
+                List elements = new ArrayList();
                 while (dbEnum.hasMoreElements()) {
                     elements.add(dbEnum.nextElement());
                 }

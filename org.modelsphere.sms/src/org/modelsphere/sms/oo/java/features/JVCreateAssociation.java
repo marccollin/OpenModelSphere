@@ -59,6 +59,7 @@ import org.modelsphere.sms.oo.java.international.LocaleMgr;
 
 import java.awt.*;
 import java.util.Vector;
+import java.util.List;
 
 public class JVCreateAssociation {
 

@@ -51,6 +51,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+import java.util.List;
 
 public class FindOption {
     private static final int NAME = 0;
@@ -68,7 +69,7 @@ public class FindOption {
     private boolean recursive;
   //  private RE re = null;
     private Pattern pattern = null;
-    private ArrayList scopeOptions = new ArrayList();
+    private List scopeOptions = new ArrayList();
 
     public FindOption(String textToFind, boolean caseSensitive, boolean wholeWord, boolean useGrep,
             boolean recursive, ArrayList scopeOptions) throws PatternSyntaxException {

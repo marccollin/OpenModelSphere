@@ -53,6 +53,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.List;
 
 /**
  * Utility methods for Java archive handling
@@ -66,7 +67,7 @@ public final class JarUtil {
     public static File[] createTemporaryFiles(JarFile jarfile, String extension) throws IOException {
         if (jarfile == null || extension == null)
             return null;
-        ArrayList files = new ArrayList();
+        List files = new ArrayList();
         extension = extension.toLowerCase();
         Enumeration entries = jarfile.entries();
         while (entries.hasMoreElements()) {

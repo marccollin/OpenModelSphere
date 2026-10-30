@@ -57,6 +57,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.util.regex.PatternSyntaxException;
+import java.util.List;
 
 public class DbFindDialog extends JDialog implements ActionListener, TestableWindow {
 

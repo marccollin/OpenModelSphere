@@ -72,7 +72,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class DesignTableModel implements TableModel {
-    private ArrayList<MetaField> fields = new ArrayList<MetaField>();
+    private List<MetaField> fields = new ArrayList<MetaField>();
     private DbObject[] dbos = new DbObject[] {};
     private List<DbUDF> udfs = new ArrayList<DbUDF>();
 
@@ -344,9 +344,9 @@ public class DesignTableModel implements TableModel {
         if (deadObjects)
             dbos = new DbObject[] {};
 
-        ArrayList<MetaField> allMetafields = new ArrayList<MetaField>();
-        ArrayList<MetaField> tempMetafields = new ArrayList<MetaField>();
-        ArrayList<MetaClass> metaClasses = new ArrayList<MetaClass>();
+        List<MetaField> allMetafields = new ArrayList<MetaField>();
+        List<MetaField> tempMetafields = new ArrayList<MetaField>();
+        List<MetaClass> metaClasses = new ArrayList<MetaClass>();
 
         Db db = null;
         if (dbos.length > 0) {

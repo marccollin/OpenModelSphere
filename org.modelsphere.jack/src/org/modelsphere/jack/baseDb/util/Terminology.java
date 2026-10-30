@@ -49,6 +49,7 @@ import org.modelsphere.jack.baseDb.meta.MetaField;
 
 import javax.swing.*;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Grandite
@@ -59,12 +60,12 @@ import java.util.HashMap;
 
 public final class Terminology {
 
-    private HashMap metaClassMap = new HashMap(); // per instance
-    private HashMap metaClassGroupsMap = new HashMap(); // per instance
-    private HashMap metaFieldMap = new HashMap(200, 50); // per instance
-    private HashMap metaFieldGroupsMap = new HashMap(200, 50); // per instance
+    private Map metaClassMap = new HashMap(); // per instance
+    private Map metaClassGroupsMap = new HashMap(); // per instance
+    private Map metaFieldMap = new HashMap(200, 50); // per instance
+    private Map metaFieldGroupsMap = new HashMap(200, 50); // per instance
 
-    private HashMap metaClassIconMap = new HashMap(); // per instance
+    private Map metaClassIconMap = new HashMap(); // per instance
 
     Terminology() {
     } // package-visible: instantiated by TerminologyManager

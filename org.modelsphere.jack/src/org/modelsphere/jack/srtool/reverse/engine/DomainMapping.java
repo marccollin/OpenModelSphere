@@ -43,12 +43,13 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.srtool.reverse.engine;
 
 import java.util.HashMap;
+import java.util.Map;
 
 // Class used to defined a mapping between a String value and a domain value (of any type)
 // NOTE:  toLowerCase() is applied on all key values for set and get methods
 
 public final class DomainMapping {
-    final HashMap<String, Object> map = new HashMap<>(5);
+    final Map<String, Object> map = new HashMap<>(5);
     final Object defaultValue;
 
     // defaultvalue: The default value for this domain mapping

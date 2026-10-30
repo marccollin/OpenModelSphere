@@ -51,6 +51,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("serial")
 class BPMNotationPage extends AbstractPage {
@@ -153,7 +154,7 @@ class BPMNotationPage extends AbstractPage {
     }
 
     private void initNotationList() throws DbException {
-        ArrayList<String> notationListOut = new ArrayList<String>();
+        List<String> notationListOut = new ArrayList<String>();
         DbProject project = model.getChosenProject();
 
         project.getDb().beginReadTrans();

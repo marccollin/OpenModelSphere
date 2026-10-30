@@ -58,6 +58,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.HashMap;
+import java.util.Map;
 
 public class StereotypeIconChooser extends JPanel {
     JRadioButton defaultOption = new JRadioButton();
@@ -76,7 +77,7 @@ public class StereotypeIconChooser extends JPanel {
     JTextField imageName = new JTextField();
     JPanel okCancelPanel = new JPanel();
 
-    private static HashMap g_stereotypeMap = new HashMap(); //keep previous values
+    private static Map g_stereotypeMap = new HashMap(); //keep previous values
     private StereotypeStructure m_stereotypeStruct;
     private DbSMSStereotype m_stereotype;
     private boolean isCancelled = true; //until OK is pressed

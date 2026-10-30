@@ -54,6 +54,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -69,7 +70,7 @@ public final class LineRandomAccessFile extends RandomAccessFile implements Test
     // code
 
     // this array list contains the absolute position for each line
-    private ArrayList<Long> m_absolutePositions = new ArrayList<>();
+    private List<Long> m_absolutePositions = new ArrayList<>();
 
     public LineRandomAccessFile(File file) throws FileNotFoundException, IOException {
 

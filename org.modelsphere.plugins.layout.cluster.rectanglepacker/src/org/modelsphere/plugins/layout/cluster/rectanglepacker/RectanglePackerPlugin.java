@@ -15,7 +15,7 @@ public class RectanglePackerPlugin extends LayoutPlugin {
         if (rectanglePackerAlgorithm == null)
             rectanglePackerAlgorithm = new RectanglePackerAlgorithm();
 
-        ArrayList<LayoutAlgorithm> algorithms = new ArrayList<LayoutAlgorithm>();
+        List<LayoutAlgorithm> algorithms = new ArrayList<LayoutAlgorithm>();
         algorithms.add(rectanglePackerAlgorithm);
         return algorithms;
     }

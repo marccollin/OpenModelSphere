@@ -63,6 +63,7 @@ import org.modelsphere.sms.db.DbSMSStyle;
 
 import java.awt.*;
 import java.util.Vector;
+import java.util.List;
 
 public abstract class PackageBox extends GraphicNode implements ActionInformation {
 

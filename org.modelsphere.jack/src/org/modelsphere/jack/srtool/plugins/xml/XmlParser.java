@@ -60,6 +60,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Hashtable;
 import java.util.Stack;
+import java.util.Map;
 
 //
 // Simple demonstration of using SAX event-driven APIs directly.
@@ -90,7 +91,7 @@ public final class XmlParser implements DocumentHandler {
     private boolean expectingTargetTable = false;
     private boolean isDebug = false;
     private int newOccurrenceNameEmitted = 0;
-    private Hashtable idTable = new Hashtable(); // contains XMI ID for further references
+    private Map idTable = new Hashtable(); // contains XMI ID for further references
     private Stack elementStack = new Stack(); // contains all XMI elements (class, name, type)
     private Stack occurrenceNameStack = new Stack(); // contains names of XMI elements which are occurrences (such as class names, attr names, etc.)
 

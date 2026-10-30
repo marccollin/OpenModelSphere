@@ -110,7 +110,7 @@ public class StartupWizardModel extends DefaultWizardModel implements Properties
     private static final String kMessageSelectFile = LocaleMgr.message.getString("selectFile");
     private static final String kMessageSelectJRE = LocaleMgr.message.getString("selectJRE");
 
-    static final ArrayList<String> DEFAULT_JRE_JARS = new ArrayList<String>(Arrays
+    static final List<String> DEFAULT_JRE_JARS = new ArrayList<String>(Arrays
             .asList(new String[] { "lib" + File.separator + "rt.jar",
                     "lib" + File.separator + "jsse.jar", "lib" + File.separator + "jce.jar",
                     "lib" + File.separator + "charsets.jar", }));
@@ -118,7 +118,7 @@ public class StartupWizardModel extends DefaultWizardModel implements Properties
     // Step 0
     private boolean newModel = true;
     private String openFileName;
-    private ArrayList<String> recentFiles = new ArrayList<String>();
+    private List<String> recentFiles = new ArrayList<String>();
 
     // Shared
     private boolean newProject;
@@ -672,9 +672,9 @@ public class StartupWizardModel extends DefaultWizardModel implements Properties
 
         JavaToolkit toolkit = JavaToolkit.getSingleton();
 
-        ArrayList<String> classList = new ArrayList<String>();
+        List<String> classList = new ArrayList<String>();
 
-        ArrayList<String> fileNames = new ArrayList<String>();
+        List<String> fileNames = new ArrayList<String>();
 
         for (int i = 0; i < DEFAULT_JRE_JARS.size(); i++) {
             fileNames.add(new File(jreHome, DEFAULT_JRE_JARS.get(i)).getPath());

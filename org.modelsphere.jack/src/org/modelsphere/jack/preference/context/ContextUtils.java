@@ -58,6 +58,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Utility class for ContextComponents.
@@ -134,7 +135,7 @@ public class ContextUtils {
     private static Element createDOMPathElement(Document document, DbObject dbo) throws DbException {
         Element path = document.createElement(PATH_TAG);
         DbObject composite = dbo;
-        ArrayList<Element> elements = new ArrayList<Element>();
+        List<Element> elements = new ArrayList<Element>();
         while (composite != null && !(composite instanceof DbProject)) {
             String name = composite.getName();
             if (name == null || name.trim().length() == 0)

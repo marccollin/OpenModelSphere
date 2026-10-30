@@ -62,6 +62,8 @@ import javax.swing.*;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 final class GenerateCommonItems {
     static final int GENERATE_REPORT = 0;

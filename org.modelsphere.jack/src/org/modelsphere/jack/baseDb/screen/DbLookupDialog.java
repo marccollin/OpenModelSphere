@@ -56,6 +56,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 public abstract class DbLookupDialog {
 
@@ -71,7 +72,7 @@ public abstract class DbLookupDialog {
             Db db, Collection dbos, DbObject currentDbo, String nullStr, boolean fullName)
             throws DbException {
         int nb = dbos.size();
-        ArrayList arrayDefaultComparableElements = new ArrayList();
+        List arrayDefaultComparableElements = new ArrayList();
 
         if (nullStr != null) {
             arrayDefaultComparableElements.add(new DefaultComparableElement(null, nullStr));

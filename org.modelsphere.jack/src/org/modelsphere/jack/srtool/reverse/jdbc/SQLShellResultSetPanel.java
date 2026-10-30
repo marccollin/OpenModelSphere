@@ -53,6 +53,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.List;
 
 public final class SQLShellResultSetPanel extends JPanel {
 
@@ -194,8 +195,8 @@ public final class SQLShellResultSetPanel extends JPanel {
     }
 
     private class ResultSetTableModel extends DefaultTableModel {
-        final ArrayList columns = new ArrayList();
-        final ArrayList rows = new ArrayList();
+        final List columns = new ArrayList();
+        final List rows = new ArrayList();
 
         ResultSetTableModel(StatementMessage statementMessage) {
             if (statementMessage.resultList.size() < 1 || statementMessage.columnList.size() < 1) {

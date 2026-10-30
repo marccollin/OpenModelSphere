@@ -46,6 +46,7 @@ import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 
@@ -55,7 +56,7 @@ import java.util.Collection;
 public final class DbORIndexConstraintEditor extends DbSemanticalObjectShortEditor {
 
     protected final Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList dbos = new ArrayList();
+        List dbos = new ArrayList();
         DbEnumeration dbEnum = parentDbo.getComposite().getComponents().elements();
         while (dbEnum.hasMoreElements()) {
             DbObject dbo = dbEnum.nextElement();

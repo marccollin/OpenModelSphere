@@ -47,6 +47,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Iterates recursively in a directory hierarchy. Creates a directory iterator, the constructor

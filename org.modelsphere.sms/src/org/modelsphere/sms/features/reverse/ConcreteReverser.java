@@ -61,6 +61,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.Vector;
+import java.util.List;
 
 public class ConcreteReverser extends AbstractReverser {
 
@@ -123,7 +124,7 @@ public class ConcreteReverser extends AbstractReverser {
         errMsg = reverse.reverseFile(pack, logBuffer, options, file);
         //for all diagrams, create graphical objects 
 
-        ArrayList<DbOODiagram> diagrams = new ArrayList<DbOODiagram>();
+        List<DbOODiagram> diagrams = new ArrayList<DbOODiagram>();
         pack.getDb().beginReadTrans();
         DbEnumeration dbEnum = pack.componentTree(DbOODiagram.metaClass);
         while (dbEnum.hasMoreElements())

@@ -45,6 +45,7 @@ package org.modelsphere.jack.international;
 
 import java.util.Locale;
 import java.util.Vector;
+import java.util.List;
 
 /**
  * LocaleChangeManager is a non-visual java bean which notifies registered observers when a locale

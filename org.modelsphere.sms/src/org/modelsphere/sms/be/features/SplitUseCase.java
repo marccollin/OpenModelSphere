@@ -79,6 +79,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public final class SplitUseCase {
     private static final int REPORT_INDENT = 4;
@@ -92,10 +93,10 @@ public final class SplitUseCase {
     // usecases that become external.
     // This is used for restoring link between the usecase and other objects
     // involved in the split.
-    private HashMap refUseCase = new HashMap();
+    private Map refUseCase = new HashMap();
     // Mapping for actors, stores, styles and notations (the Db mapping facility
     // does not match the 2 models
-    private HashMap refComponents = new HashMap();
+    private Map refComponents = new HashMap();
 
     private boolean sameProject = false;
     private DbSMSProject newproject = null;

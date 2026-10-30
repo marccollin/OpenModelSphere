@@ -68,6 +68,7 @@ import org.modelsphere.sms.or.oracle.db.DbORAView;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author nicolask
@@ -135,7 +136,7 @@ public class CreateCommonItemColumnsAction extends AbstractApplicationAction imp
             }
             if (composite != null) {
                 composite.getDb().beginWriteTrans(kCreateCommonItemColumns);
-                ArrayList compareList = new ArrayList();
+                List compareList = new ArrayList();
                 for (int i = 0; i < commonItems.length; i++) {
                     commonItems[i].getDb().beginReadTrans();
                     compareList.add(new DefaultComparableElement(commonItems[i], commonItems[i]

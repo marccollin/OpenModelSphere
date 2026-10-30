@@ -62,6 +62,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public final class SQLShell extends Shell {
     private static final String SQL_SHELL = LocaleMgr.misc.getString("SQL_SHELL");
@@ -152,12 +153,12 @@ public final class SQLShell extends Shell {
             if (errMsg != null) {
                 result += "\n" + errMsg + "\n"; // NOT LOCALIZABLE, escade code
             } else if (statementMsg.resultList != null) {
-                ArrayList resultList = statementMsg.resultList;
+                List resultList = statementMsg.resultList;
 
                 // for each row
                 Iterator iter = resultList.iterator();
                 while (iter.hasNext()) {
-                    ArrayList row = (ArrayList) iter.next();
+                    List row = (List) iter.next();
 
                     // for each column
                     Iterator iter2 = row.iterator();

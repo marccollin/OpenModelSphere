@@ -58,6 +58,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 @SuppressWarnings("serial")
 class PluginsList extends JComponent implements MouseListener, Scrollable {
@@ -107,8 +108,8 @@ class PluginsList extends JComponent implements MouseListener, Scrollable {
     private Action homeAction = new NavigationAction(-1000000);
     private Action endAction = new NavigationAction(1000000);
 
-    private ArrayList<PluginDescriptor> removed = new ArrayList<PluginDescriptor>();
-    private ArrayList<PluginDescriptor> added = new ArrayList<PluginDescriptor>();
+    private List<PluginDescriptor> removed = new ArrayList<PluginDescriptor>();
+    private List<PluginDescriptor> added = new ArrayList<PluginDescriptor>();
 
     PluginListener pluginListener = new PluginListener() {
 

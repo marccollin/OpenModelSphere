@@ -69,6 +69,7 @@ import org.modelsphere.sms.preference.DirectoryOptionGroup;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public abstract class SMSSynchroModel extends SMSIntegrateModel {
 
@@ -143,8 +144,8 @@ public abstract class SMSSynchroModel extends SMSIntegrateModel {
 
     private void fillSyncObjs(IntegrateNode node) {
         int syncAction = 0;
-        ArrayList metafields = new ArrayList();
-        ArrayList customfields = new ArrayList();
+        List metafields = new ArrayList();
+        List customfields = new ArrayList();
         if (node.getAction() == ACT_DELETE_RIGHT)
             syncAction = SynchroObject.ACT_DELETE;
         else if (node.getAction() == ACT_ADD_IN_RIGHT)

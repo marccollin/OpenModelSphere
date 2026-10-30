@@ -50,11 +50,12 @@ import org.modelsphere.sms.or.db.util.AnyORObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public final class MultiDbSuperCopyEditor extends MultiDbSemanticalObjectEditor {
 
     protected final Collection getSelectionSet(DbObject dbo) throws DbException {
-        ArrayList superDbos = new ArrayList();
+        List superDbos = new ArrayList();
         if (dbo instanceof DbORAssociation) {
             // An association can have as super any association in the
             // super-schema

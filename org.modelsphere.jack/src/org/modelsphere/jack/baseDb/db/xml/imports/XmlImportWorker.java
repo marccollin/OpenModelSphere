@@ -100,6 +100,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.StringTokenizer;
+import java.util.List;
+import java.util.Map;
 
 public class XmlImportWorker extends Worker {
     private Db m_db;

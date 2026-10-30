@@ -56,6 +56,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public abstract class ScreenPlugins {
 
@@ -64,11 +65,11 @@ public abstract class ScreenPlugins {
     private static final String RENDERER_SUFFIX_NAME = "Renderer"; //NOT LOCALIZABLE
     private static final String MULTI_PREFIX_NAME = "Multi"; //NOT LOCALIZABLE
 
-    private static HashMap<String, Renderer> rendererMap = new HashMap<String, Renderer>();
-    private static HashMap<String, TableCellRenderer> multiRendererMap = new HashMap<String, TableCellRenderer>();
+    private static Map<String, Renderer> rendererMap = new HashMap<String, Renderer>();
+    private static Map<String, TableCellRenderer> multiRendererMap = new HashMap<String, TableCellRenderer>();
 
-    private static HashMap<MetaField, String> externalPlugins = new HashMap<MetaField, String>();
-    private static HashMap<String, String> externalPluginPackages = new HashMap<String, String>();
+    private static Map<MetaField, String> externalPlugins = new HashMap<MetaField, String>();
+    private static Map<String, String> externalPluginPackages = new HashMap<String, String>();
 
     private static String[] auxiliaryPackages = null;
 

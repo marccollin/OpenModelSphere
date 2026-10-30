@@ -79,6 +79,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.StringTokenizer;
+import java.util.List;
 
 public class DBMSReverseWorker extends Worker {
     private static final String kReverseJobSynchro = LocaleMgr.misc.getString("ReverseInSynchro");

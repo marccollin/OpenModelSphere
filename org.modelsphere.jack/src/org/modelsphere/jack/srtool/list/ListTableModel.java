@@ -108,7 +108,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
 
     // The available metafields and udfs for this model (displayed or not)
     // Contains a ColumnDescriptor object for each possible columns.  This contains the title for all columns.
-    private ArrayList columnDescriptors = new ArrayList();
+    private List columnDescriptors = new ArrayList();
 
     // The root composite
     DbObject root;

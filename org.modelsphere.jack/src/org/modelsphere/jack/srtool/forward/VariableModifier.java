@@ -48,6 +48,7 @@ import java.io.Serializable;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * <H1>EXECUTION VARIABLES</H1><BR>
@@ -69,7 +70,7 @@ import java.util.Hashtable;
 public final class VariableModifier extends Modifier {
     private static final String kRule = "$rule;"; // NOT LOCALIZABLE, internal use only
 
-    static Hashtable allVariables = new Hashtable();
+    static Map allVariables = new Hashtable();
     String varKey;
     Rule rule;
 

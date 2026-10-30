@@ -55,11 +55,11 @@ import java.util.List;
 public class JdbcNameListBuilder extends JdbcBuilder {
     private static final String USERSEP = ".";
     private static final String OCCSEP = ",";
-    private ArrayList nameList = new ArrayList();
-    private ArrayList typeList = new ArrayList();
-    private ArrayList tableSortList = new ArrayList();
-    private ArrayList viewSortList = new ArrayList();
-    private ArrayList procSortList = new ArrayList();
+    private List nameList = new ArrayList();
+    private List typeList = new ArrayList();
+    private List tableSortList = new ArrayList();
+    private List viewSortList = new ArrayList();
+    private List procSortList = new ArrayList();
     private String sortBuffer = null;
     private String userNames = null;
 

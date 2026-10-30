@@ -62,6 +62,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 import java.util.Vector;
+import java.util.List;
+import java.util.Set;
 
 // do Java Validation for package classes (not for inner classes)
 

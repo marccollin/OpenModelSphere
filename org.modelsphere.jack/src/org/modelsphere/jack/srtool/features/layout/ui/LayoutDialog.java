@@ -183,9 +183,9 @@ public class LayoutDialog extends JDialog implements ActionListener {
         randomizeCheckBox = new JCheckBox(LocaleMgr.screen.getString("randomize"));
         randomizeCheckBox.setSelected(true);
 
-        ArrayList<DefaultComparableElement> nodeAlgos = new ArrayList<DefaultComparableElement>();
-        ArrayList<DefaultComparableElement> edgeAlgos = new ArrayList<DefaultComparableElement>();
-        ArrayList<DefaultComparableElement> clusterAlgos = new ArrayList<DefaultComparableElement>();
+        List<DefaultComparableElement> nodeAlgos = new ArrayList<DefaultComparableElement>();
+        List<DefaultComparableElement> edgeAlgos = new ArrayList<DefaultComparableElement>();
+        List<DefaultComparableElement> clusterAlgos = new ArrayList<DefaultComparableElement>();
         
         //add default
         DefaultComparableElement element = 

@@ -45,6 +45,7 @@ import org.modelsphere.sms.db.DbSMSClassifier;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author pierrem
@@ -185,7 +186,7 @@ public final class BeIntegrity extends AbstractBEIntegrity {
 
         for (int i = 0; i < aList.size(); i++) {
             DbSMSClassifier semObj = (DbSMSClassifier) (aList.get(i));
-            ArrayList ObjectLinkedList = new ArrayList();
+            List ObjectLinkedList = new ArrayList();
             DbEnumeration flowsFirst = null;
             DbEnumeration flowsSecond = null;
             nbFirstEnd = 0;
@@ -238,7 +239,7 @@ public final class BeIntegrity extends AbstractBEIntegrity {
     private void verifyObjectTypeLinked(ArrayList aList, StringBuffer buffer) throws DbException {
         for (int i = 0; i < aList.size(); i++) {
             DbSMSClassifier semObj = (DbSMSClassifier) (aList.get(i));
-            ArrayList ObjectLinkedList = new ArrayList();
+            List ObjectLinkedList = new ArrayList();
             DbEnumeration flows = null;
             boolean priorMsg = false;
             int MsgExtraIndex = -1;

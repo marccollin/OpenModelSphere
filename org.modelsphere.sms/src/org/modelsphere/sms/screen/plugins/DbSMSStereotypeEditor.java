@@ -47,6 +47,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 
@@ -56,7 +57,7 @@ import java.util.Collection;
 public final class DbSMSStereotypeEditor extends DbSemanticalObjectShortEditor {
 
     protected final Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList dbos = new ArrayList();
+        List dbos = new ArrayList();
 
         // Check for a special case
         if (parentDbo instanceof DbJVClass) {

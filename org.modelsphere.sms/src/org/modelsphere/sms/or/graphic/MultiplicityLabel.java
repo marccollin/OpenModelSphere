@@ -44,6 +44,7 @@ import org.modelsphere.jack.srtool.graphic.SrLineLabel;
 import org.modelsphere.sms.or.db.DbORAssociationEnd;
 
 import java.util.Vector;
+import java.util.List;
 
 public class MultiplicityLabel extends SrLineLabel {
 
@@ -53,7 +54,7 @@ public class MultiplicityLabel extends SrLineLabel {
     }
 
     public final void setValue(String prefix, String value, boolean underline) {
-        Vector elements = new Vector();
+        List elements = new Vector();
         if (prefix.length() != 0)
             elements.add(new CompositeCellRendererElement(new StringCellRenderer(), prefix));
         elements.add(new CompositeCellRendererElement(new StringCellRenderer(underline, false),

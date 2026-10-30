@@ -62,6 +62,7 @@ import org.modelsphere.sms.or.db.DbORStyle;
 import org.modelsphere.sms.style.FormatFrame;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public final class SetGoStyleAction extends AbstractDomainAction implements SelectionActionListener {
 
@@ -70,7 +71,7 @@ public final class SetGoStyleAction extends AbstractDomainAction implements Sele
     private static final String kDiagramDefaultStyle = LocaleMgr.action
             .getString("DiagramDefaultStyle");
 
-    private ArrayList dbos = new ArrayList(0);
+    private List dbos = new ArrayList(0);
 
     public SetGoStyleAction() {
         super(kStyle);

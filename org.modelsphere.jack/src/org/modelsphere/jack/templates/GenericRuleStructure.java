@@ -51,6 +51,7 @@ import org.modelsphere.jack.srtool.forward.exceptions.TemplateFormatException;
 import org.modelsphere.jack.util.StringUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 //A .tpl file is a list of several RuleStructures
 public class GenericRuleStructure {
@@ -152,7 +153,7 @@ public class GenericRuleStructure {
             // invalid
 
             TemplateEnumeration enumeration = new TemplateEnumeration(ruleText);
-            ArrayList ruleList = new ArrayList();
+            List ruleList = new ArrayList();
             while (enumeration.hasMoreElements()) {
                 StringStructure ss = (StringStructure) enumeration.nextElement();
                 if (ss.stringRule != null) {

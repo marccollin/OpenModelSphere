@@ -52,11 +52,12 @@ import org.modelsphere.jack.graphic.ZoneBox;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.List;
 
 public class MatrixZone extends Zone {
     private int m_zoneMinimumHeight;
-    private ArrayList rows = new ArrayList();
-    private ArrayList colOptions = new ArrayList();
+    private List rows = new ArrayList();
+    private List colOptions = new ArrayList();
     private int alignment;
     private int wrappingCol = -1; // no wrapping col
     private int[] widths;

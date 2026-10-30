@@ -50,6 +50,7 @@ import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 import org.modelsphere.sms.or.international.LocaleMgr;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public final class SetReferencedConstraintAction extends AbstractDomainAction implements
         SelectionActionListener {
@@ -61,7 +62,7 @@ public final class SetReferencedConstraintAction extends AbstractDomainAction im
             .getString("noRefConstraint");
     private static final String kKeyNamePatern = LocaleMgr.action.getString("keyName01");
 
-    private ArrayList dbos = new ArrayList(0);
+    private List dbos = new ArrayList(0);
 
     SetReferencedConstraintAction() {
         super(kReferencedConstraint);

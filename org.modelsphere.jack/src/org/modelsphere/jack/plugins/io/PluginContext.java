@@ -51,6 +51,7 @@ import javax.swing.*;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.Map;
 
 public class PluginContext {
     public static final String STATUS_TEXT = "PluginContext.status";

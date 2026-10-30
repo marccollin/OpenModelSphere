@@ -64,6 +64,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import java.util.List;
 
 /**
  * Get locale-dependent resources (such as strings, images, etc.) from the resource files
@@ -118,7 +119,7 @@ public class LocaleMgr {
         return m_resName;
     }
 
-    private ArrayList m_parentChain = new ArrayList();
+    private List m_parentChain = new ArrayList();
 
     protected LocaleMgr(String resName) {
         m_resName = resName;

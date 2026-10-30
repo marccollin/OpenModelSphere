@@ -50,6 +50,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 @SuppressWarnings("serial")
 class DMTargetPage extends AbstractPage {
@@ -134,7 +135,7 @@ class DMTargetPage extends AbstractPage {
         TargetSystem targetSystem = TargetSystemManager.getSingleton();
 
         Iterator iter = targetSystem.getAllTargetSystemInfos().iterator();
-        ArrayList<DefaultComparableElement> tsList = new ArrayList<DefaultComparableElement>();
+        List<DefaultComparableElement> tsList = new ArrayList<DefaultComparableElement>();
 
         while (iter.hasNext()) {
             TargetSystemInfo targetSystemInfo = (TargetSystemInfo) iter.next();

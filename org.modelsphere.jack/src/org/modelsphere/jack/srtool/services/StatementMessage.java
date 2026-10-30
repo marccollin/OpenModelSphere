@@ -46,6 +46,7 @@ package org.modelsphere.jack.srtool.services;
 import org.modelsphere.jack.services.ServiceMessage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StatementMessage extends ServiceMessage {
     public int connectionId; // in

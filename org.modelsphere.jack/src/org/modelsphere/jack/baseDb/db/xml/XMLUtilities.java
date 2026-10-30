@@ -61,6 +61,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 public final class XMLUtilities implements XMLConstants {
     private static HashMap idPool = null;
@@ -137,7 +138,7 @@ public final class XMLUtilities implements XMLConstants {
 
     private static void initIDPool() {
         idPool = new HashMap();
-        ArrayList shortNameList = new ArrayList(); // validation only
+        List shortNameList = new ArrayList(); // validation only
         Enumeration allmetaclasses = MetaClass.enumMetaClasses();
         while (allmetaclasses.hasMoreElements()) {
             MetaClass mc = (MetaClass) allmetaclasses.nextElement();

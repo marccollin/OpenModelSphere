@@ -63,6 +63,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListInternalFrame extends CascadingJInternalFrame implements DbRefreshListener,
         DbListener {
@@ -179,7 +180,7 @@ public class ListInternalFrame extends CascadingJInternalFrame implements DbRefr
         int[] selectedRows = table.getSelectedRows();
         if (selectedRows == null || selectedRows.length == 0)
             return new Object[0];
-        ArrayList selection = new ArrayList();
+        List selection = new ArrayList();
         for (int i = 0; i < selectedRows.length; i++) {
             selection.add(model.getDbObjectAt(selectedRows[i]));
         }

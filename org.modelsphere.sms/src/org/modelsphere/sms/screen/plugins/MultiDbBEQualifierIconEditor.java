@@ -66,6 +66,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EventObject;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * 
@@ -87,7 +88,7 @@ public final class MultiDbBEQualifierIconEditor implements TableCellEditor {
     private int noneIndex = -1;
 
     static {
-        ArrayList images = new ArrayList();
+        List images = new ArrayList();
         try {
             int count = 1;
             String fileName = Integer.valueOf(count).toString();
@@ -149,7 +150,7 @@ public final class MultiDbBEQualifierIconEditor implements TableCellEditor {
     }
 
     protected final Collection getSelectionSet(Object value) {
-        ArrayList values = new ArrayList();
+        List values = new ArrayList();
         values.add(MultiDefaultRenderer.kNone);
         values.add(kSelect);
         //values.addAll(Arrays.asList(BUILTIN_IMAGES));

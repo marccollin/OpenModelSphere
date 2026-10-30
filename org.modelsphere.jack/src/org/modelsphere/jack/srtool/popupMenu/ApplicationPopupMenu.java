@@ -74,6 +74,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 public abstract class ApplicationPopupMenu {
 
@@ -129,7 +131,7 @@ public abstract class ApplicationPopupMenu {
         Object[] selObjects = focusManager.getSelectedObjects();
 
         if (selObjects.length > 0 && !useContainer) {
-            HashSet classes = new HashSet();
+            Set classes = new HashSet();
             for (int i = 0; i < selObjects.length; i++) {
                 Object object = selObjects[i];
                 if (!classes.add(object.getClass()))
@@ -172,7 +174,7 @@ public abstract class ApplicationPopupMenu {
             }
             //DbMultiTrans.commitTrans(selObjects);
 
-            ArrayList arrayToCommit = new ArrayList();
+            List arrayToCommit = new ArrayList();
             for (int w = 0; w < selObjects.length; w++) {
                 Db db = null;
                 if (selObjects[w] instanceof DbObject)

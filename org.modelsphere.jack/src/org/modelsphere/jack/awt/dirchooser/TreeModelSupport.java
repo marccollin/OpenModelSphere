@@ -47,6 +47,7 @@ import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import java.util.Enumeration;
 import java.util.Vector;
+import java.util.List;
 
 class TreeModelSupport {
     private Vector vector = new Vector();

@@ -68,6 +68,7 @@ import org.modelsphere.sms.plugins.TargetSystemInfo;
 import org.modelsphere.sms.plugins.TargetSystemManager;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public final class ORSemanticalIntegrity implements DbUpdateListener {
     //private static final String UNVALIDATED = "{0} Unvalidated";
@@ -222,7 +223,7 @@ public final class ORSemanticalIntegrity implements DbUpdateListener {
         // it does not match; recreate the index keys from the constraint columns.
         int i;
         DbRelationN indCols = index.getComponents();
-        HashMap old = new HashMap();
+        Map old = new HashMap();
         for (i = indCols.size(); --i >= 0;) {
             DbObject dbo = indCols.elementAt(i);
             if (dbo instanceof DbORIndexKey) {

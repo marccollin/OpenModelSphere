@@ -83,6 +83,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.EventObject;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class ExplorerView extends JTree implements Autoscroll, TreeSelectionListener,
         TreeWillExpandListener, SrDropTarget, SelectionListener {
@@ -300,7 +302,7 @@ public class ExplorerView extends JTree implements Autoscroll, TreeSelectionList
                             TreePath[] selectedPath = getSelectionPaths();
                             if (selectedPath == null)
                                 return;
-                            ArrayList tempRoots = new ArrayList();
+                            List tempRoots = new ArrayList();
                             for (int i = 0; i < selectedPath.length; i++) {
                                 Object obj = selectedPath[i].getLastPathComponent();
                                 tempRoots.add(((DefaultMutableTreeNode) obj).getUserObject());
@@ -651,7 +653,7 @@ public class ExplorerView extends JTree implements Autoscroll, TreeSelectionList
         TreePath[] treePaths = getSelectionPaths();
         if (treePaths == null)
             return new Object[0];
-        HashSet objs = new HashSet();
+        Set objs = new HashSet();
         for (int i = 0; i < treePaths.length; i++) {
             DynamicNode node = (DynamicNode) treePaths[i].getLastPathComponent();
             if (node.getUserObject() instanceof GroupParams) {

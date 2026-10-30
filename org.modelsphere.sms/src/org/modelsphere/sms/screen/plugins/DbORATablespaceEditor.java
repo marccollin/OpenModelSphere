@@ -43,6 +43,7 @@ import org.modelsphere.sms.or.oracle.db.DbORATablespace;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class DbORATablespaceEditor extends DbSemanticalObjectEditor {
 
@@ -50,7 +51,7 @@ public class DbORATablespaceEditor extends DbSemanticalObjectEditor {
     private DbEnumeration dbEnum;
 
     protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList tablespaces = new ArrayList();
+        List tablespaces = new ArrayList();
         DbORDataModel model = (DbORDataModel) parentDbo.getCompositeOfType(DbORDataModel.metaClass);
         if (model != null) {
             DbORDatabase database = model.getDeploymentDatabase();

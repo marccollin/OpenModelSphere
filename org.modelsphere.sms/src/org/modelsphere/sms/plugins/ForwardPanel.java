@@ -76,7 +76,7 @@ public final class ForwardPanel extends JPanel implements ScreenTabPanel {
     private JPanel m_borderPanel;
     private JPanel controlPanel = null;
     private JButton[] jButtonList;
-    private Vector vecButton = new Vector();
+    private List vecButton = new Vector();
     private ForwardPanelOptions m_options;
     private static final String WRITING_ERROR = LocaleMgr.message.getString("WRITING_ERROR");
     private PropertyScreenPreviewInfo m_info;

@@ -61,6 +61,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public abstract class ReverseBuilder implements Actions, SRXConstants {
     public static final String kReverse = LocaleMgr.screen.getString("ReverseEngineering");
@@ -149,7 +151,7 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
     protected static final String CHAIN_COMMIT = "chainCommit"; // Boolean //
     // NOT
     // LOCALIZABLE
-    private HashMap globalOptions = new HashMap(2);
+    private Map globalOptions = new HashMap(2);
 
     // This field contains all the properties of the created object. There is
     // one entry for each sql extraction result tag.
@@ -159,30 +161,30 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
     protected HashMap currentObject;
 
     // Stock all objects for the current concept
-    private ArrayList tempObjects = new ArrayList(100);
+    private List tempObjects = new ArrayList(100);
 
     // map an HashSet object for each supported concept - this HashSet object
     // contains all the field level mappings
-    private HashMap conceptMapping = new HashMap(15);
+    private Map conceptMapping = new HashMap(15);
 
     // map a concept with its composition definition (dbobject,
     // compositeMapping, SrxDbObjectElement or hook)
     // Used to get the dbobject
-    private HashMap compositionMapping = new HashMap(15);
+    private Map compositionMapping = new HashMap(15);
 
     // map concept-hook (to be executed after all occurrences of this concept
     // have been created)
-    private HashMap postProcessConceptMapping = new HashMap(2);
+    private Map postProcessConceptMapping = new HashMap(2);
 
     // map concept-hook (to be executed after each occurrence creation for this
     // concept)
-    private HashMap postProcessOccurrenceMapping = new HashMap(2);
+    private Map postProcessOccurrenceMapping = new HashMap(2);
 
     // contains the concept to skip
-    private ArrayList ignoredConcept = new ArrayList(5);
+    private List ignoredConcept = new ArrayList(5);
 
     // contains the concept that used the MULTI_PART_OBJECT options.
-    private ArrayList multiPartConcept = new ArrayList(5);
+    private List multiPartConcept = new ArrayList(5);
 
     // Will be set to true if a called to removeCurrentObject() occurs
     private boolean removeObject = false;
@@ -195,13 +197,13 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
 
     // Reports field - Concepts contains in this array will generate an output
     // feedback to the user
-    private ArrayList conceptInOutputRepport = new ArrayList(10);
-    private HashMap conceptGroupInOutputRepport = new HashMap(5);
+    private List conceptInOutputRepport = new ArrayList(10);
+    private Map conceptGroupInOutputRepport = new HashMap(5);
     private String repportSummary = new String();
-    private HashMap occurrencesCounters = new HashMap(10);
-    private HashMap guiNamesSingular = new HashMap(10);
-    private HashMap guiNamesPlural = new HashMap(10);
-    private ArrayList repportSummarySequence = new ArrayList(10);
+    private Map occurrencesCounters = new HashMap(10);
+    private Map guiNamesSingular = new HashMap(10);
+    private Map guiNamesPlural = new HashMap(10);
+    private List repportSummarySequence = new ArrayList(10);
 
     public final void init(DbProject project, Object configuration) throws Exception {
         Debug.assert2(project != null, "ReverseBuilder:  Null project");
@@ -632,7 +634,7 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
         if (!multiPartConcept.contains(concept))
             return;
 
-        ArrayList mergedObjects = new ArrayList(50);
+        List mergedObjects = new ArrayList(50);
         int lastPart = Integer.MAX_VALUE;
         boolean firstPart = true;
 
@@ -641,8 +643,8 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
         if (fields == null)
             fields = new HashSet();
 
-        ArrayList toMergeFieldMaps = new ArrayList(); // String tag to merge
-        ArrayList toMergeKeys = new ArrayList(); // String tag to merge
+        List toMergeFieldMaps = new ArrayList(); // String tag to merge
+        List toMergeKeys = new ArrayList(); // String tag to merge
         Iterator iter = fields.iterator();
         while (iter.hasNext()) {
             FieldMapping fieldmap = (FieldMapping) iter.next();

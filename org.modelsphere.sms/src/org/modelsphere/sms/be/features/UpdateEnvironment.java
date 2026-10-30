@@ -64,6 +64,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public final class UpdateEnvironment {
     private static final int MAX_DIAGRAM_INTERNAL_FRAME = 5;
@@ -71,7 +72,7 @@ public final class UpdateEnvironment {
     private DbBEUseCase useCase;
     private boolean addGo = true;
     private List useCaseDiags = new ArrayList();
-    private HashMap flowSemObjectMap = new HashMap();
+    private Map flowSemObjectMap = new HashMap();
     private DeepCopyCustomizer copyCustomizer = new CopyCustomizer();
     private List addedClassifierGos = new ArrayList();
     private boolean m_updatedEnvironment = false;

@@ -61,6 +61,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.List;
 
 public class MainFrameMenu extends org.modelsphere.jack.srtool.MainFrameMenu {
 	//locale-independent keys

@@ -46,6 +46,7 @@ package org.modelsphere.jack.srtool.plugins.generic.dbms;
 import org.modelsphere.jack.baseDb.db.DbObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserInfo {
     public String username;

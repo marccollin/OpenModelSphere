@@ -43,11 +43,12 @@ import org.modelsphere.sms.or.db.util.AnyORObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class DbOROperationLibraryEditor extends DbSemanticalObjectEditor {
 
     protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList operationLibraries = new ArrayList();
+        List operationLibraries = new ArrayList();
         DbEnumeration dbEnum = parentDbo.getProject().componentTree(DbOROperationLibrary.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbOROperationLibrary dbo = (DbOROperationLibrary) dbEnum.nextElement();

@@ -59,6 +59,7 @@ import org.modelsphere.jack.srtool.international.LocaleMgr;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public final class SetDrawingAreaAction extends AbstractApplicationAction implements
@@ -86,7 +87,7 @@ public final class SetDrawingAreaAction extends AbstractApplicationAction implem
                 Dimension pan = dialog.getPan();
                 if (pan.width != 0 || pan.height != 0) {
                     Enumeration components = diag.components();
-                    ArrayList<GraphicComponent> gcs = new ArrayList<GraphicComponent>();
+                    List<GraphicComponent> gcs = new ArrayList<GraphicComponent>();
                     while (components.hasMoreElements()) {
                         GraphicComponent gc = (GraphicComponent) components.nextElement();
                         gcs.add(gc);

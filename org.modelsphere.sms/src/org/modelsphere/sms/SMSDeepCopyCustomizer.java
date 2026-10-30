@@ -156,7 +156,7 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
         int length = COPY_OF.length();
         String COPYOF = COPY_OF.substring(0, 5) + '(';
 
-        ArrayList<Boolean> sequenceIdList = new ArrayList<Boolean>();
+        List<Boolean> sequenceIdList = new ArrayList<Boolean>();
         sequenceIdList.add(Boolean.TRUE);
         sequenceIdList.add(Boolean.TRUE);
 

@@ -60,6 +60,7 @@ import org.modelsphere.sms.db.srtypes.SMSNotationShape;
 import org.modelsphere.sms.db.srtypes.SMSZoneOrientation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <b>Direct subclass(es)/subinterface(s) : </b>none.<br>

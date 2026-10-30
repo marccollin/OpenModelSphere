@@ -61,6 +61,7 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -101,7 +102,7 @@ public class DefaultReverseWizardStartPage extends WizardPage implements
         setLayout(new GridBagLayout());
         // get all possible roots
         Db[] dbs = Db.getDbs();
-        ArrayList projects = new ArrayList();
+        List projects = new ArrayList();
         try {
             for (int i = 0; i < dbs.length; i++) {
                 dbs[i].beginTrans(Db.READ_TRANS);

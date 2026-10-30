@@ -50,6 +50,7 @@ import org.modelsphere.sms.international.LocaleMgr;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractColorAction extends AbstractColorDomainAction /*
                                                                              * implements
@@ -64,7 +65,7 @@ public abstract class AbstractColorAction extends AbstractColorDomainAction /*
 
     private static Color[] defaultColors = new Color[40];
 
-    private ArrayList values = new ArrayList();
+    private List<Object> values = new ArrayList<Object>();
     private Color[] customColors = new Color[PopupColorPanel.COL_COUNT];
 
     private static AbstractColorAction[] colorActions = new AbstractColorAction[] {};
@@ -81,7 +82,6 @@ public abstract class AbstractColorAction extends AbstractColorDomainAction /*
     protected int defaultColor = WHITE_INDEX;
 
     static {
-        ArrayList def = new ArrayList();
         defaultColors[0] = new Color(255, 255, 255);
         defaultColors[1] = new Color(204, 153, 255);
         defaultColors[2] = new Color(153, 204, 255);
@@ -254,7 +254,7 @@ public abstract class AbstractColorAction extends AbstractColorDomainAction /*
     }
 
     private void loadCustomColors() {
-        ArrayList tempColors = new ArrayList();
+        List<Color> tempColors = new ArrayList<Color>();
         PropertiesSet preferences = PropertiesManager.getPreferencePropertiesSet();
         if (preferences != null) {
             for (int i = 0; i < PopupColorPanel.COL_COUNT; i++) {
@@ -266,8 +266,7 @@ public abstract class AbstractColorAction extends AbstractColorDomainAction /*
             }
             customColors = new Color[PopupColorPanel.COL_COUNT];
             for (int i = 0; i < customColors.length && i < tempColors.size(); i++) {
-                customColors[PopupColorPanel.COL_COUNT - tempColors.size() + i] = (Color) tempColors
-                        .get(i);
+                customColors[PopupColorPanel.COL_COUNT - tempColors.size() + i] = tempColors.get(i);
             }
         }
     }

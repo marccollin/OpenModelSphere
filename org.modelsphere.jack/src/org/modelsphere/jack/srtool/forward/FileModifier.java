@@ -44,6 +44,7 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.srtool.forward;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public final class FileModifier extends Modifier {
     public FileModifier(String fileRule) {

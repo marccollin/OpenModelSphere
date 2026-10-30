@@ -322,7 +322,7 @@ public abstract class ORValidationPlugin implements Plugin {
     public DbORTypeClassifier getOriginType(DbORTypeClassifier type) throws DbException {
         DbORTypeClassifier startType = type;
         DbORTypeClassifier sourceType;
-        ArrayList domList = new ArrayList();
+        List domList = new ArrayList();
 
         while ((type != null) && (type instanceof DbORDomain)) {
             sourceType = ((DbORDomain) type).getSourceType();

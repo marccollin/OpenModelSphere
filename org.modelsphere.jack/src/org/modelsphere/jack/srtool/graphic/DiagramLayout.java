@@ -58,6 +58,7 @@ import org.modelsphere.jack.util.SrVector;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class DiagramLayout {
 
@@ -66,7 +67,7 @@ public abstract class DiagramLayout {
     private DbObject diagGo;
     private GraphicComponent[] selComps;
     private GraphLayout layout;
-    private HashMap nodeMap = new HashMap();
+    private Map nodeMap = new HashMap();
     private SrVector recursiveLinks = new SrVector();
     private Point posArea;
     private Dimension dimArea;

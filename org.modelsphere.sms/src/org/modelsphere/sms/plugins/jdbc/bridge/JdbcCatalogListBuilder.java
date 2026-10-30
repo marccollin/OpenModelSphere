@@ -47,12 +47,13 @@ import org.modelsphere.jack.srtool.reverse.jdbc.JdbcBuilder;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * This service executes JDBC API calls
  **/
 public class JdbcCatalogListBuilder extends JdbcBuilder {
-    private ArrayList nameList = new ArrayList();
+    private List nameList = new ArrayList();
 
     JdbcCatalogListBuilder() {
     }

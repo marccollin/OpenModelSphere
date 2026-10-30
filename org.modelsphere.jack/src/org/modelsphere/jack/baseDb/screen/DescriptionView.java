@@ -70,6 +70,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.EventObject;
 import java.util.HashMap;
+import java.util.Map;
 
 public class DescriptionView extends ScreenView implements ListDataListener {
 
@@ -289,7 +290,7 @@ public class DescriptionView extends ScreenView implements ListDataListener {
     }
 
     class DescriptionEditor extends org.modelsphere.jack.awt.AbstractTableCellEditor {
-        HashMap<String, Editor> editorSamples = new HashMap<String, Editor>();
+        Map<String, Editor> editorSamples = new HashMap<String, Editor>();
 
         transient private Editor delegate;
 

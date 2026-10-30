@@ -53,6 +53,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 
 public class ForEach extends Rule {
 
@@ -171,8 +172,8 @@ public class ForEach extends Rule {
 
         // find duplicates
         ArrayList list = (ArrayList) m_list.getValue();
-        ArrayList uniList = new ArrayList(); // list of unique occurrences
-        ArrayList dupList = new ArrayList(); // list od duplicated occurrences
+        List uniList = new ArrayList(); // list of unique occurrences
+        List dupList = new ArrayList(); // list od duplicated occurrences
 
         Iterator iter = list.iterator();
         while (iter.hasNext()) {

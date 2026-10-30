@@ -57,6 +57,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
+import java.util.List;
 
 public abstract class ScreenView extends JPanel implements LocaleChangeListener, ScreenTabPanel {
     public static final int ADD_BTN = 0x0001;

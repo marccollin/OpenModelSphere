@@ -121,6 +121,7 @@ import java.awt.*;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Vector;
+import java.util.List;
 
 public final class AdtBox extends GraphicNode implements ActionInformation, SMSClassifierBox {
     // zone columns index , WARNING if the values change you must also change

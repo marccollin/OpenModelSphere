@@ -66,6 +66,7 @@ import java.awt.event.ItemListener;
 import java.io.File;
 import java.util.HashMap;
 import java.util.StringTokenizer;
+import java.util.Map;
 
 public class GeneratePhysicalNameFrame extends JDialog {
     private static final String PROPERTIES_DIRECTORY = ApplicationContext.getPropertiesFolderPath();

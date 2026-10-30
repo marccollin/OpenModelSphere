@@ -49,6 +49,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class manege all the properties of the application. Each PropertiesSet store its properties

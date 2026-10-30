@@ -86,6 +86,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Vector;
+import java.util.List;
 
 public class ORTypeBox extends GraphicNode implements ActionInformation,
         org.modelsphere.sms.graphic.SMSClassifierBox {

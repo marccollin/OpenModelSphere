@@ -49,18 +49,19 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.StringTokenizer;
+import java.util.List;
 
 public final class CharacterDomain extends Rule {
     Rule[] rules = null;
     String[] stringRules;
-    ArrayList m_domainList = new ArrayList(); // contains string lists
+    List m_domainList = new ArrayList(); // contains string lists
     public static final String DEFAULT_STRING = "ORG.MODELSPHERE.SR_DEFAULT"; // NOT LOCALIZABLE
     public static final String NULL_STRING = "ORG.MODELSPHERE.SR_NULL"; // NOT LOCALIZABLE
 
     private void processDomainStrings(String[] strings) {
         int nb = strings.length;
         for (int i = 0; i < nb; i++) {
-            ArrayList subList = new ArrayList();
+            List subList = new ArrayList();
             String domain = strings[i];
 
             if (domain.equals("")) {
@@ -111,7 +112,7 @@ public final class CharacterDomain extends Rule {
 
             // TODO: from s='$domain;', extract subRules={'domain'}
             TemplateEnumeration enumeration = new TemplateEnumeration(s);
-            ArrayList list = new ArrayList();
+            List list = new ArrayList();
 
             while (enumeration.hasMoreElements()) {
                 StringStructure ss = (StringStructure) enumeration.nextElement();

@@ -62,6 +62,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DbBEUseCaseExternalEditor extends JCheckBox implements
         org.modelsphere.jack.baseDb.screen.Editor {

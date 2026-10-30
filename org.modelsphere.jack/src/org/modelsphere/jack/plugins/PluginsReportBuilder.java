@@ -77,7 +77,7 @@ public class PluginsReportBuilder {
         text.append(kPluginLoaded);
         text.append("</font></b></center>"); // NOT LOCALIZABLE - HTML Tag
 
-        ArrayList<PluginDescriptor> sortedPluginInfos = new ArrayList<PluginDescriptor>(
+        List<PluginDescriptor> sortedPluginInfos = new ArrayList<PluginDescriptor>(
                 defaultPluginDescriptors);
         Collections.sort(sortedPluginInfos);
 

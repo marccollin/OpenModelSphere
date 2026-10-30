@@ -58,6 +58,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class StereotypeIconEditor implements Editor {
 
@@ -102,7 +103,7 @@ public class StereotypeIconEditor implements Editor {
     // MultiStereotypeIconEditor.getTableCellEditorComponent()
     static void refreshStereotypedObjects(MainFrame owner, DbSMSStereotype stereotype)
             throws DbException {
-        ArrayList internalFrameList = new ArrayList(); // list of affected
+        List internalFrameList = new ArrayList(); // list of affected
         // internal frames
         DbRelationN relN = stereotype.getStereotypedObjects();
 

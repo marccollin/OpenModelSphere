@@ -62,6 +62,7 @@ import org.modelsphere.sms.or.graphic.ORTableBox;
 import org.modelsphere.sms.or.international.LocaleMgr;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public final class PropagateCommonItemValuesAction extends AbstractApplicationAction implements
         SelectionActionListener {
@@ -82,7 +83,7 @@ public final class PropagateCommonItemValuesAction extends AbstractApplicationAc
 
             Object focusObject = ApplicationContext.getFocusManager().getFocusObject();
             if (focusObject instanceof ApplicationDiagram) {
-                ArrayList<DbObject> selectedObjectsList = new ArrayList<DbObject>();
+                List<DbObject> selectedObjectsList = new ArrayList<DbObject>();
                 Object[] objs = ApplicationContext.getFocusManager().getActiveDiagram()
                         .getSelectedObjects();
                 for (int i = 0; i < objs.length; i++) {
@@ -103,7 +104,7 @@ public final class PropagateCommonItemValuesAction extends AbstractApplicationAc
                         semObjs[i] = selectedObjectsList.get(i);
                 } else {
                     if (count == 0) { //act on the entire model that is the composite of the diagram 
-                        ArrayList<DbObject> objectsList = new ArrayList<DbObject>();
+                        List<DbObject> objectsList = new ArrayList<DbObject>();
                         DbObject diagramObject = ((ApplicationDiagram) focusObject).getDiagramGO();
                         diagramObject.getDb().beginReadTrans();
                         DbObject object = diagramObject.getComposite();

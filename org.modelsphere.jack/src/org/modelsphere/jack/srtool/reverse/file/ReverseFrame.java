@@ -59,6 +59,7 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.Enumeration;
 import java.util.Vector;
+import java.util.List;
 
 public abstract class ReverseFrame extends JDialog {
     private static final String HELP = org.modelsphere.jack.international.LocaleMgr.screen

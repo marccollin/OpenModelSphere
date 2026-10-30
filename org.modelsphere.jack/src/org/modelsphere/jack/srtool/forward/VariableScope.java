@@ -52,13 +52,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.List;
 
 //
 // Encapsulates the hashMap used to store variables
 // One variable scope per plug-in
 //
 public class VariableScope implements Serializable {
-    HashMap m_hashmap = new HashMap(); // map variable names and variable structs
+    Map m_hashmap = new HashMap(); // map variable names and variable structs
     String m_scopename;
 
     public VariableScope(String scopename) {
@@ -86,7 +87,7 @@ public class VariableScope implements Serializable {
 
     public Iterator getIterator() {
         Collection coll = m_hashmap.entrySet();
-        ArrayList list = new ArrayList(coll);
+        List list = new ArrayList(coll);
         Comparator comparator = new VariableComparator();
         Collections.sort(list, comparator);
         Iterator iter = list.iterator();

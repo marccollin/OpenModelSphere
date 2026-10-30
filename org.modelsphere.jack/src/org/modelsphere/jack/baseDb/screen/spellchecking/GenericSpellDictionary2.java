@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
+import java.util.Map;
 
 /**
  * The SpellDictionary class holds the instance of the dictionary.

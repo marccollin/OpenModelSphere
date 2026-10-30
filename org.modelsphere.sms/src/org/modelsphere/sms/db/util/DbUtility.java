@@ -60,6 +60,7 @@ import org.modelsphere.sms.or.db.DbORNotation;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Grandite
@@ -71,7 +72,7 @@ public class DbUtility {
 
     //Called by sms.actions.AddAction.doActionPerformed()
     public static DbSMSDiagram selectOneDiagram(DbSMSClassifier classifier) throws DbException {
-        ArrayList list = new ArrayList();
+        List list = new ArrayList();
 
         DbRelationN relN = classifier.getClassifierGos();
         DbEnumeration dbEnum = relN.elements(DbSMSClassifierGo.metaClass);

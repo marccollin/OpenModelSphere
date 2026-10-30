@@ -73,6 +73,7 @@ import org.modelsphere.sms.templates.SQLForwardEngineeringPlugin;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 public final class AnsiForwardToolkitPlugin extends ForwardToolkitPlugin implements Plugin2{
     public AnsiForwardToolkitPlugin() {
@@ -165,7 +166,7 @@ public final class AnsiForwardToolkitPlugin extends ForwardToolkitPlugin impleme
                 database = lib.getDeploymentDatabase();
             }
             if (database != null) {
-                ArrayList arrayListEnum = new ArrayList();
+                List arrayListEnum = new ArrayList();
                 //DbORProgramUnitLibrary operationLibrary = (DbORAProgramUnitLibrary)database.getOperationLibrary();
                 //if (operationLibrary != null)
                 //  arrayListEnum.add(operationLibrary.getComponents().elements(metaClass));

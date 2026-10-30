@@ -60,6 +60,7 @@ import org.modelsphere.sms.screen.model.SMSListModel;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SMSListView extends DbListView {
 
@@ -124,7 +125,7 @@ public class SMSListView extends DbListView {
             DbSMSTargetSystem anyDbts = null;
             DbSMSTargetSystem userDbts = null;
             boolean isFreeUserTS = false;
-            ArrayList userTargetList = new ArrayList();
+            List userTargetList = new ArrayList();
             semObj.getDb().beginTrans(Db.WRITE_TRANS);
             DbListModel model = (DbListModel) getModel();
             int[] selRows = getSelectedRows();

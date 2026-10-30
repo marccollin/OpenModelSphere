@@ -54,6 +54,7 @@ import java.io.IOException;
 import java.io.StreamTokenizer;
 import java.net.URL;
 import java.util.Vector;
+import java.util.List;
 
 public class JSearch {
 

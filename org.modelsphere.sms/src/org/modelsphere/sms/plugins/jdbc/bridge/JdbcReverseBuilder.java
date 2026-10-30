@@ -90,6 +90,7 @@ import org.modelsphere.sms.plugins.TargetSystemManager;
 
 import java.sql.Types;
 import java.util.HashMap;
+import java.util.Map;
 
 public class JdbcReverseBuilder extends GenericBuilder {
     protected static final int UNKNOWN = 0;

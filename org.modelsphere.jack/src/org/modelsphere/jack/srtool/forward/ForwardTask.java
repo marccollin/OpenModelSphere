@@ -54,6 +54,7 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.text.MessageFormat;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public final class ForwardTask extends LongTask {
 

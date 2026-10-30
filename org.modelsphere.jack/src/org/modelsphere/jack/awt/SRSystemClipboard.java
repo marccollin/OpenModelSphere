@@ -97,7 +97,7 @@ public class SRSystemClipboard {
 
     }
 
-    private static ArrayList<SRSystemClipboardListener> systemClipboardListeners = new ArrayList<SRSystemClipboardListener>();
+    private static List<SRSystemClipboardListener> systemClipboardListeners = new ArrayList<SRSystemClipboardListener>();
 
     private static void fireSystemClipboardListeners() {
         if (systemClipboardListeners == null)

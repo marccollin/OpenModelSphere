@@ -55,6 +55,7 @@ import org.modelsphere.jack.util.SrVector;
 import java.awt.*;
 import java.util.Enumeration;
 import java.util.Vector;
+import java.util.List;
 
 public class ZoneBox extends GraphicComponent {
 

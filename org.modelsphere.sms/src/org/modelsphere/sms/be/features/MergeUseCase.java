@@ -76,6 +76,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.Map;
 
 public final class MergeUseCase {
     private static final String kCouldNotResolve0 = LocaleMgr.message.getString("CouldNotResolve0");
@@ -92,10 +93,10 @@ public final class MergeUseCase {
     // usecases external process
     // This is used for restoring link between the usecase and other objects
     // involved in the merge.
-    private HashMap refUseCase = new HashMap();
+    private Map refUseCase = new HashMap();
     // Mapping for actors, stores, notations and styles (the Db mapping facility
     // does not match the 2 models
-    private HashMap refComponents = new HashMap();
+    private Map refComponents = new HashMap();
 
     private boolean sameProject = false;
 

@@ -85,7 +85,7 @@ public class ComponentsExtractor
 	 */
 	public Map<String, List<DbObject>> extractComponents() throws DbException
 	{
-		LinkedHashMap<String, List<DbObject>> groupedComponents = new LinkedHashMap<String, List<DbObject>>();
+		Map<String, List<DbObject>> groupedComponents = new LinkedHashMap<String, List<DbObject>>();
 
 		DbEnumeration components = object.getComponents().elements();
 		while (components.hasMoreElements())

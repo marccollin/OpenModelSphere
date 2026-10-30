@@ -64,6 +64,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EventObject;
 import java.util.Iterator;
+import java.util.List;
 
 public class MultiDbSemanticalObjectShortEditor implements TableCellEditor {
 
@@ -137,7 +138,7 @@ public class MultiDbSemanticalObjectShortEditor implements TableCellEditor {
     }
 
     protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList dbos = new ArrayList();
+        List dbos = new ArrayList();
         DbEnumeration dbEnum = getSelectionEnum(parentDbo);
         if (dbEnum != null) {
             while (dbEnum.hasMoreElements())
@@ -152,7 +153,7 @@ public class MultiDbSemanticalObjectShortEditor implements TableCellEditor {
     }
 
     protected final Collection getSelectionSet(DbObject[] parentDbos) throws DbException {
-        ArrayList childs = new ArrayList();
+        List childs = new ArrayList();
         Collection tempchilds = null;
         for (int i = 0; i < parentDbos.length; i++) {
             tempchilds = getSelectionSet(parentDbos[i]);

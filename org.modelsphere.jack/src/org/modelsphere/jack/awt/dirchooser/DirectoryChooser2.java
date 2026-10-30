@@ -581,7 +581,7 @@ public final class DirectoryChooser2 extends JDialog {
     // Note : 700 ms to run, needs to be optimized
     private DirectoryChooserModel m_model = null; // set at instantiation i/o
     // one each getNode() call
-    private final List m_parentFiles = new ArrayList(); // set at
+    private final ArrayList m_parentFiles = new ArrayList(); // set at
 
     private FileTreeNode getNode(File file) {
         if (m_model == null) {
@@ -589,7 +589,7 @@ public final class DirectoryChooser2 extends JDialog {
         }
 
         //Construire le chemin du fichier vers la racine
-        List<File> pathToRoot = new ArrayList<>();
+        ArrayList<File> pathToRoot = new ArrayList<>();
         File current = file;
         while (current != null) {
             pathToRoot.add(current);

@@ -79,6 +79,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.List;
 
 public class ListTable extends JTable implements ActionListener, MouseMotionListener, MouseListener {
     private static final String kRessetDefault = LocaleMgr.action.getString("ressetSetting");
@@ -757,7 +758,7 @@ public class ListTable extends JTable implements ActionListener, MouseMotionList
                     kSelectColumns, items, SelectDialog.OPTION_SELECT_MIN_1);
             if (result == SelectDialog.ACTION_CANCEL)
                 return;
-            ArrayList newcols = new ArrayList();
+            List newcols = new ArrayList();
             for (int i = 0; i < items.length; i++) {
                 if (items[i].selected)
                     newcols.add(items[i].object);

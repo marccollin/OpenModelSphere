@@ -55,6 +55,7 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.Map;
 
 /**
  * @author Grandite
@@ -398,7 +399,7 @@ public final class BESelectToolCommand {
 
             if (ratio != 0.0) {
                 // map each graphical process or store to its current cell
-                HashMap map = new HashMap();
+                Map map = new HashMap();
                 DbRelationN relN = frame.getComponents();
                 DbEnumeration dbEnum = relN.elements(DbBEContextCell.metaClass);
                 while (dbEnum.hasMoreElements()) {

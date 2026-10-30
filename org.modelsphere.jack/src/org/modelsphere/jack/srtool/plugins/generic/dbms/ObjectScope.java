@@ -48,6 +48,7 @@ import org.modelsphere.jack.baseDb.meta.MetaClass;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
