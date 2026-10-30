@@ -72,7 +72,7 @@ public abstract class DbLookupDialog {
             Db db, Collection dbos, DbObject currentDbo, String nullStr, boolean fullName)
             throws DbException {
         int nb = dbos.size();
-        List arrayDefaultComparableElements = new ArrayList();
+        List<DefaultComparableElement> arrayDefaultComparableElements = new ArrayList<>();
 
         if (nullStr != null) {
             arrayDefaultComparableElements.add(new DefaultComparableElement(null, nullStr));

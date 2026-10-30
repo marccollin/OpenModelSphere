@@ -165,7 +165,7 @@ public class PropertiesSet {
             // write version
             outFile.write(VERSION + version + EOL + EOL);
 
-            Set keySet = new HashSet(properties.keySet());
+            Set<Object> keySet = new HashSet<>(properties.keySet());
             Object[] sortedkeys = keySet.toArray();
             Arrays.sort(sortedkeys);
 

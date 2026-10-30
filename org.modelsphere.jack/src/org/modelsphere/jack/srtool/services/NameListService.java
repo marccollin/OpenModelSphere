@@ -240,7 +240,7 @@ public final class NameListService extends NameListServiceProtocol {
 
     private void parseSqlFile(NameListMessage nameListMessage) {
         BufferedWriter buffer = null;
-        List cmds = new ArrayList();
+        List<String> cmds = new ArrayList<>();
         try {
             URL url = new URL(nameListMessage.filename.toExternalForm());
             InputStreamReader inputStreamReader = new InputStreamReader(url.openStream());

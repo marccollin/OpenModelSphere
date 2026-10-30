@@ -85,7 +85,7 @@ final class DomainMenu extends JackMenu implements ActionListener {
     // LOCALIZABLE
 
     // may contains null - represented by separator
-    private List items = new ArrayList(0);
+    private List<JMenuItem> items = new ArrayList<>(0);
     private Object oldSelection = null;
     private boolean uiSelectionVisible = true;
     private ButtonGroup group = new ButtonGroup();
@@ -164,12 +164,7 @@ final class DomainMenu extends JackMenu implements ActionListener {
                     invalidate();
                     repaint();
                 } else if (propertyName.equals(AbstractApplicationAction.VISIBLE)) { // Disabled
-                    // in
-                    // menu
-                    // (item
-                    // must
-                    // stay
-                    // visible)
+                    // in menu (item must stay visible)
                     if (getAction() instanceof AbstractApplicationAction) {
                         boolean newValue = true;
                         // Since we use JackPopupMenu for our popups, I use that
@@ -288,9 +283,9 @@ final class DomainMenu extends JackMenu implements ActionListener {
     public void removeAll() {
         oldSelection = null;
         for (int i = 0; i < items.size(); i++) {
-            Object obj = items.get(i);
+            JMenuItem obj = items.get(i);
             if (obj != null)
-                ((JMenuItem) obj).removeActionListener(this);
+                obj.removeActionListener(this);
         }
         items.clear();
         super.removeAll();
@@ -311,7 +306,7 @@ final class DomainMenu extends JackMenu implements ActionListener {
 
     private void updateSelectedItem_Impl() {
         if (lastSelected != -1) { // set new selection
-            ((JMenuItem) items.get(lastSelected)).setSelected(true);
+            items.get(lastSelected).setSelected(true);
         }
         oldSelection = (lastSelected == -1) ? null : items.get(lastSelected);
     }

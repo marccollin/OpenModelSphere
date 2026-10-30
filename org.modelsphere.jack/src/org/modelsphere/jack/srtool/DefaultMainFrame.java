@@ -361,7 +361,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
 
     private SrVector projectsNeedingRefresh;
 
-    private List lockingObjects = new ArrayList();
+    private List<Object> lockingObjects = new ArrayList<>();
 
     private boolean explorerMayBeLocked = false; // Used for locking the
 
@@ -1309,7 +1309,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
         ListInternalFrame frame = null;
         Boolean relationship = descriptor.HasRelationship();
         if (relationship != null) {
-            if (relationship.booleanValue() == true)
+            if (relationship == true)
                 frame = FindRelationshipFrame(root, descriptor.getNeighborsMetaClass());
             else
                 frame = FindEntityFrame(root, descriptor.getNeighborsMetaClass());
@@ -1387,7 +1387,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
             ListInternalFrame listFrame = (ListInternalFrame) listFrames[i];
             Boolean value = listFrame.isRelationships();
             if (value != null)
-                if (value.booleanValue() == true) {
+                if (value.booleanValue()) {
                     listFound = listFrame;
                     break;
                 }
@@ -1403,7 +1403,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
             ListInternalFrame listFrame = (ListInternalFrame) listFrames[i];
             Boolean value = listFrame.isRelationships();
             if (value != null)
-                if (value.booleanValue() == false) {
+                if (!value.booleanValue()) {
                     listFound = listFrame;
                     break;
                 }

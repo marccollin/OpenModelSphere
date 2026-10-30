@@ -282,7 +282,7 @@ public abstract class Shell extends CascadingJInternalFrame {
                         break;
 
                     command = command.trim();
-                    if (command.length() > 0) {
+                    if (!command.isEmpty()) {
                         String result = null;
                         try {
                             result = execute(command);
@@ -359,7 +359,7 @@ public abstract class Shell extends CascadingJInternalFrame {
     public class CommandLine extends JTextAreaFix {
         private ShellKeyListener shellKeyListener = new ShellKeyListener(this);
         private JTextArea resultArea;
-        private List history = new ArrayList();
+        private List<String> history = new ArrayList<>();
         private int callBack = 0;
 
         CommandLine(JTextArea aResultArea) {
@@ -391,7 +391,7 @@ public abstract class Shell extends CascadingJInternalFrame {
 
         void executeCommand(String command, String aPrompt) {
             command = command.trim();
-            if (command.length() > 0) {
+            if (!command.isEmpty()) {
                 String result = null;
                 try {
                     result = execute(command);
@@ -442,7 +442,7 @@ public abstract class Shell extends CascadingJInternalFrame {
 
             String text = "";
             if (callBack != 0) {
-                text = (String) history.get(history.size() - callBack);
+                text = history.get(history.size() - callBack);
             }
 
             String command = getPrompt() + text;
