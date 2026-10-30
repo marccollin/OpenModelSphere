@@ -227,8 +227,8 @@ public final class JdbcReverseSpecificOptionPage extends DefaultReverseWizardOpt
 
     private void populateTargetSystem(DBMSReverseOptions options) throws SQLException {
         JdbcReverseOptions jdbcOptions = (JdbcReverseOptions) options.getSpecificDBMSOptions();
-        ArrayList tsList = (ArrayList) jdbcOptions.getTargetSystems();
-        List compareList = new ArrayList();
+        List<?> tsList = jdbcOptions.getTargetSystems();
+        List<DefaultComparableElement> compareList = new ArrayList<>();
         TargetSystemInfo targetInfo = null;
 
         for (int i = 0; i < tsList.size(); i++) {
@@ -308,8 +308,7 @@ public final class JdbcReverseSpecificOptionPage extends DefaultReverseWizardOpt
             if (elements == null)
                 return;
 
-            for (int i = 0; i < elements.length; i++)
-                targetCombo.addItem(elements[i]);
+            for (Object element : elements) targetCombo.addItem(element);
         }
 
         public void setTargetSystem(int targetid) {
@@ -339,12 +338,11 @@ public final class JdbcReverseSpecificOptionPage extends DefaultReverseWizardOpt
             if (elements == null)
                 return;
 
-            for (int i = 0; i < elements.length; i++)
-                catalogCombo.addItem(elements[i]);
+            for (Object element : elements) catalogCombo.addItem(element);
         }
 
         public void setCatalogTerm(String term) {
-            if (term == null || term.length() == 0)
+            if (term == null || term.isEmpty())
                 catalogLabel.setText(catalogLabelKey);
             else
                 catalogLabel.setText(term);

@@ -48,7 +48,7 @@ import java.util.List;
 public class DbORDatabaseUdtModelEditor extends DbSemanticalObjectEditor {
 
     protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        List domainModels = new ArrayList();
+        List<DbORDomainModel> domainModels = new ArrayList<>();
         DbEnumeration dbEnum = parentDbo.getProject().componentTree(DbORDomainModel.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbORDomainModel dbo = (DbORDomainModel) dbEnum.nextElement();

@@ -50,7 +50,7 @@ import java.util.List;
 public class MultiDbORDatabaseEditor extends MultiDbSemanticalObjectEditor {
 
     protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        List databases = new ArrayList();
+        List<DbORDatabase> databases = new ArrayList<>();
         DbEnumeration dbEnum = parentDbo.getProject().componentTree(DbORDatabase.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbORDatabase dbo = (DbORDatabase) dbEnum.nextElement();

@@ -98,36 +98,6 @@ public abstract class LongTask {
         return current;
     }
 
-    /**
-     * A particular step has been reached during the long task progression: set the name & size of
-     * the next step.
-     * 
-     * @param aNote
-     *            Text to be displayed to indicate new step (generally current file name)
-     * @param increment
-     *            size of the next step (generally size of current file in blocks)
-     */
-    /*
-     * final public void setNextStep(String aNote, int nextStepSize) { // note = aNote; currentStep
-     * = nextStep; nextStep += nextStepSize; current = currentStep; }
-     */
-
-    /**
-     * Increment progress within limits of the current step
-     * 
-     * @param stepProgress
-     *            integer between 0 and 100 indicating which percentage of current step has been
-     *            done. 0 means beginning of the current step and 100 the end of the current step.
-     */
-    /*
-     * final public void setCurrentStepProgress(int percentage) { try {
-     * org.modelsphere.jack.debug.Debug.assert((percentage >= 0) && (percentage <= 100),
-     * "setCurrentProgress() expects an integer in the range [0-100].");
-     * 
-     * current = currentStep + (nextStep - currentStep) * (percentage / 100); } catch
-     * (org.modelsphere.jack.debug.AssertionFailedException ex) { //ignore it } }
-     */
-
     /*
      * Set directly the current progression, notwithstanding the steps previously defined. If
      * possible, use setNextStep() & setCurrentStepProgress() instead of setCurrent().

@@ -48,7 +48,7 @@ import java.util.List;
 public class MultiDbOROperationLibraryEditor extends MultiDbSemanticalObjectEditor {
 
     protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        List operationLibraries = new ArrayList();
+        List<DbOROperationLibrary> operationLibraries = new ArrayList<>();
         DbEnumeration dbEnum = parentDbo.getProject().componentTree(DbOROperationLibrary.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbOROperationLibrary dbo = (DbOROperationLibrary) dbEnum.nextElement();
