@@ -402,10 +402,10 @@ public abstract class ApplicationContext {
     //Read 'modelsphere.args' and add additional arguments
     private static String[] readAdditionalArguments(String[] args) {
         File file = new File(System.getProperty("user.dir"), MODELSPHERE_ARGS); //NOT LOCALIZABLE, property
-        ArrayList list = getArgList(file);
+        List<String> list = getArgList(file);
 
         //if modelsphere.args does not exist, or it's empty, then return the original args
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             return args;
         } //end if
 
@@ -416,7 +416,7 @@ public abstract class ApplicationContext {
             newArgs[i] = args[i];
         }
         for (int i = 0; i < list.size(); i++) {
-            newArgs[args.length + i] = (String) list.get(i);
+            newArgs[args.length + i] = list.get(i);
         }
 
         return newArgs;

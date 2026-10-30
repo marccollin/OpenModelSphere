@@ -144,10 +144,10 @@ public final class SQLShellResultSetPanel extends JPanel {
                     } else if (token.equals("\"")) {
                         text += QUOT;
                         charinline += 1;
-                    } else if (token.equals("�")) {
+                    } else if (token.equals("©")) {
                         text += COPY;
                         charinline += 1;
-                    } else if (token.equals("�")) {
+                    } else if (token.equals("®")) {
                         text += REG;
                         charinline += 1;
                     } else if (charinline >= MAX_CHAR_PER_LINE) { // NOT
@@ -236,7 +236,7 @@ public final class SQLShellResultSetPanel extends JPanel {
         public Object getValueAt(int row, int column) {
             if (rows == null)
                 return "";
-            ArrayList r = (ArrayList) rows.get(row);
+            List<?> r = (List<?>) rows.get(row);
             if (r.size() <= column)
                 return "";
             return r.get(column);

@@ -155,7 +155,7 @@ import org.modelsphere.sms.or.oracle.db.DbORATrigger;
 import org.modelsphere.sms.or.oracle.db.DbORAView;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Hashtable;
 import java.util.Iterator;
 
@@ -6748,16 +6748,16 @@ public class GenericMapping {
 
     /**** END OF REPOSITORY FUNCTIONS *****/
 
-    private static final Class SUPER_CLASS = org.modelsphere.jack.srtool.forward.Rule.class;
+    private static final Class<Rule> SUPER_CLASS = Rule.class;
 
     //TODO: dynamic loading
     private static final void putRepositoryFunctions() {
         PluginMgr mgr = PluginMgr.getSingleInstance();
-        ArrayList repositoryList = mgr.getPluginsRegistry().getActivePluginInstances(SUPER_CLASS);
+        List<Rule> repositoryList = mgr.getPluginsRegistry().getActivePluginInstances(SUPER_CLASS);
 
-        Iterator iter = repositoryList.iterator();
+        Iterator<Rule> iter = repositoryList.iterator();
         while (iter.hasNext()) {
-            Rule repositoryFunction = (Rule) iter.next();
+            Rule repositoryFunction = iter.next();
             Class claz = repositoryFunction.getClass();
             String name = claz.getName(); //get class name
             int idx = name.lastIndexOf('.');

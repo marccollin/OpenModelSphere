@@ -267,7 +267,7 @@ public class DesignTableModel implements TableModel {
         TerminologyUtil terminologyUtil = TerminologyUtil.getInstance();
         int udfIndex = 0;
         data = new ArrayList<RowData>(fields.size());
-        ArrayList<RowData> arrayList = null;
+        List<RowData> arrayList = null;
         boolean bRemoveMarkedFields = !showPhysicalProperties();
         if (bRemoveMarkedFields)
             arrayList = new ArrayList<RowData>();

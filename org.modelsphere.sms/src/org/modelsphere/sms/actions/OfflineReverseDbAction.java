@@ -42,7 +42,7 @@ import org.modelsphere.sms.or.features.dbms.ReverseToolkitPlugin;
 
 import javax.swing.*;
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Iterator;
 
 /**
@@ -61,7 +61,7 @@ public final class OfflineReverseDbAction extends AbstractApplicationAction {
     protected final void doActionPerformed() {
         JFileChooser chooser = new JFileChooser(ApplicationContext.getDefaultWorkingDirectory());
 
-        ArrayList filters = ReverseToolkitPlugin.getExtensionFileFilters();
+        List<?> filters = ReverseToolkitPlugin.getExtensionFileFilters();
         Iterator iter = filters.iterator();
         while (iter.hasNext()) {
             ExtensionFileFilter filter = (ExtensionFileFilter) iter.next();

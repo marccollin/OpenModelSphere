@@ -45,16 +45,16 @@ package org.modelsphere.jack.srtool.reverse.file;
 
 import org.modelsphere.jack.baseDb.db.DbProject;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 public class ReverseOptions {
     final Vector m_fileVector;
     final DbProject m_proj;
-    final ArrayList m_reverseList;
+    final List m_reverseList;
     final AbstractReverser m_reverser;
 
-    public ReverseOptions(Vector fileVector, DbProject proj, ArrayList reverseList,
+    public ReverseOptions(Vector fileVector, DbProject proj, List reverseList,
             AbstractReverser reverser) {
         m_fileVector = fileVector;
         m_proj = proj;

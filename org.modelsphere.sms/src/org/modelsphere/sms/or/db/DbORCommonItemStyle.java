@@ -261,8 +261,7 @@ public final class DbORCommonItemStyle extends DbSMSStyle {
         if (fieldMap == null) {
             MetaField[] fields = metaClass.getAllMetaFields();
             fieldMap = new HashMap<>(fields.length + fields.length / 2);
-            for (int i = 0; i < fields.length; i++)
-                fieldMap.put(fields[i].getJName(), fields[i]);
+            for (MetaField field : fields) fieldMap.put(field.getJName(), field);
         }
         return fieldMap.get(name);
     }

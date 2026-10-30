@@ -49,6 +49,7 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -64,7 +65,7 @@ public class PluginsActivator {
         boolean noplugins = false;
         File file = new File(System.getProperty("user.dir"), ApplicationContext.MODELSPHERE_ARGS);
         if (file.exists()) {
-            ArrayList<String> list = ApplicationContext.getArgList(file);
+            List<String> list = ApplicationContext.getArgList(file);
             noplugins = list.contains(NOPLUGINS);
         }
 

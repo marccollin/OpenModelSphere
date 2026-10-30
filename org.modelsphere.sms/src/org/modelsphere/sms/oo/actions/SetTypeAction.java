@@ -48,6 +48,7 @@ import org.modelsphere.sms.oo.java.db.util.AnyAdt;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public final class SetTypeAction extends AbstractApplicationAction implements
         SelectionActionListener {
@@ -84,15 +85,16 @@ public final class SetTypeAction extends AbstractApplicationAction implements
             Db db = dbos[0].getDb();
             db.beginTrans(Db.READ_TRANS);
             DbObject currentType = (DbObject) dbos[0].get(AnyAdt.getTypeField(dbos[0]));
-            ArrayList types = (ArrayList) AnyAdt.getAdtsAux(new ArrayList(), dbos[0].getProject());
+            List<DbObject> types = new ArrayList<>();
+            AnyAdt.getAdtsAux(types, dbos[0].getProject());
             // <selectDbo> takes care of closing the transaction.
             DefaultComparableElement item = DbLookupDialog.selectDbo(comp, kSelectNewType, center,
                     db, types, currentType, DefaultRenderer.kUnspecified, true);
             if (item == null)
                 return;
             db.beginTrans(Db.WRITE_TRANS, kSetType);
-            for (int i = 0; i < dbos.length; i++) {
-                dbos[i].set(AnyAdt.getTypeField(dbos[i]), item.object);
+            for (DbObject dbo : dbos) {
+                dbo.set(AnyAdt.getTypeField(dbo), item.object);
             }
             db.commitTrans();
         } catch (Exception e) {
