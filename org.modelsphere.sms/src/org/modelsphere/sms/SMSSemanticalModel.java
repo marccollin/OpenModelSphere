@@ -974,7 +974,7 @@ public final class SMSSemanticalModel extends SemanticalModel implements Selecti
     public final boolean isValidForCopy(DbObject[] dbos) throws DbException {
         if (dbos.length == 0)
             return false;
-        HashSet<DbObject> dboSet = new HashSet<DbObject>();
+        Set<DbObject> dboSet = new HashSet<DbObject>();
         DbProject project = dbos[0].getProject();
         int i;
         for (i = 0; i < dbos.length; i++) {
@@ -1480,7 +1480,7 @@ public final class SMSSemanticalModel extends SemanticalModel implements Selecti
     public final void paste(DbObject[] dbos, DbObject[] composites, String actionName,
             boolean prefixAllowed) throws DbException {
         // Start a write transaction on the source Db in case it is also a dest Db.
-        ArrayList<DbSMSGraphicalObject> graphicComponents = new ArrayList<DbSMSGraphicalObject>();
+        List<DbSMSGraphicalObject> graphicComponents = new ArrayList<DbSMSGraphicalObject>();
 
         dbos[0].getDb().beginTrans(Db.WRITE_TRANS, actionName);
         int i, k;
@@ -1548,7 +1548,7 @@ public final class SMSSemanticalModel extends SemanticalModel implements Selecti
     public final void paste(DbObject[] dbos, DbObject[] composites, String actionName,
             boolean prefixAllowed, Point location) throws DbException {
         // Start a write transaction on the source Db in case it is also a dest Db.
-        ArrayList<DbSMSGraphicalObject> graphicComponents = new ArrayList<DbSMSGraphicalObject>();
+        List<DbSMSGraphicalObject> graphicComponents = new ArrayList<DbSMSGraphicalObject>();
 
         dbos[0].getDb().beginTrans(Db.WRITE_TRANS, actionName);
         int i, k;

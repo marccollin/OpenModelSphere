@@ -90,7 +90,7 @@ public class GenerateCommonItemsDialog extends JDialog {
     private DbSMSProject m_project;
     private DbObject[] m_semObjs;
     private DbORCommonItemModel m_selectedCommonItemModel = null;
-    private ArrayList m_commonItemModelList;
+    private List<DbORCommonItemModel> m_commonItemModelList;
     private JTextArea m_textArea = new JTextArea(10, 20);
     private String m_baseTitle;
 
@@ -290,7 +290,7 @@ public class GenerateCommonItemsDialog extends JDialog {
             selectModelRadioBtn.setEnabled(false);
             selectModelBtn.setEnabled(false);
         } else {
-            m_selectedCommonItemModel = (DbORCommonItemModel) m_commonItemModelList.get(0);
+            m_selectedCommonItemModel = m_commonItemModelList.get(0);
             try {
                 noneLabel.setText(m_selectedCommonItemModel.getName());
             } catch (DbException ex) {
@@ -386,8 +386,8 @@ public class GenerateCommonItemsDialog extends JDialog {
         } // end try
     } // end chooseCommonItemModel()
 
-    private ArrayList getCommonItemModelList(DbSMSProject project) throws DbException {
-        ArrayList list = new ArrayList();
+    private List<DbORCommonItemModel> getCommonItemModelList(DbSMSProject project) throws DbException {
+        List<DbORCommonItemModel> list = new ArrayList<>();
         if (project == null) {
             return list;
         }
@@ -397,7 +397,7 @@ public class GenerateCommonItemsDialog extends JDialog {
         while (dbEnum.hasMoreElements()) {
             DbObject obj = dbEnum.nextElement();
             if (obj instanceof DbORCommonItemModel) {
-                list.add(obj);
+                list.add((DbORCommonItemModel) obj);
             } else if (obj instanceof DbSMSUserDefinedPackage) {
                 DbSMSUserDefinedPackage userPackage = (DbSMSUserDefinedPackage) obj;
                 addInCommonItemModelList(list, userPackage);
@@ -409,14 +409,14 @@ public class GenerateCommonItemsDialog extends JDialog {
         return list;
     } // end getCommonItemModelList()
 
-    private void addInCommonItemModelList(ArrayList list, DbSMSUserDefinedPackage userPackage)
+    private void addInCommonItemModelList(List<DbORCommonItemModel> list, DbSMSUserDefinedPackage userPackage)
             throws DbException {
         DbRelationN relN = userPackage.getComponents();
         DbEnumeration dbEnum = relN.elements();
         while (dbEnum.hasMoreElements()) {
             DbObject obj = dbEnum.nextElement();
             if (obj instanceof DbORCommonItemModel) {
-                list.add(obj);
+                list.add((DbORCommonItemModel) obj);
             } else if (obj instanceof DbSMSUserDefinedPackage) {
                 DbSMSUserDefinedPackage subUserPackage = (DbSMSUserDefinedPackage) obj;
                 addInCommonItemModelList(list, subUserPackage);

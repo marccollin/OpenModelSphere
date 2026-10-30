@@ -131,7 +131,7 @@ public class LayoutDialogDataOperator {
 
         LayoutExecutor executor = new LayoutExecutor(graph, clustersAlgo, nodesAlgo, edgesAlgo);
 
-        HashMap<LayoutAttribute<?>, Object> attributes = new HashMap<LayoutAttribute<?>, Object>();
+        Map<LayoutAttribute<?>, Object> attributes = new HashMap<LayoutAttribute<?>, Object>();
 
         setLayoutAttributes(growWidth, growHeight, randomize, initialSize, pagesize, attributes);
 

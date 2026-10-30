@@ -79,7 +79,7 @@ public class GeneratePhysicalNameModel extends AbstractTableModel {
     }
 
     private final Object[] getMetaClassesWithPhysicalName() {
-        ArrayList list = new ArrayList();
+        List<MetaClass> list = new ArrayList<>();
         for (int i = 0; i < AnyORObject.ORMetaClasses.length; i++) {
             list.add(AnyORObject.ORMetaClasses[i]);
         }

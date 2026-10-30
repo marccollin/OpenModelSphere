@@ -155,7 +155,7 @@ public class DescriptionView extends ScreenView implements ListDataListener {
     private void getFieldsAndEditorsForQA() {
 
         String title = "";
-        java.util.ArrayList ligne = new java.util.ArrayList();
+        java.util.List<String> ligne = new java.util.ArrayList<>();
         DescriptionTableModel tableDescrModel = (DescriptionTableModel) table.getModel();
         int nbRow = table.getRowCount();
         String fieldValue = tableDescrModel.getValueAt(0, 1).toString();
@@ -174,7 +174,7 @@ public class DescriptionView extends ScreenView implements ListDataListener {
         writeFile(title, ligne, fieldValue);
     }
 
-    private void writeFile(String title, java.util.ArrayList ligne, String fieldValue) {
+    private void writeFile(String title, java.util.List<String> ligne, String fieldValue) {
 
         String directoryName = System.getProperty("user.dir"); // NOT
         // LOCALIZABLE
@@ -213,7 +213,7 @@ public class DescriptionView extends ScreenView implements ListDataListener {
         try {
             fileWriter.write(title);
             for (int i = 0; i < ligne.size(); i++) {
-                String toWrite = ligne.get(i).toString();
+                String toWrite = ligne.get(i);
                 fileWriter.write(toWrite);
             }
             fileWriter.write("\n"); // / Espace entre les concepts. // NOT

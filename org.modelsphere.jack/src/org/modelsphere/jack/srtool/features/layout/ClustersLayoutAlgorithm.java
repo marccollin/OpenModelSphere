@@ -46,7 +46,7 @@ package org.modelsphere.jack.srtool.features.layout;
 import org.modelsphere.jack.srtool.features.layout.graph.Graph;
 import org.modelsphere.jack.srtool.features.layout.graph.Node;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The Interface ClustersLayoutAlgorithm.
@@ -65,6 +65,6 @@ public interface ClustersLayoutAlgorithm extends LayoutAlgorithm {
      * @throws Exception
      *             the exception
      */
-    public void layoutClusters(Graph graph, HashMap<Node, Integer> clusters,
-            HashMap<LayoutAttribute<?>, Object> attributes) throws LayoutException;
+    public void layoutClusters(Graph graph, Map<Node, Integer> clusters,
+            Map<LayoutAttribute<?>, Object> attributes) throws LayoutException;
 }

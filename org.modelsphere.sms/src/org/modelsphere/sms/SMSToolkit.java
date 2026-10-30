@@ -152,10 +152,9 @@ public abstract class SMSToolkit {
      * Note: The 'null toolkit' instance of DefaultSMSToolkit will not be returned.
      */
     static final SMSToolkit[] getToolkits() {
-        ArrayList list = new ArrayList(toolkits.values());
+        List list = new ArrayList(toolkits.values());
         ArrayList noduplicatelist = new ArrayList();
-        for (int i = 0; i < list.size(); i++) {
-            Object o = list.get(i);
+        for (Object o : list) {
             if (!noduplicatelist.contains(o) && (o != null))
                 noduplicatelist.add(o);
         }
@@ -333,16 +332,15 @@ public abstract class SMSToolkit {
 
         // add specific toolkit tools
         SMSToolkit[] kits = getToolkits();
-        for (int i = 0; i < kits.length; i++) {
-            SMSToolkit toolkit = kits[i];
+        for (SMSToolkit toolkit : kits) {
             Tool[] kittools = toolkit.createTools();
             MetaClass[] mcs = toolkit.getSupportedPackage();
 
             if (kittools == null)
                 continue;
-            for (int j = 0; j < kittools.length; j++) {
-                kittools[j].setSupportedDiagramMetaClasses(mcs);
-                allTools.add(kittools[j]);
+            for (Tool kittool : kittools) {
+                kittool.setSupportedDiagramMetaClasses(mcs);
+                allTools.add(kittool);
             } //end for
         } //end for
 

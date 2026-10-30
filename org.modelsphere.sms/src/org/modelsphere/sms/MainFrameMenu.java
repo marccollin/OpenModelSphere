@@ -457,7 +457,7 @@ public class MainFrameMenu extends org.modelsphere.jack.srtool.MainFrameMenu {
         //action = createPluginAction("org.modelsphere.sms.plugins.bpm.validation.BpmValidation", kValidateBPM, kValidateMnemonic);  // NOT LOCALIZABLE
         //subMenuBPM.add(action); 
 
-        ArrayList<Object> tempObjects = new ArrayList<Object>();
+        List<Object> tempObjects = new ArrayList<Object>();
         tempObjects.add(kTools);
         tempObjects.add(String.copyValueOf(kMnemoChar, 4, 1));
 
@@ -589,7 +589,7 @@ public class MainFrameMenu extends org.modelsphere.jack.srtool.MainFrameMenu {
                 PluginMgr mgr = PluginMgr.getSingleInstance();
                 Class c = mgr.getPluginClass(classname);
                 PluginsRegistry registry = mgr.getPluginsRegistry();
-                ArrayList plugins = registry.getActivePluginInstances(c);
+                List plugins = registry.getActivePluginInstances(c);
                 if (plugins != null && plugins.size() > 0) {
                     action = new PluginDefaultAction((Plugin) plugins.get(0), actionName, mnemonic,
                             icon) {

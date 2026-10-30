@@ -70,7 +70,7 @@ public class GenericSpellDictionary2 extends SpellDictionaryASpell {
      * The hashmap that contains the word dictionary. The map is hashed on the doublemeta code. The
      * map entry contains a LinkedList of words that have the same double meta code.
      */
-    protected HashMap<String, List<String>> mainDictionary = new HashMap<String, List<String>>(
+    protected Map<String, List<String>> mainDictionary = new HashMap<String, List<String>>(
             INITIAL_CAPACITY);
 
     /** Holds the dictionary file for appending */
@@ -188,7 +188,7 @@ public class GenericSpellDictionary2 extends SpellDictionaryASpell {
      */
     public List<String> getWords(String code) {
         //Check the main dictionary.
-        List<String> mainDictResult = (List<String>) mainDictionary.get(code);
+        List<String> mainDictResult = mainDictionary.get(code);
         if (mainDictResult == null)
             return new Vector<String>();
         return mainDictResult;

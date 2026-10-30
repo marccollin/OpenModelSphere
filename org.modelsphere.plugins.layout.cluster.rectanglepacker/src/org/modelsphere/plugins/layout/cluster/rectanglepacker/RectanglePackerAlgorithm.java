@@ -25,7 +25,7 @@ public class RectanglePackerAlgorithm implements ClustersLayoutAlgorithm {
     private boolean randomCluster;
     private double wIncrement;
     private double hIncrement;
-    private HashMap<Node, Integer> clusters;
+    private Map<Node, Integer> clusters;
 
     @Override
     public JComponent createOptionComponent() {
@@ -38,8 +38,8 @@ public class RectanglePackerAlgorithm implements ClustersLayoutAlgorithm {
     }
 
     @Override
-    public void layoutClusters(Graph graph, HashMap<Node, Integer> clusters,
-            HashMap<LayoutAttribute<?>, Object> attributes) {
+    public void layoutClusters(Graph graph, Map<Node, Integer> clusters,
+            Map<LayoutAttribute<?>, Object> attributes) {
         this.dimension = LayoutAttributes.CANVAS_DIMENSION.getValue(attributes);
         this.clusters = clusters;
         this.clustersCount = clusters.size();

@@ -78,9 +78,9 @@ public abstract class ReverseUtilities {
                 new MetaClass[] { DbORDataModel.metaClass });
         while (enumTables.hasMoreElements()) {
             DbORAbsTable table = (DbORAbsTable) enumTables.nextElement();
-            ArrayList pufKeys = new ArrayList(); // list of PUF constraints
+            List pufKeys = new ArrayList(); // list of PUF constraints
             // without index
-            ArrayList indexes = new ArrayList(); // list of indexes without
+            List indexes = new ArrayList(); // list of indexes without
             // constraint
             DbEnumeration dbEnum = table.getComponents().elements();
             while (dbEnum.hasMoreElements()) {
@@ -137,7 +137,7 @@ public abstract class ReverseUtilities {
     private static void reverseDependencies(DbORPrimaryUnique puKey) throws DbException {
         // First get in a list the foreign columns present in the primary/unique
         // key.
-        ArrayList foreignCols = new ArrayList();
+        List<DbORColumn> foreignCols = new ArrayList<>();
         DbRelationN cols = puKey.getColumns();
         int i;
         for (i = 0; i < cols.size(); i++) {
@@ -151,7 +151,7 @@ public abstract class ReverseUtilities {
             // its columns present in the PU key;
             // if one such foreign key is found, add it to the dependencies of
             // the PU key.
-            DbORColumn foreignCol = (DbORColumn) foreignCols.get(0);
+            DbORColumn foreignCol = foreignCols.get(0);
             DbRelationN foreignKeys = foreignCol.getFKeyColumns();
             for (i = 0; i < foreignKeys.size(); i++) {
                 DbORForeign foreignKey = (DbORForeign) foreignKeys.elementAt(i).getComposite();
@@ -172,7 +172,7 @@ public abstract class ReverseUtilities {
     // Return true if all the columns of the foreign key are present in the list
     // of PU columns.
     // If purge, remove from the list all the columns of the foreign key.
-    private static boolean isFKeyInPUKey(DbORForeign foreignKey, ArrayList puCols, boolean purge)
+    private static boolean isFKeyInPUKey(DbORForeign foreignKey, List<DbORColumn> puCols, boolean purge)
             throws DbException {
         boolean isPresent = true;
         DbRelationN foreignCols = foreignKey.getComponents();

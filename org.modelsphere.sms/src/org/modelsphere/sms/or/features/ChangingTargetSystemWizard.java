@@ -495,7 +495,7 @@ public class ChangingTargetSystemWizard extends JDialog {
     private void initPage4() throws DbException {
         // if RDBMS of 2 different families
         DbSMSTargetSystem sourceTs = m_model.getTargetSystem();
-        ArrayList modelList = new ArrayList();
+        List<DbORModel> modelList = new ArrayList<>();
         StringWriter sw = new StringWriter();
         PrintWriter writer = new PrintWriter(sw);
         String indentation = "";
@@ -515,7 +515,7 @@ public class ChangingTargetSystemWizard extends JDialog {
     private static final int UNLINK_ACTION = 2;
     private static final int LEAVE_TS_ACTION = 3;
 
-    private void buildMessagePage4(ArrayList modelList, PrintWriter writer, String indentation,
+    private void buildMessagePage4(List<DbORModel> modelList, PrintWriter writer, String indentation,
             DbORModel model, DbORModel parentModel, int action) throws DbException {
         // if parentModel not linked to any model, or if model already is list
         if ((model == null) || (modelList.contains(model))) {

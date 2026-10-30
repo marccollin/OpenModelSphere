@@ -107,7 +107,7 @@ public final class AccessListDialog extends JDialog implements ActionListener,
         super(frame, title, true);
         this.db = db;
         inheritChk.setSelected(loginList == null);
-        ArrayList elems = new ArrayList();
+        List<DefaultComparableElement> elems = new ArrayList<>();
         if (loginList != null) {
             DbLogin[] logins = loginList.getLogins(db);
             for (int i = 0; i < logins.length; i++) {
@@ -184,7 +184,7 @@ public final class AccessListDialog extends JDialog implements ActionListener,
         try {
             db.beginReadTrans();
             AccessListModel model = (AccessListModel) list.getModel();
-            ArrayList elems = new ArrayList();
+            List<DefaultComparableElement> elems = new ArrayList<>();
             DbEnumeration dbEnum = db.getLoginNode().getComponents().elements(DbLogin.metaClass);
             nextLogin: while (dbEnum.hasMoreElements()) {
                 DbLogin login = (DbLogin) dbEnum.nextElement();
@@ -228,13 +228,13 @@ public final class AccessListDialog extends JDialog implements ActionListener,
     }
 
     private static class AccessListModel extends AbstractListModel {
-        private ArrayList elems;
+        private List<DefaultComparableElement> elems;
 
-        AccessListModel(ArrayList elems) {
+        AccessListModel(List<DefaultComparableElement> elems) {
             this.elems = elems;
         }
 
-        final void add(Object elem) {
+        final void add(DefaultComparableElement elem) {
             elems.add(elem);
             int index = elems.size() - 1;
             fireIntervalAdded(this, index, index);

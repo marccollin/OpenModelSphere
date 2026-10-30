@@ -182,7 +182,7 @@ final class ChangingTargetSystem {
         }
 
         protected void runJob() throws Exception {
-            HashMap convertedModelsMap = new HashMap();
+            Map convertedModelsMap = new HashMap();
 
             // Output options
             outputOptions();
@@ -403,7 +403,7 @@ final class ChangingTargetSystem {
             backup(database);
         } // end changeTargetSystem()
 
-        private void changeTargetSystem(HashMap convertedModelsMap, DbORDomainModel domainModel)
+        private void changeTargetSystem(Map convertedModelsMap, DbORDomainModel domainModel)
                 throws DbException {
             DbProject project = domainModel.getProject();
             DbObject composite = domainModel.getComposite();
@@ -438,7 +438,7 @@ final class ChangingTargetSystem {
             backup(domainModel);
         } // end changeTargetSystem()
 
-        private void changeTargetSystem(HashMap convertedModelsMap,
+        private void changeTargetSystem(Map convertedModelsMap,
                 DbOROperationLibrary operationLibrary) throws DbException {
             DbProject project = operationLibrary.getProject();
             DbObject composite = operationLibrary.getComposite();

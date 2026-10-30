@@ -220,10 +220,10 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
         //get the actual SQL forward
         ForwardToolkitPlugin toolkit = ForwardToolkitPlugin.getToolkit();
         PluginMgr mgr = PluginMgr.getSingleInstance();
-        ArrayList plugins = mgr.getPluginsRegistry().getActivePluginInstances(
+        List plugins = mgr.getPluginsRegistry().getActivePluginInstances(
                 toolkit.getForwardClass());
         SQLForwardEngineeringPlugin sqlForward = null;
-        if (plugins != null && plugins.size() > 0)
+        if (plugins != null && !plugins.isEmpty())
             sqlForward = (SQLForwardEngineeringPlugin) plugins.get(0);
 
         //is output in HTML?
@@ -373,7 +373,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
     } //end createOccurenceTrees()
 
     //Sort objects by their physical name
-    private void sortObjArrayByName(ArrayList arrayObjs) {
+    private void sortObjArrayByName(List arrayObjs) {
         Comparator comparator = new Comparator() {
             public int compare(Object obj1, Object obj2) {
                 ObjectSelection sel1 = (ObjectSelection) obj1;
@@ -393,7 +393,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
 
     // Create the Occurences Tree for unowned and owned objects
     private void addComponentToCardLayout(JPanel panel, int id, DBMSForwardOptions options,
-            ArrayList arrayObjs) {
+            List arrayObjs) {
         sortObjArrayByName(arrayObjs);
         CheckableTree occurrenceTree = new CheckableTree();
         occurrenceTree.setModel(new OccurrenceTreeModel(
@@ -466,8 +466,8 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
                     } //end for
 
                     // Second, create all user nodes...
-                    ArrayList listNode = new ArrayList();
-                    ArrayList userList = (userScope == null) ? null : userScope.occurences;
+                    List<DefaultMutableTreeNode> listNode = new ArrayList<>();
+                    List userList = (userScope == null) ? null : userScope.occurences;
                     if (userList != null) {
                         for (int i = 0; i < userList.size(); i++) {
                             ObjectSelection userObj = (ObjectSelection) userScope.occurences.get(i);
@@ -483,7 +483,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
                     } //end if
 
                     for (int i = 0; i < listNode.size(); i++) {
-                        root.add((UserNode) listNode.get(i));
+                        root.add(listNode.get(i));
                     } //end for
 
                     // Third, add all owned objects associated with the user...
@@ -578,7 +578,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
 
     // INNER CLASS
     private class OccurrenceTreeModel extends CheckTreeModel {
-        OccurrenceTreeModel(DefaultMutableTreeNode root, ArrayList arrayObjs,
+        OccurrenceTreeModel(DefaultMutableTreeNode root, List arrayObjs,
                 DBMSForwardOptions options) {
             super(root);
             DefaultMutableTreeNode parent;
@@ -734,4 +734,3 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
         } //end actionPerformed()
     } //end GenerationParametersAction
 } //end DefaultForwardWizardObjectsPage
-

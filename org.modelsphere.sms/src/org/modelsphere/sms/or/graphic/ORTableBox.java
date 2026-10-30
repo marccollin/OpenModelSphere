@@ -1531,7 +1531,7 @@ public class ORTableBox extends /* ExtZoneBox */GraphicNode implements ActionInf
 
     private final CellRenderingOption getDescriptorCRO(DbORColumn column,
             CellRenderingOption sourceCRO) throws DbException {
-        ArrayList<MetaField> metafields = new ArrayList<MetaField>();
+        List<MetaField> metafields = new ArrayList<MetaField>();
         CellRenderingOption cro = new CellRenderingOption(sourceCRO);
         DbEnumeration puKeys = column.getPrimaryUniques().elements();
         while (puKeys.hasMoreElements()) {

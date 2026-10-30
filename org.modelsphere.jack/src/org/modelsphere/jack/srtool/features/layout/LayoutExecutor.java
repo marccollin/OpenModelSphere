@@ -67,7 +67,7 @@ public class LayoutExecutor {
     private EdgesLayoutAlgorithm edgesAlgo;
 
     /** The clusters. */
-    private HashMap<Node, Integer> clusters = new HashMap<Node, Integer>();
+    private Map<Node, Integer> clusters = new HashMap<Node, Integer>();
 
     /** The clusters count. */
     private int clustersCount = 0;
@@ -111,7 +111,7 @@ public class LayoutExecutor {
      */
     public LayoutExecutor(Graph graph, ClustersLayoutAlgorithm clustersAlgo,
             NodesLayoutAlgorithm nodesAlgo, EdgesLayoutAlgorithm edgesAlgo,
-            HashMap<Node, Integer> clusters) {
+            Map<Node, Integer> clusters) {
         this(graph, clustersAlgo, nodesAlgo, edgesAlgo);
         this.clusters = clusters;
     }
@@ -162,7 +162,7 @@ public class LayoutExecutor {
      * @throws Exception
      *             the exception
      */
-    public void execute(HashMap<LayoutAttribute<?>, Object> attributes) throws Exception {
+    public void execute(Map<LayoutAttribute<?>, Object> attributes) throws Exception {
         // identify clusters
         clusters();
 

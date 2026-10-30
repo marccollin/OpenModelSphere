@@ -164,7 +164,7 @@ public class StartupWizardModel extends DefaultWizardModel implements Properties
 
     private int umlModelType = -1;
 
-    private ArrayList<String> packages;
+    private List<String> packages;
 
     private static final String PROPERTY_MODEL_TYPE = "modelType";
     private static final int PROPERTY_MODEL_TYPE_DEFAULT = -1;

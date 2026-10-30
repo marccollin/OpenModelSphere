@@ -154,7 +154,7 @@ class UMLClassPackagePage extends AbstractPage {
             JarFile jar = new JarFile(jarfile);
             try {
                 Enumeration<JarEntry> entries = jar.entries();
-                ArrayList<String> packages = new ArrayList<String>();
+                List<String> packages = new ArrayList<String>();
                 if (entries != null) {
                     while (entries.hasMoreElements()) {
                         JarEntry jarEntry = entries.nextElement();
@@ -177,7 +177,7 @@ class UMLClassPackagePage extends AbstractPage {
                     }
                 }
 
-                HashMap<String, PackageNode> packageNodes = new HashMap<String, PackageNode>();
+                Map<String, PackageNode> packageNodes = new HashMap<String, PackageNode>();
                 boolean rtJAR = jarfile.getName().equals("rt.jar");
 
                 // create a node for each package
@@ -199,7 +199,7 @@ class UMLClassPackagePage extends AbstractPage {
                 }
 
                 // sort
-                ArrayList<String> keys = new ArrayList<String>(packageNodes.keySet());
+                List<String> keys = new ArrayList<String>(packageNodes.keySet());
                 Collections.sort(keys);
 
                 for (Iterator<String> packagesIterator = keys.iterator(); packagesIterator
@@ -304,7 +304,7 @@ class UMLClassPackagePage extends AbstractPage {
             checkingModel.setCheckingMode(TreeCheckingModel.CheckingMode.SIMPLE);
 
             if (treemodel.getJavaLangNode() != null) {
-                ArrayList<DefaultMutableTreeNode> path = new ArrayList<DefaultMutableTreeNode>();
+                List<DefaultMutableTreeNode> path = new ArrayList<DefaultMutableTreeNode>();
                 DefaultMutableTreeNode parent = (DefaultMutableTreeNode) treemodel
                         .getJavaLangNode().getParent();
                 while (parent != null) {

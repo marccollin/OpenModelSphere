@@ -217,7 +217,7 @@ public final class ForeignKey {
     // on which they depend.
     private void buildAssocEndList() throws DbException {
         assocEnds = new ArrayList<DbORAssociationEnd>();
-        HashSet<DbORAssociationEnd> assocEndSet = new HashSet<DbORAssociationEnd>(); // visited assocEnds
+        Set<DbORAssociationEnd> assocEndSet = new HashSet<DbORAssociationEnd>(); // visited assocEnds
         DbEnumeration dbEnum = model.getComponents().elements(DbORAssociation.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbORAssociation assoc = (DbORAssociation) dbEnum.nextElement();
@@ -228,7 +228,7 @@ public final class ForeignKey {
     }
 
     // Recursive method.
-    private void buildAssocEndListAux(HashSet<DbORAssociationEnd> assocEndSet, List<DbORAssociationEnd> dependStack,
+    private void buildAssocEndListAux(Set<DbORAssociationEnd> assocEndSet, List<DbORAssociationEnd> dependStack,
             DbORAssociationEnd assocEnd) throws DbException {
         if (!assocEndSet.add(assocEnd)) // add to the set of visited assocEnds; if already visited, return.
             return;

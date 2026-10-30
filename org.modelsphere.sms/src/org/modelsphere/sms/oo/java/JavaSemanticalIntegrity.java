@@ -57,7 +57,7 @@ public final class JavaSemanticalIntegrity implements DbUpdateListener, DbUpdate
 
     private static JavaSemanticalIntegrity singleton = null;
 
-    private ArrayList toUpdate = new ArrayList();
+    private List<DbJVClass> toUpdate = new ArrayList<>();
 
     {
         singleton = this;
@@ -121,7 +121,7 @@ public final class JavaSemanticalIntegrity implements DbUpdateListener, DbUpdate
 
     private void processUpdatedObject(DbObject dbo, boolean includeSuper, boolean includeSub)
             throws DbException {
-        ArrayList updatedObjects = new ArrayList();
+        List<DbJVClass> updatedObjects = new ArrayList<>();
         if (dbo == null)
             return;
         add(updatedObjects, dbo);
@@ -132,7 +132,7 @@ public final class JavaSemanticalIntegrity implements DbUpdateListener, DbUpdate
         addOffline(updatedObjects);
     }
 
-    private void add(ArrayList updatedObjects, DbObject dbo) throws DbException {
+    private void add(List<DbJVClass> updatedObjects, DbObject dbo) throws DbException {
         if (dbo == null || updatedObjects == null)
             return;
         DbJVClass clas = null;
@@ -146,7 +146,7 @@ public final class JavaSemanticalIntegrity implements DbUpdateListener, DbUpdate
         updatedObjects.add(clas);
     }
 
-    private void addSubClasses(ArrayList updatedObjects, DbObject dbo) throws DbException {
+    private void addSubClasses(List<DbJVClass> updatedObjects, DbObject dbo) throws DbException {
         if (dbo == null)
             return;
         DbJVClass clas = null;
@@ -158,18 +158,18 @@ public final class JavaSemanticalIntegrity implements DbUpdateListener, DbUpdate
         if (clas == null)
             return;
         if (clas.getSubInheritances() != null && clas.getSubInheritances().size() > 0) {
-            ArrayList subclasses = new ArrayList();
+            List<DbJVClass> subclasses = new ArrayList<>();
             addSub(subclasses, clas);
-            Iterator iter = subclasses.iterator();
+            Iterator<DbJVClass> iter = subclasses.iterator();
             while (iter.hasNext()) {
-                Object obj = iter.next();
+                DbJVClass obj = iter.next();
                 if (!updatedObjects.contains(obj))
                     updatedObjects.add(obj);
             }
         }
     }
 
-    private void addSuperClasses(ArrayList updatedObjects, DbObject dbo) throws DbException {
+    private void addSuperClasses(List<DbJVClass> updatedObjects, DbObject dbo) throws DbException {
         if (dbo == null)
             return;
         DbJVClass clas = null;
@@ -181,18 +181,18 @@ public final class JavaSemanticalIntegrity implements DbUpdateListener, DbUpdate
         if (clas == null)
             return;
         if (clas.getSuperInheritances() != null && clas.getSuperInheritances().size() > 0) {
-            ArrayList superclasses = new ArrayList();
+            List<DbJVClass> superclasses = new ArrayList<>();
             addSuper(superclasses, clas);
-            Iterator iter = superclasses.iterator();
+            Iterator<DbJVClass> iter = superclasses.iterator();
             while (iter.hasNext()) {
-                Object obj = iter.next();
+                DbJVClass obj = iter.next();
                 if (!updatedObjects.contains(obj))
                     updatedObjects.add(obj);
             }
         }
     }
 
-    private void addSub(ArrayList subclasses, DbObject dbo) throws DbException {
+    private void addSub(List<DbJVClass> subclasses, DbObject dbo) throws DbException {
         if (dbo == null || !(dbo instanceof DbJVClass))
             return;
         DbEnumeration dbEnum = ((DbJVClass) dbo).getSubInheritances().elements(
@@ -208,7 +208,7 @@ public final class JavaSemanticalIntegrity implements DbUpdateListener, DbUpdate
         dbEnum.close();
     }
 
-    private void addSuper(ArrayList superclasses, DbObject dbo) throws DbException {
+    private void addSuper(List<DbJVClass> superclasses, DbObject dbo) throws DbException {
         if (dbo == null || !(dbo instanceof DbJVClass))
             return;
         DbEnumeration dbEnum = ((DbJVClass) dbo).getSuperInheritances().elements(
@@ -224,23 +224,23 @@ public final class JavaSemanticalIntegrity implements DbUpdateListener, DbUpdate
         dbEnum.close();
     }
 
-    private void addOffline(ArrayList dbos) {
-        if (dbos == null || dbos.size() == 0)
+    private void addOffline(List<DbJVClass> dbos) {
+        if (dbos == null || dbos.isEmpty())
             return;
 
-        for (int i = 0; i < dbos.size(); i++) {
-            if (!toUpdate.contains(dbos.get(i))) {
-                toUpdate.add(dbos.get(i));
+        for (DbJVClass dbo : dbos) {
+            if (!toUpdate.contains(dbo)) {
+                toUpdate.add(dbo);
             }
         }
     }
 
     // Must be called within a WRITE TRANS on the specified Db
     private void fireOfflineUpdates(Db db) throws DbException {
-        Iterator iter = toUpdate.iterator();
-        ArrayList dbUpdate = new ArrayList();
+        Iterator<DbJVClass> iter = toUpdate.iterator();
+        List<DbJVClass> dbUpdate = new ArrayList<>();
         while (iter.hasNext()) {
-            DbObject dbo = (DbObject) iter.next();
+            DbJVClass dbo = iter.next();
             if (dbo.getDb() != db)
                 continue;
             iter.remove();
@@ -248,7 +248,7 @@ public final class JavaSemanticalIntegrity implements DbUpdateListener, DbUpdate
         }
         DbObject[] dbos = new DbObject[dbUpdate.size()];
         for (int i = 0; i < dbos.length; i++) {
-            dbos[i] = (DbObject) dbUpdate.get(i);
+            dbos[i] = dbUpdate.get(i);
         }
         if (dbos.length == 0)
             return;

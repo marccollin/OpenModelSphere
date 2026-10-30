@@ -253,8 +253,8 @@ public abstract class ForwardToolkitPlugin implements Plugin2 {
         //search the kit
         Object[] map = getToolkitTargets().toArray();
         int nb = map.length;
-        for (int i = 0; i < nb; i++) {
-            KitTargetMapping mapping = (KitTargetMapping) map[i];
+        for (Object o : map) {
+            KitTargetMapping mapping = (KitTargetMapping) o;
             int targetId = mapping.targetId;
             if (targetId == 999 && activeDiagramTargetId > 999)
                 return mapping.kit;
@@ -265,12 +265,12 @@ public abstract class ForwardToolkitPlugin implements Plugin2 {
         return defaultToolkit;
     } //end getToolkit()
 
-    private static final ArrayList findMatchingToolkitsForTargetId(int id) {
-        ArrayList kits = new ArrayList(5);
+    private static final List<ForwardToolkitPlugin> findMatchingToolkitsForTargetId(int id) {
+        List<ForwardToolkitPlugin> kits = new ArrayList<>(5);
         Object[] map = getToolkitTargets().toArray();
-        for (int i = 0; i < map.length; i++) {
-            if (id == ((KitTargetMapping) map[i]).targetId) {
-                kits.add(((KitTargetMapping) map[i]).kit);
+        for (Object o : map) {
+            if (id == ((KitTargetMapping) o).targetId) {
+                kits.add(((KitTargetMapping) o).kit);
             }
         }
         return kits;

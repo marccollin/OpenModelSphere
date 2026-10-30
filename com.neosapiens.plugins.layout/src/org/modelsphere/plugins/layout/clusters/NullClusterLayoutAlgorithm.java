@@ -7,7 +7,7 @@ import org.modelsphere.jack.srtool.features.layout.graph.Graph;
 import org.modelsphere.jack.srtool.features.layout.graph.Node;
 
 import javax.swing.*;
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The Class NullClusterLayoutAlgorithm.
@@ -18,11 +18,11 @@ public class NullClusterLayoutAlgorithm implements ClustersLayoutAlgorithm {
      * (non-Javadoc)
      * 
      * @seeorg.modelsphere.jack.srtool.features.layout.ClustersLayoutAlgorithm# layoutClusters(org.
-     * modelsphere.jack.srtool.features.layout.graph.Graph, java.util.HashMap, java.util.HashMap)
+     * modelsphere.jack.srtool.features.layout.graph.Graph, java.util.Map, java.util.Map)
      */
     @Override
-    public void layoutClusters(Graph graph, HashMap<Node, Integer> clusters,
-            HashMap<LayoutAttribute<?>, Object> attributes) throws LayoutException {
+    public void layoutClusters(Graph graph, Map<Node, Integer> clusters,
+            Map<LayoutAttribute<?>, Object> attributes) throws LayoutException {
         // voluntarily do nothing!
     }
 

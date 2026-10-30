@@ -114,7 +114,7 @@ public class DefaultSynchroStartPage extends WizardPage {
         setLayout(new GridBagLayout());
         // get all possible roots
         Db[] dbs = Db.getDbs();
-        ArrayList projects = new ArrayList();
+        List<DbObject> projects = new ArrayList<>();
         try {
             for (int i = 0; i < dbs.length; i++) {
                 dbs[i].beginTrans(Db.READ_TRANS);
@@ -127,11 +127,11 @@ public class DefaultSynchroStartPage extends WizardPage {
             }
         } catch (DbException e) {
             ExceptionHandler.processUncatchedException(this, e);
-            projects = new ArrayList();
+            projects = new ArrayList<>();
         }
         DbObject[] roots = new DbObject[projects.size()];
         for (int i = 0; i < projects.size(); i++) {
-            roots[i] = (DbObject) projects.get(i);
+            roots[i] = projects.get(i);
         }
 
         dbFromGroup.add(dbFromConnectRadBtn);

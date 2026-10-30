@@ -417,10 +417,10 @@ public class DBMSReverseWorker extends Worker {
 
     private void processRequest(String request, Writer writer) throws SQLException, IOException {
         if (toBeExecuted(request)) {
-            ArrayList requests = customize(request);
-            Iterator iter = requests.iterator();
+            List<String> requests = customize(request);
+            Iterator<String> iter = requests.iterator();
             while (iter.hasNext()) {
-                String sql = (String) iter.next();
+                String sql = iter.next();
                 if (sql != null) {
                     executeSQL(options.getConnection(), sql, writer);
                 }
@@ -431,10 +431,10 @@ public class DBMSReverseWorker extends Worker {
     // customize the WHERE clause, build the $scope tag
     // The request may be splitted in many sql request (according to
     // MAX_DBMS_LIST_ELEMENTS).
-    // The returned ArrayList contains all the String corresponding to each of
+    // The returned List contains all the String corresponding to each of
     // these sql request.
-    private ArrayList customize(String request) {
-        ArrayList requests = new ArrayList();
+    private List<String> customize(String request) {
+        List<String> requests = new ArrayList<>();
 
         // find the "$scope" tag...
         int index = request.lastIndexOf("$scope"); // NOT LOCALIZABLE - sql tag
@@ -539,7 +539,7 @@ public class DBMSReverseWorker extends Worker {
         return filter;
     }
 
-    private String getINClause(ArrayList selections, boolean in) {
+    private String getINClause(List selections, boolean in) {
         String list = "";
         boolean first = true;
         ObjectSelection selection = null;
@@ -648,7 +648,7 @@ public class DBMSReverseWorker extends Worker {
 
     // synchronized ??? must block other threads to close srxFileWriter (if
     // exception)
-    private void dumpSRXToFile(ArrayList srxResult) {
+    private void dumpSRXToFile(List srxResult) {
         if (srxResult == null || srxFileWriter == null)
             return;
 
