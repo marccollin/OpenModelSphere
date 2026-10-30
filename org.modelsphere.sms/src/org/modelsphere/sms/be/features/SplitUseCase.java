@@ -93,10 +93,10 @@ public final class SplitUseCase {
     // usecases that become external.
     // This is used for restoring link between the usecase and other objects
     // involved in the split.
-    private Map refUseCase = new HashMap();
+    private Map<DbBEUseCase, DbBEUseCase> refUseCase = new HashMap<>();
     // Mapping for actors, stores, styles and notations (the Db mapping facility
     // does not match the 2 models
-    private Map refComponents = new HashMap();
+    private Map<DbObject, DbObject> refComponents = new HashMap<>();
 
     private boolean sameProject = false;
     private DbSMSProject newproject = null;
@@ -149,14 +149,14 @@ public final class SplitUseCase {
                     return context;
                 if (targetNeighbor != null)
                     return targetNeighbor;
-                return (DbObject) refUseCase.get(srcNeighbor);
+                return refUseCase.get(srcNeighbor);
             }
 
             DbObject targetNeighbor = srcNeighbor.findMatchingObject();
             if (targetNeighbor != null)
                 return targetNeighbor;
             if (srcNeighbor instanceof DbBEActor || srcNeighbor instanceof DbBEStore) {
-                return (DbObject) refComponents.get(srcNeighbor);
+                return refComponents.get(srcNeighbor);
             }
             return targetNeighbor;
         }
@@ -301,9 +301,8 @@ public final class SplitUseCase {
 
     private void copyUDFsFor(MetaClass metaclass) throws DbException {
         List udfs = Arrays.asList(DbUDF.getUDF(sourceModel.getProject(), metaclass));
-        Iterator iter = udfs.iterator();
-        while (iter.hasNext()) {
-            println(iter.next(), REPORT_INDENT);
+        for (Object udf : udfs) {
+            println(udf, REPORT_INDENT);
         }
         deepCopy(udfs, targetModel.getProject());
     }
@@ -505,9 +504,7 @@ public final class SplitUseCase {
         // We must also set the duplicated usecase (in target) as external and
         // backup source identifiers (for restoring the links
         // in GroupUseCase feature.
-        Iterator iter = externalUseCases.iterator();
-        while (iter.hasNext()) {
-            DbObject dbo = (DbObject) iter.next();
+        for (DbObject dbo : externalUseCases) {
             if (!(dbo instanceof DbBEUseCase))
                 continue;
             DbBEUseCase sourceusecase = (DbBEUseCase) dbo;

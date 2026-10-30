@@ -170,8 +170,7 @@ final class ConvertDataModelWorkMode {
     } //end execute()
 
     String getReport() {
-        String report = m_stringBuffer.toString();
-        return report;
+        return m_stringBuffer.toString();
     } //end generateReport()
 
     String getMessage() {
@@ -207,7 +206,7 @@ final class ConvertDataModelWorkMode {
         boolean m_parentExactlyOneExist = false;
         boolean m_parentOptionalExist = false;
         boolean m_allParentMaxN = false;
-        private List m_OriginModelList = new ArrayList();
+        private List<DbORDataModel> m_OriginModelList = new ArrayList<>();
         private int m_subModelIndex = 0;
 
         public ConvertDataModelWorker(DbObject semObjToConvert, boolean withSubmodels,
@@ -554,7 +553,7 @@ final class ConvertDataModelWorkMode {
                 enum2 = model.getComponents().elements(DbORDataModel.metaClass);
                 while (enum2.hasMoreElements()) {
                     DbORDataModel subModel = (DbORDataModel) enum2.nextElement();
-                    DbORDataModel originModel = (DbORDataModel) m_OriginModelList
+                    DbORDataModel originModel = m_OriginModelList
                             .get(++m_subModelIndex);
                     String originName = originModel.getName();
                     getController().println(wMsgModelSeparator);
@@ -613,7 +612,7 @@ final class ConvertDataModelWorkMode {
                 enum2 = model.getComponents().elements(DbORDataModel.metaClass);
                 while (enum2.hasMoreElements()) {
                     DbORDataModel subModel = (DbORDataModel) enum2.nextElement();
-                    DbORDataModel originModel = (DbORDataModel) m_OriginModelList
+                    DbORDataModel originModel = m_OriginModelList
                             .get(++m_subModelIndex);
                     String originName = originModel.getName();
                     getController().println(wMsgModelSeparator);
@@ -1128,7 +1127,7 @@ final class ConvertDataModelWorkMode {
                 }
                 colEnum.close();
 
-                if (assocTabColumnsList.size() > 0) {
+                if (!assocTabColumnsList.isEmpty()) {
                     DbObject[] dbColumns = new DbObject[assocTabColumnsList.size()];
                     for (int i = 0; i < dbColumns.length; i++) {
                         dbColumns[i] = (DbObject) assocTabColumnsList.get(i);

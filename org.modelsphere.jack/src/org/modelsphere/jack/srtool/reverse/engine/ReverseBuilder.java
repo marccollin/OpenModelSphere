@@ -149,9 +149,8 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
     // Use db.commitAndChain() instead of db.commit() -- Default is db.commit()
     // - FALSE
     protected static final String CHAIN_COMMIT = "chainCommit"; // Boolean //
-    // NOT
-    // LOCALIZABLE
-    private Map globalOptions = new HashMap(2);
+    // NOT LOCALIZABLE
+    private Map<String, Object> globalOptions = new HashMap<>(2);
 
     // This field contains all the properties of the created object. There is
     // one entry for each sql extraction result tag.
@@ -174,11 +173,11 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
 
     // map concept-hook (to be executed after all occurrences of this concept
     // have been created)
-    private Map postProcessConceptMapping = new HashMap(2);
+    private Map<String, String> postProcessConceptMapping = new HashMap<>(2);
 
     // map concept-hook (to be executed after each occurrence creation for this
     // concept)
-    private Map postProcessOccurrenceMapping = new HashMap(2);
+    private Map<String, String> postProcessOccurrenceMapping = new HashMap<>(2);
 
     // contains the concept to skip
     private List<String> ignoredConcept = new ArrayList<>(5);
@@ -209,7 +208,7 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
         Debug.assert2(project != null, "ReverseBuilder:  Null project");
         Debug.assert2(configuration != null, "ReverseBuilder:  Null configuration");
 
-        globalOptions = new HashMap(2);
+        globalOptions = new HashMap<>(2);
         this.configuration = configuration;
         root = getRoot();
         this.project = project;
@@ -587,7 +586,7 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
                     processCurrentObject();
                 }
 
-                String hook = (String) postProcessConceptMapping.get(lastConcept);
+                String hook = postProcessConceptMapping.get(lastConcept);
                 invokeHook(this, hook);
             }
             currentObject = null;
@@ -655,7 +654,7 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
 
         Map mergedObject = null;
         for (Object tempObject : tempObjects) {
-            HashMap objmap = (HashMap) tempObject;
+            Map objmap = (HashMap) tempObject;
             int part = Integer.MAX_VALUE;
             try {
                 part = Integer.parseInt((String) objmap.get(multiPartTag));
@@ -707,7 +706,7 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
     private void processOccurrenceHook(String conceptName) throws Exception {
         if (conceptName == null)
             return;
-        String hook = (String) postProcessOccurrenceMapping.get(conceptName);
+        String hook = postProcessOccurrenceMapping.get(conceptName);
         invokeHook(hook);
     }
 
@@ -927,7 +926,7 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
     }
 
     // For debug purpose only
-    protected final void printMapObject(HashMap map) throws DbException {
+    protected final void printMapObject(Map map) throws DbException {
         Iterator keys = map.keySet().iterator();
         Debug.trace("MAP OBJECT --------------------------------------------");
         while (keys.hasNext()) {

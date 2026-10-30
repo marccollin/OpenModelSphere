@@ -73,7 +73,6 @@ import org.modelsphere.sms.db.DbSMSUmlExtensibility;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Map;
@@ -93,10 +92,10 @@ public final class MergeUseCase {
     // usecases external process
     // This is used for restoring link between the usecase and other objects
     // involved in the merge.
-    private Map refUseCase = new HashMap();
+    private Map<DbBEUseCase, DbBEUseCase> refUseCase = new HashMap<>();
     // Mapping for actors, stores, notations and styles (the Db mapping facility
     // does not match the 2 models
-    private Map refComponents = new HashMap();
+    private Map<DbObject, DbObject> refComponents = new HashMap<>();
 
     private boolean sameProject = false;
 
@@ -108,7 +107,7 @@ public final class MergeUseCase {
     private DefaultController controler = null;
 
     // contains MergeInfo objects to update at the end
-    private List toMerge = new ArrayList();
+    private List<MergeInfo> toMerge = new ArrayList<>();
 
     private class MergeInfo {
         DbObject source;
@@ -157,7 +156,7 @@ public final class MergeUseCase {
                     return target;
                 if (targetNeighbor != null)
                     return targetNeighbor;
-                return (DbObject) refUseCase.get(srcNeighbor);
+                return refUseCase.get(srcNeighbor);
             }
 
             // Resolve styles or notations
@@ -172,7 +171,7 @@ public final class MergeUseCase {
             if (targetNeighbor != null)
                 return targetNeighbor;
             if (srcNeighbor instanceof DbBEActor || srcNeighbor instanceof DbBEStore) {
-                targetNeighbor = (DbObject) refComponents.get(srcNeighbor);
+                targetNeighbor = refComponents.get(srcNeighbor);
                 if (targetNeighbor == null && srcNeighbor instanceof DbBEActor) {
                     targetNeighbor = targetModel.findComponentByName(DbBEActor.metaClass,
                             srcNeighbor.getName());
@@ -614,8 +613,7 @@ public final class MergeUseCase {
     }
 
     private void mergeComponents() throws DbException {
-        for (Object o : toMerge) {
-            MergeInfo info = (MergeInfo) o;
+        for (MergeInfo info : toMerge) {
             println(info.target, REPORT_INDENT, true);
             merge(info.source, info.target);
         }
@@ -663,7 +661,7 @@ public final class MergeUseCase {
 
         if (mergeQualifiers) {
             // update existing and add missing
-            List toCopy = new ArrayList();
+            List<DbObject> toCopy = new ArrayList<>();
             if (source instanceof DbBEActor) {
                 DbEnumeration dbEnum = source.getComponents()
                         .elements(DbBEActorQualifier.metaClass);
@@ -751,7 +749,7 @@ public final class MergeUseCase {
 
         if (mergeResources) {
             // update existing and add missing
-            List toCopy = new ArrayList();
+            List<DbObject> toCopy = new ArrayList<>();
             if (source instanceof DbBEUseCase) {
                 DbEnumeration dbEnum = source.getComponents().elements(
                         DbBEUseCaseResource.metaClass);

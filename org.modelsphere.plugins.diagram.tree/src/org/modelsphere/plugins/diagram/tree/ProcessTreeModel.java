@@ -41,6 +41,7 @@ import javax.swing.tree.DefaultTreeModel;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author Grandite
@@ -49,7 +50,7 @@ import java.util.Iterator;
  *         Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
 class ProcessTreeModel extends DefaultTreeModel {
-    private ArrayList[] m_levels = null;
+    private List[] m_levels = null;
     private int m_widestLevel = -1;
 
     public ProcessTreeModel(DefaultMutableTreeNode root) {
@@ -58,8 +59,7 @@ class ProcessTreeModel extends DefaultTreeModel {
 
     public int getDepth() {
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) this.getRoot();
-        int depth = root.getDepth();
-        return depth;
+        return root.getDepth();
     }
 
     public void computeWidestLevel(boolean isCenter, boolean isSpan) throws DbException {
@@ -154,7 +154,7 @@ class ProcessTreeModel extends DefaultTreeModel {
 
     public int getWidth(int level, boolean isSpan) throws DbException {
         int totalWeight = 0;
-        ArrayList list = m_levels[level];
+        List<?> list = m_levels[level];
         if (!isSpan) {
             totalWeight = list.size();
         } else {
@@ -169,7 +169,7 @@ class ProcessTreeModel extends DefaultTreeModel {
         return totalWeight;
     }
 
-    public ArrayList getNodesByLevels(int level) {
+    public List getNodesByLevels(int level) {
         return m_levels[level];
     }
 

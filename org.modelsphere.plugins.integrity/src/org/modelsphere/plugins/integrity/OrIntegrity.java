@@ -272,7 +272,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
             DbORAssociationEnd assoc_end = semObj.getAssociationEnd();
             SMSMultiplicity multiplicity = assoc_end.getMultiplicity();
             DbORAbsTable table = (DbORAbsTable) semObj.getComposite();
-            List badColumns = new ArrayList(5);
+            List<DbORColumn> badColumns = new ArrayList<>(5);
             DbEnumeration columns = semObj.getComponents().elements(DbORFKeyColumn.metaClass);
             while (columns.hasMoreElements()) {
                 DbORColumn column = ((DbORFKeyColumn) columns.nextElement()).getColumn();
@@ -284,7 +284,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
                     badColumns.add(column);
             }
             columns.close();
-            if (badColumns.size() == 0)
+            if (badColumns.isEmpty())
                 continue;
             Iterator iter = badColumns.iterator();
             String colList = "";
@@ -324,22 +324,22 @@ public final class OrIntegrity extends AbstractORIntegrity {
      */
     private void verifyChildMinConnectivity1(ArrayList aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORForeign semObj = (DbORForeign) (aList.get(i));
+        for (Object o : aList) {
+            DbORForeign semObj = (DbORForeign) o;
             DbORAssociationEnd assoc_end = semObj.getAssociationEnd();
             SMSMultiplicity multiplicity = assoc_end.getMultiplicity();
             DbORAbsTable table = (DbORAbsTable) semObj.getComposite();
-            List badColumns = new ArrayList(5);
+            List<DbORColumn> badColumns = new ArrayList<>(5);
             DbEnumeration columns = semObj.getComponents().elements(DbORFKeyColumn.metaClass);
             while (columns.hasMoreElements()) {
                 DbORColumn column = ((DbORFKeyColumn) columns.nextElement()).getColumn();
                 if (!column.isNull()
                         && (multiplicity.getValue() == SMSMultiplicity.EXACTLY_ONE || multiplicity
-                                .getValue() == SMSMultiplicity.ONE_OR_MORE))
+                        .getValue() == SMSMultiplicity.ONE_OR_MORE))
                     continue;
                 if (column.isNull()
                         && (multiplicity.getValue() == SMSMultiplicity.EXACTLY_ONE || multiplicity
-                                .getValue() == SMSMultiplicity.ONE_OR_MORE))
+                        .getValue() == SMSMultiplicity.ONE_OR_MORE))
                     badColumns.add(column);
             }
             columns.close();
@@ -353,7 +353,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
                     colList = colList + ", "; // NOT LOCALIZABLE
                 colList = colList
                         + modelIntegrityReport.getLinksForDbObject((DbORColumn) iter.next(), true,
-                                false);
+                        false);
                 first = false;
             }
 
@@ -368,8 +368,8 @@ public final class OrIntegrity extends AbstractORIntegrity {
             else if (multiplicity.getValue() == SMSMultiplicity.ONE_OR_MORE)
                 newmultiplicity = SMSMultiplicity.getInstance(SMSMultiplicity.MANY);
 
-            String sol2message = MessageFormat.format(kSetMulti01, new Object[] { multiplicity,
-                    newmultiplicity });
+            String sol2message = MessageFormat.format(kSetMulti01, new Object[]{multiplicity,
+                    newmultiplicity});
             String solution2 = modelIntegrityReport.getSolutionLink(assoc_end,
                     FK_MULTIPLICITY_SET_MIN_0, sol2message);
 
@@ -381,8 +381,8 @@ public final class OrIntegrity extends AbstractORIntegrity {
 
     private void verifyParentMaxConnectivity1(ArrayList aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORForeign semObj = (DbORForeign) (aList.get(i));
+        for (Object o : aList) {
+            DbORForeign semObj = (DbORForeign) o;
             DbORAssociationEnd parentend = semObj.getAssociationEnd().getOppositeEnd();
             SMSMultiplicity parentmultiplicity = parentend.getMultiplicity();
             DbORAbsTable table = (DbORAbsTable) semObj.getComposite();
@@ -470,8 +470,8 @@ public final class OrIntegrity extends AbstractORIntegrity {
             else if (parentend.getMultiplicity().getValue() == SMSMultiplicity.OPTIONAL)
                 newmultiplicity = SMSMultiplicity.getInstance(SMSMultiplicity.MANY);
 
-            String sol1message = MessageFormat.format(kSetMulti01, new Object[] {
-                    parentend.getMultiplicity(), newmultiplicity });
+            String sol1message = MessageFormat.format(kSetMulti01, new Object[]{
+                    parentend.getMultiplicity(), newmultiplicity});
             String solution1 = modelIntegrityReport.getSolutionLink(parentend,
                     FK_MULTIPLICITY_SET_MAX_N, sol1message);
 
@@ -480,13 +480,13 @@ public final class OrIntegrity extends AbstractORIntegrity {
             String solution2 = "";
 
             if (fkindex == null) {
-                solution2message = MessageFormat.format(kCreateIndex0, new Object[] { semObj
-                        .getName() });
+                solution2message = MessageFormat.format(kCreateIndex0, new Object[]{semObj
+                        .getName()});
                 solution2 = modelIntegrityReport.getSolutionLink(semObj, FK_CREATE_UNIQUE_INDEX,
                         solution2message);
             } else {
-                solution2message = MessageFormat.format(kUpdateUnicityIndex01, new Object[] {
-                        semObj.getName(), fkindex.getName() });
+                solution2message = MessageFormat.format(kUpdateUnicityIndex01, new Object[]{
+                        semObj.getName(), fkindex.getName()});
                 solution2 = modelIntegrityReport.getSolutionLink(fkindex, FK_CREATE_UNIQUE_INDEX,
                         solution2message);
             }
@@ -499,8 +499,8 @@ public final class OrIntegrity extends AbstractORIntegrity {
 
     private void verifyParentMaxConnectivityN(ArrayList aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORForeign semObj = (DbORForeign) (aList.get(i));
+        for (Object o : aList) {
+            DbORForeign semObj = (DbORForeign) o;
             DbORAssociationEnd parentend = semObj.getAssociationEnd().getOppositeEnd();
             SMSMultiplicity parentmultiplicity = parentend.getMultiplicity();
             DbORAbsTable table = (DbORAbsTable) semObj.getComposite();
@@ -590,8 +590,8 @@ public final class OrIntegrity extends AbstractORIntegrity {
             else if (parentend.getMultiplicity().getValue() == SMSMultiplicity.MANY)
                 newmultiplicity = SMSMultiplicity.getInstance(SMSMultiplicity.OPTIONAL);
 
-            String sol1message = MessageFormat.format(kSetMulti01, new Object[] {
-                    parentend.getMultiplicity(), newmultiplicity });
+            String sol1message = MessageFormat.format(kSetMulti01, new Object[]{
+                    parentend.getMultiplicity(), newmultiplicity});
             String solution1 = modelIntegrityReport.getSolutionLink(parentend,
                     FK_MULTIPLICITY_SET_MAX_1, sol1message);
 
@@ -600,8 +600,8 @@ public final class OrIntegrity extends AbstractORIntegrity {
             String solution2 = "";
 
             if (fkindex != null) {
-                solution2message = MessageFormat.format(kUpdateUnicityIndex01, new Object[] {
-                        semObj.getName(), fkindex.getName() });
+                solution2message = MessageFormat.format(kUpdateUnicityIndex01, new Object[]{
+                        semObj.getName(), fkindex.getName()});
                 solution2 = modelIntegrityReport.getSolutionLink(fkindex,
                         FK_CREATE_NON_UNIQUE_INDEX, solution2message);
                 modelIntegrityReport.printError(OR_IR_PARENT_MAXN012, buffer, semObj, true, true,
@@ -616,16 +616,16 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**********************************************************************************
-     * M�THODES UTILIS�ES POUR LES MOD�LES CONCEPTUELS ET RELATIONNELS
+     * MÉTHODES UTILIS.ES POUR LES MODÈLES CONCEPTUELS ET RELATIONNELS
      **********************************************************************************/
 
     /**
      * 
      */
-    private void verifyMultiplicityUndefined(ArrayList aList, StringBuffer buffer)
+    private void verifyMultiplicityUndefined(List aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORAssociationEnd semObj = (DbORAssociationEnd) (aList.get(i));
+        for (Object o : aList) {
+            DbORAssociationEnd semObj = (DbORAssociationEnd) o;
             SMSMultiplicity roleMultiplicity = null;
             roleMultiplicity = semObj.getMultiplicity();
             if (roleMultiplicity.getValue() == SMSMultiplicity.UNDEFINED) {
@@ -644,9 +644,9 @@ public final class OrIntegrity extends AbstractORIntegrity {
     /**
      * R�gle : Une colonne faisant partie d'une cl� primaire ou unique doit �tre NON NUL
      */
-    private void verifyPKUKColumnsNullity(ArrayList aList, StringBuffer buffer) throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORPrimaryUnique semObj = (DbORPrimaryUnique) (aList.get(i));
+    private void verifyPKUKColumnsNullity(List aList, StringBuffer buffer) throws DbException {
+        for (Object o : aList) {
+            DbORPrimaryUnique semObj = (DbORPrimaryUnique) o;
             DbEnumeration columns = semObj.getColumns().elements();
             while (columns.hasMoreElements()) {
                 DbORColumn column = (DbORColumn) columns.nextElement();
@@ -671,17 +671,17 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**********************************************************************************
-     * M�THODES UTILIS�ES POUR LES MOD�LES CONCEPTUELS
+     * MÉTHODES UTILISÉES POUR LES MODELES CONCEPTUELS
      **********************************************************************************/
 
     /**
-     * Entit�s sans cl�s
+     * Entités sans clés
      */
-    protected void verifyEntityWithoutKeys(ArrayList aList, StringBuffer buffer) throws DbException {
+    protected void verifyEntityWithoutKeys(List aList, StringBuffer buffer) throws DbException {
         List keyList = new ArrayList();
 
-        for (int i = 0; i < aList.size(); i++) {
-            DbORTable semObj = (DbORTable) (aList.get(i));
+        for (Object o : aList) {
+            DbORTable semObj = (DbORTable) o;
             DbEnumeration components = semObj.getComponents().elements();
             while (components.hasMoreElements()) {
                 DbObject dbo = components.nextElement();
@@ -690,7 +690,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
             }
             components.close();
 
-            if (keyList.size() == 0) {
+            if (keyList.isEmpty()) {
                 modelIntegrityReport.printError(ER_IR_ENTITY_WITHOUT_KEY, buffer, semObj, true);
                 reportError(semObj);
             }
@@ -701,11 +701,11 @@ public final class OrIntegrity extends AbstractORIntegrity {
     /**
      * Association ternaire avec une d�pendance
      */
-    protected void verifyTernaryRelationWithDependence(ArrayList aList, StringBuffer buffer)
+    protected void verifyTernaryRelationWithDependence(List aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
+        for (Object o : aList) {
             int nbDependenceFound = 0;
-            DbORTable assocTable = (DbORTable) (aList.get(i));
+            DbORTable assocTable = (DbORTable) o;
             int nbArcs = assocTable.getAssociationEnds().size();
             if (nbArcs > 2) {
                 DbEnumeration rolesEnum = assocTable.getAssociationEnds().elements();// toujours des backEnds
@@ -729,9 +729,9 @@ public final class OrIntegrity extends AbstractORIntegrity {
      */
     protected void verifyBinaryRelationWithTooManyDependence(ArrayList aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
+        for (Object o : aList) {
             int nbArcWithDependence = 0;
-            DbORTable assocTable = (DbORTable) (aList.get(i));
+            DbORTable assocTable = (DbORTable) o;
             int nbArcs = assocTable.getAssociationEnds().size();
             if (nbArcs == 2) {
                 DbEnumeration rolesEnum = assocTable.getAssociationEnds().elements();// toujours des backEnds
@@ -754,11 +754,11 @@ public final class OrIntegrity extends AbstractORIntegrity {
     /**
      * Association binaire avec d�pendance sur une relation r�cursive
      */
-    protected void verifyBinaryRecursiveWithDependence(ArrayList aList, StringBuffer buffer)
+    protected void verifyBinaryRecursiveWithDependence(List aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
+        for (Object o : aList) {
             int nbArcWithDependence = 0;
-            DbORTable assocTable = (DbORTable) (aList.get(i));
+            DbORTable assocTable = (DbORTable) o;
             DbORAbsTable firstEntity = null;
             DbORAbsTable secondEntity = null;
             int noArc = 0;
@@ -788,13 +788,13 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**
-     * Association contenant un attribut et un arc avec une multiplicit� 1,1
+     * Association contenant un attribut et un arc avec une multiplicité 1,1
      */
-    protected void verifyRelationshipWithAttributeAndExactlyOneMult(ArrayList aList,
+    protected void verifyRelationshipWithAttributeAndExactlyOneMult(List aList,
             StringBuffer buffer) throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
+        for (Object o : aList) {
             boolean exactlyOneExist = false;
-            DbORTable assocTable = (DbORTable) (aList.get(i));
+            DbORTable assocTable = (DbORTable) o;
             DbEnumeration attributesEnum = assocTable.getComponents()
                     .elements(DbORColumn.metaClass);
             if (attributesEnum.hasMoreElements()) {
@@ -819,12 +819,12 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**
-     * Arc avec une d�pendance et dont la multiplicit� n'est pas 1,1
+     * Arc avec une d�pendance et dont la multiplicité n'est pas 1,1
      */
-    protected void verifyArcWithDependenceNotExactlyOne(ArrayList aList, StringBuffer buffer)
+    protected void verifyArcWithDependenceNotExactlyOne(List aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORAssociation arc = (DbORAssociation) (aList.get(i));
+        for (Object o : aList) {
+            DbORAssociation arc = (DbORAssociation) o;
             DbORAssociationEnd assocEnd = arc.getArcEnd();
             SMSMultiplicity multiplicity = assocEnd.getMultiplicity();
             if ((assocEnd.getDependentConstraints().size() > 0)
@@ -836,11 +836,11 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**
-     * R�gle : V�rification de la navigabilit� des r�les de relations binaires
+     * R�gle : V�rification de la navigabilité des rôles de relations binaires
      */
-    private void verifyNavigability(ArrayList aList, StringBuffer buffer) throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORTable assocTable = (DbORTable) (aList.get(i));
+    private void verifyNavigability(List aList, StringBuffer buffer) throws DbException {
+        for (Object o : aList) {
+            DbORTable assocTable = (DbORTable) o;
             int nbArcs = assocTable.getAssociationEnds().size();
             if (nbArcs == 2) {
                 int nbNavigable = 0;
@@ -878,15 +878,15 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**
-     * Les arcs ayant une d�pendance sur le r�le qui est le seul membre de la cl� et le r�le oppos�
-     * a une multiplicit� maximale diff�rente de 1
+     * Les arcs ayant une dépendance sur le rôle qui est le seul membre de la clé et le rôle opposé
+     * a une multiplicité maximale différente de 1
      * 
-     * BUILD 507 on retire cette r�gle qui selon Axel ne serait pas une erreur
+     * BUILD 507 on retire cette rêgle qui selon Axel ne serait pas une erreur
      */
-    protected void verifyArcWithDependenceAloneOnKey(ArrayList aList, StringBuffer buffer)
+    protected void verifyArcWithDependenceAloneOnKey(List aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORTable assocTable = (DbORTable) (aList.get(i));
+        for (Object o : aList) {
+            DbORTable assocTable = (DbORTable) o;
             int nbArcs = assocTable.getAssociationEnds().size();
             if (nbArcs == 2) {
                 boolean first = true;
@@ -939,13 +939,13 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**
-     * Les arcs ayant une d�pendance sur le r�le qui n'est pas le seul membre de la cl� et le r�le
-     * oppos� a une multiplicit� maximale �gale � 1
+     * Les arcs ayant une dépendance sur le rôle qui n'est pas le seul membre de la clé et le rôle
+     * opposé a une multiplicité maximale égale a 1
      */
-    protected void verifyArcWithDependenceNotAloneOnKey(ArrayList aList, StringBuffer buffer)
+    protected void verifyArcWithDependenceNotAloneOnKey(List aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORTable assocTable = (DbORTable) (aList.get(i));
+        for (Object o : aList) {
+            DbORTable assocTable = (DbORTable) o;
             int nbArcs = assocTable.getAssociationEnds().size();
             if (nbArcs == 2) {
                 boolean first = true;
@@ -997,7 +997,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**************************************************************************************
-     * M�THODES DE CORRECTION DE DATAMODEL
+     * MÉTHODES DE CORRECTION DE DATAMODEL
      **************************************************************************************/
 
     protected static boolean correctPKUKColumnsNullity(DbORColumn column) throws DbException {

@@ -163,7 +163,7 @@ public final class GenericDDLBasicForwardToolkit extends BasicForwardToolkit {
 
             boolean expanded = false;
             int nb = objects.length;
-            List generatedFiles = new ArrayList();
+            List<String> generatedFiles = new ArrayList<>();
             for (DbObject dbObject : objects) {
                 DbSemanticalObject object = (DbSemanticalObject) dbObject;
                 int status = generateFile(object, sqlForward, path, info, controller,
@@ -180,7 +180,7 @@ public final class GenericDDLBasicForwardToolkit extends BasicForwardToolkit {
 
         private int generateFile(DbSemanticalObject object, SQLForwardEngineeringPlugin sqlForward,
                 String path, GenerateInFileInfo info, Controller controller,
-                List generatedFiles) throws DbException { //TODO catch exceptions
+                List<String> generatedFiles) throws DbException { //TODO catch exceptions
             int status = SUCCESSFUL;
 
             StringWriter stringWriter = new StringWriter();

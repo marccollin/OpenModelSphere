@@ -308,29 +308,29 @@ public class ReverseWorker extends Worker {
     // will be reversed before .java files)
     protected void sortAccordingPriority(Vector uniqueFileVector, final List reverseList) {
         // use a hashtable to associate a file with a reverse module
-        final Hashtable table = new Hashtable();
+        final Map<File, JackReverseEngineeringPlugin> table = new Hashtable<>();
 
-        class PriorityComparator implements Comparator {
-            public int compare(Object file1, Object file2) {
+        class PriorityComparator implements Comparator<File> {
+            public int compare(File file1, File file2) {
                 int comparation = 0;
                 try {
                     // already in the table?
-                    JackReverseEngineeringPlugin reverse1 = (JackReverseEngineeringPlugin) table
+                    JackReverseEngineeringPlugin reverse1 = table
                             .get(file1);
 
                     // if not found
                     if (reverse1 == null) {
-                        reverse1 = getRelevantReverse((File) file1, reverseList);
+                        reverse1 = getRelevantReverse(file1, reverseList);
                         table.put(file1, reverse1);
                     }
 
                     // already in the table?
-                    JackReverseEngineeringPlugin reverse2 = (JackReverseEngineeringPlugin) table
+                    JackReverseEngineeringPlugin reverse2 = table
                             .get(file2);
 
                     // if not found
                     if (reverse2 == null) {
-                        reverse2 = getRelevantReverse((File) file2, reverseList);
+                        reverse2 = getRelevantReverse(file2, reverseList);
                         table.put(file2, reverse2);
                     }
 

@@ -83,7 +83,7 @@ public abstract class SMSSynchroModel extends SMSIntegrateModel {
             DbORPrimaryUnique.class, DbORForeign.class, DbORCheck.class, DbORAbstractMethod.class };
 
     protected Class[] classOrder = defaultClassOrder;
-    protected ArrayList syncObjs;
+    protected List syncObjs;
     protected File sqlFile;
     protected StringBuffer reportBuffer;
 
@@ -97,7 +97,7 @@ public abstract class SMSSynchroModel extends SMSIntegrateModel {
         this.reportBuffer = reportBuffer;
         syncObjs = new ArrayList();
         fillSyncObjs((IntegrateNode) getRoot());
-        if (syncObjs.size() == 0)
+        if (syncObjs.isEmpty())
             return;
         Collections.sort(syncObjs);
 

@@ -182,7 +182,7 @@ final class ChangingTargetSystem {
         }
 
         protected void runJob() throws Exception {
-            Map convertedModelsMap = new HashMap();
+            Map<DbObject, DbObject> convertedModelsMap = new HashMap<>();
 
             // Output options
             outputOptions();
@@ -252,7 +252,7 @@ final class ChangingTargetSystem {
             getController().println();
         } // end outputOption()
 
-        private void changeTargetSystem(Map convertedModelsMap, DbORDataModel model)
+        private void changeTargetSystem(Map<DbObject, DbObject> convertedModelsMap, DbORDataModel model)
                 throws DbException {
             DbProject project = model.getProject();
             DbObject composite = model.getComposite();
@@ -318,7 +318,7 @@ final class ChangingTargetSystem {
             }
         } // end changeTargetSystem()
 
-        private void recoverSubModelFromSource(Map convertedModelsMap, DbORDataModel srcModel,
+        private void recoverSubModelFromSource(Map<DbObject, DbObject> convertedModelsMap, DbORDataModel srcModel,
                                                String destTargetSystem) throws DbException {
             List<DbORDataModel> srcList = new ArrayList<>();
             DbORDataModel destModel = (DbORDataModel) convertedModelsMap.get(srcModel);
@@ -362,14 +362,13 @@ final class ChangingTargetSystem {
 
             // continue to sub models
             int nb = srcList.size();
-            for (int i = 0; i < nb; i++) {
-                DbORDataModel src = srcList.get(i);
+            for (DbORDataModel src : srcList) {
                 recoverSubModelFromSource(convertedModelsMap, src, destTargetSystem);
             } // end for
 
         } // end recoverSubModelFromSource()
 
-        private void changeTargetSystem(Map convertedModelsMap, DbORDatabase database)
+        private void changeTargetSystem(Map<DbObject, DbObject> convertedModelsMap, DbORDatabase database)
                 throws DbException {
             DbProject project = database.getProject();
             DbObject composite = database.getComposite();
@@ -403,7 +402,7 @@ final class ChangingTargetSystem {
             backup(database);
         } // end changeTargetSystem()
 
-        private void changeTargetSystem(Map convertedModelsMap, DbORDomainModel domainModel)
+        private void changeTargetSystem(Map<DbObject, DbObject> convertedModelsMap, DbORDomainModel domainModel)
                 throws DbException {
             DbProject project = domainModel.getProject();
             DbObject composite = domainModel.getComposite();
@@ -438,7 +437,7 @@ final class ChangingTargetSystem {
             backup(domainModel);
         } // end changeTargetSystem()
 
-        private void changeTargetSystem(Map convertedModelsMap,
+        private void changeTargetSystem(Map<DbObject, DbObject> convertedModelsMap,
                 DbOROperationLibrary operationLibrary) throws DbException {
             DbProject project = operationLibrary.getProject();
             DbObject composite = operationLibrary.getComposite();
@@ -512,7 +511,7 @@ final class ChangingTargetSystem {
             } // end iter()
         } // end fillDomainModel()
 
-        private void setTargetDependantProperties(Map convertedModelsMap,
+        private void setTargetDependantProperties(Map<DbObject, DbObject> convertedModelsMap,
                 DbORDataModel sourceModel, SMSDeepCopyCustomizer customizer) throws DbException {
             // Set database
             DbORDatabase sourceDatabase = sourceModel.getDeploymentDatabase();
@@ -552,7 +551,7 @@ final class ChangingTargetSystem {
 
         } // end setTargetDependantProperties()
 
-        private void setTargetDependantProperties(Map convertedModelsMap,
+        private void setTargetDependantProperties(Map<DbObject, DbObject> convertedModelsMap,
                 DbORDatabase sourceDB, SMSDeepCopyCustomizer customizer) throws DbException {
             String destTargetSystem = m_options.m_ts.getName() + " " + m_options.m_ts.getVersion();
 
@@ -823,7 +822,7 @@ final class ChangingTargetSystem {
         //
         // UNLINK COMMON ITEMS
         //
-        private void unlinkCommonItems(Map convertedModelsMap, DbORDataModel model)
+        private void unlinkCommonItems(Map<DbObject, DbObject> convertedModelsMap, DbORDataModel model)
                 throws DbException {
             DbORDataModel destModel = (DbORDataModel) convertedModelsMap.get(model);
             if (destModel == null) {

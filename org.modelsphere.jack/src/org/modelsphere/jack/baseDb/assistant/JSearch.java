@@ -130,10 +130,10 @@ public class JSearch {
 
     public Vector scanTitle() {
         try {
-            Vector url = getSearchResultVector();
+            List<?> url = getSearchResultVector();
 
-            for (int x = 0; x < url.size(); x++) {
-                String urlElement = url.elementAt(x).toString().substring(5);
+            for (Object o : url) {
+                String urlElement = o.toString().substring(5);
                 // System.out.println("urlElement :" + urlElement);
                 FileReader fileReader = new FileReader(urlElement);
                 StreamTokenizer st = new StreamTokenizer(fileReader);
@@ -143,8 +143,7 @@ public class JSearch {
                 try {
                     for (int tokenType = st.nextToken(); tokenType != StreamTokenizer.TT_EOF; tokenType = st
                             .nextToken()) {
-                        switch (tokenType) {
-                        case StreamTokenizer.TT_WORD:
+                        if (tokenType == StreamTokenizer.TT_WORD) {
                             if (st.sval.equalsIgnoreCase("<title>")) // NOT
                             // LOCALIZABLE
                             {

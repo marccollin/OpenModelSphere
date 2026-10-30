@@ -123,13 +123,13 @@ public class DBMSForwardOptions implements ForwardOptions {
     }
 
     // nameList
-    private ArrayList m_nameList = new ArrayList();
+    private List m_nameList = new ArrayList();
 
-    public ArrayList getNameList() {
+    public List getNameList() {
         return m_nameList;
     }
 
-    public void setNameList(ArrayList list) {
+    public void setNameList(List list) {
         m_nameList = list;
     }
 
@@ -191,8 +191,8 @@ public class DBMSForwardOptions implements ForwardOptions {
         return m_fieldTree;
     }
 
-    public static ArrayList getExcludeList(CheckTreeNode fieldTree) {
-        ArrayList excludeList = new ArrayList();
+    public static List getExcludeList(CheckTreeNode fieldTree) {
+        List<String> excludeList = new ArrayList<>();
 
         if (fieldTree != null) {
             Enumeration enumClasses = fieldTree.children();

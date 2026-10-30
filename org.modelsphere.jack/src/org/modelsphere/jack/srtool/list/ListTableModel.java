@@ -755,7 +755,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
         // backup selection
         DbObject[] selObjs = list.getSelectedDbObjects();
 
-        List newVisibleDescriptors = Arrays.asList(descriptors);
+        List<ColumnDescriptor> newVisibleDescriptors = Arrays.asList(descriptors);
         for (ColumnDescriptor descriptor : columnDescriptors) {
             int index = indexInModelOf(descriptor); // index in visible columns
             // already shown

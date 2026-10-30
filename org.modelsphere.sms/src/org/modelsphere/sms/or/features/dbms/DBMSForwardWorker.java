@@ -165,7 +165,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
             return;
         }
 
-        List generatedFiles = new ArrayList();
+        List<String> generatedFiles = new ArrayList<>();
         String filename = m_options.getOutputFile();
         FileWriter fileWriter = new FileWriter(filename);
         PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -266,7 +266,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
             return;
         }
 
-        List objectSelectionToForward = new ArrayList();
+        List<ObjectSelection> objectSelectionToForward = new ArrayList<>();
         List occurences = objectScope.occurences;
 
         // Owned Object (objects that can be owned by a user, like table, view,
@@ -298,8 +298,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
 
         Collections.sort(objectSelectionToForward, new CollationComparator());
         int objectSelectionToForwardSize = objectSelectionToForward.size();
-        for (Object o : objectSelectionToForward) {
-            ObjectSelection objectSelection = (ObjectSelection) o;
+        for (ObjectSelection objectSelection : objectSelectionToForward) {
             if (parent != null) {
                 DbObject composite = objectSelection.occurence.getComposite();
                 boolean isSelected = ObjectScope.isOccurenceIsSelectedByObject(parent, composite);

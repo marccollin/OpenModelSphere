@@ -113,7 +113,7 @@ public class JdbcReverseBuilder extends GenericBuilder {
     protected Constraint tableOwnerConstraint2 = null;
     protected Constraint procOwnerConstraint = null;
 
-    protected static Map typeMap = new HashMap(); // JDBC type definition
+    protected static Map<Integer, JdbcReverseTypeDef> typeMap = new HashMap<>(); // JDBC type definition
 
     public JdbcReverseBuilder() {
         initTypeMap();
@@ -387,7 +387,7 @@ public class JdbcReverseBuilder extends GenericBuilder {
 
         // Try to find the type in the mapping table.
         if (sSQLType != null) {
-            typeDef = (JdbcReverseTypeDef) typeMap.get(Integer.valueOf(sSQLType));
+            typeDef = typeMap.get(Integer.valueOf(sSQLType));
             if (typeDef != null) {
                 targetLogicalName = typeDef.getName();
                 category = typeDef.getCategory();
@@ -464,7 +464,7 @@ public class JdbcReverseBuilder extends GenericBuilder {
         ORDomainCategory category = null;
 
         if (sSQLType != null) {
-            typeDef = (JdbcReverseTypeDef) typeMap.get(Integer.valueOf(sSQLType));
+            typeDef = typeMap.get(Integer.valueOf(sSQLType));
             if (typeDef != null) {
                 String length = (String) currentObject.get("size"); // NOT LOCALIZABLE
                 String decimal = (String) currentObject.get("decimals"); // NOT LOCALIZABLE
@@ -560,7 +560,7 @@ public class JdbcReverseBuilder extends GenericBuilder {
         fKey = createForeignAux(frontEnd);
         if (pKey != null)
             frontEnd.setReferencedConstraint(pKey);
-        if (keyColsCreated == false)
+        if (!keyColsCreated)
             keyColsCreated = createForeignKeyColumns(fKey, sFkTable, sFkColumn, sPkTable, sPkColumn);
         return fKey;
     }
@@ -702,7 +702,7 @@ public class JdbcReverseBuilder extends GenericBuilder {
         JdbcReverseTypeDef typeDef = null;
         ORDomainCategory category = null;
         if (sSQLType != null) {
-            typeDef = (JdbcReverseTypeDef) typeMap.get(Integer.valueOf(sSQLType));
+            typeDef = typeMap.get(Integer.valueOf(sSQLType));
             if (typeDef != null) {
                 String sLength = (String) currentObject.get("length"); // NOT LOCALIZABLE
                 String sNbDecimal = (String) currentObject.get("nb_decimals"); // NOT LOCALIZABLE
@@ -743,7 +743,7 @@ public class JdbcReverseBuilder extends GenericBuilder {
         JdbcReverseTypeDef typeDef = null;
         ORDomainCategory category = null;
         if (sSQLType != null) {
-            typeDef = (JdbcReverseTypeDef) typeMap.get(Integer.valueOf(sSQLType));
+            typeDef = typeMap.get(Integer.valueOf(sSQLType));
             if (typeDef != null) {
                 category = typeDef.getCategory();
                 isRef = typeDef.getRef();

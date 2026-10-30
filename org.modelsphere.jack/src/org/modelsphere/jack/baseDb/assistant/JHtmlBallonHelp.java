@@ -352,7 +352,7 @@ public abstract class JHtmlBallonHelp extends JInternalFrame implements MouseLis
     }
 
     protected Vector parseList(String indexList) {
-        Vector v = new Vector(10);
+        Vector<String> v = new Vector<>(10);
         StringTokenizer tokenizer = new StringTokenizer(indexList, ","); // NOT
         // LOCALIZABLE
         while (tokenizer.hasMoreTokens()) {
@@ -666,7 +666,7 @@ public abstract class JHtmlBallonHelp extends JInternalFrame implements MouseLis
                     .getResource("resources/show.gif")));
             showHideButton.setToolTipText(kShowHelpExplorer);
         }
-        if (visible == false) {
+        if (!visible) {
             tabbedPane.setVisible(true);
             showHideButton
                     .setIcon(new ImageIcon(LocaleMgr.class.getResource("resources/hide.gif")));
@@ -682,7 +682,7 @@ public abstract class JHtmlBallonHelp extends JInternalFrame implements MouseLis
 
     // //TOC PROPERTIES
     protected Vector parseToc(String tocList) {
-        Vector v = new Vector(10);
+        Vector<String> v = new Vector<>(10);
         StringTokenizer tokenizer = new StringTokenizer(tocList, ","); // NOT
         // LOCALIZABLE
         while (tokenizer.hasMoreTokens()) {
@@ -750,7 +750,7 @@ public abstract class JHtmlBallonHelp extends JInternalFrame implements MouseLis
 
     // Parsing the EditorPane
     protected Vector parseText(String input) {
-        Vector v = new Vector(10);
+        Vector<String> v = new Vector<>(10);
         StringTokenizer tokenizer = new StringTokenizer(input, " "); // NOT
         // LOCALIZABLE
         while (tokenizer.hasMoreTokens()) {
