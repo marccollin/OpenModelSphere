@@ -167,14 +167,12 @@ public abstract class JackReverseEngineeringPlugin implements Plugin {
     }
 
     protected Constructor getDefaultModelConstructor(Class modelClaz) throws NoSuchMethodException {
-        Constructor constr = modelClaz.getConstructor(new Class[] { DbObject.class });
-        return constr;
+        return modelClaz.getConstructor(new Class[] { DbObject.class });
     }
 
     protected Object[] getDefaultConstructorObjects(DbProject proj) throws NoSuchMethodException,
             DbException {
-        Object[] objs = new Object[] { proj };
-        return objs;
+        return new Object[] { proj };
     }
 
     protected long getActualtTaskSize(File file) {

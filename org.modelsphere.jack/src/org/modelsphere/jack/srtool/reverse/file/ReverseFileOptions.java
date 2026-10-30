@@ -59,14 +59,14 @@ import java.util.Vector;
  */
 public final class ReverseFileOptions {
 
-    private InputStream m_input = null;
-    private String m_fileName = null;
-    private long m_fileLength = 0;
-    private Vector m_objectsToDeleteVector;
-    private Map m_diagMap;
-    private Controller m_controller;
-    private long m_partialSize;
-    private long m_totalSize;
+    private InputStream m_input;
+    private String m_fileName;
+    private long m_fileLength;
+    private final Vector m_objectsToDeleteVector;
+    private final Map m_diagMap;
+    private final Controller m_controller;
+    private final long m_partialSize;
+    private final long m_totalSize;
 
     public ReverseFileOptions(Vector objectsToDeleteVector, Map diagMap, Controller controller,
                               long partialSize, long totalSize) {
@@ -153,4 +153,3 @@ public final class ReverseFileOptions {
         return m_currentNodes;
     } // caller :
 } // end ReverseFileOptions
-

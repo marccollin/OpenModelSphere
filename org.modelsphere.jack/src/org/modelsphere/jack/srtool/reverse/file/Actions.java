@@ -46,34 +46,31 @@ package org.modelsphere.jack.srtool.reverse.file;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 
 public interface Actions {
-    public abstract void setDestinationProject(DbSemanticalObject semObj);
+    void setDestinationProject(DbSemanticalObject semObj);
 
-    public abstract void processPackage(String packageName, String separator)
+    void processPackage(String packageName, String separator) throws ReverseException;
+
+    void processImportDeclaration(String importDeclaration) throws ReverseException;
+
+    void processExtension(String extensionClassName, String separator) throws ReverseException;
+
+    void processImplementation(String implementationClassNames, String separator)
             throws ReverseException;
 
-    public abstract void processImportDeclaration(String importDeclaration) throws ReverseException;
+    void startOfParameterClause();
 
-    public abstract void processExtension(String extensionClassName, String separator)
-            throws ReverseException;
+    void incrementMethodComplexity();
 
-    public abstract void processImplementation(String implementationClassNames, String separator)
-            throws ReverseException;
+    void processException(String className) throws ReverseException;
 
-    public abstract void startOfParameterClause();
+    void processBuiltin(String primitiveName);
 
-    public abstract void incrementMethodComplexity();
+    void processReferencedAdt(String className, int adtKind) throws ReverseException;
 
-    public abstract void processException(String className) throws ReverseException;
+    void terminateMethod() throws ReverseException;
 
-    public abstract void processBuiltin(String primitiveName);
+    void endOfAdt();
 
-    public abstract void processReferencedAdt(String className, int adtKind)
-            throws ReverseException;
-
-    public abstract void terminateMethod() throws ReverseException;
-
-    public abstract void endOfAdt();
-
-    public abstract void exit(java.io.ObjectOutputStream to_server);
+    void exit(java.io.ObjectOutputStream to_server);
 
 }

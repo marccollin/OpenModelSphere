@@ -189,6 +189,7 @@ public class ConnectDialog extends JDialog implements ActionListener, TestableWi
 
     }
 
+    @Override
     public void dispose() {
         if (cancel) {
             connectionMsg = null;
@@ -238,6 +239,7 @@ public class ConnectDialog extends JDialog implements ActionListener, TestableWi
         new HotKeysSupport(this, cancelButton, null);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source == connectButton) {
@@ -309,6 +311,7 @@ public class ConnectDialog extends JDialog implements ActionListener, TestableWi
     }
 
     //Unit testing
+    @Override
     public Window createTestWindow(Container owner) {
         ConnectDialog dialog = new ConnectDialog("test");
         return dialog;

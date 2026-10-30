@@ -53,12 +53,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public final class ActiveConnectionManager {
-    private static SrVector listeners = new SrVector();
+    private static final SrVector listeners = new SrVector();
 
-    private static ConnectionMessage cm = null;
+    private static ConnectionMessage cm;
 
     private ActiveConnectionManager() {
-    };
+    }
 
     public static void addActiveConnectionListener(ActiveConnectionListener listener) {
         if (listener == null || listeners.contains(listener))

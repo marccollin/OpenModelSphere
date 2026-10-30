@@ -246,6 +246,7 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
         }
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source == closeButton) {
@@ -281,6 +282,7 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
         return true;
     }
 
+    @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!manualSelection) {
             if (!checkName())
@@ -681,6 +683,7 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
             datasource.addFocusListener(this);
             password.addFocusListener(this);
             testjdbcButton.addActionListener(new ActionListener() {
+                @Override
                 public void actionPerformed(ActionEvent e) {
                     testDriver(jdbcDriver.getText());
                 }
@@ -834,6 +837,7 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
         return g_singleInstance;
     } //end getSingleInstance()
 
+    @Override
     public Window createTestWindow(Container owner) {
         Window dialog = null;
 

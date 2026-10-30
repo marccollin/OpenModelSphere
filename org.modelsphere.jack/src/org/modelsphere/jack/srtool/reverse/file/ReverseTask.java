@@ -55,13 +55,13 @@ public abstract class ReverseTask extends LongTask {
 
     protected ReverseTask(Vector aFileVector, ArrayList aReverseList, DbProject targetProj,
             DefaultMainFrame mainFrame) {
-        super(0);
+        super();
     }
 
     protected final void performTask(DefaultMainFrame mainFrame) {
     }
 
-    final public void go() {
+    public final void go() {
     }
 
 } // end ReverseTask

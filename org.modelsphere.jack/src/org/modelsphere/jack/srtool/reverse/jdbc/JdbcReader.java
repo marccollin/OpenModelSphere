@@ -59,11 +59,11 @@ import java.sql.SQLException;
  ******************************************************************************/
 public final class JdbcReader {
     // For debug use
-    private static boolean PRINTINFO = false;
+    private static final boolean PRINTINFO = false;
 
-    private JdbcBuilder builder;
-    private Connection connection;
-    private DatabaseMetaData dbmd;
+    private final JdbcBuilder builder;
+    private final Connection connection;
+    private final DatabaseMetaData dbmd;
 
     public JdbcReader(JdbcBuilder aBuilder, int connectionId) throws SQLException {
         builder = aBuilder;

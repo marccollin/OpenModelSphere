@@ -55,11 +55,11 @@ import java.util.Vector;
 
 public final class FileListPreviewer extends JPanel {
 
-    private DefaultListModel fileModel;
-    private JList filesList;
-    private File[] selectedFiles = null;
-    private JFileChooser fileChooser;
-    private int selectMode;
+    private final DefaultListModel fileModel;
+    private final JList filesList;
+    private final File[] selectedFiles = null;
+    private final JFileChooser fileChooser;
+    private final int selectMode;
 
     /** Instruction to display only files. */
     public static final int FILES_ONLY = 0;
@@ -101,6 +101,7 @@ public final class FileListPreviewer extends JPanel {
                 0, 0));
 
         addButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) { // to do: multiple
                 // selection
                 File file = fileChooser.getSelectedFile();
@@ -116,6 +117,7 @@ public final class FileListPreviewer extends JPanel {
             }
         });
         removeButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 Object[] files = filesList.getSelectedValues();
                 for (int i = 0; i < files.length; i++) {
@@ -163,6 +165,7 @@ public final class FileListPreviewer extends JPanel {
         public addRecursive_actionAdapter() {
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             /*
              * // ******* The multiple selection not work (Know bug of Java #4170956) ***********
@@ -196,6 +199,7 @@ public final class FileListPreviewer extends JPanel {
         public addAll_actionAdapter() {
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             // To do: Multiple selection (when the bug will solve, see above)
             DirectoryScanner dirScan = new DirectoryScanner();

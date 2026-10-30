@@ -74,7 +74,6 @@ public final class SQLShell extends Shell {
     private static final String kResult0 = LocaleMgr.screen.getString("Result0");
     private static final String kUpdate0 = LocaleMgr.message.getString("Update0");
 
-    private boolean connected = false;
     private ConnectionMessage connection;
     private StatementMessage statementMsg;
     private String addressIP = ServiceProtocolList.getServerIP();
@@ -82,11 +81,12 @@ public final class SQLShell extends Shell {
 
     private int resultCount = 0;
 
-    private Shell.ShellInitializer shellInitializer = new Shell.ShellInitializer(SQL_SHELL,
+    private final Shell.ShellInitializer shellInitializer = new Shell.ShellInitializer(SQL_SHELL,
             SQL_PROMPT + " ", "sql", // NOT LOCALIZABLE
             SQL_SCRIPTS);
 
-    private ActiveConnectionListener connectionListener = new ActiveConnectionListener() {
+    private final ActiveConnectionListener connectionListener = new ActiveConnectionListener() {
+        @Override
         public void activeConnectionChanged(ConnectionMessage cm) {
             setConnection(cm);
         }
@@ -105,6 +105,7 @@ public final class SQLShell extends Shell {
         updateTitle();
     }
 
+    @Override
     public void dispose() {
         super.dispose();
         ActiveConnectionManager.removeActiveConnectionListener(connectionListener);

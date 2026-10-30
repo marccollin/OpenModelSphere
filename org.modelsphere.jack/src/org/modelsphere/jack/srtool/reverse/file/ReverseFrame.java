@@ -93,6 +93,7 @@ public abstract class ReverseFrame extends JDialog {
     protected JLabel packagesListTitle = new JLabel();
 
     MouseListener mouseListener4Files = new MouseAdapter() {
+        @Override
         public void mouseClicked(MouseEvent e) {
             int ind = fileList.getSelectedIndex();
             if (ind > -1)
@@ -103,6 +104,7 @@ public abstract class ReverseFrame extends JDialog {
     };
 
     MouseListener mouseListener4Packages = new MouseAdapter() {
+        @Override
         public void mouseClicked(MouseEvent e) {
             int ind = packageList.getSelectedIndex();
             if (ind > -1)
@@ -158,7 +160,7 @@ public abstract class ReverseFrame extends JDialog {
         getContentPane().add(getControlPanel(), BorderLayout.SOUTH);
     }
 
-    private final void setLabels() {
+    private void setLabels() {
         // enabled help if mainframe found
         DefaultMainFrame mainframe = ApplicationContext.getDefaultMainFrame();
         if (mainframe != null) {
@@ -276,6 +278,7 @@ public abstract class ReverseFrame extends JDialog {
         String label = LocaleMgr.screen.getString("AddtoReverse");
         JButton button = getApproveButton(m_FileChooser, label);
         button.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 m_FileChooser.setApproveMethod(SourceChooser.BUTTONAPPROVE);
                 File[] files = { m_FileChooser.getSelectedFile() };
@@ -333,6 +336,7 @@ public abstract class ReverseFrame extends JDialog {
         // getApproveButton(m_PackageChooser,LocaleMgr.screen.getString("AddtoReverse")).addActionListener(new
         // java.awt.event.ActionListener(){
         button.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 File[] packages = { m_PackageChooser.getSelectedFile() };
                 // File[] packages = m_PackageChooser.getSelectedFiles();
@@ -476,6 +480,7 @@ class cancelButton_actionAdapter implements java.awt.event.ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.cancelButton_actionPerformed(e);
     }
@@ -489,6 +494,7 @@ class helpBtn_actionAdapter implements java.awt.event.ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.helpBtn_actionPerformed(e);
     }
@@ -501,6 +507,7 @@ class addFilesButton_actionAdapter implements java.awt.event.ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.addFilesButton_actionPerformed(e);
 
@@ -517,6 +524,7 @@ class addPackagesButton_actionAdapter implements java.awt.event.ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.addPackagesButton_actionPerformed(e);
 
@@ -533,6 +541,7 @@ class removeFilesButton_actionAdapter implements java.awt.event.ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.removeFilesButton_actionPerformed(e);
         Object[] selectedFiles = adaptee.fileList.getSelectedValues();

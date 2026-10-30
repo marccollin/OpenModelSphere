@@ -59,7 +59,6 @@ public final class SourceChooser extends JFileChooser {
      */
 
     public SourceChooser() {
-        super();
     }
 
     public SourceChooser(String path) {
@@ -100,6 +99,7 @@ public final class SourceChooser extends JFileChooser {
     // ca semble etre le popup des FileFilters
     // I've increased the width from 600 to 700 because buttons were troncated
     // in French [MS]
+    @Override
     public Dimension getPreferredSize() {
         return new Dimension(700, 300);
     }

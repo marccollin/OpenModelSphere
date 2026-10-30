@@ -88,7 +88,7 @@ public class ReverseWorker extends Worker {
     // (to put in options?)
     private static final int MAX_SIZE_FOR_A_SINGLE_TRANSACTION = 2 * 1024 * 1024;
 
-    ReverseOptions m_options;
+    private final ReverseOptions m_options;
 
     public ReverseWorker(ReverseOptions options) {
         m_options = options;
@@ -195,9 +195,8 @@ public class ReverseWorker extends Worker {
         terminate(instantiatedReverseList, successfulReverseCount, totalReverseCount, logBuffer,
                 name);
         int state = controller.getState();
-        boolean failed = ((state == Controller.STATE_ABORTING)
-                || (state == Controller.STATE_ABORTED) || (state == Controller.STATE_ERROR)) ? true
-                : false;
+        boolean failed = state == Controller.STATE_ABORTING || state == Controller.STATE_ABORTED
+                || state == Controller.STATE_ERROR;
 
         if (singleTransaction == SINGLE_TRANSACTION) {
             if (failed) {
@@ -259,8 +258,7 @@ public class ReverseWorker extends Worker {
 
     // returns a number between 1 and 100
     private int computeProgression(long cumulativeSize, long totalSize) {
-        int progression = (int) (((double) cumulativeSize / (double) totalSize) * 99.0 + 1.0);
-        return progression;
+        return (int) (((double) cumulativeSize / (double) totalSize) * 99.0 + 1.0);
     } // end computeProgression()
 
     // Instantiate reverse only once ArrayList getReverseList()
