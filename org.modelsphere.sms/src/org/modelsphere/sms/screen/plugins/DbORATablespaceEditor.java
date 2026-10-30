@@ -51,7 +51,7 @@ public class DbORATablespaceEditor extends DbSemanticalObjectEditor {
     private DbEnumeration dbEnum;
 
     protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        List tablespaces = new ArrayList();
+        List<DbObject> tablespaces = new ArrayList<>();
         DbORDataModel model = (DbORDataModel) parentDbo.getCompositeOfType(DbORDataModel.metaClass);
         if (model != null) {
             DbORDatabase database = model.getDeploymentDatabase();

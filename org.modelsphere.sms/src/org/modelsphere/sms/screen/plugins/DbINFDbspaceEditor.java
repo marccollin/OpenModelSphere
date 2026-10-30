@@ -51,7 +51,7 @@ public class DbINFDbspaceEditor extends DbSemanticalObjectEditor {
     private DbEnumeration dbEnum;
 
     protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        List dbspaces = new ArrayList();
+        List<DbObject> dbspaces = new ArrayList<>();
         /*
          * if (parentDbo instanceof DbORDatabase){ int a = 3; return null; } else {
          */
