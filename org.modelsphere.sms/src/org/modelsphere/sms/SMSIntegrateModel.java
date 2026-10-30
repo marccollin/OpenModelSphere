@@ -645,7 +645,7 @@ public class SMSIntegrateModel extends IntegrateModel {
     // associations
     // can be matched only if their tables are already matched.
     protected final List getChildren(DbObject parent) throws DbException {
-        List children = new ArrayList();
+        List<DbObject> children = new ArrayList<>();
         DbEnumeration dbEnum = parent.getComponents().elements();
         while (dbEnum.hasMoreElements()) {
             DbObject child = dbEnum.nextElement();
@@ -808,13 +808,11 @@ public class SMSIntegrateModel extends IntegrateModel {
         }
         if (child instanceof DbBEUseCase) {
             DbBEUseCase process = (DbBEUseCase) child;
-            String name = process.getAlphanumericHierID() + " " + process.getName();
-            return name;
+            return process.getAlphanumericHierID() + " " + process.getName();
         }
         if (child instanceof DbBEFlow) {
             DbBEFlow flow = (DbBEFlow) child;
-            String name = flow.getId() + " " + super.getName(flow);
-            return name;
+            return flow.getId() + " " + super.getName(flow);
         }
 
         if (isSynchro && syncUser && child != null && AnyORObject.getUserField(child) != null
@@ -1089,7 +1087,7 @@ public class SMSIntegrateModel extends IntegrateModel {
                 return true;
 
             if (DbORAbsTable.metaClass.isAssignableFrom(compositeMetaClass)) {
-                List leftColumns = new ArrayList();
+                List<DbObject> leftColumns = new ArrayList<>();
                 for (DbObject dbObject : leftVal) {
                     // Check sequence only for objects with a corresponding
                     // matching object
@@ -1097,7 +1095,7 @@ public class SMSIntegrateModel extends IntegrateModel {
                     if (dbObject instanceof DbORColumn && dbObject.getMatchingObject() != null)
                         leftColumns.add(dbObject);
                 }
-                List rightColumns = new ArrayList();
+                List<DbObject> rightColumns = new ArrayList<>();
                 for (DbObject dbObject : rightVal) {
                     if (dbObject instanceof DbORColumn
                             && dbObject.getMatchingObject() != null)
@@ -1107,20 +1105,20 @@ public class SMSIntegrateModel extends IntegrateModel {
                 // return true; // Component added or removed
                 int size = leftColumns.size();
                 for (int i = 0; i < size; i++) {
-                    DbObject left = (DbObject) leftColumns.get(i);
-                    DbObject right = (DbObject) rightColumns.get(i);
+                    DbObject left = leftColumns.get(i);
+                    DbObject right = rightColumns.get(i);
                     if (left.getMatchingObject() != null && left.getMatchingObject() != right)
                         return false;
                 }
                 return true;
             } else if (DbORProcedure.metaClass.isAssignableFrom(compositeMetaClass)) {
-                List leftParams = new ArrayList();
+                List<DbObject> leftParams = new ArrayList<>();
                 for (DbObject dbObject : leftVal) {
                     if (dbObject instanceof DbORParameter
                             && dbObject.getMatchingObject() != null)
                         leftParams.add(dbObject);
                 }
-                List rightParams = new ArrayList();
+                List<DbObject> rightParams = new ArrayList<>();
                 for (DbObject dbObject : rightVal) {
                     if (dbObject instanceof DbORParameter
                             && dbObject.getMatchingObject() != null)
@@ -1130,8 +1128,8 @@ public class SMSIntegrateModel extends IntegrateModel {
                 // return true; // Component added or removed
                 int size = leftParams.size();
                 for (int i = 0; i < size; i++) {
-                    DbObject left = (DbObject) leftParams.get(i);
-                    DbObject right = (DbObject) rightParams.get(i);
+                    DbObject left = leftParams.get(i);
+                    DbObject right = rightParams.get(i);
                     if (left.getMatchingObject() != null && left.getMatchingObject() != right)
                         return false;
                 }

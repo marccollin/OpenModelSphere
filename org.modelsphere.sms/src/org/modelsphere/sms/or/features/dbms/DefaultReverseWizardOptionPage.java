@@ -207,7 +207,7 @@ public class DefaultReverseWizardOptionPage extends WizardPage {
             // Build a list of statement id (order in get file) to skip based on
             // the concept scope
             ObjectScope[] scope = options.getObjectsScope();
-            List ignoredconceptsids = new ArrayList();
+            List<Object> ignoredconceptsids = new ArrayList<>();
             for (ObjectScope concept : scope) {
                 if (concept.SQLGetID != null
                         && !ObjectScope.verifyConceptSelection(scope, concept, false))

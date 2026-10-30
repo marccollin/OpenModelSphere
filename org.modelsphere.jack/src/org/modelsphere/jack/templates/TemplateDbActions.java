@@ -76,7 +76,6 @@ import org.modelsphere.jack.templates.parsing.ParseException;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -86,7 +85,7 @@ public final class TemplateDbActions extends TemplateActions {
 
     private String m_previousDeclName = null;
     private int m_previousKindOfRule = UNKNOWN;
-    private Hashtable m_ruleList = new Hashtable();
+    private Map<String, GenericRuleStructure> m_ruleList = new Hashtable<>();
     private VariableScope m_varList;
 
     public TemplateDbActions(VariableScope varList) {
@@ -457,25 +456,21 @@ public final class TemplateDbActions extends TemplateActions {
     // BOOLEAN
     //
     public BooleanModifier processNotExpression(BooleanModifier bm1) {
-        BooleanModifier bm = new BooleanModifier(BooleanModifier.NOT_EXPRESSION, bm1);
-        return bm;
+        return new BooleanModifier(BooleanModifier.NOT_EXPRESSION, bm1);
     }
 
     public BooleanModifier processBooleanExpression(int operation, Modifier m1, Modifier m2) {
-        BooleanModifier bm = new BooleanModifier(operation, m1, m2);
-        return bm;
+        return new BooleanModifier(operation, m1, m2);
     }
 
     public BooleanModifier processBooleanVariable(String varname)
             throws VariableNotDefinedRuleException {
-        BooleanModifier bm = new BooleanModifier(m_varList, varname);
-        return bm;
+        return new BooleanModifier(m_varList, varname);
     }
 
     public BooleanModifier processBooleanExpression(int operation, String pred, String operand,
             String varname) throws VariableNotDefinedRuleException {
-        BooleanModifier bm = new BooleanModifier(operation, pred, operand, m_varList, varname);
-        return bm;
+        return new BooleanModifier(operation, pred, operand, m_varList, varname);
     }
 
     public BooleanModifier processInstanceOf(String conceptname)
@@ -512,14 +507,12 @@ public final class TemplateDbActions extends TemplateActions {
 
     public IntegerModifier processIntegerVariable(String varname)
             throws VariableNotDefinedRuleException {
-        IntegerModifier im = new IntegerModifier(m_varList, varname);
-        return im;
+        return new IntegerModifier(m_varList, varname);
     }
 
     public IntegerModifier processIntegerLength(String varname)
             throws VariableNotDefinedRuleException {
-        IntegerModifier im = new IntegerModifier(IntegerModifier.INTEGER_LENGTH, m_varList, varname);
-        return im;
+        return new IntegerModifier(IntegerModifier.INTEGER_LENGTH, m_varList, varname);
     }
 
     /*
@@ -879,9 +872,8 @@ public final class TemplateDbActions extends TemplateActions {
         GenericRuleStructure[] rules = new GenericRuleStructure[nb];
 
         int i = 0;
-        Enumeration enumeration = m_ruleList.elements();
-        while (enumeration.hasMoreElements()) {
-            rules[i++] = (GenericRuleStructure) enumeration.nextElement();
+        for (GenericRuleStructure rule : m_ruleList.values()) {
+            rules[i++] = rule;
         } // end while
 
         return rules;

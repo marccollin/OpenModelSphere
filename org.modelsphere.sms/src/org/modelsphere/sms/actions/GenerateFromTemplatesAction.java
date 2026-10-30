@@ -176,7 +176,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
     } // end chooseWorkingDirectory()
 
     public static List getConditions(VariableScope varList) {
-        List conditions = new ArrayList();
+        List<VariableDecl.VariableStructure> conditions = new ArrayList<>();
 
         // get conditions
         VariableScope map = varList;
@@ -476,7 +476,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
                 VariableScope varList, VariableScope variableList, String scopeDir)
                 throws DbException {
 
-            List externalRules = new ArrayList();
+            List<Rule> externalRules = new ArrayList<>();
 
             // get EXTERNal rules
             Iterator iter = rules.iterator();
@@ -535,17 +535,17 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
 
             fwd.setFile(file);
             Controller controller = getController();
-            List externalRules = new ArrayList();
+            List<Rule> externalRules = new ArrayList<>();
             List externalVariables = new ArrayList();
             fwd.getExternalItems(controller, externalRules); // Parse the .tpl
             // here
             boolean errorWhileReadingFile = false;
 
-            if (externalRules.size() == 0) {
+            if (externalRules.isEmpty()) {
                 controller.println(SYN_ERR_MSG);
                 return null;
             } else if (externalRules.size() == 1) {
-                Rule rule = (Rule) externalRules.get(0);
+                Rule rule = externalRules.get(0);
                 if (rule.isError) {
                     errorWhileReadingFile = true;
                     processError(rule, abstractPackage);
@@ -569,7 +569,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
                 }
             } else {
                 selectedRules = new ArrayList();
-                Rule rule = (Rule) externalRules.get(0);
+                Rule rule = externalRules.get(0);
                 selectedRules.add(rule);
             } // end if
 

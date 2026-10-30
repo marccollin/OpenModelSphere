@@ -129,15 +129,15 @@ public final class PhysicalNameGeneration {
                 writePackageHeader(semObj);
                 boolean innerPackageNameGen = false;
                 for (Object o : concepts) {
-                    List conceptsChanged = new ArrayList();
+                    List<String> conceptsChanged = new ArrayList<>();
                     boolean addSemObjToGeneration = false;
                     ORPNGParameters param = (ORPNGParameters) o;
                     if (param.getConceptMetaClass().isAssignableFrom(semObj.getMetaClass()))
                         addSemObjToGeneration = true;
-                    List uniqueName = (param.isUnique() ? new ArrayList()
+                    List<String> uniqueName = (param.isUnique() ? new ArrayList<>()
                             : null);
                     if (param.getStatus().getValue() == ORPNGStatus.PARTIAL) {
-                        List listConcepts = new ArrayList();
+                        List<DbObject> listConcepts = new ArrayList<>();
                         if (addSemObjToGeneration)
                             listConcepts.add(semObj);
                         DbEnumeration dbEnum = semObj.componentTree(param.getConceptMetaClass(),
@@ -150,8 +150,8 @@ public final class PhysicalNameGeneration {
                                 uniqueName.add(concept.getPhysicalName());
                         } //end while
                         dbEnum.close();
-                        for (int ii = 0; ii < listConcepts.size(); ii++) {
-                            DbSemanticalObject concept = (DbSemanticalObject) listConcepts.get(ii);
+                        for (DbObject listConcept : listConcepts) {
+                            DbSemanticalObject concept = (DbSemanticalObject) listConcept;
                             if (StringUtil.isEmptyString(concept.getPhysicalName())) {
                                 String physicalName = generatePhysicalNameFor(concept, uniqueName,
                                         param);
@@ -188,7 +188,7 @@ public final class PhysicalNameGeneration {
                         } //end while
                     } //end if 
 
-                    if (conceptsChanged.size() > 0) {
+                    if (!conceptsChanged.isEmpty()) {
                         writeInnerPackageComment(param.getConceptName());
                         writeInnerConceptComment(conceptsChanged);
                         innerPackageNameGen = true;

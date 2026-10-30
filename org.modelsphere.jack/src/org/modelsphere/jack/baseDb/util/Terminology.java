@@ -60,12 +60,12 @@ import java.util.Map;
 
 public final class Terminology {
 
-    private Map metaClassMap = new HashMap(); // per instance
-    private Map metaClassGroupsMap = new HashMap(); // per instance
-    private Map metaFieldMap = new HashMap(200, 50); // per instance
-    private Map metaFieldGroupsMap = new HashMap(200, 50); // per instance
+    private Map<MetaClass, String> metaClassMap = new HashMap<>(); // per instance
+    private Map<MetaClass, String> metaClassGroupsMap = new HashMap<>(); // per instance
+    private Map<String, String> metaFieldMap = new HashMap<>(200, 50); // per instance
+    private Map<String, String> metaFieldGroupsMap = new HashMap<>(200, 50); // per instance
 
-    private Map metaClassIconMap = new HashMap(); // per instance
+    private Map<MetaClass, Icon> metaClassIconMap = new HashMap<>(); // per instance
 
     Terminology() {
     } // package-visible: instantiated by TerminologyManager
@@ -75,20 +75,17 @@ public final class Terminology {
     //
     public static Terminology createTerminology(DbObject notation) {
         TerminologyManager mgr = TerminologyManager.getInstance();
-        Terminology terminology = mgr.createTerminology(notation);
-        return terminology;
+        return mgr.createTerminology(notation);
     }
 
     public static Terminology findTerminology(DbObject notation) throws DbException {
         TerminologyManager mgr = TerminologyManager.getInstance();
-        Terminology terminology = mgr.findTerminology(notation);
-        return terminology;
+        return mgr.findTerminology(notation);
     }
 
     public static Terminology findTerminologyByName(String terminologyName) {
         TerminologyManager mgr = TerminologyManager.getInstance();
-        Terminology terminology = mgr.findTerminologyByName(terminologyName);
-        return terminology;
+        return mgr.findTerminologyByName(terminologyName);
     }
 
     // //////////////////////////////////////////////////////////////////////
@@ -98,7 +95,7 @@ public final class Terminology {
     // disabled in the UI)
     public String getTerm(MetaClass metaClass, MetaField mf) {
         String sKey = metaClass.getGUIName() + "." + mf.getGUIName();
-        String term = (String) metaFieldMap.get(sKey);
+        String term = metaFieldMap.get(sKey);
 
         if (term == null)
             term = mf.getGUIName();
@@ -120,9 +117,9 @@ public final class Terminology {
         String sKey = metaClass.getGUIName() + "." + mf.getGUIName();
         String term = null;
         if (bIsGroup == true)
-            term = (String) metaFieldGroupsMap.get(sKey);
+            term = metaFieldGroupsMap.get(sKey);
         else {
-            term = (String) metaFieldMap.get(sKey);
+            term = metaFieldMap.get(sKey);
         }
         if (term == null)
             term = mf.getGUIName();
@@ -156,7 +153,7 @@ public final class Terminology {
     // icon methods
 
     public Icon getIcon(MetaClass mc) {
-        Icon icon = (Icon) metaClassIconMap.get(mc);
+        Icon icon = metaClassIconMap.get(mc);
         if (icon == null)
             icon = mc.getIcon();
         return icon;
@@ -172,7 +169,7 @@ public final class Terminology {
     // meta classes methods
 
     public String getTerm(MetaClass mc) {
-        String term = (String) metaClassMap.get(mc);
+        String term = metaClassMap.get(mc);
         if (term == null)
             term = mc.getGUIName(false, false);
 
@@ -207,8 +204,8 @@ public final class Terminology {
 
         String term = null;
 
-        if (true == bIsGroup) {
-            term = (String) metaClassGroupsMap.get(mc);
+        if (bIsGroup) {
+            term = metaClassGroupsMap.get(mc);
             if (term == null)
                 term = mc.getGUIName(true, false);
         } else {

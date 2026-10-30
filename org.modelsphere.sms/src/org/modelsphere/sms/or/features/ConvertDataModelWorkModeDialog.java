@@ -113,7 +113,7 @@ public class ConvertDataModelWorkModeDialog extends JDialog {
     private static final String kGenerateFKMessage = LocaleMgr.screen
             .getString("generateFKMessage");
 
-    private List m_SubModelsList = new ArrayList();
+    private List<DbORDataModel> m_SubModelsList = new ArrayList<>();
 
     public ConvertDataModelWorkModeDialog(Frame frame, String title, boolean modal,
             DbObject[] semObjs, int workMode) {
@@ -436,7 +436,7 @@ public class ConvertDataModelWorkModeDialog extends JDialog {
         this.getAllSubModels(currentModel);
         DbObject[] models = new DbObject[m_SubModelsList.size()];
         for (int i = 0; i < models.length; i++) {
-            models[i] = (DbObject) m_SubModelsList.get(i);
+            models[i] = m_SubModelsList.get(i);
             if (!((DbORDataModel) models[i]).isIsValidated())
                 nbSubModelNoValid++;
         }

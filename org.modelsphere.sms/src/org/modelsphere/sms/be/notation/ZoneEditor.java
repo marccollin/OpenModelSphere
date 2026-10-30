@@ -312,8 +312,8 @@ public final class ZoneEditor extends JPanel implements ActionListener {
                     x += col0width;
                 } else {
                     col1width = (dim.width - insets.left - insets.right);
-                    cellheight = components.length > 0 ? (dim.height - insets.top - insets.bottom)
-                            / components.length : (dim.height - insets.top - insets.bottom);
+                    cellheight = (dim.height - insets.top - insets.bottom)
+                            / components.length;
                     firstCell.setBounds(x, y, col1width, cellheight);
                     y += cellheight;
                 }
@@ -517,7 +517,7 @@ public final class ZoneEditor extends JPanel implements ActionListener {
 
     private void loadSelected() throws DbException {
         editor.removeAll();
-        List listvalues = new ArrayList();
+        List<SelectedZoneElement> listvalues = new ArrayList<>();
         List zones = null;
         int orientation = 0;
         SMSZoneOrientation horizontalOrientation = SMSZoneOrientation
@@ -552,23 +552,21 @@ public final class ZoneEditor extends JPanel implements ActionListener {
                         : VERTICAL_ORIENTATION;
         }
 
-        Iterator iter = zones.iterator();
         for (int i = 0; i < zones.size(); i++) {
             DbBESingleZoneDisplay zone = (DbBESingleZoneDisplay) zones.get(i);
             listvalues.add(new SelectedZoneElement(zone, i, i == 0 ? orientation
                     : HORIZONTAL_ORIENTATION));
         }
         Collections.sort(listvalues);
-        iter = listvalues.iterator();
-        while (iter.hasNext()) {
-            Cell cell = new Cell((SelectedZoneElement) iter.next(), !stereotype
+        for (SelectedZoneElement listvalue : listvalues) {
+            Cell cell = new Cell(listvalue, !stereotype
                     .equals(BEZoneStereotype.getInstance(BEZoneStereotype.FLOW)));
             editor.add(cell);
         }
     }
 
     private void loadAvailable() throws DbException {
-        List listvalues = new ArrayList();
+        List<AvailableZoneElement> listvalues = new ArrayList<>();
         MetaClass metaclass = null;
         if (stereotype.equals(BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR)))
             metaclass = DbBEActor.metaClass;
@@ -579,7 +577,7 @@ public final class ZoneEditor extends JPanel implements ActionListener {
         else
             metaclass = DbBEUseCase.metaClass;
 
-        List zones = new ArrayList();
+        List<Object> zones = new ArrayList<>();
         try {
             Class claz = metaclass.getJClass();
             Field field = (Field) claz.getField("notationFields"); // NOT LOCALIZABLE
@@ -598,7 +596,7 @@ public final class ZoneEditor extends JPanel implements ActionListener {
         }
         dbEnum.close();
 
-        Iterator iter = zones.iterator();
+        Iterator<Object> iter = zones.iterator();
         int index = -1;
         SemanticalModel model = ApplicationContext.getSemanticalModel();
         while (iter.hasNext()) {
@@ -615,7 +613,7 @@ public final class ZoneEditor extends JPanel implements ActionListener {
     }
 
     private DbBESingleZoneDisplay[] getZones() throws DbException {
-        List zonelist = new ArrayList();
+        List<DbBESingleZoneDisplay> zonelist = new ArrayList<>();
         DbEnumeration dbEnum = notation.getComponents().elements(DbBESingleZoneDisplay.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbBESingleZoneDisplay zone = (DbBESingleZoneDisplay) dbEnum.nextElement();
@@ -625,7 +623,7 @@ public final class ZoneEditor extends JPanel implements ActionListener {
 
         DbBESingleZoneDisplay[] zones = new DbBESingleZoneDisplay[zonelist.size()];
         for (int i = 0; i < zones.length; i++)
-            zones[i] = (DbBESingleZoneDisplay) zonelist.get(i);
+            zones[i] = zonelist.get(i);
 
         return zones;
     }
@@ -643,8 +641,8 @@ public final class ZoneEditor extends JPanel implements ActionListener {
             return;
         selectedCell = newSelectedCell;
         Component[] components = editor.getComponents();
-        for (int i = 0; i < components.length; i++) {
-            Cell cell = (Cell) components[i];
+        for (Component component : components) {
+            Cell cell = (Cell) component;
             if (cell.selected && cell == selectedCell)
                 return;
             cell.setSelected(cell == selectedCell);

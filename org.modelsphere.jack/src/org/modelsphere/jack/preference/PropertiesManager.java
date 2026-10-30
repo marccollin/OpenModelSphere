@@ -46,8 +46,8 @@ package org.modelsphere.jack.preference;
 import org.modelsphere.jack.srtool.ApplicationContext;
 
 import java.io.File;
+import java.nio.file.FileSystems;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +87,7 @@ public class PropertiesManager {
         return PREFERENCES_PROPERTIES_SET;
     } // end getPreferencePropertiesSet()
 
-    private static Hashtable propertiesSets = new Hashtable(10);
+    private static Map<String, PropertiesSet> propertiesSets = new Hashtable<>(10);
 
     private static List<PropertiesProvider> propertiesProviders = new ArrayList<>(2);
 
@@ -99,9 +99,7 @@ public class PropertiesManager {
             propertiesProviders.get(i).updateProperties();
         }
 
-        Enumeration enumeration = propertiesSets.elements();
-        while (enumeration.hasMoreElements()) {
-            PropertiesSet set = (PropertiesSet) enumeration.nextElement();
+        for (PropertiesSet set : propertiesSets.values()) {
             set.save();
         }
 
@@ -112,13 +110,13 @@ public class PropertiesManager {
         // install the property files
         // Application properties
         installPropertiesSet(APPLICATION_PROPERTIES, new File(PROPERTIES_DIRECTORY
-                + System.getProperty("file.separator") + APPLICATION_PROPERTIES_FILE_NAME), false); // NOT LOCALIZABLE, property key
+                + FileSystems.getDefault().getSeparator() + APPLICATION_PROPERTIES_FILE_NAME), false); // NOT LOCALIZABLE, property key
         // Preferences properties
         installPropertiesSet(PREFERENCES_PROPERTIES, new File(PROPERTIES_DIRECTORY
-                + System.getProperty("file.separator") + PREFERENCES_PROPERTIES_FILE_NAME), false); // NOT LOCALIZABLE, property key
+                + FileSystems.getDefault().getSeparator() + PREFERENCES_PROPERTIES_FILE_NAME), false); // NOT LOCALIZABLE, property key
         // Plugins properties
         installPropertiesSet(PLUGINS_PROPERTIES, new File(PROPERTIES_DIRECTORY
-                + System.getProperty("file.separator") + PLUGINS_PROPERTIES_FILE_NAME), false); // NOT LOCALIZABLE,
+                + FileSystems.getDefault().getSeparator() + PLUGINS_PROPERTIES_FILE_NAME), false); // NOT LOCALIZABLE,
         // property key
         APPLICATION_PROPERTIES_SET = getPropertiesSet(APPLICATION_PROPERTIES);
         PREFERENCES_PROPERTIES_SET = getPropertiesSet(PREFERENCES_PROPERTIES);
@@ -138,7 +136,7 @@ public class PropertiesManager {
 
     public static void installPropertiesSet(String key, String setName) {
         installPropertiesSet(key, new File(PROPERTIES_DIRECTORY
-                + System.getProperty("file.separator") + setName + PROPERTIES_EXTENTION), true);
+                + FileSystems.getDefault().getSeparator() + setName + PROPERTIES_EXTENTION), true);
     }
 
     static void installPropertiesSet(String key, File file, boolean convert) {
@@ -158,7 +156,7 @@ public class PropertiesManager {
     }
 
     public static PropertiesSet getPropertiesSet(String key) {
-        return (PropertiesSet) propertiesSets.get(key);
+        return propertiesSets.get(key);
     }
 
     /**

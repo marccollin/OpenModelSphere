@@ -195,8 +195,8 @@ public final class SQLShellResultSetPanel extends JPanel {
     }
 
     private class ResultSetTableModel extends DefaultTableModel {
-        final List columns = new ArrayList();
-        final List rows = new ArrayList();
+        final List<Object> columns = new ArrayList<>();
+        final List<List<?>> rows = new ArrayList<>();
 
         ResultSetTableModel(StatementMessage statementMessage) {
             if (statementMessage.resultList.size() < 1 || statementMessage.columnList.size() < 1) {
@@ -210,7 +210,7 @@ public final class SQLShellResultSetPanel extends JPanel {
 
             count = statementMessage.resultList.size();
             for (int i = 0; i < count; i++) {
-                rows.add(statementMessage.resultList.get(i));
+                rows.add((List<?>) statementMessage.resultList.get(i));
             }
 
             fireTableStructureChanged();
@@ -236,7 +236,7 @@ public final class SQLShellResultSetPanel extends JPanel {
         public Object getValueAt(int row, int column) {
             if (rows == null)
                 return "";
-            List<?> r = (List<?>) rows.get(row);
+            List<?> r = rows.get(row);
             if (r.size() <= column)
                 return "";
             return r.get(column);

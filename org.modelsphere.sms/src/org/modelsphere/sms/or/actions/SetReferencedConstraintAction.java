@@ -62,7 +62,7 @@ public final class SetReferencedConstraintAction extends AbstractDomainAction im
             .getString("noRefConstraint");
     private static final String kKeyNamePatern = LocaleMgr.action.getString("keyName01");
 
-    private List dbos = new ArrayList(0);
+    private List<DbORPrimaryUnique> dbos = new ArrayList<>(0);
 
     SetReferencedConstraintAction() {
         super(kReferencedConstraint);
@@ -74,15 +74,15 @@ public final class SetReferencedConstraintAction extends AbstractDomainAction im
         int selidx = getSelectedIndex();
         DbORPrimaryUnique key = null;
         if (selidx != 0) {
-            key = (DbORPrimaryUnique) dbos.get(selidx - 2);
+            key = dbos.get(selidx - 2);
         }
         DbObject[] objects = ApplicationContext.getFocusManager().getSelectedSemanticalObjects();
         if (objects.length != 1)
             return;
         try {
             DbMultiTrans.beginTrans(Db.WRITE_TRANS, objects, kSetReferencedConstraint);
-            for (int i = 0; i < objects.length; i++) {
-                ((DbORAssociationEnd) objects[i]).setReferencedConstraint(key);
+            for (DbObject object : objects) {
+                ((DbORAssociationEnd) object).setReferencedConstraint(key);
             }
             DbMultiTrans.commitTrans(objects);
         } catch (Exception e) {
@@ -115,7 +115,7 @@ public final class SetReferencedConstraintAction extends AbstractDomainAction im
         }
         dbEnum.close();
 
-        int sizeadjustment = (dbos.size() == 0) ? 1 : 2; // adding a separator
+        int sizeadjustment = (dbos.isEmpty()) ? 1 : 2; // adding a separator
         // and an item for
         // removing the
         // referenced
@@ -130,7 +130,7 @@ public final class SetReferencedConstraintAction extends AbstractDomainAction im
 
         String tableName = tableSo.getName();
         for (int i = 0; i < dbos.size(); i++) {
-            String name = ((DbORPrimaryUnique) dbos.get(i)).getName();
+            String name = dbos.get(i).getName();
             items[i + sizeadjustment] = MessageFormat.format(kKeyNamePatern, new Object[] {
                     tableName, name });
         }

@@ -230,7 +230,7 @@ public abstract class ScreenView extends JPanel implements LocaleChangeListener,
     private JPanel createControlPanel() {
         if ((actionMode & ALL_BUTTONS) == 0)
             return null;
-        Vector vecButton = new Vector();
+        List<JButton> vecButton = new Vector<>();
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ActionListener buttonListener = new ActionListener() {
             @Override
@@ -296,11 +296,11 @@ public abstract class ScreenView extends JPanel implements LocaleChangeListener,
         }
 
         JButton[] buttons = new JButton[vecButton.size()];
-        vecButton.copyInto(buttons);
+        vecButton.toArray(buttons);
         AwtUtil.normalizeComponentDimension(buttons);
-        for (int i = 0; i < buttons.length; i++) {
-            buttons[i].addActionListener(buttonListener);
-            panel.add(buttons[i]);
+        for (JButton button : buttons) {
+            button.addActionListener(buttonListener);
+            panel.add(button);
         }
         return panel;
     }

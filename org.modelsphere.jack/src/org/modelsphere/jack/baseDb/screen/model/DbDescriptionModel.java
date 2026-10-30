@@ -62,7 +62,7 @@ public class DbDescriptionModel extends javax.swing.AbstractListModel implements
 
     protected ScreenView screenView;
     protected DbObject semObj;
-    private Vector fields = new Vector();
+    private List<DescriptionField> fields = new Vector<>();
     private boolean hasChanged = false;
 
     public DbDescriptionModel(ScreenView newScreenView, DbObject newSemObject) {
@@ -98,13 +98,13 @@ public class DbDescriptionModel extends javax.swing.AbstractListModel implements
         } else {
             int row = getPropertyRowIndex(evt.metaField);
             if (row != -1) {
-                DescriptionField field = (DescriptionField) fields.elementAt(row);
+                DescriptionField field = fields.get(row);
                 Object value = field.getRenderer().wrapValue(evt.dbo, evt.dbo.get(evt.metaField));
                 setElementAt(value, row, true);
 
                 int nb = fields.size();
                 for (int i = 0; i < nb; i++) {
-                    Object cField = fields.elementAt(i);
+                    DescriptionField cField = fields.get(i);
                     if (cField instanceof ComputedDescriptionField
                             && ((ComputedDescriptionField) cField).affectsValue(evt.metaField)) {
                         ((ComputedDescriptionField) cField).computeValue();
@@ -127,7 +127,7 @@ public class DbDescriptionModel extends javax.swing.AbstractListModel implements
         }
         int row = getPropertyRowIndex(udf);
         if (row != -1) {
-            DescriptionField field = (DescriptionField) fields.elementAt(row);
+            DescriptionField field = fields.get(row);
             Object value = field.getRenderer().wrapValue(semObj, val);
             setElementAt(value, row, true);
         }
@@ -139,7 +139,7 @@ public class DbDescriptionModel extends javax.swing.AbstractListModel implements
 
     public final int getPropertyRowIndex(MetaField metaField) {
         for (int i = 0; i < fields.size(); i++) {
-            Object field = fields.elementAt(i);
+            DescriptionField field = fields.get(i);
             if (field instanceof MetaFieldDescriptionField
                     && ((MetaFieldDescriptionField) field).getMetaField() == metaField)
                 return i;
@@ -149,7 +149,7 @@ public class DbDescriptionModel extends javax.swing.AbstractListModel implements
 
     public final int getPropertyRowIndex(DbUDF udf) {
         for (int i = 0; i < fields.size(); i++) {
-            Object field = fields.elementAt(i);
+            DescriptionField field = fields.get(i);
             if (field instanceof UDFDescriptionField
                     && ((UDFDescriptionField) field).getDbUDF() == udf)
                 return i;
@@ -166,7 +166,7 @@ public class DbDescriptionModel extends javax.swing.AbstractListModel implements
         if (df != null)
             return df.getGUIName();
         else
-            return new String("");
+            return "";
     }
 
     public final Class getPropertyClass(int index) {
@@ -175,8 +175,7 @@ public class DbDescriptionModel extends javax.swing.AbstractListModel implements
 
     public final String getEditorName(int index) {
         DescriptionField f = getDescriptionFieldAt(index);
-        String name = f.getEditorName();
-        return name;
+        return f.getEditorName();
     }
 
     public final Renderer getRenderer(int row, int col) {
@@ -214,7 +213,7 @@ public class DbDescriptionModel extends javax.swing.AbstractListModel implements
     }
 
     private void setElementAt(Object value, int index, boolean refresh) {
-        DescriptionField field = (DescriptionField) fields.elementAt(index);
+        DescriptionField field = fields.get(index);
         if (refresh) {
             if (field.hasChanged())
                 return;
@@ -240,7 +239,7 @@ public class DbDescriptionModel extends javax.swing.AbstractListModel implements
         int i, nb;
         if (hasChanged) {
             for (i = 0, nb = fields.size(); i < nb; i++) {
-                DescriptionField field = (DescriptionField) fields.elementAt(i);
+                DescriptionField field = fields.get(i);
                 if (field.hasChanged())
                     field.setValueToDbObject();
             }
@@ -251,12 +250,12 @@ public class DbDescriptionModel extends javax.swing.AbstractListModel implements
         hasChanged = false;
         int i, nb;
         for (i = 0, nb = fields.size(); i < nb; i++)
-            ((DescriptionField) fields.elementAt(i)).resetHasChanged();
+            fields.get(i).resetHasChanged();
     }
 
     public final void refresh() throws DbException {
         for (int i = 0; i < fields.size(); i++) {
-            DescriptionField field = (DescriptionField) fields.elementAt(i);
+            DescriptionField field = fields.get(i);
             if (field instanceof MetaFieldDescriptionField) {
                 MetaField metaField = ((MetaFieldDescriptionField) field).getMetaField();
                 Object value = field.getRenderer().wrapValue(semObj, semObj.get(metaField));
@@ -276,12 +275,12 @@ public class DbDescriptionModel extends javax.swing.AbstractListModel implements
     }
 
     public final DescriptionField getDescriptionFieldAt(int index) {
-        DescriptionField f = (DescriptionField) fields.elementAt(index);
+        DescriptionField f = fields.get(index);
         return f;
     }
 
     public final void addDescriptionField(DescriptionField field) {
-        fields.addElement(field);
+        fields.add(field);
         int indexAdd = fields.size();
         fireIntervalAdded(this, indexAdd, indexAdd);
     }

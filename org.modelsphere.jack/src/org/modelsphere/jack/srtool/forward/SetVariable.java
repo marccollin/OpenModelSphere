@@ -50,7 +50,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Hashtable;
 
 public final class SetVariable extends Rule {
@@ -239,7 +239,7 @@ public final class SetVariable extends Rule {
                         // LOCALIZABLE,
                         // keyword
                         int i = Integer.parseInt(m_sourceVariable.getValue().toString());
-                        value = Integer.valueOf(i);
+                        value = i;
                     }
                     break;
                 case SET_COMPUTE:
@@ -248,13 +248,13 @@ public final class SetVariable extends Rule {
                 case SET_BOOLEAN:
                     BooleanModifier bm = (BooleanModifier) m_modifier;
                     boolean bValue = bm.evaluate(object);
-                    value = Boolean.valueOf(bValue);
+                    value = bValue;
                     expanded = true;
                     break;
                 case SET_INTEGER:
                     IntegerModifier im = (IntegerModifier) m_modifier;
                     int intValue = im.evaluate(object);
-                    value = Integer.valueOf(intValue);
+                    value = intValue;
                     expanded = true;
                     break;
                 case SET_STRING:
@@ -265,17 +265,17 @@ public final class SetVariable extends Rule {
             } // end if
 
             // set or add values?
-            ArrayList list;
+            List list;
             switch (m_operation) {
             case SET_VARIABLE:
                 m_targetVariable.setValue(value);
                 break;
             case ADD_TO_LIST:
-                list = (ArrayList) m_targetVariable.getValue();
+                list = (List) m_targetVariable.getValue();
                 list.add(value);
                 break;
             case CLEAR_LIST:
-                list = (ArrayList) m_targetVariable.getValue();
+                list = (List) m_targetVariable.getValue();
                 list.clear();
                 break;
             } // end switch
@@ -299,8 +299,7 @@ public final class SetVariable extends Rule {
         if (s.charAt(len - 1) != '\"')
             return null;
 
-        String unquoted = s.substring(1, len - 1);
-        return unquoted;
+        return s.substring(1, len - 1);
     } // end unqtote
 
 } // SetVariable
