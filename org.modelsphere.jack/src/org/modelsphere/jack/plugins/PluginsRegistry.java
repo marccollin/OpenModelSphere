@@ -13,7 +13,7 @@ public final class PluginsRegistry implements Iterable<PluginDescriptor> {
     ArrayList<PluginDescriptor> pluginDescriptors = new ArrayList<PluginDescriptor>();
     ArrayList<PluginDescriptor> removedDescriptors = new ArrayList<PluginDescriptor>();
 
-    private ArrayList<PluginListener> pluginListeners = new ArrayList<PluginListener>();
+    private List<PluginListener> pluginListeners = new ArrayList<PluginListener>();
 
     PluginsRegistry() {
 
@@ -225,7 +225,7 @@ public final class PluginsRegistry implements Iterable<PluginDescriptor> {
     public List<Class<? extends Plugin>> getPluginClasses(Class<? extends Plugin> pluginclass) {
         if (pluginclass == null)
             return null;
-        ArrayList<Class<? extends Plugin>> classes = new ArrayList<Class<? extends Plugin>>();
+        List<Class<? extends Plugin>> classes = new ArrayList<Class<? extends Plugin>>();
 
         PluginMgr pluginMgr = PluginMgr.getSingleInstance();
         Iterator<PluginDescriptor> iter = pluginDescriptors.iterator();
@@ -243,7 +243,7 @@ public final class PluginsRegistry implements Iterable<PluginDescriptor> {
 
     public List<PluginDescriptor> getActivePlugins() {
         PluginMgr pluginMgr = PluginMgr.getSingleInstance();
-        ArrayList<PluginDescriptor> activePlugins = new ArrayList<PluginDescriptor>();
+        List<PluginDescriptor> activePlugins = new ArrayList<PluginDescriptor>();
         Iterator<PluginDescriptor> pluginsIterator = this.pluginDescriptors.iterator();
         while (pluginsIterator.hasNext()) {
             PluginDescriptor pluginDescriptor = pluginsIterator.next();
@@ -255,7 +255,7 @@ public final class PluginsRegistry implements Iterable<PluginDescriptor> {
     }
 
     public List<PluginDescriptor> getValidPlugins() {
-        ArrayList<PluginDescriptor> validPlugins = new ArrayList<PluginDescriptor>();
+        List<PluginDescriptor> validPlugins = new ArrayList<PluginDescriptor>();
         Iterator<PluginDescriptor> pluginsIterator = this.pluginDescriptors.iterator();
         while (pluginsIterator.hasNext()) {
             PluginDescriptor pluginDescriptor = pluginsIterator.next();

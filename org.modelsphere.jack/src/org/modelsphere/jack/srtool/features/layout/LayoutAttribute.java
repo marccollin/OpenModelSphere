@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.features.layout;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The Class LayoutAttribute.
@@ -98,7 +98,7 @@ public class LayoutAttribute<T> {
      * @return the value
      */
     @SuppressWarnings("unchecked")
-    public T getValue(HashMap<LayoutAttribute<?>, Object> attributes) {
+    public T getValue(Map<LayoutAttribute<?>, Object> attributes) {
         T value = null;
         try {
             value = (T) attributes.get(this);
@@ -115,7 +115,7 @@ public class LayoutAttribute<T> {
      * @param value
      *            the value
      */
-    public void setValue(HashMap<LayoutAttribute<?>, Object> attributes, T value) {
+    public void setValue(Map<LayoutAttribute<?>, Object> attributes, T value) {
         attributes.put(this, value);
     }
 }

@@ -63,7 +63,7 @@ final class DbForwardWorker extends ForwardWorker {
         DbForwardEngineeringPlugin forward = (DbForwardEngineeringPlugin) m_options.getForward();
         DbObject[] objects = m_options.getObjects();
         File actualDirectory = m_options.getActualDirectory();
-        List generatedFiles = new ArrayList();
+        List<String> generatedFiles = new ArrayList<>();
         DbSemanticalObject firstObj = (DbSemanticalObject) objects[0];
         Db db = firstObj.getDb();
         db.beginTrans(Db.READ_TRANS);

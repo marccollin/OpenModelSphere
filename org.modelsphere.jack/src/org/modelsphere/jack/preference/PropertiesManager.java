@@ -89,14 +89,14 @@ public class PropertiesManager {
 
     private static Hashtable propertiesSets = new Hashtable(10);
 
-    private static ArrayList propertiesProviders = new ArrayList(2);
+    private static List<PropertiesProvider> propertiesProviders = new ArrayList<>(2);
 
     private static PropertiesConverter propertiesConverter = null;
     private static int version = 0;
 
     public static void save() {
         for (int i = 0; i < propertiesProviders.size(); i++) {
-            ((PropertiesProvider) propertiesProviders.get(i)).updateProperties();
+            propertiesProviders.get(i).updateProperties();
         }
 
         Enumeration enumeration = propertiesSets.elements();

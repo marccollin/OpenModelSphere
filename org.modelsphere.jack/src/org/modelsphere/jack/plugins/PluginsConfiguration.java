@@ -165,7 +165,7 @@ public final class PluginsConfiguration {
         return fileRead;
     }
 
-    private void save(File file, ArrayList<PluginDescriptor> pluginDescriptors) {
+    private void save(File file, List<PluginDescriptor> pluginDescriptors) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder parser = factory.newDocumentBuilder();
@@ -228,7 +228,7 @@ public final class PluginsConfiguration {
 
         pluginsXmlFile.renameTo(renamedFile);
 
-        ArrayList<PluginDescriptor> pluginDescriptors = new ArrayList<PluginDescriptor>();
+        List<PluginDescriptor> pluginDescriptors = new ArrayList<PluginDescriptor>();
         PluginsRegistry registry = PluginMgr.getSingleInstance().getPluginsRegistry();
         pluginDescriptors.addAll(registry.getValidPlugins());
 

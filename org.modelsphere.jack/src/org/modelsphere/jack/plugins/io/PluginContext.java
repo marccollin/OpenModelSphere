@@ -65,9 +65,9 @@ public class PluginContext {
 
     private int buildRequired = -1;
 
-    private HashMap<String, Object> properties = new HashMap<String, Object>();
+    private Map<String, Object> properties = new HashMap<String, Object>();
 
-    private HashMap<String, Action> actionsMap = new HashMap<String, Action>();
+    private Map<String, Action> actionsMap = new HashMap<String, Action>();
 
     private ConfigurationCommand configurationCommand;
 
@@ -136,7 +136,7 @@ public class PluginContext {
         }
     }
 
-    public HashMap<String, Action> getActionsMap() {
+    public Map<String, Action> getActionsMap() {
         return actionsMap;
     }
 

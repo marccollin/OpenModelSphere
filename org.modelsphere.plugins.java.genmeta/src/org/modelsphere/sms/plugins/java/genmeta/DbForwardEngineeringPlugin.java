@@ -319,7 +319,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
     // ENTRY POINT, called by DbForwardWorker.runJob()
     //
     void genPackages(DbJVPackage dbPack, File actualDirectory, Controller controller,
-            List generatedFiles) throws DbException, IOException {
+            List<String> generatedFiles) throws DbException, IOException {
         init(dbPack);
         m_actualDirectory = actualDirectory;
         genPackage(dbPack, actualDirectory, controller, generatedFiles);
@@ -339,7 +339,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
     // All the methods below are private to this class
     //
     private void genPackage(DbJVPackage dbPack, File actualDirectory, Controller controller,
-            List generatedFiles) throws DbException, IOException {
+            List<String> generatedFiles) throws DbException, IOException {
         if (!dbPack.getName().equals(DB_PACK_NAME))
             return;
 
@@ -392,7 +392,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         return rootDir + pathName;
     }
 
-    private void genFile(DbObject dbo, Controller controller, List generatedFiles)
+    private void genFile(DbObject dbo, Controller controller, List<String> generatedFiles)
             throws DbException, IOException {
         String name = (dbo instanceof DbJVCompilationUnit ? dbo.getName() : dbo.getName() + ".java");
         String filename = m_pathName + name;
@@ -413,7 +413,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         }
     }
 
-    private void genFinalClasses(Controller controller, List generatedFiles)
+    private void genFinalClasses(Controller controller, List<String> generatedFiles)
             throws DbException, IOException {
         String filename = m_pathName + "ApplClasses.java";
         PrintWriter output = new PrintWriter(new FileWriter(filename));
@@ -443,7 +443,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         controller.println(filename);
     }
 
-    private void genLocaleStrs(Controller controller, List generatedFiles) throws IOException {
+    private void genLocaleStrs(Controller controller, List<String> generatedFiles) throws IOException {
         for (int i = 0; i <= LAST_LANGUAGE; i++) {
             LocaleDictionary dictionary = m_dictionaries[i];
             Map entries = dictionary.m_localeEntries;
@@ -1711,7 +1711,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
 
     } //end displaySubClasses()
 
-    private void findAssociations(DbJVClass claz, ArrayList assocList) throws DbException {
+    private void findAssociations(DbJVClass claz, List<AssociationStructure> assocList) throws DbException {
         DbRelationN relationN = claz.getComponents();
         DbEnumeration dbEnum = relationN.elements(DbJVDataMember.metaClass);
         while (dbEnum.hasMoreElements()) {
@@ -1759,7 +1759,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         dbEnum.close();
     } //end findAssociations()
 
-    private void displayAssociations(PrintWriter output, ArrayList assocList, DbJVPackage pack)
+    private void displayAssociations(PrintWriter output, List<AssociationStructure> assocList, DbJVPackage pack)
             throws DbException {
         int nb = assocList.size();
 
@@ -1767,7 +1767,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         output.print(SP4 + "<b>Composites : </b>");
         boolean none = true;
         for (int i = 0; i < nb; i++) {
-            AssociationStructure struct = (AssociationStructure) assocList.get(i);
+            AssociationStructure struct = assocList.get(i);
             if (struct.m_kindOf == COMPOSITE) {
                 if (!none) {
                     output.print(", ");
@@ -1787,7 +1787,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         output.print(SP4 + "<b>Components : </b>");
         none = true;
         for (int i = 0; i < nb; i++) {
-            AssociationStructure struct = (AssociationStructure) assocList.get(i);
+            AssociationStructure struct = assocList.get(i);
             if (struct.m_kindOf == COMPONENT) {
                 if (!none) {
                     output.print(", ");
@@ -1809,10 +1809,10 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
     private void genCommentClassifier(PrintWriter output, DbJVClass claz) throws DbException {
         output.println("/**");
         String description = claz.getDescription();
-        if ((description != null) && (description.length() != 0)) {
+        if ((description != null) && (!description.isEmpty())) {
             output.println(SP4 + description);
         }
-        ArrayList assocList = new ArrayList();
+        List<AssociationStructure> assocList = new ArrayList<>();
         displaySubClasses(output, claz);
         assocList.clear();
         findAssociations(claz, assocList);

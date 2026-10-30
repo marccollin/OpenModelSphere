@@ -77,8 +77,8 @@ public class ClassPluginLoader extends JARPluginLoader {
      * @param directory
      * @return
      */
-    private ArrayList<PluginDescriptor> scan(File directory, File scanRoot, String packagename) {
-        ArrayList<PluginDescriptor> scannedPluginInfo = new ArrayList<PluginDescriptor>();
+    private List<PluginDescriptor> scan(File directory, File scanRoot, String packagename) {
+        List<PluginDescriptor> scannedPluginInfo = new ArrayList<PluginDescriptor>();
         File[] files = directory.listFiles();
         if (files == null) // not a directory
             return scannedPluginInfo;
@@ -103,7 +103,7 @@ public class ClassPluginLoader extends JARPluginLoader {
                 }
             } else {
                 String subpackage = packagename + file.getName() + "."; // NOT LOCALIZABLE - package separator
-                ArrayList<PluginDescriptor> subList = scan(file, scanRoot, subpackage);
+                List<PluginDescriptor> subList = scan(file, scanRoot, subpackage);
                 if (subList != null)
                     scannedPluginInfo.addAll(subList);
             }
@@ -116,7 +116,7 @@ public class ClassPluginLoader extends JARPluginLoader {
         if (file == null || !file.isFile()) {
             return null;
         }
-        ArrayList<DefaultPluginDescriptor> descriptors = new ArrayList<DefaultPluginDescriptor>();
+        List<DefaultPluginDescriptor> descriptors = new ArrayList<DefaultPluginDescriptor>();
         try {
             // Check for jar file
             if (file.getName().toLowerCase().endsWith(".jar")) {

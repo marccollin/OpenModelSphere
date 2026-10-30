@@ -589,7 +589,7 @@ public final class DirectoryChooser2 extends JDialog {
         }
 
         //Construire le chemin du fichier vers la racine
-        ArrayList<File> pathToRoot = new ArrayList<>();
+        List<File> pathToRoot = new ArrayList<>();
         File current = file;
         while (current != null) {
             pathToRoot.add(current);

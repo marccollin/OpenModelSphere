@@ -198,7 +198,7 @@ public class LayoutExecutor {
      * @return the cluster nodes
      */
     List<Node> getClusterNodes(int cluster) {
-        ArrayList<Node> clusterNodes = new ArrayList<Node>();
+        List<Node> clusterNodes = new ArrayList<Node>();
         for (Node node : clusters.keySet()) {
             Integer c = clusters.get(node);
             if (c == cluster) {

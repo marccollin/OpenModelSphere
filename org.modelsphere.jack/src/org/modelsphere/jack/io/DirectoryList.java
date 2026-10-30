@@ -57,7 +57,7 @@ import java.util.List;
  */
 public final class DirectoryList {
     public static final boolean DIRECTORY_ONLY = true;
-    private ArrayList m_dirList = new ArrayList();
+    private List<File> m_dirList = new ArrayList<>();
 
     //
     // public constructors
@@ -85,7 +85,7 @@ public final class DirectoryList {
         scanSubdir(m_dirList, rootdir, directoryOnly, filter);
     } // end DirectoryIterator
 
-    private void scanSubdir(ArrayList dirlist, File root, boolean directoryOnly, FileFilter filter) {
+    private void scanSubdir(List<File> dirlist, File root, boolean directoryOnly, FileFilter filter) {
         String[] list = root.list();
         for (int i = 0; i < list.length; i++) {
             String listElem = list[i];

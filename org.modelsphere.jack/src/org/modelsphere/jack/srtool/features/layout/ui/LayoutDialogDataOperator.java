@@ -263,7 +263,7 @@ public class LayoutDialogDataOperator {
      */
     private static void setLayoutAttributes(boolean growWidth, boolean growHeight,
             boolean randomize, Dimension initialSize, Dimension pagesize,
-            HashMap<LayoutAttribute<?>, Object> attributes) {
+            Map<LayoutAttribute<?>, Object> attributes) {
         LayoutAttributes.RANDOMIZE.setValue(attributes, randomize);
         LayoutAttributes.CANVAS_HORIZONTAL_RESIZE_INCREMENT.setValue(attributes,
                 (double) (growWidth ? pagesize.width : 0));
