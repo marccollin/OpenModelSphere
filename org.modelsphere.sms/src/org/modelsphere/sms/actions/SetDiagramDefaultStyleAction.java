@@ -65,7 +65,7 @@ public final class SetDiagramDefaultStyleAction extends AbstractDomainAction imp
             .getString("DiagramDefaultStyle");
     private static final String kSetDefaultStyle = LocaleMgr.action.getString("setdefaultstyle");
 
-    private List styles = new ArrayList(0); // null object means separator
+    private List<DbSMSStyle> styles = new ArrayList<>(0); // null object means separator
 
     public SetDiagramDefaultStyleAction() {
         super(kDiagDefaultStyle);
@@ -78,7 +78,7 @@ public final class SetDiagramDefaultStyleAction extends AbstractDomainAction imp
         if (selidx != -1) {
             DbSMSDiagram diag = (DbSMSDiagram) ApplicationContext.getFocusManager()
                     .getActiveDiagram().getDiagramGO();
-            DbSMSStyle style = (DbSMSStyle) styles.get(selidx);
+            DbSMSStyle style = styles.get(selidx);
             try {
                 diag.getDb().beginTrans(Db.WRITE_TRANS, kSetDefaultStyle);
                 diag.setStyle(style);
@@ -110,7 +110,7 @@ public final class SetDiagramDefaultStyleAction extends AbstractDomainAction imp
 
         DbEnumeration dbEnum = project.getComponents().elements(DbSMSStyle.metaClass);
         while (dbEnum.hasMoreElements()) {
-            Object style = dbEnum.nextElement();
+            DbSMSStyle style = (DbSMSStyle) dbEnum.nextElement();
             if (diagGO instanceof DbOODiagram) {
                 if (style instanceof DbOOStyle)
                     styles.add(style);
@@ -134,7 +134,7 @@ public final class SetDiagramDefaultStyleAction extends AbstractDomainAction imp
 
         Object[] items = new Object[styles.size()];
         for (int i = 0; i < styles.size(); i++) {
-            items[i] = ((DbSMSStyle) styles.get(i)).getName();
+            items[i] = styles.get(i).getName();
         }
 
         setDomainValues(items);

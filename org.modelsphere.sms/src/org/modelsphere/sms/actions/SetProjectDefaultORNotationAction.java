@@ -57,7 +57,7 @@ public final class SetProjectDefaultORNotationAction extends AbstractDomainActio
     private static final String kSetDefaultNotation = LocaleMgr.action
             .getString("setdefaultORnotation");
 
-    private List notations = new ArrayList(0); // null object means
+    private List<DbORNotation> notations = new ArrayList<>(0); // null object means
 
     // separator
 
@@ -73,7 +73,7 @@ public final class SetProjectDefaultORNotationAction extends AbstractDomainActio
         if (selidx != -1) {
             DbSMSProject project = (DbSMSProject) ApplicationContext.getFocusManager()
                     .getCurrentProject();
-            DbORNotation notation = (DbORNotation) notations.get(selidx);
+            DbORNotation notation = notations.get(selidx);
             try {
                 project.getDb().beginTrans(Db.WRITE_TRANS, kSetDefaultNotation);
                 if (notation != null)
@@ -110,8 +110,8 @@ public final class SetProjectDefaultORNotationAction extends AbstractDomainActio
 
         DbEnumeration dbEnum = project.getComponents().elements(DbORNotation.metaClass);
         while (dbEnum.hasMoreElements()) {
-            Object notation = dbEnum.nextElement();
-            int mode = ((DbORNotation) notation).getNotationMode().intValue();
+            DbORNotation notation = (DbORNotation) dbEnum.nextElement();
+            int mode = notation.getNotationMode().intValue();
             if (mode == DbSMSNotation.OR_MODE) {
                 notations.add(notation);
                 if (notation == selnotation) {
@@ -123,7 +123,7 @@ public final class SetProjectDefaultORNotationAction extends AbstractDomainActio
 
         Object[] items = new Object[notations.size()];
         for (int i = 0; i < notations.size(); i++) {
-            items[i] = ((DbORNotation) notations.get(i)).getName();
+            items[i] = notations.get(i).getName();
         }
 
         setDomainValues(items);

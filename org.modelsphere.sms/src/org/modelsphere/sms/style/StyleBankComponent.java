@@ -318,7 +318,7 @@ public class StyleBankComponent extends JPanel implements DbRefreshListener, Tre
             DbSMSStyle style = (DbSMSStyle) parentNode.getUserObject();
 
             style.getDb().beginTrans(Db.READ_TRANS);
-            Set diagSet = new HashSet(); // use a Set to eliminate
+            Set<DbObject> diagSet = new HashSet<>(); // use a Set to eliminate
             // duplicates
             // Add to the Set all the diagrams linked to this style.
             DbEnumeration dbEnum = style.getDiagrams().elements();
@@ -361,7 +361,7 @@ public class StyleBankComponent extends JPanel implements DbRefreshListener, Tre
             }
 
             String[] items = new String[diagSet.size()];
-            Iterator iter = diagSet.iterator();
+            Iterator<DbObject> iter = diagSet.iterator();
             for (int i = 0; iter.hasNext(); i++) {
                 DbSMSDiagram diag = (DbSMSDiagram) iter.next();
                 String packName = diag.getComposite().getSemanticalName(DbObject.LONG_FORM);

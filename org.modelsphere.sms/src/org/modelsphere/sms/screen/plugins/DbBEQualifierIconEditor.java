@@ -78,7 +78,7 @@ public final class DbBEQualifierIconEditor implements Editor {
     private AbstractTableCellEditor editor;
 
     static {
-        List images = new ArrayList();
+        List<Image> images = new ArrayList<>();
         try {
             int count = 1;
             String fileName = Integer.valueOf(count).toString();
@@ -146,7 +146,7 @@ public final class DbBEQualifierIconEditor implements Editor {
     }
 
     protected final Collection getSelectionSet(Object value) {
-        List values = new ArrayList();
+        List<Object> values = new ArrayList<>();
         values.add(MultiDefaultRenderer.kNone);
         values.add(kSelect);
         //values.addAll(Arrays.asList(BUILTIN_IMAGES));

@@ -56,7 +56,7 @@ public final class SetProjectDefaultBENotationAction extends AbstractDomainActio
     private static final String kSetDefaultNotation = LocaleMgr.action
             .getString("setdefaultBEnotation");
 
-    private List notations = new ArrayList(0); // null object means
+    private List<DbBENotation> notations = new ArrayList<>(0); // null object means
 
     // separator
 
@@ -72,7 +72,7 @@ public final class SetProjectDefaultBENotationAction extends AbstractDomainActio
         if (selidx != -1) {
             DbSMSProject project = (DbSMSProject) ApplicationContext.getFocusManager()
                     .getCurrentProject();
-            DbBENotation notation = (DbBENotation) notations.get(selidx);
+            DbBENotation notation = notations.get(selidx);
             try {
                 project.getDb().beginTrans(Db.WRITE_TRANS, kSetDefaultNotation);
                 if (notation != null)
@@ -120,7 +120,7 @@ public final class SetProjectDefaultBENotationAction extends AbstractDomainActio
 
         Object[] items = new Object[notations.size()];
         for (int i = 0; i < notations.size(); i++) {
-            items[i] = ((DbBENotation) notations.get(i)).getName();
+            items[i] = notations.get(i).getName();
         }
 
         setDomainValues(items);

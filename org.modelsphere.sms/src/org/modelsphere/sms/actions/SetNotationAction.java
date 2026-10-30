@@ -74,7 +74,7 @@ public final class SetNotationAction extends AbstractDomainAction implements
 
     private TerminologyUtil terminologyUtil = TerminologyUtil.getInstance();
 
-    private List dbos = new ArrayList(0);
+    private List<DbSMSNotation> dbos = new ArrayList<>(0);
 
     private boolean m_bDiagramIsUML = false;
 
@@ -90,9 +90,9 @@ public final class SetNotationAction extends AbstractDomainAction implements
         if (selidx != -1) {
             DbSMSNotation notation = null;
             if (m_bDiagramIsUML)
-                notation = (DbSMSNotation) dbos.get(selidx);
+                notation = dbos.get(selidx);
             else if (selidx != 0)
-                notation = (DbSMSNotation) dbos.get(selidx - 2);
+                notation = dbos.get(selidx - 2);
 
             ApplicationDiagram appDiag = ApplicationContext.getFocusManager().getActiveDiagram();
             DbSMSDiagram diagGo = (DbSMSDiagram) appDiag.getDiagramGO();
@@ -211,7 +211,7 @@ public final class SetNotationAction extends AbstractDomainAction implements
         }
 
         while (dbEnum.hasMoreElements()) {
-            Object notation = dbEnum.nextElement();
+            DbSMSNotation notation = (DbSMSNotation) dbEnum.nextElement();
             if (diagram instanceof DbORDiagram) {
                 int notationMode = ((DbORNotation) notation).getNotationMode().intValue();
                 if (notationMode == modelLogicalMode) {
@@ -236,7 +236,7 @@ public final class SetNotationAction extends AbstractDomainAction implements
         if (m_bDiagramIsUML) {
             Object[] items = new Object[dbos.size()];
             for (int i = 0; i < dbos.size(); i++) {
-                items[i] = ((DbSMSNotation) dbos.get(i)).getName();
+                items[i] = dbos.get(i).getName();
             }
             setDomainValues(items);
             if (selidx == -1)
@@ -253,7 +253,7 @@ public final class SetNotationAction extends AbstractDomainAction implements
             items[0] = defaultItemName;
             items[1] = null;
             for (int i = 0; i < dbos.size(); i++) {
-                items[i + 2] = ((DbSMSNotation) dbos.get(i)).getName();
+                items[i + 2] = dbos.get(i).getName();
             }
 
             setDomainValues(items);

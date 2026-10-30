@@ -57,7 +57,7 @@ public final class SetProjectDefaultERNotationAction extends AbstractDomainActio
     private static final String kSetERDefaultNotation = LocaleMgr.action
             .getString("setdefaultERnotation");
 
-    private List notations = new ArrayList(0); // null object means
+    private List<DbORNotation> notations = new ArrayList<>(0); // null object means
 
     // separator
 
@@ -73,7 +73,7 @@ public final class SetProjectDefaultERNotationAction extends AbstractDomainActio
         if (selidx != -1) {
             DbSMSProject project = (DbSMSProject) ApplicationContext.getFocusManager()
                     .getCurrentProject();
-            DbORNotation notation = (DbORNotation) notations.get(selidx);
+            DbORNotation notation = notations.get(selidx);
             try {
                 project.getDb().beginTrans(Db.WRITE_TRANS, kSetERDefaultNotation);
                 if (notation != null)
@@ -110,8 +110,8 @@ public final class SetProjectDefaultERNotationAction extends AbstractDomainActio
 
         DbEnumeration dbEnum = project.getComponents().elements(DbORNotation.metaClass);
         while (dbEnum.hasMoreElements()) {
-            Object notation = dbEnum.nextElement();
-            int mode = ((DbORNotation) notation).getNotationMode().intValue();
+            DbORNotation notation = (DbORNotation) dbEnum.nextElement();
+            int mode = notation.getNotationMode().intValue();
             if (mode == DbSMSNotation.ER_MODE) {
                 notations.add(notation);
                 if (notation == selnotation) {
@@ -123,7 +123,7 @@ public final class SetProjectDefaultERNotationAction extends AbstractDomainActio
 
         Object[] items = new Object[notations.size()];
         for (int i = 0; i < notations.size(); i++) {
-            items[i] = ((DbORNotation) notations.get(i)).getName();
+            items[i] = notations.get(i).getName();
         }
 
         setDomainValues(items);
