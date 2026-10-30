@@ -39,8 +39,7 @@ import org.modelsphere.jack.util.ExceptionMessage;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.List;
 
 /**
  * @author Grandite
@@ -384,10 +383,9 @@ public class DiagramStatisticsDialog extends JDialog {
         DefaultListModel listModelCommonConcepts = new DefaultListModel();
         DefaultListModel listModelOccurrences = new DefaultListModel();
 
-        Vector results = dgmStatsProvider.getResults();
-        Enumeration enumResults = results.elements();
-        while (enumResults.hasMoreElements()) {
-            ConceptPair pair = (ConceptPair) enumResults.nextElement();
+        List<?> results = dgmStatsProvider.getResults();
+        for (Object result : results) {
+            ConceptPair pair = (ConceptPair) result;
             String name = pair.getConceptName();
             int nCount = pair.getOccurrencesCount();
             if (pair.IsSpecialized()) {

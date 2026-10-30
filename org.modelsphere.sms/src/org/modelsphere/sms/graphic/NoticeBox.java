@@ -327,17 +327,12 @@ public class NoticeBox extends GraphicNode implements ActionInformation, DbRefre
         SMSHorizontalAlignment alignment = m_notice.getAlignment();
         int align = GraphicUtil.LEFT_ALIGNMENT; //default alignment
         if (alignment != null) {
-            switch (alignment.getValue()) {
-            case SMSHorizontalAlignment.LEFT:
-                align = GraphicUtil.LEFT_ALIGNMENT;
-                break;
-            case SMSHorizontalAlignment.CENTER:
-                align = GraphicUtil.CENTER_ALIGNMENT;
-                break;
-            case SMSHorizontalAlignment.RIGHT:
-                align = GraphicUtil.RIGHT_ALIGNMENT;
-                break;
-            } //end switch
+            align = switch (alignment.getValue()) {
+                case SMSHorizontalAlignment.LEFT -> GraphicUtil.LEFT_ALIGNMENT;
+                case SMSHorizontalAlignment.CENTER -> GraphicUtil.CENTER_ALIGNMENT;
+                case SMSHorizontalAlignment.RIGHT -> GraphicUtil.RIGHT_ALIGNMENT;
+                default -> align;
+            }; //end switch
         } //end if
 
         //create compartments
@@ -365,17 +360,12 @@ public class NoticeBox extends GraphicNode implements ActionInformation, DbRefre
 
         int align = GraphicUtil.LEFT_ALIGNMENT; //default alignment
         if (alignment != null) {
-            switch (alignment.getValue()) {
-            case SMSHorizontalAlignment.LEFT:
-                align = GraphicUtil.LEFT_ALIGNMENT;
-                break;
-            case SMSHorizontalAlignment.CENTER:
-                align = GraphicUtil.CENTER_ALIGNMENT;
-                break;
-            case SMSHorizontalAlignment.RIGHT:
-                align = GraphicUtil.RIGHT_ALIGNMENT;
-                break;
-            } //end switch
+            align = switch (alignment.getValue()) {
+                case SMSHorizontalAlignment.LEFT -> GraphicUtil.LEFT_ALIGNMENT;
+                case SMSHorizontalAlignment.CENTER -> GraphicUtil.CENTER_ALIGNMENT;
+                case SMSHorizontalAlignment.RIGHT -> GraphicUtil.RIGHT_ALIGNMENT;
+                default -> align;
+            }; //end switch
         } //end if
 
         //create compartments
@@ -400,11 +390,9 @@ public class NoticeBox extends GraphicNode implements ActionInformation, DbRefre
         DbSMSStyle style = getStyleFrom(m_noticeGo);
         if (style != null) {
             if (style instanceof DbORStyle) {
-                stereotypeDisplayed = ((DbORStyle) style).getOr_umlStereotypeDisplayed()
-                        .booleanValue();
+                stereotypeDisplayed = ((DbORStyle) style).getOr_umlStereotypeDisplayed();
             } else if (style instanceof DbOOStyle) {
-                stereotypeDisplayed = ((DbOOStyle) style).getOojv_umlStereotypeDisplayed()
-                        .booleanValue();
+                stereotypeDisplayed = ((DbOOStyle) style).getOojv_umlStereotypeDisplayed();
             }
         } //end if
 
@@ -412,7 +400,7 @@ public class NoticeBox extends GraphicNode implements ActionInformation, DbRefre
             return;
 
         String stereotypeName = getTableStereotypeName(m_notice);
-        Vector composite = getStereotypeImageData(m_notice);
+        List<CompositeCellRendererElement> composite = getStereotypeImageData(m_notice);
 
         int stereotypeStyle = 0;
         m_stereotypeZone.addColumn(new ColumnCellsOption(stereotypeNameCRO,
@@ -449,14 +437,14 @@ public class NoticeBox extends GraphicNode implements ActionInformation, DbRefre
 
     } //end populateStereotype()
 
-    private Vector getStereotypeImageData(DbSMSNotice notice) throws DbException {
-        Vector compositeElements = new Vector();
+    private List<CompositeCellRendererElement> getStereotypeImageData(DbSMSNotice notice) throws DbException {
+        List<CompositeCellRendererElement> compositeElements = new Vector<>();
 
         DbSMSStereotype stereotype = notice.getUmlStereotype();
         if (stereotype != null) {
             Image image = stereotype.getIcon();
             if (image != null) {
-                compositeElements.addElement(new CompositeCellRendererElement(
+                compositeElements.add(new CompositeCellRendererElement(
                         new ImageCellRenderer(), image));
             }
         } //end if
@@ -491,7 +479,7 @@ public class NoticeBox extends GraphicNode implements ActionInformation, DbRefre
             String pathname = getPath(externalDoc);
             File file = new File(pathname);
             String filename = file.getName();
-            Vector composite = getDocumentImageData(m_notice, file);
+            List<?> composite = getDocumentImageData(m_notice, file);
             m_documentZone.set(0, 0, new ZoneCell(m_notice, composite));
             m_documentZone.set(0, 1, new ZoneCell(m_notice, filename));
             m_documentZone.setVisible(true);
@@ -530,7 +518,7 @@ public class NoticeBox extends GraphicNode implements ActionInformation, DbRefre
     } //end getActualName()
 
     protected Vector getDocumentImageData(DbSMSNotice notice, File file) throws DbException {
-        Vector compositeElements = new Vector();
+        Vector<CompositeCellRendererElement> compositeElements = new Vector<>();
 
         ImageIcon icon;
         Icon systemIcon = FileSystemView.getFileSystemView().getSystemIcon(file);

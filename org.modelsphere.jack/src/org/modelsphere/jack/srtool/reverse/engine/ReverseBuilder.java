@@ -627,7 +627,7 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
 
     // If MULTI_PART_OBJECT, merge parts
     private void mergeMultiPartObjects() {
-        if (tempObjects.size() == 0)
+        if (tempObjects.isEmpty())
             return;
         String concept = (String) ((HashMap) tempObjects.get(0)).get(CURRENT_OBJECT_CONCEPT_NAME);
         if (!multiPartConcept.contains(concept))
@@ -642,8 +642,8 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
         if (fields == null)
             fields = new HashSet();
 
-        List toMergeFieldMaps = new ArrayList(); // String tag to merge
-        List toMergeKeys = new ArrayList(); // String tag to merge
+        List<FieldMapping> toMergeFieldMaps = new ArrayList<>(); // String tag to merge
+        List<String> toMergeKeys = new ArrayList<>(); // String tag to merge
         for (Object field : fields) {
             FieldMapping fieldmap = (FieldMapping) field;
             if ((fieldmap.options > 0) && (fieldmap.srxElement instanceof SrxPrimitiveElement)) {
@@ -687,7 +687,7 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
                 String newValue = (String) objmap.get(key);
                 String resultValue = null;
 
-                int options = ((FieldMapping) toMergeFieldMaps.get(idx)).options;
+                int options = toMergeFieldMaps.get(idx).options;
                 if ((options & APPEND_EOL_TO_PART) != 0)
                     newValue = (newValue == null) ? null : newValue.concat(EOL);
                 if ((options & APPEND_OLD_VALUE_TO_NEW_VALUE) != 0)

@@ -388,10 +388,10 @@ public class ZoneBox extends GraphicComponent {
     }
 
     public final CellID[] getSelectedCells() {
-        Vector vecSelCells = new Vector();
+        Vector<CellID> vecSelCells = new Vector<>();
         int nb = zones.size();
-        for (int i = 0; i < nb; i++) {
-            Zone zone = (Zone) zones.get(i);
+        for (Object o : zones) {
+            Zone zone = (Zone) o;
             zone.getSelectedCells(vecSelCells);
         }
         CellID[] selCells = new CellID[vecSelCells.size()];
@@ -401,8 +401,7 @@ public class ZoneBox extends GraphicComponent {
 
     public final void deselectAllCells() {
         CellID[] selCells = getSelectedCells();
-        for (int i = 0; i < selCells.length; i++)
-            selectCell(selCells[i], false);
+        for (CellID selCell : selCells) selectCell(selCell, false);
     }
 
     public final boolean isCellSelected(CellID cellID) {

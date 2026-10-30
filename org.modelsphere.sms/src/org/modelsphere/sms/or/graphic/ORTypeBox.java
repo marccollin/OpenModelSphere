@@ -456,9 +456,9 @@ public class ORTypeBox extends GraphicNode implements ActionInformation,
                 new Object[] { Integer.valueOf(index), Integer.valueOf(count) });
     }
 
-    private final Vector getPrefixData(DbSemanticalObject semObj) throws DbException {
+    private final List<CompositeCellRendererElement> getPrefixData(DbSemanticalObject semObj) throws DbException {
         Debug.assert2(semObj != null, "null argument not allowed. ORTypeBox.getPrefixData().");
-        Vector compositeElements = new Vector();
+        List<CompositeCellRendererElement> compositeElements = new Vector<>();
 
         // Domain Prefix
         if (semObj instanceof DbORDomain) {
@@ -476,16 +476,16 @@ public class ORTypeBox extends GraphicNode implements ActionInformation,
         return compositeElements;
     }
 
-    private final void addToCompositeElements(Vector compositeElements, DbtPrefix prefix) {
+    private final void addToCompositeElements(List<CompositeCellRendererElement> compositeElements, DbtPrefix prefix) {
         if (prefix.getDisplayedComponent() == DbtPrefix.DISPLAY_TEXT) {
             String textPrefix = prefix.getText();
             if (textPrefix != null && textPrefix.length() > 0)
-                compositeElements.addElement(new CompositeCellRendererElement(
+                compositeElements.add(new CompositeCellRendererElement(
                         new StringCellRenderer(), textPrefix));
         } else if (prefix.getDisplayedComponent() == DbtPrefix.DISPLAY_IMAGE) {
             Image imagePrefix = prefix.getImage();
             if (imagePrefix != null)
-                compositeElements.addElement(new CompositeCellRendererElement(
+                compositeElements.add(new CompositeCellRendererElement(
                         new ImageCellRenderer(), imagePrefix));
         }
     }

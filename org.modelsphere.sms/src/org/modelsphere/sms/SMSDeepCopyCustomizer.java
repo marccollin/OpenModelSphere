@@ -87,8 +87,8 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
     protected DbSMSTargetSystem targetSystem; // composite target system.
     protected int rootID; // root ID of the composite target system (-1 if not
     // in a OR model).
-    private Map typeMap; // built-in types of the composite target system.
-    private Map domainMap; // domains of the composite target system.
+    private Map<String, DbORBuiltInType> typeMap; // built-in types of the composite target system.
+    private Map<String, DbORDomain> domainMap; // domains of the composite target system.
 
     private DbBEModel sourceBEModel;
     private DbBEModel targetBEModel;
@@ -131,8 +131,8 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
             throws DbException {
         TargetSystem ts = TargetSystemManager.getSingleton();
         List<Serializable> srcTargets = TargetSystem.getTargetSystems(srcProject, true);
-        for (int i = 0; i < srcTargets.size(); i++) {
-            int targetID = ((DbSMSTargetSystem) srcTargets.get(i)).getID().intValue();
+        for (Serializable srcTarget : srcTargets) {
+            int targetID = ((DbSMSTargetSystem) srcTarget).getID().intValue();
             if (TargetSystem.getSpecificTargetSystem(destProject, targetID) == null)
                 ts.createTargetSystem(destProject, targetID);
         }
@@ -426,7 +426,7 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
     // target system
     public final DbORBuiltInType getTypeFromName(String name) throws DbException {
         if (typeMap == null) {
-            typeMap = new HashMap();
+            typeMap = new HashMap<>();
             DbEnumeration dbEnum = targetSystem.getBuiltInTypePackage().getComponents().elements(
                     DbORBuiltInType.metaClass);
             while (dbEnum.hasMoreElements()) {
@@ -435,14 +435,14 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
             }
             dbEnum.close();
         }
-        return (DbORBuiltInType) typeMap.get(name);
+        return typeMap.get(name);
     }
 
     // Returns null if name is null or there is no domain of this name in the
     // target system
     public final DbORDomain getDomainFromName(String name) throws DbException {
         if (domainMap == null) {
-            domainMap = new HashMap();
+            domainMap = new HashMap<>();
             DbEnumeration enumModel = targetSystem.getPackages()
                     .elements(DbORDomainModel.metaClass);
             while (enumModel.hasMoreElements()) {
@@ -456,7 +456,7 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
             }
             enumModel.close();
         }
-        return (DbORDomain) domainMap.get(name);
+        return domainMap.get(name);
     }
 
     // If copy from a super-schema to a sub-schema, or the opposite side, set

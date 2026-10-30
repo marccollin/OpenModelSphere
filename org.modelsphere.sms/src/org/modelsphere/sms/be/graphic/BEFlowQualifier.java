@@ -45,7 +45,6 @@ import org.modelsphere.jack.srtool.graphic.SrLineLabel;
 import org.modelsphere.sms.be.db.DbBEQualifier;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 import java.util.List;
@@ -57,12 +56,12 @@ public class BEFlowQualifier extends SrLineLabel {
         super(diag, semObj, flow, offsetMF, "");
         zone.setCellRenderer(new CompositeCellRenderer());
         Iterator i = qualifiers.iterator();
-        Vector icons = new Vector();
+        List<CompositeCellRendererElement> icons = new Vector<>();
         while (i.hasNext()) {
             DbBEQualifier qualifier = (DbBEQualifier) i.next();
             Image icon = qualifier.getIcon();
             if (icon != null)
-                icons.addElement(new CompositeCellRendererElement(new ImageCellRenderer(), icon));
+                icons.add(new CompositeCellRendererElement(new ImageCellRenderer(), icon));
         }
         zone.setValue(new ZoneCell(semObj, icons));
     }

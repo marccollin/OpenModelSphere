@@ -43,7 +43,7 @@ import org.modelsphere.sms.oo.db.DbOODiagram;
 import org.modelsphere.sms.oo.db.DbOOPackage;
 import org.modelsphere.sms.oo.db.DbOOStyle;
 
-import java.util.Vector;
+import java.util.List;
 
 public class OOPackage extends PackageBox {
     public OOPackage(org.modelsphere.jack.graphic.Diagram diag, DbSMSPackageGo newPackageGO)
@@ -53,19 +53,19 @@ public class OOPackage extends PackageBox {
 
     protected void populateStereotype() throws DbException {
         String stereotypeName = getStereotypeName(packageSO);
-        Vector composite = getStereotypeImageData(packageSO);
+        List<?> composite = getStereotypeImageData(packageSO);
         DbOOStyle style = getStyleFrom(packageGO);
         stereotypeZone.clear();
 
         int stereotypeStyle = 0;
         Boolean b = (style == null) ? Boolean.TRUE : style.getOojv_umlStereotypeDisplayed();
-        if ((b != null) && b.booleanValue()) {
+        if ((b != null) && b) {
             stereotypeZone.addColumn(new ColumnCellsOption(stereotypeNameCRO,
                     new SMSStereotypeEditor(DbOOPackage.fUmlStereotype)));
             stereotypeStyle += 1;
         }
         b = (style == null) ? Boolean.TRUE : style.getOojv_umlStereotypeIconDisplayed();
-        if ((b != null) && b.booleanValue()) {
+        if ((b != null) && b) {
             stereotypeZone.addColumn(new ColumnCellsOption(stereotypeImageCRO,
                     new SMSStereotypeEditor(DbOOPackage.fUmlStereotype)));
             stereotypeStyle += 2;

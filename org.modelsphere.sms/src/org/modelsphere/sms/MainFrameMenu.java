@@ -625,7 +625,7 @@ public class MainFrameMenu extends org.modelsphere.jack.srtool.MainFrameMenu {
 
     public JackMenu createDefaultHelpMenu() {
 
-        Vector actionVector = new Vector();
+        List<Object> actionVector = new Vector<>();
 
         JackMenu subMenuAdvanced = new JackMenu(ADVANCED);
         subMenuAdvanced.add(SMSActionsStore.getSingleton().getAction(SMSActionsStore.SAFE_MODE));
@@ -652,7 +652,7 @@ public class MainFrameMenu extends org.modelsphere.jack.srtool.MainFrameMenu {
 
     private JackMenu createDefaultDebugMenu() {
 
-        Vector actionVector = new Vector();
+        List<Object> actionVector = new Vector<>();
 
         // put in a vector to be able to do conditional inclusions
         actionVector.add(kDebug);
@@ -673,15 +673,14 @@ public class MainFrameMenu extends org.modelsphere.jack.srtool.MainFrameMenu {
         actionVector.add(new org.modelsphere.sms.or.actions.ChangeTargetSystemAction());
         Object[] objects = actionVector.toArray();
 
-        JackMenu menu = MainFrameMenu.createMenu(MENU_DEBUG, objects);
-        return menu;
+        return MainFrameMenu.createMenu(MENU_DEBUG, objects);
     }
 
     private void updateMenuToolBar() {
         MainFrame.getSingleton().populateToolBarMenu(toolBarMenu);
     }
 
-    private void addComHelpPluginAction(Vector actionVector) {
+    private void addComHelpPluginAction(List<Object> actionVector) {
         String helpPluginPath = null;
         //Locale locale = LocaleMgr.getLocaleFromPreferences();
 

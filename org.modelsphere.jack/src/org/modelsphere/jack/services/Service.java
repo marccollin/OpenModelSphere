@@ -225,10 +225,10 @@ public interface Service {
                         out.println(kPwRequiredError);
                     else {
                         // Display a list of all services currently running
-                        Enumeration keys = server.services.keys();
+                        Enumeration<Integer> keys = server.services.keys();
                         while (keys.hasMoreElements()) {
-                            Integer port = (Integer) keys.nextElement();
-                            ServiceServer.Listener listener = (ServiceServer.Listener) server.services
+                            Integer port = keys.nextElement();
+                            ServiceServer.Listener listener = server.services
                                     .get(port);
                             String msg = MessageFormat.format(kServiceAndPortPattern, new Object[] {
                                     listener.service.getClass().getName(), String.valueOf(port) });

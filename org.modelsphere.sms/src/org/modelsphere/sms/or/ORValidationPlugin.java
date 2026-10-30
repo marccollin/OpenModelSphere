@@ -587,7 +587,7 @@ public abstract class ORValidationPlugin implements Plugin {
      */
     public void validatePhysicalNames(List aList, StringBuffer buffer, MetaClass metaClass)
             throws DbException {
-        Map physicalNameMap = new HashMap();
+        Map<String, DbSemanticalObject> physicalNameMap = new HashMap<>();
 
         if (metaClass != null) {
             for (Object o : aList) {

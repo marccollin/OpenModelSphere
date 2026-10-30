@@ -60,7 +60,7 @@ final class ScopeTreeModel extends CheckTreeModel {
     ScopeTreeModel(DefaultMutableTreeNode root, DBMSReverseOptions options) {
         super(root);
 
-        Map table = new Hashtable();
+        Map<String, ScopeTreeNode> table = new Hashtable<>();
         ObjectScope[] scope = options.getObjectsScope();
 
         if (scope == null)
@@ -78,7 +78,7 @@ final class ScopeTreeModel extends CheckTreeModel {
                     root.add(conceptNode);
                 } else {
                     String key = conceptParent.toString();
-                    ScopeTreeNode childNode = (ScopeTreeNode) table.get(key);
+                    ScopeTreeNode childNode = table.get(key);
                     childNode.add(conceptNode);
                 }
 
@@ -100,9 +100,9 @@ final class ScopeTreeModel extends CheckTreeModel {
         MetaClass metaclass = MetaClass.find(metaclassname);
         if (metaclass == null) // obsolete metaClass
             return null;
-        for (int i = 0; i < scope.length; i++) {
-            if (scope[i].metaClass == metaclass)
-                return scope[i];
+        for (ObjectScope objectScope : scope) {
+            if (objectScope.metaClass == metaclass)
+                return objectScope;
         }
         return null;
     }

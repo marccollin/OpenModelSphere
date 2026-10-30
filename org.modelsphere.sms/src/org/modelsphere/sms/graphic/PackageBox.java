@@ -63,7 +63,6 @@ import org.modelsphere.sms.db.DbSMSStyle;
 
 import java.awt.*;
 import java.util.Vector;
-import java.util.List;
 
 public abstract class PackageBox extends GraphicNode implements ActionInformation {
 
@@ -196,7 +195,7 @@ public abstract class PackageBox extends GraphicNode implements ActionInformatio
     protected abstract void populateStereotype() throws DbException;
 
     protected Vector getStereotypeImageData(DbSMSPackage packageSO) throws DbException {
-        Vector compositeElements = new Vector();
+        Vector<CompositeCellRendererElement> compositeElements = new Vector<>();
 
         DbSMSStereotype stereotype = packageSO.getUmlStereotype();
         if (stereotype != null) {

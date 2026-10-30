@@ -54,8 +54,8 @@ public class MultiplicityLabel extends SrLineLabel {
     }
 
     public final void setValue(String prefix, String value, boolean underline) {
-        List elements = new Vector();
-        if (prefix.length() != 0)
+        List<CompositeCellRendererElement> elements = new Vector<>();
+        if (!prefix.isEmpty())
             elements.add(new CompositeCellRendererElement(new StringCellRenderer(), prefix));
         elements.add(new CompositeCellRendererElement(new StringCellRenderer(underline, false),
                 value));

@@ -91,7 +91,7 @@ public final class XmlParser implements DocumentHandler {
     private boolean expectingTargetTable = false;
     private boolean isDebug = false;
     private int newOccurrenceNameEmitted = 0;
-    private Map idTable = new Hashtable(); // contains XMI ID for further references
+    private Map<String, String> idTable = new Hashtable<>(); // contains XMI ID for further references
     private Stack elementStack = new Stack(); // contains all XMI elements (class, name, type)
     private Stack occurrenceNameStack = new Stack(); // contains names of XMI elements which are occurrences (such as class names, attr names, etc.)
 
@@ -224,7 +224,7 @@ public final class XmlParser implements DocumentHandler {
                     String attr = attrs.getName(i);
                     if (attr.equals(kTarget)) {
                         String key = attrs.getValue(i);
-                        String name = (String) idTable.get(key);
+                        String name = idTable.get(key);
                         if (name != null) {
                             emit(name + eol);
                         }

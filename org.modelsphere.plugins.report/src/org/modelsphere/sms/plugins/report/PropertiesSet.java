@@ -45,6 +45,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Map;
 import java.util.Set;
 
 /*
@@ -59,7 +60,7 @@ public class PropertiesSet {
     private static final String SEPARATOR = "="; //NOT LOCALIZABLE
     private static final String EOL = "\r\n";//NOT LOCALIZABLE
 
-    private Hashtable properties;
+    private Map<String, String> properties;
     private File file;
     private boolean setFileEditable = false;
 
@@ -69,7 +70,7 @@ public class PropertiesSet {
     }
 
     private void load() {
-        properties = new Hashtable();
+        properties = new Hashtable<>();
         try {
             if (file.exists()) {
                 FileInputStream inFile = new FileInputStream(file);
@@ -121,13 +122,12 @@ public class PropertiesSet {
                 outStream.writeBytes(EOL);
             }
 
-            Set keySet = new HashSet(properties.keySet());
-            Object[] sortedkeys = keySet.toArray();
+            Set<String> keySet = new HashSet<>(properties.keySet());
+            String[] sortedkeys = keySet.toArray(new String[0]);
             Arrays.sort(sortedkeys);
 
-            for (int i = 0; i < sortedkeys.length; i++) {
-                String key = (String) sortedkeys[i];
-                String value = (String) properties.get(key);
+            for (String key : sortedkeys) {
+                String value = properties.get(key);
                 if ((key != null) && (value != null))
                     outStream.writeBytes(key + SEPARATOR + value + EOL);
             }
@@ -174,7 +174,7 @@ public class PropertiesSet {
      * defaultValue and return it.
      */
     public String getPropertyString(String key, String defaultValue) {
-        String value = (String) properties.get(key);
+        String value = properties.get(key);
         if (value != null)
             return value;
         if (defaultValue != null) {
@@ -188,7 +188,7 @@ public class PropertiesSet {
      * defaultValue and return it.
      */
     public Integer getPropertyInteger(String key, Integer defaultValue) {
-        String value = (String) properties.get(key);
+        String value = properties.get(key);
         Integer valueInt = defaultValue;
         if (value != null) {
             try {
@@ -208,7 +208,7 @@ public class PropertiesSet {
      * defaultValue and return it.
      */
     public Boolean getPropertyBoolean(String key, Boolean defaultValue) {
-        String value = (String) properties.get(key);
+        String value = properties.get(key);
         Boolean valueBoolean = defaultValue;
         if (value != null) {
             valueBoolean = value.equalsIgnoreCase("true"); //NOT LOCALIZABLE
@@ -225,7 +225,7 @@ public class PropertiesSet {
      * defaultValue and return it.
      */
     public Long getPropertyLong(String key, Long defaultValue) {
-        String value = (String) properties.get(key);
+        String value = properties.get(key);
         Long valueLong = defaultValue;
         if (value != null) {
             try {

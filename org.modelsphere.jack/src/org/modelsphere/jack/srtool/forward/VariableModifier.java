@@ -70,7 +70,7 @@ import java.util.Map;
 public final class VariableModifier extends Modifier {
     private static final String kRule = "$rule;"; // NOT LOCALIZABLE, internal use only
 
-    static Map allVariables = new Hashtable();
+    static Map<String, String> allVariables = new Hashtable<>();
     String varKey;
     Rule rule;
 
@@ -100,7 +100,7 @@ public final class VariableModifier extends Modifier {
     } // end expand()
 
     public static String getValueOf(String varKey) {
-        String value = (String) allVariables.get(varKey);
+        String value = allVariables.get(varKey);
         return value;
     }
 
