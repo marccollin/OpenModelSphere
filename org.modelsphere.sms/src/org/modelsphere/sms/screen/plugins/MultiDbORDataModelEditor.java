@@ -47,7 +47,7 @@ import java.util.List;
 
 public class MultiDbORDataModelEditor extends MultiDbSemanticalObjectEditor {
 
-    protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
+    protected Collection<DbORDataModel> getSelectionSet(DbObject parentDbo) throws DbException {
         List<DbORDataModel> dataModels = new ArrayList<>();
         DbEnumeration dbEnum = parentDbo.getProject().componentTree(DbORDataModel.metaClass);
         while (dbEnum.hasMoreElements()) {

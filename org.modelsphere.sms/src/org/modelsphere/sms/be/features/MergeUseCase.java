@@ -602,12 +602,12 @@ public final class MergeUseCase {
         deepCopy(dbos, target);
     }
 
-    private DbObject[] deepCopy(List components, DbObject targetComposite) throws DbException {
+    private DbObject[] deepCopy(List<? extends DbObject> components, DbObject targetComposite) throws DbException {
         if (components == null || components.isEmpty())
             return null;
         DbObject[] sourceDbos = new DbObject[components.size()];
         for (int i = 0; i < sourceDbos.length; i++)
-            sourceDbos[i] = (DbObject) components.get(i);
+            sourceDbos[i] = components.get(i);
 
         return DbObject.deepCopy(sourceDbos, targetComposite, copyCustomizer, false);
     }

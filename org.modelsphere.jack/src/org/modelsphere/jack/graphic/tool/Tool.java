@@ -61,7 +61,7 @@ public class Tool implements Cloneable {
     private static final Color MASTER_TOOL_HIGHLIGHT_COLOR = UIManager
             .getColor("List.selectionBackground");
 
-    public List masterActivationListeners = new ArrayList();
+    public List<MasterActivationListener> masterActivationListeners = new ArrayList<>();
 
     // Tool categories
     public static final int CREATION_TOOL = 0;
@@ -185,7 +185,7 @@ public class Tool implements Cloneable {
 
     public void fireMasterActivationListeners() {
         for (int i = masterActivationListeners.size(); --i >= 0;) {
-            MasterActivationListener listener = (MasterActivationListener) masterActivationListeners
+            MasterActivationListener listener = masterActivationListeners
                     .get(i);
             listener.masterActivated(this);
         }

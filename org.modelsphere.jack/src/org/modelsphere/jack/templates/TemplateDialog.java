@@ -102,7 +102,7 @@ public class TemplateDialog extends JDialog implements TestableWindow {
     private List m_tmpls;
     private List m_conds;
     private VariableScope m_variableList;
-    private List m_propertyList;
+    private List<AbstractProperty> m_propertyList;
     private CheckTreeNode m_fieldTree;
     private String m_scopedir;
 
@@ -314,10 +314,10 @@ public class TemplateDialog extends JDialog implements TestableWindow {
         List<AbstractProperty> propertyList = new ArrayList<>();
 
         // For each external variable
-        Iterator<?> iter = variableScope.getIterator();
+        Iterator<Map.Entry<String, VariableDecl.VariableStructure>> iter = variableScope.getIterator();
         while (iter.hasNext()) {
-            Map.Entry<?, ?> entry = (Map.Entry<?, ?>) iter.next();
-            VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) entry
+            Map.Entry<String, VariableDecl.VariableStructure> entry = iter.next();
+            VariableDecl.VariableStructure variable = entry
                     .getValue();
             if (variable.isExtern()) {
                 int type = variable.getType();
@@ -340,10 +340,10 @@ public class TemplateDialog extends JDialog implements TestableWindow {
         for (AbstractProperty property : propertyList) {
             String name = property.getName();
             Serializable value = property.getValue();
-            Iterator<?> iter2 = variableScope.getIterator();
+            Iterator<Map.Entry<String, VariableDecl.VariableStructure>> iter2 = variableScope.getIterator();
             while (iter2.hasNext()) {
-                Map.Entry<?, ?> entry = (Map.Entry<?, ?>) iter2.next();
-                VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) entry
+                Map.Entry<String, VariableDecl.VariableStructure> entry = iter2.next();
+                VariableDecl.VariableStructure variable = entry
                         .getValue();
                 if (variable.getDisplayName().equals(name)) {
                     variable.setValue(value);

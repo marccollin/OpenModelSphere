@@ -87,11 +87,10 @@ public final class DirectoryList {
 
     private void scanSubdir(List<File> dirlist, File root, boolean directoryOnly, FileFilter filter) {
         String[] list = root.list();
-        for (int i = 0; i < list.length; i++) {
-            String listElem = list[i];
+        for (String listElem : list) {
             File currFile = new File(root, listElem);
 
-            if (directoryOnly == true) {
+            if (directoryOnly) {
                 if (currFile.isDirectory()) {
                     dirlist.add(currFile);
                 }
@@ -111,7 +110,7 @@ public final class DirectoryList {
     } // end scanSubfolder()
 
     // iterates in the list
-    public Iterator getIterator() {
+    public Iterator<File> getIterator() {
         return m_dirList.iterator();
     }
 

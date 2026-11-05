@@ -53,9 +53,9 @@ import java.util.List;
 
 public final class ObjectNameReader implements InputReadable {
     // ObjectBuilder builder;
-    private final List nameList;
+    private final List<? super String> nameList;
 
-    public ObjectNameReader(List anArray) {
+    public ObjectNameReader(List<? super String> anArray) {
         nameList = anArray;
     }
 

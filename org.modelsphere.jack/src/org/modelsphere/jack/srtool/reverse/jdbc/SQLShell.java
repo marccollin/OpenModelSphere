@@ -152,17 +152,17 @@ public final class SQLShell extends Shell {
             if (errMsg != null) {
                 result += "\n" + errMsg + "\n"; // NOT LOCALIZABLE, escade code
             } else if (statementMsg.resultList != null) {
-                List resultList = statementMsg.resultList;
+                List<List<String>> resultList = statementMsg.resultList;
 
                 // for each row
-                Iterator iter = resultList.iterator();
+                Iterator<List<String>> iter = resultList.iterator();
                 while (iter.hasNext()) {
-                    List row = (List) iter.next();
+                    List<String> row = iter.next();
 
                     // for each column
-                    Iterator iter2 = row.iterator();
+                    Iterator<String> iter2 = row.iterator();
                     while (iter2.hasNext()) {
-                        String column = (String) iter2.next();
+                        String column = iter2.next();
                         result += column + "\t"; // NOT LOCALIZABLE, escade code
                     } // end of each column
 
@@ -171,15 +171,14 @@ public final class SQLShell extends Shell {
 
                 result += "\n"; // new line //NOT LOCALIZABLE, escade code
 
-                if (resultList.size() > 0 && statementMsg.columnList.size() > 0) {
+                if (!resultList.isEmpty() && !statementMsg.columnList.isEmpty()) {
                     resultCount++;
-                    String paneTitle = MessageFormat.format(kResult0, new Object[] { Integer.valueOf(
-                            resultCount) });
+                    String paneTitle = MessageFormat.format(kResult0, new Object[] {resultCount});
                     addSecondaryOutputPanel(new SQLShellResultSetPanel(statementMsg), paneTitle);
                 }
             } // end if
             else {
-                result += MessageFormat.format(kUpdate0, new Object[] { Integer.valueOf(updateCount) })
+                result += MessageFormat.format(kUpdate0, new Object[] {updateCount})
                         + "\n"; // NOT LOCALIZABLE, escade code
             }
 
@@ -237,12 +236,6 @@ public final class SQLShell extends Shell {
                     break;
                 }
             } // end while
-        } catch (FileNotFoundException ex) {
-            resultArea.append(ex.toString() + NEWLINE);
-        } catch (IOException ex) {
-            resultArea.append(ex.toString() + NEWLINE);
-        } catch (Shell.ShellException ex) {
-            resultArea.append(ex.toString() + NEWLINE);
         } catch (Exception ex) {
             resultArea.append(ex.toString() + NEWLINE);
         }

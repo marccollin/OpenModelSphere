@@ -187,16 +187,14 @@ public class LexerStream extends StreamTokenizer {
         }
     }
 
-    private class StatementList extends ArrayList {
+    private class StatementList extends ArrayList<Statement> {
         StatementList() {
         }
 
         public boolean contains(Object o) {
             boolean contained = false;
-            Iterator iterator = this.iterator();
 
-            while (iterator.hasNext()) {
-                Statement statement = (Statement) iterator.next();
+            for (Statement statement : this) {
                 if (o instanceof String) {
                     if (statement.keyword.equalsIgnoreCase((String) o)) {
                         contained = true;
@@ -215,10 +213,8 @@ public class LexerStream extends StreamTokenizer {
 
         char getTerminator(String kw) {
             char terminator = '\0';
-            Iterator iterator = this.iterator();
 
-            while (iterator.hasNext()) {
-                Statement statement = (Statement) iterator.next();
+            for (Statement statement : this) {
                 if (statement.keyword.equalsIgnoreCase(kw)) {
                     terminator = statement.terminator;
                     break;

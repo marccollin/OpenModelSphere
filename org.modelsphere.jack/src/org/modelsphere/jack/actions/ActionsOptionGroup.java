@@ -73,9 +73,9 @@ public class ActionsOptionGroup extends OptionGroup {
                 .getString("displayButtons"));
 
         private CheckList list = new CheckList();
-        private List items;
+        private List<CheckListItem> items;
 
-        ActionsOptionPanel(List items) {
+        ActionsOptionPanel(List<CheckListItem> items) {
             setLayout(new GridBagLayout());
             this.items = items;
             list.setListData(items.toArray());
@@ -103,8 +103,7 @@ public class ActionsOptionGroup extends OptionGroup {
         }
 
         public void init() {
-            for (Object o : items) {
-                CheckListItem item = (CheckListItem) o;
+            for (CheckListItem item : items) {
                 item.setSelected(((AbstractApplicationAction) item.getUserObject())
                         .getToolBarVisibilityOption());
             }
@@ -114,8 +113,7 @@ public class ActionsOptionGroup extends OptionGroup {
         public void actionPerformed(ActionEvent e) {
             Object source = e.getSource();
             if (source == defButton) {
-                for (Object o : items) {
-                    CheckListItem item = (CheckListItem) o;
+                for (CheckListItem item : items) {
                     item.setSelected(((AbstractApplicationAction) item.getUserObject())
                             .getDefaultToolBarVisibility());
                     PropertiesSet preferences = PropertiesManager.getPreferencePropertiesSet();

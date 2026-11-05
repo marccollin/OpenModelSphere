@@ -50,8 +50,8 @@ public class MultiDbINFDbspaceEditor extends MultiDbSemanticalObjectEditor {
     private DbORDatabase dbDatabase;
     private DbEnumeration dbEnum;
 
-    protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        List<DbObject> dbspaces = new ArrayList<>();
+    protected Collection<DbINFDbspace> getSelectionSet(DbObject parentDbo) throws DbException {
+        List<DbINFDbspace> dbspaces = new ArrayList<>();
         /*
          * if (parentDbo instanceof DbORDatabase){ int a = 3; return null; } else {
          */
@@ -61,7 +61,7 @@ public class MultiDbINFDbspaceEditor extends MultiDbSemanticalObjectEditor {
             if (database != null) {
                 dbEnum = database.getComponents().elements(DbINFDbspace.metaClass);
                 while (dbEnum.hasMoreElements())
-                    dbspaces.add(dbEnum.nextElement());
+                    dbspaces.add((DbINFDbspace) dbEnum.nextElement());
                 dbEnum.close();
             }
         }
@@ -74,7 +74,7 @@ public class MultiDbINFDbspaceEditor extends MultiDbSemanticalObjectEditor {
                         .elements(DbINFDbspace.metaClass);
             }
             while (dbEnum.hasMoreElements())
-                dbspaces.add(dbEnum.nextElement());
+                dbspaces.add((DbINFDbspace) dbEnum.nextElement());
             dbEnum.close();
         }
         return dbspaces;

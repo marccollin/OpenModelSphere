@@ -70,6 +70,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeCellEditor;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreeSelectionModel;
 import java.awt.*;
 import java.awt.dnd.Autoscroll;
@@ -544,7 +545,7 @@ public class ExplorerView extends JTree implements Autoscroll, TreeSelectionList
         if (treePaths != null) {
             for (int i = 0; i < treePaths.length; i++) {
                 DynamicNode node = (DynamicNode) treePaths[i].getLastPathComponent();
-                Enumeration enumeration = node.depthFirstEnumeration();
+                Enumeration<TreeNode> enumeration = node.depthFirstEnumeration();
                 while (enumeration.hasMoreElements()) {
                     DynamicNode nodeElem = (DynamicNode) enumeration.nextElement();
                     if (!nodeElem.isLeaf()) {
@@ -654,8 +655,8 @@ public class ExplorerView extends JTree implements Autoscroll, TreeSelectionList
         if (treePaths == null)
             return new Object[0];
         Set<Object> objs = new HashSet<>();
-        for (int i = 0; i < treePaths.length; i++) {
-            DynamicNode node = (DynamicNode) treePaths[i].getLastPathComponent();
+        for (TreePath treePath : treePaths) {
+            DynamicNode node = (DynamicNode) treePath.getLastPathComponent();
             if (node.getUserObject() instanceof GroupParams) {
                 int nb = node.getChildCount();
                 for (int j = 0; j < nb; j++) {
@@ -677,8 +678,8 @@ public class ExplorerView extends JTree implements Autoscroll, TreeSelectionList
         if (paths == null)
             return null;
         Object selProject = null;
-        for (int i = 0; i < paths.length; i++) {
-            for (DynamicNode node = (DynamicNode) paths[i].getLastPathComponent(); node != null; node = (DynamicNode) node
+        for (TreePath path : paths) {
+            for (DynamicNode node = (DynamicNode) path.getLastPathComponent(); node != null; node = (DynamicNode) node
                     .getParent()) {
                 Object userObject = node.getUserObject();
                 if (userObject instanceof GroupParams)

@@ -44,6 +44,7 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.or.features.dbms;
 
 import org.modelsphere.jack.awt.AwtUtil;
+import org.modelsphere.jack.awt.beans.impl.AbstractProperty;
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.awt.beans.impl.PropertyDialog;
 import org.modelsphere.jack.awt.tree.CheckTreeModel;
@@ -675,7 +676,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
 
     private static final class GenerationParametersAction extends AbstractAction {
         private VariableScope m_variableScope;
-        private List m_propertyList;
+        private List<AbstractProperty> m_propertyList;
         WizardPage m_wizardPage = null;
 
         GenerationParametersAction() {

@@ -47,7 +47,7 @@ import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.io.IoUtil;
 import org.modelsphere.jack.io.PathFile;
-import org.modelsphere.jack.plugins.Plugin2;
+import org.modelsphere.jack.plugins.Plugin;
 import org.modelsphere.jack.plugins.PluginMgr;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.util.ExceptionHandler;
@@ -334,11 +334,9 @@ public final class OptionDialog extends JDialog implements ActionListener {
         // Insert plugin groups
         OptionGroup pluginGroup = new OptionGroup(kPluginsOptionGroup);
         PluginMgr mgr = PluginMgr.getSingleInstance();
-        Map pluginsOptionsGroups = mgr.getPluginOptionGroups();
-        Iterator iter = pluginsOptionsGroups.keySet().iterator();
-        while (iter.hasNext()) {
-            Plugin2 plugin = (Plugin2) iter.next();
-            OptionGroup optiongroup = (OptionGroup) pluginsOptionsGroups.get(plugin);
+        Map<Plugin, OptionGroup> pluginsOptionsGroups = mgr.getPluginOptionGroups();
+        for (Plugin plugin : pluginsOptionsGroups.keySet()) {
+            OptionGroup optiongroup = pluginsOptionsGroups.get(plugin);
             if (optiongroup != null) {
                 pluginGroup.addOptionGroup(optiongroup);
             }
@@ -373,9 +371,7 @@ public final class OptionDialog extends JDialog implements ActionListener {
     }
 
     private void applyChanges() {
-        Iterator<OptionUpdate> iter = unsavedProperties.iterator();
-        while (iter.hasNext()) {
-            OptionUpdate update = iter.next();
+        for (OptionUpdate update : unsavedProperties) {
             if (update.value == null)
                 continue;
             if (update.value instanceof String) {
@@ -410,8 +406,7 @@ public final class OptionDialog extends JDialog implements ActionListener {
 
         //notify OptionPanel
         Component[] components = optionPanelContainer.getComponents();
-        for (int i = 0; i < components.length; i++) {
-            Component c = components[i];
+        for (Component c : components) {
             if (c instanceof OptionPanel) {
                 OptionPanel panel = (OptionPanel) c;
                 panel.terminate();
@@ -445,7 +440,7 @@ public final class OptionDialog extends JDialog implements ActionListener {
                 update.value = value;
         }
 
-        applyButton.setEnabled(unsavedProperties.size() > 0);
+        applyButton.setEnabled(!unsavedProperties.isEmpty());
 
     }
 

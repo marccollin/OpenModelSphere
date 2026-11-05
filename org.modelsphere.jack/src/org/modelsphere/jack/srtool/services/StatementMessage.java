@@ -51,8 +51,8 @@ import java.util.List;
 public class StatementMessage extends ServiceMessage {
     public int connectionId; // in
     public String statement; // in
-    public List resultList = new ArrayList(); // out
-    public List columnList = new ArrayList(); // out
+    public List<List<String>> resultList = new ArrayList<>(); // out
+    public List<String> columnList = new ArrayList<>(); // out
     public int updateCount = 0; // out
 
     public StatementMessage(int aConnectionId, String aStatement) {

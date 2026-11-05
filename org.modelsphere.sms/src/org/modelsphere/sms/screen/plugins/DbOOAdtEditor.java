@@ -36,14 +36,18 @@ package org.modelsphere.sms.screen.plugins;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.screen.plugins.DbSemanticalObjectEditor;
+import org.modelsphere.sms.oo.db.DbOOAdt;
 import org.modelsphere.sms.oo.java.db.util.AnyAdt;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class DbOOAdtEditor extends DbSemanticalObjectEditor {
 
-    protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        return AnyAdt.getAdtsAux(new ArrayList(), parentDbo.getProject());
+    protected Collection<DbOOAdt> getSelectionSet(DbObject parentDbo) throws DbException {
+        List<DbOOAdt> adts = new ArrayList<>();
+        AnyAdt.getAdtsAux(adts, parentDbo.getProject());
+        return adts;
     }
 }

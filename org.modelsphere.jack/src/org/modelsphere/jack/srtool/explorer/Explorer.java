@@ -309,7 +309,7 @@ public class Explorer extends DefaultTreeModel implements DbRefreshListener {
         
         List<DynamicNode> groupNodeList = new ArrayList<>();
         DynamicNode groupNode = null;
-        Enumeration enumeration = children.elements();
+        Enumeration<?> enumeration = children.elements();
         while (enumeration.hasMoreElements()) {
             DynamicNode childNode = (DynamicNode) enumeration.nextElement();
             GroupParams group = childNode.getGroupParams();

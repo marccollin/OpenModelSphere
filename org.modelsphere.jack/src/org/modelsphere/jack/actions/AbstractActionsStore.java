@@ -411,9 +411,9 @@ public abstract class AbstractActionsStore extends Hashtable {
         // debug
         // only
         if (c != null) {
-            Enumeration enumeration = keys();
+            Enumeration<?> enumeration = keys();
             while (enumeration.hasMoreElements()) {
-                Object key = (Object) enumeration.nextElement();
+                Object key = enumeration.nextElement();
                 if (key == null)
                     continue;
                 Object action = get(key);

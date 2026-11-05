@@ -347,7 +347,7 @@ public abstract class Rule implements Plugin, Serializable {
             return false;
         }
 
-        List excludeList = options.getExcludeList();
+        List<?> excludeList = options.getExcludeList();
 
         if (excludeList != null) {
             if (excludeList.contains(className)) {
@@ -367,7 +367,7 @@ public abstract class Rule implements Plugin, Serializable {
             return false;
         }
 
-        List excludeList = options.getExcludeList();
+        List<?> excludeList = options.getExcludeList();
 
         if (obj != null) {
             if (obj instanceof DbObject) {
@@ -409,17 +409,17 @@ public abstract class Rule implements Plugin, Serializable {
 
         //Used by Property rules, ignored by others
         //If a property's name is contained in the excludeList, then doesn't generate the property
-        private List m_propertyExcludeList;
+        private List<?> m_propertyExcludeList;
 
         public RuleOptions(DbObject refObject, MetaField[] metafields, Controller controller,
-                List excludeList) {
+                List<?> excludeList) {
             m_refObject = refObject;
             m_metafields = metafields;
             m_controller = controller;
             m_propertyExcludeList = excludeList;
         }
 
-        List getExcludeList() {
+        List<?> getExcludeList() {
             return m_propertyExcludeList;
         }
 

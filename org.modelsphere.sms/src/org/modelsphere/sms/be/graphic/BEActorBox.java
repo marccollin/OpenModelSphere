@@ -107,9 +107,9 @@ public class BEActorBox extends GraphicNode implements ActionInformation, DbRefr
     protected DbBEActorGo actorGO;
     protected DbBEActor actorSO;
     protected DbBENotation notation;
-    private Map zonesMap = null;
+    private Map<DbBESingleZoneDisplay, MatrixZone> zonesMap = null;
     private DbBEDiagram beDiagram;
-    private List zones = null;
+    private List<DbBESingleZoneDisplay> zones = null;
     private BEQualifier qualifiersGo = null;
     private List<DbBEQualifier> qualifiers = null;
     private String boxName = null;
@@ -230,9 +230,8 @@ public class BEActorBox extends GraphicNode implements ActionInformation, DbRefr
         if (mf != null)
             font = (Font) actorGO.find(mf);
 
-        CellRenderingOption cellOption = new CellRenderingOption(renderer != null ? renderer
+        return new CellRenderingOption(renderer != null ? renderer
                 : new StringCellRenderer(false, true), font, alignment);
-        return cellOption;
     }
 
     private MetaField getFontStyleMetaField(DbBESingleZoneDisplay zoneDisplay) throws DbException {
@@ -263,12 +262,12 @@ public class BEActorBox extends GraphicNode implements ActionInformation, DbRefr
         clearAllZones();
         if (zonesMap != null)
             removeZonesListener();
-        zonesMap = new HashMap();
+        zonesMap = new HashMap<>();
         zones = notation.getActorZones();
-        Iterator i = zones.iterator();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         int index = 0;
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             if (!zoneDisplay.isDisplayed())
                 continue;
             int alignment = ZoneJustification.getGraphicUtilAligmentValue(zoneDisplay
@@ -296,17 +295,13 @@ public class BEActorBox extends GraphicNode implements ActionInformation, DbRefr
     }
 
     private void removeZonesListener() {
-        Iterator i = zones.iterator();
-        while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+        for (DbBESingleZoneDisplay zoneDisplay : zones) {
             zoneDisplay.removeDbRefreshListener(this);
         }
     }
 
     private void addZonesListener() {
-        Iterator i = zones.iterator();
-        while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+        for (DbBESingleZoneDisplay zoneDisplay : zones) {
             zoneDisplay.addDbRefreshListener(this);
         }
     }
@@ -314,9 +309,7 @@ public class BEActorBox extends GraphicNode implements ActionInformation, DbRefr
     private void addQualifiersListener() {
         if (qualifiers == null)
             return;
-        Iterator i = qualifiers.iterator();
-        while (i.hasNext()) {
-            DbBEQualifier qualifier = (DbBEQualifier) i.next();
+        for (DbBEQualifier qualifier : qualifiers) {
             qualifier.addDbRefreshListener(this);
         }
     }
@@ -324,9 +317,7 @@ public class BEActorBox extends GraphicNode implements ActionInformation, DbRefr
     private void removeQualifiersListener() {
         if (qualifiers == null)
             return;
-        Iterator i = qualifiers.iterator();
-        while (i.hasNext()) {
-            DbBEQualifier qualifier = (DbBEQualifier) i.next();
+        for (DbBEQualifier qualifier : qualifiers) {
             qualifier.removeDbRefreshListener(this);
         }
         qualifiers = null;
@@ -335,16 +326,16 @@ public class BEActorBox extends GraphicNode implements ActionInformation, DbRefr
     private void populateZones() throws DbException {
         boxName = actorSO.getName();
         int zonePos = 0;
-        List zones = notation.getActorZones();
-        Iterator i = zones.iterator();
+        List<DbBESingleZoneDisplay> zones = notation.getActorZones();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             if (!zoneDisplay.isDisplayed())
                 continue;
 
             boolean bSetStereotypeEditor = false;
 
-            MatrixZone zone = (MatrixZone) zonesMap.get(zoneDisplay);
+            MatrixZone zone = zonesMap.get(zoneDisplay);
             if (zone != null) {
                 zone.removeAllRows();
                 int row = 0; // todo pour l'utilisation pour les enum...
@@ -439,226 +430,12 @@ public class BEActorBox extends GraphicNode implements ActionInformation, DbRefr
             qualifiersGo.delete(false);
         qualifiersGo = null;
         removeQualifiersListener();
-        if (((Boolean) actorGO.find(DbBEStyle.fDisplayQualiferDbBEActor)).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                booleanValue()) {
+        if ((Boolean) actorGO.find(DbBEStyle.fDisplayQualiferDbBEActor)) {
             DbEnumeration dbEnum = actorSO.getComponents().elements(DbBEActorQualifier.metaClass);
             while (dbEnum.hasMoreElements()) {
                 DbBEActorQualifier actorQualifier = (DbBEActorQualifier) dbEnum.nextElement();
                 if (qualifiers == null) {
-                    qualifiers = new ArrayList();
+                    qualifiers = new ArrayList<>();
                 }
                 qualifiers.add(actorQualifier.getQualifier());
             }

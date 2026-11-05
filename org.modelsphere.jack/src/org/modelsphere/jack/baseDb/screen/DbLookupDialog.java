@@ -69,7 +69,7 @@ public abstract class DbLookupDialog {
      * closes the transaction before displaying the dialog.
      */
     public static DefaultComparableElement selectDbo(Component comp, String title, Point center,
-            Db db, Collection dbos, DbObject currentDbo, String nullStr, boolean fullName)
+            Db db, Collection<?> dbos, DbObject currentDbo, String nullStr, boolean fullName)
             throws DbException {
         int nb = dbos.size();
         List<DefaultComparableElement> arrayDefaultComparableElements = new ArrayList<>();
@@ -84,9 +84,8 @@ public abstract class DbLookupDialog {
                 .isObjectEntityOrAssociation(currentDbo);
         boolean bObjectIsRelationship = terminologyUtil.isObjectAssociation(currentDbo);
 
-        Iterator iter = dbos.iterator();
-        while (iter.hasNext()) {
-            DbObject dbo = (DbObject) iter.next();
+        for (Object o : dbos) {
+            DbObject dbo = (DbObject) o;
             String name;
             if (fullName) {
                 name = ApplicationContext.getSemanticalModel().getDisplayText(dbo,

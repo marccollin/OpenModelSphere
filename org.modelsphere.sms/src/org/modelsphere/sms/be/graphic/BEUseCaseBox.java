@@ -123,12 +123,12 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
     protected DbBEUseCaseGo useCaseGO;
     protected DbBEUseCase useCaseSO;
     protected DbBENotation notation;
-    private Map zonesMap = null;
+    private Map<DbBESingleZoneDisplay, MatrixZone> zonesMap = null;
     private DbBEDiagram beDiagram;
-    private List zones = null;
-    private List resources = null;
+    private List<DbBESingleZoneDisplay> zones = null;
+    private List<DbBEResource> resources = null;
     private BEQualifier qualifiersGo = null;
-    private List qualifiers = null;
+    private List<DbBEQualifier> qualifiers = null;
     private String boxName = null;
     private DbObject composite = null;
 
@@ -374,12 +374,12 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
         clearAllZones();
         if (zonesMap != null)
             removeZonesListener();
-        zonesMap = new HashMap();
+        zonesMap = new HashMap<>();
         zones = notation.getUseCaseZones();
-        Iterator i = zones.iterator();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         int index = 0;
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
 
             zoneDisplay.getDb().beginReadTrans();
             boolean displayed = zoneDisplay.isDisplayed();
@@ -453,9 +453,9 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
 
     private void addZonesListener() {
 
-        Iterator i = zones.iterator();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             zoneDisplay.addDbRefreshListener(this);
         }
     }
@@ -464,9 +464,9 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
         if (zones == null)
             return;
 
-        Iterator i = zones.iterator();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             zoneDisplay.removeDbRefreshListener(this);
         }
     } // end removeZonesListener()
@@ -474,16 +474,16 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
     private void populateZones() throws DbException {
         boxName = useCaseSO.getName();
         int zonePos = 0;
-        List zones = notation.getUseCaseZones();
-        Iterator i = zones.iterator();
+        List<DbBESingleZoneDisplay> zones = notation.getUseCaseZones();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             if (!zoneDisplay.isDisplayed())
                 continue;
 
             boolean bSetStereotypeEditor = false;
 
-            MatrixZone zone = (MatrixZone) zonesMap.get(zoneDisplay);
+            MatrixZone zone = zonesMap.get(zoneDisplay);
             if (zone != null) {
                 zone.removeAllRows();
                 if (zoneDisplay.getMetaField() != null
@@ -660,7 +660,7 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
     private void populateResourcesZone(MatrixZone zone) throws DbException {
         if (resources != null)
             removeResoucesListener();
-        resources = new ArrayList();
+        resources = new ArrayList<>();
         DbEnumeration dbEnum = useCaseSO.getComponents().elements(DbBEUseCaseResource.metaClass);
         int row = 0;
         while (dbEnum.hasMoreElements()) {
@@ -677,9 +677,9 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
     private void addResoucesListener() {
         if (resources == null)
             return;
-        Iterator i = resources.iterator();
+        Iterator<DbBEResource> i = resources.iterator();
         while (i.hasNext()) {
-            DbBEResource resource = (DbBEResource) i.next();
+            DbBEResource resource = i.next();
             resource.addDbRefreshListener(this);
         }
     }
@@ -687,9 +687,9 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
     private void removeResoucesListener() {
         if (resources == null)
             return;
-        Iterator i = resources.iterator();
+        Iterator<DbBEResource> i = resources.iterator();
         while (i.hasNext()) {
-            DbBEResource resource = (DbBEResource) i.next();
+            DbBEResource resource = i.next();
             resource.removeDbRefreshListener(this);
         }
     }
@@ -697,9 +697,9 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
     private void addQualifiersListener() {
         if (qualifiers == null)
             return;
-        Iterator i = qualifiers.iterator();
+        Iterator<DbBEQualifier> i = qualifiers.iterator();
         while (i.hasNext()) {
-            DbBEQualifier qualifier = (DbBEQualifier) i.next();
+            DbBEQualifier qualifier = i.next();
             qualifier.addDbRefreshListener(this);
         }
     }
@@ -707,9 +707,9 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
     private void removeQualifiersListener() {
         if (qualifiers == null)
             return;
-        Iterator i = qualifiers.iterator();
+        Iterator<DbBEQualifier> i = qualifiers.iterator();
         while (i.hasNext()) {
-            DbBEQualifier qualifier = (DbBEQualifier) i.next();
+            DbBEQualifier qualifier = i.next();
             qualifier.removeDbRefreshListener(this);
         }
         qualifiers = null;
@@ -762,7 +762,7 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
             while (dbEnum.hasMoreElements()) {
                 DbBEUseCaseQualifier useCaseQualifier = (DbBEUseCaseQualifier) dbEnum.nextElement();
                 if (qualifiers == null) {
-                    qualifiers = new ArrayList();
+                    qualifiers = new ArrayList<>();
                 }
                 qualifiers.add(useCaseQualifier.getQualifier());
             }

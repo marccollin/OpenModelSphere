@@ -47,7 +47,7 @@ import java.util.List;
 
 public class DbORANestedItemEditor extends DbSemanticalObjectEditor {
 
-    protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
+    protected Collection<DbORAColumn> getSelectionSet(DbObject parentDbo) throws DbException {
         List<DbORAColumn> dbos = new ArrayList<>();
         DbEnumeration dbEnum = parentDbo.getCompositeOfType(DbORAbsTable.metaClass).getComponents()
                 .elements(DbORAColumn.metaClass);

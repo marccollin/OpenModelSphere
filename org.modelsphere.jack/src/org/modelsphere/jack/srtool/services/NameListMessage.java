@@ -53,11 +53,11 @@ public class NameListMessage extends ServiceMessage {
     public int connectionId; // in
     public URL filename; // String prive avec get()...
     public boolean commaSeparated; // in
-    public List ignoredStatementIds; // in
-    public List nameList = new ArrayList(); // out
+    public List<?> ignoredStatementIds; // in
+    public List<String> nameList = new ArrayList<>(); // out
 
     public NameListMessage(int aConnectionId, URL aFilename, boolean isCommaSeparated,
-            List ignoredStatementIds) {
+            List<?> ignoredStatementIds) {
         connectionId = aConnectionId;
         // String urlStr = null;
         // try{ urlStr = URLDecoder.decode(aFilename.getFile(), "UTF-8"); }

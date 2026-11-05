@@ -299,8 +299,8 @@ public final class SplitUseCase {
     }
 
     private void copyUDFsFor(MetaClass metaclass) throws DbException {
-        List udfs = Arrays.asList(DbUDF.getUDF(sourceModel.getProject(), metaclass));
-        for (Object udf : udfs) {
+        List<DbUDF> udfs = Arrays.asList(DbUDF.getUDF(sourceModel.getProject(), metaclass));
+        for (DbUDF udf : udfs) {
             println(udf, REPORT_INDENT);
         }
         deepCopy(udfs, targetModel.getProject());
@@ -543,8 +543,8 @@ public final class SplitUseCase {
             externalusecase.setSourceAlphanumericIdentifier(alphaId);
             externalusecase.setSourceNumericIdentifier(numericId);
 
-            if (((alphaId != null && alphaId.length() == 0) || alphaId == null)
-                    && ((numericId != null && numericId.length() == 0) || numericId == null)) {
+            if (((alphaId != null && alphaId.isEmpty()) || alphaId == null)
+                    && ((numericId != null && numericId.isEmpty()) || numericId == null)) {
                 println(dbo, REPORT_INDENT, true, LocaleMgr.message.getString("noExternalID"));
                 // return false;
             } else
@@ -657,12 +657,12 @@ public final class SplitUseCase {
         }
     }
 
-    private DbObject[] deepCopy(List components, DbObject targetComposite) throws DbException {
+    private DbObject[] deepCopy(List<? extends DbObject> components, DbObject targetComposite) throws DbException {
         if (components == null || components.isEmpty())
             return null;
         DbObject[] sourceDbos = new DbObject[components.size()];
         for (int i = 0; i < sourceDbos.length; i++)
-            sourceDbos[i] = (DbObject) components.get(i);
+            sourceDbos[i] = components.get(i);
 
         return DbObject.deepCopy(sourceDbos, targetComposite, copyCustomizer, false);
     }

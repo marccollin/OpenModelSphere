@@ -135,7 +135,7 @@ public final class NameListService extends NameListServiceProtocol {
         }
     }
 
-    private void executeParsedFile(NameListMessage nameListMessage, List cmds) {
+    private void executeParsedFile(NameListMessage nameListMessage, List<String> cmds) {
         BufferedWriter buffer = null;
         int connectionId = nameListMessage.connectionId;
         boolean commaSeparated = nameListMessage.commaSeparated;
@@ -174,10 +174,10 @@ public final class NameListService extends NameListServiceProtocol {
 
                 // execute each SQL statement
                 // we skip objects that don't need to be reversed
-                Iterator iter = cmds.iterator();
+                Iterator<String> iter = cmds.iterator();
                 int index = -1;
                 while (iter.hasNext()) {
-                    String cmd = (String) iter.next();
+                    String cmd = iter.next();
                     index++;
                     // check if this statement id is marked as <to skip>
                     if (nameListMessage.ignoredStatementIds != null

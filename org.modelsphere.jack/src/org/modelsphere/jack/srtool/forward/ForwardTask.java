@@ -92,7 +92,7 @@ public final class ForwardTask extends LongTask {
         worker.start();
     }
 
-    public final List getGeneratedFileList() {
+    public final List<Object> getGeneratedFileList() {
         return m_generatedFileList;
     }
 

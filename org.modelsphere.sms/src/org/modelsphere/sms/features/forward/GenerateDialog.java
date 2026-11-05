@@ -44,6 +44,7 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.features.forward;
 
 import org.modelsphere.jack.awt.AwtUtil;
+import org.modelsphere.jack.awt.beans.impl.AbstractProperty;
 import org.modelsphere.jack.awt.beans.impl.PropertyDialog;
 import org.modelsphere.jack.io.IoUtil;
 import org.modelsphere.jack.srtool.forward.VariableScope;
@@ -76,7 +77,7 @@ public class GenerateDialog extends JDialog {
     private static final String CLOSE = LocaleMgr.screen.getString("Close");
     private static File g_selectedDirectory = null; //last selected output directory property
     private File m_actualDir;
-    private List m_propertyList = null;
+    private List<AbstractProperty> m_propertyList = null;
     private VariableScope m_variableList;
 
     //called by GenericDDLBasicForwardToolkit

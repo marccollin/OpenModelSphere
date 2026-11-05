@@ -86,9 +86,9 @@ public class DisplayToolTipsOptionGroup extends OptionGroup {
                 .getString("additionalToolTipsContents"));
 
         private CheckList list = new CheckList();
-        private List items;
+        private List<CheckListItem> items;
 
-        DisplayToolTipsOptionPanel(List items) {
+        DisplayToolTipsOptionPanel(List<CheckListItem> items) {
             setLayout(new GridBagLayout());
             this.items = items;
             list.setListData(items.toArray());
@@ -115,8 +115,7 @@ public class DisplayToolTipsOptionGroup extends OptionGroup {
 
         public void init() {
             PropertiesSet preferences = PropertiesManager.getPreferencePropertiesSet();
-            for (Object o : items) {
-                CheckListItem item = (CheckListItem) o;
+            for (CheckListItem item : items) {
                 item.setSelected(preferences.getPropertyBoolean(DisplayToolTipsOptionGroup.class,
                         getKey((MetaField) item.getUserObject()), Boolean.FALSE));
             }
@@ -126,8 +125,7 @@ public class DisplayToolTipsOptionGroup extends OptionGroup {
         public void actionPerformed(ActionEvent e) {
             Object source = e.getSource();
             if (source == defButton) {
-                for (Object o : items) {
-                    CheckListItem item = (CheckListItem) o;
+                for (CheckListItem item : items) {
                     item.setSelected(false);
                     PropertiesSet preferences = PropertiesManager.getPreferencePropertiesSet();
                     fireOptionChanged(preferences, DisplayToolTipsOptionGroup.class,

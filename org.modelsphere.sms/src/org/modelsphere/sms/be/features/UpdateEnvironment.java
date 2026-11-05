@@ -212,11 +212,10 @@ public final class UpdateEnvironment {
         resetFrameMargins();
     } // end doUpdate()
 
-    private void updateFlowDiagrams(DbBEFlow flow, List matchedFlows, DbSMSClassifier classifier,
+    private void updateFlowDiagrams(DbBEFlow flow, List<DbBEFlow> matchedFlows, DbSMSClassifier classifier,
             DbBEDiagram parentDiagram, DbBEContextGo frame) throws DbException {
         for (DbBEDiagram diagram : useCaseDiags) {
-            for (Object o : matchedFlows) {
-                DbBEFlow matchedFlow = (DbBEFlow) o;
+            for (DbBEFlow matchedFlow : matchedFlows) {
                 DbRelationN flowGos = ApplicationContext.getSemanticalModel().getGos(matchedFlow);
                 boolean addGos = true;
                 if (flowGos != null) {

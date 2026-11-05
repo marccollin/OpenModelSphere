@@ -80,10 +80,9 @@ public abstract class DbSemanticalObjectShortEditor implements Editor {
             parentDbo.getDb().beginTrans(Db.READ_TRANS);
             DbObject currentDbo = (DbObject) renderer.unwrapValue(value);
             int selInd = -1;
-            Collection dbos = getSelectionSet(parentDbo);
-            Iterator iter = dbos.iterator();
-            while (iter.hasNext()) {
-                DbObject dbo = (DbObject) iter.next();
+            Collection<?> dbos = getSelectionSet(parentDbo);
+            for (Object o : dbos) {
+                DbObject dbo = (DbObject) o;
                 combo.addItem(new DefaultComparableElement(dbo, dbo.getName(), getUserObject(dbo)));
                 if (dbo == currentDbo)
                     selInd = combo.getItemCount() - 1;

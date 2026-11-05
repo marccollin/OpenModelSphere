@@ -103,10 +103,9 @@ public class MultiDbSemanticalObjectShortEditor implements TableCellEditor {
             parentDbos[0].getDb().beginTrans(Db.READ_TRANS);
             DbObject currentDbo = (DbObject) unwrapValue(value);
             int selInd = -1;
-            Collection dbos = getSelectionSet(parentDbos);
-            Iterator iter = dbos.iterator();
-            while (iter.hasNext()) {
-                DbObject dbo = (DbObject) iter.next();
+            Collection<?> dbos = getSelectionSet(parentDbos);
+            for (Object o : dbos) {
+                DbObject dbo = (DbObject) o;
                 combo.addItem(new DefaultComparableElement(dbo, dbo.getName(), getUserObject(dbo)));
                 if (dbo == currentDbo)
                     selInd = combo.getItemCount() - 1;
@@ -172,7 +171,7 @@ public class MultiDbSemanticalObjectShortEditor implements TableCellEditor {
                     iter.remove();
                 }
             }
-            if (childs.size() == 0)
+            if (childs.isEmpty())
                 break;
         }
         return childs;

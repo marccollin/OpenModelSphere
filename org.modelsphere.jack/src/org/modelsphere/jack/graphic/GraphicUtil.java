@@ -78,7 +78,7 @@ public abstract class GraphicUtil {
     public static final int JUSTIFY = 4;
     public static final int GAP_FROM_BORDER = 2;
 
-    private static Map desktopHints;
+    private static Map<?, ?> desktopHints;
 
     private static MediaTracker mediaTracker;
     private static int mediaTrackerID;
@@ -605,7 +605,7 @@ public abstract class GraphicUtil {
             return;
         if (desktopHints == null) {
             Toolkit tk = Toolkit.getDefaultToolkit();
-            desktopHints = (Map) (tk.getDesktopProperty("awt.font.desktophints"));
+            desktopHints = (Map<?, ?>) (tk.getDesktopProperty("awt.font.desktophints"));
         }
         if (desktopHints != null) {
             g2d.addRenderingHints(desktopHints);

@@ -69,7 +69,7 @@ public class VariableScope implements Serializable {
         m_hashmap.clear();
     }
 
-    public Set getKeySet() {
+    public Set<String> getKeySet() {
         return m_hashmap.keySet();
     }
 
@@ -84,11 +84,11 @@ public class VariableScope implements Serializable {
         m_hashmap.put(varname, variable);
     }
 
-    public Iterator getIterator() {
+    public Iterator<Map.Entry<String, VariableDecl.VariableStructure>> getIterator() {
         List<Map.Entry<String, VariableDecl.VariableStructure>> list = new ArrayList<>(m_hashmap.entrySet());
         Comparator<Map.Entry<String, VariableDecl.VariableStructure>> comparator = new VariableComparator();
         Collections.sort(list, comparator);
-        Iterator iter = list.iterator();
+        Iterator<Map.Entry<String, VariableDecl.VariableStructure>> iter = list.iterator();
         return iter;
     }
 

@@ -47,7 +47,8 @@ import java.util.List;
 
 public class DbORANestedTableStorageEditor extends DbSemanticalObjectEditor {
 
-    protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
+    protected Collection<DbORANestedTableStorage> getSelectionSet(DbObject parentDbo)
+            throws DbException {
         List<DbORANestedTableStorage> dbos = new ArrayList<>();
         DbEnumeration dbEnum = parentDbo.getCompositeOfType(DbORAbsTable.metaClass).getComponents()
                 .elements(DbORANestedTableStorage.metaClass);

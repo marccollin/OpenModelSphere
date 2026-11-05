@@ -200,29 +200,26 @@ public class MenuExtension extends AbstractPluginExtension {
 	private String findActionKey(String className) {
 		String actionKey = null;
 		AbstractActionsStore store = ApplicationContext.getActionStore();
-	    Iterator iter = store.keySet().iterator(); 
-	    while (iter.hasNext()) {
-	    	Object key = iter.next();
-	    	Object value = store.get(key);
-	    	if (value instanceof AbstractApplicationAction) {
-	    		AbstractApplicationAction action = (AbstractApplicationAction)value;
-	    		Class cl = action.getClass(); 
-	    		String n = cl.getSimpleName(); 
-	    		if (className.equals(n)) {
-		    		actionKey = (String)key;
-		    		break;
-		    	}
-	    	}
-	    } //end while
+        for (Object key : store.keySet()) {
+            Object value = store.get(key);
+            if (value instanceof AbstractApplicationAction) {
+                AbstractApplicationAction action = (AbstractApplicationAction) value;
+                Class cl = action.getClass();
+                String n = cl.getSimpleName();
+                if (className.equals(n)) {
+                    actionKey = (String) key;
+                    break;
+                }
+            }
+        } //end while
 	     
 		return actionKey;
 	}
 	
 	 @Override 
 	    public String toString() {
-	        String name = m_label;
-	       
-	        return name;
+
+         return m_label;
 	    }
 	
 	private static class MenuLocation {

@@ -109,11 +109,11 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
     protected DbBEStoreGo storeGO;
     protected DbBEStore storeSO;
     protected DbBENotation notation;
-    private Map zonesMap = null;
+    private Map<DbBESingleZoneDisplay, MatrixZone> zonesMap = null;
     private DbBEDiagram beDiagram;
-    private List zones = null;
+    private List<DbBESingleZoneDisplay> zones = null;
     private BEQualifier qualifiersGo = null;
-    private List qualifiers = null;
+    private List<DbBEQualifier> qualifiers = null;
     private String boxName = null;
 
     // listeners
@@ -257,12 +257,12 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
         clearAllZones();
         if (zonesMap != null)
             removeZonesListener();
-        zonesMap = new HashMap();
+        zonesMap = new HashMap<>();
         zones = notation.getStoreZones();
-        Iterator i = zones.iterator();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         int index = 0;
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             if (!zoneDisplay.isDisplayed())
                 continue;
             int alignment = ZoneJustification.getGraphicUtilAligmentValue(zoneDisplay
@@ -290,17 +290,17 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
     }
 
     private void removeZonesListener() {
-        Iterator i = zones.iterator();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             zoneDisplay.removeDbRefreshListener(this);
         }
     }
 
     private void addZonesListener() {
-        Iterator i = zones.iterator();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             zoneDisplay.addDbRefreshListener(this);
         }
     }
@@ -308,9 +308,9 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
     private void addQualifiersListener() {
         if (qualifiers == null)
             return;
-        Iterator i = qualifiers.iterator();
+        Iterator<DbBEQualifier> i = qualifiers.iterator();
         while (i.hasNext()) {
-            DbBEQualifier qualifier = (DbBEQualifier) i.next();
+            DbBEQualifier qualifier = i.next();
             qualifier.addDbRefreshListener(this);
         }
     }
@@ -318,9 +318,9 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
     private void removeQualifiersListener() {
         if (qualifiers == null)
             return;
-        Iterator i = qualifiers.iterator();
+        Iterator<DbBEQualifier> i = qualifiers.iterator();
         while (i.hasNext()) {
-            DbBEQualifier qualifier = (DbBEQualifier) i.next();
+            DbBEQualifier qualifier = i.next();
             qualifier.removeDbRefreshListener(this);
         }
         qualifiers = null;
@@ -329,13 +329,13 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
     private void populateZones() throws DbException {
         boxName = storeSO.getName();
         int zonePos = 0;
-        List zones = notation.getStoreZones();
-        Iterator i = zones.iterator();
+        List<DbBESingleZoneDisplay> zones = notation.getStoreZones();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             if (!zoneDisplay.isDisplayed())
                 continue;
-            MatrixZone zone = (MatrixZone) zonesMap.get(zoneDisplay);
+            MatrixZone zone = zonesMap.get(zoneDisplay);
             if (zone != null) {
                 zone.removeAllRows();
                 int row = 0; // todo pour l'utilisation pour les enum...
@@ -439,7 +439,7 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
             while (dbEnum.hasMoreElements()) {
                 DbBEStoreQualifier storeQualifier = (DbBEStoreQualifier) dbEnum.nextElement();
                 if (qualifiers == null) {
-                    qualifiers = new ArrayList();
+                    qualifiers = new ArrayList<>();
                 }
                 qualifiers.add(storeQualifier.getQualifier());
             }

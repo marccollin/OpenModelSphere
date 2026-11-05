@@ -47,7 +47,7 @@ import java.util.List;
 
 public class DbOROperationLibraryEditor extends DbSemanticalObjectEditor {
 
-    protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
+    protected Collection<DbOROperationLibrary> getSelectionSet(DbObject parentDbo) throws DbException {
         List<DbOROperationLibrary> operationLibraries = new ArrayList<>();
         DbEnumeration dbEnum = parentDbo.getProject().componentTree(DbOROperationLibrary.metaClass);
         while (dbEnum.hasMoreElements()) {

@@ -49,7 +49,7 @@ import java.util.List;
 
 public class DbORDatabaseEditor extends DbSemanticalObjectEditor {
 
-    protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
+    protected Collection<DbORDatabase> getSelectionSet(DbObject parentDbo) throws DbException {
         List<DbORDatabase> databases = new ArrayList<>();
         DbEnumeration dbEnum = parentDbo.getProject().componentTree(DbORDatabase.metaClass);
         while (dbEnum.hasMoreElements()) {
