@@ -198,7 +198,7 @@ public class MultiDbJVMethodEditor implements TableCellEditor {
         }
     }
 
-    protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
+    protected Collection<DbObject> getSelectionSet(DbObject parentDbo) throws DbException {
         List<DbObject> dbos = new ArrayList<>();
         DbEnumeration dbEnum = getSelectionEnum(parentDbo);
         if (dbEnum != null) {
@@ -213,9 +213,9 @@ public class MultiDbJVMethodEditor implements TableCellEditor {
         return null;
     }
 
-    protected final Collection getSelectionSet(DbObject[] parentDbos) throws DbException {
-        List<Object> childs = new ArrayList<>();
-        Collection<?> tempchilds = null;
+    protected final Collection<DbObject> getSelectionSet(DbObject[] parentDbos) throws DbException {
+        List<DbObject> childs = new ArrayList<>();
+        Collection<DbObject> tempchilds = null;
         for (int i = 0; i < parentDbos.length; i++) {
             tempchilds = getSelectionSet(parentDbos[i]);
             if (tempchilds == null) {
@@ -225,9 +225,9 @@ public class MultiDbJVMethodEditor implements TableCellEditor {
             if (i == 0)
                 childs.addAll(tempchilds);
             else {
-                Iterator<Object> iter = childs.iterator();
+                Iterator<DbObject> iter = childs.iterator();
                 while (iter.hasNext()) {
-                    Object element = iter.next();
+                    DbObject element = iter.next();
                     if (tempchilds.contains(element))
                         continue;
                     iter.remove();

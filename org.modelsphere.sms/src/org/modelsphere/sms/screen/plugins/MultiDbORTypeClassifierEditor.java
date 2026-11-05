@@ -45,10 +45,10 @@ import java.util.Collection;
 
 public class MultiDbORTypeClassifierEditor extends MultiDbSemanticalObjectEditor {
 
-    protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
+    protected Collection<DbObject> getSelectionSet(DbObject parentDbo) throws DbException {
         if (parentDbo instanceof DbORCommonItem)
-            return AnyORObject.getAllTypes(new ArrayList(), (DbSMSProject) parentDbo.getProject());
-        return AnyORObject.getAllTypes(new ArrayList(), AnyORObject.getTargetSystem(parentDbo));
+            return AnyORObject.getAllTypes(new ArrayList<DbObject>(), (DbSMSProject) parentDbo.getProject());
+        return AnyORObject.getAllTypes(new ArrayList<DbObject>(), AnyORObject.getTargetSystem(parentDbo));
     }
 
 }

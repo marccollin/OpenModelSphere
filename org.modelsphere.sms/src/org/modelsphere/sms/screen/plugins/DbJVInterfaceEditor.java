@@ -36,14 +36,18 @@ package org.modelsphere.sms.screen.plugins;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.screen.plugins.DbSemanticalObjectEditor;
+import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.util.AnyAdt;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class DbJVInterfaceEditor extends DbSemanticalObjectEditor {
 
-    protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        return AnyAdt.getInterfaceAux(new ArrayList(), parentDbo.getProject());
+    protected Collection<DbJVClass> getSelectionSet(DbObject parentDbo) throws DbException {
+        List<DbJVClass> interfaces = new ArrayList<>();
+        AnyAdt.getInterfaceAux(interfaces, parentDbo.getProject());
+        return interfaces;
     }
 }

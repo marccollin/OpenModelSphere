@@ -116,10 +116,8 @@ public class DbSMSTerminologyNameEditor implements Editor {
             parentDbo.getDb().beginTrans(Db.READ_TRANS);
             DbObject currentDbo = (DbObject) unwrapValue(value);
             int selInd = -1;
-            Collection dbos = getSelectionSet(parentDbo);
-            Iterator iter = dbos.iterator();
-            while (iter.hasNext()) {
-                DbObject dbo = (DbObject) iter.next();
+            Collection<DbObject> dbos = getSelectionSet(parentDbo);
+            for (DbObject dbo : dbos) {
                 combo.addItem(new DefaultComparableElement(dbo, dbo.getName(), getUserObject(dbo)));
                 if (dbo == currentDbo)
                     selInd = combo.getItemCount() - 1;
@@ -146,7 +144,7 @@ public class DbSMSTerminologyNameEditor implements Editor {
         return comp;
     }
 
-    protected final Collection getSelectionSet(DbObject parentDbo) throws DbException {
+    protected final Collection<DbObject> getSelectionSet(DbObject parentDbo) throws DbException {
         List<DbObject> dbos = new ArrayList<>();
         if (parentDbo instanceof DbBEUseCase) {
             DbBEUseCase useCase = (DbBEUseCase) parentDbo;

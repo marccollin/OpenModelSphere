@@ -221,7 +221,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
         //get the actual SQL forward
         ForwardToolkitPlugin toolkit = ForwardToolkitPlugin.getToolkit();
         PluginMgr mgr = PluginMgr.getSingleInstance();
-        List plugins = mgr.getPluginsRegistry().getActivePluginInstances(
+        List<?> plugins = mgr.getPluginsRegistry().getActivePluginInstances(
                 toolkit.getForwardClass());
         SQLForwardEngineeringPlugin sqlForward = null;
         if (plugins != null && !plugins.isEmpty())
@@ -465,7 +465,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
 
                     // Second, create all user nodes...
                     List<DefaultMutableTreeNode> listNode = new ArrayList<>();
-                    List userList = (userScope == null) ? null : userScope.occurences;
+                    List<?> userList = (userScope == null) ? null : userScope.occurences;
                     if (userList != null) {
                         for (int i = 0; i < userList.size(); i++) {
                             ObjectSelection userObj = (ObjectSelection) userScope.occurences.get(i);
@@ -685,8 +685,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
             PluginMgr mgr = PluginMgr.getSingleInstance();
             PluginsRegistry registry = mgr.getPluginsRegistry();
             Class fwdClass = toolkit.getForwardClass();
-            List plugins = registry.getActivePluginInstances(fwdClass); 
-            
+            List<?> plugins = registry.getActivePluginInstances(fwdClass);
             //ArrayList plugins = mgr.getPluginsRegistry().getActivePluginInstances(
             //        toolkit.getForwardClass());
             SQLForwardEngineeringPlugin sqlForward = null;

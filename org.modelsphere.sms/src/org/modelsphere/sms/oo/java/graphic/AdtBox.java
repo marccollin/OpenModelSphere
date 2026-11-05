@@ -914,7 +914,7 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
     private void populateStereotype(boolean interfaceShownAsCircle,
             boolean associationClassShownAsDiamond) throws DbException {
         String stereotypeName = getClassStereotypeName(adtSO);
-        Vector composite = getStereotypeImageData(adtSO);
+        Vector<CompositeCellRendererElement> composite = getStereotypeImageData(adtSO);
         DbOOStyle style = getStyleFrom(adtGO);
         stereotypeZone.clear();
 
@@ -961,8 +961,8 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
         } // end switch
     } // end populateStereotype()
 
-    private Vector getStereotypeImageData(DbJVClass adtSO) throws DbException {
-        Vector compositeElements = new Vector();
+    private Vector<CompositeCellRendererElement> getStereotypeImageData(DbJVClass adtSO) throws DbException {
+        Vector<CompositeCellRendererElement> compositeElements = new Vector<>();
 
         Image image = null;
 
@@ -1224,9 +1224,9 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
         return option;
     } // end getFieldRenderingOption()
 
-    private Vector getPrefixData(DbSemanticalObject semObj) throws DbException {
+    private Vector<CompositeCellRendererElement> getPrefixData(DbSemanticalObject semObj) throws DbException {
         Debug.assert2(semObj != null, "null argument not allowed. AdtBox.getPrefixData().");
-        Vector compositeElements = new Vector();
+        Vector<CompositeCellRendererElement> compositeElements = new Vector<>();
 
         // Semantic Object prefix
         int status = semObj.getValidationStatus();
@@ -1432,8 +1432,8 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
     // must be within a read transaction
     private void populateMethods() throws DbException {
         if (methodZone.isVisible()) {
-            Vector orderedVector = new Vector(); // Constructor first!
-            Vector methodVector = new Vector();
+            Vector<DbOOAbstractMethod> orderedVector = new Vector<>(); // Constructor first!
+            Vector<DbOOAbstractMethod> methodVector = new Vector<>();
             methodZone.removeAllRows();
             DbEnumeration ins = adtSO.getComponents().elements(DbOOAbstractMethod.metaClass);
 
@@ -1464,7 +1464,7 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
             // for
             // efficiency
             for (int j = 0; j < orderedVector.size(); j++) {
-                DbOOAbstractMethod method = (DbOOAbstractMethod) orderedVector.get(j);
+                DbOOAbstractMethod method = orderedVector.get(j);
                 boolean rowAdded = populateMethod(method, rowCtr, forceUnderlineOnStatic,
                         forceItalicOnAbstract);
                 if (rowAdded) {

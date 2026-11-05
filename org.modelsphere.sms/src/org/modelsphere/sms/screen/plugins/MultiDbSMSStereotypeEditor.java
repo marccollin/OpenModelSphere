@@ -56,7 +56,7 @@ import java.util.List;
  */
 public final class MultiDbSMSStereotypeEditor extends MultiDbSemanticalObjectShortEditor {
 
-    protected final Collection getSelectionSet(DbObject parentDbo) throws DbException {
+    protected final Collection<DbSMSStereotype> getSelectionSet(DbObject parentDbo) throws DbException {
         List<DbSMSStereotype> dbos = new ArrayList<>();
 
         // Check for a special case
@@ -110,7 +110,7 @@ public final class MultiDbSMSStereotypeEditor extends MultiDbSemanticalObjectSho
                     setIcon(new ImageIcon((Image) element.object2) {
                         public int getIconHeight() {
                             int height = super.getIconHeight();
-                            return height > 30 ? 30 : height;
+                            return Math.min(height, 30);
                         }
 
                     });

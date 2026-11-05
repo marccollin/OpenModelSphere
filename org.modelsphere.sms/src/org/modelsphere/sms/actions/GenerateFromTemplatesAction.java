@@ -175,15 +175,14 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
         return file;
     } // end chooseWorkingDirectory()
 
-    public static List getConditions(VariableScope varList) {
+    public static List<VariableDecl.VariableStructure> getConditions(VariableScope varList) {
         List<VariableDecl.VariableStructure> conditions = new ArrayList<>();
 
         // get conditions
         VariableScope map = varList;
-        Set set = map.getKeySet();
-        for (Object o : set) {
-            String key = (String) o;
-            VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) map.getVariable(key);
+        Set<String> set = map.getKeySet();
+        for (String key : set) {
+            VariableDecl.VariableStructure variable = map.getVariable(key);
             if (variable.isExtern()) {
                 // TODO : and if variable is a BOOLEAN..
                 conditions.add(variable);
@@ -479,9 +478,8 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
             List<Rule> externalRules = new ArrayList<>();
 
             // get EXTERNal rules
-            Iterator iter = rules.iterator();
-            while (iter.hasNext()) {
-                Rule rule = (Rule) iter.next();
+            for (Object o : rules) {
+                Rule rule = (Rule) o;
                 if (rule.externModifier != null) {
                     externalRules.add(rule);
                 }
@@ -497,7 +495,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
                 JDialog parentDialog = guiController.getDialog();
 
                 // get conditions
-                List conditions = getConditions(varList);
+                List<VariableDecl.VariableStructure> conditions = getConditions(varList);
 
                 SMSIntegrateModelUtil util = SMSIntegrateModelUtil.getSingleInstance();
                 boolean deepTraversal = true;

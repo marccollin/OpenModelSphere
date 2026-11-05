@@ -933,10 +933,9 @@ public class SMSPropertiesFrame extends PropertiesFrame {
         PluginMgr mgr = PluginMgr.getSingleInstance();
         PluginsRegistry registry = mgr.getPluginsRegistry();
         try {
-        	List forwardList = registry.getActivePluginInstances(JackForwardEngineeringPlugin.class);
+            List<JackForwardEngineeringPlugin> forwardList = registry.getActivePluginInstances(JackForwardEngineeringPlugin.class);
 
-            for (Object o : forwardList) {
-                JackForwardEngineeringPlugin forward = (JackForwardEngineeringPlugin) o;
+            for (JackForwardEngineeringPlugin forward : forwardList) {
                 PropertyScreenPreviewInfo info = forward.getPropertyScreenPreviewInfo();
                 if (info != null) {
                     Class[] supportedClasses = info.getSupportedClasses();

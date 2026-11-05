@@ -171,7 +171,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
         }
     }
 
-    protected Hashtable m_ruletable = new Hashtable();
+    protected Hashtable<String, Rule> m_ruletable = new Hashtable<>();
 
     //DUMMY METHOD, its only purpose is to avoid the declarations of forwardTo(DbObject, int)
     //in subclasses.  DO NOT REMOVE final modifier [MS]
@@ -692,8 +692,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
         int duplication = GenericModifierStructure.NONE;
         GenericModifierStructure[] modifs = currentRS.m_modifiers;
         int nb = modifs.length;
-        for (int i = 0; i < nb; i++) {
-            GenericModifierStructure ms = modifs[i];
+        for (GenericModifierStructure ms : modifs) {
             if (ms.m_modifierCategory == GenericModifierStructure.UNIQUE_MODIFIER) {
                 duplication = GenericModifierStructure.UNIQUE_MODIFIER;
                 break;
@@ -753,9 +752,9 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
             output.writeObject(getVarScope());
 
             //write all the rules
-            Enumeration enumeration = m_ruletable.elements();
+            Enumeration<Rule> enumeration = m_ruletable.elements();
             while (enumeration.hasMoreElements()) {
-                Rule rule = (Rule) enumeration.nextElement();
+                Rule rule = enumeration.nextElement();
 
                 if (rule instanceof Connector) {
                     Connector conn = (Connector) rule;
@@ -941,12 +940,12 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
 
     private void findActualSubRules() throws RuleException {
         //for each rule of the Hashtable
-        Enumeration enumeration = m_ruletable.elements();
+        Enumeration<Rule> enumeration = m_ruletable.elements();
         String currentRule = null;
 
         try {
             while (enumeration.hasMoreElements()) {
-                Rule rule = (Rule) enumeration.nextElement();
+                Rule rule = enumeration.nextElement();
                 currentRule = rule.m_ruleName; //keep the name, if case of failure
 
                 try {
@@ -1053,7 +1052,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
                     return null;
                 }
 
-                rule = (Rule) m_ruletable.get(rulename);
+                rule = m_ruletable.get(rulename);
                 if (rule == null) {
                     String msg = MessageFormat.format(RULE_NOT_FOUND_PATTRN,
                             new Object[] { rulename });

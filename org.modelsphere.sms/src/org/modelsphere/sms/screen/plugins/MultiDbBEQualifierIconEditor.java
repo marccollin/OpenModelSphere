@@ -122,10 +122,8 @@ public final class MultiDbBEQualifierIconEditor implements TableCellEditor {
         try {
             JComboBox combo = new JComboBox();
             int selInd = -1;
-            Collection values = getSelectionSet(value);
-            Iterator iter = values.iterator();
-            while (iter.hasNext()) {
-                Object avalue = iter.next();
+            Collection<Object> values = getSelectionSet(value);
+            for (Object avalue : values) {
                 combo.addItem(avalue);
                 if (avalue == value)
                     selInd = combo.getItemCount() - 1;
@@ -149,7 +147,7 @@ public final class MultiDbBEQualifierIconEditor implements TableCellEditor {
         return comp;
     }
 
-    protected final Collection getSelectionSet(Object value) {
+    protected final Collection<Object> getSelectionSet(Object value) {
         List<Object> values = new ArrayList<>();
         values.add(MultiDefaultRenderer.kNone);
         values.add(kSelect);
@@ -171,7 +169,7 @@ public final class MultiDbBEQualifierIconEditor implements TableCellEditor {
                     setIcon(new ImageIcon((Image) value) {
                         public int getIconHeight() {
                             int height = super.getIconHeight();
-                            return height > 30 ? 30 : height;
+                            return Math.min(height, 30);
                         }
 
                     });
@@ -191,8 +189,7 @@ public final class MultiDbBEQualifierIconEditor implements TableCellEditor {
             return image;
         if (((JComboBox) comp).getSelectedIndex() == noneIndex)
             return null;
-        Object value = ((JComboBox) comp).getSelectedItem();
-        return value;
+        return ((JComboBox) comp).getSelectedItem();
     }
 
     public boolean isCellEditable(EventObject e) {

@@ -101,7 +101,7 @@ public final class ReverseFrame extends org.modelsphere.jack.srtool.reverse.file
             updateParametersValues();
 
             // Fill fileVector
-            Enumeration enumeration = m_model.elements();
+            Enumeration<?> enumeration = m_model.elements();
             while (enumeration.hasMoreElements()) {
                 File f = (File) enumeration.nextElement();
                 fileVector.addElement(f);
@@ -131,7 +131,7 @@ public final class ReverseFrame extends org.modelsphere.jack.srtool.reverse.file
         owner.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Locale.setDefault(Locale.ENGLISH);
-        Vector fileVector = new Vector();
+        Vector<File> fileVector = new Vector<>();
         JPanel panel = new JPanel();
         ReverseFrame reverseFrame = new ReverseFrame(owner, fileVector, panel);
         reverseFrame.setVisible(true);

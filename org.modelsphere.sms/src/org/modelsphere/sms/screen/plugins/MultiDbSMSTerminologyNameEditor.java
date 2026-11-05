@@ -115,10 +115,8 @@ public class MultiDbSMSTerminologyNameEditor implements TableCellEditor {
             parentDbos[0].getDb().beginTrans(Db.READ_TRANS);
             DbObject currentDbo = (DbObject) unwrapValue(value);
             int selInd = -1;
-            Collection dbos = getSelectionSet(parentDbos);
-            Iterator iter = dbos.iterator();
-            while (iter.hasNext()) {
-                DbObject dbo = (DbObject) iter.next();
+            Collection<DbObject> dbos = getSelectionSet(parentDbos);
+            for (DbObject dbo : dbos) {
                 combo.addItem(new DefaultComparableElement(dbo, dbo.getName(), getUserObject(dbo)));
                 if (dbo == currentDbo)
                     selInd = combo.getItemCount() - 1;
@@ -149,7 +147,7 @@ public class MultiDbSMSTerminologyNameEditor implements TableCellEditor {
         return null;
     }
 
-    protected final Collection getSelectionSet(DbObject parentDbo) throws DbException {
+    protected final Collection<DbObject> getSelectionSet(DbObject parentDbo) throws DbException {
         List<DbObject> dbos = new ArrayList<>();
         if (parentDbo instanceof DbBEUseCase) {
             DbBEUseCase useCase = (DbBEUseCase) parentDbo;
@@ -176,9 +174,9 @@ public class MultiDbSMSTerminologyNameEditor implements TableCellEditor {
         return null;
     }
 
-    protected final Collection getSelectionSet(DbObject[] parentDbos) throws DbException {
-        List<Object> childs = new ArrayList<>();
-        Collection<?> tempchilds = null;
+    protected final Collection<DbObject> getSelectionSet(DbObject[] parentDbos) throws DbException {
+        List<DbObject> childs = new ArrayList<>();
+        Collection<DbObject> tempchilds = null;
         for (int i = 0; i < parentDbos.length; i++) {
             tempchilds = getSelectionSet(parentDbos[i]);
             if (tempchilds == null) {
@@ -188,9 +186,9 @@ public class MultiDbSMSTerminologyNameEditor implements TableCellEditor {
             if (i == 0)
                 childs.addAll(tempchilds);
             else {
-                Iterator<Object> iter = childs.iterator();
+                Iterator<DbObject> iter = childs.iterator();
                 while (iter.hasNext()) {
-                    Object element = iter.next();
+                    DbObject element = iter.next();
                     if (tempchilds.contains(element))
                         continue;
                     iter.remove();
@@ -279,7 +277,7 @@ public class MultiDbSMSTerminologyNameEditor implements TableCellEditor {
                 if (obj instanceof DbBENotation) {
                     DbBENotation nota = (DbBENotation) obj;
                     nota.getDb().beginReadTrans();
-                    int Id = nota.getNotationID().intValue();
+                    int Id = nota.getNotationID();
                     nota.getDb().commitTrans();
                     if (Id >= 13 && Id <= 19) {
                         JOptionPane

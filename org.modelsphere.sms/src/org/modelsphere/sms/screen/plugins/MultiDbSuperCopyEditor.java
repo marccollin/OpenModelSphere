@@ -54,7 +54,7 @@ import java.util.List;
 
 public final class MultiDbSuperCopyEditor extends MultiDbSemanticalObjectEditor {
 
-    protected final Collection getSelectionSet(DbObject dbo) throws DbException {
+    protected final Collection<DbSMSSemanticalObject> getSelectionSet(DbObject dbo) throws DbException {
         List<DbSMSSemanticalObject> superDbos = new ArrayList<>();
         if (dbo instanceof DbORAssociation) {
             // An association can have as super any association in the

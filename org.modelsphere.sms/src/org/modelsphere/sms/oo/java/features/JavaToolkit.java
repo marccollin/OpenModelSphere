@@ -78,7 +78,7 @@ public class JavaToolkit {
         return systemJarList.toArray();
     } //end getSystemJarFiles() 
 
-    public void fillClassList(Object[] jarFiles, List packageList, List classList) {
+    public void fillClassList(Object[] jarFiles, List<String> packageList, List<String> classList) {
         for (Object file : jarFiles) {
             String jarFile = file.toString();
             scanJarFile(jarFile, packageList, classList);
@@ -88,12 +88,12 @@ public class JavaToolkit {
     //
     // private methods
     //
-    private void scanJarFile(String filename, List packageList, List classList) {
+    private void scanJarFile(String filename, List<String> packageList, List<String> classList) {
         try {
             ZipFile file = new ZipFile(filename);
-            Enumeration enumeration = file.entries();
+            Enumeration<? extends ZipEntry> enumeration = file.entries();
             while (enumeration.hasMoreElements()) {
-                ZipEntry entry = (ZipEntry) enumeration.nextElement();
+                ZipEntry entry = enumeration.nextElement();
                 String name = entry.getName();
                 String packagename = name.substring(0, name.lastIndexOf('/')).replace('/', '.');
                 if (packageList.contains(packagename)) {

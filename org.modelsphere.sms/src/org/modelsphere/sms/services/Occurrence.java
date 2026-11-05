@@ -71,7 +71,7 @@ abstract class AbstractOccurrence implements java.io.Serializable {
     /* Object members */
     protected String m_name;
     // protected String m_typeName;
-    protected Vector m_vecOfFields = new Vector();
+    protected Vector<Field> m_vecOfFields = new Vector<>();
 
     /*
      * OPERATIONS

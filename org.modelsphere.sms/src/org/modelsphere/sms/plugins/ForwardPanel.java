@@ -76,7 +76,7 @@ public final class ForwardPanel extends JPanel implements ScreenTabPanel {
     private JPanel m_borderPanel;
     private JPanel controlPanel = null;
     private JButton[] jButtonList;
-    private List vecButton = new Vector();
+    private List<JButton> vecButton = new Vector<>();
     private ForwardPanelOptions m_options;
     private static final String WRITING_ERROR = LocaleMgr.message.getString("WRITING_ERROR");
     private PropertyScreenPreviewInfo m_info;
@@ -238,7 +238,7 @@ public final class ForwardPanel extends JPanel implements ScreenTabPanel {
                     DbObject refObject = null;
                     MetaField[] metafields = null;
                     Controller controller = null;
-                    List excludeList = null;
+                    List<?> excludeList = null;
 
                     Rule.RuleOptions options = new Rule.RuleOptions(refObject, metafields,
                             controller, excludeList);
