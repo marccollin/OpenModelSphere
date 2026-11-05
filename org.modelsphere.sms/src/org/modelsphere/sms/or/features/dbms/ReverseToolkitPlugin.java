@@ -94,6 +94,7 @@ import java.awt.event.ActionEvent;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -114,7 +115,7 @@ public abstract class ReverseToolkitPlugin implements Plugin {
     private static final String ERROR = LocaleMgr.message.getString("Error");
 
     public static final String DEFAULT_LOG_FILENAME = ApplicationContext.getLogPath()
-            + System.getProperty("file.separator") + "reverse.log";
+            + FileSystems.getDefault().getSeparator() + "reverse.log";
 
     // The default toolkit is considered as a Null Object.
     // Getting the toolkit doesn't need a (toolkit != null) verification.
@@ -126,7 +127,7 @@ public abstract class ReverseToolkitPlugin implements Plugin {
     private static List<KitTargetMapping> toolkitsTarget = new ArrayList<>(20);
     // Supported extension file filters
     private static List<KitFileExtensionMapping> toolkitsExtension = new ArrayList<>(20);
-    private static List extensionFileFilters = new ArrayList(5);
+    private static List<ExtensionFileFilter> extensionFileFilters = new ArrayList<>(5);
 
     // Optimization purposes
     private static ReverseToolkitPlugin lastKit = null;
@@ -246,15 +247,15 @@ public abstract class ReverseToolkitPlugin implements Plugin {
         String dbmsVersion = connection.databaseProductVersion;
 
         //search the kit
-        Object[] map = toolkitsDBMS.toArray();
-        for (Object o : map) {
-            if (dbmsName.toLowerCase().indexOf(((KitDBMSMapping) o).dbmsName.toLowerCase()) != -1) {
+        KitDBMSMapping[] map = toolkitsDBMS.toArray(new KitDBMSMapping[0]);
+        for (KitDBMSMapping mapping : map) {
+            if (dbmsName.toLowerCase().contains(mapping.dbmsName.toLowerCase())) {
                 // check in the toolkit if the version is supported
-                int id = ((KitDBMSMapping) o).kit.getTargetSystemId(dbmsVersion);
+                int id = mapping.kit.getTargetSystemId(dbmsVersion);
                 if (id != -1) {
                     List<ReverseToolkitPlugin> kitsForTarget = findMatchingToolkitsForTargetId(id);
-                    if (kitsForTarget.contains(((KitDBMSMapping) o).kit)) {
-                        lastKit = ((KitDBMSMapping) o).kit;
+                    if (kitsForTarget.contains(mapping.kit)) {
+                        lastKit = mapping.kit;
                         return lastKit;
                     }
                 }
@@ -265,10 +266,10 @@ public abstract class ReverseToolkitPlugin implements Plugin {
 
     private static final List<ReverseToolkitPlugin> findMatchingToolkitsForTargetId(int id) {
         List<ReverseToolkitPlugin> kits = new ArrayList<>(5);
-        Object[] map = toolkitsTarget.toArray();
-        for (Object o : map) {
-            if (id == ((KitTargetMapping) o).targetId) {
-                kits.add(((KitTargetMapping) o).kit);
+        KitTargetMapping[] map = toolkitsTarget.toArray(new KitTargetMapping[0]);
+        for (KitTargetMapping mapping : map) {
+            if (id == mapping.targetId) {
+                kits.add(mapping.kit);
             }
         }
         return kits;
@@ -288,15 +289,14 @@ public abstract class ReverseToolkitPlugin implements Plugin {
         String dbmsVersion = connection.databaseProductVersion;
 
         //search the kit
-        Object[] map = toolkitsDBMS.toArray();
+        KitDBMSMapping[] map = toolkitsDBMS.toArray(new KitDBMSMapping[0]);
         String lwDbmsName = dbmsName.toLowerCase();
 
-        for (Object o : map) {
-            KitDBMSMapping mapping = (KitDBMSMapping) o;
-            if (lwDbmsName.indexOf(mapping.dbmsName.toLowerCase()) != -1) {
+        for (KitDBMSMapping mapping : map) {
+            if (lwDbmsName.contains(mapping.dbmsName.toLowerCase())) {
                 // check in the toolkit if the version is supported
                 if (mapping.kit.getTargetSystemId(dbmsVersion) != -1) {
-                    return ((KitDBMSMapping) o).kit;
+                    return mapping.kit;
                 }
             }
         }
@@ -315,13 +315,13 @@ public abstract class ReverseToolkitPlugin implements Plugin {
         String dbmsVersion = cm.databaseProductVersion;
 
         //search the kit
-        Object[] map = toolkitsDBMS.toArray();
+        KitDBMSMapping[] map = toolkitsDBMS.toArray(new KitDBMSMapping[0]);
         tempConnection = cm;
-        for (Object o : map) {
-            if (dbmsName.toLowerCase().indexOf(((KitDBMSMapping) o).dbmsName.toLowerCase()) != -1) {
+        for (KitDBMSMapping mapping : map) {
+            if (dbmsName.toLowerCase().contains(mapping.dbmsName.toLowerCase())) {
                 // check in the toolkit if the version is supported
-                if (((KitDBMSMapping) o).kit.getTargetSystemId(dbmsVersion) != -1) {
-                    return ((KitDBMSMapping) o).kit;
+                if (mapping.kit.getTargetSystemId(dbmsVersion) != -1) {
+                    return mapping.kit;
                 }
             }
         }
@@ -330,7 +330,7 @@ public abstract class ReverseToolkitPlugin implements Plugin {
     }
 
     public static final ReverseToolkitPlugin getToolkitForExtension(String extension) {
-        if (extension == null || extension.length() == 0)
+        if (extension == null || extension.isEmpty())
             return defaultToolkit;
         Iterator<KitFileExtensionMapping> iter = toolkitsExtension.iterator();
         while (iter.hasNext()) {
@@ -351,10 +351,10 @@ public abstract class ReverseToolkitPlugin implements Plugin {
             return defaultToolkit;
 
         //search the kit
-        Object[] map = toolkitsTarget.toArray();
-        for (int i = 0; i < map.length; i++) {
-            if (activeDiagramTargetId == ((KitTargetMapping) map[i]).targetId) {
-                return ((KitTargetMapping) map[i]).kit;
+        KitTargetMapping[] map = toolkitsTarget.toArray(new KitTargetMapping[0]);
+        for (KitTargetMapping mapping : map) {
+            if (activeDiagramTargetId == mapping.targetId) {
+                return mapping.kit;
             }
         }
         return defaultToolkit;
@@ -366,10 +366,10 @@ public abstract class ReverseToolkitPlugin implements Plugin {
             return defaultToolkit;
 
         //search the kit
-        Object[] map = toolkitsTarget.toArray();
-        for (int i = 0; i < map.length; i++) {
-            if (ts == ((KitTargetMapping) map[i]).targetId) {
-                return ((KitTargetMapping) map[i]).kit;
+        KitTargetMapping[] map = toolkitsTarget.toArray(new KitTargetMapping[0]);
+        for (KitTargetMapping mapping : map) {
+            if (ts == mapping.targetId) {
+                return mapping.kit;
             }
         }
         return defaultToolkit;
@@ -392,7 +392,7 @@ public abstract class ReverseToolkitPlugin implements Plugin {
         lastKit = null;
     }
 
-    public static final List getExtensionFileFilters() {
+    public static final List<ExtensionFileFilter> getExtensionFileFilters() {
         return extensionFileFilters;
     }
 

@@ -208,9 +208,9 @@ public class BEContext extends GraphicNode implements ActionInformation {
 
     private void setTextColor() throws DbException {
         Color color = (Color) contextGO.find(DbBEContextGo.fTextColor);
-        Enumeration enumeration = this.displayedZones();
+        Enumeration<Zone> enumeration = this.displayedZones();
         while (enumeration.hasMoreElements()) {
-            Zone zone = (Zone) enumeration.nextElement();
+            Zone zone = enumeration.nextElement();
             zone.setTextColor(color);
         }
     } // end setTextColor()
@@ -294,9 +294,9 @@ public class BEContext extends GraphicNode implements ActionInformation {
         contextGO.setGraphicPeer(null);
         contextGO.removeDbRefreshListener(useCaseGoRefreshTg);
         MetaField.removeDbRefreshListener(useCaseGoRefreshTg, refreshMetaFields);
-        Enumeration enumeration = this.displayedZones();
+        Enumeration<Zone> enumeration = this.displayedZones();
         while (enumeration.hasMoreElements()) {
-            Zone zone = (Zone) enumeration.nextElement();
+            Zone zone = enumeration.nextElement();
             if (zone instanceof MatrixZone)
                 ((MatrixZone) zone).removeAllRows();
         }

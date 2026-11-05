@@ -52,13 +52,13 @@ import java.util.List;
 public class BEFlowQualifier extends SrLineLabel {
 
     public BEFlowQualifier(Diagram diag, DbObject semObj, BEFlow flow, MetaField offsetMF,
-            List qualifiers) throws DbException {
+            List<DbBEQualifier> qualifiers) throws DbException {
         super(diag, semObj, flow, offsetMF, "");
         zone.setCellRenderer(new CompositeCellRenderer());
-        Iterator i = qualifiers.iterator();
+        Iterator<DbBEQualifier> i = qualifiers.iterator();
         List<CompositeCellRendererElement> icons = new Vector<>();
         while (i.hasNext()) {
-            DbBEQualifier qualifier = (DbBEQualifier) i.next();
+            DbBEQualifier qualifier = i.next();
             Image icon = qualifier.getIcon();
             if (icon != null)
                 icons.add(new CompositeCellRendererElement(new ImageCellRenderer(), icon));

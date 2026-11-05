@@ -755,7 +755,7 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
                 return;
             }
 
-            if ((m_previousText == null) || (m_previousText.equals(""))) {
+            if ((m_previousText == null) || (m_previousText.isEmpty())) {
                 m_previousText = jdbcDriver.getText();
             }
 

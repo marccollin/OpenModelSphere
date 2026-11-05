@@ -100,7 +100,7 @@ public class DbUtility {
         String term = usecase.getTerminologyName();
         if (term == null)
             obj = null;
-        else if (term.equals(""))
+        else if (term.isEmpty())
             obj = null;
 
         if (obj != null)

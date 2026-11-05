@@ -87,7 +87,7 @@ public final class PhysicalNameGeneration {
     private PhysicalNameDictionary dictionary = new PhysicalNameDictionary();
     private StringBuffer report = new StringBuffer(250);
     private boolean somePhysicalNameGen = false;
-    private Map accentedCharactersHashMap = null;
+    private Map<String, String> accentedCharactersHashMap = null;
 
     public PhysicalNameGeneration() {
     }
@@ -112,7 +112,7 @@ public final class PhysicalNameGeneration {
         }
     }
 
-    private final void generateForConcepts(List concepts, DbObject[] semObjs)
+    private final void generateForConcepts(List<ORPNGParameters> concepts, DbObject[] semObjs)
             throws DbException {
         DbMultiTrans.beginTrans(Db.WRITE_TRANS, semObjs, PhysicalNameTrans);
         for (DbObject obj : semObjs) {
@@ -128,10 +128,9 @@ public final class PhysicalNameGeneration {
             if (semObj != null) {
                 writePackageHeader(semObj);
                 boolean innerPackageNameGen = false;
-                for (Object o : concepts) {
+                for (ORPNGParameters param : concepts) {
                     List<String> conceptsChanged = new ArrayList<>();
                     boolean addSemObjToGeneration = false;
-                    ORPNGParameters param = (ORPNGParameters) o;
                     if (param.getConceptMetaClass().isAssignableFrom(semObj.getMetaClass()))
                         addSemObjToGeneration = true;
                     List<String> uniqueName = (param.isUnique() ? new ArrayList<>()
@@ -205,7 +204,7 @@ public final class PhysicalNameGeneration {
         DbMultiTrans.commitTrans(semObjs);
     } //end generateForConcepts()
 
-    private final String generatePhysicalNameFor(DbSemanticalObject concept, List uniqueName,
+    private final String generatePhysicalNameFor(DbSemanticalObject concept, List<String> uniqueName,
             ORPNGParameters param) throws DbException {
         String physicalName = null;
 
@@ -266,12 +265,12 @@ public final class PhysicalNameGeneration {
     // replace all accented characters ex: é = e à = a
     private final String getNameWithAccentedCharactersReplaced(String name) {
         String newName = name;
-        Set keySet = accentedCharactersHashMap.keySet();
-        Object[] keyArray = keySet.toArray();
+        Set<String> keySet = accentedCharactersHashMap.keySet();
+        String[] keyArray = keySet.toArray(new String[0]);
         for (int i = 0; i < keyArray.length; i++) {
-            String key = (String) keyArray[i];
+            String key = keyArray[i];
             if (newName.indexOf(key) != -1) {
-                String value = (String) accentedCharactersHashMap.get(key);
+                String value = accentedCharactersHashMap.get(key);
                 if (value != null)
                     newName = StringUtil.replaceWords(newName, key, value);
             }
@@ -348,7 +347,7 @@ public final class PhysicalNameGeneration {
         return newName;
     }
 
-    private final String getUniqueName(String name, List uniqueName, ORPNGParameters param) {
+    private final String getUniqueName(String name, List<String> uniqueName, ORPNGParameters param) {
         int length = param.getLength();
         int nbrCharByWord = param.getNbrCharByWord();
         String newName = name;
@@ -370,9 +369,9 @@ public final class PhysicalNameGeneration {
         return newName;
     }
 
-    private final boolean uniqueNameContains(List uniqueName, String name) {
-        for (Object o : uniqueName) {
-            if (((String) o).equalsIgnoreCase(name))
+    private final boolean uniqueNameContains(List<String> uniqueName, String name) {
+        for (String unique : uniqueName) {
+            if (unique.equalsIgnoreCase(name))
                 return true;
         }
         return false;
@@ -436,10 +435,10 @@ public final class PhysicalNameGeneration {
         report.append(TAB + TAB + s + EOL);
     }
 
-    private final void writeInnerConceptComment(List innerComments) throws DbException {
+    private final void writeInnerConceptComment(List<String> innerComments) throws DbException {
         Collections.sort(innerComments, new CollationComparator());
         for (int i = 0; i < innerComments.size(); i++) {
-            writeInnerConceptComment((String) innerComments.get(i));
+            writeInnerConceptComment(innerComments.get(i));
         }
     }
 

@@ -130,7 +130,7 @@ public final class ToolBarManager implements ActionListener, /* PropertiesProvid
                                 "Invalid ToolBar Key (Remove spaces or '//').  Preferences for this toolbar will not be saved.");
             }
             String toolBarName = toolBar.getName();
-            if ((toolBarName == null) || toolBarName.equals(""))
+            if ((toolBarName == null) || toolBarName.isEmpty())
                 toolBarName = new String("NONAME"); //NOT LOCALIZABLE
             JCheckBoxMenuItem item = new JCheckBoxMenuItem(toolBarName, toolBar.isVisible());
             singleton.toolBars.addElement(new PopupItem(toolBar, item, key));

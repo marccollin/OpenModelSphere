@@ -1125,7 +1125,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
     // complete size information.
     private Dimension getMinPages(Diagram diag, Dimension pageSize) {
         Dimension minPages = new Dimension(0, 0);
-        Enumeration enumeration = diag.components();
+        Enumeration<GraphicComponent> enumeration = diag.components();
         while (enumeration.hasMoreElements()) {
             GraphicComponent gc = (GraphicComponent) enumeration.nextElement();
             Rectangle rect = gc.getRectangle();

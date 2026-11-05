@@ -66,9 +66,9 @@ public abstract class AbstractSelectAction extends AbstractApplicationAction imp
         if (!(focusObject instanceof ApplicationDiagram))
             return;
         ApplicationDiagram diag = (ApplicationDiagram) focusObject;
-        Enumeration e = diag.components();
+        Enumeration<GraphicComponent> e = diag.components();
         while (e.hasMoreElements()) {
-            GraphicComponent comp = (GraphicComponent) e.nextElement();
+            GraphicComponent comp = e.nextElement();
             if (classSelected == null || classSelected.isInstance(comp))
                 comp.setSelected(true);
         }

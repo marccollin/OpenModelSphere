@@ -350,7 +350,7 @@ public final class SMSTerminologyUtil extends TerminologyUtil {
                         beModel.getDb().beginReadTrans();
                         String name = beModel.getTerminologyName();
                         beModel.getDb().commitTrans();
-                        if (name != null && !name.equals(""))
+                        if (name != null && !name.isEmpty())
                             return Terminology.findTerminologyByName(name);
                         else
                             return Terminology.findTerminologyByName(DbBENotation.GANE_SARSON);
@@ -362,7 +362,7 @@ public final class SMSTerminologyUtil extends TerminologyUtil {
                         if (name == null) {
                             DbBEUseCase explodedOrContext = (DbBEUseCase) useCase.getComposite();
                             name = explodedOrContext.getTerminologyName();
-                        } else if (name.equals("")) {
+                        } else if (name.isEmpty()) {
                             if (useCase.isContext())
                                 name = ((DbBEModel) useCase.getComposite()).getTerminologyName();
                             else

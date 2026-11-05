@@ -518,7 +518,7 @@ public final class ZoneEditor extends JPanel implements ActionListener {
     private void loadSelected() throws DbException {
         editor.removeAll();
         List<SelectedZoneElement> listvalues = new ArrayList<>();
-        List zones = null;
+        List<DbBESingleZoneDisplay> zones = null;
         int orientation = 0;
         SMSZoneOrientation horizontalOrientation = SMSZoneOrientation
                 .getInstance(SMSZoneOrientation.HORIZONTAL);
@@ -553,7 +553,7 @@ public final class ZoneEditor extends JPanel implements ActionListener {
         }
 
         for (int i = 0; i < zones.size(); i++) {
-            DbBESingleZoneDisplay zone = (DbBESingleZoneDisplay) zones.get(i);
+            DbBESingleZoneDisplay zone = zones.get(i);
             listvalues.add(new SelectedZoneElement(zone, i, i == 0 ? orientation
                     : HORIZONTAL_ORIENTATION));
         }

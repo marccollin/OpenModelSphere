@@ -159,9 +159,9 @@ public class BEActorBox extends GraphicNode implements ActionInformation, DbRefr
         removeRefreshListener();
         removeZonesListener();
         removeQualifiersListener();
-        Enumeration enumeration = this.displayedZones();
+        Enumeration<Zone> enumeration = this.displayedZones();
         while (enumeration.hasMoreElements()) {
-            Zone zone = (Zone) enumeration.nextElement();
+            Zone zone = enumeration.nextElement();
             if (zone instanceof MatrixZone)
                 ((MatrixZone) zone).removeAllRows();
         }
@@ -401,9 +401,9 @@ public class BEActorBox extends GraphicNode implements ActionInformation, DbRefr
 
     protected void setTextColor() throws DbException {
         Color color = (Color) actorGO.find(DbBEActorGo.fTextColor);
-        Enumeration enumeration = this.displayedZones();
+        Enumeration<Zone> enumeration = this.displayedZones();
         while (enumeration.hasMoreElements()) {
-            Zone zone = (Zone) enumeration.nextElement();
+            Zone zone = enumeration.nextElement();
             zone.setTextColor(color);
         }
     }
@@ -439,7 +439,221 @@ public class BEActorBox extends GraphicNode implements ActionInformation, DbRefr
             qualifiersGo.delete(false);
         qualifiersGo = null;
         removeQualifiersListener();
-        if (((Boolean) actorGO.find(DbBEStyle.fDisplayQualiferDbBEActor)).booleanValue()) {
+        if (((Boolean) actorGO.find(DbBEStyle.fDisplayQualiferDbBEActor)).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                booleanValue()) {
             DbEnumeration dbEnum = actorSO.getComponents().elements(DbBEActorQualifier.metaClass);
             while (dbEnum.hasMoreElements()) {
                 DbBEActorQualifier actorQualifier = (DbBEActorQualifier) dbEnum.nextElement();

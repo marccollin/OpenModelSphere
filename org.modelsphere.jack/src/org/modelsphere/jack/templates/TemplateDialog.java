@@ -310,7 +310,7 @@ public class TemplateDialog extends JDialog implements TestableWindow {
 
     // called by sms.or.dbms.features.DefaultForwardWizardObjectsPage and
     // TemplateDialog
-    public static List buildPropertyListFromVariables(VariableScope variableScope) {
+    public static List<AbstractProperty> buildPropertyListFromVariables(VariableScope variableScope) {
         List<AbstractProperty> propertyList = new ArrayList<>();
 
         // For each external variable
@@ -336,9 +336,8 @@ public class TemplateDialog extends JDialog implements TestableWindow {
     // reset variables' value according property list
     // called by sms.or.dbms.features.DefaultForwardWizardObjectsPage and
     // TemplateDialog
-    public static void resetValue(VariableScope variableScope, List propertyList) {
-        for (Object o : propertyList) {
-            AbstractProperty property = (AbstractProperty) o;
+    public static void resetValue(VariableScope variableScope, List<? extends AbstractProperty> propertyList) {
+        for (AbstractProperty property : propertyList) {
             String name = property.getName();
             Serializable value = property.getValue();
             Iterator<?> iter2 = variableScope.getIterator();

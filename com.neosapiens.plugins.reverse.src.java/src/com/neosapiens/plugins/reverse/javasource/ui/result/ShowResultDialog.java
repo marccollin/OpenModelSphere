@@ -237,7 +237,7 @@ public class ShowResultDialog extends JPanel implements ActionListener {
         
         boolean showAll = false;
         // if no option is selected, we show all results
-        if(matchingText.equals("") && !caseSensitive && !searchInName && 
+        if(matchingText.isEmpty() && !caseSensitive && !searchInName && 
                 !searchInDescription && !searchInBody)
             showAll = true;
         

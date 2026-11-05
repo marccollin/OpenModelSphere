@@ -71,6 +71,7 @@ import org.modelsphere.jack.util.SrVector;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -756,7 +757,7 @@ public class Explorer extends DefaultTreeModel implements DbRefreshListener {
 
     protected final void updateInsertIndexInChildrenOfNode(DynamicNode parentNode)
             throws DbException {
-        Enumeration childrenEnum = parentNode.children();
+        Enumeration<TreeNode> childrenEnum = parentNode.children();
         while (childrenEnum.hasMoreElements()) {
             DynamicNode node = (DynamicNode) childrenEnum.nextElement();
             DbObject dbo = (DbObject) node.getRealObject();

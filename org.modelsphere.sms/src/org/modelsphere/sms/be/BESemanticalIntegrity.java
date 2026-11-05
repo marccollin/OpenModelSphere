@@ -107,10 +107,10 @@ public final class BESemanticalIntegrity implements DbUpdateListener {
                             term1 = ((DbBEUseCase) dboComposite).getTerminologyName();
                     }
                     if (term1 == null)
-                        term1 = ((DbBEModel) ((DbBEUseCase) eventDbo1)
+                        term1 = ((DbBEModel) eventDbo1
                                 .getCompositeOfType(DbBEModel.metaClass)).getTerminologyName();
                     if (term1.isEmpty())
-                        term1 = ((DbBEModel) ((DbBEUseCase) eventDbo1)
+                        term1 = ((DbBEModel) eventDbo1
                                 .getCompositeOfType(DbBEModel.metaClass)).getTerminologyName();
                 } else { // it's a model
                     if (term1 == null)
@@ -143,13 +143,13 @@ public final class BESemanticalIntegrity implements DbUpdateListener {
 
                 DbBENotation notation = (DbBENotation) eventNeighbor.getProject()
                         .findComponentByName(DbBENotation.metaClass, term2);
-                int masterID = notation.getMasterNotationID().intValue();
+                int masterID = notation.getMasterNotationID();
                 boolean isModel2UML = masterID >= 13 && masterID <= 19;
 
                 notation = (DbBENotation) eventDbo1.getProject().findComponentByName(
                         DbBENotation.metaClass, term1);
 
-                masterID = notation.getMasterNotationID().intValue();
+                masterID = notation.getMasterNotationID();
                 boolean isModel1UML = masterID >= 13 && masterID <= 19;
 
                 String terminologyName = null;
@@ -160,7 +160,7 @@ public final class BESemanticalIntegrity implements DbUpdateListener {
 
                 if (terminologyName == null)
                     isLeaf1 = true;
-                else if (terminologyName.equals(""))
+                else if (terminologyName.isEmpty())
                     isLeaf1 = true;
 
                 if (eventNeighbor instanceof DbBEDiagram)
@@ -171,7 +171,7 @@ public final class BESemanticalIntegrity implements DbUpdateListener {
 
                 if (terminologyName == null)
                     isLeaf2 = true;
-                else if (terminologyName.equals(""))
+                else if (terminologyName.isEmpty())
                     isLeaf2 = true;
 
                 if ((term1.equals(DbBENotation.UML_USE_CASE) && isModel2UML)
@@ -192,9 +192,9 @@ public final class BESemanticalIntegrity implements DbUpdateListener {
                                 bApplyRule = false;
                     }
                 }
-                if (isLeaf2 == true && isLeaf1 == false)
+                if (isLeaf2 && !isLeaf1)
                     bApplyRule = false;
-                else if (isLeaf2 == true && isLeaf1 == true)
+                else if (isLeaf2 && isLeaf1)
                     bApplyRule = true;
 
                 if (bApplyRule)
@@ -353,16 +353,15 @@ public final class BESemanticalIntegrity implements DbUpdateListener {
         DbEnumeration dbEnum = process.getComponents().elements();
         while (dbEnum.hasMoreElements()) {
             DbObject dbo = (DbObject) dbEnum.nextElement();
-            if (dbo instanceof DbBEUseCase) {
-                DbBEUseCase childProcess = (DbBEUseCase) dbo;
+            if (dbo instanceof DbBEUseCase childProcess) {
 
                 Double tmpTime = childProcess.getTotalTime();
-                childTime = (tmpTime != null ? tmpTime.doubleValue() : 0.0);
+                childTime = (tmpTime != null ? tmpTime : 0.0);
                 BETimeUnit tmpUnit = childProcess.getTotalTimeUnit();
                 childUnit = (tmpUnit != null ? tmpUnit.getValue() : NA);
 
                 if (Double.isNaN(childTime) || (childTime > 0.0)) {
-                    if (firstChild == true) {
+                    if (firstChild) {
                         childUnitSet = (childUnit > 0 ? SMH : NA);
                         firstChild = false;
                     } else {
@@ -534,7 +533,7 @@ public final class BESemanticalIntegrity implements DbUpdateListener {
             if (fixedUnitSet == rsrcUnitSet) {
                 procFixedTime = getBaseTime(procFixedTime, procFixedUnit);
                 procResourceTime = getBaseTime(procResourceTime, procResourceUnit);
-                partialUnit = (procFixedUnit > procResourceUnit ? procFixedUnit : procResourceUnit);
+                partialUnit = (Math.max(procFixedUnit, procResourceUnit));
                 partialTime = getConvertValue((procFixedTime + procResourceTime), partialUnit);
             } else { // incompatible time unit
                 partialTime = getUndefinedValue();
@@ -578,7 +577,7 @@ public final class BESemanticalIntegrity implements DbUpdateListener {
                 workLoad = getUndefinedValue();
                 workLoadUnit = NA;
             } else if (rsrcUsageRate > 0.0) {
-                if (firstLink == true) {
+                if (firstLink) {
                     timeUnitSet = (rscrUsageRateUnit > 0 ? SMH : NA);
                     firstLink = false;
                 } else {
@@ -632,14 +631,13 @@ public final class BESemanticalIntegrity implements DbUpdateListener {
         DbEnumeration dbEnum = process.getComponents().elements();
         while (dbEnum.hasMoreElements()) {
             DbObject dbo = (DbObject) dbEnum.nextElement();
-            if (dbo instanceof DbBEUseCaseResource) {
-                DbBEUseCaseResource useCaseRsrc = ((DbBEUseCaseResource) dbo);
+            if (dbo instanceof DbBEUseCaseResource useCaseRsrc) {
                 DbBEResource resource = useCaseRsrc.getResource();
 
                 Double usageRate = useCaseRsrc.getUsageRate();
-                rsrcUsageRate = (usageRate != null ? usageRate.doubleValue() : 0.0);
+                rsrcUsageRate = (usageRate != null ? usageRate : 0.0);
                 Double cost = resource.getCost();
-                rsrcCost = (cost != null ? cost.doubleValue() : 0.0);
+                rsrcCost = (cost != null ? cost : 0.0);
                 BETimeUnit usageRateUnit = useCaseRsrc.getUsageRateTimeUnit();
                 rscrUsageRateUnit = (usageRateUnit != null ? usageRateUnit.getValue() : NA);
                 BETimeUnit costUnit = resource.getCostTimeUnit();
@@ -711,9 +709,9 @@ public final class BESemanticalIntegrity implements DbUpdateListener {
             processRsrcTime = getConvertValue(resultTime, commonTimeUnit);
         }
 
-        process.setResourceCost(Double.valueOf(processRsrcCost));
-        process.setResourceTime(useCaseRsrcUnitDiff == 0 ? Double.valueOf(processRsrcTime)
-                : Double.valueOf(getUndefinedValue()));
+        process.setResourceCost(processRsrcCost);
+        process.setResourceTime(useCaseRsrcUnitDiff == 0 ? processRsrcTime
+                : getUndefinedValue());
         if ((useCaseRsrcUnitDiff == 0) && (commonTimeUnit > 0))
             process.setResourceTimeUnit(BETimeUnit.getInstance(commonTimeUnit));
         else

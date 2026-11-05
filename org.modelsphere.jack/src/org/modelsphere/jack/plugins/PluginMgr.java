@@ -165,13 +165,17 @@ public final class PluginMgr {
     // //////////////////
     
     public void loadPlugins(Splash splash, Class<? extends Plugin>[] builtInPlugins) {    	
-    	try {
+        try (PluginStartupTiming total = PluginStartupTiming.start("load.total")) {
         	//load old-style plug-ins
-        	loadOldPlugins(splash, builtInPlugins);
+            try (PluginStartupTiming timing = PluginStartupTiming.start("legacy.load")) {
+                loadOldPlugins(splash, builtInPlugins);
+            }
         	
         	//load new-style plug-ins
         	XmlPluginInstaller installer = XmlPluginInstaller.getInstance();
-        	installer.installSignatures(splash, pluginsRegistry); 
+            try (PluginStartupTiming timing = PluginStartupTiming.start("xml.discovery")) {
+                installer.installSignatures(splash, pluginsRegistry);
+            }
     	} finally {
     		splashWindow = null;
             pluginsLoaded = true;
@@ -179,12 +183,15 @@ public final class PluginMgr {
     }
     
     public final void initPlugins(Splash splash) {    
-    	//init old-style plug-ins
-    	initOldPlugins(splash);
-    	
-    	//init new-style plug-ins
-    	XmlPluginInstaller installer = XmlPluginInstaller.getInstance();
-    	installer.install(splash, pluginsRegistry); 
+        try (PluginStartupTiming total = PluginStartupTiming.start("init.total")) {
+            try (PluginStartupTiming timing = PluginStartupTiming.start("legacy.install")) {
+                initOldPlugins(splash);
+            }
+            XmlPluginInstaller installer = XmlPluginInstaller.getInstance();
+            try (PluginStartupTiming timing = PluginStartupTiming.start("xml.install")) {
+                installer.install(splash, pluginsRegistry);
+            }
+        }
     }
 
     private void loadOldPlugins(Splash splash, Class<? extends Plugin>[] builtInPlugins) {
@@ -202,9 +209,11 @@ public final class PluginMgr {
 
         // add built ins first
         if (builtInPlugins != null) {
-            List<PluginDescriptor> pluginDescriptors = PluginLoader.getBuiltInInstance().scan();
-            for (PluginDescriptor pluginDescriptor : pluginDescriptors) {
-                tempPlugins.add(pluginDescriptor);
+            try (PluginStartupTiming timing = PluginStartupTiming.start("legacy.scan.builtin")) {
+                List<PluginDescriptor> pluginDescriptors = PluginLoader.getBuiltInInstance().scan();
+                for (PluginDescriptor pluginDescriptor : pluginDescriptors) {
+                    tempPlugins.add(pluginDescriptor);
+                }
             }
         }
 
@@ -219,16 +228,24 @@ public final class PluginMgr {
         List<PluginDescriptor> scannedPlugins = new ArrayList<PluginDescriptor>();
         List<PluginDescriptor> configuredPlugins = new ArrayList<PluginDescriptor>();
 
-        boolean configurationLoaded = pluginsConfiguration.load(configuredPlugins);
+        boolean configurationLoaded;
+        try (PluginStartupTiming timing = PluginStartupTiming.start("legacy.configuration")) {
+            configurationLoaded = pluginsConfiguration.load(configuredPlugins);
+        }
         PluginLoader xmlPluginLoader = PluginLoader.getXMLInstance();
-        List<PluginDescriptor> xmlPlugins = xmlPluginLoader.scan();
+        List<PluginDescriptor> xmlPlugins;
+        try (PluginStartupTiming timing = PluginStartupTiming.start("legacy.scan.xml")) {
+            xmlPlugins = xmlPluginLoader.scan();
+        }
 
         if (splashWindow != null)
             splashWindow.setGUIText(kScanning);
-        List<PluginDescriptor> plugins = PluginLoader.getJARInstance().scan();
-        scannedPlugins.addAll(plugins);
-        plugins = PluginLoader.getClassInstance().scan();
-        scannedPlugins.addAll(plugins);
+        try (PluginStartupTiming timing = PluginStartupTiming.start("legacy.scan.jar")) {
+            scannedPlugins.addAll(PluginLoader.getJARInstance().scan());
+        }
+        try (PluginStartupTiming timing = PluginStartupTiming.start("legacy.scan.class")) {
+            scannedPlugins.addAll(PluginLoader.getClassInstance().scan());
+        }
 
         if (configurationLoaded) {
             // Apply saved settings to scanned plugins, and include plugins added since
@@ -323,7 +340,10 @@ public final class PluginMgr {
                 if (!initPluginInstance(pluginDescriptor)) {
                     iter.remove();
                 } else if (isActive(pluginDescriptor)) {
-                    initPluginAction(pluginDescriptor);
+                    try (PluginStartupTiming timing = PluginStartupTiming.start(
+                            "legacy.action", pluginDescriptor.getClassName())) {
+                        initPluginAction(pluginDescriptor);
+                    }
                 }
             }
         }
@@ -416,7 +436,8 @@ public final class PluginMgr {
                 continue;
             }
             Plugin plugin = pluginDescriptor.getContext().getInstance();
-            try {
+            try (PluginStartupTiming timing = PluginStartupTiming.start(
+                    "legacy.installAction", pluginDescriptor.getClassName())) {
                 String menukey = plugin.installAction(frame, menumanager);
                 String actionkey = plugin.getClass().getName();
                 AbstractApplicationAction action = actionstore.getAction(actionkey);
@@ -550,13 +571,19 @@ public final class PluginMgr {
     private boolean initPluginClass(PluginDescriptor pluginDescriptor) {
         PluginContext context = pluginDescriptor.getContext();
         PluginLoader loader = context == null ? null : context.getLoader();
-        return loader.initPluginClass(pluginDescriptor, splashWindow);
+        try (PluginStartupTiming timing = PluginStartupTiming.start(
+                "legacy.class", pluginDescriptor.getClassName())) {
+            return loader.initPluginClass(pluginDescriptor, splashWindow);
+        }
     }
 
     private boolean initPluginInstance(PluginDescriptor pluginDescriptor) {
         PluginContext context = pluginDescriptor.getContext();
         PluginLoader loader = context == null ? null : context.getLoader();
-        return loader.initPluginInstance(pluginDescriptor, splashWindow);
+        try (PluginStartupTiming timing = PluginStartupTiming.start(
+                "legacy.instance", pluginDescriptor.getClassName())) {
+            return loader.initPluginInstance(pluginDescriptor, splashWindow);
+        }
     }
 
     public void showConfigurationDialog() {

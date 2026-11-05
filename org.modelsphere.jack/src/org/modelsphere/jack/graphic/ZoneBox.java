@@ -114,8 +114,8 @@ public class ZoneBox extends GraphicComponent {
     }
 
     // Enumerate the zones in display order.
-    public final Enumeration displayedZones() {
-        return new Enumeration() {
+    public final Enumeration<Zone> displayedZones() {
+        return new Enumeration<Zone>() {
             private int i = 0;
             private int nb = zones.size();
             private Zone zone = null;
@@ -131,7 +131,7 @@ public class ZoneBox extends GraphicComponent {
                 }
             }
 
-            public Object nextElement() {
+            public Zone nextElement() {
                 Zone ret = zone;
                 zone = null;
                 return ret;

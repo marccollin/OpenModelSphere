@@ -175,7 +175,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
         ObjectScope userScope = ObjectScope.findConceptInObjectScopeWithConceptName(scope,
                 DbORUser.metaClass.getGUIName());
         CheckTreeNode treeNode = m_options.getCheckTreeNode();
-        List excludeList = DBMSForwardOptions.getExcludeList(treeNode);
+        List<String> excludeList = DBMSForwardOptions.getExcludeList(treeNode);
         DbSMSAbstractPackage pack = m_options.getAbstractPackage();
         pack.getDb().beginTrans(Db.READ_TRANS);
 
@@ -218,7 +218,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
 
     private final void doCreationStatements(FileWriter fileWriter, ObjectScope[] scope,
             ObjectScope userScope, int statementType, SQLForwardEngineeringPlugin sqlForward,
-            Controller controller, List excludeList, boolean isHtml) throws DbException,
+            Controller controller, List<String> excludeList, boolean isHtml) throws DbException,
             IOException, RuleException {
         writeStatementTypeComment(fileWriter, DBMSForwardOptions.CREATE_STATEMENTS, sqlForward,
                 isHtml);
@@ -232,7 +232,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
 
     private final void doDropStatements(FileWriter fileWriter, ObjectScope[] scope,
             ObjectScope userScope, int statementType, SQLForwardEngineeringPlugin sqlForward,
-            Controller controller, List excludeList, boolean isHtml) throws DbException,
+            Controller controller, List<String> excludeList, boolean isHtml) throws DbException,
             IOException, RuleException {
         writeStatementTypeComment(fileWriter, DBMSForwardOptions.DROP_STATEMENTS, sqlForward,
                 isHtml);
@@ -246,7 +246,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
 
     private final void doStatement(FileWriter fileWriter, ObjectScope objectScope,
             ObjectScope userScope, ObjectScope[] scope, int statementType,
-            SQLForwardEngineeringPlugin sqlForward, Controller controller, List excludeList)
+            SQLForwardEngineeringPlugin sqlForward, Controller controller, List<String> excludeList)
             throws DbException, IOException, RuleException {
 
         String conceptName = objectScope.conceptName;
@@ -276,7 +276,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
             for (int j = 0; j < nbOccurrences && getController().checkPoint(); j++) {
                 UserInfo userInfo = (UserInfo) occurences.get(j);
                 if (ObjectScope.isOccurenceIsSelectedByObject(userScope, userInfo.user)) {
-                    List userOccurences = userInfo.occurences;
+                    List<ObjectSelection> userOccurences = userInfo.occurences;
                     for (int k = 0; k < userOccurences.size() && getController().checkPoint(); k++) {
                         ObjectSelection objectSelection = (ObjectSelection) userOccurences.get(k);
                         if (objectSelection.getIsSelected()) {
@@ -315,7 +315,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
 
     private final void generateStatement(FileWriter fileWriter, ObjectScope objectScope,
             ObjectScope[] scope, int statementType, SQLForwardEngineeringPlugin sqlForward,
-            ObjectSelection objectSelection, Controller controller, List excludeList)
+            ObjectSelection objectSelection, Controller controller, List<String> excludeList)
             throws DbException, IOException, RuleException {
 
         if (objectScope.childrenID != null) {
@@ -453,7 +453,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
 
     private final void expandRule(Rule rule, FileWriter fileWriter, DbObject obj,
             ObjectScope objectScope, SQLForwardEngineeringPlugin sqlForward, Controller controller,
-                                  List excludeList) throws DbException, IOException, RuleException {
+                                  List<String> excludeList) throws DbException, IOException, RuleException {
         StringWriter stringWriter = new StringWriter();
 
         DbObject refObject = null;

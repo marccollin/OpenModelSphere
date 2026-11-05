@@ -163,7 +163,7 @@ abstract class ExtractFileWriter {
         } // end if
 
         String name = obj.getPhysicalName();
-        if ((name == null) || (name.equals("")))
+        if ((name == null) || (name.isEmpty()))
             name = obj.getName();
 
         return name;

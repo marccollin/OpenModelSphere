@@ -159,24 +159,21 @@ public class DbFieldWrapper extends DbObjectWrapper {
 
     //TODO returns [1], [+], etc.
     public String getEmfaticMultiplicity() {
-        String mult = "[*]";
-        return mult;
+        return "[*]";
     }
 
     public String getContainment() throws DbException {
         DbOOAssociationEnd end = m_field.getAssociationEnd();
         OOAggregation aggr = (end == null) ? null : end.getAggregation();
         int kind = (aggr == null) ? OOAggregation.NONE : aggr.getValue();
-        String value = (kind == OOAggregation.COMPOSITE) ? "true" : "";
-        return value;
+        return (kind == OOAggregation.COMPOSITE) ? "true" : "";
     }
 
     public boolean isContainment() throws DbException {
         DbOOAssociationEnd end = m_field.getAssociationEnd();
         OOAggregation aggr = (end == null) ? null : end.getAggregation();
         int kind = (aggr == null) ? OOAggregation.NONE : aggr.getValue();
-        boolean containment = (kind == OOAggregation.COMPOSITE) ? true : false;
-        return containment;
+        return (kind == OOAggregation.COMPOSITE) ? true : false;
     }
 
     public String getLowerBound() throws DbException {

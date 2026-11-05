@@ -81,15 +81,15 @@ public final class SetDrawingAreaAction extends AbstractApplicationAction implem
                 diagGO.getDb().beginTrans(Db.WRITE_TRANS,
                         LocaleMgr.action.getString("drawingSizeUpdate"));
                 diagGO.set(DbGraphic.fDiagramNbPages, dialog.getNbPages());
-                diagGO.set(DbGraphic.fDiagramPrintScale, Integer.valueOf(dialog.getPrintScale()));
+                diagGO.set(DbGraphic.fDiagramPrintScale, dialog.getPrintScale());
 
                 // Pan graphical objects
                 Dimension pan = dialog.getPan();
                 if (pan.width != 0 || pan.height != 0) {
-                    Enumeration components = diag.components();
+                    Enumeration<GraphicComponent> components = diag.components();
                     List<GraphicComponent> gcs = new ArrayList<GraphicComponent>();
                     while (components.hasMoreElements()) {
-                        GraphicComponent gc = (GraphicComponent) components.nextElement();
+                        GraphicComponent gc = components.nextElement();
                         gcs.add(gc);
                     }
                     DbSelectTool.translate(gcs.toArray(new GraphicComponent[gcs.size()]),

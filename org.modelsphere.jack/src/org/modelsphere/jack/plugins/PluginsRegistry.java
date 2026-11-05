@@ -99,12 +99,10 @@ public final class PluginsRegistry implements Iterable<PluginDescriptor> {
     public void add(PluginDescriptor descriptor) {
     	
     	if (descriptor instanceof XmlPluginDescriptor) {
-    		XmlPluginDescriptor newDescriptor = (XmlPluginDescriptor)descriptor; 
-    		String name = newDescriptor.getName(); 
-    		PluginDescriptor oldDescriptor = findDescriptorByName(pluginDescriptors, name);
-    		pluginDescriptors.remove(oldDescriptor);
+            String className = descriptor.getClassName();
+            pluginDescriptors.removeIf(existing -> className.equals(existing.getClassName()));
     		pluginDescriptors.add(descriptor);
-    		removedDescriptors.remove(oldDescriptor);
+            removedDescriptors.removeIf(existing -> className.equals(existing.getClassName()));
     		firePluginListener(descriptor, true);
     		
     	} else {
@@ -116,20 +114,6 @@ public final class PluginsRegistry implements Iterable<PluginDescriptor> {
     	
        
     }
-
-    private PluginDescriptor findDescriptorByName(List<PluginDescriptor> pluginDescriptorList, String nameToFind) {
-    	PluginDescriptor foundDescriptor = null;
-    	
-		for (PluginDescriptor descriptor : pluginDescriptorList) {
-			String name = descriptor.getName(); 
-			if (nameToFind.equals(name)) {
-				foundDescriptor = descriptor;
-				break;
-			}
-		} //end for
-		
-		return foundDescriptor;
-	}
 
 	boolean remove(PluginDescriptor descriptor) {
         boolean removed = pluginDescriptors.remove(descriptor);

@@ -374,7 +374,7 @@ public final class DbBENotation extends DbSMSNotation {
      * 
      * @return arraylist
      **/
-    public final List getUseCaseZones() throws DbException {
+    public final List<DbBESingleZoneDisplay> getUseCaseZones() throws DbException {
         return getAllZonesOfType(BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
     }
 
@@ -383,7 +383,7 @@ public final class DbBENotation extends DbSMSNotation {
      * 
      * @return arraylist
      **/
-    public final List getActorZones() throws DbException {
+    public final List<DbBESingleZoneDisplay> getActorZones() throws DbException {
         return getAllZonesOfType(BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
     }
 
@@ -392,7 +392,7 @@ public final class DbBENotation extends DbSMSNotation {
      * 
      * @return arraylist
      **/
-    public final List getFlowZones() throws DbException {
+    public final List<DbBESingleZoneDisplay> getFlowZones() throws DbException {
         return getAllZonesOfType(BEZoneStereotype.getInstance(BEZoneStereotype.FLOW));
     }
 
@@ -401,7 +401,7 @@ public final class DbBENotation extends DbSMSNotation {
      * 
      * @return arraylist
      **/
-    public final List getStoreZones() throws DbException {
+    public final List<DbBESingleZoneDisplay> getStoreZones() throws DbException {
         return getAllZonesOfType(BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
     }
 

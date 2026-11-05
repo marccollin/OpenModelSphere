@@ -95,9 +95,9 @@ public class XMLPluginFileResourceBundleControl extends ResourceBundle.Control  
 		ResourceBundle bundle;
 		if (elem instanceof FsFile) {
 			FsFile resFile = (FsFile)elem;
-			InputStream input = resFile.openInputStream();
-			bundle = new PropertyResourceBundle(input);		
-			input.close();
+            try (InputStream input = resFile.openInputStream()) {
+                bundle = new PropertyResourceBundle(input);
+            }
 		} else {
 			bundle = null;
 		}

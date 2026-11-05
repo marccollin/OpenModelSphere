@@ -97,9 +97,9 @@ public class DrawingSizeDialog extends JDialog implements ChangeListener {
         yIncr = pageSize.getHeight() / scale;
         minX = minY = 1;
         previewDiagram = diagram;
-        Enumeration enumeration = diagram.components();
+        Enumeration<GraphicComponent> enumeration = diagram.components();
         while (enumeration.hasMoreElements()) {
-            GraphicComponent gc = (GraphicComponent) enumeration.nextElement();
+            GraphicComponent gc = enumeration.nextElement();
             if (contentRect == null)
                 contentRect = new Rectangle(gc.getRectangle());
             else

@@ -76,7 +76,7 @@ public class RecentFiles implements PropertiesProvider {
             PropertiesManager.registerPropertiesProvider(this);
             for (int i = DEFAULT_NB_OF_STORED_RF - 1; i >= 0; i--) {
                 String fileName = appPref.getPropertyString(RecentFiles.class, "" + i, null);
-                if ((fileName != null) && (!fileName.equals("")))
+                if ((fileName != null) && (!fileName.isEmpty()))
                     add(fileName);
             } // end for
         } // end if

@@ -70,9 +70,9 @@ public final class JarUtil {
             return null;
         List<File> files = new ArrayList<>();
         extension = extension.toLowerCase();
-        Enumeration entries = jarfile.entries();
+        Enumeration<JarEntry> entries = jarfile.entries();
         while (entries.hasMoreElements()) {
-            JarEntry entry = (JarEntry) entries.nextElement();
+            JarEntry entry = entries.nextElement();
             if (entry.getName().toLowerCase().endsWith(extension)) {
                 File tempfile = createTemporaryFile(jarfile, entry);
                 files.add(tempfile);
@@ -98,7 +98,7 @@ public final class JarUtil {
         String sURL = url;
         if (!(sURL.indexOf("jar:") == 0) || !(sURL.contains("!/"))) // NOT LOCALIZABLE
             return null;
-        return  sURL.substring(sURL.indexOf("!/") + 2, sURL.length()); // NOT LOCALIZABLE, jarFileName
+        return  sURL.substring(sURL.indexOf("!/") + 2); // NOT LOCALIZABLE, jarFileName
     }
 
     // Return the entry name part of this url or null if not a jar file
@@ -193,7 +193,7 @@ public final class JarUtil {
         String tempDir = System.getProperty("java.io.tmpdir"); // NOT LOCALIZABLE
         String jarFileName = sURL.substring("jar:file:".length(), sURL.indexOf("!/")); // NOT LOCALIZABLE
         JarFile jarfile = new JarFile(new File(jarFileName));
-        String fileName = sURL.substring(sURL.indexOf("!/") + 2, sURL.length()); // NOT LOCALIZABLE
+        String fileName = sURL.substring(sURL.indexOf("!/") + 2); // NOT LOCALIZABLE
         JarEntry entry = jarfile.getJarEntry(fileName);
         if (entry == null)
             return null;

@@ -49,6 +49,7 @@ import org.modelsphere.jack.awt.StatusBarModel;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -68,30 +69,24 @@ public final class Viewer extends JDialog {
         }
 
         public JComponent getComponentAt(int col) {
-            switch (col) {
-            case 0:
+            if (col == 0) {
                 return messageLabel;
-            default:
-                return new JLabel(""); // NOT LOCALIZABLE
             }
+            return new JLabel(""); // NOT LOCALIZABLE
         }
 
         public int getWidthAt(int col) {
-            switch (col) {
-            case 0:
+            if (col == 0) {
                 return StatusBar.RELATIVE_WIDTH;
-            default:
-                return 1;
             }
+            return 1;
         }
 
         public JComponent getTitleForComponentAt(int col) {
-            switch (col) {
-            case 0:
-                return null;
-            default:
+            if (col == 0) {
                 return null;
             }
+            return null;
         }
 
         public void startWaitingBar(String message) {
@@ -104,7 +99,7 @@ public final class Viewer extends JDialog {
         }
 
         public void setMessage(String message) {
-            if (message == null || message.length() == 0)
+            if (message == null || message.isEmpty())
                 message = " ";
             messageLabel.setText(message);
             messageLabel.setToolTipText(message);
@@ -146,7 +141,7 @@ public final class Viewer extends JDialog {
             } else if (event.getSource() == newviewer) {
                 Object root = explorer.getModel().getRoot();
                 List<Object> tempRoots = new ArrayList<>();
-                Enumeration enumeration = ((DefaultMutableTreeNode) root).children();
+                Enumeration<TreeNode> enumeration = ((DefaultMutableTreeNode) root).children();
                 while (enumeration.hasMoreElements()) {
                     tempRoots.add(((DefaultMutableTreeNode) enumeration.nextElement())
                             .getUserObject());

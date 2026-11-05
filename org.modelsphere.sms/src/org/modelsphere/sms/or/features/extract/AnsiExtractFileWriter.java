@@ -200,7 +200,7 @@ class AnsiExtractFileWriter extends ExtractFileWriter {
     protected void writeColumn(DbORColumn column, PrintWriter writer, String tableName, int colID)
             throws DbException {
         String colName = column.getPhysicalName();
-        if ((colName == null) || (colName.equals("")))
+        if ((colName == null) || (colName.isEmpty()))
             colName = column.getName();
 
         writer.println("sr_occurrence_type column");
@@ -275,13 +275,13 @@ class AnsiExtractFileWriter extends ExtractFileWriter {
             writer.println("tab_name " + tableName);
 
             String name = key.getPhysicalName();
-            if ((name == null) || (name.equals(""))) {
+            if ((name == null) || (name.isEmpty())) {
                 name = key.getName();
             }
             writer.println("name " + name);
 
             String colname = col.getPhysicalName();
-            if ((colname == null) || (colname.equals(""))) {
+            if ((colname == null) || (colname.isEmpty())) {
                 colname = col.getName();
             }
             writer.println("col_name " + colname);
@@ -310,7 +310,7 @@ class AnsiExtractFileWriter extends ExtractFileWriter {
             throws DbException {
         int seq = 0;
         String name = index.getPhysicalName();
-        if ((name == null) || (name.equals(""))) {
+        if ((name == null) || (name.isEmpty())) {
             name = index.getName();
         }
 
@@ -324,7 +324,7 @@ class AnsiExtractFileWriter extends ExtractFileWriter {
 
             DbORColumn col = key.getIndexedElement();
             String colname = col.getPhysicalName();
-            if ((colname == null) || (colname.equals(""))) {
+            if ((colname == null) || (colname.isEmpty())) {
                 colname = col.getName();
             }
             writer.println("col_name " + colname);
@@ -365,7 +365,7 @@ class AnsiExtractFileWriter extends ExtractFileWriter {
             throws DbException {
         int seq = 0;
         String name = fKey.getPhysicalName();
-        if ((name == null) || (name.equals(""))) {
+        if ((name == null) || (name.isEmpty())) {
             name = fKey.getName();
         }
 
@@ -381,7 +381,7 @@ class AnsiExtractFileWriter extends ExtractFileWriter {
             writer.println("name " + name);
 
             String colName = col.getPhysicalName();
-            if ((colName == null) || (colName.equals(""))) {
+            if ((colName == null) || (colName.isEmpty())) {
                 colName = col.getName();
             }
 

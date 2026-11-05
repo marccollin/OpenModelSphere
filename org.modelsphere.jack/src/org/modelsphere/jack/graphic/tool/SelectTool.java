@@ -698,9 +698,9 @@ public abstract class SelectTool extends Tool {
         if (hiY >= drawingArea.y + drawingArea.height - 1)
             hiY = Integer.MAX_VALUE;
 
-        Enumeration enumeration = model.components();
+        Enumeration<GraphicComponent> enumeration = model.components();
         while (enumeration.hasMoreElements()) {
-            GraphicComponent gc = (GraphicComponent) enumeration.nextElement();
+            GraphicComponent gc = enumeration.nextElement();
             Rectangle rect = gc.getRectangle();
             if (rect.x >= loX && rect.y >= loY && rect.x + rect.width <= hiX
                     && rect.y + rect.height <= hiY)

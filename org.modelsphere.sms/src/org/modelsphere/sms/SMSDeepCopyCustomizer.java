@@ -461,10 +461,10 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
 
     // If copy from a super-schema to a sub-schema, or the opposite side, set
     // the superCopy link whenever possible.
-    public final void endCopy(List srcRoots) throws DbException {
+    public final void endCopy(List<DbObject> srcRoots) throws DbException {
         int i;
         for (i = 0; i < srcRoots.size(); i++) {
-            DbObject dbo = (DbObject) srcRoots.get(i);
+            DbObject dbo = srcRoots.get(i);
             if (!AnySemObject.supportsSuper(dbo.getMetaClass()))
                 continue;
             if (dbo instanceof DbORAssociation)
@@ -490,7 +490,7 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
 
         // Link an association only if both its tables are linked.
         for (i = 0; i < srcRoots.size(); i++) {
-            DbObject dbo = (DbObject) srcRoots.get(i);
+            DbObject dbo = srcRoots.get(i);
             if (!(dbo instanceof DbORAssociation))
                 continue;
             DbORAssociation srcAssoc = (DbORAssociation) dbo;

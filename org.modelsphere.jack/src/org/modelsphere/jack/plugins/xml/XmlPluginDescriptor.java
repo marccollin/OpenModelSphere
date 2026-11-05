@@ -49,6 +49,7 @@ import org.modelsphere.jack.plugins.Plugin;
 import org.modelsphere.jack.plugins.Plugin2;
 import org.modelsphere.jack.plugins.PluginConstants;
 import org.modelsphere.jack.plugins.PluginDescriptor;
+import org.modelsphere.jack.plugins.PluginStartupTiming;
 import org.modelsphere.jack.plugins.io.ImageUtilities;
 import org.modelsphere.jack.plugins.io.PluginContext;
 import org.modelsphere.jack.plugins.io.PluginLoader;
@@ -282,21 +283,24 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 	@Override
 	public Class<? extends Plugin> getPluginClass() {
 		if (pluginClass == null) {
-		    grantPermissions();
-			String className = getClassName();
-			PluginContext context = getContext();
-			ClassLoader classLoader = context == null ? null : context.getClassLoader();
+            try (PluginStartupTiming timing = PluginStartupTiming.start(
+                    "xml.class", getClassName())) {
+                grantPermissions();
+                String className = getClassName();
+                PluginContext context = getContext();
+                ClassLoader classLoader = context == null ? null : context.getClassLoader();
 
-			if (classLoader == null) {
-		    	classLoader = createClassLoader();
-		    	context.setClassLoader(classLoader);
-		    }
-			
-			try {
-				pluginClass = (Class<? extends Plugin>) Class.forName(className, true, classLoader);
-			} catch (ClassNotFoundException ex) {
-				pluginClass = null;
-			}
+                if (classLoader == null) {
+                    classLoader = createClassLoader();
+                    context.setClassLoader(classLoader);
+                }
+
+                try {
+                    pluginClass = (Class<? extends Plugin>) Class.forName(className, true, classLoader);
+                } catch (ClassNotFoundException ex) {
+                    pluginClass = null;
+                }
+            }
 		}
 		
 		return pluginClass;

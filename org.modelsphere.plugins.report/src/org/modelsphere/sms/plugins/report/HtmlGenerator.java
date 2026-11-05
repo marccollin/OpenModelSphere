@@ -1098,7 +1098,7 @@ public class HtmlGenerator {
         if (jpegGenerator.getGeneratedFile() == null) {
             writeText(o, LocaleMgr.misc.getString("DiagramIsEmpty"), Color.red); // NOT LOCALIZABLE
         } else {
-            String imageReference = (model.getOptions().getDiagramDirectory().equals("") ? jpegGenerator
+            String imageReference = (model.getOptions().getDiagramDirectory().isEmpty() ? jpegGenerator
                     .getGeneratedFile().toString()
                     : model.getOptions().getDiagramDirectory() + File.separator
                             + jpegGenerator.getGeneratedFile().toString());

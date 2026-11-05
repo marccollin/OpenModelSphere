@@ -267,8 +267,8 @@ public class SetPageNumberPositionDialog extends JDialog implements TestableWind
         else
             radioPanel.setBorder(BorderFactory.createLineBorder(Color.gray));
 
-        for (Enumeration e = radioGroup.getElements(); e.hasMoreElements();) {
-            ((JRadioButton) e.nextElement()).setEnabled(b);
+        for (Enumeration<AbstractButton> e = radioGroup.getElements(); e.hasMoreElements();) {
+            e.nextElement().setEnabled(b);
         }
         fontLabel.setEnabled(b);
         lookupBtn.setEnabled(b);
@@ -289,12 +289,9 @@ public class SetPageNumberPositionDialog extends JDialog implements TestableWind
      */
     private final void setPosition(int value) {
         String sValue = Integer.toString(value);
-        for (Enumeration e = radioGroup.getElements(); e.hasMoreElements();) {
-            JRadioButton rB = (JRadioButton) e.nextElement();
-            if (rB.getActionCommand().equals(sValue))
-                rB.setSelected(true);
-            else
-                rB.setSelected(false);
+        for (Enumeration<AbstractButton> e = radioGroup.getElements(); e.hasMoreElements();) {
+            AbstractButton rB = e.nextElement();
+            rB.setSelected(rB.getActionCommand().equals(sValue));
         }
     }
 
@@ -362,8 +359,7 @@ public class SetPageNumberPositionDialog extends JDialog implements TestableWind
     }
 
     public Window createTestWindow(Container owner) {
-        SetPageNumberPositionDialog dialog = new SetPageNumberPositionDialog();
-        return dialog;
+        return new SetPageNumberPositionDialog();
     }
 
     private static void runDemo() {
@@ -391,4 +387,3 @@ public class SetPageNumberPositionDialog extends JDialog implements TestableWind
     }
 
 } // end SetPageNumberPositionDialog
-

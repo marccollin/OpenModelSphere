@@ -57,7 +57,6 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import java.util.jar.Manifest;
 
 public class ClassPluginLoader extends JARPluginLoader {
 
@@ -125,8 +124,7 @@ public class ClassPluginLoader extends JARPluginLoader {
                     if (jarurl == null)
                         return null;
 
-                    ClassPluginContext context = (ClassPluginContext) createPluginContext(jarurl);
-                    PluginManifest manifest = context.getPluginManifest();
+                    PluginManifest manifest = readManifest(jar);
 
                     String entryPoint = manifest == null ? null : manifest.getPluginClassName();
 
@@ -141,7 +139,7 @@ public class ClassPluginLoader extends JARPluginLoader {
                                 continue;
                             // TODO --- This override the descriptor on each iteration
                             DefaultPluginDescriptor descriptor = addFromJar(jarurl, entry.getName(),
-                                    pluginloader, Rule.class);
+                                    pluginloader, Rule.class, manifest);
                             if (descriptor != null) {
                                 descriptors.add(descriptor);
                             }
@@ -155,6 +153,7 @@ public class ClassPluginLoader extends JARPluginLoader {
                     descriptors.add(descriptor);
             }
         } catch (IOException ioe) {
+            invalidate(null, ioe, null, file);
             descriptors = null;
         } // Invalid url access, skip
         return descriptors;
@@ -192,14 +191,15 @@ public class ClassPluginLoader extends JARPluginLoader {
     }
 
     private DefaultPluginDescriptor addFromJar(URL jarURL, String className,
-            ClassLoader classLoader, Class<? extends Plugin> assignableFrom) {
+            ClassLoader classLoader, Class<? extends Plugin> assignableFrom,
+            PluginManifest manifest) {
         if (jarURL == null || className == null || classLoader == null)
             return null;
 
         DefaultPluginDescriptor pluginDescriptor = null;
         try {
             if (className != null && className.indexOf('$') < 0) {
-                ClassPluginContext context = (ClassPluginContext) createPluginContext(jarURL);
+                ClassPluginContext context = createPluginContext(jarURL, manifest);
                 if (className.toLowerCase().endsWith(CLASS_EXTENSION)) {
                     className = className.substring(0, className.toLowerCase().lastIndexOf(
                             CLASS_EXTENSION));
@@ -230,19 +230,9 @@ public class ClassPluginLoader extends JARPluginLoader {
     }
 
     @Override
-    public PluginContext createPluginContext(URL url) {
+    protected ClassPluginContext createPluginContext(URL url, PluginManifest manifest) {
         ClassPluginContext context = new ClassPluginContext(this, url);
-        if (url != null) {
-            try {
-                JarFile jar = new JarFile(url.getFile());
-                Manifest manifest = jar.getManifest();
-                if (manifest != null) {
-                    PluginManifest pluginManifest = new PluginManifest(manifest);
-                    context.setPluginManifest(pluginManifest);
-                }
-            } catch (Exception e) {
-            }
-        }
+        context.setPluginManifest(manifest);
         return context;
     }
 

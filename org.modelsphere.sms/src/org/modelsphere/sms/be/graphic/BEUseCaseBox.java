@@ -185,9 +185,9 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
         if (m_stereotype != null) {
             Image image = m_stereotypeIcon;
             if (image != null) {
-                Enumeration enumeration = displayedZones();
+                Enumeration<Zone> enumeration = displayedZones();
                 while (enumeration.hasMoreElements()) {
-                    Zone zone = (Zone) enumeration.nextElement();
+                    Zone zone = enumeration.nextElement();
                     String id = zone.getNameID();
                     if (id != null) {
                         String stereotypeName = DbBEUseCase.fUmlStereotype.getGUIName();
@@ -358,9 +358,9 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
         removeRefreshListener();
         removeZonesListener();
         removeQualifiersListener();
-        Enumeration enumeration = this.displayedZones();
+        Enumeration<Zone> enumeration = this.displayedZones();
         while (enumeration.hasMoreElements()) {
-            Zone zone = (Zone) enumeration.nextElement();
+            Zone zone = enumeration.nextElement();
             if (zone instanceof MatrixZone)
                 try {
                     ((MatrixZone) zone).removeAllRows();
@@ -415,7 +415,7 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
                     String stringValue = value.toString();
                     if (stringValue == null)
                         cro.setCanReceiveFocus(false);
-                    else if (stringValue.equals(""))
+                    else if (stringValue.isEmpty())
                         cro.setCanReceiveFocus(false);
                 }
                 zone.addColumn(new ColumnCellsOption(cro, tfEditor, false));
@@ -717,9 +717,9 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
 
     protected void setTextColor() throws DbException {
         Color color = (Color) useCaseGO.find(DbBEUseCaseGo.fTextColor);
-        Enumeration enumeration = this.displayedZones();
+        Enumeration<Zone> enumeration = this.displayedZones();
         while (enumeration.hasMoreElements()) {
-            Zone zone = (Zone) enumeration.nextElement();
+            Zone zone = enumeration.nextElement();
             zone.setTextColor(color);
         }
     }

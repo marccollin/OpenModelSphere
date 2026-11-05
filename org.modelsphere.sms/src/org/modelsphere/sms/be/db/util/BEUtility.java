@@ -375,7 +375,7 @@ public class BEUtility {
                 String tname = usecase.getTerminologyName();
                 if (tname == null)
                     usecase.setTerminologyName(notationName);
-                else if (tname.equals(""))
+                else if (tname.isEmpty())
                     usecase.setTerminologyName(notationName);
                 else if (false == tname.equals(notationName))
                     usecase.setTerminologyName(notationName);

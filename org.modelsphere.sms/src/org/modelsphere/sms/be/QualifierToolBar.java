@@ -71,7 +71,8 @@ public class QualifierToolBar extends JackToolBar implements CurrentFocusListene
     private DefaultLinkUnlinkListPanel listpanel;
     private DbObject lastModel; // retains last model to limit list refresh
 
-    public QualifierToolBar(List tools, List components, ToolButtonGroup toolGroup) {
+    public QualifierToolBar(List<? extends Tool> tools, List<? extends JComponent> components,
+            ToolButtonGroup toolGroup) {
         super();
         SMSActionsStore actionsStore = SMSActionsStore.getSingleton();
         setName(LocaleMgr.misc.getString("QualifierToolBarName"));
@@ -79,14 +80,11 @@ public class QualifierToolBar extends JackToolBar implements CurrentFocusListene
         add(listpanel);
         this.toolGroup = toolGroup;
 
-        Iterator iter = components.iterator();
-        while (iter.hasNext()) {
-            listpanel.addToolComponent((JComponent) iter.next());
+        for (JComponent component : components) {
+            listpanel.addToolComponent(component);
         }
 
-        iter = tools.iterator();
-        while (iter.hasNext()) {
-            Tool tool = (Tool) iter.next();
+        for (Tool tool : tools) {
             if (!(tool instanceof LinkUnlinkTool))
                 continue;
             ((LinkUnlinkTool) tool).setListComponent(listpanel.getJList());

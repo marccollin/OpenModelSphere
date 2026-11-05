@@ -184,7 +184,7 @@ public final class MergeUseCase {
             return targetNeighbor;
         }
 
-        public void endCopy(List srcRoots) throws DbException {
+        public void endCopy(List<DbObject> srcRoots) throws DbException {
         }
     }
 

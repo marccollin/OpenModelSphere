@@ -50,6 +50,7 @@ import org.modelsphere.jack.srtool.forward.JackForwardEngineeringPlugin;
 import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectScope;
 import org.modelsphere.sms.db.DbSMSAbstractPackage;
 
+import javax.swing.tree.TreeNode;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -191,11 +192,11 @@ public class DBMSForwardOptions implements ForwardOptions {
         return m_fieldTree;
     }
 
-    public static List getExcludeList(CheckTreeNode fieldTree) {
+    public static List<String> getExcludeList(CheckTreeNode fieldTree) {
         List<String> excludeList = new ArrayList<>();
 
         if (fieldTree != null) {
-            Enumeration enumClasses = fieldTree.children();
+            Enumeration<TreeNode> enumClasses = fieldTree.children();
             while (enumClasses.hasMoreElements()) {
                 CheckTreeNode node = (CheckTreeNode) enumClasses.nextElement();
                 String className = node.toString();
@@ -203,7 +204,7 @@ public class DBMSForwardOptions implements ForwardOptions {
                     // its items
                     excludeList.add(className);
                 } else {
-                    Enumeration enumFields = node.children();
+                    Enumeration<TreeNode> enumFields = node.children();
                     while (enumFields.hasMoreElements()) {
                         CheckTreeNode subnode = (CheckTreeNode) enumFields.nextElement();
                         if (!subnode.isSelected()) {

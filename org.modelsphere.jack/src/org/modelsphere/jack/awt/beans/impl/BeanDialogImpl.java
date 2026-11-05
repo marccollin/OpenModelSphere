@@ -78,7 +78,7 @@ public class BeanDialogImpl implements BeanDialog {
     private int m_modelType; // EITHER BEAN_TYPE OR ARRAYLIST_TYPE
     private Serializable m_bean = null;
     private BeanInfo m_beaninfo = null;
-    private List m_primitiveList = null;
+    private List<? extends AbstractProperty> m_primitiveList = null;
     private static int g_defaultTooltipDismissDelay = 0;
 
     // CONSTRUCTORS
@@ -89,7 +89,7 @@ public class BeanDialogImpl implements BeanDialog {
         g_defaultTooltipDismissDelay = ToolTipManager.sharedInstance().getDismissDelay();
     }
 
-    public BeanDialogImpl(List primitiveList) {
+    public BeanDialogImpl(List<? extends AbstractProperty> primitiveList) {
         m_modelType = PROPERTYLIST_TYPE;
         m_primitiveList = primitiveList;
         g_defaultTooltipDismissDelay = ToolTipManager.sharedInstance().getDismissDelay();
@@ -110,7 +110,7 @@ public class BeanDialogImpl implements BeanDialog {
     //
     // /////////////////////////////////////////////////
 
-    public List getPrimitiveList() {
+    public List<? extends AbstractProperty> getPrimitiveList() {
         return m_primitiveList;
     }
 
@@ -178,7 +178,7 @@ public class BeanDialogImpl implements BeanDialog {
         private int g_counter;
         private int m_modelType;
         private Serializable m_bean;
-        private List m_propertyList;
+        private List<? extends AbstractProperty> m_propertyList;
         private int m_nbrows;
         private Image m_icon;
         private String m_title;
@@ -190,7 +190,7 @@ public class BeanDialogImpl implements BeanDialog {
         private Method[] m_writeMethods;
         private Class[] m_propertyTypes;
 
-        PropertyTableModel(List propertyList, BeanFrameInfo beanFrameInfo) {
+        PropertyTableModel(List<? extends AbstractProperty> propertyList, BeanFrameInfo beanFrameInfo) {
             m_modelType = PROPERTYLIST_TYPE;
             m_propertyList = propertyList;
             m_info = beanFrameInfo;
@@ -202,7 +202,7 @@ public class BeanDialogImpl implements BeanDialog {
             m_writeMethods = new Method[nb];
             m_propertyTypes = new Class[nb];
 
-            for (Object o : propertyList) {
+            for (AbstractProperty o : propertyList) {
                 AbstractProperty.BooleanProperty prop = (AbstractProperty.BooleanProperty) o;
                 m_names[m_nbrows] = prop.getName();
                 Class claz = AbstractProperty.BooleanProperty.class;
@@ -310,7 +310,7 @@ public class BeanDialogImpl implements BeanDialog {
             // end switch
             Serializable variable = switch (m_modelType) {
                 case BEAN_TYPE -> m_bean;
-                case PROPERTYLIST_TYPE -> (Serializable) m_propertyList.get(idx);
+                case PROPERTYLIST_TYPE -> m_propertyList.get(idx);
                 default -> null;
                 //
             };

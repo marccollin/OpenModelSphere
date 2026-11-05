@@ -72,11 +72,13 @@ public class PropertyDialog extends JDialog {
     //
     // PUBLIC CONSTRUCTORS
     //
-    public PropertyDialog(JFrame owner, String title, String buttonText, List propertyList) {
+    public PropertyDialog(JFrame owner, String title, String buttonText,
+            List<? extends AbstractProperty> propertyList) {
         this(owner, title, buttonText, new BeanDialogImpl(propertyList));
     }
 
-    public PropertyDialog(JDialog owner, String title, String buttonText, List propertyList) {
+    public PropertyDialog(JDialog owner, String title, String buttonText,
+            List<? extends AbstractProperty> propertyList) {
         this(owner, title, buttonText, new BeanDialogImpl(propertyList));
     }
 

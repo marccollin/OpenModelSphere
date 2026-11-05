@@ -99,7 +99,7 @@ public abstract class DbObject extends PersistentObject {
     public static final int SHORT_FORM = 1;
     public static final int LONG_FORM = 2;
 
-    static Map<DbObject, Object> matchingMap = null;
+    static Map<DbObject, DbObject> matchingMap = null;
 
     protected static final byte ACCESS_GRANTED = 1; // 0 means uninitialized
     protected static final byte ACCESS_NOT_GRANTED = 2;
@@ -286,11 +286,11 @@ public abstract class DbObject extends PersistentObject {
     }
 
     public final String buildFullNameString(ComponentIterator compIter) throws DbException {
-        String fullName = getName();
+        StringBuilder fullName = new StringBuilder(getName());
         if (fullName == null)
-            fullName = "";
+            fullName = new StringBuilder();
         if (compIter != null)
-            fullName = compIter.modifiedComponentName(this, fullName);
+            fullName = new StringBuilder(compIter.modifiedComponentName(this, fullName.toString()));
         if (!(this instanceof DbProject)) {
             DbObject parent = this;
             while (true) {
@@ -303,10 +303,10 @@ public abstract class DbObject extends PersistentObject {
                     parentName = "";
                 if (compIter != null)
                     parentName = compIter.modifiedComponentName(parent, parentName);
-                fullName = parentName + "." + fullName; //NOT LOCALIZABLE
+                fullName.insert(0, parentName + "."); //NOT LOCALIZABLE
             }
         }
-        return fullName;
+        return fullName.toString();
     }
 
     public static interface ComponentIterator {
@@ -897,7 +897,7 @@ public abstract class DbObject extends PersistentObject {
     }
 
     public final Object getCreationTime() throws DbException {
-        return (Object) get(fCreationTime);
+        return get(fCreationTime);
     }
 
     public final String getEDCTimestamp() throws DbException {
@@ -1598,7 +1598,7 @@ public abstract class DbObject extends PersistentObject {
             return;
         }
 
-        DbObject match = (DbObject) matchingMap.get(this);
+        DbObject match = matchingMap.get(this);
         if (match != null && match != db.getRoot()) {
             if (dbo == null) {
                 matchingMap.put(this, db.getRoot());
@@ -1611,7 +1611,7 @@ public abstract class DbObject extends PersistentObject {
             else if (dbo == this)
                 matchingMap.put(this, this);
             else {
-                match = (DbObject) matchingMap.get(dbo);
+                match = matchingMap.get(dbo);
                 if (match != null && match != dbo.db.getRoot())
                     throw new RuntimeException("Already matched"); // NOT LOCALIZABLE RuntimeException
                 matchingMap.put(this, dbo);
@@ -1621,7 +1621,7 @@ public abstract class DbObject extends PersistentObject {
     }
 
     public final DbObject getMatchingObject() {
-        DbObject match = (DbObject) matchingMap.get(this);
+        DbObject match = matchingMap.get(this);
         if (match != null) {
             if (match == db.getRoot() || match.transStatus == Db.OBJ_REMOVED)
                 match = null;
@@ -1635,7 +1635,7 @@ public abstract class DbObject extends PersistentObject {
      * <this> are not themselves already matched, apply the algorithm recursively on them.
      */
     public final DbObject findMatchingObject() throws DbException {
-        DbObject match = (DbObject) matchingMap.get(this);
+        DbObject match = matchingMap.get(this);
         if (match != null)
             return (match == db.getRoot() || match.transStatus == Db.OBJ_REMOVED ? null : match);
 

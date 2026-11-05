@@ -533,7 +533,7 @@ public class GeneratePhysicalNameFrame extends JDialog {
         return wordDelimiters;
     }
 
-    public final Map getAccentedCharactersToReplace() {
+    public final Map<String, String> getAccentedCharactersToReplace() {
         return accentedCharactersToReplaceHashMap;
     }
 

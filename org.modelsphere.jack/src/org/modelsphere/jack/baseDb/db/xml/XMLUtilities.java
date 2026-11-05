@@ -140,17 +140,17 @@ public final class XMLUtilities implements XMLConstants {
     private static void initIDPool() {
         idPool = new HashMap<>();
         List<String> shortNameList = new ArrayList<>(); // validation only
-        Enumeration allmetaclasses = MetaClass.enumMetaClasses();
+        Enumeration<MetaClass> allmetaclasses = MetaClass.enumMetaClasses();
         while (allmetaclasses.hasMoreElements()) {
-            MetaClass mc = (MetaClass) allmetaclasses.nextElement();
+            MetaClass mc = allmetaclasses.nextElement();
             String name = mc.getJClass().getName();
             int index = name.lastIndexOf(".Db"); // NOT LOCALIZABLE
             if (index > -1) {
-                name = name.substring(index + ".Db".length(), name.length()); // NOT
+                name = name.substring(index + ".Db".length()); // NOT
                 // LOCALIZABLE
             }
             // validate for duplicate
-            Debug.assert2(shortNameList.indexOf(name) == -1,
+            Debug.assert2(!shortNameList.contains(name),
                     "XMLUtilities:  Duplicated name for metaclass.");
             shortNameList.add(name);
             idPool.put(mc, name);
@@ -162,9 +162,7 @@ public final class XMLUtilities implements XMLConstants {
             initIDPool();
         }
         XMLElement idpool = new DefaultElement(TAG_ID_POOL);
-        Iterator<MetaClass> metaclasses = idPool.keySet().iterator();
-        while (metaclasses.hasNext()) {
-            MetaClass metaclass = metaclasses.next();
+        for (MetaClass metaclass : idPool.keySet()) {
             XMLElement id = new DefaultElement(TAG_ID);
             id.add(new DefaultAttribute(ID_SHORT, idPool.get(metaclass)));
             id.add(new DefaultAttribute(ID_LONG, metaclass.getJClass().getName()));
@@ -245,7 +243,7 @@ public final class XMLUtilities implements XMLConstants {
         DataConversion conversion = DataConversion.getSingleton();
 
         if (type == boolean.class) {
-            boolean b = fieldValue.equals("1") ? true : false;
+            boolean b = fieldValue.equals("1");
             field.setBoolean(obj, b);
         } else if (type == byte.class) {
             byte b = Byte.parseByte(fieldValue);

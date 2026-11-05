@@ -62,7 +62,7 @@ public class GeneratePhysicalNameModel extends AbstractTableModel {
     public static final String DEFAULT_REPLACEMENT_STRING = "_"; //NOT LOCALIZABLE
     public static final ORPNGCase DEFAULT_CASE = ORPNGCase.getInstance(ORPNGCase.UPPER);
 
-    Object[] listConcepts = null;
+    MetaClass[] listConcepts = null;
     ORPNGParameters[] parameters = null;
 
     final String[] columnNames = { LocaleMgr.screen.getString("Concept"),
@@ -78,15 +78,13 @@ public class GeneratePhysicalNameModel extends AbstractTableModel {
                 getDefaultParametersToString()));
     }
 
-    private final Object[] getMetaClassesWithPhysicalName() {
+    private final MetaClass[] getMetaClassesWithPhysicalName() {
         List<MetaClass> list = new ArrayList<>();
-        for (int i = 0; i < AnyORObject.ORMetaClasses.length; i++) {
-            list.add(AnyORObject.ORMetaClasses[i]);
-        }
+        Collections.addAll(list, AnyORObject.ORMetaClasses);
 
-        Enumeration enumMetaClasses = DbObject.metaClass.enumMetaClassHierarchy(true);
+        Enumeration<MetaClass> enumMetaClasses = DbObject.metaClass.enumMetaClassHierarchy(true);
         while (enumMetaClasses.hasMoreElements()) {
-            MetaClass metaClass = (MetaClass) enumMetaClasses.nextElement();
+            MetaClass metaClass = enumMetaClasses.nextElement();
             if (AnyORObject.getMetaClassIndex(metaClass) == -1
                     && AnySemObject.supportsPhysicalName(metaClass)
                     && metaClass != DbORARedoLogGroup.metaClass
@@ -95,24 +93,23 @@ public class GeneratePhysicalNameModel extends AbstractTableModel {
                 list.add(metaClass);
         }
         Collections.sort(list, new CollationComparator());
-        return list.toArray();
+        return list.toArray(new MetaClass[0]);
 
     }
 
     private final void populateParameters() {
         for (int i = 0; i < listConcepts.length; i++) {
-            parameters[i] = new ORPNGParameters((MetaClass) listConcepts[i], DEFAULT_STATUS,
-                    DEFAULT_REPLACEMENT_STRING, Integer.valueOf(DEFAULT_LENGTH), Boolean.valueOf(
-                            DEFAULT_UNIQUE), Integer.valueOf(DEFAULT_NCBW), DEFAULT_CASE);
+            parameters[i] = new ORPNGParameters(listConcepts[i], DEFAULT_STATUS,
+                    DEFAULT_REPLACEMENT_STRING, DEFAULT_LENGTH, DEFAULT_UNIQUE, DEFAULT_NCBW, DEFAULT_CASE);
         }
     }
 
     private final String getDefaultParametersToString() {
         String defaultParametersString = ""; //NOT LOCALIZABLE
-        for (int i = 0; i < listConcepts.length; i++) {
-            ORPNGParameters param = new ORPNGParameters((MetaClass) listConcepts[i],
-                    DEFAULT_STATUS, DEFAULT_REPLACEMENT_STRING, Integer.valueOf(DEFAULT_LENGTH),
-                    Boolean.valueOf(DEFAULT_UNIQUE), Integer.valueOf(DEFAULT_NCBW), DEFAULT_CASE);
+        for (MetaClass listConcept : listConcepts) {
+            ORPNGParameters param = new ORPNGParameters(listConcept,
+                    DEFAULT_STATUS, DEFAULT_REPLACEMENT_STRING, DEFAULT_LENGTH,
+                    DEFAULT_UNIQUE, DEFAULT_NCBW, DEFAULT_CASE);
             defaultParametersString = defaultParametersString + param.toString()
                     + CONCEPT_PARAM_SEPARATOR;
         }
@@ -132,7 +129,7 @@ public class GeneratePhysicalNameModel extends AbstractTableModel {
         populateParameters();
     }
 
-    public final List getParametersToGenerate() {
+    public final List<ORPNGParameters> getParametersToGenerate() {
         List<ORPNGParameters> toGenerate = new ArrayList<>();
         for (ORPNGParameters param : parameters) {
             if ((param.getStatus() == ORPNGStatus.getInstance(ORPNGStatus.PARTIAL))
@@ -174,12 +171,12 @@ public class GeneratePhysicalNameModel extends AbstractTableModel {
                 if (col == 3) {
                     Integer length = iValue;
                     Integer wordLength = (Integer) getValueAt(row, 5);
-                    if (length.intValue() < 4 || length.intValue() < wordLength.intValue())
+                    if (length < 4 || length < wordLength)
                         return;
                 } else if (col == 5) {
                     Integer wordLength = iValue;
                     Integer length = (Integer) getValueAt(row, 3);
-                    if (wordLength.intValue() <= 0 || wordLength.intValue() > length.intValue())
+                    if (wordLength <= 0 || wordLength > length)
                         return;
                 }
 
@@ -192,12 +189,12 @@ public class GeneratePhysicalNameModel extends AbstractTableModel {
             if (col == 3) {
                 Integer length = (Integer) value;
                 Integer wordLength = (Integer) getValueAt(row, 5);
-                if (length.intValue() < 4 || length.intValue() < wordLength.intValue())
+                if (length < 4 || length < wordLength)
                     return;
             } else if (col == 5) {
                 Integer wordLength = (Integer) value;
                 Integer length = (Integer) getValueAt(row, 3);
-                if (wordLength.intValue() <= 0 || wordLength.intValue() > length.intValue())
+                if (wordLength <= 0 || wordLength > length)
                     return;
             }
             parameters[row].set(col, value);
@@ -297,9 +294,9 @@ public class GeneratePhysicalNameModel extends AbstractTableModel {
 
     private final MetaClass getMetaClassFromString(String metaClassString) {
         MetaClass metaClass = null;
-        for (Object listConcept : listConcepts) {
-            if (((MetaClass) listConcept).getGUIName().equals(metaClassString)) {
-                metaClass = (MetaClass) listConcept;
+        for (MetaClass listConcept : listConcepts) {
+            if (listConcept.getGUIName().equals(metaClassString)) {
+                metaClass = listConcept;
                 break;
             }
         }

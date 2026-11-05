@@ -614,7 +614,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
                         } // end if
 
                         StringWriter swriter = new StringWriter();
-                        List excludeList = null;
+                        List<String> excludeList = null;
                         if (m_fieldTree != null) {
                             excludeList = DBMSForwardOptions.getExcludeList(m_fieldTree);
                         }

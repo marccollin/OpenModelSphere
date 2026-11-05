@@ -132,11 +132,11 @@ public abstract class AnySemObject {
                 .getSeqNo()]);
     }
 
-    public static final List getAllDbSMSLinkModel(DbSMSProject project) throws DbException {
-        List<DbObject> array = new ArrayList<>();
+    public static final List<DbSMSLinkModel> getAllDbSMSLinkModel(DbSMSProject project) throws DbException {
+        List<DbSMSLinkModel> array = new ArrayList<>();
         DbEnumeration dbEnum = project.componentTree(DbSMSLinkModel.metaClass);
         while (dbEnum.hasMoreElements()) {
-            array.add(dbEnum.nextElement());
+            array.add((DbSMSLinkModel) dbEnum.nextElement());
         }
         return array;
 
@@ -145,9 +145,9 @@ public abstract class AnySemObject {
     private static boolean[] initBitMap(MetaClass[] metaClasses) {
         boolean[] bitMap = new boolean[MetaClass.getNbMetaClasses()];
         for (MetaClass metaClass : metaClasses) {
-            Enumeration enumeration = metaClass.enumMetaClassHierarchy(false);
+            Enumeration<MetaClass> enumeration = metaClass.enumMetaClassHierarchy(false);
             while (enumeration.hasMoreElements())
-                bitMap[((MetaClass) enumeration.nextElement()).getSeqNo()] = true;
+                bitMap[enumeration.nextElement().getSeqNo()] = true;
         }
         return bitMap;
     }

@@ -268,7 +268,7 @@ public final class DbBEUseCase extends DbSMSClassifier {
                 compositeTerminology = ((DbBEModel) comp).getTerminologyName();
             if (tname == null)
                 useCase.setTerminologyName(compositeTerminology);
-            else if (tname.equals(""))
+            else if (tname.isEmpty())
                 useCase.setTerminologyName(compositeTerminology);
         }
     }

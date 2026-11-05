@@ -81,10 +81,10 @@ public class BEFlow extends SrLine implements DbRefreshListener {
     private DbBEDiagram dbDiagram;
     private Set<Object> zonesSources;
     private DbBENotation notation;
-    private List zones = null;
-    private List allLabels = null;
+    private List<DbBESingleZoneDisplay> zones = null;
+    private List<SrLineLabel> allLabels = null;
     private BEFlowQualifier qualifiersGo = null;
-    private List qualifiers = null;
+    private List<DbBEQualifier> qualifiers = null;
 
     public BEFlow(Diagram diag, DbBEFlowGo newFlowGO, GraphicNode node1, GraphicNode node2)
             throws DbException {
@@ -179,7 +179,7 @@ public class BEFlow extends SrLine implements DbRefreshListener {
             removeZonesListener();
         if (allLabels != null)
             removeLabels();
-        allLabels = new ArrayList();
+        allLabels = new ArrayList<>();
 
         // check style if label are visible
         boolean display = ((DbBEStyle) ((DbBEFlowGo) lineGo).findStyle()).getDisplayLabelDbBEFlow()
@@ -187,9 +187,9 @@ public class BEFlow extends SrLine implements DbRefreshListener {
         String name = semObj.getName();
         if (name == null || name.compareTo("") == 0) {
             display = false;
-            List al = notation.getFlowZones();
+            List<DbBESingleZoneDisplay> al = notation.getFlowZones();
             if (al.size() != 0) {
-                DbBESingleZoneDisplay zonedisp = (DbBESingleZoneDisplay) al.get(0);
+                DbBESingleZoneDisplay zonedisp = al.get(0);
                 if (zonedisp != null)
                     if (zonedisp.getValue(semObj) instanceof DbSMSStereotype)
                         display = true;
@@ -197,12 +197,12 @@ public class BEFlow extends SrLine implements DbRefreshListener {
                         display = false;
                     else if (al.size() > 0) {
                         for (int i = 0; i < al.size(); i++) {
-                            DbBESingleZoneDisplay disp = ((DbBESingleZoneDisplay) al.get(i));
+                            DbBESingleZoneDisplay disp = al.get(i);
                             Object o = disp.getValue(semObj);
                             String zname = (String) o;
                             if (zname == null)
                                 continue;
-                            if (zname.equals(""))
+                            if (zname.isEmpty())
                                 continue;
                             else
                                 display = true;
@@ -214,11 +214,11 @@ public class BEFlow extends SrLine implements DbRefreshListener {
         if (display) {
             zonesSources = new HashSet<>();
             zones = notation.getFlowZones();
-            Iterator i = zones.iterator();
+            Iterator<DbBESingleZoneDisplay> i = zones.iterator();
             BEFlowLabel labels = null;
             int zoneIndex = 0;
             while (i.hasNext()) {
-                DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+                DbBESingleZoneDisplay zoneDisplay = i.next();
                 if (!zoneDisplay.isDisplayed()
                         || (zoneDisplay.getValue(semObj) == null && zoneDisplay.getMetaField() != DbSemanticalObject.fName))
                     continue;
@@ -303,9 +303,9 @@ public class BEFlow extends SrLine implements DbRefreshListener {
     }
 
     private void removeLabels() {
-        Iterator i = allLabels.iterator();
+        Iterator<SrLineLabel> i = allLabels.iterator();
         while (i.hasNext()) {
-            SrLineLabel label = (SrLineLabel) i.next();
+            SrLineLabel label = i.next();
             label.setNextLabel(null);
             label.delete(false);
         }
@@ -313,9 +313,9 @@ public class BEFlow extends SrLine implements DbRefreshListener {
     }
 
     private void addZonesListener() {
-        Iterator i = zones.iterator();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             zoneDisplay.addDbRefreshListener(this);
         }
     }
@@ -323,9 +323,9 @@ public class BEFlow extends SrLine implements DbRefreshListener {
     private void removeZonesListener() {
         if (zones == null)
             return;
-        Iterator i = zones.iterator();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             zoneDisplay.removeDbRefreshListener(this);
         }
     }
@@ -333,9 +333,9 @@ public class BEFlow extends SrLine implements DbRefreshListener {
     private void addQualifiersListener() {
         if (qualifiers == null)
             return;
-        Iterator i = qualifiers.iterator();
+        Iterator<DbBEQualifier> i = qualifiers.iterator();
         while (i.hasNext()) {
-            DbBEQualifier qualifier = (DbBEQualifier) i.next();
+            DbBEQualifier qualifier = i.next();
             qualifier.addDbRefreshListener(this);
         }
     }
@@ -343,9 +343,9 @@ public class BEFlow extends SrLine implements DbRefreshListener {
     private void removeQualifiersListener() {
         if (qualifiers == null)
             return;
-        Iterator i = qualifiers.iterator();
+        Iterator<DbBEQualifier> i = qualifiers.iterator();
         while (i.hasNext()) {
-            DbBEQualifier qualifier = (DbBEQualifier) i.next();
+            DbBEQualifier qualifier = i.next();
             qualifier.removeDbRefreshListener(this);
         }
         qualifiers = null;
@@ -362,7 +362,7 @@ public class BEFlow extends SrLine implements DbRefreshListener {
             while (dbEnum.hasMoreElements()) {
                 DbBEFlowQualifier flowQualifier = (DbBEFlowQualifier) dbEnum.nextElement();
                 if (qualifiers == null) {
-                    qualifiers = new ArrayList();
+                    qualifiers = new ArrayList<>();
                 }
                 qualifiers.add(flowQualifier.getQualifier());
             }

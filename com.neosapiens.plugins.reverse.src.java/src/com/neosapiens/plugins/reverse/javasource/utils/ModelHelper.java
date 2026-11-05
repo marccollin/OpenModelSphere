@@ -196,7 +196,7 @@ public class ModelHelper {
     private static void createPackageRecursive(String packageName, DbObject root,
             Map<String, DbJVPackage> createdPackages, String accumulator) throws DbException {
     	
-        if ((packageName == null) || packageName.equals(""))
+        if ((packageName == null) || packageName.isEmpty())
             return;
         
         String shortName;

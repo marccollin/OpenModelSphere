@@ -139,18 +139,18 @@ public class PhysicalNameDictionary {
 
     // Key and abbreviation stockage class
     private final class KeyAbbreviationList {
-        List keys, values;
+        List<String> keys, values;
 
         public KeyAbbreviationList() {
-            keys = new ArrayList();
-            values = new ArrayList();
+            keys = new ArrayList<>();
+            values = new ArrayList<>();
         }
 
         public String get(String key) {
             for (int i = 0; i < keys.size(); i++) {
-                String s = (String) keys.get(i);
+                String s = keys.get(i);
                 if (s.compareToIgnoreCase(key) == 0)
-                    return (String) values.get(i);
+                    return values.get(i);
             }
             return null;
         }

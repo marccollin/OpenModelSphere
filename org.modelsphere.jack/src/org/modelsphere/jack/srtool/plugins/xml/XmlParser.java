@@ -331,7 +331,7 @@ public final class XmlParser implements DocumentHandler {
             if (removedSrxId != XmiMapping.UNKNOWN) {
                 // does this concept have an identifier?
                 String xmiName = XmiMapping.getXmiName(removedSrxId);
-                if (!xmiName.equals("")) {
+                if (!xmiName.isEmpty()) {
                     if (!occurrenceNameStack.empty()) {
                         occurrenceNameStack.pop(); // yes, so pop its name
                     }
@@ -392,7 +392,7 @@ public final class XmlParser implements DocumentHandler {
 
     private void emitNewTagValue(String tag) throws SAXException {
         if (tagFound) {
-            if (!tag.equals("")) {
+            if (!tag.isEmpty()) {
                 emit(tag + eol);
             }
         }

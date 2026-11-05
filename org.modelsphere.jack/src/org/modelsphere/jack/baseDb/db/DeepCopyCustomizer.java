@@ -67,5 +67,5 @@ public interface DeepCopyCustomizer {
     public DbObject resolveLink(DbObject srcObj, MetaRelationship metaRel, DbObject srcNeighbor)
             throws DbException;
 
-    public void endCopy(List srcRoots) throws DbException;
+    public void endCopy(List<DbObject> srcRoots) throws DbException;
 }

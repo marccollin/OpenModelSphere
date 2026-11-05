@@ -92,9 +92,9 @@ public final class MultiSMSSemanticalMetaClassEditor implements TableCellEditor 
         try {
             if (semanticalMetaClasses == null) {
                 semanticalMetaClasses = new ArrayList<>();
-                Enumeration enumeration = MetaClass.enumMetaClasses();
+                Enumeration<MetaClass> enumeration = MetaClass.enumMetaClasses();
                 while (enumeration.hasMoreElements()) {
-                    MetaClass metaclass = (MetaClass) enumeration.nextElement();
+                    MetaClass metaclass = enumeration.nextElement();
                     if (((metaclass.getFlags() & MetaClass.UML_EXTENSIBILITY_FILTER) != 0)
                             && DbSMSSemanticalObject.metaClass.isAssignableFrom(metaclass)) {
                         if (metaclass == DbORAbsTable.metaClass)

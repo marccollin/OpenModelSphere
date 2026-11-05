@@ -258,18 +258,21 @@ public final class DbUDF extends DbSemanticalObject {
     public static class UDFMap {
 
         private DbProject project;
-        private List[] udfsByClass;
+        private List<List<DbUDF>> udfsByClass;
 
         public UDFMap(DbProject project) throws DbException {
             this.project = project;
-            udfsByClass = new ArrayList[MetaClass.getNbMetaClasses()];
+            udfsByClass = new ArrayList<>(MetaClass.getNbMetaClasses());
+            for (int i = 0; i < MetaClass.getNbMetaClasses(); i++) {
+                udfsByClass.add(null);
+            }
             DbEnumeration dbEnum = project.getComponents().elements(DbUDF.metaClass);
             while (dbEnum.hasMoreElements()) {
                 DbUDF udf = (DbUDF) dbEnum.nextElement();
                 int index = udf.getUDFMetaClass().getSeqNo();
-                if (udfsByClass[index] == null)
-                    udfsByClass[index] = new ArrayList();
-                udfsByClass[index].add(udf);
+                if (udfsByClass.get(index) == null)
+                    udfsByClass.set(index, new ArrayList<>());
+                udfsByClass.get(index).add(udf);
             }
             dbEnum.close();
         }
@@ -277,10 +280,9 @@ public final class DbUDF extends DbSemanticalObject {
         public final DbUDF find(MetaClass metaClass, String udfName, UDFValueType valueType)
                 throws DbException {
             DbUDF udfFound = null;
-            List udfs = udfsByClass[metaClass.getSeqNo()];
+            List<DbUDF> udfs = udfsByClass.get(metaClass.getSeqNo());
             if (udfs != null) {
-                for (int i = 0; i < udfs.size(); i++) {
-                    DbUDF udf = (DbUDF) udfs.get(i);
+                for (DbUDF udf : udfs) {
                     if (udfName.equals(udf.getName()) && valueType.equals(udf.getValueType())) {
                         udfFound = udf;
                         break;
@@ -296,9 +298,9 @@ public final class DbUDF extends DbSemanticalObject {
             udf.setName(udfName);
             udf.setValueType(valueType);
             int index = metaClass.getSeqNo();
-            if (udfsByClass[index] == null)
-                udfsByClass[index] = new ArrayList();
-            udfsByClass[index].add(udf);
+            if (udfsByClass.get(index) == null)
+                udfsByClass.set(index, new ArrayList<>());
+            udfsByClass.get(index).add(udf);
             return udf;
         }
 

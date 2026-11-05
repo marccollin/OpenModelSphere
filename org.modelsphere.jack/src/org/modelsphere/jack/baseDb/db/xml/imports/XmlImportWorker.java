@@ -214,10 +214,10 @@ public class XmlImportWorker extends Worker {
     //Called by the unit test
     private void displayResult(Map<String, ElementStructure> elementMap, List<String> keyList,
             Map<String, String> idMap) {
-        Iterator iter = keyList.iterator();
+        Iterator<String> iter = keyList.iterator();
         while (iter.hasNext()) {
-            String key = (String) iter.next();
-            ElementStructure struct = (ElementStructure) elementMap.get(key);
+            String key = iter.next();
+            ElementStructure struct = elementMap.get(key);
             System.out.println(key + "  " + struct);
         } //end while
     } //end displayResult()
@@ -248,11 +248,11 @@ public class XmlImportWorker extends Worker {
         //PASS 2 : create dbObjects by calling their parameterless constructors
         try {
             db.beginWriteTrans(m_operationName);
-            Iterator iter = keyList.iterator();
+            Iterator<String> iter = keyList.iterator();
             int nbObjs = 0;
             while (iter.hasNext()) {
-                String key = (String) iter.next();
-                ElementStructure struct = (ElementStructure) elementMap.get(key);
+                String key = iter.next();
+                ElementStructure struct = elementMap.get(key);
                 DbObject composite;
                 if (struct.m_compositeId == null) {
                     //get db root (used as composite of DbSMSProject's constructor)
@@ -265,7 +265,7 @@ public class XmlImportWorker extends Worker {
                 try {
                     if (composite != null) { //if found
                         String idName = getClassName(key);
-                        String className = (String) idMap.get(idName);
+                        String className = idMap.get(idName);
 
                         Class claz = Class.forName(className);
                         DbObject newObject = null;
@@ -319,8 +319,8 @@ public class XmlImportWorker extends Worker {
                 nbObjs = 0;
                 iter = keyList.iterator();
                 while (iter.hasNext()) {
-                    String key = (String) iter.next();
-                    ElementStructure struct = (ElementStructure) elementMap.get(key);
+                    String key = iter.next();
+                    ElementStructure struct = elementMap.get(key);
                     DbObject obj = dbobjMap.get(key);
                     if (obj instanceof DbProject) {
                         project = (DbProject) obj;
@@ -351,8 +351,8 @@ public class XmlImportWorker extends Worker {
                 nbObjs = 0;
                 iter = keyList.iterator();
                 while (iter.hasNext()) {
-                    String key = (String) iter.next();
-                    ElementStructure struct = (ElementStructure) elementMap.get(key);
+                    String key = iter.next();
+                    ElementStructure struct = elementMap.get(key);
                     DbObject obj = dbobjMap.get(key);
                     setAssociations(db, obj, struct, dbobjMap);
 

@@ -349,7 +349,7 @@ public abstract class Db {
     public static void beginMatching() {
         if (DbObject.matchingMap != null)
             throw new RuntimeException("Matching facility already used"); // NOT LOCALIZABLE RuntimeException
-        DbObject.matchingMap = new HashMap();
+        DbObject.matchingMap = new HashMap<>();
     }
 
     public static void endMatching() {

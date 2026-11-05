@@ -275,7 +275,7 @@ public class SelectDialog extends JDialog implements ActionListener, ListSelecti
         this.options = options;
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         JPanel contentPane = (JPanel) this.getContentPane();
-        List listItems = Arrays.asList(items);
+        List<SelectDialogItem> listItems = Arrays.asList(items);
         if ((options & SelectDialog.OPTION_SORT_ITEMS) != 0)
             Collections.sort(listItems);
         list.setListData(listItems.toArray());
@@ -370,12 +370,9 @@ public class SelectDialog extends JDialog implements ActionListener, ListSelecti
         frame.setVisible(true);
 
         Object[] elems = new Object[] { "Alpha", "Beta", "Gamma" }; // NOT
-        // LOCALIZABLE,
-        // unit test
+        // LOCALIZABLE, unit test
         String question = "Use case will be exploded in which kind of diagram ?"; // NOT
-        // LOCALIZABLE,
-        // unit
-        // test
+        // LOCALIZABLE, unit test
         int idx = SelectDialog.select(frame, question, elems, null, 1, true, true);
     } // end main ()
 

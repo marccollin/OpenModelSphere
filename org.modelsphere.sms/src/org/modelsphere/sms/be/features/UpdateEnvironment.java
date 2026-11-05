@@ -455,11 +455,11 @@ public final class UpdateEnvironment {
             return srcNeighbor.findMatchingObject();
         }
 
-        public void endCopy(List srcRoots) throws DbException {
+        public void endCopy(List<DbObject> srcRoots) throws DbException {
             if (srcRoots.size() != 1)
                 return;
 
-            DbObject dbo = (DbObject) srcRoots.get(0);
+            DbObject dbo = srcRoots.get(0);
             if (!AnySemObject.supportsSuper(dbo.getMetaClass()))
                 return;
             if (!(dbo instanceof DbBEFlow))
