@@ -44,7 +44,6 @@ import org.modelsphere.sms.oo.java.db.DbJVDataMember;
 import org.modelsphere.sms.oo.java.db.DbJVParameter;
 
 import java.io.ObjectInputStream;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 

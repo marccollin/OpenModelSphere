@@ -63,7 +63,6 @@ import org.modelsphere.sms.oo.java.international.LocaleMgr;
 import java.io.StringWriter;
 import java.util.Enumeration;
 import java.util.Vector;
-import java.util.List;
 
 // do Java Validation for an adt
 // note:  it's possible to optimize AdtJavaValidation code (for example, process

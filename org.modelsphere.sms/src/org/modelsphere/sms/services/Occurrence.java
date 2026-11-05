@@ -39,7 +39,6 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Enumeration;
 import java.util.Vector;
-import java.util.List;
 
 /**
  * 

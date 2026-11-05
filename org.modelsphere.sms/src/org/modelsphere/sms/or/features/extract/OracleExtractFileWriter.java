@@ -102,7 +102,7 @@ class OracleExtractFileWriter extends ExtractFileWriter {
     // 23 Oracle 7.x
     protected void writeHeader(PrintWriter writer, DbORDataModel dataModel) throws DbException {
         DbSMSTargetSystem ts = dataModel.getTargetSystem();
-        int smsID = ts.getID().intValue();
+        int smsID = ts.getID();
         RdmDbmsIdMapping mapping = RdmDbmsIdMapping.getSingleton();
         int rdmID = mapping.getRDMCounterPart(smsID);
 
@@ -490,11 +490,11 @@ class OracleExtractFileWriter extends ExtractFileWriter {
 
         // get column length
         Integer len = column.getLength();
-        int i = (len == null) ? 0 : len.intValue();
+        int i = (len == null) ? 0 : len;
         writer.println("col_len " + i);
 
         Integer nbDecs = column.getNbDecimal();
-        i = (nbDecs == null) ? 0 : nbDecs.intValue();
+        i = (nbDecs == null) ? 0 : nbDecs;
         writer.println("data_prec " + i);
 
         // data_scale

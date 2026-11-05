@@ -49,7 +49,6 @@ import org.modelsphere.sms.db.DbSMSLinkGo;
 import org.modelsphere.sms.db.DbSMSStereotype;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public final class SMSGraphicalLink extends SrLine implements DbRefreshListener {

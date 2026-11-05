@@ -82,7 +82,6 @@ import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
-import java.util.List;
 
 public class ORCommonItemBox extends GraphicNode implements ActionInformation {
 

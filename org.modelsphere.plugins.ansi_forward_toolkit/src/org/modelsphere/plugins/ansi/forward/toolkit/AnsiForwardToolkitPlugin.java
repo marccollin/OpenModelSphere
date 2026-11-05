@@ -129,13 +129,11 @@ public final class AnsiForwardToolkitPlugin extends ForwardToolkitPlugin impleme
     }
 
     public WizardPage getPage(int pageid) {
-        switch (pageid) {
-        case DBMSDefaultForwardWizardModel.PAGE_FIRST:
-            return new DefaultForwardWizardStartPage();
-        case DBMSDefaultForwardWizardModel.PAGE_OBJECTS_SELECTION:
-            return new DefaultForwardWizardObjectsPage();
-        }
-        return null;
+        return switch (pageid) {
+            case DBMSDefaultForwardWizardModel.PAGE_FIRST -> new DefaultForwardWizardStartPage();
+            case DBMSDefaultForwardWizardModel.PAGE_OBJECTS_SELECTION -> new DefaultForwardWizardObjectsPage();
+            default -> null;
+        };
     }
 
     public boolean dropPKUKIndex() {

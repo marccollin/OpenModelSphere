@@ -199,7 +199,7 @@ public final class SQLShellResultSetPanel extends JPanel {
         final List<List<?>> rows = new ArrayList<>();
 
         ResultSetTableModel(StatementMessage statementMessage) {
-            if (statementMessage.resultList.size() < 1 || statementMessage.columnList.size() < 1) {
+            if (statementMessage.resultList.isEmpty() || statementMessage.columnList.isEmpty()) {
                 return;
             }
 

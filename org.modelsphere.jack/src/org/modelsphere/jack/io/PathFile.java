@@ -50,6 +50,7 @@ import org.modelsphere.jack.text.MessageFormat;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.util.StringTokenizer;
 
 //add new functionnalities to java.io.File
@@ -90,7 +91,7 @@ public final class PathFile {
         File file = null;
         if (newFilename.charAt(0) == '/') {
             // Absolute dir
-            file = new File(System.getProperty("file.separator"));
+            file = new File(FileSystems.getDefault().getSeparator());
         }
 
         //for each token

@@ -149,11 +149,8 @@ public class SMSDragDrop extends SrDragDrop {
                     ApplicationContext.getDefaultMainFrame().getClipboard().copy(dragObjs);
                     ApplicationContext.getDefaultMainFrame().getClipboard().pasteTo(
                             new DbObject[] { dropObj }, false, location);
-                    for (int i = 0; i < dragObjs.length; i++)
-                        dragObjs[i].remove();
+                    for (DbObject dragObj : dragObjs) dragObj.remove();
                     DbMultiTrans.commitTrans(dragObjs);
-                } else {
-
                 }
             } else {
                 SendToDiagramAction smsAction = (SendToDiagramAction) ApplicationContext

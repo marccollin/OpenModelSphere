@@ -89,10 +89,7 @@ public class DataDbObjectsGroup extends DataComponent
 	 */
 	public void remove(DataComponent component)
 	{
-		if (components.contains(component))
-		{
-			components.remove(component);
-		}
+        components.remove(component);
 	}
 
 	/**

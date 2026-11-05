@@ -55,7 +55,6 @@ import org.modelsphere.jack.srtool.CurrentFocusListener;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -126,10 +125,7 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
         if (comp.getName() == null)
             comp.setName(tool.getClass().getName());
 
-        if (tool.supportedDiagramMetaClasses != null && !tool.isAlwaysVisible())
-            comp.setVisible(false);
-        else
-            comp.setVisible(true);
+        comp.setVisible(tool.supportedDiagramMetaClasses == null || tool.isAlwaysVisible());
         //add(comp);
         origTools.add(tool);
         toolComponents.add(comp);

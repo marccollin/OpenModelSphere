@@ -75,13 +75,11 @@ public class DataExtractor
 	 */
 	public DataComponent extract(DbObject dbObject) throws DbException
 	{
-		for (int i = 0; i < handlers.size(); i++)
-		{
-			if (handlers.get(i).canHandle(dbObject))
-			{
-				return handlers.get(i).extract(dbObject);
-			}
-		}
+        for (DataExtractionHandler handler : handlers) {
+            if (handler.canHandle(dbObject)) {
+                return handler.extract(dbObject);
+            }
+        }
 
 		return null;
 	}

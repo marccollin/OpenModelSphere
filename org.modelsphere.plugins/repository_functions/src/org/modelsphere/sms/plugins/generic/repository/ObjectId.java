@@ -99,7 +99,7 @@ public final class ObjectId extends UserDefinedField {
         if (map.containsKey(object)) {
             id = (Integer) map.get(object);
         } else {
-            id = new Integer(counter++);
+            id = counter++;
             map.put(object, id);
         }
 

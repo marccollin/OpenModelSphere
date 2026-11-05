@@ -41,7 +41,6 @@ import org.modelsphere.jack.debug.TestableWindow;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Vector;
-import java.util.List;
 
 public final class ReverseFrameWorker extends
         org.modelsphere.jack.srtool.reverse.file.ReverseFrameWorker implements TestableWindow {

@@ -57,8 +57,8 @@ class ORValidationRuleRenderer extends DefaultListCellRenderer {
         } else {
             boolean allowed = false;
             if (allowedRules != null) {
-                for (int i = 0; i < allowedRules.length; i++) {
-                    if (allowedRules[i] == value) {
+                for (ORValidationRule allowedRule : allowedRules) {
+                    if (allowedRule == value) {
                         allowed = true;
                     }
                 }

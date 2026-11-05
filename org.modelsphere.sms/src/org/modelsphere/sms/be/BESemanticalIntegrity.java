@@ -721,27 +721,21 @@ public final class BESemanticalIntegrity implements DbUpdateListener {
     }
 
     private double getConvertValue(double value, int timeUnit) {
-        switch (timeUnit) {
-        case BETimeUnit.MINUTE:
-            return (value / 60.0); // 60.0 for floating-point division
-        case BETimeUnit.HOUR:
-            return (value / 3600.0); // 3600.0 for floating-point division
+        return switch (timeUnit) {
+            case BETimeUnit.MINUTE -> (value / 60.0); // 60.0 for floating-point division
+            case BETimeUnit.HOUR -> (value / 3600.0); // 3600.0 for floating-point division
             // NA or BETimeUnit.SECOND
-        default:
-            return value;
-        }
+            default -> value;
+        };
     }
 
     private double getBaseTime(double time, int timeUnit) {
-        switch (timeUnit) {
-        case BETimeUnit.MINUTE:
-            return (time * 60.0); // 60.0 for floating-point division
-        case BETimeUnit.HOUR:
-            return (time * 3600.0); // 3600.0 for floating-point division
+        return switch (timeUnit) {
+            case BETimeUnit.MINUTE -> (time * 60.0); // 60.0 for floating-point division
+            case BETimeUnit.HOUR -> (time * 3600.0); // 3600.0 for floating-point division
             // NA or BETimeUnit.SECOND
-        default:
-            return time;
-        }
+            default -> time;
+        };
     }
 
     private double getUndefinedValue() {

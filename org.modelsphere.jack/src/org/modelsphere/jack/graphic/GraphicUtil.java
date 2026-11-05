@@ -69,7 +69,6 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import java.util.List;
 
 public abstract class GraphicUtil {
 
@@ -85,14 +84,12 @@ public abstract class GraphicUtil {
     private static int mediaTrackerID;
 
     public static int getAlignmentOffset(int alignment, int cellWidth, int dataWidth) {
-        switch (alignment) {
-        case GraphicUtil.CENTER_ALIGNMENT:
-            return (cellWidth - dataWidth) / 2;
-        case GraphicUtil.RIGHT_ALIGNMENT:
-            return (cellWidth - dataWidth);
-        default: // LEFT_ALIGNMENT or JUSTIFY
-            return 0;
-        }
+        return switch (alignment) {
+            case GraphicUtil.CENTER_ALIGNMENT -> (cellWidth - dataWidth) / 2;
+            case GraphicUtil.RIGHT_ALIGNMENT -> (cellWidth - dataWidth);
+            default -> // LEFT_ALIGNMENT or JUSTIFY
+                    0;
+        };
     }
 
     // Wrap the string at word boundaries so that it can be drawn in <maxWidth>.

@@ -223,20 +223,13 @@ public class BEFlow extends SrLine implements DbRefreshListener {
                         || (zoneDisplay.getValue(semObj) == null && zoneDisplay.getMetaField() != DbSemanticalObject.fName))
                     continue;
                 zonesSources.add(zoneDisplay.getSourceObject());
-                MetaField offset;
-                switch (zoneIndex) {
-                case 0:
-                    offset = DbBEFlowGo.fZone1Offset;
-                    break;
-                case 1:
-                    offset = DbBEFlowGo.fZone2Offset;
-                    break;
-                case 2:
-                    offset = DbBEFlowGo.fZone3Offset;
-                    break;
-                default:
-                    offset = DbBEFlowGo.fZone4Offset;
-                }
+
+                MetaField offset = switch (zoneIndex) {
+                    case 0 -> DbBEFlowGo.fZone1Offset;
+                    case 1 -> DbBEFlowGo.fZone2Offset;
+                    case 2 -> DbBEFlowGo.fZone3Offset;
+                    default -> DbBEFlowGo.fZone4Offset;
+                };
                 BEFlowLabel label;
                 String labelValue = "";
                 Object value = zoneDisplay.getValue(semObj);

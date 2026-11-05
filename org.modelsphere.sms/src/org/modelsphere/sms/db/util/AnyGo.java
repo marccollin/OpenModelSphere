@@ -79,7 +79,6 @@ import org.modelsphere.sms.or.db.DbORTable;
 import org.modelsphere.sms.or.db.DbORTableGo;
 
 import java.awt.*;
-import java.util.HashMap;
 import java.util.Map;
 
 /**

@@ -54,6 +54,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.nio.file.FileSystems;
 
 public class ProgressBarDialog extends JDialog implements TestableWindow {
 
@@ -71,7 +72,7 @@ public class ProgressBarDialog extends JDialog implements TestableWindow {
 
     public ProgressBarDialog(JFrame frame, LongTask aTask, String title, boolean addTaskOutput) {
         super(frame, title, true);
-        newline = System.getProperty("line.separator");
+        newline = FileSystems.getDefault().getSeparator();
         addedTaskOutput = addTaskOutput;
         task = aTask;
 

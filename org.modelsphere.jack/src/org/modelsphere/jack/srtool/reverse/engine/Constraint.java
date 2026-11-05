@@ -46,7 +46,6 @@ package org.modelsphere.jack.srtool.reverse.engine;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.debug.Debug;
 
-import java.util.HashMap;
 import java.util.Map;
 
 // This class is basically a wrapper of FieldMapping.  In this case, the FieldMapping is

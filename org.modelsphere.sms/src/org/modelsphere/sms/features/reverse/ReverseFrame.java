@@ -45,7 +45,6 @@ import java.io.File;
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Vector;
-import java.util.List;
 
 public final class ReverseFrame extends org.modelsphere.jack.srtool.reverse.file.ReverseFrame {
 

@@ -64,6 +64,7 @@ import java.awt.event.ComponentListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
+import java.nio.file.FileSystems;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.Map;
@@ -242,7 +243,7 @@ public class GeneratePhysicalNameFrame extends JDialog {
         super(frame, title, modal);
         this.dictionary = dictionary;
         PropertiesManager.installPropertiesSet(PHYSICAL_NAME_GENERATION_PROPERTIES, new File(
-                PROPERTIES_DIRECTORY + System.getProperty("file.separator")
+                PROPERTIES_DIRECTORY + FileSystems.getDefault().getSeparator()
                         + PHYSICAL_NAME_GENERATION_PROPERTIES_FILE_NAME)); // NOT
         // LOCALIZABLE,
         // property

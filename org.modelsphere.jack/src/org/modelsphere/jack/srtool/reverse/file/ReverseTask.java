@@ -47,7 +47,6 @@ import org.modelsphere.jack.awt.LongTask;
 import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 

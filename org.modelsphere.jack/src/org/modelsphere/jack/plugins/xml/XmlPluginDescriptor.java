@@ -196,7 +196,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 			PluginContext context = getContext();
 			Map<String, Object> attributes = getAttributes();
 			String imageResource = context.getLocalizedString((String) attributes.get(IMAGE));
-	        if (imageResource != null && imageResource.trim().length() > 0) {
+	        if (imageResource != null && !imageResource.trim().isEmpty()) {
 	            URL imageURL = null;
 	            try {
 	            	FsFolder parent = m_pluginXml.getParent(); 
@@ -224,7 +224,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 		Map<String, Object> attributes = getAttributes();
 		Image image = null;
 		
-	    if (imageName != null && imageName.trim().length() > 0) {
+	    if (imageName != null && !imageName.trim().isEmpty()) {
             URL imageURL = null;
             try {
             	FsFolder parent = m_pluginXml.getParent(); 
@@ -249,7 +249,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 	public URL getLicenseURL() {
 		if (licenseURL == null) {
 			String licenseResource = getLocalizedString(LICENSE);
-	        if (licenseResource != null && licenseResource.trim().length() > 0) {
+	        if (licenseResource != null && !licenseResource.trim().isEmpty()) {
 	           // try {
 	            	FsFolder parent = m_pluginXml.getParent(); 
 	            	FsFile licenceFile = (FsFile)parent.getNamedDescendent(licenseResource); 
@@ -338,9 +338,8 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 
 	@Override
 	public String getStatusText() {
-		String className = getClassName(); 
-		String text = getStatusText(className); 
-		return text; 
+		String className = getClassName();
+        return getStatusText(className);
 	}
 	
 	public Class<?>[] getSupportedClasses() {
@@ -376,8 +375,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 	@Override
 	public PLUGIN_TYPE getType() {
 		Map<String, Object> attributes = getAttributes();
-		PLUGIN_TYPE type = PLUGIN_TYPE.toType((String) attributes.get(PluginConstants.TYPE)); 
-		return type;
+        return PLUGIN_TYPE.toType((String) attributes.get(PluginConstants.TYPE));
 	}
 
 	@Override
@@ -565,7 +563,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 		Map<String, Object> attributes = getAttributes();
 		String baseName = (String)attributes.get(PluginConstants.RESOURCEBUNDLE);
 		
-        if (baseName != null && baseName.trim().length() > 0) {
+        if (baseName != null && !baseName.trim().isEmpty()) {
             try {
             	//String ressName = homeDirectory.getPath() + "_" + baseName; 
             	Locale locale = LocaleMgr.getLocaleFromPreferences(Locale.getDefault(), true); 
@@ -707,7 +705,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 		if (EXTENSION.equals(name)) {
         	value = readExtension(childNode);
         } else {
-	    	if (text == null || text.length() == 0) {
+	    	if (text == null || text.isEmpty()) {
 	    		value = null;
 	    	} else {
 	    		value = text;
@@ -846,8 +844,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 
 	public List<AbstractPluginExtension> getPluginExtensions() {
 		Map<String, Object> attributes = getAttributes();
-		List<AbstractPluginExtension> extensions = (List<AbstractPluginExtension>)attributes.get(EXTENSION);
-		return extensions;
+        return (List<AbstractPluginExtension>)attributes.get(EXTENSION);
 	}
 
 	/*

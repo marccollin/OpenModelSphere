@@ -91,8 +91,7 @@ public class JSearch {
                 try {
                     for (int tokenType = st.nextToken(); tokenType != StreamTokenizer.TT_EOF; tokenType = st
                             .nextToken()) {
-                        switch (tokenType) {
-                        case StreamTokenizer.TT_WORD:
+                        if (tokenType == StreamTokenizer.TT_WORD) {
                             if (st.sval.equalsIgnoreCase(searchTextField)) {
                                 foundURL = new URL(kFileBuild + inFile);
                                 resultURL.addElement(foundURL);
@@ -106,7 +105,6 @@ public class JSearch {
                                 // System.out.println("title: " +
                                 // scanTitle(inFile));
                             }
-                            break;
                         }
                     }
                 } catch (IOException g) {

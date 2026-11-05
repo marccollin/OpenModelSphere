@@ -48,6 +48,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.FileSystems;
 import java.util.StringTokenizer;
 
 /**
@@ -229,7 +230,7 @@ public class UUEncoder {
         }
     } // end decodeAtom()
 
-    private static String NEWLINE = System.getProperty("line.separator") + " "; // /r,
+    private static String NEWLINE = FileSystems.getDefault().getSeparator() + " "; // /r,
 
     // /n
     // and

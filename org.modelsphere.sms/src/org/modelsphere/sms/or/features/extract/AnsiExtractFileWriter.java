@@ -56,7 +56,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -148,7 +147,7 @@ class AnsiExtractFileWriter extends ExtractFileWriter {
 
     protected void writeTable(DbORTable table, PrintWriter writer) throws DbException {
         String tableName = table.getPhysicalName();
-        if ((tableName == null) || (tableName.equals("")))
+        if ((tableName == null) || (tableName.isEmpty()))
             tableName = table.getName();
 
         m_controller.println(DbORTable.metaClass.getGUIName() + " " + tableName + "..");

@@ -122,7 +122,6 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
-import java.util.List;
 
 public final class AdtBox extends GraphicNode implements ActionInformation, SMSClassifierBox {
     // zone columns index , WARNING if the values change you must also change
@@ -785,24 +784,25 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
 
             if (visibility != null) {
                 Boolean b;
-                switch (visibility.getValue()) {
-                case JVVisibility.PUBLIC:
-                    b = (Boolean) adtGO.find(DbOOStyle.fOojv_publicModifierDisplayed);
-                    isShown = (b != null) && (b.booleanValue());
-                    break;
-                case JVVisibility.PROTECTED:
-                    b = (Boolean) adtGO.find(DbOOStyle.fOojv_protectedModifierDisplayed);
-                    isShown = (b != null) && (b.booleanValue());
-                    break;
-                case JVVisibility.PRIVATE:
-                    b = (Boolean) adtGO.find(DbOOStyle.fOojv_privateModifierDisplayed);
-                    isShown = (b != null) && (b.booleanValue());
-                    break;
-                case JVVisibility.DEFAULT:
-                    b = (Boolean) adtGO.find(DbOOStyle.fOojv_packageModifierDisplayed);
-                    isShown = (b != null) && (b.booleanValue());
-                    break;
-                }
+                isShown = switch (visibility.getValue()) {
+                    case JVVisibility.PUBLIC -> {
+                        b = (Boolean) adtGO.find(DbOOStyle.fOojv_publicModifierDisplayed);
+                        yield (b != null) && (b);
+                    }
+                    case JVVisibility.PROTECTED -> {
+                        b = (Boolean) adtGO.find(DbOOStyle.fOojv_protectedModifierDisplayed);
+                        yield (b != null) && (b);
+                    }
+                    case JVVisibility.PRIVATE -> {
+                        b = (Boolean) adtGO.find(DbOOStyle.fOojv_privateModifierDisplayed);
+                        yield (b != null) && (b);
+                    }
+                    case JVVisibility.DEFAULT -> {
+                        b = (Boolean) adtGO.find(DbOOStyle.fOojv_packageModifierDisplayed);
+                        yield (b != null) && (b);
+                    }
+                    default -> isShown;
+                };
             }
         }
 
@@ -868,7 +868,7 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
     }
 
     private String getUMLConstraintsName(DbSMSSemanticalObject semObject) throws DbException {
-        String constraintsName = "";
+        StringBuilder constraintsName = new StringBuilder();
 
         DbEnumeration dbEnum = semObject.getUmlConstraints().elements(DbSMSUmlConstraint.metaClass);
         while (dbEnum.hasMoreElements()) {
@@ -878,10 +878,10 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
                 constraintName = "";
             else
                 constraintName = "{" + constraintName + "}"; // NOT LOCALIZABLE
-            constraintsName = constraintsName + constraintName;
+            constraintsName.append(constraintName);
         } // end while
         dbEnum.close();
-        return constraintsName;
+        return constraintsName.toString();
     }
 
     private String getClassStereotypeName(DbJVClass adtSO) throws DbException {
@@ -889,7 +889,7 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
 
         MetaField mf = DbOOStyle.fOojv_umlStereotypeDisplayed;
         Boolean b = (Boolean) adtGO.find(mf);
-        if (b.booleanValue()) {
+        if (b) {
             // note: I don't use static field for <<Interface>> and
             // <<exception>>
             // because I don't want to listen to localeChange [author?]
@@ -1312,21 +1312,13 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
             semObjVisibility = (visib == null) ? OOVisibility.PRIVATE : visib.getValue();
         } // end if
 
-        DbtPrefix prefix = null;
-        switch (semObjVisibility) {
-        case JVVisibility.PUBLIC:
-            prefix = (DbtPrefix) adtGO.find(DbOOStyle.fOojv_publicVisibilityPrefix);
-            break;
-        case JVVisibility.PROTECTED:
-            prefix = (DbtPrefix) adtGO.find(DbOOStyle.fOojv_protectedVisibilityPrefix);
-            break;
-        case JVVisibility.PRIVATE:
-            prefix = (DbtPrefix) adtGO.find(DbOOStyle.fOojv_privateVisibilityPrefix);
-            break;
-        case JVVisibility.DEFAULT:
-            prefix = (DbtPrefix) adtGO.find(DbOOStyle.fOojv_packageVisibilityPrefix);
-            break;
-        }
+        DbtPrefix prefix = switch (semObjVisibility) {
+            case JVVisibility.PUBLIC -> (DbtPrefix) adtGO.find(DbOOStyle.fOojv_publicVisibilityPrefix);
+            case JVVisibility.PROTECTED -> (DbtPrefix) adtGO.find(DbOOStyle.fOojv_protectedVisibilityPrefix);
+            case JVVisibility.PRIVATE -> (DbtPrefix) adtGO.find(DbOOStyle.fOojv_privateVisibilityPrefix);
+            case JVVisibility.DEFAULT -> (DbtPrefix) adtGO.find(DbOOStyle.fOojv_packageVisibilityPrefix);
+            default -> null;
+        };
         addToCompositeElements(compositeElements, prefix);
 
         boolean isAbstract = false;

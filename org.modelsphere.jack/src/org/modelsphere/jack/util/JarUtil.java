@@ -49,6 +49,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
@@ -163,7 +164,7 @@ public final class JarUtil {
     public static File createTemporaryFile(InputStream input, String fileName) throws IOException {
     	int ch;
     	String tempDir = System.getProperty("java.io.tmpdir");
-    	String tempFileName = tempDir + System.getProperty("file.separator") + fileName;
+    	String tempFileName = tempDir + FileSystems.getDefault().getSeparator() + fileName;
     	File tempfile = PathFile.createFile(tempFileName, false, true);
     	
     	FileOutputStream out = new FileOutputStream(tempfile);
@@ -197,7 +198,7 @@ public final class JarUtil {
         if (entry == null)
             return null;
 
-        String tempFileName = tempDir + System.getProperty("file.separator") + fileName;
+        String tempFileName = tempDir + FileSystems.getDefault().getSeparator() + fileName;
 
         try {
             tempfile = PathFile.createFile(tempFileName, false, true);

@@ -47,7 +47,6 @@ import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public final class SrxDbObjectElement implements SrxElement {

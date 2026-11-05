@@ -86,21 +86,20 @@ public final class DiagramGridOptionGroup extends OptionGroup implements ActionL
         public void init() {
 
             Boolean b = options.getPropertyBoolean(Grid.class, Grid.PROPERTY_HIDE_GRID,
-                    Boolean.valueOf(Grid.PROPERTY_HIDE_GRID_DEFAULT));
+                    Grid.PROPERTY_HIDE_GRID_DEFAULT);
             Boolean c = options.getPropertyBoolean(Grid.class, Grid.PROPERTY_GRID_ACTIVE,
-                    Boolean.valueOf(Grid.PROPERTY_GRID_ACTIVE_DEFAULT));
+                    Grid.PROPERTY_GRID_ACTIVE_DEFAULT);
             Integer x = options.getPropertyInteger(Grid.class, Grid.PROPERTY_NB_OF_CELLS_IN_X,
-                    Integer.valueOf(5));
+                    5);
             Integer y = options.getPropertyInteger(Grid.class, Grid.PROPERTY_NB_OF_CELLS_IN_Y,
-                    Integer.valueOf(5));
+                    5);
             Integer perc = options.getPropertyInteger(Grid.class, Grid.PROPERTY_PERCENT_OF_CELL,
-                    Integer.valueOf(50));
+                    50);
             Integer ic = options.getPropertyInteger(Grid.class, Grid.PROPERTY_GRID_COLOR,
-                    Integer.valueOf(0));
-            Color color = new Color(ic.intValue());
+                    0);
+            Color color = new Color(ic);
 
-            GridOptionPanel.GridOptions gridOptions = new GridOptionPanel.GridOptions(!b
-                    .booleanValue(), c.booleanValue(), x.intValue(), y.intValue(), perc.intValue(),
+            GridOptionPanel.GridOptions gridOptions = new GridOptionPanel.GridOptions(!b, c, x, y, perc,
                     color);
             JPanel panel = new GridOptionPanel(gridOptions, this);
             this.setLayout(new BorderLayout());

@@ -44,7 +44,6 @@ import org.modelsphere.sms.oo.java.db.util.AnyAdt;
 
 import java.util.Enumeration;
 import java.util.Vector;
-import java.util.List;
 
 public class JavaOverridingUpdate {
 
