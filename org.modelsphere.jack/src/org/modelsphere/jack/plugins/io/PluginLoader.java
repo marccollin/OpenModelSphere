@@ -43,6 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins.io;
 
+import org.modelsphere.jack.util.LegacyApi;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.debug.Log;
 import org.modelsphere.jack.international.LocaleMgr;
@@ -554,7 +555,7 @@ public abstract class PluginLoader implements PluginConstants {
         String sURL = (String) extendedAttributes.get(URL);
         URL url;
         try {
-            url = (sURL == null) ? null : new URL(sURL);
+            url = (sURL == null) ? null : LegacyApi.url(sURL);
         } catch (MalformedURLException e) {
             url = null;
         }

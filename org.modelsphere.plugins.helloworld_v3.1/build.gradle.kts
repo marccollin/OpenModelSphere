@@ -5,11 +5,6 @@ plugins {
 val projectName = "org.modelsphere.plugins.helloworld_v3.1"
 val targetPluginsDir = rootProject.projectDir.resolve("org.modelsphere.sms/plugins")
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
-
 dependencies {
     // Dépendances core minimales
     implementation(project(":org.modelsphere.jack"))
@@ -28,6 +23,9 @@ tasks {
         archiveBaseName.set(projectName)
         archiveVersion.set("")
         from(sourceSets.main.get().output)
+        from(projectDir) {
+            include("plugin.xml", "locale*.properties", "license*.html", "plugin.png")
+        }
         entryCompression = ZipEntryCompression.STORED
         destinationDirectory.set(layout.buildDirectory.dir("libs"))
 

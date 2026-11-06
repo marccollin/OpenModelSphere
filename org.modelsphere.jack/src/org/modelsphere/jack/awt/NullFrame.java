@@ -74,11 +74,6 @@ public final class NullFrame extends JFrame {
         }
     }
 
-    public void show() {
-        if (allowVisible)
-            super.setVisible(true);
-    }
-
     public void setVisible(boolean b) {
         super.setVisible(allowVisible && b);
     }

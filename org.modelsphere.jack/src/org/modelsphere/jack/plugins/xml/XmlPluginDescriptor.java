@@ -78,11 +78,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.security.AllPermission;
-import java.security.CodeSource;
-import java.security.PermissionCollection;
-import java.security.Permissions;
-import java.security.Policy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -276,8 +271,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 	
 	@Override
 	public String getName() {
-		 String name = getLocalizedString(PluginConstants.NAME);
-		 return name;
+        return getLocalizedString(PluginConstants.NAME);
 	}
 	
 	@Override
@@ -285,7 +279,6 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 		if (pluginClass == null) {
             try (PluginStartupTiming timing = PluginStartupTiming.start(
                     "xml.class", getClassName())) {
-                grantPermissions();
                 String className = getClassName();
                 PluginContext context = getContext();
                 ClassLoader classLoader = context == null ? null : context.getClassLoader();
@@ -306,21 +299,6 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 		return pluginClass;
 	}
 	
-	//grant all permissions on the clientside
-	//required to dynamically load classes in a Java Web Start deployment
-	private void grantPermissions() {
-        Policy.setPolicy(new Policy() {
-            @Override
-            public PermissionCollection getPermissions(CodeSource src) {
-                Permissions perms = new Permissions();
-                perms.add(new AllPermission());
-                return(perms);
-            }
-
-            public void refresh(){}
-        });
-    } //end grantPermissions()
-
     private Class<? extends Plugin> pluginClass;
 	
 	/*
@@ -419,8 +397,15 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 
 	@Override
 	public int compareTo(PluginDescriptor o) {
-		// TODO Auto-generated method stub
-		return 0;
+		String nameThis = getName();
+		String nameThat = o.getName();
+		if (nameThis == null) {
+			nameThis = getClassName();
+		}
+		if (nameThat == null) {
+			nameThat = o.getClassName();
+		}
+		return nameThis.compareTo(nameThat);
 	}
 	
 	@Override
@@ -451,7 +436,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
         }
 
         sign += "), "; // NOT LOCALIZABLE
-        sign += ((getAuthor() == null || getAuthor().trim().length() == 0) ? PluginDescriptor.KUnknownAuthor
+        sign += ((getAuthor() == null || getAuthor().trim().isEmpty()) ? PluginDescriptor.KUnknownAuthor
                 : getAuthor());
 
         return sign;
@@ -482,7 +467,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 
         temp += "), "; // NOT LOCALIZABLE
         String author = getAuthor();
-        if (author == null || author.trim().length() == 0) {
+        if (author == null || author.trim().isEmpty()) {
             temp += KUnknownAuthor;
         } else {
             temp += author;
@@ -526,7 +511,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
         }
 
         String date = getDate();
-        if (date != null && date.length() > 0) {
+        if (date != null && !date.isEmpty()) {
             if (version != null)
                 temp += " - "; // NOT LOCALIZABLE
             temp += date;
@@ -536,7 +521,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
         temp += "<br>&nbsp; &nbsp; &nbsp; <b>"; // NOT LOCALIZABLE - HTML Tag
 
         String author = getAuthor();
-        if (author == null || author.trim().length() == 0) {
+        if (author == null || author.trim().isEmpty()) {
             temp += KUnknownAuthor;
         } else {
             temp += author;
@@ -748,15 +733,8 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 			Class<?> claz = Class.forName(classname);
 			Constructor<?> constr = claz.getConstructor(XmlPluginDescriptor.class, Map.class);
 			extension = (AbstractPluginExtension)constr.newInstance(this, params);
-		} catch (ClassNotFoundException ex) {
-			extension = null;
-		} catch (NoSuchMethodException ex) {
-			extension = null;
-		} catch (InvocationTargetException ex) {
-			extension = null;
-		} catch (IllegalAccessException ex) {
-			extension = null;
-		} catch (InstantiationException ex) {
+		} catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException |
+                 InstantiationException ex) {
 			extension = null;
 		} //end try
 		

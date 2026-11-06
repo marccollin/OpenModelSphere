@@ -43,6 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
+import org.modelsphere.jack.util.LegacyApi;
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.awt.ImagePreviewer;
@@ -86,7 +87,7 @@ public final class ChangeStampImageAction extends AbstractApplicationAction {
                 if (theFile.canRead()) {
                     String imageName = "file:" + theFile.getAbsolutePath(); //NOT LOCALIZABLE
 
-                    URL url = new URL(imageName);
+                    URL url = LegacyApi.url(imageName);
                     image = Toolkit.getDefaultToolkit().getImage(url);
                     GraphicUtil.waitForImage(image);
                 }

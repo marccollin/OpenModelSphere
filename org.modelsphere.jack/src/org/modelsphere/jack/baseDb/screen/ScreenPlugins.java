@@ -79,7 +79,7 @@ public abstract class ScreenPlugins {
     public static Editor getEditor(String pluginName) {
         Editor editor = null;
         try {
-            editor = (Editor) findPlugin(pluginName, pluginName, EDITOR_SUFFIX_NAME).newInstance();
+            editor = (Editor) findPlugin(pluginName, pluginName, EDITOR_SUFFIX_NAME).getDeclaredConstructor().newInstance();
         } catch (Exception ex) {
         }
         return editor;
@@ -109,7 +109,7 @@ public abstract class ScreenPlugins {
         TableCellEditor editor = null;
         try {
             editor = (TableCellEditor) findPlugin(pluginName, MULTI_PREFIX_NAME + pluginName,
-                    EDITOR_SUFFIX_NAME).newInstance();
+                    EDITOR_SUFFIX_NAME).getDeclaredConstructor().newInstance();
         } catch (Exception ex) {
         }
         return editor;
@@ -138,7 +138,7 @@ public abstract class ScreenPlugins {
         String pluginName = externalPlugins.get(field);
         if (pluginName == null)
             pluginName = field.getRendererPluginName();
-        if (pluginName == null || pluginName.length() == 0) {
+        if (pluginName == null || pluginName.isEmpty()) {
             // Take the renderer appropriate for the type of the field.
             Class<?> type = ((field == DbUDFValue.fValue && parentObj != null) ? ((DbUDF) parentObj)
                     .getValueClass()
@@ -165,7 +165,7 @@ public abstract class ScreenPlugins {
         String pluginName = externalPlugins.get(field);
         if (pluginName == null)
             pluginName = field.getRendererPluginName();
-        if (pluginName == null || pluginName.length() == 0) {
+        if (pluginName == null || pluginName.isEmpty()) {
             // Take the renderer appropriate for the type of the field.
             Class<?> type = field.getJField().getType();
             pluginName = type.getName();
@@ -222,16 +222,12 @@ public abstract class ScreenPlugins {
     }
 
     public static void updateRenderersUI() {
-        Iterator<Renderer> iter = rendererMap.values().iterator();
-        while (iter.hasNext()) {
-            Object renderer = iter.next();
+        for (Object renderer : rendererMap.values()) {
             if (renderer instanceof JComponent) {
                 ((JComponent) renderer).updateUI();
             }
         }
-        Iterator<TableCellRenderer> iter2 = multiRendererMap.values().iterator();
-        while (iter2.hasNext()) {
-            Object renderer = iter2.next();
+        for (Object renderer : multiRendererMap.values()) {
             if (renderer instanceof JComponent) {
                 ((JComponent) renderer).updateUI();
             }

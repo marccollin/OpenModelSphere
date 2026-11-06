@@ -3,11 +3,6 @@ plugins {
     `java-library` // Expose les APIs aux autres modules
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
-
 dependencies {
     //api(rootProject.libs.jazzy.core)
     implementation(files("lib/jazzy-core.jar"))

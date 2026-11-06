@@ -266,7 +266,7 @@ public class TreeTable extends JTable {
                     if (getColumnClass(counter) == TreeTableModel.class) {
                         MouseEvent me = (MouseEvent) e;
                         MouseEvent newME = new MouseEvent(m_tree, me.getID(), me.getWhen(), me
-                                .getModifiers(), me.getX() - getCellRect(0, counter, true).x, me
+                                .getModifiersEx(), me.getX() - getCellRect(0, counter, true).x, me
                                 .getY(), me.getClickCount(), me.isPopupTrigger());
                         m_tree.dispatchEvent(newME);
                         break;

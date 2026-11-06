@@ -147,13 +147,13 @@ public final class ShowLicenseAction extends AbstractApplicationAction {
                 while (line != null) {
                     if (line.startsWith("PluginCompany")) {
                         int i = line.indexOf("=");
-                        companyName = line.substring(i + 1, line.length());
+                        companyName = line.substring(i + 1);
                         String companyFolderPath = folderPath.concat("/" + companyName);
                         String licenseFilename = "license_" + lang + ".txt";
                         File licenseFile = new File(companyFolderPath, licenseFilename);
                         try {
                             if (licenseFile.exists()) {
-                                proprietaryUrl = licenseFile.toURL();
+                                proprietaryUrl = licenseFile.toURI().toURL();
                                 dialog.addPanel(companyName, proprietaryUrl);
                             }
                         } catch (IOException ioe) {
@@ -204,7 +204,7 @@ public final class ShowLicenseAction extends AbstractApplicationAction {
                 while (line != null) {
                     if (line.startsWith("PluginCompany")) {
                         int i = line.indexOf("=");
-                        companyPath = line.substring(i + 1, line.length());
+                        companyPath = line.substring(i + 1);
                         return companyPath;
                     }
                     line = reader.readLine();

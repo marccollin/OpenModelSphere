@@ -187,13 +187,13 @@ public class ExplorerView extends JTree implements Autoscroll, TreeSelectionList
 
                         p.translate(-pathBounds.x, -pathBounds.y);
                         newEvent = new MouseEvent(rComponent, event.getID(), event.getWhen(), event
-                                .getModifiers(), p.x, p.y, event.getClickCount(), event
+                                .getModifiersEx(), p.x, p.y, event.getClickCount(), event
                                 .isPopupTrigger());
                         String ttext = ((JComponent) rComponent).getToolTipText(newEvent);
                         scrollPane.getVerticalScrollBar().setToolTipText(ttext);
                         ToolTipManager.sharedInstance().mouseMoved(
                                 new MouseEvent(scrollPane.getVerticalScrollBar(), event.getID(),
-                                        event.getWhen(), event.getModifiers(), -1, -20, event
+                                        event.getWhen(), event.getModifiersEx(), -1, -20, event
                                                 .getClickCount(), event.isPopupTrigger()));
                         return;
                     }

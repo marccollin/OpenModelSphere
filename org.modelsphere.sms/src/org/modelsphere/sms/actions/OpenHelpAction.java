@@ -33,6 +33,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
+import org.modelsphere.jack.util.LegacyApi;
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -136,7 +137,7 @@ public class OpenHelpAction extends AbstractApplicationAction implements Selecti
     private void execute(String command) {
         Runtime runtime = Runtime.getRuntime();
         try {
-            runtime.exec(command);
+            LegacyApi.exec(runtime, command);
         } catch (Exception ex) {
             // do nothing
         }

@@ -44,6 +44,7 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package org.modelsphere.jack.plugins.xml.fs;
 
+import org.modelsphere.jack.util.LegacyApi;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -228,7 +229,7 @@ public abstract class FsEntry {
 			} else if (m_entry != null) {
 				String zipPath = m_composite.getName();
 				String entry = m_entry.getName();
-				url = new URL("jar:file:" + zipPath + "!/" + entry);
+				url = LegacyApi.url("jar:file:" + zipPath + "!/" + entry);
 			} else if (m_composite != null) {
 			    url = m_composite.toURL();
 			}
@@ -274,7 +275,7 @@ public abstract class FsEntry {
             try {
                 if (_zipfile != null) {
                     String name =_zipfile.getName();
-                    url = new URL(name); 
+                    url = LegacyApi.url(name); 
                 } else if (_url != null) {
                     url = _url;
                 }

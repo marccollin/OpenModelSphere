@@ -190,7 +190,7 @@ public class DisplayLFOptionGroup extends OptionGroup {
                     while (!lfcustom.isEmpty()) {
                         Class lfClass = Class.forName(lfcustom);
                         if (lfClass != null) {
-                            LookAndFeel lkFeel = (LookAndFeel) lfClass.newInstance();
+                            LookAndFeel lkFeel = (LookAndFeel) lfClass.getDeclaredConstructor().newInstance();
                             LFDescription lfDescription = new LFDescription(lkFeel.getName(),
                                     lfcustom);
                             if (!lfValues.contains(lfDescription)

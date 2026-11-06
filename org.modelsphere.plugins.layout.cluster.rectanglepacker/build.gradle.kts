@@ -5,11 +5,6 @@ plugins {
 val projectName = "org.modelsphere.plugins.layout.cluster.rectanglepacker"
 val targetPluginsDir = rootProject.projectDir.resolve("org.modelsphere.sms/plugins")
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
-
 dependencies {
     // Dépendances core minimales
     implementation(project(":org.modelsphere.jack"))
@@ -36,6 +31,9 @@ tasks {
 
         // Inclure classes + ressources
         from(sourceSets.main.get().output)
+        from(projectDir) {
+            include("plugin.xml", "locale*.properties", "license*.html", "plugin.png")
+        }
         entryCompression = ZipEntryCompression.STORED
 
         destinationDirectory.set(layout.buildDirectory.dir("libs"))

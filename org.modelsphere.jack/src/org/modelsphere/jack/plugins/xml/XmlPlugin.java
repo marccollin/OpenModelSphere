@@ -158,13 +158,11 @@ public class XmlPlugin implements Plugin2, PluginSelectionListener2 {
 			instance = null;
 		} else {
 			try {
-				Object o = pluginClass.newInstance();
+				Object o = pluginClass.getDeclaredConstructor().newInstance();
 				if (o instanceof Plugin2) {
 					instance = (Plugin2)o;
 				}
-			} catch (InstantiationException ex) {
-				instance = null;
-			} catch (IllegalAccessException ex) {
+			} catch (ReflectiveOperationException ex) {
 				instance = null;
 			}
 		}

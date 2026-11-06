@@ -2,11 +2,6 @@ plugins {
     `java-library`
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
-
 val projectName = "org.modelsphere.plugins.export.links"
 val targetPluginsDir = rootProject.projectDir.resolve("org.modelsphere.sms/plugins")
 

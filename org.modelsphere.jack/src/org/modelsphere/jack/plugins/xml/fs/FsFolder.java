@@ -44,6 +44,7 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package org.modelsphere.jack.plugins.xml.fs;
 
+import org.modelsphere.jack.util.LegacyApi;
 import org.modelsphere.jack.util.JarUtil;
 
 import java.io.BufferedReader;
@@ -78,7 +79,7 @@ public class FsFolder extends FsEntry {
 
         //is it a URL?
         try {
-            URL url = new URL(resource); 
+            URL url = LegacyApi.url(resource); 
             root = FsFolder.createRoot(url);
         } catch (MalformedURLException ex) {
             //no, it is a file?
@@ -465,7 +466,7 @@ public class FsFolder extends FsEntry {
                             if ("zip".equals(ext) || ("jar".equals(ext))) {
                                 String child = url.toString() + res;
                                 //String child = this.toString() + res;
-                                URL childURL = new URL(child);
+                                URL childURL = LegacyApi.url(child);
                                 FsFolder childFolder = new FsFolder(this, childURL);
                                 m_children.put(child, childFolder);
                                 System.out.println(child); 

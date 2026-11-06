@@ -1038,7 +1038,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
                 int column = tableView.convertColumnIndexToModel(viewColumn);
                 if (/* e.getClickCount() == 1 && */column != -1
                         && !SwingUtilities.isRightMouseButton(e) && !e.isPopupTrigger()) {
-                    int shiftPressed = e.getModifiers() & InputEvent.SHIFT_MASK;
+                    int shiftPressed = e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK;
                     boolean ascending = (shiftPressed == 0);
                     Integer val = getColumnOrdering(column);
                     if (val == null)

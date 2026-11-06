@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin className = "@@@CLASSNAME@@@">
+<plugin format="2.0" className = "org.modelsphere.plugins.helloworld.HelloWorld">
 	<jar>lib/plugin.jar</jar>
 
-	<type>@@@TYPE@@@</type>
-	
-	<requiredBuild>@@@REQUIREDBUILD@@@</requiredBuild>
-	
-	<name>@@@NAME@@@</name>
-	
+	<type>org.modelsphere.jack.plugins.Plugin2</type>
+
+	<requiredBuild>905</requiredBuild>
+
+	<name>Hello World</name>
+
 	<resourceBundle>locale</resourceBundle>
-	
-	<author>@@@AUTHOR@@@</author>
-	
-	<authorURL>@@@URL@@@</authorURL>
-	
-	<authorEmail>@@@EMAIL@@@</authorEmail>
-	
-	<date>@@@DATE@@@</date>
-	
-	<version>@@@VERSION@@@</version>
-	
-	<description>@@@DESCRIPTION@@@</description>
-	
+
+	<author>modelsphere.org</author>
+
+	<date>10-09-2009</date>
+
+	<version>1.0.0</version>
+
+	<description>${description}</description>
+
 	<image>${image}</image>
-	
+
 	<license>${license}</license>
 </plugin>

@@ -45,7 +45,7 @@ package org.modelsphere.jack.srtool.plugins.xml;
 
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.text.MessageFormat;
-import org.xml.sax.Parser;
+import org.xml.sax.XMLReader;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
@@ -96,8 +96,8 @@ public final class XmlReverse {
             //
             XmlParser.setWriter(writer);
             XmlParser.setNativeLineSeparator(true); // write in a file
-            Parser parser = XmlParser.getParser();
-            parser.setDocumentHandler(new XmlParser());
+            XMLReader parser = XmlParser.getParser();
+            parser.setContentHandler(new XmlParser());
             parser.setErrorHandler(new XmlParser.MyErrorHandler());
             parser.parse(uri);
             XmlParser.setNativeLineSeparator(false); // restore for furthur

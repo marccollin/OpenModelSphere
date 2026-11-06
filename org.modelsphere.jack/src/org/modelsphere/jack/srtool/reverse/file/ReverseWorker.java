@@ -270,9 +270,9 @@ public class ReverseWorker extends Worker {
             for (Object o : m_options.m_reverseList) {
                 Class claz = (Class) o;
                 try {
-                    JackReverseEngineeringPlugin reverse = (JackReverseEngineeringPlugin) claz.newInstance();
+                    JackReverseEngineeringPlugin reverse = (JackReverseEngineeringPlugin) claz.getDeclaredConstructor().newInstance();
                     instantiatedReverseList.add(reverse);
-                } catch (IllegalAccessException | InstantiationException ex) {
+                } catch (ReflectiveOperationException ex) {
                     // try next reverse
                 }
             } // end while
@@ -354,13 +354,13 @@ public class ReverseWorker extends Worker {
         for (Object o : reverseList) {
             Class claz = (Class) o;
             try {
-                JackReverseEngineeringPlugin r = (JackReverseEngineeringPlugin) claz.newInstance();
+                JackReverseEngineeringPlugin r = (JackReverseEngineeringPlugin) claz.getDeclaredConstructor().newInstance();
 
                 if (r.canReverse(file)) {
                     reverse = r;
                     break;
                 }
-            } catch (IllegalAccessException | InstantiationException ex) {
+            } catch (ReflectiveOperationException ex) {
                 // ignore and continue with the next reverse
             }
         } // end while

@@ -100,7 +100,7 @@ public final class HtmlOutputDirectory extends UserDefinedField {
 
         try {
             //Overrides default HTML generation directory if user has choosen another one
-            Object htmlForwardToolkit = htmlForwardToolkitClass.newInstance();
+            Object htmlForwardToolkit = htmlForwardToolkitClass.getDeclaredConstructor().newInstance();
             if (htmlForwardToolkit == null)
                 return false;
             Method getSelectedDirectoryMethod = htmlForwardToolkitClass.getMethod(

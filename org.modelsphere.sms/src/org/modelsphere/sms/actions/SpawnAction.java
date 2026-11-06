@@ -32,6 +32,7 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.actions;
 
+import org.modelsphere.jack.util.LegacyApi;
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
@@ -64,7 +65,7 @@ public class SpawnAction extends AbstractApplicationAction {
                 so.getDb().commitTrans();
 
                 Runtime runtime = Runtime.getRuntime();
-                Process proc = runtime.exec(desc);
+                Process proc = LegacyApi.exec(runtime, desc);
             }
 
         } catch (Exception ex) {

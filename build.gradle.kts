@@ -17,8 +17,7 @@ allprojects {
     //CONFIGURATION ENCODING
     tasks.withType<JavaCompile> {
         options.encoding = "UTF-8"
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
+        options.release = 21
         //options.encoding = "ISO-8859-1"
         options.compilerArgs.add("-Xlint:unchecked")
     }
@@ -33,8 +32,9 @@ subprojects {
     apply(plugin = "java")
 
     java {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
     }
 
     tasks.named("clean") {

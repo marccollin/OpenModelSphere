@@ -87,7 +87,7 @@ public class LocaleChangeManager implements LocaleChangeListener {
      * @return locale change manager's current locale
      */
     public static Locale getLocale() {
-        return new Locale(locale.getLanguage(), locale.getCountry(), locale.getVariant());
+        return Locale.of(locale.getLanguage(), locale.getCountry(), locale.getVariant());
     }
 
     /**

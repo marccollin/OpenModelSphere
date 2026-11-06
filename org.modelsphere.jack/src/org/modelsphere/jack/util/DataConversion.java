@@ -330,7 +330,7 @@ public final class DataConversion {
 
         try {
             // create a new instance by reflection
-            srtype = (SrType) srtypeClass.newInstance();
+            srtype = (SrType) srtypeClass.getDeclaredConstructor().newInstance();
 
             // sett attributes
             StringTokenizer st = new StringTokenizer(value, XMLConstants.ATTR_NAME_VALUE_TERMINATOR);
@@ -349,11 +349,7 @@ public final class DataConversion {
             } // end while
 
             // getSrActualField(subtoken, srType, actualValue);
-        } catch (InstantiationException ex) {
-            srtype = null;
-        } catch (IllegalAccessException ex) {
-            srtype = null;
-        } catch (NoSuchFieldException ex) {
+        } catch (ReflectiveOperationException ex) {
             srtype = null;
         } // end try
 
@@ -378,9 +374,7 @@ public final class DataConversion {
                 Object value = null;
                 try {
                     type = fields[i].getType();
-                    if (!fields[i].isAccessible()) {
-                        fields[i].setAccessible(true);
-                    }
+                    fields[i].setAccessible(true);
 
                     value = fields[i].get(srtype);
                 } catch (Exception e1) {

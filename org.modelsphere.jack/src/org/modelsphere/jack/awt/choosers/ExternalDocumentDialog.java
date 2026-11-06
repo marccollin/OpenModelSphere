@@ -43,6 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.choosers;
 
+import org.modelsphere.jack.util.LegacyApi;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.text.MessageFormat;
 
@@ -125,7 +126,7 @@ public class ExternalDocumentDialog extends JDialog implements ActionListener {
     public static void invoke(String command) {
         Runtime runtime = Runtime.getRuntime();
         try {
-            Process proc = runtime.exec(command);
+            Process proc = LegacyApi.exec(runtime, command);
         } catch (IOException ex) {
             // ?
         } // end try

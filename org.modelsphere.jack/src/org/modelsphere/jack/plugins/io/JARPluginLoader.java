@@ -43,6 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins.io;
 
+import org.modelsphere.jack.util.LegacyApi;
 import org.modelsphere.jack.plugins.Plugin;
 import org.modelsphere.jack.plugins.PluginDescriptor;
 import org.modelsphere.jack.plugins.PluginSignature;
@@ -279,7 +280,7 @@ class JARPluginLoader extends PluginLoader {
         String sImageURL = (String) attributes.get(IMAGEURL);
         if (sImageURL != null) {
             try {
-                URL imageURL = new URL(sImageURL);
+                URL imageURL = LegacyApi.url(sImageURL);
                 Image image = ImageUtilities.loadImage(imageURL);
                 defaultDescriptor.setImage(image);
             } catch (Exception e) {

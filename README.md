@@ -21,7 +21,7 @@ Il couvre la modélisation de données (relationnelle et physique), la modélisa
 ## Changement effectué
 
 Le projet utilise désormait gradle au lieu de ant.
-Passage à java 11
+Passage à Java 21 (JDK 21 requis)
 Les fichiers java sont passé en UTF 8
 la gestion du classhpath a changé entre les version de java, le code a été modifié
 

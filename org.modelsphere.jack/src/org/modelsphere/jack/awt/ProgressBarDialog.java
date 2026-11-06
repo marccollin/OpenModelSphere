@@ -117,9 +117,9 @@ public class ProgressBarDialog extends JDialog implements TestableWindow {
     public ProgressBarDialog() {
     }
 
-    public final void show() {
-        if (!task.done())
-            super.setVisible(true);
+    public final void setVisible(boolean visible) {
+        if (!visible || !task.done())
+            super.setVisible(visible);
 
     }
 
@@ -250,8 +250,7 @@ public class ProgressBarDialog extends JDialog implements TestableWindow {
         final String kTitle = "ProgressBar Demo.."; // NOT LOCALIZABLE, used in
         // main() function only
         ProgressBarDialog.DummyTask task = new ProgressBarDialog.DummyTask(1000);
-        JDialog dialog = new ProgressBarDialog(null, task, kTitle, false);
-        return dialog;
+        return new ProgressBarDialog(null, task, kTitle, false);
     }
 
     private static void runDemo() {

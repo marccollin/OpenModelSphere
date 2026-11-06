@@ -693,7 +693,7 @@ public class DiagramView extends JPanel implements Scrollable, MouseListener, Mo
     final MouseEvent unzoom(MouseEvent e) {
         if (zoomFactor == 1.0f)
             return e;
-        return new MouseEvent(this, e.getID(), e.getWhen(), e.getModifiers(),
+        return new MouseEvent(this, e.getID(), e.getWhen(), e.getModifiersEx(),
                 (int) (e.getX() / zoomFactor), (int) (e.getY() / zoomFactor), e.getClickCount(), e
                         .isPopupTrigger());
     }

@@ -33,6 +33,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.style;
 
+import org.modelsphere.jack.util.LegacyApi;
 import org.modelsphere.jack.awt.AbstractTableCellEditor;
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.awt.ImagePreviewer;
@@ -125,7 +126,7 @@ public class PrefixOptionComponent extends OptionComponent {
                                 Image image = null;
                                 String imageName = "file:" + theFile.getAbsolutePath(); //NOT LOCALIZABLE
                                 try {
-                                    URL url = new URL(imageName);
+                                    URL url = LegacyApi.url(imageName);
                                     image = Toolkit.getDefaultToolkit().getImage(url);
                                     GraphicUtil.waitForImage((Component) ev.getSource(), image);
                                 } catch (Exception e) {

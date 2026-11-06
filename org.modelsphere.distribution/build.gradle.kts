@@ -3,11 +3,6 @@ plugins {
     distribution
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
-
 dependencies {
     // Dépendances core minimales
     implementation(project(":org.modelsphere.jack"))

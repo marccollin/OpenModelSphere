@@ -195,8 +195,8 @@ public interface Service {
                         Class serviceClass = Class.forName(serviceName);
                         Service service;
                         try {
-                            service = (Service) serviceClass.newInstance();
-                        } catch (NoSuchMethodError e) {
+                            service = (Service) serviceClass.getDeclaredConstructor().newInstance();
+                        } catch (NoSuchMethodException e) {
                             throw new IllegalArgumentException(kNoArgConstrMissingError);
                         }
                         int port = Integer.parseInt(t.nextToken());
