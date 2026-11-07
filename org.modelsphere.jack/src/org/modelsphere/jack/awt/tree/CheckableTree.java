@@ -152,7 +152,7 @@ public class CheckableTree extends JTree implements TestableWindow, ActionListen
     }
 
     private void processMouseClicked(MouseEvent e) {
-        if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) == 0)
+        if (!SwingUtilities.isLeftMouseButton(e))
             return;
         TreePath clickPath = getPathForLocation(e.getX(), e.getY());
         if (clickPath == null || !isPathSelected(clickPath))

@@ -32,6 +32,7 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.features;
 
+import org.modelsphere.jack.util.LegacyApi;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -50,7 +51,7 @@ public class Spawner {
             // program files\microsoft office\office\winword.exe
             String cmdline = "cmd /c c:\\test.doc";
             Runtime runtime = Runtime.getRuntime();
-            Process proc = runtime.exec(cmdline);
+            Process proc = LegacyApi.exec(runtime, cmdline);
 
             // put a BufferedReader on the ls output
 

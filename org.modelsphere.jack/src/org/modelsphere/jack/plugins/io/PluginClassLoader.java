@@ -115,7 +115,7 @@ final class PluginClassLoader extends ClassLoader {
         if (foundres == null)
             return null;
         try {
-            return new File(foundres).toURL();
+            return new File(foundres).toURI().toURL();
         } catch (Exception e) {
             return null;
         }

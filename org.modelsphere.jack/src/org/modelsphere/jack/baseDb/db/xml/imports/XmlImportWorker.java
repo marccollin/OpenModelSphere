@@ -374,7 +374,7 @@ public class XmlImportWorker extends Worker {
                         int version = Integer.parseInt(headerStruct.version);
                         Class converterClass = Class.forName(headerStruct.converter);
                         VersionConverter converter = (VersionConverter) converterClass
-                                .newInstance();
+                                .getDeclaredConstructor().newInstance();
                         converter.setOldVersion(version);
                         converter.convertAfterLoad(project);
                     } catch (Exception ex) {
@@ -525,8 +525,7 @@ public class XmlImportWorker extends Worker {
                     String key = prop.m_value.substring(1); //skip the 1st character (the '#' character)
                     DbObject refObj = dbobjMap.get(key);
                     obj.set(choice, refObj);
-                } else if (mf instanceof MetaRelation1) { //if it's an association
-                    MetaRelation1 relation = (MetaRelation1) mf;
+                } else if (mf instanceof MetaRelation1 relation) { //if it's an association
                     String key = prop.m_value.substring(1); //skip the 1st character (the '#' character)
                     DbObject refObj = dbobjMap.get(key);
                     MetaRelationship oppositeRel = relation.getOppositeRel(refObj);
@@ -569,17 +568,17 @@ public class XmlImportWorker extends Worker {
             if (type == String.class) {
                 actualValue = rawValue;
             } else if (type == boolean.class) {
-                boolean b = rawValue.equals("1") ? true : false;
-                actualValue = Boolean.valueOf(b);
+                boolean b = rawValue.equals("1");
+                actualValue = b;
             } else if (type == int.class) {
                 int i = Integer.parseInt(rawValue, 16);
-                actualValue = Integer.valueOf(i);
+                actualValue = i;
             } else if (type == float.class) {
                 float fl = Float.parseFloat(rawValue);
-                actualValue = Float.valueOf(fl);
+                actualValue = fl;
             } else if (type == double.class) {
                 double d = Double.parseDouble(rawValue);
-                actualValue = Double.valueOf(d);
+                actualValue = d;
             } else if (SrType.class.isAssignableFrom(type)) {
                 actualValue = getSrActualValue(f, rawValue);
             } else {
@@ -832,9 +831,7 @@ public class XmlImportWorker extends Worker {
                 } //end if
             } //end while
 
-        } catch (NoSuchFieldException ex) {
-            namedObject = null;
-        } catch (IllegalAccessException ex) {
+        } catch (NoSuchFieldException | IllegalAccessException ex) {
             namedObject = null;
         } finally {
             if (dbEnum != null) {

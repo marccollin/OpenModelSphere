@@ -43,6 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.preference;
 
+import org.modelsphere.jack.util.LegacyApi;
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.awt.ImagePreviewer;
 import org.modelsphere.jack.awt.ThinBevelBorder;
@@ -196,7 +197,7 @@ public class DiagramStampOptionGroup extends OptionGroup {
             else {
                 try {
                     File file = new File(imageName);
-                    URL url = ((file != null && file.exists()) ? file.toURL() : new URL(imageName));
+                    URL url = ((file != null && file.exists()) ? file.toURI().toURL() : LegacyApi.url(imageName));
                     previewImage = Toolkit.getDefaultToolkit().createImage(url);
                     if (previewImage != null)
                         GraphicUtil.waitForImage(previewImage);

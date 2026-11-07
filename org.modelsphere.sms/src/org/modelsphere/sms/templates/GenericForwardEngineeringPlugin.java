@@ -532,7 +532,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
             String subRule = currentRS.getSubRule();
             rule = (Rule) constr.newInstance(new Object[] { rulename, subRule, modifiers });
         } else {
-            Connector.UserConnector userConn = (Connector.UserConnector) claz.newInstance();
+            Connector.UserConnector userConn = (Connector.UserConnector) claz.getDeclaredConstructor().newInstance();
             String childRule = currentRS.getSubRule();
             String oneChildRule = (currentRS.m_stringRules == null) ? null
                     : currentRS.m_stringRules[0];

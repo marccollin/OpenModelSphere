@@ -60,7 +60,7 @@ public final class PluginsRegistry implements Iterable<PluginDescriptor> {
     
     	if (Plugin.class.isAssignableFrom(pluginClaz)) {
     		try {
-				plugin = (Plugin)pluginClaz.newInstance();
+				plugin = (Plugin)pluginClaz.getDeclaredConstructor().newInstance();
 			} catch (InstantiationException e) {
 				plugin = null;
 				e.printStackTrace();

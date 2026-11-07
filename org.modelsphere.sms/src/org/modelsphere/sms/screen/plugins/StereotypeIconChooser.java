@@ -322,7 +322,7 @@ public class StereotypeIconChooser extends JPanel {
             File theFile = chooser.getSelectedFile();
             if (theFile != null && theFile.exists() && theFile.canRead()) {
                 try {
-                    URL url = theFile.toURL();
+                    URL url = theFile.toURI().toURL();
                     if (url != null) {
                         ImageIcon icon = new ImageIcon(url);
                         m_stereotypeStruct.m_imageName = theFile.getName();

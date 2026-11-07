@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin className = "@@@CLASSNAME@@@">
+<plugin format="2.0" className = "org.modelsphere.plugins.layout.cluster.rectanglepacker.RectanglePackerPlugin">
 	<jar>lib/plugin.jar</jar>
 
-	<type>@@@TYPE@@@</type>
-	
-	<requiredBuild>@@@REQUIREDBUILD@@@</requiredBuild>
-	
-	<name>@@@NAME@@@</name>
-	
+	<type>org.modelsphere.jack.srtool.features.layout.LayoutPlugin</type>
+
+	<requiredBuild>950</requiredBuild>
+
+	<name>Layout Algorithm - Rectangle Packer</name>
+
 	<resourceBundle>locale</resourceBundle>
-	
-	<author>@@@AUTHOR@@@</author>
-	
-	<authorURL>@@@URL@@@</authorURL>
-	
-	<authorEmail>@@@EMAIL@@@</authorEmail>
-	
-	<date>@@@DATE@@@</date>
-	
-	<version>@@@VERSION@@@</version>
-	
-	<description>@@@DESCRIPTION@@@</description>
-	
+
+	<author>modelsphere.org</author>
+
+	<date>21-07-2010</date>
+
+	<version>0.1</version>
+
+	<description>${description}</description>
+
 	<image>${image}</image>
-	
+
 	<license>${license}</license>
 </plugin>

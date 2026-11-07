@@ -43,6 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
+import org.modelsphere.jack.util.LegacyApi;
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.awt.ExtensionFileFilter;
@@ -90,7 +91,7 @@ public final class InsertDiagramImageAction extends AbstractApplicationAction im
                 if (theFile != null) {
                     Image image = null;
                     String imageName = "file:" + theFile.getAbsolutePath(); //NOT LOCALIZABLE
-                    java.net.URL url = new java.net.URL(imageName);
+                    java.net.URL url = LegacyApi.url(imageName);
                     image = java.awt.Toolkit.getDefaultToolkit().getImage(url);
                     org.modelsphere.jack.graphic.GraphicUtil.waitForImage(image);
 

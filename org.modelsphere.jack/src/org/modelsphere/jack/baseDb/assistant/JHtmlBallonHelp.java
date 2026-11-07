@@ -43,6 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.assistant;
 
+import org.modelsphere.jack.util.LegacyApi;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.international.LocaleMgr;
 
@@ -305,7 +306,7 @@ public abstract class JHtmlBallonHelp extends JInternalFrame implements MouseLis
         String file = java.text.MessageFormat.format(pattern, new Object[] { helpRootDirectory,
                 fileName });
         try {
-            helpURL = new URL(file);
+            helpURL = LegacyApi.url(file);
         } catch (java.net.MalformedURLException e) {
             org.modelsphere.jack.debug.Debug.trace("getHtmlFile bad URL:" + file); // NOT LOCALIZABLE
             helpURL = null;
@@ -541,7 +542,7 @@ public abstract class JHtmlBallonHelp extends JInternalFrame implements MouseLis
     //
 
     public void mouseClicked(MouseEvent e) {
-        if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) != 0) {
+        if (SwingUtilities.isLeftMouseButton(e)) {
             JButton button = ((JButton) e.getSource());
             if (!button.isEnabled()) {
                 button.setBorderPainted(false);
@@ -550,7 +551,7 @@ public abstract class JHtmlBallonHelp extends JInternalFrame implements MouseLis
     }
 
     public void mousePressed(MouseEvent e) {
-        if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) != 0) {
+        if (SwingUtilities.isLeftMouseButton(e)) {
             JButton button = ((JButton) e.getSource());
             if (button.isEnabled()) {
                 button.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
@@ -559,7 +560,7 @@ public abstract class JHtmlBallonHelp extends JInternalFrame implements MouseLis
     }
 
     public void mouseReleased(MouseEvent e) {
-        if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) != 0) {
+        if (SwingUtilities.isLeftMouseButton(e)) {
             JButton button = ((JButton) e.getSource());
             button.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         }

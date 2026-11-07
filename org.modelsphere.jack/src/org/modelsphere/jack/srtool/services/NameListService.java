@@ -43,6 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.services;
 
+import org.modelsphere.jack.util.LegacyApi;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.reverse.SQLLexerStream;
@@ -242,7 +243,7 @@ public final class NameListService extends NameListServiceProtocol {
         BufferedWriter buffer = null;
         List<String> cmds = new ArrayList<>();
         try {
-            URL url = new URL(nameListMessage.filename.toExternalForm());
+            URL url = LegacyApi.url(nameListMessage.filename.toExternalForm());
             InputStreamReader inputStreamReader = new InputStreamReader(url.openStream());
             // InputStream inputStream = new
             // FileInputStream(nameListMessage.filename); //reporte a 2.6

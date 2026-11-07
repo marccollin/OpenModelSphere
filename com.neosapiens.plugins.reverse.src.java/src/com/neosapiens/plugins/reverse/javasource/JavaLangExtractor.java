@@ -1,5 +1,6 @@
 package com.neosapiens.plugins.reverse.javasource;
 
+import org.modelsphere.jack.util.LegacyApi;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,7 +15,7 @@ import java.util.regex.Pattern;
 public class JavaLangExtractor {
     
     public static void main(String[] args) throws IOException {
-        URL url = new URL("http://download.oracle.com/javase/6/docs/api/java/lang/package-summary.html");
+        URL url = LegacyApi.url("http://download.oracle.com/javase/6/docs/api/java/lang/package-summary.html");
         BufferedReader in = new BufferedReader(
                     new InputStreamReader(
                     url.openStream()));

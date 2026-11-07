@@ -87,8 +87,7 @@ public class ServiceServer {
     }
 
     public static void installServiceServer(String servicePackage, String[] args)
-            throws java.io.IOException, ClassNotFoundException, IllegalAccessException,
-            InstantiationException {
+            throws java.io.IOException, ReflectiveOperationException {
         // Create a Server object that uses standard out as its log and
         // has a limit of ten concurrent connections at once.
         ServiceServer s = new ServiceServer(System.out, 10);
@@ -108,7 +107,7 @@ public class ServiceServer {
                 // Service.
                 String serviceName = servicePackage + "." + args[i++];
                 Class serviceClass = Class.forName(serviceName); // dynamic load: forName() mandatory
-                Service service = (Service) serviceClass.newInstance(); // instantiate
+                Service service = (Service) serviceClass.getDeclaredConstructor().newInstance(); // instantiate
                 int port = Integer.parseInt(args[i++]);
                 s.addService(service, port);
             }
@@ -193,9 +192,9 @@ public class ServiceServer {
             // forName(0 here is mandatory, service being not known at compile
             // time
             Class serviceClass = Class.forName(serviceName);
-            Service service = (Service) serviceClass.newInstance();
+            Service service = (Service) serviceClass.getDeclaredConstructor().newInstance();
             addService(service, port);
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+        } catch (ReflectiveOperationException e) {
         }
     }
 
@@ -227,7 +226,7 @@ public class ServiceServer {
      * connections
      **/
     public void removeService(int port) {
-        Integer key = Integer.valueOf(port); // hashtable key
+        Integer key = port; // hashtable key
         // Look up the Listener object for the port in the hashtable of services
         final Listener listener = services.get(key);
         if (listener == null)
@@ -285,7 +284,7 @@ public class ServiceServer {
                 try {
                     Socket client = listen_socket.accept();
                     connectionManager.addConnection(client, service);
-                } catch (InterruptedIOException e) {
+                } catch (InterruptedIOException ignored) {
                 } catch (IOException e) {
                     log(e);
                 }

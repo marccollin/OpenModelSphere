@@ -58,7 +58,7 @@ public class PopupButton extends JButton {
 
     private class Renderer extends JButton {
         void redirectEvent(MouseEvent e) {
-            processEvent(new MouseEvent(this, e.getID(), e.getWhen(), e.getModifiers(), e.getX(), e
+            processEvent(new MouseEvent(this, e.getID(), e.getWhen(), e.getModifiersEx(), e.getX(), e
                     .getY(), e.getXOnScreen(), e.getYOnScreen(), e.getClickCount(), e
                     .isPopupTrigger(), e.getButton()));
         }
@@ -172,7 +172,6 @@ public class PopupButton extends JButton {
             else
                 g.setColor(UIManager.getColor("controlShadow"));
 
-            j = 0;
             for (i = size - 1; i >= 0; i--) {
                 g.drawLine(middle - i, j, middle + i, j);
                 j++;

@@ -97,7 +97,7 @@ public final class ExceptionId extends UserDefinedField {
         if (map.containsKey(object)) {
             id = (Integer) map.get(object);
         } else {
-            id = new Integer(counter++);
+            id = Integer.valueOf(counter++);
             map.put(object, id);
         }
 

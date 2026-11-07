@@ -42,6 +42,7 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.baseDb.assistant;
 
+import org.modelsphere.jack.util.LegacyApi;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.util.DirectoryScanner;
 
@@ -93,7 +94,7 @@ public class JSearch {
                             .nextToken()) {
                         if (tokenType == StreamTokenizer.TT_WORD) {
                             if (st.sval.equalsIgnoreCase(searchTextField)) {
-                                foundURL = new URL(kFileBuild + inFile);
+                                foundURL = LegacyApi.url(kFileBuild + inFile);
                                 resultURL.addElement(foundURL);
                                 if (p >= 1) {
                                     if (foundURL.equals(resultURL.elementAt(p - 1))) {

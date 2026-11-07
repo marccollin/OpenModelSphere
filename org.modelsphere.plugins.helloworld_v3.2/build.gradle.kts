@@ -5,11 +5,6 @@ plugins {
 val projectName = "org.modelsphere.plugins.helloworld_v3.2"
 val targetPluginsDir = rootProject.projectDir.resolve("org.modelsphere.sms/plugins")
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
-
 dependencies {
     // Dépendances core minimales
     implementation(project(":org.modelsphere.jack"))
@@ -19,6 +14,11 @@ sourceSets {
     main {
         java {
             srcDir("src")
+        }
+        resources {
+            srcDirs("src")
+            include("**/*.xml", "**/*.properties", "**/*.html", "**/*.png")
+            exclude("**/*.java", "**/*.class")
         }
     }
 }

@@ -182,7 +182,7 @@ public abstract class SelectTool extends Tool {
             clickComp = null;
         if (clickComp == null) {
             operation = SELECT;
-            if ((e.getModifiers() & (InputEvent.SHIFT_MASK | InputEvent.CTRL_MASK)) == 0)
+            if ((e.getModifiersEx() & (InputEvent.SHIFT_DOWN_MASK | InputEvent.CTRL_DOWN_MASK)) == 0)
                 model.deselectAll();
         } else {
             if (clickComp instanceof Line)
@@ -201,7 +201,7 @@ public abstract class SelectTool extends Tool {
             else
                 operation = MOVE;
             // do nothing on CTRL if no cell
-            if (((e.getModifiers() & InputEvent.CTRL_MASK) != 0) && (clickComp instanceof ZoneBox)) {
+            if (((e.getModifiersEx() & InputEvent.CTRL_DOWN_MASK) != 0) && (clickComp instanceof ZoneBox)) {
                 CellID cellID = ((ZoneBox) clickComp).cellAt(view, xPressed, yPressed);
                 if (cellID == null) {
                     view.toolCompleted();
@@ -209,11 +209,11 @@ public abstract class SelectTool extends Tool {
                 }
             }
             if (!clickComp.isSelected()) {
-                if ((e.getModifiers() & (InputEvent.SHIFT_MASK | InputEvent.CTRL_MASK)) == 0)
+                if ((e.getModifiersEx() & (InputEvent.SHIFT_DOWN_MASK | InputEvent.CTRL_DOWN_MASK)) == 0)
                     model.deselectAll();
                 // skip cell selection on SHIFT
                 if (clickComp instanceof ZoneBox
-                        && ((e.getModifiers() & InputEvent.SHIFT_MASK) == 0)) {
+                        && ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) == 0)) {
                     // If click on a cell, select the cell before selecting the
                     // component, to have the cell selection frame drawn.
                     ZoneBox box = (ZoneBox) clickComp;
@@ -226,13 +226,13 @@ public abstract class SelectTool extends Tool {
                 handle = clickComp.handleAt(view, xPressed, yPressed);
                 if (handle != -1) {
                     operation = RESIZE;
-                } else if ((e.getModifiers() & InputEvent.SHIFT_MASK) != 0) {
+                } else if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0) {
                     clickComp.setSelected(false);
                     view.toolCompleted();
                 } else if (clickComp instanceof ZoneBox) {
                     ZoneBox box = (ZoneBox) clickComp;
                     CellID cellID = box.cellAt(view, xPressed, yPressed);
-                    if (cellID != null && ((e.getModifiers() & InputEvent.CTRL_MASK) != 0)
+                    if (cellID != null && ((e.getModifiersEx() & InputEvent.CTRL_DOWN_MASK) != 0)
                             && box.isCellSelected(cellID)) {
                         box.selectCell(cellID, false);
                         box.repaint();
@@ -244,7 +244,7 @@ public abstract class SelectTool extends Tool {
                             editCellID = cellID;
                             box.repaint();
                         } else {
-                            if ((e.getModifiers() & InputEvent.CTRL_MASK) != 0) {
+                            if ((e.getModifiersEx() & InputEvent.CTRL_DOWN_MASK) != 0) {
                                 box.selectCell(cellID, true);
                                 box.repaint();
                             } else if (!bMultipleSelection) {

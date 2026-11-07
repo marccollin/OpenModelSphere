@@ -5,11 +5,6 @@ plugins {
 val projectName = "org.modelsphere.plugins.ansi_forward"
 val targetPluginsDir = rootProject.projectDir.resolve("org.modelsphere.sms/plugins")
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
-
 dependencies {
     // Dépendances core minimales
     implementation(project(":org.modelsphere.jack"))

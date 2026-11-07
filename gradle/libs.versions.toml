@@ -4,11 +4,11 @@
 # Bibliothèques stables sur Maven Central
 jgrapht = "1.1.0"
 velocity = "2.4.1"
-commons-lang3 = "3.20.0"
-jython = "2.7.3"
+commons-lang3 = "3.21.0"
+jython = "2.7.4"
 antlr = "3.5.3"
 stringtemplate = "4.0.2"
-bcel = "6.8.1"
+bcel = "6.13.0"
 log4j = "2.26.1"
 jdom = "1.1.3"
 

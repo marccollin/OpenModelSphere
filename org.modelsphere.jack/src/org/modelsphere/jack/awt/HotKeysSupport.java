@@ -193,10 +193,10 @@ public class HotKeysSupport implements WindowListener {
                         rootPane.registerKeyboardAction(helpReleaseAction, KeyStroke.getKeyStroke(
                                 KeyEvent.VK_F1, 0, true), JComponent.WHEN_IN_FOCUSED_WINDOW);
                         rootPane.registerKeyboardAction(helpPressAction, KeyStroke.getKeyStroke(
-                                KeyEvent.VK_F1, InputEvent.CTRL_MASK, false),
+                                KeyEvent.VK_F1, InputEvent.CTRL_DOWN_MASK, false),
                                 JComponent.WHEN_IN_FOCUSED_WINDOW);
                         rootPane.registerKeyboardAction(helpReleaseAction, KeyStroke.getKeyStroke(
-                                KeyEvent.VK_F1, InputEvent.CTRL_MASK, true),
+                                KeyEvent.VK_F1, InputEvent.CTRL_DOWN_MASK, true),
                                 JComponent.WHEN_IN_FOCUSED_WINDOW);
                     }
                     helpPressAction.setOwner(helpButton);
@@ -214,9 +214,9 @@ public class HotKeysSupport implements WindowListener {
                     rootPane.unregisterKeyboardAction(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0,
                             true));
                     rootPane.unregisterKeyboardAction(KeyStroke.getKeyStroke(KeyEvent.VK_F1,
-                            InputEvent.CTRL_MASK, false));
+                            InputEvent.CTRL_DOWN_MASK, false));
                     rootPane.unregisterKeyboardAction(KeyStroke.getKeyStroke(KeyEvent.VK_F1,
-                            InputEvent.CTRL_MASK, true));
+                            InputEvent.CTRL_DOWN_MASK, true));
                     helpPressAction.root = null;
                     helpPressAction.owner = null;
                     helpPressAction = null;
@@ -249,9 +249,9 @@ public class HotKeysSupport implements WindowListener {
                 rootPane.unregisterKeyboardAction(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0, false));
                 rootPane.unregisterKeyboardAction(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0, true));
                 rootPane.unregisterKeyboardAction(KeyStroke.getKeyStroke(KeyEvent.VK_F1,
-                        InputEvent.CTRL_MASK, false));
+                        InputEvent.CTRL_DOWN_MASK, false));
                 rootPane.unregisterKeyboardAction(KeyStroke.getKeyStroke(KeyEvent.VK_F1,
-                        InputEvent.CTRL_MASK, true));
+                        InputEvent.CTRL_DOWN_MASK, true));
             }
             helpPressAction.root = null;
             helpPressAction.owner = null;

@@ -85,14 +85,12 @@ public class ImportClause extends Rule {
                 m_bean = (Serializable) input.readObject();
             } catch (IOException ex) {
                 // cannot load it, create it
-                m_bean = (Serializable) beanClass.newInstance();
+                m_bean = (Serializable) beanClass.getDeclaredConstructor().newInstance();
             }
         } catch (ClassNotFoundException ex) {
             // throw new RuleException : File Not Found, file doesn't exist or
             // in a different directory from .tpl file.
-        } catch (IllegalAccessException ex) {
-            // throw new RuleException : .class ill-formed
-        } catch (InstantiationException ex) {
+        } catch (ReflectiveOperationException ex) {
             // throw new RuleException : .class ill-formed
         }
 

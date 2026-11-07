@@ -44,13 +44,12 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.srtool.plugins.xml;
 
 import org.modelsphere.jack.debug.Debug;
-import org.xml.sax.AttributeList;
-import org.xml.sax.DocumentHandler;
-import org.xml.sax.HandlerBase;
+import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
-import org.xml.sax.Parser;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.DefaultHandler;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -67,9 +66,9 @@ import java.util.Map;
 //
 // This shows the most significant SAX callback APIs:
 //
-//	- The Parser class can represent an XML parser.
+//	- The SAXParser class can represent an XML parser.
 //
-//	- This DocumentHandler just prints its input in more or
+//	- This DefaultHandler just prints its input in more or
 //	  less the form in which the source document held it.
 //	  Almost any SAX based application will implement this.
 //
@@ -78,7 +77,7 @@ import java.util.Map;
 //	  such errors, even when used with a validating parser.
 //
 //
-public final class XmlParser implements DocumentHandler {
+public final class XmlParser extends DefaultHandler {
 
     private static Writer out;
     private boolean expectValue = false;
@@ -121,7 +120,7 @@ public final class XmlParser implements DocumentHandler {
         eol = (isNative ? System.getProperty("line.separator") : "\n"); // NOT LOCALIZABLE
     }
 
-    // here are all the SAX DocumentHandler methods
+    // here are all the SAX ContentHandler methods
     public void setDocumentLocator(Locator l) {
         // we'd record this if we needed to resolve relative URIs
         // in content or attributes, or wanted to give diagnostics.
@@ -169,7 +168,7 @@ public final class XmlParser implements DocumentHandler {
         return toProcess;
     }
 
-    private void emitNewOccurrence(int srxId, AttributeList attrs) throws SAXException {
+    private void emitNewOccurrence(int srxId, Attributes attrs) throws SAXException {
 
         enabledOutput = toProcess(srxId);
         if (!enabledOutput) {
@@ -194,7 +193,7 @@ public final class XmlParser implements DocumentHandler {
         // Keep its XMI.id
         if (attrs != null) {
             for (int i = 0; i < attrs.getLength(); i++) {
-                String attr = attrs.getName(i);
+                String attr = attrs.getQName(i);
                 if (attr.equals(kXmiId)) {
                     currentXmiId = attrs.getValue(i);
                 } // end if
@@ -206,7 +205,7 @@ public final class XmlParser implements DocumentHandler {
         currentSrxName = XmiMapping.getSrxName(srxId);
     }
 
-    private void emitReferencedValue(AttributeList attrs) throws SAXException {
+    private void emitReferencedValue(Attributes attrs) throws SAXException {
         if (expectingTarget) {
             String previousElement = "";
             if (!elementStack.empty()) {
@@ -221,7 +220,7 @@ public final class XmlParser implements DocumentHandler {
 
             if (attrs != null) {
                 for (int i = 0; i < attrs.getLength(); i++) {
-                    String attr = attrs.getName(i);
+                    String attr = attrs.getQName(i);
                     if (attr.equals(kTarget)) {
                         String key = attrs.getValue(i);
                         String name = idTable.get(key);
@@ -239,7 +238,8 @@ public final class XmlParser implements DocumentHandler {
     private static final String ORIGINTABLE = "ORITAB_NAME"; // NOT LOCALIZABLE
     private static final String TARGETTABLE = "DESTTAB_NAME"; // NOT LOCALIZABLE
 
-    public void startElement(String tag, AttributeList attrs) throws SAXException {
+    public void startElement(String uri, String localName, String tag, Attributes attrs)
+            throws SAXException {
         if (isDebug)
             emit("start element" + eol); // NOT LOCALIZABLE
 
@@ -315,7 +315,7 @@ public final class XmlParser implements DocumentHandler {
         } // end if
     } // end startElement()
 
-    public void endElement(String name) throws SAXException {
+    public void endElement(String uri, String localName, String name) throws SAXException {
         if (isDebug)
             emit("end element" + eol); // NOT LOCALIZABLE
 
@@ -492,7 +492,7 @@ public final class XmlParser implements DocumentHandler {
         }
     }
 
-    static class MyErrorHandler extends HandlerBase {
+    static class MyErrorHandler extends DefaultHandler {
         // treat validation errors as fatal
         public void error(SAXParseException e) throws SAXParseException {
             throw e;
@@ -507,19 +507,19 @@ public final class XmlParser implements DocumentHandler {
         }
     } // end MyErrorHandler
 
-    static Parser getParser() throws SAXException, ParserConfigurationException {
+    static XMLReader getParser() throws SAXException, ParserConfigurationException {
         //
         // turn it into an in-memory object.
         //
 
-        Parser parser;
+        XMLReader parser;
         SAXParserFactory spf = SAXParserFactory.newInstance();
         String validation = System.getProperty("javax.xml.parsers.validation", "false"); // NOT LOCALIZABLE
         if (validation.equalsIgnoreCase("true")) // NOT LOCALIZABLE
             spf.setValidating(true);
 
         SAXParser sp = spf.newSAXParser();
-        parser = sp.getParser();
+        parser = sp.getXMLReader();
         return parser;
     }
 
@@ -532,8 +532,8 @@ public final class XmlParser implements DocumentHandler {
             //
             // turn it into an in-memory object.
             //
-            Parser parser = getParser();
-            parser.setDocumentHandler(new XmlParser());
+            XMLReader parser = getParser();
+            parser.setContentHandler(new XmlParser());
             parser.setErrorHandler(new MyErrorHandler());
             parser.parse(uri);
 
