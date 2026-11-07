@@ -46,6 +46,7 @@ package org.modelsphere.sms.plugins;
 import java.awt.Component;
 import java.io.File;
 import java.io.Serializable;
+import java.nio.file.FileSystems;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -206,7 +207,7 @@ public final class TargetSystem {
     // LOCALIZABLE,
     // directory
     // name
-    private static final String FILE_SEP = System.getProperty("file.separator"); // NOT
+    private static final String FILE_SEP = FileSystems.getDefault().getSeparator(); // NOT
     // LOCALIZABLE,
     // property
     private static final String MSG_PATTERN = "Bad Installation:  Cannot locate {0} directory."; // NOT
@@ -228,13 +229,13 @@ public final class TargetSystem {
 
         String[] fileNames = dirFile.list();
         if (fileNames != null) {
-            for (int i = 0; i < fileNames.length; i++) {
-                if (fileNames[i].endsWith(".typ")) { // NOT LOCALIZABLE, file
+            for (String fileName : fileNames) {
+                if (fileName.endsWith(".typ")) { // NOT LOCALIZABLE, file
                     // extension
-                    File file = new File(dirFile, fileNames[i]);
+                    File file = new File(dirFile, fileName);
                     try {
                         TargetSystemInfo targetInfo = new TargetSystemInfo(file);
-                        targetMap.put(new Integer(targetInfo.getID()), targetInfo);
+                        targetMap.put(targetInfo.getID(), targetInfo);
                     } catch (Exception e) {
                         Debug.trace(e);
                     }
@@ -345,11 +346,11 @@ public final class TargetSystem {
 
     // Create a new Target System
     public DbSMSTargetSystem createTargetSystem(DbProject project, int targetID) throws DbException {
-        TargetSystemInfo targetInfo = (TargetSystemInfo) targetMap.get(new Integer(targetID));
+        TargetSystemInfo targetInfo = (TargetSystemInfo) targetMap.get(targetID);
         if (targetID == 999) {// UserTS.typ, doit demeurer
             int newUserTargetID = ((DbSMSProject) project).getNewUserTargetID();
             targetInfo = new TargetSystemInfo(newUserTargetID);
-            targetMap.put(new Integer(targetInfo.getID()), targetInfo);
+            targetMap.put(targetInfo.getID(), targetInfo);
         }
         if (targetInfo == null)
             throw new RuntimeException("Type file not found for target ID " + targetID); // NOT LOCALIZABLE, runtime exception
@@ -369,14 +370,14 @@ public final class TargetSystem {
          * if(targetInfoID == userTsID) return userTs; }
          */
         ts = new DbSMSTargetSystem((DbSMSProject) project, targetInfo.getName(), targetInfo
-                .getVersion(), new Integer(targetInfo.getID()), new Integer(targetInfo.getRootID()));
+                .getVersion(), targetInfo.getID(), targetInfo.getRootID());
         return ts;
     }
 
-    public ArrayList<DbSMSTargetSystem> addTargetSystem(Component parent, DbObject semObj,
+    public List<DbSMSTargetSystem> addTargetSystem(Component parent, DbObject semObj,
             boolean many,
             boolean showAll) throws DbException {
-        ArrayList<DbSMSTargetSystem> added = new ArrayList<DbSMSTargetSystem>();
+        List<DbSMSTargetSystem> added = new ArrayList<DbSMSTargetSystem>();
         if (semObj == null)
             return added;
 
@@ -385,10 +386,9 @@ public final class TargetSystem {
         TargetSystemInfo targetInfo;
         DbProject project = (semObj instanceof DbProject) ? (DbProject) semObj : semObj
                 .getProject();
-        ArrayList<DefaultComparableElement> targets = new ArrayList<DefaultComparableElement>();
-        Iterator<TargetSystemInfo> iter = targetSystem.getAllTargetSystemInfos().iterator();
-        while (iter.hasNext()) {
-            targetInfo = iter.next();
+        List<DefaultComparableElement> targets = new ArrayList<DefaultComparableElement>();
+        for (TargetSystemInfo targetSystemInfo : targetSystem.getAllTargetSystemInfos()) {
+            targetInfo = targetSystemInfo;
             // if show all, add every target system in the list
             // if not show all, just add new target systems
             if ((showAll)
@@ -421,8 +421,8 @@ public final class TargetSystem {
                 Db.WRITE_TRANS,
                 MessageFormat.format(DbListView.k0Creation,
                         new Object[] { DbSMSTargetSystem.metaClass.getGUIName() }));
-        for (int i = 0; i < indices.length; i++) {
-            targetInfo = (TargetSystemInfo) items[indices[i]].object;
+        for (int index : indices) {
+            targetInfo = (TargetSystemInfo) items[index].object;
             int targetID = targetInfo.getID();
             DbSMSTargetSystem smstargetsystem = TargetSystem.getSpecificTargetSystem(project,
                     targetID);
@@ -439,11 +439,11 @@ public final class TargetSystem {
     } // end addTargetSystem()
 
     // Original method
-    public ArrayList<DbSMSTargetSystem> addTargetSystem(Component parent, DbObject semObj,
+    public List<DbSMSTargetSystem> addTargetSystem(Component parent, DbObject semObj,
             boolean many)
             throws DbException {
         boolean showAll = false;
-        ArrayList<DbSMSTargetSystem> list = addTargetSystem(parent, semObj, many, showAll);
+        List<DbSMSTargetSystem> list = addTargetSystem(parent, semObj, many, showAll);
         return list;
     } // end addTargetSystem()
 
@@ -455,7 +455,7 @@ public final class TargetSystem {
             String targetVersion) throws DbException {
         TargetSystemInfo targetInfo = new TargetSystemInfo(newUserTargetID, targetName,
                 targetVersion);
-        targetMap.put(new Integer(targetInfo.getID()), targetInfo);
+        targetMap.put(targetInfo.getID(), targetInfo);
         return targetInfo;
     } // end getNewUserTargetInfo()
 
@@ -468,14 +468,14 @@ public final class TargetSystem {
         while (dbEnum.hasMoreElements()) {
             DbSMSTargetSystem dbts = ((DbSMSBuiltInTypePackage) dbEnum.nextElement())
                     .getTargetSystem();
-            if (dbts.getRootID().intValue() > 999) {
+            if (dbts.getRootID() > 999) {
                 targetName = dbts.getName();
                 targetVersion = dbts.getVersion();
                 // int newUserTargetID =
                 // ((DbSMSProject)project).getNewUserTargetID();
-                targetInfo = new TargetSystemInfo(dbts.getID().intValue(), targetName,
+                targetInfo = new TargetSystemInfo(dbts.getID(), targetName,
                         targetVersion);
-                targetMap.put(new Integer(targetInfo.getID()), targetInfo);
+                targetMap.put(targetInfo.getID(), targetInfo);
             }
         }
         dbEnum.close();

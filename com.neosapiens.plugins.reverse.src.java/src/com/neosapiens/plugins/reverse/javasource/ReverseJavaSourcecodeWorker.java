@@ -106,7 +106,7 @@ public class ReverseJavaSourcecodeWorker extends Worker implements ActionListene
         }
 
         DefaultMainFrame mainFrame = ApplicationContext.getDefaultMainFrame();
-        List<DbJVPackage> ownedPackages = new ArrayList<DbJVPackage>();
+        List<DbJVPackage> ownedPackages = new ArrayList<>();
         m_project = new DbSMSProject();
         m_project = (DbSMSProject) mainFrame.createDefaultProject(null);
         Db db = m_project.getDb();

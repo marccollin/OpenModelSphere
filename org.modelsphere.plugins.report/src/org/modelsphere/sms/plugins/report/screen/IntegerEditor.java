@@ -83,7 +83,7 @@ public class IntegerEditor extends NumericTextField implements Editor {
 
     public final boolean stopCellEditing() {
         String text = getText();
-        if (text.length() == 0)
+        if (text.isEmpty())
             return true;
         try {
             Integer.parseInt(text);
@@ -97,10 +97,10 @@ public class IntegerEditor extends NumericTextField implements Editor {
 
     public final Object getCellEditorValue() {
         String text = getText();
-        if (text.length() == 0)
+        if (text.isEmpty())
             return null;
         try {
-            return new Integer(Integer.parseInt(text));
+            return Integer.parseInt(text);
         } catch (NumberFormatException ex) {
             return oldValue;
         }

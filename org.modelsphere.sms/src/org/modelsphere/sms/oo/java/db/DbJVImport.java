@@ -113,7 +113,7 @@ public final class DbJVImport extends DbObject {
      * 
      * @param composite
      *            org.modelsphere.sms.oo.java.db.DbJVCompilationUnit
-     * @param semobj
+     * @param semObj
      *            org.modelsphere.sms.db.DbSMSSemanticalObject
      * @param all
      *            java.lang.Boolean
@@ -220,7 +220,7 @@ public final class DbJVImport extends DbObject {
      * @return boolean
      **/
     public final boolean isAll() throws DbException {
-        return getAll().booleanValue();
+        return getAll();
     }
 
     public MetaClass getMetaClass() {

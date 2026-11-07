@@ -147,7 +147,7 @@ public class Application {
             try {
                 Properties props = ApplicationContext.getCommandLineProperties(); 
                 String value = props.getProperty(ApplicationContext.START_NO_SPLASH_PROPERTY);
-                boolean splashNotVisible = Boolean.valueOf(value).booleanValue();
+                boolean splashNotVisible = Boolean.parseBoolean(value);
                 if (splashNotVisible)
                     return;
                 splash = new SMSSplash(null, true, true);
@@ -237,17 +237,16 @@ public class Application {
                 // Setting explorer and design panel visibility
                 PropertiesSet appSet = PropertiesManager.APPLICATION_PROPERTIES_SET;
                 int visibility = appSet.getPropertyInteger(ExplorerPanel.class,
-                        MainFrame.PROPERTY_VISIBILITY, new Integer(ExplorerPanel.EXPLORER_SINGLE))
-                        .intValue();
+                        MainFrame.PROPERTY_VISIBILITY, ExplorerPanel.EXPLORER_SINGLE);
                 ApplicationContext.getDefaultMainFrame().setExplorerVisibility(visibility);
 
                 boolean visible = appSet.getPropertyBoolean(DesignPanel.class,
-                        MainFrame.PROPERTY_VISIBILITY, Boolean.TRUE).booleanValue();
+                        MainFrame.PROPERTY_VISIBILITY, Boolean.TRUE);
                 ApplicationContext.getDefaultMainFrame().setDesignPanelVisible(visible);
 
                 // Setting magnifier and overview visibility
                 visible = appSet.getPropertyBoolean(MagnifierInternalFrame.class,
-                        MainFrame.PROPERTY_VISIBILITY, Boolean.FALSE).booleanValue();
+                        MainFrame.PROPERTY_VISIBILITY, Boolean.FALSE);
                 if (visible) {
                     ShowAbstractAction action = (ShowAbstractAction) ApplicationContext
                             .getActionStore().getAction(
@@ -255,7 +254,7 @@ public class Application {
                     action.performAction();
                 }
                 visible = appSet.getPropertyBoolean(OverviewInternalFrame.class,
-                        MainFrame.PROPERTY_VISIBILITY, Boolean.FALSE).booleanValue();
+                        MainFrame.PROPERTY_VISIBILITY, Boolean.FALSE);
                 if (visible) {
                     ShowAbstractAction action = (ShowAbstractAction) ApplicationContext
                             .getActionStore().getAction(
@@ -276,8 +275,8 @@ public class Application {
                 SelectAllLabelsAction.setExcludedModels(new Class[] { DbORDomainModel.class,
                         DbORCommonItemModel.class });
 
-                for (int i = 0; i < MODULES.length; i++) {
-                    MODULES[i].installListeners();
+                for (Module module : MODULES) {
+                    module.installListeners();
                 }
                 
                 Properties props = ApplicationContext.getCommandLineProperties(); 
@@ -364,8 +363,8 @@ public class Application {
 
             if (splash != null)
                 splash.setGUIText(kLoadingModules);
-            for (int i = 0; i < MODULES.length; i++) {
-                MODULES[i].initModule();
+            for (Module value : MODULES) {
+                value.initModule();
             }
 
             if (splash != null)
@@ -378,8 +377,8 @@ public class Application {
                 splash.setGUIText(kInitModules);
 
             new SMSSemanticalIntegrity();
-            for (int i = 0; i < MODULES.length; i++) {
-                MODULES[i].initIntegrity();
+            for (Module module : MODULES) {
+                module.initIntegrity();
             }
 
             ApplicationContext.setSemanticalModel(new SMSSemanticalModel());
@@ -419,8 +418,7 @@ public class Application {
                     ApplicationContext.getApplicationName(), JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         } else {
-            Debug
-                    .trace("JVM Version:  "
+            Debug.trace("JVM Version:  "
                             + (ApplicationContext.getJavaVersion() == ApplicationContext.JVM_BASE_RELEASE ? "Base version "
                                     : "Newer version"));
         }
@@ -436,6 +434,7 @@ public class Application {
                 ShowLicenseAction.class);
 
         //Show licence, if required
+        assert action != null;
         boolean showLicenceAtOpening = action.getShowLicenceAtStartupPreference();
         if (showLicenceAtOpening) {
             action.doActionPerformed();
@@ -460,14 +459,14 @@ public class Application {
             if (!isInitialized) {
                 SMSModule.initAll();
                 org.modelsphere.jack.baseDb.db.ApplClasses.getFinalClasses();
-                for (int i = 0; i < MODULES.length; i++) {
-                    MODULES[i].loadMeta();
+                for (Module module : MODULES) {
+                    module.loadMeta();
                 }
 
                 MetaClass.initMetaClasses();
 
-                for (int i = 0; i < MODULES.length; i++) {
-                    MODULES[i].initMeta();
+                for (Module module : MODULES) {
+                    module.initMeta();
                 }
 
                 isInitialized = true; //successful initialization
@@ -488,8 +487,7 @@ public class Application {
         String title = "The application failed to initialize."; //NOT LOCALIZABLE
 
         //if ExceptionInInitializerError, get the actual error
-        if (th instanceof ExceptionInInitializerError) {
-            ExceptionInInitializerError err = (ExceptionInInitializerError) th;
+        if (th instanceof ExceptionInInitializerError err) {
             th = err.getException();
         }
 

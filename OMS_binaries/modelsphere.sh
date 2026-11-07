@@ -25,4 +25,4 @@ done
 
 type java > /dev/null 2>&1 || { echo >&2 "I require JRE (java >= 1.6.0) in \$PATH but it's not installed. Aborting."; exit 1; }
 
-java -ms64m -mx512m -ss16m -classpath "$libs" org.modelsphere.sms.Application
+java -Dawt.useSystemAAFontSettings=gasp -ms64m -mx512m -ss16m -classpath "$libs" org.modelsphere.sms.Application

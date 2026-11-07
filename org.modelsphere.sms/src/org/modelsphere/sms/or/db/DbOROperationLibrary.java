@@ -117,7 +117,7 @@ public abstract class DbOROperationLibrary extends DbORModel {
      * 
      * @param composite
      *            org.modelsphere.jack.baseDb.db.DbObject
-     * @param targetsystem
+     * @param targetSystem
      *            org.modelsphere.sms.db.DbSMSTargetSystem
      **/
     public DbOROperationLibrary(DbObject composite, DbSMSTargetSystem targetSystem)
@@ -130,7 +130,7 @@ public abstract class DbOROperationLibrary extends DbORModel {
     }
 
     /**
-     * @param metareln
+     * @param metaRelN
      *            org.modelsphere.jack.baseDb.meta.MetaRelationN
      * @return boolean
      **/

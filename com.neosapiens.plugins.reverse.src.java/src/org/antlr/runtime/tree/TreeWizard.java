@@ -147,7 +147,7 @@ public class TreeWizard {
 		}
 		for (int ttype = Token.MIN_TOKEN_TYPE; ttype < tokenNames.length; ttype++) {
 			String name = tokenNames[ttype];
-			m.put(name, new Integer(ttype));
+			m.put(name, ttype);
 		}
 		return m;
 	}
@@ -159,7 +159,7 @@ public class TreeWizard {
 		 }
 		Integer ttypeI = (Integer)tokenNameToTypeMap.get(tokenName);
 		if ( ttypeI!=null ) {
-			return ttypeI.intValue();
+			return ttypeI;
 		}
 		return Token.INVALID_TOKEN_TYPE;
 	}
@@ -183,10 +183,10 @@ public class TreeWizard {
 			return;
 		}
 		int ttype = adaptor.getType(t);
-		List elements = (List)m.get(new Integer(ttype));
+		List elements = (List)m.get(ttype);
 		if ( elements==null ) {
 			elements = new ArrayList();
-			m.put(new Integer(ttype), elements);
+			m.put(ttype, elements);
 		}
 		elements.add(t);
 		int n = adaptor.getChildCount(t);

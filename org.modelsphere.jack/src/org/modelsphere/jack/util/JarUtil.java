@@ -92,12 +92,9 @@ public final class JarUtil {
         if (url == null)
             return null;
         String sURL = url;
-        if (!(sURL.indexOf("jar:") == 0) || !(sURL.indexOf("!/") > -1)) // NOT
-            // LOCALIZABLE
+        if (!(sURL.indexOf("jar:") == 0) || !(sURL.indexOf("!/") > -1)) // NOT LOCALIZABLE
             return null;
-        String entryName = sURL.substring(sURL.indexOf("!/") + 2, sURL.length()); // NOT
-        // LOCALIZABLE
-        return entryName;
+        return  sURL.substring(sURL.indexOf("!/") + 2, sURL.length()); // NOT LOCALIZABLE, jarFileName
     }
 
     // Return the entry name part of this url or null if not a jar file
@@ -105,11 +102,9 @@ public final class JarUtil {
         if (url == null)
             return null;
         String sURL = url;
-        if (!(sURL.indexOf("jar:") == 0) || !(sURL.indexOf("!/") > -1)) // NOT
-            // LOCALIZABLE
+        if (!(sURL.indexOf("jar:") == 0) || !(sURL.indexOf("!/") > -1)) // NOT LOCALIZABLE
             return null;
-        String jarFileName = sURL.substring("jar:file:".length(), sURL.indexOf("!/")); // NOT LOCALIZABLE
-        return jarFileName;
+        return  sURL.substring("jar:file:".length(), sURL.indexOf("!/")); // NOT LOCALIZABLE, jarFileName
     }
 
     // Extract all files mathing the specified extension in the temporary folder
@@ -175,8 +170,7 @@ public final class JarUtil {
         }
     	input.close();
     	out.close();
-    	
-    	
+
     	return tempfile;
     }
     
@@ -186,19 +180,16 @@ public final class JarUtil {
 
         // validate the url file entry format
         String sURL = resourceURL;
-        if (!(sURL.indexOf("jar:") == 0) || !(sURL.indexOf("!/") > -1)) // NOT
-            // LOCALIZABLE
+        if (!(sURL.indexOf("jar:") == 0) || !(sURL.indexOf("!/") > -1)) // NOT LOCALIZABLE
             return null;
 
         InputStream in = null;
         FileOutputStream out = null;
         File tempfile = null;
-        String tempDir = System.getProperty("java.io.tmpdir"); // NOT
-        // LOCALIZABLE
+        String tempDir = System.getProperty("java.io.tmpdir"); // NOT LOCALIZABLE
         String jarFileName = sURL.substring("jar:file:".length(), sURL.indexOf("!/")); // NOT LOCALIZABLE
         JarFile jarfile = new JarFile(new File(jarFileName));
-        String fileName = sURL.substring(sURL.indexOf("!/") + 2, sURL.length()); // NOT
-        // LOCALIZABLE
+        String fileName = sURL.substring(sURL.indexOf("!/") + 2, sURL.length()); // NOT LOCALIZABLE
         JarEntry entry = jarfile.getJarEntry(fileName);
         if (entry == null)
             return null;

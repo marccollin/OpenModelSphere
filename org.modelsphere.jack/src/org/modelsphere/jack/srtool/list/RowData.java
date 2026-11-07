@@ -44,6 +44,7 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.srtool.list;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.modelsphere.jack.baseDb.db.*;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
@@ -68,7 +69,7 @@ final class RowData {
     ListTableModel model;
     TerminologyUtil terminologyUtil = TerminologyUtil.getInstance();
 
-    RowData(ListTableModel model, DbObject neighbor, SrVector values, ArrayList columns,
+    RowData(ListTableModel model, DbObject neighbor, SrVector values, List columns,
             boolean load) throws DbException {
         this.model = model;
         this.values = values;
@@ -89,7 +90,7 @@ final class RowData {
         return null;
     }
 
-    void loadData(ArrayList columns) throws DbException {
+    void loadData(List columns) throws DbException {
         if (values == null)
             values = new SrVector();
         values.clear();
@@ -123,7 +124,7 @@ final class RowData {
                         break;
                 }
                 dbEnum.close();
-                value = new Integer(index);
+                value = index;
             } else if (column.metafield == DbObject.fComposite) {
                 value = composite;
                 if (value == model.root || composite.getComposite() == model.root) {
@@ -181,8 +182,7 @@ final class RowData {
 
     private void initSemObjectFullNameValues() throws DbException {
         semObjectFullNameValues.clear();
-        for (int i = 0; i < values.size(); i++) {
-            Object value = values.get(i);
+        for (Object value : values) {
             if ((value instanceof DefaultComparableElement)
                     && (((DefaultComparableElement) value).object instanceof DbSemanticalObject)) {
                 String displayText = ApplicationContext.getSemanticalModel().getDisplayText(

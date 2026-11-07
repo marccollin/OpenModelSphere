@@ -48,6 +48,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -114,7 +115,7 @@ public class DesignTable extends JTable {
                                 delegatedComponent.setBackground(table.getSelectionBackground());
                             } else {
                                 RowData rowd = (RowData) getDesignTableModel().getData().get(row);
-                                if (rowd.marked == true) {
+                                if (rowd.marked) {
 
                                     // //
                                     // there is a problem with the
@@ -148,7 +149,7 @@ public class DesignTable extends JTable {
                     setBackground(table.getSelectionBackground());
                 } else {
                     RowData rowd = (RowData) getDesignTableModel().getData().get(row);
-                    if (rowd.marked == true) {
+                    if (rowd.marked) {
                         setForeground(TerminologyUtil.getMarkedMetaFieldsFontColor());
                         setBackground(TerminologyUtil.getMarkedMetaFieldsBackColor());
                     } else {
@@ -217,7 +218,7 @@ public class DesignTable extends JTable {
         }
 
         protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
-            if (propertyName == "text") { // NOT LOCALIZABLE - property
+            if (propertyName.equals("text")) { // NOT LOCALIZABLE - property
                 super.firePropertyChange(propertyName, oldValue, newValue);
             }
         }
@@ -237,7 +238,7 @@ public class DesignTable extends JTable {
     } // end DesignRenderer
 
     private final class DesignEditor extends DefaultCellEditor {
-        private HashMap<String, TableCellEditor> editorSamples = new HashMap<String, TableCellEditor>();
+        private Map<String, TableCellEditor> editorSamples = new HashMap<String, TableCellEditor>();
         private TableCellEditor delegate;
 
         public DesignEditor() {
@@ -379,7 +380,7 @@ public class DesignTable extends JTable {
     private DesignPanel designPanel;
 
     /**
-     * @param dm
+     * @param designPanel
      */
     public DesignTable(DesignPanel designPanel) {
         this.designPanel = designPanel;

@@ -54,11 +54,11 @@ public final class SrInteger extends SrType {
     }
 
     public SrInteger(Integer value) {
-        this.value = value.intValue();
+        this.value = value;
     }
 
     public final Object toApplType() {
-        return new Integer(value);
+        return value;
     }
 
     public boolean equals(Object obj) {

@@ -46,6 +46,7 @@ package org.modelsphere.jack.srtool.screen.design;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.event.TableModelListener;
@@ -64,9 +65,9 @@ import org.modelsphere.jack.util.ExceptionHandler;
 public class DesignTableModel implements TableModel {
     private ArrayList<MetaField> fields = new ArrayList<MetaField>();
     private DbObject[] dbos = new DbObject[] {};
-    private ArrayList<DbUDF> udfs = new ArrayList<DbUDF>();
+    private List<DbUDF> udfs = new ArrayList<DbUDF>();
 
-    private ArrayList<RowData> data = new ArrayList<RowData>();// new
+    private List<RowData> data = new ArrayList<RowData>();// new
     // RowData[]{};
 
     private DesignTable table;
@@ -145,7 +146,7 @@ public class DesignTableModel implements TableModel {
             else
                 return row.udfName;
         } else {
-            if (data.size() == 0)
+            if (data.isEmpty())
                 return null;
             RowData row = (RowData) data.get(rowIndex);
             Object value = row.equalValues ? row.values[0] : null;
@@ -205,8 +206,8 @@ public class DesignTableModel implements TableModel {
                 }
             }
             DbMultiTrans.beginTrans(Db.WRITE_TRANS, dbos, transName);
-            for (int i = 0; i < dbos.length; i++) {
-                DbObject dbo = (DbObject) dbos[i];
+            for (DbObject dbObject : dbos) {
+                DbObject dbo = (DbObject) dbObject;
 
                 if (row.udf == null) {
                     dbo.set(field, aValue);
@@ -231,15 +232,15 @@ public class DesignTableModel implements TableModel {
         return !row.equalValues;
     }
 
-    ArrayList<MetaField> getFields() {
+    List<MetaField> getFields() {
         return fields;
     }
 
-    ArrayList<DbUDF> getUdfs() {
+    List<DbUDF> getUdfs() {
         return udfs;
     }
 
-    ArrayList<RowData> getData() {
+    List<RowData> getData() {
         return data;
     }
 
@@ -261,9 +262,7 @@ public class DesignTableModel implements TableModel {
         boolean bRemoveMarkedFields = !showPhysicalProperties();
         if (bRemoveMarkedFields)
             arrayList = new ArrayList<RowData>();
-        Iterator<MetaField> iter = fields.iterator();
-        while (iter.hasNext()) {
-            MetaField field = iter.next();
+        for (MetaField field : fields) {
             RowData row = null;
             if (field == DbUDFValue.fValue) {
                 row = new RowData((DbUDF) udfs.get(udfIndex));
@@ -287,8 +286,7 @@ public class DesignTableModel implements TableModel {
             row.load(dbos);
         }
         if (bRemoveMarkedFields) {
-            for (int i = 0; i < arrayList.size(); i++) {
-                RowData row = arrayList.get(i);
+            for (RowData row : arrayList) {
                 fields.remove(row.metafield);
                 data.remove(row);
             }
@@ -304,8 +302,7 @@ public class DesignTableModel implements TableModel {
         RowData updateTimeRow = null;
 
         // ensure creation time and update time are located after the UDF
-        for (int i = 0; i < count; i++) {
-            RowData row = data.get(i);
+        for (RowData row : data) {
             if (row.metafield == DbObject.fCreationTime) {
                 creationTimeRow = row;
             } else if (row.metafield == DbObject.fModificationTime) {
@@ -329,8 +326,8 @@ public class DesignTableModel implements TableModel {
         // Check if Dead objects in the selection (Focus Manager may not have
         // been updated)
         boolean deadObjects = false;
-        for (int i = 0; i < dbos.length; i++) {
-            if (dbos[i].getTransStatus() == Db.OBJ_REMOVED) {
+        for (DbObject dbo : dbos) {
+            if (dbo.getTransStatus() == Db.OBJ_REMOVED) {
                 deadObjects = true;
                 break;
             }
@@ -361,11 +358,9 @@ public class DesignTableModel implements TableModel {
             if (metaClasses.contains(metaClass))
                 continue;
             metaClasses.add(metaClass);
-            ArrayList<MetaField> metafields = metaClass.getScreenMetaFields();
+            List<MetaField> metafields = metaClass.getScreenMetaFields();
             if (i == 0) {
-                Iterator<MetaField> iter = metafields.iterator();
-                while (iter.hasNext()) {
-                    MetaField metafield = iter.next();
+                for (MetaField metafield : metafields) {
                     if (metafield.isEditable() && !(metafield instanceof MetaRelationN)) {
                         // must be excluded if multiple dbs in the selection
                         if ((metafield instanceof MetaRelationship) && db == null)
@@ -383,7 +378,7 @@ public class DesignTableModel implements TableModel {
                     tempMetafields.add(metaField);
             }
             allMetafields.clear();
-            if (tempMetafields.size() == 0)
+            if (tempMetafields.isEmpty())
                 break;
             allMetafields.addAll(tempMetafields);
         }
@@ -396,12 +391,12 @@ public class DesignTableModel implements TableModel {
         udfs.clear();
         try {
             DbMultiTrans.beginTrans(Db.READ_TRANS, dbos, null);
-            for (int i = 0; i < dbos.length; i++) {
+            for (DbObject dbo : dbos) {
                 Iterator<MetaField> iter = allMetafields.iterator();
                 while (iter.hasNext()) {
                     MetaField field = iter.next();
                     if (!ApplicationContext.getSemanticalModel().isVisibleOnScreen(
-                            dbos[i].getMetaClass(), field, dbos[i], dbos.length > 1,
+                            dbo.getMetaClass(), field, dbo, dbos.length > 1,
                             DesignPanel.class))
                         iter.remove();
                 }

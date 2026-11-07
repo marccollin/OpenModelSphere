@@ -71,9 +71,9 @@ public abstract class AbstractTwoStatesAction extends AbstractApplicationAction 
     public int getState() {
         Integer state = (Integer) getValue(STATE);
         if (state != null)
-            return state.intValue();
+            return state;
         else {
-            this.putValue(STATE, new Integer(DEFAULT_STATE));
+            this.putValue(STATE, DEFAULT_STATE);
             return DEFAULT_STATE;
         }
     }
@@ -117,12 +117,8 @@ public abstract class AbstractTwoStatesAction extends AbstractApplicationAction 
             validateState(newValue);
             int oldValue = getState();
             if (newValue != oldValue) {
-                this.putValue(STATE, new Integer(newValue));
-                if (newValue == STATE_NOT_APPLICABLE) {
-                    super.setEnabled(false);
-                } else {
-                    super.setEnabled(true);
-                }
+                this.putValue(STATE, newValue);
+                super.setEnabled(newValue != STATE_NOT_APPLICABLE);
             }
         } catch (Exception e) {
             ExceptionHandler.processUncatchedException(null, e);

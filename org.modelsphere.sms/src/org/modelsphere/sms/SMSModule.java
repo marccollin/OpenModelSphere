@@ -76,16 +76,7 @@ public final class SMSModule extends Module {
             Class claz = Class.forName("org.modelsphere.sms.be.db.DbBEResource");
             Method method = claz.getMethod("initMeta", null);
             method.invoke(null, null);
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-            throw new RuntimeException(ex.toString());
-        } catch (NoSuchMethodException ex) {
-            ex.printStackTrace();
-            throw new RuntimeException(ex.toString());
-        } catch (IllegalAccessException ex) {
-            ex.printStackTrace();
-            throw new RuntimeException(ex.toString());
-        } catch (InvocationTargetException ex) {
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex.toString());
         } // end try

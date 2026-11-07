@@ -40,6 +40,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
@@ -116,8 +117,7 @@ public class JavaUtility {
             return "";
 
         char ch = Character.toUpperCase(originalName.charAt(0));
-        String newName = (len > 1) ? (ch + originalName.substring(1)) : ch + "";
-        return newName;
+        return (len > 1) ? (ch + originalName.substring(1)) : ch + "";
     }
 
     public DbOOAdt findReflectClass(DbJVClassModel classModel, String className, JavaInfo info)
@@ -221,8 +221,7 @@ public class JavaUtility {
             JavaInfo info) throws DbException {
         // for each field
         Field[] fields = claz.getDeclaredFields();
-        for (int i = 0; i < fields.length; i++) {
-            Field field = fields[i];
+        for (Field field : fields) {
             int modifiers = field.getModifiers();
             if ((modifiers & Modifier.PUBLIC) != 0) {
                 String fieldName = field.getName();
@@ -255,8 +254,7 @@ public class JavaUtility {
             JavaInfo info) throws DbException {
         // for each method
         Method[] methods = claz.getDeclaredMethods();
-        for (int i = 0; i < methods.length; i++) {
-            Method method = methods[i];
+        for (Method method : methods) {
             int modifiers = method.getModifiers();
 
             boolean doCreate = (((modifiers & Modifier.PUBLIC) != 0) && !method.isSynthetic());
@@ -510,17 +508,16 @@ public class JavaUtility {
      * 
      * @param packageList : an array of strings, such as "java.lang" and "java.util".
      */
-    public void createBuiltInClasses(DbJVClassModel classModel, ArrayList packageList)
+    public void createBuiltInClasses(DbJVClassModel classModel, List packageList)
             throws DbException {
         JavaToolkit toolkit = JavaToolkit.getSingleton();
 
         Object[] jarFiles = toolkit.getSystemJarFiles();
-        ArrayList classList = new ArrayList();
+        List classList = new ArrayList();
         toolkit.fillClassList(jarFiles, packageList, classList);
 
-        Iterator iter = classList.iterator();
-        while (iter.hasNext()) {
-            String className = (String) iter.next();
+        for (Object o : classList) {
+            String className = (String) o;
             findBuiltinType(classModel, className);
         } // end while
     } // end createBuiltInClasses()

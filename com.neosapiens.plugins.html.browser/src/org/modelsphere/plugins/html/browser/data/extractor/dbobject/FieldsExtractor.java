@@ -36,6 +36,7 @@ package org.modelsphere.plugins.html.browser.data.extractor.dbobject;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -83,26 +84,21 @@ public class FieldsExtractor
 	{
 		LinkedHashMap<String, String> fieldsMap = new LinkedHashMap<String, String>();
 
-		ArrayList<MetaField> fields = object.getMetaClass().getScreenMetaFields();
+		List<MetaField> fields = object.getMetaClass().getScreenMetaFields();
 		fields = sortFields(fields);
-		for (int i = 0; i < fields.size(); i++)
-		{
-			MetaField metaField = fields.get(i);
-			String fieldName = metaField.getGUIName();
-			Object fieldValueAsObject = object.get(metaField);
-			String fieldValueAsString;
+        for (MetaField metaField : fields) {
+            String fieldName = metaField.getGUIName();
+            Object fieldValueAsObject = object.get(metaField);
+            String fieldValueAsString;
 
-			if (fieldValueAsObject != null)
-			{
-				fieldValueAsString = fieldValueAsObject.toString();
-			}
-			else
-			{
-				fieldValueAsString = "<i>" + LocaleMgr.getInstance().getString("nullValue") + "</i>";
-			}
+            if (fieldValueAsObject != null) {
+                fieldValueAsString = fieldValueAsObject.toString();
+            } else {
+                fieldValueAsString = "<i>" + LocaleMgr.getInstance().getString("nullValue") + "</i>";
+            }
 
-			fieldsMap.put(fieldName, fieldValueAsString);
-		}
+            fieldsMap.put(fieldName, fieldValueAsString);
+        }
 
 		return fieldsMap;
 	}
@@ -115,9 +111,9 @@ public class FieldsExtractor
 	 *            An ArrayList of MetaField to sort
 	 * @return the sorted list of fields
 	 */
-	private ArrayList<MetaField> sortFields(ArrayList<MetaField> fields)
+	private List<MetaField> sortFields(List<MetaField> fields)
 	{
-		ArrayList<MetaField> sortedFields = new ArrayList<MetaField>();
+		List<MetaField> sortedFields = new ArrayList<>();
 		int createdAtIndex = -1;
 		int modifiedAtIndex = -1;
 		int nameIndex = -1;

@@ -52,7 +52,9 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.file.FileSystems;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -86,7 +88,7 @@ public abstract class JackForwardEngineeringPlugin implements Plugin {
     protected ForwardOutput g_forwardOutput = null;
     private Writer writer = null;
     private ForwardTask forwardTask = null;
-    private static final String SEPARATOR = System.getProperty("file.separator");
+    private static final String SEPARATOR = FileSystems.getDefault().getSeparator();
     private static final String FILE_NOT_FOUND_PATTERN = LocaleMgr.message
             .getString("PLUGIN_FILE_NOT_FOUND");
 
@@ -98,8 +100,7 @@ public abstract class JackForwardEngineeringPlugin implements Plugin {
     protected static URL tryToFind(Class subclass, String tplFile) {
     	//If a forward engineering module cannot find its .tpl file,
         //then abort initialization
-        URL url = subclass.getResource(tplFile);
-        return url;
+        return subclass.getResource(tplFile);
     }
 
     /*
@@ -154,8 +155,8 @@ public abstract class JackForwardEngineeringPlugin implements Plugin {
         boolean supported = false;
 
         Class[] classes = getSupportedClasses();
-        for (int i = 0; i < classes.length; i++) {
-            if (classes[i].isAssignableFrom(claz)) {
+        for (Class aClass : classes) {
+            if (aClass.isAssignableFrom(claz)) {
                 supported = true;
                 break;
             } //end if
@@ -177,8 +178,7 @@ public abstract class JackForwardEngineeringPlugin implements Plugin {
     public static final int GENERATE_FILE = 1;
 
     public Rule getRuleOf(DbObject so) throws DbException {
-        Rule rule = getRuleOf(so, GENERATE_PREVIEW);
-        return rule;
+        return getRuleOf(so, GENERATE_PREVIEW);
     }
 
     //
@@ -261,8 +261,7 @@ public abstract class JackForwardEngineeringPlugin implements Plugin {
     }
 
     protected String getForwardDirectory() {
-        String defDir = ApplicationContext.getDefaultWorkingDirectory();
-        return defDir;
+        return ApplicationContext.getDefaultWorkingDirectory();
     }
 
     public void execute(ActionEvent actEvent) throws Exception {
@@ -290,7 +289,7 @@ public abstract class JackForwardEngineeringPlugin implements Plugin {
                 rootDir = dir.getAbsolutePath();
             }
 
-            if (rootDir.length() != 0) {
+            if (!rootDir.isEmpty()) {
                 File dirFile = new File(rootDir);
                 dirFile.mkdirs();
                 badRoot = !dirFile.isDirectory();
@@ -325,9 +324,8 @@ public abstract class JackForwardEngineeringPlugin implements Plugin {
     }
 
     protected final DbObject[] cleanRedundantForward(DbObject[] semObjs) throws DbException {
-        ArrayList tempVector = new ArrayList();
-        for (int c = 0; c < semObjs.length; c++) {
-            DbObject semObj = semObjs[c];
+        List tempVector = new ArrayList();
+        for (DbObject semObj : semObjs) {
             boolean accept = true;
             int maxI = semObjs.length - 1;
             for (int i = 0; i < maxI; i++) {
@@ -343,10 +341,10 @@ public abstract class JackForwardEngineeringPlugin implements Plugin {
     }
 
     // For internal use only (called by ForwardTask)
-    protected abstract void forwardTo(DbObject semObj, ArrayList generatedFiles)
+    protected abstract void forwardTo(DbObject semObj, List generatedFiles)
             throws DbException, IOException, RuleException;
 
-    public String getFeedBackMessage(ArrayList generatedList) {
+    public String getFeedBackMessage(List generatedList) {
         String message;
         int nbForwards = generatedList.size();
 
@@ -361,7 +359,7 @@ public abstract class JackForwardEngineeringPlugin implements Plugin {
             String rootDir = getRootDirFromUserProp();
             String pattern = LocaleMgr.message.getString("nFilesForwardedIn");
             message = MessageFormat.format(pattern,
-                    new Object[] { new Integer(nbForwards), rootDir });
+                    new Object[] { nbForwards, rootDir });
         }
 
         return message;

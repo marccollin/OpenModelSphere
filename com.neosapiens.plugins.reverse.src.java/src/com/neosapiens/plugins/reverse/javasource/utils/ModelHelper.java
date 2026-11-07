@@ -187,8 +187,6 @@ public class ModelHelper {
      *            The root model object
      * @param createdPackages
      *            The list of already created packages
-     * @param accumulator
-     *            Should be null
      * @throws DbException
      */
     public static void createPackage(String packageName, DbObject root,

@@ -121,7 +121,7 @@ public abstract class AbstractApplicationAction extends AbstractAction implement
     // JackToolBar.
     private boolean defaultToolBarVisibility = true;
 
-    private SrVector applicationActionListeners = new SrVector();
+    private final SrVector applicationActionListeners = new SrVector();
 
     // updateSelectionMode possible values
     public static final int UPDATE_SELECTION_NONE = 0; // action not instanceof
@@ -147,8 +147,8 @@ public abstract class AbstractApplicationAction extends AbstractAction implement
     class PreferenceListener implements PropertyChangeListener {
         public void propertyChange(PropertyChangeEvent evt) {
             if ((visibilityMode & VISIBILITY_ALWAYS_VISIBLE_IN_TOOLBAR) != 0) {
-                firePropertyChange(TOOLBAR_VISIBLE_OPTION, null, new Boolean(
-                        getToolBarVisibilityOption()));
+                firePropertyChange(TOOLBAR_VISIBLE_OPTION, null,
+                        getToolBarVisibilityOption());
             }
         }
     }
@@ -162,7 +162,7 @@ public abstract class AbstractApplicationAction extends AbstractAction implement
 
     public AbstractApplicationAction(String name, Icon icon) {
         super(name, icon);
-        Debug.assert2(name != null && name.length() > 0, "null String for ApplicationAction name");
+        Debug.assert2(name != null && !name.isEmpty(), "null String for ApplicationAction name");
 
         if (name != null) {
             super.putValue(Action.SHORT_DESCRIPTION, name); // By default:
@@ -228,7 +228,7 @@ public abstract class AbstractApplicationAction extends AbstractAction implement
     public final synchronized void setVisible(boolean newValue) {
         boolean oldValue = this.visible;
         this.visible = newValue;
-        firePropertyChange(VISIBLE, new Boolean(oldValue), new Boolean(newValue));
+        firePropertyChange(VISIBLE, oldValue, newValue);
     }
 
     // Use this method to hide in specific components
@@ -296,7 +296,7 @@ public abstract class AbstractApplicationAction extends AbstractAction implement
     }
 
     public final void setMnemonic(char newValue) {
-        putValue(MNEMONIC_KEY, new Integer(newValue));
+        putValue(MNEMONIC_KEY, (int) newValue);
     }
 
     // return the integer representing the mnemonic character
@@ -304,7 +304,7 @@ public abstract class AbstractApplicationAction extends AbstractAction implement
         Integer value = (Integer) getValue(MNEMONIC_KEY);
         if (value == null)
             return KeyEvent.CHAR_UNDEFINED;
-        return value.intValue();
+        return value;
     }
 
     public final void performAction() {
@@ -363,9 +363,9 @@ public abstract class AbstractApplicationAction extends AbstractAction implement
         long start = System.currentTimeMillis();
         doActionPerformed(e);
         Log.add(this.getClass().getName() + ":  Completion time = "
-                + (new Long(System.currentTimeMillis() - start)).toString() + " ms.",
+                        + (System.currentTimeMillis() - start) + " ms.",
                 Log.LOG_STATISTIC); // NOT LOCALIZABLE
-        if (applicationActionListeners.size() > 0) {
+        if (!applicationActionListeners.isEmpty()) {
             ApplicationActionEvent aae = new ApplicationActionEvent(
                     ApplicationActionEvent.ACTION_PERFORMED, this, e);
             fireApplicationActionListeners(aae);
@@ -399,7 +399,7 @@ public abstract class AbstractApplicationAction extends AbstractAction implement
     //
 
     public final void addApplicationActionListener(ApplicationActionListener l) {
-        if (applicationActionListeners.indexOf(l) == -1)
+        if (!applicationActionListeners.contains(l))
             applicationActionListeners.addElement(l);
     }
 
@@ -410,14 +410,12 @@ public abstract class AbstractApplicationAction extends AbstractAction implement
 
     protected final void fireApplicationActionListeners(ApplicationActionEvent aae) {
         int i = applicationActionListeners.size();
-        switch (aae.getId()) {
-        case ApplicationActionEvent.ACTION_PERFORMED:
+        if (aae.getId() == ApplicationActionEvent.ACTION_PERFORMED) {
             for (int j = 0; j < i; j++) {
                 ApplicationActionListener listener = (ApplicationActionListener) applicationActionListeners
                         .elementAt(j);
                 listener.actionPerformed(aae);
             }
-            break;
         }
     }
 
@@ -462,7 +460,7 @@ public abstract class AbstractApplicationAction extends AbstractAction implement
         PropertiesSet properties = PropertiesManager.getPreferencePropertiesSet();
         boolean toolbarVisible = (properties == null) ? false : properties.getPropertyBoolean(
                 getToolBarVisibilityKey(this), TOOLBAR_VISIBLE_OPTION,
-                defaultToolBarVisibility ? Boolean.TRUE : Boolean.FALSE).booleanValue();
+                defaultToolBarVisibility ? Boolean.TRUE : Boolean.FALSE);
         if(ScreenPerspective.isFullVersion())
             return toolbarVisible;
         else
@@ -475,7 +473,7 @@ public abstract class AbstractApplicationAction extends AbstractAction implement
         String key = action.getClass().getName();
         if (action instanceof AbstractApplicationAction) {
             String ext = ((AbstractApplicationAction) action).getPreferenceID();
-            if (ext != null && ext.length() > 0) {
+            if (ext != null && !ext.isEmpty()) {
                 key += "." + ext; // NOT LOCALIZABLE
             }
         }
@@ -510,8 +508,8 @@ public abstract class AbstractApplicationAction extends AbstractAction implement
      */
 
     public JMenuItem createItem(JackPopupMenu jackPopupMenu) {
-        JMenuItem item = jackPopupMenu.add(this); // super.add(a);
-        return item;
+        // super.add(a);
+        return jackPopupMenu.add(this);
     }
 
     public void init(JMenuItem item, Object[] selObjects) {

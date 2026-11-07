@@ -154,7 +154,7 @@ public class ContextIO {
             NamedNodeMap attributes = projectNode.getAttributes();
             Node pathNode = attributes == null ? null : attributes.getNamedItem(PROJECT_PATH);
             String path = pathNode == null ? null : pathNode.getNodeValue();
-            if (path != null && path.trim().length() > 0) {
+            if (path != null && !path.trim().isEmpty()) {
                 try {
                     File file = new File(path);
                     if (file.exists() && file.canRead())
@@ -170,17 +170,17 @@ public class ContextIO {
     private void loadComponents(Node rootNode, Map<String, ContextComponent> components)
             throws Exception {
         Db[] dbs = Db.getDbs();
-        for (int i = 0; i < dbs.length; i++) {
-            if (dbs[i] instanceof DbRAM) {
-                dbs[i].beginReadTrans();
+        for (Db value : dbs) {
+            if (value instanceof DbRAM) {
+                value.beginReadTrans();
             }
         }
 
         loadComponents_(rootNode, components);
 
-        for (int i = 0; i < dbs.length; i++) {
-            if (dbs[i] instanceof DbRAM) {
-                dbs[i].commitTrans();
+        for (Db db : dbs) {
+            if (db instanceof DbRAM) {
+                db.commitTrans();
             }
         }
     }
@@ -199,7 +199,7 @@ public class ContextIO {
             NamedNodeMap attributes = componentNode.getAttributes();
             Node idNode = attributes == null ? null : attributes.getNamedItem(COMPONENT_ID);
             String id = idNode == null ? null : idNode.getNodeValue();
-            if (id != null && id.trim().length() > 0) {
+            if (id != null && !id.trim().isEmpty()) {
                 ContextComponent component = components.get(id);
                 if (component == null)
                     continue;
@@ -232,8 +232,7 @@ public class ContextIO {
             Document document = parser.newDocument();
 
             Element rootElement = document.createElement(CONTEXT_TAG);
-            rootElement.setAttribute("build", new Integer(ApplicationContext.APPLICATION_BUILD_ID)
-                    .toString());
+            rootElement.setAttribute("build", Integer.toString(ApplicationContext.APPLICATION_BUILD_ID));
             document.appendChild(rootElement);
 
             saveProjects(document, rootElement);
@@ -258,13 +257,13 @@ public class ContextIO {
     private void saveProjects(Document document, Element rootElement) {
         Db[] dbs = Db.getDbs();
 
-        for (int i = 0; i < dbs.length; i++) {
-            if (!(dbs[i] instanceof DbRAM))
+        for (Db db : dbs) {
+            if (!(db instanceof DbRAM))
                 continue;
             try {
-                DbProject project = DbApplication.getFirstProjectFor(dbs[i]);
+                DbProject project = DbApplication.getFirstProjectFor(db);
                 String filename = project.getRamFileName();
-                if (filename == null || filename.trim().length() == 0)
+                if (filename == null || filename.trim().isEmpty())
                     continue;
 
                 Element projectElement = document.createElement(PROJECT_TAG);
@@ -280,17 +279,17 @@ public class ContextIO {
     private void saveComponents(Map<String, ContextComponent> components, Document document,
             Element rootElement) throws Exception {
         Db[] dbs = Db.getDbs();
-        for (int i = 0; i < dbs.length; i++) {
-            if (dbs[i] instanceof DbRAM) {
-                dbs[i].beginReadTrans();
+        for (Db db : dbs) {
+            if (db instanceof DbRAM) {
+                db.beginReadTrans();
             }
         }
 
         saveComponents_(components, document, rootElement);
 
-        for (int i = 0; i < dbs.length; i++) {
-            if (dbs[i] instanceof DbRAM) {
-                dbs[i].commitTrans();
+        for (Db db : dbs) {
+            if (db instanceof DbRAM) {
+                db.commitTrans();
             }
         }
     }

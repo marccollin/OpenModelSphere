@@ -44,10 +44,7 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.or;
 
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -189,19 +186,19 @@ public abstract class ORValidationPlugin implements Plugin {
     protected int errorCount;
     protected int warningCount;
 
-    public ArrayList databaseList;
-    public ArrayList tableList;
-    public ArrayList viewList;
-    public ArrayList columnList;
-    public ArrayList primUniqKeyList;
-    public ArrayList foreignKeyList;
-    public ArrayList udtDomainList;
-    public ArrayList defaultDomainList;
-    public ArrayList triggerList;
-    public ArrayList checkList;
-    public ArrayList indexList;
-    public ArrayList procedureList;
-    public ArrayList parameterList;
+    public List databaseList;
+    public List tableList;
+    public List viewList;
+    public List columnList;
+    public List primUniqKeyList;
+    public List foreignKeyList;
+    public List udtDomainList;
+    public List defaultDomainList;
+    public List triggerList;
+    public List checkList;
+    public List indexList;
+    public List procedureList;
+    public List parameterList;
 
     // Abstract Methods
     public abstract void initializeDBMSInfo();
@@ -388,7 +385,7 @@ public abstract class ORValidationPlugin implements Plugin {
         return found;
     }
 
-    public DbSemanticalObject containsCaseInsensitive(HashMap map, String name) {
+    public DbSemanticalObject containsCaseInsensitive(Map map, String name) {
         if (name == null)
             return null;
         if (map.containsKey(name))
@@ -426,7 +423,7 @@ public abstract class ORValidationPlugin implements Plugin {
         DbSemanticalObject semObj = (DbSemanticalObject) dbo;
         Integer maxLen = (Integer) physicalNameMaxLenMap.get(semObj.getMetaClass().getGUIName(
                 false, false));
-        return (semObj.getPhysicalName().length() > maxLen.intValue());
+        return (semObj.getPhysicalName().length() > maxLen);
     }
 
     public static final DbEnumeration getDbObjectsToValidate(DbObject composite, MetaClass metaclass)
@@ -435,8 +432,8 @@ public abstract class ORValidationPlugin implements Plugin {
                 new MetaClass[] { DbSMSAbstractPackage.metaClass });
     }
 
-    public ArrayList getOccurrences(DbORModel model, MetaClass metaclass) throws DbException {
-        ArrayList occurences = new ArrayList();
+    public List getOccurrences(DbORModel model, MetaClass metaclass) throws DbException {
+        List occurences = new ArrayList();
 
         if (model == null || metaclass == null)
             return occurences;
@@ -457,7 +454,7 @@ public abstract class ORValidationPlugin implements Plugin {
      * Validation of Physical names
      */
     public void validatePhysicalNamesAux(DbSemanticalObject semObj, StringBuffer buffer,
-            HashMap physicalNameMap) throws DbException {
+            Map physicalNameMap) throws DbException {
         //HashMap physicalNameMap = new HashMap();
         DbSemanticalObject semObjFound;
         boolean mustBeValidate = true;
@@ -473,12 +470,12 @@ public abstract class ORValidationPlugin implements Plugin {
             }
         }
 
-        if (physicalName == null || physicalName.length() == 0) {
+        if (physicalName == null || physicalName.isEmpty()) {
             validationReport.printGenericError(G_INVALID_PHYS_NAME, buffer, semObj, true, true,
                     G_NO_PHYS_NAME);
             objectValid = false;
             errorCount++;
-        } else if (mustBeValidate == true) {
+        } else if (mustBeValidate) {
             if (isTooLong(semObj)) {
                 validationReport.printGenericError(G_INVALID_PHYS_NAME, buffer, semObj, true, true,
                         G_PHYS_NAME_TOO_LONG);
@@ -585,9 +582,9 @@ public abstract class ORValidationPlugin implements Plugin {
     /**
      * Validation of Physical names depend on Namespace
      */
-    public void validatePhysicalNames(ArrayList aList, StringBuffer buffer, MetaClass metaClass)
+    public void validatePhysicalNames(List aList, StringBuffer buffer, MetaClass metaClass)
             throws DbException {
-        HashMap physicalNameMap = new HashMap();
+        Map physicalNameMap = new HashMap();
 
         if (metaClass != null) {
             for (int i = 0; i < aList.size(); i++) {
@@ -612,9 +609,9 @@ public abstract class ORValidationPlugin implements Plugin {
     /**
      * Validation of Domain of columns Each column must have a domain
      */
-    public void validateDomainOfColumns(ArrayList aList, StringBuffer buffer) throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORColumn semObj = (DbORColumn) (aList.get(i));
+    public void validateDomainOfColumns(List aList, StringBuffer buffer) throws DbException {
+        for (Object o : aList) {
+            DbORColumn semObj = (DbORColumn) o;
             if (semObj.getType() == null) {
                 validationReport.printGenericError(G_NO_DOMAIN_LINKED, buffer, semObj, true);//printError(11, buffer, composite+getName(column))
                 errorCount++;
@@ -626,9 +623,9 @@ public abstract class ORValidationPlugin implements Plugin {
      * Validation of length of columns Verify if columns who required length have one. Verify if
      * columns who length is forbiden don't have one. Verify for all if the value is not 0.
      */
-    public void validateLengthOfColumns(ArrayList aList, StringBuffer buffer) throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORColumn semObj = (DbORColumn) (aList.get(i));
+    public void validateLengthOfColumns(List aList, StringBuffer buffer) throws DbException {
+        for (Object o : aList) {
+            DbORColumn semObj = (DbORColumn) o;
             DbORTypeClassifier type = semObj.getType();
             boolean valueTrapped = false;
 
@@ -637,12 +634,12 @@ public abstract class ORValidationPlugin implements Plugin {
 
             if ((type != null) && (dataTypesMap.containsKey(type.getName()))) {
                 Integer flag = (Integer) dataTypesMap.get(type.getName());
-                if (((flag.intValue() & PRECISION_REQUIRED) == PRECISION_REQUIRED)
+                if (((flag & PRECISION_REQUIRED) == PRECISION_REQUIRED)
                         && (semObj.getLength() == null)) {
                     validationReport.printGenericError(G_COLUMN_LENGTH, buffer, semObj, true, true,
                             G_NO_VALUE);
                     errorCount++;
-                } else if (((flag.intValue() & NO_PRECISION) == NO_PRECISION)
+                } else if (((flag & NO_PRECISION) == NO_PRECISION)
                         && (semObj.getLength() != null)) {
                     validationReport.printGenericError(G_COLUMN_LENGTH, buffer, semObj, true, true,
                             G_VALUE_FORBIDDEN);
@@ -651,7 +648,7 @@ public abstract class ORValidationPlugin implements Plugin {
                 }
             }
             if (!valueTrapped) {
-                if ((semObj.getLength() != null) && (semObj.getLength().intValue() == 0)) {
+                if ((semObj.getLength() != null) && (semObj.getLength() == 0)) {
                     validationReport.printGenericError(G_COLUMN_LENGTH, buffer, semObj, true, true,
                             G_VALUE_ZERO);
                     errorCount++;
@@ -665,14 +662,14 @@ public abstract class ORValidationPlugin implements Plugin {
      * length have one. Verify if columns who scale is forbiden don't have one. Verify for all if
      * the value is not 0.
      */
-    public void validateScaleOfColumns(ArrayList aList, StringBuffer buffer) throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORColumn semObj = (DbORColumn) (aList.get(i));
+    public void validateScaleOfColumns(List aList, StringBuffer buffer) throws DbException {
+        for (Object o : aList) {
+            DbORColumn semObj = (DbORColumn) o;
             DbORTypeClassifier type = semObj.getType();
             boolean valueTrapped = false;
             boolean hasValidLength = false;
 
-            if ((semObj.getLength() != null) && (semObj.getLength().intValue() != 0)) {
+            if ((semObj.getLength() != null) && (semObj.getLength() != 0)) {
                 hasValidLength = true;
             }
 
@@ -682,8 +679,8 @@ public abstract class ORValidationPlugin implements Plugin {
             if ((type != null) && (dataTypesMap.containsKey(type.getName()))) {
                 Integer flag = (Integer) dataTypesMap.get(type.getName());
                 if (semObj.getNbDecimal() != null) {
-                    if ((((flag.intValue() & HAS_SCALE_IF) == HAS_SCALE_IF) && (!hasValidLength))
-                            || ((flag.intValue() & NO_SCALE) == NO_SCALE)) {
+                    if ((((flag & HAS_SCALE_IF) == HAS_SCALE_IF) && (!hasValidLength))
+                            || ((flag & NO_SCALE) == NO_SCALE)) {
                         validationReport.printGenericError(G_COLUMN_SCALE, buffer, semObj, true,
                                 true, G_VALUE_FORBIDDEN);
                         errorCount++;
@@ -704,9 +701,9 @@ public abstract class ORValidationPlugin implements Plugin {
     /**
      * Validation of Columns of tables Each table must have at least one column
      */
-    public void validateColumnsOfTables(ArrayList aList, StringBuffer buffer) throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORTable semObj = (DbORTable) (aList.get(i));
+    public void validateColumnsOfTables(List aList, StringBuffer buffer) throws DbException {
+        for (Object o : aList) {
+            DbORTable semObj = (DbORTable) o;
             int nbCol = 0;
 
             DbEnumeration dbEnum = semObj.getComponents().elements();
@@ -727,10 +724,10 @@ public abstract class ORValidationPlugin implements Plugin {
      * Validation of Columns of combinations Verify if each combinaison doesnt have more columns
      * than the maximum allowed
      */
-    public void validateColumnsOfCombinations(ArrayList aList, StringBuffer buffer)
+    public void validateColumnsOfCombinations(List aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbSemanticalObject semObj = (DbSemanticalObject) (aList.get(i));
+        for (Object o : aList) {
+            DbSemanticalObject semObj = (DbSemanticalObject) o;
             int size = 0;
 
             if (semObj instanceof DbORCheck)
@@ -751,10 +748,10 @@ public abstract class ORValidationPlugin implements Plugin {
     /**
      * Validation of source type of domains Verify if the source type of each domain is valid
      */
-    public void validateSourceTypeOfDomains(ArrayList aList, StringBuffer buffer)
+    public void validateSourceTypeOfDomains(List aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORDomain semObj = (DbORDomain) (aList.get(i));
+        for (Object o : aList) {
+            DbORDomain semObj = (DbORDomain) o;
             if (semObj.getSourceType() == null) {
                 if ((semObj.getCategory() == null)
                         || (semObj.getCategory().getValue() == ORDomainCategory.DOMAIN)) {
@@ -772,10 +769,10 @@ public abstract class ORValidationPlugin implements Plugin {
     /**
      * Validation of columns allowed in constraints
      */
-    public void validateColumnsAllowedInConstraints(ArrayList aList, StringBuffer buffer)
+    public void validateColumnsAllowedInConstraints(List aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORColumn semObj = (DbORColumn) (aList.get(i));
+        for (Object o : aList) {
+            DbORColumn semObj = (DbORColumn) o;
             DbORTypeClassifier type = semObj.getType();
 
             if (type instanceof DbORDomain)
@@ -792,20 +789,17 @@ public abstract class ORValidationPlugin implements Plugin {
             if ((type != null) && (dataTypesMap.containsKey(type.getName()))) {
                 Integer flag = (Integer) (dataTypesMap.get(type.getName()));
                 if ((semObj.getPrimaryUniques().size() > 0)
-                        && (((flag.intValue() & NOT_ALLOWED_IN_PRIMARY) == NOT_ALLOWED_IN_PRIMARY)
-                                || ((flag.intValue() & NOT_ALLOWED_IN_UNIQUE) == NOT_ALLOWED_IN_UNIQUE) || ((flag
-                                .intValue() & NOT_INDEXABLE) == NOT_INDEXABLE))) {
+                        && (((flag & NOT_ALLOWED_IN_PRIMARY) == NOT_ALLOWED_IN_PRIMARY)
+                        || ((flag & NOT_ALLOWED_IN_UNIQUE) == NOT_ALLOWED_IN_UNIQUE) || ((flag & NOT_INDEXABLE) == NOT_INDEXABLE))) {
                     validationReport.printGenericError(G_COL_IN_CONSTRAINT, buffer, semObj, true);//printError(16, buffer, composite+getName(column))
                     errorCount++;
                 } else if (((semObj.getFKeyColumns().size() > 0) || (semObj.getDestFKeyColumns()
                         .size() > 0))
-                        && (((flag.intValue() & NOT_ALLOWED_IN_FOREIGN) == NOT_ALLOWED_IN_FOREIGN) || ((flag
-                                .intValue() & NOT_INDEXABLE) == NOT_INDEXABLE))) {
+                        && (((flag & NOT_ALLOWED_IN_FOREIGN) == NOT_ALLOWED_IN_FOREIGN) || ((flag & NOT_INDEXABLE) == NOT_INDEXABLE))) {
                     validationReport.printGenericError(G_COL_IN_CONSTRAINT, buffer, semObj, true);//printError(16, buffer, composite+getName(column))
                     errorCount++;
                 } else if ((semObj.getIndexKeys().size() > 0)
-                        && (((flag.intValue() & NOT_ALLOWED_IN_INDEX) == NOT_ALLOWED_IN_INDEX) || ((flag
-                                .intValue() & NOT_INDEXABLE) == NOT_INDEXABLE))) {
+                        && (((flag & NOT_ALLOWED_IN_INDEX) == NOT_ALLOWED_IN_INDEX) || ((flag & NOT_INDEXABLE) == NOT_INDEXABLE))) {
                     validationReport.printGenericError(G_COL_IN_CONSTRAINT, buffer, semObj, true);//printError(16, buffer, composite+getName(column))
                     errorCount++;
                 }
@@ -816,11 +810,11 @@ public abstract class ORValidationPlugin implements Plugin {
     /**
      * Validation of intructions of Triggers Each trigger must have instructions
      */
-    public void validateIntructionsOfTriggers(ArrayList aList, StringBuffer buffer)
+    public void validateIntructionsOfTriggers(List aList, StringBuffer buffer)
             throws DbException {
         for (int i = 0; i < aList.size(); i++) {
             DbORTrigger semObj = (DbORTrigger) (aList.get(i));
-            if ((semObj.getBody() == null) || (semObj.getBody().length() == 0)) {
+            if ((semObj.getBody() == null) || (semObj.getBody().isEmpty())) {
                 validationReport.printGenericError(G_TRIGGER_NO_BODY, buffer, semObj, true);//printError(17, buffer, composite+getName(trigger))
                 warningCount++;
             }
@@ -830,11 +824,11 @@ public abstract class ORValidationPlugin implements Plugin {
     /**
      * Validation of intructions of Procedure Each Procedure must have instructions
      */
-    public void validateInstructionsOfProcedures(ArrayList aList, StringBuffer buffer)
+    public void validateInstructionsOfProcedures(List aList, StringBuffer buffer)
             throws DbException {
         for (int i = 0; i < aList.size(); i++) {
             DbORProcedure semObj = (DbORProcedure) (aList.get(i));
-            if ((semObj.getBody() == null) || (semObj.getBody().length() == 0)) {
+            if ((semObj.getBody() == null) || (semObj.getBody().isEmpty())) {
                 validationReport.printGenericError(G_PROCEDURE_NO_BODY, buffer, semObj, true);//printError(18, buffer, composite+getName(procedure))
                 warningCount++;
             }
@@ -844,10 +838,10 @@ public abstract class ORValidationPlugin implements Plugin {
     /**
      * Validation of parameters Each parameter must have linked to a type
      */
-    public void validateParameterWithoutType(ArrayList aList, StringBuffer buffer)
+    public void validateParameterWithoutType(List aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORParameter semObj = (DbORParameter) (aList.get(i));
+        for (Object o : aList) {
+            DbORParameter semObj = (DbORParameter) o;
             if (semObj.getType() == null) {
                 validationReport.printGenericError(G_PARAMETER_TYPE, buffer, semObj, true);//printError(18, buffer, composite+getName(procedure))
                 //validationReport.printGenericError(G_NO_DOMAIN_LINKED, buffer, semObj , true);//printError(11, buffer, composite+getName(column))
@@ -859,11 +853,11 @@ public abstract class ORValidationPlugin implements Plugin {
     /**
      * Validation of condition of Check constraint Each check constraint must have a condition
      */
-    public void validateInstructionsOfCheckConstraints(ArrayList aList, StringBuffer buffer)
+    public void validateInstructionsOfCheckConstraints(List aList, StringBuffer buffer)
             throws DbException {
         for (int i = 0; i < aList.size(); i++) {
             DbORCheck semObj = (DbORCheck) (aList.get(i));
-            if ((semObj.getCondition() == null) || (semObj.getCondition().length() == 0)) {
+            if ((semObj.getCondition() == null) || (semObj.getCondition().isEmpty())) {
                 validationReport.printGenericError(G_CHECK_NO_CONDITION, buffer, semObj, true);//printError(19, buffer, composite+getName(check))
                 warningCount++;
             }
@@ -873,11 +867,11 @@ public abstract class ORValidationPlugin implements Plugin {
     /**
      * Validation of Selection rule of View Each view must have a Selection rule
      */
-    public void validateSelectionRuleOfViews(ArrayList aList, StringBuffer buffer)
+    public void validateSelectionRuleOfViews(List aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORView semObj = (DbORView) (aList.get(i));
-            if ((semObj.getSelectionRule() == null) || (semObj.getSelectionRule().length() == 0)) {
+        for (Object o : aList) {
+            DbORView semObj = (DbORView) o;
+            if ((semObj.getSelectionRule() == null) || (semObj.getSelectionRule().isEmpty())) {
                 validationReport.printGenericError(G_VIEW_NO_SELECT_RULE, buffer, semObj, true);//printError(20, buffer, composite+getName(view))
                 warningCount++;
             }
@@ -899,17 +893,17 @@ public abstract class ORValidationPlugin implements Plugin {
 
     public void validateForAllDBMS(StringBuffer warningString, StringBuffer errorString)
             throws DbException {
-        ArrayList tableAndViews = new ArrayList(tableList);
+        List tableAndViews = new ArrayList(tableList);
         tableAndViews.addAll(viewList);
 
-        ArrayList constraintList = new ArrayList(primUniqKeyList);
+        List constraintList = new ArrayList(primUniqKeyList);
         constraintList.addAll(foreignKeyList);
         constraintList.addAll(checkList);
 
-        ArrayList constraintAndIndexes = new ArrayList(constraintList);
+        List constraintAndIndexes = new ArrayList(constraintList);
         constraintAndIndexes.addAll(indexList);
 
-        ArrayList domainList = new ArrayList(udtDomainList);
+        List domainList = new ArrayList(udtDomainList);
         domainList.addAll(defaultDomainList);
 
         // --- Errors ---

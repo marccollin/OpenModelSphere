@@ -42,10 +42,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -252,7 +249,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
         public void setOutputToASCIIFormat() {
         }
 
-        protected void forwardTo(DbObject semObj, ArrayList generatedFiles) throws DbException,
+        protected void forwardTo(DbObject semObj, List generatedFiles) throws DbException,
                 IOException, RuleException {
             // has to be coded
         }
@@ -281,8 +278,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
 
         protected Template getFileNotFoundRule() {
             String msg = MessageFormat.format(FILE_NOT_FOUND_PATTERN, new Object[] { m_filename });
-            Template tmpl = new Template(null, msg);
-            return tmpl;
+            return new Template(null, msg);
         }
 
         protected String getTemplateFileName() {
@@ -306,7 +302,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
             return rule;
         }
 
-        private void getExternalItems(Controller controller, ArrayList externalRules) {
+        private void getExternalItems(Controller controller, List externalRules) {
 
             // empty rule table
             m_ruletable.clear();
@@ -477,11 +473,11 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
 
         // called by runJob()
         // modifies m_fieldTree
-        private ArrayList displayExternalRules(ArrayList rules, DbSMSPackage abstractPackage,
+        private List displayExternalRules(List rules, DbSMSPackage abstractPackage,
                 VariableScope varList, VariableScope variableList, String scopeDir)
                 throws DbException {
 
-            ArrayList externalRules = new ArrayList();
+            List externalRules = new ArrayList();
 
             // get EXTERNal rules
             Iterator iter = rules.iterator();
@@ -502,7 +498,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
                 JDialog parentDialog = guiController.getDialog();
 
                 // get conditions
-                ArrayList conditions = getConditions(varList);
+                List conditions = getConditions(varList);
 
                 SMSIntegrateModelUtil util = SMSIntegrateModelUtil.getSingleInstance();
                 boolean deepTraversal = true;
@@ -524,7 +520,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
                     getController().cancel();
                 }
 
-                ArrayList selectedRules = diag.getSelectedRules();
+                List selectedRules = diag.getSelectedRules();
                 diag.getSetConditions(varList); // get IF and IFNOT conditions
 
                 return selectedRules;
@@ -532,7 +528,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
         } // displayExternalRules
 
         // called by runJob()
-        private ArrayList getExternalRules(DbSMSPackage abstractPackage, File file)
+        private List getExternalRules(DbSMSPackage abstractPackage, File file)
                 throws DbException {
 
             // get EXTERN rules
@@ -540,8 +536,8 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
 
             fwd.setFile(file);
             Controller controller = getController();
-            ArrayList externalRules = new ArrayList();
-            ArrayList externalVariables = new ArrayList();
+            List externalRules = new ArrayList();
+            List externalVariables = new ArrayList();
             fwd.getExternalItems(controller, externalRules); // Parse the .tpl
             // here
             boolean errorWhileReadingFile = false;
@@ -558,7 +554,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
                 }
             } // end if
 
-            ArrayList selectedRules = null; // and conditions?
+            List selectedRules = null; // and conditions?
             if (!errorWhileReadingFile) {
                 VariableScope variableScope = fwd.getVarScope();
                 String filename = fwd.getFileName();
@@ -568,7 +564,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
                 VariableScope varList = fwd.getVarScope();
                 selectedRules = displayExternalRules(externalRules, abstractPackage, varList,
                         variableScope, scopedir);
-                if ((selectedRules == null) || (selectedRules.size() == 0)) {
+                if ((selectedRules == null) || (selectedRules.isEmpty())) {
                     return null; // no rules selected if the user has CANCELled
                     // the operation
                 }
@@ -583,7 +579,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
 
         // called by runJob()
         private boolean generateTemplate(DbObject selectedObject, VariableScope varList,
-                ArrayList selectedRules, Controller controller) {
+                List selectedRules, Controller controller) {
 
             String errorMessage = null;
             boolean isSuccessful;
@@ -619,7 +615,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
                         } // end if
 
                         StringWriter swriter = new StringWriter();
-                        ArrayList excludeList = null;
+                        List excludeList = null;
                         if (m_fieldTree != null) {
                             excludeList = DBMSForwardOptions.getExcludeList(m_fieldTree);
                         }
@@ -733,7 +729,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
 
                     if (fileCounter > 0) {
                         message = MessageFormat.format(MANY_SUCC_PATTRN,
-                                new Object[] { new Integer(fileCounter) });
+                                new Object[] {fileCounter });
                         message += ": " + genFilenames;
                     }
                 } // end if
@@ -766,7 +762,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
 
             DbSMSPackage abstractPackage = m_options.m_abstractPackage;
             TemplateGenericForward fwd = m_options.m_fwd;
-            ArrayList selectedRules = getExternalRules(m_options.m_abstractPackage,
+            List selectedRules = getExternalRules(m_options.m_abstractPackage,
                     m_options.m_file); // Parse the
             // .tpl here
             ImportClause importClause = fwd.getImportClause();

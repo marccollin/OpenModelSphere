@@ -48,6 +48,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.Serializable;
 import java.util.*;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -82,10 +83,10 @@ public class TemplateDialog extends JDialog implements TestableWindow {
     GridBagLayout gridBagLayout2 = new GridBagLayout();
     JPanel jPanel4 = new JPanel(); // filling
     JPanel jPanel5 = new JPanel(); // filling
-    private ArrayList m_tmpls;
-    private ArrayList m_conds;
+    private List m_tmpls;
+    private List m_conds;
     private VariableScope m_variableList;
-    private ArrayList m_propertyList;
+    private List m_propertyList;
     private CheckTreeNode m_fieldTree;
     private String m_scopedir = null;
 
@@ -111,20 +112,20 @@ public class TemplateDialog extends JDialog implements TestableWindow {
             .getString("GENERATION_FROM_TEMPLATES_TITLE");
 
     // Two constructors
-    public TemplateDialog(Frame frame, ArrayList tmpls, ArrayList conds,
+    public TemplateDialog(Frame frame, List tmpls, List conds,
             VariableScope variableList, CheckTreeNode fieldTree, String scopeDir) {
         this(frame, TITLE, false);
         init(tmpls, conds, variableList, fieldTree, scopeDir);
     }
 
-    public TemplateDialog(Dialog owner, ArrayList tmpls, ArrayList conds,
-            VariableScope variableList, CheckTreeNode fieldTree, String scopeDir) {
+    public TemplateDialog(Dialog owner, List tmpls, List conds,
+                          VariableScope variableList, CheckTreeNode fieldTree, String scopeDir) {
         this(owner, TITLE, false);
         init(tmpls, conds, variableList, fieldTree, scopeDir);
     }
 
     // Called by one of the two constructors
-    private void init(ArrayList tmpls, ArrayList conds, VariableScope variableList,
+    private void init(List tmpls, List conds, VariableScope variableList,
             CheckTreeNode fieldTree, String scopeDir) {
         m_tmpls = tmpls;
         m_conds = conds;
@@ -151,8 +152,8 @@ public class TemplateDialog extends JDialog implements TestableWindow {
         AwtUtil.centerWindow(this);
     }
 
-    private ArrayList getSelectedRules(TemplateCheckableList list) {
-        ArrayList selectedRules = new ArrayList();
+    private List getSelectedRules(TemplateCheckableList list) {
+        List selectedRules = new ArrayList();
         TreeModel model = list.getModel();
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
         Enumeration enumeration = root.preorderEnumeration();
@@ -171,8 +172,8 @@ public class TemplateDialog extends JDialog implements TestableWindow {
         return selectedRules;
     }
 
-    private ArrayList getSetConditions(ModifierCheckableList list) {
-        ArrayList setConditions = new ArrayList();
+    private List getSetConditions(ModifierCheckableList list) {
+        List setConditions = new ArrayList();
         TreeModel model = list.getModel();
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
         Enumeration enumeration = root.preorderEnumeration();
@@ -219,7 +220,7 @@ public class TemplateDialog extends JDialog implements TestableWindow {
         });
     } // end of addListeners()
 
-    private TemplateCheckableList createTemplateList(String name, ArrayList optionNames) {
+    private TemplateCheckableList createTemplateList(String name, List optionNames) {
 
         final TemplateCheckableList list = new TemplateCheckableList(name, optionNames);
 
@@ -228,11 +229,9 @@ public class TemplateDialog extends JDialog implements TestableWindow {
         return list;
     }
 
-    private ModifierCheckableList createModifierList(String name, ArrayList optionNames) {
+    private ModifierCheckableList createModifierList(String name, List optionNames) {
 
-        final ModifierCheckableList list = new ModifierCheckableList(name, optionNames);
-
-        return list;
+        return new ModifierCheckableList(name, optionNames);
     }
 
     boolean isCancelled = false;
@@ -299,8 +298,8 @@ public class TemplateDialog extends JDialog implements TestableWindow {
 
     // called by sms.or.dbms.features.DefaultForwardWizardObjectsPage and
     // TemplateDialog
-    public static ArrayList buildPropertyListFromVariables(VariableScope variableScope) {
-        ArrayList propertyList = new ArrayList();
+    public static List buildPropertyListFromVariables(VariableScope variableScope) {
+        List propertyList = new ArrayList();
 
         // For each external variable
         Iterator iter = variableScope.getIterator();
@@ -325,10 +324,9 @@ public class TemplateDialog extends JDialog implements TestableWindow {
     // reset variables' value according property list
     // called by sms.or.dbms.features.DefaultForwardWizardObjectsPage and
     // TemplateDialog
-    public static void resetValue(VariableScope variableScope, ArrayList propertyList) {
-        Iterator iter = propertyList.iterator();
-        while (iter.hasNext()) {
-            AbstractProperty property = (AbstractProperty) iter.next();
+    public static void resetValue(VariableScope variableScope, List propertyList) {
+        for (Object o : propertyList) {
+            AbstractProperty property = (AbstractProperty) o;
             String name = property.getName();
             Serializable value = property.getValue();
             Iterator iter2 = variableScope.getIterator();
@@ -344,20 +342,18 @@ public class TemplateDialog extends JDialog implements TestableWindow {
         } // end while
     } // end resetValue()
 
-    private ArrayList m_selectedRules = null;
+    private List m_selectedRules = null;
 
-    public ArrayList getSelectedRules() {
+    public List getSelectedRules() {
         return m_selectedRules;
     }
 
-    private ArrayList m_setConditions = null; // set by the Generate button
+    private List m_setConditions = null; // set by the Generate button
 
     public void getSetConditions(VariableScope varlist) {
         if (m_setConditions != null) {
-            Iterator iter = m_setConditions.iterator();
-            while (iter.hasNext()) {
-                VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) iter
-                        .next();
+            for (Object mSetCondition : m_setConditions) {
+                VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) mSetCondition;
                 String varname = variable.getName();
                 Serializable value = variable.getValue();
                 varlist.setVariable(varname, value);
@@ -448,18 +444,18 @@ public class TemplateDialog extends JDialog implements TestableWindow {
 
     static class TemplateCheckableList extends CheckableTree {
 
-        public TemplateCheckableList(String name, ArrayList optionNames) {
+        public TemplateCheckableList(String name, List optionNames) {
             super(getDefaultModel(name, optionNames));
         }
 
-        protected static CheckTreeModel getDefaultModel(String name, ArrayList optionNames) {
+        protected static CheckTreeModel getDefaultModel(String name, List optionNames) {
             DefaultMutableTreeNode root = new DefaultMutableTreeNode(name, true);
             DefaultMutableTreeNode node;
 
             // 1) fill externalDisplayList
-            ArrayList externalDisplayList = new ArrayList();
-            for (int i = 0; i < optionNames.size(); i++) {
-                Rule rule = (Rule) optionNames.get(i);
+            List externalDisplayList = new ArrayList();
+            for (Object optionName : optionNames) {
+                Rule rule = (Rule) optionName;
                 ExternModifier externModifier = rule.externModifier;
                 ExternalDisplay display = null;
                 if (externModifier != null) {
@@ -479,8 +475,8 @@ public class TemplateDialog extends JDialog implements TestableWindow {
             Collections.sort(externalDisplayList);
 
             // 3 add checklistnode
-            for (int i = 0; i < externalDisplayList.size(); i++) {
-                ExternalDisplay display = (ExternalDisplay) externalDisplayList.get(i);
+            for (Object o : externalDisplayList) {
+                ExternalDisplay display = (ExternalDisplay) o;
                 Rule rule = display.getRule();
                 String displayName = display.getDisplayName();
                 boolean checked = display.getEnabled();
@@ -494,22 +490,18 @@ public class TemplateDialog extends JDialog implements TestableWindow {
 
     static class ModifierCheckableList extends CheckableTree {
 
-        public ModifierCheckableList(String name, ArrayList optionNames) {
+        public ModifierCheckableList(String name, List optionNames) {
             super(getDefaultModel(name, optionNames));
         }
 
-        protected static CheckTreeModel getDefaultModel(String name, ArrayList optionNames) {
+        protected static CheckTreeModel getDefaultModel(String name, List optionNames) {
             DefaultMutableTreeNode root = new DefaultMutableTreeNode(name, true);
             DefaultMutableTreeNode node;
 
-            for (int i = 0; i < optionNames.size(); i++) {
-                VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) optionNames
-                        .get(i);
+            for (Object optionName : optionNames) {
+                VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) optionName;
                 Object value = variable.getValue();
-                boolean isSelected = false;
-                if (value.equals(Boolean.TRUE)) {
-                    isSelected = true;
-                }
+                boolean isSelected = value.equals(Boolean.TRUE);
                 node = new ModifierCheckListNode(variable, isSelected);
                 root.add(node);
             } // end for
@@ -636,8 +628,8 @@ public class TemplateDialog extends JDialog implements TestableWindow {
 
     private static void test(Object fieldTreeObject, String scopedir) {
         CheckTreeNode fieldTree = (CheckTreeNode) fieldTreeObject;
-        ArrayList m_tmpls = new ArrayList();
-        ArrayList m_conds = new ArrayList();
+        List m_tmpls = new ArrayList();
+        List m_conds = new ArrayList();
         JDialog owner = new JDialog();
         org.modelsphere.jack.srtool.forward.VariableScope varList = getVarList();
 
@@ -654,8 +646,8 @@ public class TemplateDialog extends JDialog implements TestableWindow {
 
     public Window createTestWindow(Container owner) {
         CheckTreeNode fieldTree = (CheckTreeNode) getTestFieldTree();
-        ArrayList m_tmpls = new ArrayList();
-        ArrayList m_conds = new ArrayList();
+        List m_tmpls = new ArrayList();
+        List m_conds = new ArrayList();
         JDialog owner2 = new JDialog();
         org.modelsphere.jack.srtool.forward.VariableScope varList = getVarList();
 

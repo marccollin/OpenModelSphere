@@ -35,6 +35,7 @@ package org.modelsphere.sms;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
@@ -49,11 +50,10 @@ import org.modelsphere.sms.international.LocaleMgr;
 public final class DrawingToolBar extends JackToolBar {
     private ToolButtonGroup toolGroup;
 
-    public DrawingToolBar(ArrayList components, ToolButtonGroup toolGroup) {
+    public DrawingToolBar(List components, ToolButtonGroup toolGroup) {
         this.toolGroup = toolGroup;
-        Iterator iter = components.iterator();
-        while (iter.hasNext()) {
-            add((JComponent) iter.next());
+        for (Object component : components) {
+            add((JComponent) component);
         }
         setName(LocaleMgr.misc.getString("DrawingToolBarName"));
     }
@@ -65,9 +65,9 @@ public final class DrawingToolBar extends JackToolBar {
                     .getDiagramInternalFrames();
             if (diagrams == null)
                 return;
-            for (int i = 0; i < diagrams.length; i++) {
-                if (diagrams[i] instanceof DiagramInternalFrame) {
-                    DiagramInternalFrame diagframe = (DiagramInternalFrame) diagrams[i];
+            for (JInternalFrame diagram : diagrams) {
+                if (diagram instanceof DiagramInternalFrame) {
+                    DiagramInternalFrame diagframe = (DiagramInternalFrame) diagram;
                     DiagramView view = diagframe.getDiagram().getMainView();
                     toolGroup.setSelectedTool(view, 0);
                     toolGroup.setMasterTool(view, 0);

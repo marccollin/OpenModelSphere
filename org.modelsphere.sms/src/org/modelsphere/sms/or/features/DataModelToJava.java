@@ -34,6 +34,7 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.or.features;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -73,7 +74,7 @@ public final class DataModelToJava {
     private DbJVPackage newPack;
     private DbSMSBuiltInTypePackage javaTypePack;
     private DbJVPackage dataTypePack = null;
-    private HashMap tableMap = new HashMap();
+    private Map<DbORAbsTable,DbJVClass> tableMap = new HashMap<>();
 
     public DataModelToJava(DbORDataModel model, DbOOAbsPackage parentPack,
             DbSMSLinkModel linkModel, JVVisibility fieldVis) throws DbException {

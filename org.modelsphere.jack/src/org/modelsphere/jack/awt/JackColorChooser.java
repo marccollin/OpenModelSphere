@@ -72,9 +72,9 @@ public class JackColorChooser implements ActionListener {
     private static boolean questionAsked = false;
 
     private static class TransparencyPanel extends AbstractColorChooserPanel {
-        private JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
-        private JLabel transparentL = new JLabel(LocaleMgr.screen.getString("Transparent"));
-        private JLabel opaqueL = new JLabel(LocaleMgr.screen.getString("Opaque"));
+        private final JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
+        private final JLabel transparentL = new JLabel(LocaleMgr.screen.getString("Transparent"));
+        private final JLabel opaqueL = new JLabel(LocaleMgr.screen.getString("Opaque"));
         private ChangeListener listener = new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 if (!slider.getValueIsAdjusting()) {
@@ -156,7 +156,7 @@ public class JackColorChooser implements ActionListener {
                         && (old.getRed() != color.getRed() || old.getGreen() != color.getGreen() || old
                                 .getBlue() != color.getBlue())) {
                     String message = MessageFormat.format(JackColorChooser.kRessetTransparency0,
-                            new Object[] { new Integer(alpha) });
+                            new Object[] { alpha });
                     int result = JOptionPane.showConfirmDialog(JackColorChooser.this.dialog,
                             message, ApplicationContext.getApplicationName(),
                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -207,19 +207,16 @@ public class JackColorChooser implements ActionListener {
     private Color showDialog_Impl(Component parent, String title, Color initialColor, boolean alpha) {
         init(parent, title, initialColor, alpha);
         dialog.setVisible(true);
-        Color selColor = null;
         if (cancel)
-            selColor = initialColor;
+            return initialColor;
         else
-            selColor = chooser.getColor();
-        return selColor;
+            return chooser.getColor();
     }
 
     public static Color showDialog(Component parent, String title, Color initialColor, boolean alpha) {
         if (singleton == null)
             singleton = new JackColorChooser();
-        Color newcolor = singleton.showDialog_Impl(parent, title, initialColor, alpha);
-        return newcolor;
+        return singleton.showDialog_Impl(parent, title, initialColor, alpha);
     }
 
 }

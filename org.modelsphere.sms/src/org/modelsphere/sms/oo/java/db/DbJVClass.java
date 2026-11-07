@@ -533,7 +533,7 @@ public final class DbJVClass extends DbOOClass {
      * @return boolean
      **/
     public final boolean isStatic() throws DbException {
-        return getStatic().booleanValue();
+        return getStatic();
     }
 
     /**
@@ -552,7 +552,7 @@ public final class DbJVClass extends DbOOClass {
      * @return boolean
      **/
     public final boolean isFinal() throws DbException {
-        return getFinal().booleanValue();
+        return getFinal();
     }
 
     /**
@@ -599,7 +599,7 @@ public final class DbJVClass extends DbOOClass {
      * @return boolean
      **/
     public final boolean isStrictfp() throws DbException {
-        return getStrictfp().booleanValue();
+        return getStrictfp();
     }
 
     /**

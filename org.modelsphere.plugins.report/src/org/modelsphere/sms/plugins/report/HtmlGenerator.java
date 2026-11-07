@@ -45,6 +45,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.text.html.HTML;
 
@@ -67,79 +68,79 @@ public class HtmlGenerator {
             + ExtensionFileFilter.jpgFileFilter.getExtension(); // NOT LOCALIZABLE
 
     // HTML Attributes
-    private static String WIDTH = HTML.Attribute.WIDTH.toString().toUpperCase(); // NOT LOCALIZABLE
-    private static String HEIGHT = HTML.Attribute.HEIGHT.toString().toUpperCase(); // NOT LOCALIZABLE
-    private static String BORDER = HTML.Attribute.BORDER.toString().toUpperCase(); // NOT LOCALIZABLE
-    private static String BORDERCOLOR = "BORDERCOLOR"; // NOT LOCALIZABLE
-    private static String BGCOLOR = HTML.Attribute.BGCOLOR.toString().toUpperCase(); // NOT LOCALIZABLE
-    private static String ALIGN = HTML.Attribute.ALIGN.toString().toUpperCase(); // NOT LOCALIZABLE
-    private static String VALIGN = HTML.Attribute.VALIGN.toString().toUpperCase(); // NOT LOCALIZABLE
-    private static String NOWRAP = HTML.Attribute.NOWRAP.toString().toUpperCase(); // NOT LOCALIZABLE
-    private static String CELLPADDING = HTML.Attribute.CELLPADDING.toString().toUpperCase(); // NOT LOCALIZABLE
-    private static String CELLSPACING = HTML.Attribute.CELLSPACING.toString().toUpperCase(); // NOT LOCALIZABLE
-    private static String NAME = HTML.Attribute.NAME.toString().toUpperCase(); // NOT LOCALIZABLE
-    private static String FRAMEBORDER = HTML.Attribute.FRAMEBORDER.toString().toUpperCase(); // NOT LOCALIZABLE
-    private static String COLS = HTML.Attribute.COLS.toString().toUpperCase(); // NOT LOCALIZABLE
-    private static String SRC = HTML.Attribute.SRC.toString().toUpperCase(); // NOT LOCALIZABLE
-    private static String HSPACE = HTML.Attribute.HSPACE.toString().toUpperCase(); // NOT LOCALIZABLE
-    private static String VSPACE = HTML.Attribute.VSPACE.toString().toUpperCase(); // NOT LOCALIZABLE
+    private static final String WIDTH = HTML.Attribute.WIDTH.toString().toUpperCase(); // NOT LOCALIZABLE
+    private static final String HEIGHT = HTML.Attribute.HEIGHT.toString().toUpperCase(); // NOT LOCALIZABLE
+    private static final String BORDER = HTML.Attribute.BORDER.toString().toUpperCase(); // NOT LOCALIZABLE
+    private static final String BORDERCOLOR = "BORDERCOLOR"; // NOT LOCALIZABLE
+    private static final String BGCOLOR = HTML.Attribute.BGCOLOR.toString().toUpperCase(); // NOT LOCALIZABLE
+    private static final String ALIGN = HTML.Attribute.ALIGN.toString().toUpperCase(); // NOT LOCALIZABLE
+    private static final String VALIGN = HTML.Attribute.VALIGN.toString().toUpperCase(); // NOT LOCALIZABLE
+    private static final String NOWRAP = HTML.Attribute.NOWRAP.toString().toUpperCase(); // NOT LOCALIZABLE
+    private static final String CELLPADDING = HTML.Attribute.CELLPADDING.toString().toUpperCase(); // NOT LOCALIZABLE
+    private static final String CELLSPACING = HTML.Attribute.CELLSPACING.toString().toUpperCase(); // NOT LOCALIZABLE
+    private static final String NAME = HTML.Attribute.NAME.toString().toUpperCase(); // NOT LOCALIZABLE
+    private static final String FRAMEBORDER = HTML.Attribute.FRAMEBORDER.toString().toUpperCase(); // NOT LOCALIZABLE
+    private static final String COLS = HTML.Attribute.COLS.toString().toUpperCase(); // NOT LOCALIZABLE
+    private static final String SRC = HTML.Attribute.SRC.toString().toUpperCase(); // NOT LOCALIZABLE
+    private static final String HSPACE = HTML.Attribute.HSPACE.toString().toUpperCase(); // NOT LOCALIZABLE
+    private static final String VSPACE = HTML.Attribute.VSPACE.toString().toUpperCase(); // NOT LOCALIZABLE
 
     // special characters
-    private static String LFCR = "\r\n"; // NOT LOCALIZABLE
-    private static String LT = "<"; // NOT LOCALIZABLE
-    private static String GT = ">"; // NOT LOCALIZABLE
-    private static String SPACE = " "; // NOT LOCALIZABLE
-    private static String QUOTE = "\""; // NOT LOCALIZABLE
-    private static String EQUAL = "="; // NOT LOCALIZABLE
+    private static final String LFCR = "\r\n"; // NOT LOCALIZABLE
+    private static final String LT = "<"; // NOT LOCALIZABLE
+    private static final String GT = ">"; // NOT LOCALIZABLE
+    private static final String SPACE = " "; // NOT LOCALIZABLE
+    private static final String QUOTE = "\""; // NOT LOCALIZABLE
+    private static final String EQUAL = "="; // NOT LOCALIZABLE
 
     // general HTML tags
-    private static String htmlOpening = LT + "HTML" + GT + LFCR; // NOT LOCALIZABLE
-    private static String htmlClosing = LT + "/HTML" + GT + LFCR; // NOT LOCALIZABLE
-    private static String framesetOpening = "FRAMESET"; // NOT LOCALIZABLE
-    private static String framesetClosing = "/FRAMESET"; // NOT LOCALIZABLE
-    private static String frameOpening = "FRAME"; // NOT LOCALIZABLE
-    private static String frameClosing = "/FRAME"; // NOT LOCALIZABLE
-    private static String headerOpening = LT + "HEADER" + GT + LFCR; // NOT LOCALIZABLE
-    private static String headerClosing = LT + "/HEADER" + GT + LFCR; // NOT LOCALIZABLE
-    private static String titleOpening = LT + "TITLE" + GT + LFCR; // NOT LOCALIZABLE
-    private static String titleClosing = LT + "/TITLE" + GT + LFCR; // NOT LOCALIZABLE
-    private static String bodyOpening = LT + "BODY" + GT + LFCR; // NOT LOCALIZABLE
-    private static String bodyClosing = LT + "/BODY" + GT + LFCR; // NOT LOCALIZABLE
-    private static String centerOpening = LT + "CENTER" + GT + LFCR; // NOT LOCALIZABLE
-    private static String centerClosing = LT + "/CENTER" + GT + LFCR; // NOT LOCALIZABLE
-    private static String h1Opening = LT + "H1" + GT + LFCR; // NOT LOCALIZABLE
-    private static String h1Closing = LT + "/H1" + GT + LFCR; // NOT LOCALIZABLE
-    private static String unorderedListOpening = LT + "UL" + GT + LFCR; // NOT LOCALIZABLE
-    private static String unorderedListClosing = LT + "/UL" + GT + LFCR; // NOT LOCALIZABLE
-    private static String listItemOpening = LT + "LI" + GT + LFCR; // NOT LOCALIZABLE
-    private static String listItemClosing = LT + "/LI" + GT + LFCR; // NOT LOCALIZABLE
-    private static String boldOpening = LT + "B" + GT + LFCR; // NOT LOCALIZABLE
-    private static String boldClosing = LT + "/B" + GT + LFCR; // NOT LOCALIZABLE
-    private static String breakLine = LT + "BR" + GT + LFCR; // NOT LOCALIZABLE
-    private static String hRule = LT + "HR" + GT + LFCR; // NOT LOCALIZABLE
-    private static String linkOpening = LT + "A HREF=\"{0}#{1}\" TARGET=\"{2}\"" + GT + LFCR; // NOT LOCALIZABLE
-    private static String linkClosing = LT + "/A" + GT + LFCR; // NOT LOCALIZABLE
-    private static String anchorOpening = LT + "A NAME=\"{0}\"" + GT + LFCR; // NOT LOCALIZABLE
-    private static String anchorClosing = linkClosing; // NOT LOCALIZABLE
-    private static String imageOpening = LT + "IMG SRC=\"{0}\"" + GT + LFCR; // NOT LOCALIZABLE
-    private static String imageClosing = ""; // NOT LOCALIZABLE
-    private static String fontOpening = LT + "FONT COLOR=\"{0}\"" + GT + LFCR; // NOT LOCALIZABLE
-    private static String fontClosing = LT + "/FONT" + GT + LFCR; // NOT LOCALIZABLE
-    private static String divOpening = LT + "DIV ALIGN=\"{0}\"" + GT + LFCR; // NOT LOCALIZABLE
-    private static String divClosing = LT + "/DIV " + GT + LFCR; // NOT LOCALIZABLE
+    private static final String htmlOpening = LT + "HTML" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String htmlClosing = LT + "/HTML" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String framesetOpening = "FRAMESET"; // NOT LOCALIZABLE
+    private static final String framesetClosing = "/FRAMESET"; // NOT LOCALIZABLE
+    private static final String frameOpening = "FRAME"; // NOT LOCALIZABLE
+    private static final String frameClosing = "/FRAME"; // NOT LOCALIZABLE
+    private static final String headerOpening = LT + "HEADER" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String headerClosing = LT + "/HEADER" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String titleOpening = LT + "TITLE" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String titleClosing = LT + "/TITLE" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String bodyOpening = LT + "BODY" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String bodyClosing = LT + "/BODY" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String centerOpening = LT + "CENTER" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String centerClosing = LT + "/CENTER" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String h1Opening = LT + "H1" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String h1Closing = LT + "/H1" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String unorderedListOpening = LT + "UL" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String unorderedListClosing = LT + "/UL" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String listItemOpening = LT + "LI" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String listItemClosing = LT + "/LI" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String boldOpening = LT + "B" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String boldClosing = LT + "/B" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String breakLine = LT + "BR" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String hRule = LT + "HR" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String linkOpening = LT + "A HREF=\"{0}#{1}\" TARGET=\"{2}\"" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String linkClosing = LT + "/A" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String anchorOpening = LT + "A NAME=\"{0}\"" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String anchorClosing = linkClosing; // NOT LOCALIZABLE
+    private static final String imageOpening = LT + "IMG SRC=\"{0}\"" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String imageClosing = ""; // NOT LOCALIZABLE
+    private static final String fontOpening = LT + "FONT COLOR=\"{0}\"" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String fontClosing = LT + "/FONT" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String divOpening = LT + "DIV ALIGN=\"{0}\"" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String divClosing = LT + "/DIV " + GT + LFCR; // NOT LOCALIZABLE
 
     // Table related tags
-    private static String tableOpening = "TABLE"; // NOT LOCALIZABLE
-    private static String tableClosing = "/TABLE"; // NOT LOCALIZABLE
-    private static String tableHeaderCellOpening = "TH"; // NOT LOCALIZABLE
-    private static String tableHeaderCellClosing = "/TH"; // NOT LOCALIZABLE
-    private static String tableCellOpening = "TD"; // NOT LOCALIZABLE
-    private static String tableCellClosing = "/TD"; // NOT LOCALIZABLE
-    private static String tableRowOpening = LT + "TR" + GT + LFCR; // NOT LOCALIZABLE
-    private static String tableRowClosing = LT + "/TR" + GT + LFCR; // NOT LOCALIZABLE
-    private static String emptyCell = "&nbsp;"; // NOT LOCALIZABLE
+    private static final String tableOpening = "TABLE"; // NOT LOCALIZABLE
+    private static final String tableClosing = "/TABLE"; // NOT LOCALIZABLE
+    private static final String tableHeaderCellOpening = "TH"; // NOT LOCALIZABLE
+    private static final String tableHeaderCellClosing = "/TH"; // NOT LOCALIZABLE
+    private static final String tableCellOpening = "TD"; // NOT LOCALIZABLE
+    private static final String tableCellClosing = "/TD"; // NOT LOCALIZABLE
+    private static final String tableRowOpening = LT + "TR" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String tableRowClosing = LT + "/TR" + GT + LFCR; // NOT LOCALIZABLE
+    private static final String emptyCell = "&nbsp;"; // NOT LOCALIZABLE
 
-    private static String NO_NAME = LocaleMgr.misc.getString("noName");// NOT LOCALIZABLE
+    private static final String NO_NAME = LocaleMgr.misc.getString("noName");// NOT LOCALIZABLE
 
     private ReportModel model;
     private String htmlDirectory;
@@ -213,7 +214,7 @@ public class HtmlGenerator {
 
     private String getBackgroundImage(String OutputDirectory) {
         if (model.getOptions().getUseBackgroundImage()
-                && model.getOptions().getBackgroundImage().length() > 0) {
+                && !model.getOptions().getBackgroundImage().isEmpty()) {
             String fileName = model.getOptions().getBackgroundImage();
             File file = new File(fileName);
             if (!file.canRead())
@@ -238,7 +239,7 @@ public class HtmlGenerator {
                 .getUserObject();
 
         ConceptProperties conceptProperties = (ConceptProperties) properties;
-        ArrayList occurences = conceptProperties.getConcept().getOccurences();
+        List occurences = conceptProperties.getConcept().getOccurences();
 
         Iterator x = occurences.iterator();
         while (x.hasNext()) {
@@ -369,7 +370,7 @@ public class HtmlGenerator {
             throws DbException, IOException {
         ConceptProperties conceptProperties = (ConceptProperties) node.getUserObject();
         //ArrayList         occurences = conceptProperties.getConcept().getOccurences();
-        ArrayList fields = new ArrayList();
+        List fields = new ArrayList();
 
         // init fields
         Enumeration enumeration = node.children();
@@ -719,7 +720,7 @@ public class HtmlGenerator {
                 .getUserObject();
         //ArrayList         occurences = conceptProperties.getConcept().getOccurences();
         DbObject child;
-        ArrayList selectedFields = new ArrayList();
+        List selectedFields = new ArrayList();
 
         Enumeration fieldNodes = node.children();
         while (fieldNodes.hasMoreElements()) {
@@ -768,7 +769,7 @@ public class HtmlGenerator {
     }
 
     private void generateHtmlComponentTableHeader(OutputStream o, CheckTreeNode node,
-            ArrayList fields) throws DbException, IOException {
+            List fields) throws DbException, IOException {
         ConceptComponentProperties componentProperties = (ConceptComponentProperties) node
                 .getUserObject();
 
@@ -776,9 +777,9 @@ public class HtmlGenerator {
         o.write(tableRowOpening.getBytes());
 
         //Enumeration enumeration = node.children();
-        Iterator x = fields.iterator();
-        while (x.hasNext()/* enum.hasMoreElements() */) {
-            CheckTreeNode field = (CheckTreeNode) x.next();//enum.nextElement();
+        /* enum.hasMoreElements() */
+        for (Object object : fields) {
+            CheckTreeNode field = (CheckTreeNode) object;//enum.nextElement();
             ComponentAttributeProperties attributeProperties = (ComponentAttributeProperties) field
                     .getUserObject();
 
@@ -807,7 +808,7 @@ public class HtmlGenerator {
     }
 
     private void generateHtmlComponentTableRow(OutputStream o, CheckTreeNode node,
-            DbObject occurence, ArrayList fields) throws DbException, IOException {
+            DbObject occurence, List fields) throws DbException, IOException {
         ConceptComponentProperties componentProperties = (ConceptComponentProperties) node
                 .getUserObject();
 
@@ -815,9 +816,9 @@ public class HtmlGenerator {
         o.write(tableRowOpening.getBytes());
 
         Enumeration enumeration = node.children();
-        Iterator x = fields.iterator();
-        while (x.hasNext()/* enum.hasMoreElements() */) {
-            CheckTreeNode fieldNode = (CheckTreeNode) x.next();//enum.nextElement();
+        /* enum.hasMoreElements() */
+        for (Object field : fields) {
+            CheckTreeNode fieldNode = (CheckTreeNode) field;//enum.nextElement();
             ComponentAttributeProperties attributeProperties = (ComponentAttributeProperties) fieldNode
                     .getUserObject();
 
@@ -843,9 +844,9 @@ public class HtmlGenerator {
                         String fileName = conceptProperties.getProperty(
                                 ConceptProperties.TABLE_GENERAL_GROUP,
                                 ConceptProperties.FILENAME_PROPERTY_KEY).getValue().toString();
-                        String link = MessageFormat.format(linkOpening, new Object[] { fileName,
+                        String link = MessageFormat.format(linkOpening, new Object[]{fileName,
                                 occurence.getComposite().getName() + "_" + occurence.getName(),
-                                mainFrame }); // NOT LOCALIZABLE
+                                mainFrame}); // NOT LOCALIZABLE
                         o.write(link.getBytes());
                     }
                     writeValue(o, value);
@@ -930,7 +931,7 @@ public class HtmlGenerator {
 
     public void writeStringAttribute(OutputStream o, String attribute, Object value)
             throws IOException, DbException {
-        if ((value != null) && (value.toString().length() > 0)) {
+        if ((value != null) && (!value.toString().isEmpty())) {
             o.write(new String(SPACE + attribute + "=\"").getBytes()); // NOT LOCALIZABLE
             //o.write(borderColor.getBytes());
             writeValue(o, value);
@@ -940,7 +941,7 @@ public class HtmlGenerator {
 
     public void writeStringAttribute(OutputStream o, String attribute, Object value,
             UnitDomain domain) throws IOException, DbException {
-        if ((value != null) && (value.toString().length() > 0)) {
+        if ((value != null) && (!value.toString().isEmpty())) {
             o.write(new String(SPACE + attribute + "=\"").getBytes()); // NOT LOCALIZABLE
             //o.write(borderColor.getBytes());
             writeValue(o, value);
@@ -1062,7 +1063,7 @@ public class HtmlGenerator {
             DbObject occurence) throws DbException, IOException {
         File diagramsDirectory;
 
-        if (!model.getOptions().getDiagramDirectory().equals("")) // NOT LOCALIZABLE
+        if (!model.getOptions().getDiagramDirectory().isEmpty()) // NOT LOCALIZABLE
             diagramsDirectory = new File(htmlDirectory + File.separator
                     + model.getOptions().getDiagramDirectory());
         else

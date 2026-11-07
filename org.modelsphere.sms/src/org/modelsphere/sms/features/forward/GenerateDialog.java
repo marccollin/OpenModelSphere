@@ -52,6 +52,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -86,7 +87,7 @@ public class GenerateDialog extends JDialog {
     private static final String CLOSE = LocaleMgr.screen.getString("Close");
     private static File g_selectedDirectory = null; //last selected output directory property
     private File m_actualDir;
-    private ArrayList m_propertyList = null;
+    private List m_propertyList = null;
     private VariableScope m_variableList;
 
     //called by GenericDDLBasicForwardToolkit
@@ -153,7 +154,7 @@ public class GenerateDialog extends JDialog {
         }
 
         m_propertyList = TemplateDialog.buildPropertyListFromVariables(variableList);
-        if ((m_propertyList == null) || (m_propertyList.isEmpty())) {
+        if (m_propertyList.isEmpty()) {
             jButton2.setEnabled(false);
         } //end if
     } //end init()

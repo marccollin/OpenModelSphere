@@ -77,7 +77,7 @@ public final class MetaClass {
     public final static int NO_UDF = 0x0010;
     public final static int UML_EXTENSIBILITY_FILTER = 0x0020;
 
-    private static HashMap metaClasses = new HashMap();
+    private static Map metaClasses = new HashMap();
     private static int maxLevel = 0;
 
     private String GUIName;
@@ -95,9 +95,7 @@ public final class MetaClass {
     // Called once during application initialization, immediatly after loading
     // all the meta classes.
     public static void initMetaClasses() {
-        Iterator iter = metaClasses.values().iterator();
-        while (iter.hasNext())
-            ((MetaClass) iter.next()).initAux();
+        for (Object o : metaClasses.values()) ((MetaClass) o).initAux();
     }
 
     private void initAux() {
@@ -137,7 +135,7 @@ public final class MetaClass {
             if (field == null) {
                 String msg = MessageFormat.format("({0}/{1}) : Field is null for {2}", // NOT LOCALIZABLE
                         // RuntimeException
-                        new Object[] { new Integer(i), new Integer(metaFields.length), metafield });
+                        new Object[] { i, metaFields.length, metafield });
                 throw new RuntimeException(msg);
             }
 
@@ -146,7 +144,7 @@ public final class MetaClass {
                 String msg = MessageFormat.format("({0}/{1}) : {2} is an invalid type for {3}", // NOT
                         // LOCALIZABLE
                         // RuntimeException
-                        new Object[] { new Integer(i), new Integer(metaFields.length), type,
+                        new Object[] { i, metaFields.length, type,
                                 metafield });
                 throw new RuntimeException(msg); // NOT LOCALIZABLE
                 // RuntimeException
@@ -179,8 +177,8 @@ public final class MetaClass {
         this.flags = flags;
 
         metaClasses.put(jClass.getName(), this);
-        for (int i = 0; i < metaFields.length; i++) {
-            metaFields[i].setMetaClass(this);
+        for (MetaField metaField : metaFields) {
+            metaField.setMetaClass(this);
         }
     }
 
@@ -383,8 +381,8 @@ public final class MetaClass {
     public static boolean[] markCompositePaths(MetaClass[] mClasses) {
         boolean[] processed = new boolean[metaClasses.size()];
         boolean[] selected = new boolean[metaClasses.size()];
-        for (int i = 0; i < mClasses.length; i++) {
-            Enumeration enumeration = mClasses[i].enumMetaClassHierarchy(true);
+        for (MetaClass mClass : mClasses) {
+            Enumeration enumeration = mClass.enumMetaClassHierarchy(true);
             while (enumeration.hasMoreElements())
                 ((MetaClass) enumeration.nextElement()).markCompositePathsAux(processed, selected);
         }
@@ -449,8 +447,8 @@ public final class MetaClass {
         if (includeSuper) {
             boolean[] selected = markComponentsPaths(leafOnly);
             int count = 0;
-            for (int i = 0; i < selected.length; i++) {
-                if (selected[i])
+            for (boolean b : selected) {
+                if (b)
                     count++;
             }
             metaClasses = new MetaClass[count];
@@ -466,15 +464,15 @@ public final class MetaClass {
         } else {
             // leaf only
             int count = 0;
-            for (int i = 0; i < componentMetaClasses.length; i++) {
-                if (componentMetaClasses[i].getSubMetaClasses().length == 0)
+            for (MetaClass componentMetaClass : componentMetaClasses) {
+                if (componentMetaClass.getSubMetaClasses().length == 0)
                     count++;
             }
             metaClasses = new MetaClass[count];
             int loc = 0;
-            for (int i = 0; i < componentMetaClasses.length; i++) {
-                if (componentMetaClasses[i].getSubMetaClasses().length == 0) {
-                    metaClasses[loc] = componentMetaClasses[i];
+            for (MetaClass componentMetaClass : componentMetaClasses) {
+                if (componentMetaClass.getSubMetaClasses().length == 0) {
+                    metaClasses[loc] = componentMetaClass;
                     loc++;
                 }
             }
@@ -486,11 +484,10 @@ public final class MetaClass {
      * Returns all the fields visible on a ScreenView, in the order specified by the method
      * getScreenOrder() of each field.
      */
-    public final ArrayList getScreenMetaFields() {
-        ArrayList fields = new ArrayList();
+    public final List<MetaField> getScreenMetaFields() {
+        List<MetaField> fields = new ArrayList<>();
         int index = 0;
-        for (int i = 0; i < allMetaFields.length; i++) {
-            MetaField field = allMetaFields[i];
+        for (MetaField field : allMetaFields) {
             if (field instanceof MetaRelationN || !field.isVisibleInScreen())
                 continue;
             index = getFieldOrder(field, fields, index);
@@ -507,9 +504,9 @@ public final class MetaClass {
         return LocaleMgr.getResourceEquivalent(guiName);
     }
 
-    private int getFieldOrder(MetaField field, ArrayList fields, int index) {
+    private int getFieldOrder(MetaField field, List fields, int index) {
         String order = field.getScreenOrder();
-        if (order == null || order.length() == 0)
+        if (order == null || order.isEmpty())
             return index;
         char pos = order.charAt(0);
         if (pos != '<' && pos != '>')

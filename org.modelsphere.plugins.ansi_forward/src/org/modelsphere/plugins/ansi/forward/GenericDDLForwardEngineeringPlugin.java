@@ -36,6 +36,7 @@ package org.modelsphere.plugins.ansi.forward;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -219,24 +220,24 @@ public class GenericDDLForwardEngineeringPlugin extends SQLForwardEngineeringPlu
     }
 
     // Concepts IDs
-    public static final Integer GenericDatabaseId = new Integer(1);
-    public static final Integer GenericDataModelId = new Integer(2);
-    public static final Integer GenericTableId = new Integer(3);
-    public static final Integer GenericViewId = new Integer(4);
-    public static final Integer GenericPrimaryId = new Integer(5);
-    public static final Integer GenericUniqueId = new Integer(6);
-    public static final Integer GenericForeignId = new Integer(7);
-    public static final Integer GenericCheckId = new Integer(8);
-    public static final Integer GenericIndexId = new Integer(9);
-    public static final Integer GenericTriggerId = new Integer(10);
-    public static final Integer GenericOperationLibId = new Integer(11);
-    public static final Integer GenericProcedureId = new Integer(12);
-    public static final Integer GenericDomainModelId = new Integer(13);
-    public static final Integer GenericDomainId = new Integer(14);
-    public static final Integer GenericUserId = new Integer(15);
-    public static final Integer GenericColumnId = new Integer(16);
+    public static final int GenericDatabaseId = 1;
+    public static final int GenericDataModelId = 2;
+    public static final int GenericTableId = 3;
+    public static final int GenericViewId = 4;
+    public static final int GenericPrimaryId = 5;
+    public static final int GenericUniqueId = 6;
+    public static final int GenericForeignId = 7;
+    public static final int GenericCheckId = 8;
+    public static final int GenericIndexId = 9;
+    public static final int GenericTriggerId = 10;
+    public static final int GenericOperationLibId = 11;
+    public static final int GenericProcedureId = 12;
+    public static final int GenericDomainModelId = 13;
+    public static final int GenericDomainId = 14;
+    public static final int GenericUserId = 15;
+    public static final int GenericColumnId = 16;
 
-    private static final HashMap ENTRY_POINT_MAP;
+    private static final Map ENTRY_POINT_MAP;
 
     private static final String DATABASE_CREATE_ENTRY = "databaseEntryPoint"; //NOT LOCALIZABLE, template entry point
     private static final String DATAMODEL_CREATE_ENTRY_POINT = "dataModelEntryPoint"; //NOT LOCALIZABLE, template entry point
@@ -345,9 +346,7 @@ public class GenericDDLForwardEngineeringPlugin extends SQLForwardEngineeringPlu
     }
 
     protected Template getFileNotFoundRule() {
-    	String filename = ANSI_TEMPLATE_FILENAME;
-        Template tmpl = new Template(null, "File not found: " + filename); //NOT LOCALIZABLE
-        return tmpl;
+        return new Template(null, "File not found: " + ANSI_TEMPLATE_FILENAME); //NOT LOCALIZABLE
     }
     
 	@Override

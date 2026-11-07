@@ -358,7 +358,7 @@ public final class DbORDomain extends DbORTypeClassifier {
      * @return the "ordered collection" property's Boolean value
      * @deprecated use isOrderedCollection() method instead
      **/
-    public final Boolean getOrderedCollection() throws DbException {
+    private final Boolean getOrderedCollection() throws DbException {
         return (Boolean) get(fOrderedCollection);
     }
 
@@ -368,7 +368,7 @@ public final class DbORDomain extends DbORTypeClassifier {
      * @return boolean
      **/
     public final boolean isOrderedCollection() throws DbException {
-        return getOrderedCollection().booleanValue();
+        return getOrderedCollection();
     }
 
     /**
@@ -413,7 +413,7 @@ public final class DbORDomain extends DbORTypeClassifier {
      * @return the "null possible" property's Boolean value
      * @deprecated use isNull() method instead
      **/
-    public final Boolean getNull() throws DbException {
+    private final Boolean getNull() throws DbException {
         return (Boolean) get(fNull);
     }
 
@@ -423,7 +423,7 @@ public final class DbORDomain extends DbORTypeClassifier {
      * @return boolean
      **/
     public final boolean isNull() throws DbException {
-        return getNull().booleanValue();
+        return getNull();
     }
 
     /**
@@ -432,7 +432,7 @@ public final class DbORDomain extends DbORTypeClassifier {
      * @return the "reference" property's Boolean value
      * @deprecated use isReference() method instead
      **/
-    public final Boolean getReference() throws DbException {
+    private final Boolean getReference() throws DbException {
         return (Boolean) get(fReference);
     }
 
@@ -442,7 +442,7 @@ public final class DbORDomain extends DbORTypeClassifier {
      * @return boolean
      **/
     public final boolean isReference() throws DbException {
-        return getReference().booleanValue();
+        return getReference();
     }
 
     /**
@@ -451,7 +451,7 @@ public final class DbORDomain extends DbORTypeClassifier {
      * @return the "case sensitive" property's Boolean value
      * @deprecated use isCaseSensitive() method instead
      **/
-    public final Boolean getCaseSensitive() throws DbException {
+    private final Boolean getCaseSensitive() throws DbException {
         return (Boolean) get(fCaseSensitive);
     }
 
@@ -461,7 +461,7 @@ public final class DbORDomain extends DbORTypeClassifier {
      * @return boolean
      **/
     public final boolean isCaseSensitive() throws DbException {
-        return getCaseSensitive().booleanValue();
+        return getCaseSensitive();
     }
 
     /**
@@ -534,7 +534,7 @@ public final class DbORDomain extends DbORTypeClassifier {
      * @return boolean
      **/
     public final boolean isPropagated() throws DbException {
-        return getPropagated().booleanValue();
+        return getPropagated();
     }
 
     public MetaClass getMetaClass() {

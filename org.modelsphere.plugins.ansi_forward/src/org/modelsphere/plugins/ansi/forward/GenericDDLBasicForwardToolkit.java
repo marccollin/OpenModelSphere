@@ -37,6 +37,7 @@ import java.awt.Frame;
 import java.io.*;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.*;
@@ -150,9 +151,9 @@ public final class GenericDDLBasicForwardToolkit extends BasicForwardToolkit {
 
             boolean expanded = false;
             int nb = objects.length;
-            ArrayList generatedFiles = new ArrayList();
-            for (int i = 0; i < nb; i++) {
-                DbSemanticalObject object = (DbSemanticalObject) objects[i];
+            List generatedFiles = new ArrayList();
+            for (DbObject dbObject : objects) {
+                DbSemanticalObject object = (DbSemanticalObject) dbObject;
                 int status = generateFile(object, sqlForward, path, info, controller,
                         generatedFiles);
 
@@ -167,7 +168,7 @@ public final class GenericDDLBasicForwardToolkit extends BasicForwardToolkit {
 
         private int generateFile(DbSemanticalObject object, SQLForwardEngineeringPlugin sqlForward,
                 String path, GenerateInFileInfo info, Controller controller,
-                ArrayList generatedFiles) throws DbException { //TODO catch exceptions
+                List generatedFiles) throws DbException { //TODO catch exceptions
             int status = SUCCESSFUL;
 
             StringWriter stringWriter = new StringWriter();
@@ -202,10 +203,7 @@ public final class GenericDDLBasicForwardToolkit extends BasicForwardToolkit {
                     FileWriter fileWriter = new FileWriter(file);
                     fileWriter.write(processed);
                     fileWriter.close();
-                } catch (IOException ex) {
-                    errMsg = ex.toString();
-                    status = ERRORNEOUS;
-                } catch (RuleException ex) {
+                } catch (IOException | RuleException ex) {
                     errMsg = ex.toString();
                     status = ERRORNEOUS;
                 }
@@ -247,9 +245,9 @@ public final class GenericDDLBasicForwardToolkit extends BasicForwardToolkit {
         GenericDDLForwardOptions(GenericDDLBasicForwardToolkit toolkit) {
             m_toolkit = toolkit;
             PluginMgr pluginMgr = PluginMgr.getSingleInstance();
-            ArrayList plugins = pluginMgr.getPluginsRegistry().getActivePluginInstances(
+            List plugins = pluginMgr.getPluginsRegistry().getActivePluginInstances(
                     m_toolkit.getForwardClass());
-            if (plugins != null && plugins.size() > 0)
+            if (plugins != null && !plugins.isEmpty())
                 m_forward = (SQLForwardEngineeringPlugin) plugins.get(0);
         }
 

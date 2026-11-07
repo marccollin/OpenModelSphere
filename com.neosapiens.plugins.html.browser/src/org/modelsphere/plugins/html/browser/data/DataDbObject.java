@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -56,9 +57,9 @@ public class DataDbObject extends DataComponent
 	/** Map containing each field name and its values */
 	private Map<String, String> fields;
 	/** ArrayList containing the components of an object */
-	private ArrayList<DataComponent> components;
+	private final List<DataComponent> components;
 	/** ArrayList containing the diagrams of an object */
-	private ArrayList<DataComponent> diagrams;
+	private final List<DataComponent> diagrams;
 
 	/**
 	 * Constructor
@@ -70,9 +71,9 @@ public class DataDbObject extends DataComponent
 	{
 		super(name);
 
-		fields = new HashMap<String, String>();
-		components = new ArrayList<DataComponent>();
-		diagrams = new ArrayList<DataComponent>();
+		fields = new HashMap<>();
+		components = new ArrayList<>();
+		diagrams = new ArrayList<>();
 	}
 
 	/**
@@ -121,10 +122,7 @@ public class DataDbObject extends DataComponent
 	 */
 	public void removeComponent(DataComponent component)
 	{
-		if (components.contains(component))
-		{
-			components.remove(component);
-		}
+        components.remove(component);
 	}
 
 	/**
@@ -132,7 +130,7 @@ public class DataDbObject extends DataComponent
 	 * 
 	 * @return the components of the DataDbObject
 	 */
-	public ArrayList<DataComponent> getComponents()
+	public List<DataComponent> getComponents()
 	{
 		return components;
 	}
@@ -159,10 +157,7 @@ public class DataDbObject extends DataComponent
 	 */
 	public void removeDiagram(DataComponent diagram)
 	{
-		if (diagrams.contains(diagram))
-		{
-			diagrams.remove(diagram);
-		}
+        diagrams.remove(diagram);
 	}
 
 	/**
@@ -170,7 +165,7 @@ public class DataDbObject extends DataComponent
 	 * 
 	 * @return the diagrams of the DataDbObject
 	 */
-	public ArrayList<DataComponent> getDiagrams()
+	public List<DataComponent> getDiagrams()
 	{
 		return diagrams;
 	}

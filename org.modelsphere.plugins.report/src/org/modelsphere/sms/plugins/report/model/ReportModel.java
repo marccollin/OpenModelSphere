@@ -122,16 +122,16 @@ public class ReportModel {
     
     private List<Concept> getConceptList(Partition[] metaClasses) {
     	List<Concept> conceptList = new ArrayList<Concept>();
-    	List<MetaClass> filteredMetaClasses = getFilteredMetaClasses(); 
-    	
-    	for (int i = 0; i < metaClasses.length; i++) {
-    		MetaClass mc = (MetaClass) metaClasses[i].partId;
-    		boolean isFiltered = filteredMetaClasses.contains(mc); 
-    		
-    		if (! isFiltered) {
-    			Concept concept = new Concept(m_entryPoints, mc);
-    			conceptList.add(concept);
-    		} //end if
+    	List<MetaClass> filteredMetaClasses = getFilteredMetaClasses();
+
+        for (Partition metaClass : metaClasses) {
+            MetaClass mc = (MetaClass) metaClass.partId;
+            boolean isFiltered = filteredMetaClasses.contains(mc);
+
+            if (!isFiltered) {
+                Concept concept = new Concept(m_entryPoints, mc);
+                conceptList.add(concept);
+            } //end if
         } //end for
     	
 		return conceptList;
@@ -189,53 +189,52 @@ public class ReportModel {
     private CheckTreeModel createNewTreeModel(Concept[] concepts) {
         PropertiesTreeNode root = new PropertiesTreeNode(m_options, true, true);
 
-        for (int i = 0; i < concepts.length; i++) {
+        for (Concept concept : concepts) {
             PropertiesTreeNode node;
 
-            node = new PropertiesTreeNode(new ConceptProperties(concepts[i]), true, false);
+            node = new PropertiesTreeNode(new ConceptProperties(concept), true, false);
             root.add(node);
 
-            if (DbSMSDiagram.metaClass.isAssignableFrom(concepts[i].getMetaClass())) {
+            if (DbSMSDiagram.metaClass.isAssignableFrom(concept.getMetaClass())) {
                 // In the case of a diagram, only 2 fields will be available:
                 // Composite and Name
                 PropertiesTreeNode compositeChild = new PropertiesTreeNode(
-                        new ConceptAttributeProperties(concepts[i].getMetaClass(),
+                        new ConceptAttributeProperties(concept.getMetaClass(),
                                 DbSMSDiagram.fComposite), true, true);
                 node.add(compositeChild);
 
                 PropertiesTreeNode nameChild = new PropertiesTreeNode(
-                        new ConceptAttributeProperties(concepts[i].getMetaClass(),
+                        new ConceptAttributeProperties(concept.getMetaClass(),
                                 DbSMSDiagram.fName), true, true);
                 node.add(nameChild);
             } else {
-                MetaField[] fields = concepts[i].getFields();
-                for (int j = 0; j < fields.length; j++) {
+                MetaField[] fields = concept.getFields();
+                for (MetaField field : fields) {
                     PropertiesTreeNode child = new PropertiesTreeNode(
-                            new ConceptAttributeProperties(concepts[i].getMetaClass(), fields[j]),
+                            new ConceptAttributeProperties(concept.getMetaClass(), field),
                             true, true);
                     node.add(child);
                 }
 
-                MetaClass[] components = concepts[i].getComponents();
-                for (int j = 0; j < components.length; j++) {
-                    ArrayList fieldList;
+                MetaClass[] components = concept.getComponents();
+                for (MetaClass component : components) {
+                    List fieldList;
 
-                    if (DbSMSDiagram.metaClass.isAssignableFrom(components[j])) {
+                    if (DbSMSDiagram.metaClass.isAssignableFrom(component)) {
                         fieldList = new ArrayList();
                         //fieldList.add(DbSMSDiagram.fComposite);
                         fieldList.add(DbSMSDiagram.fName);
                     } else
-                        fieldList = components[j].getScreenMetaFields();
+                        fieldList = component.getScreenMetaFields();
 
                     PropertiesTreeNode componentNode = new PropertiesTreeNode(
-                            new ConceptComponentProperties(concepts[i].getMetaClass(),
-                                    DbObject.fComponents, components[j]), true, true);
+                            new ConceptComponentProperties(concept.getMetaClass(),
+                                    DbObject.fComponents, component), true, true);
                     node.add(componentNode);
 
-                    Iterator x = fieldList.iterator();
-                    while (x.hasNext()) {
+                    for (Object o : fieldList) {
                         componentNode.add(new PropertiesTreeNode(new ComponentAttributeProperties(
-                                concepts[i].getMetaClass(), components[j], (MetaField) x.next()),
+                                concept.getMetaClass(), component, (MetaField) o),
                                 true, true));
                     }
                 }

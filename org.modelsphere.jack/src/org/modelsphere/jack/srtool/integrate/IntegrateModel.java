@@ -44,6 +44,7 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.srtool.integrate;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.Icon;
 import javax.swing.tree.DefaultTreeModel;
@@ -235,7 +236,7 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
         int i;
         SrVector childNodes = new SrVector();
         DbObject parent = parentNode.getLeftDbo();
-        ArrayList children = getChildren(parent);
+        List children = getChildren(parent);
         for (i = 0; i < children.size(); i++) {
             DbObject child = (DbObject) children.get(i);
             // If not pre-matched, set explicitly to <no matching object>;
@@ -386,7 +387,7 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
         DbObject leftDbo = node.getLeftDbo();
         DbObject rightDbo = node.getRightDbo();
         int action = getBasicAction(node.getAction());
-        ArrayList propList = new ArrayList();
+        List propList = new ArrayList();
         CheckTreeNode classNode = node.getClassNode();
         if (classNode != null && classNode.isSelected()) {
             int nb = classNode.getChildCount();
@@ -401,7 +402,7 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
             }
         }
         IntegrateProperty[] props = null;
-        if (propList.size() != 0) {
+        if (!propList.isEmpty()) {
             props = new IntegrateProperty[propList.size()];
             propList.toArray(props);
         }
@@ -410,7 +411,7 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
     }
 
     // Compare a single property of <leftDbo> and <rightDbo> and add an antry to the property list if values differ.
-    private void buildProperty(ArrayList propList, DbObject leftDbo, DbObject rightDbo,
+    private void buildProperty(List propList, DbObject leftDbo, DbObject rightDbo,
             CheckTreeNode fieldNode, int action) throws DbException {
         Object property = fieldNode.getUserObject();
         if (property instanceof MetaField[]) { // if navigation path, navigate to the last dbObject of the path.
@@ -485,7 +486,7 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
     }
 
     // This method is used for non standard path (non metafield or metaclass) elements
-    protected void buildCustomProperty(ArrayList propList, DbObject leftDbo, DbObject rightDbo,
+    protected void buildCustomProperty(List propList, DbObject leftDbo, DbObject rightDbo,
             CheckTreeNode fieldNode, int action) throws DbException {
     }
 
@@ -500,7 +501,7 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
     }
 
     private DbObject[] getRelNProperty(DbObject dbo, MetaClass metaClass) throws DbException {
-        ArrayList dboList = new ArrayList();
+        List dboList = new ArrayList();
         if (dbo != null) {
             DbEnumeration dbEnum = dbo.getComponents().elements(metaClass);
             while (dbEnum.hasMoreElements())
@@ -531,7 +532,7 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
             return null;
         if (usePhysName && dbo instanceof DbSemanticalObject) {
             String physName = ((DbSemanticalObject) dbo).getPhysicalName();
-            if (physName != null && physName.length() != 0)
+            if (physName != null && !physName.isEmpty())
                 return physName;
         }
         if (terminologyUtil.isObjectLine(dbo))
@@ -542,14 +543,14 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
 
     protected final boolean equalsName(String name1, String name2) {
         if (name1 == null)
-            return (name2 == null || name2.length() == 0);
+            return (name2 == null || name2.isEmpty());
         if (name2 == null)
-            return (name1.length() == 0);
+            return (name1.isEmpty());
         return (ignoreCase ? name1.equalsIgnoreCase(name2) : name1.equals(name2));
     }
 
     // Add to the property list an entry for each UDF whose values differ between <leftDbo> and <rightDbo>.
-    private void buildUdfs(ArrayList propList, DbObject leftDbo, DbObject rightDbo, int action)
+    private void buildUdfs(List propList, DbObject leftDbo, DbObject rightDbo, int action)
             throws DbException {
         boolean sameUdf = (leftDbo.getProject() == rightDbo.getProject() && leftDbo.getMetaClass() == rightDbo
                 .getMetaClass());
@@ -619,7 +620,7 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
         try {
             leftModel.getDb().beginTrans(Db.READ_TRANS);
             rightModel.getDb().beginTrans(Db.READ_TRANS);
-            ArrayList matchNodes = new ArrayList();
+            List matchNodes = new ArrayList();
             IntegrateNode groupNode = (IntegrateNode) node.getParent();
             int nb = groupNode.getChildCount();
             for (int i = 0; i < nb; i++) {
@@ -938,12 +939,10 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
     }
 
     public final Class getColumnClass(int col) {
-        switch (col) {
-        case IntegrateModel.COL_LEFT:
+        if (col == IntegrateModel.COL_LEFT) {
             return TreeTableModel.class;
-        default:
-            return String.class;
         }
+        return String.class;
     }
 
     public final Object getValueAt(Object node, int col) {
@@ -1043,10 +1042,10 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
                     reportBuffer.append(' ' + LocaleMgr.screen.getString("modified")); //NOT LOCALIZABLE
                 reportBuffer.append('\n'); //NOT LOCALIZABLE
                 if (props != null) {
-                    for (int j = 0; j < props.length; j++) {
-                        reportBuffer.append(valSep + props[j].getName() + valSep
-                                + getValueReportStr(props[j].getLeftVal()) + valSep
-                                + getValueReportStr(props[j].getRightVal()) + '\n'); //NOT LOCALIZABLE
+                    for (IntegrateProperty prop : props) {
+                        reportBuffer.append(valSep + prop.getName() + valSep
+                                + getValueReportStr(prop.getLeftVal()) + valSep
+                                + getValueReportStr(prop.getRightVal()) + '\n'); //NOT LOCALIZABLE
                     }
                 }
                 reportDiffChildren(reportBuffer, node, indent + levelStr);
@@ -1378,8 +1377,8 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
         return true;
     }
 
-    protected ArrayList getChildren(DbObject parent) throws DbException {
-        ArrayList children = new ArrayList();
+    protected List getChildren(DbObject parent) throws DbException {
+        List children = new ArrayList();
         DbEnumeration dbEnum = parent.getComponents().elements();
         while (dbEnum.hasMoreElements()) {
             children.add(dbEnum.nextElement());

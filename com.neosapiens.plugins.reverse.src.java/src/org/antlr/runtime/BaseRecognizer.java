@@ -283,11 +283,6 @@ public abstract class BaseRecognizer {
 			msg = "mismatched input "+getTokenErrorDisplay(e.token)+
 				" expecting set "+mse.expecting;
 		}
-		else if ( e instanceof MismatchedNotSetException ) {
-			MismatchedNotSetException mse = (MismatchedNotSetException)e;
-			msg = "mismatched input "+getTokenErrorDisplay(e.token)+
-				" expecting set "+mse.expecting;
-		}
 		else if ( e instanceof FailedPredicateException ) {
 			FailedPredicateException fpe = (FailedPredicateException)e;
 			msg = "rule "+fpe.ruleName+" failed predicate: {"+
@@ -710,7 +705,7 @@ public abstract class BaseRecognizer {
 	 *  This is very useful for error messages and for context-sensitive
 	 *  error recovery.
 	 */
-	public List getRuleInvocationStack() {
+	public List<String> getRuleInvocationStack() {
 		String parserClassName = getClass().getName();
 		return getRuleInvocationStack(new Throwable(), parserClassName);
 	}
@@ -722,10 +717,10 @@ public abstract class BaseRecognizer {
 	 *
 	 *  TODO: move to a utility class or something; weird having lexer call this
 	 */
-	public static List getRuleInvocationStack(Throwable e,
+	public static List<String> getRuleInvocationStack(Throwable e,
 											  String recognizerClassName)
 	{
-		List rules = new ArrayList();
+		List<String> rules = new ArrayList<>();
 		StackTraceElement[] stack = e.getStackTrace();
 		int i = 0;
 		for (i=stack.length-1; i>=0; i--) {
@@ -771,9 +766,9 @@ public abstract class BaseRecognizer {
 	/** A convenience method for use most often with template rewrites.
 	 *  Convert a List<Token> to List<String>
 	 */
-	public List toStrings(List tokens) {
+	public List<String> toStrings(List tokens) {
 		if ( tokens==null ) return null;
-		List strings = new ArrayList(tokens.size());
+		List<String> strings = new ArrayList(tokens.size());
 		for (int i=0; i<tokens.size(); i++) {
 			strings.add(((Token)tokens.get(i)).getText());
 		}
@@ -795,11 +790,11 @@ public abstract class BaseRecognizer {
 			state.ruleMemo[ruleIndex] = new HashMap();
 		}
 		Integer stopIndexI =
-			(Integer)state.ruleMemo[ruleIndex].get(new Integer(ruleStartIndex));
+			(Integer)state.ruleMemo[ruleIndex].get(ruleStartIndex);
 		if ( stopIndexI==null ) {
 			return MEMO_RULE_UNKNOWN;
 		}
-		return stopIndexI.intValue();
+		return stopIndexI;
 	}
 
 	/** Has this rule already parsed input at the current index in the
@@ -842,9 +837,7 @@ public abstract class BaseRecognizer {
 			System.err.println("!!!!!!!!! memo size is "+state.ruleMemo.length+", but rule index is "+ruleIndex);
 		}
 		if ( state.ruleMemo[ruleIndex]!=null ) {
-			state.ruleMemo[ruleIndex].put(
-				new Integer(ruleStartIndex), new Integer(stopTokenIndex)
-			);
+			state.ruleMemo[ruleIndex].put(ruleStartIndex, stopTokenIndex);
 		}
 	}
 

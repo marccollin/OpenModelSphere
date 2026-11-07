@@ -83,7 +83,7 @@ public abstract class Modifier implements Serializable {
     public void setActualSubRules(Hashtable table, boolean editCodesAllowed) throws RuleException {
         // extract rule names from m_tmpl
         TemplateEnumeration enumeration = new TemplateEnumeration(m_format);
-        ArrayList list = new ArrayList();
+        List list = new ArrayList();
 
         while (enumeration.hasMoreElements()) {
             StringStructure ss = (StringStructure) enumeration.nextElement();

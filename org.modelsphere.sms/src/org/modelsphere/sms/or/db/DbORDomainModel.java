@@ -119,7 +119,7 @@ public final class DbORDomainModel extends DbORModel {
      * 
      * @param composite
      *            org.modelsphere.jack.baseDb.db.DbObject
-     * @param targetsystem
+     * @param targetSystem
      *            org.modelsphere.sms.db.DbSMSTargetSystem
      **/
     public DbORDomainModel(DbObject composite, DbSMSTargetSystem targetSystem) throws DbException {
@@ -132,7 +132,7 @@ public final class DbORDomainModel extends DbORModel {
     }
 
     /**
-     * @param metareln
+     * @param metaRelN
      *            org.modelsphere.jack.baseDb.meta.MetaRelationN
      * @return boolean
      **/

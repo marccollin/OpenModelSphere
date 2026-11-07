@@ -111,11 +111,7 @@ public final class SetupTargetSystemAction extends AbstractApplicationAction imp
                 // changes)
                 if (project.getDb() instanceof DbRAM && project.getRamFileName() != null)
                     name = StringUtil.getFileName(project.getRamFileName()); // fixed
-                // (not
-                // refreshed)
-                // RAM
-                // file
-                // name
+                // (not refreshed)  RAM  file name
                 String titlePattern = MessageFormat.format(LocaleMgr.screen
                         .getString("0TargetSystem"), new Object[] { name });
                 frame = new PropertiesFrame(SrScreenContext.singleton, project,

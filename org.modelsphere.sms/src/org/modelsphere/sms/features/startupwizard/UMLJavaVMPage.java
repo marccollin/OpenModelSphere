@@ -36,7 +36,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
@@ -191,6 +193,82 @@ class UMLJavaVMPage extends AbstractPage {
     }
 
     private String getJREID(File jreHome) throws IOException {
+        String id = null;
+
+        if (jreHome != null && jreHome.exists()) {
+            // Java 8 et antérieur
+            File rtFile = new File(jreHome, "lib" + File.separator + "rt.jar");
+            if (rtFile.exists()) {
+                id = getJREIDFromRtJar(rtFile, jreHome);
+            } else {
+
+                File releaseFile = new File(jreHome, "release");
+                if (releaseFile.exists()) {
+                    id = getJREIDFromReleaseFile(releaseFile, jreHome);
+                } else {
+                    // Fallback aux propriétés système
+                    id = getJREIDFromSystemProperties(jreHome);
+                }
+            }
+        }
+
+        if (id == null) {
+            id = "<html><body> <br> <br> </body></html>";
+        }
+        return id;
+    }
+
+    private String getJREIDFromRtJar(File rtFile, File jreHome) throws IOException {
+        try (JarFile rtjar = new JarFile(rtFile)) {
+            Manifest manifest = rtjar.getManifest();
+            if (manifest != null) {
+                Attributes attributes = manifest.getMainAttributes();
+                String vendor = attributes.getValue("Implementation-Vendor");
+                String title = attributes.getValue("Implementation-Title");
+                String version = attributes.getValue("Implementation-Version");
+
+                if (title == null) title = "";
+                if (version == null) version = "";
+                if (vendor == null) vendor = "";
+
+                return "<html><body><b>" + title + " " + version + "</b><br>" +
+                        "<i>" + vendor + "</i><br>" +
+                        jreHome.getPath() + "</body></html>";
+            }
+        }
+        return null;
+    }
+
+    private String getJREIDFromReleaseFile(File releaseFile, File jreHome) throws IOException {
+        Properties releaseProps = new Properties();
+        try (FileInputStream fis = new FileInputStream(releaseFile)) {
+            releaseProps.load(fis);
+        }
+
+        String version = releaseProps.getProperty("JAVA_VERSION", "Unknown");
+        String vendor = releaseProps.getProperty("IMPLEMENTOR", "Unknown");
+        String title = "Java Runtime Environment";
+
+        // Nettoyer les guillemets
+        version = version.replace("\"", "");
+        vendor = vendor.replace("\"", "");
+
+        return "<html><body><b>" + title + " " + version + "</b><br>" +
+                "<i>" + vendor + "</i><br>" +
+                jreHome.getPath() + "</body></html>";
+    }
+
+    private String getJREIDFromSystemProperties(File jreHome) {
+        String vendor = System.getProperty("java.vendor", "Unknown");
+        String title = System.getProperty("java.runtime.name", "Java");
+        String version = System.getProperty("java.version", "Unknown");
+
+        return "<html><body><b>" + title + " " + version + "</b><br>" +
+                "<i>" + vendor + "</i><br>" +
+                jreHome.getPath() + "</body></html>";
+    }
+
+    private String getJREID_old(File jreHome) throws IOException {
         String id = null;
         if (jreHome != null && jreHome.exists()) {
             File rtfile = new File(jreHome, "lib" + File.separator + "rt.jar");

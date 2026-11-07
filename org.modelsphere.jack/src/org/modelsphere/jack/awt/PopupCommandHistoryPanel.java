@@ -180,10 +180,10 @@ public class PopupCommandHistoryPanel extends PopupButton {
         DefaultListModel model = (DefaultListModel) getList().getModel();
         model.removeAllElements();
         Object[] commands = getValues();
-        if (commands == null || commands.length == 0)
+        if (commands == null)
             return;
-        for (int i = 0; i < commands.length; i++) {
-            model.addElement(commands[i]);
+        for (Object command : commands) {
+            model.addElement(command);
         }
     }
 
@@ -195,8 +195,7 @@ public class PopupCommandHistoryPanel extends PopupButton {
     }
 
     private void updateCount(int index) {
-        actionCountLabel.setText(MessageFormat.format(kActionCount, new Object[] { new Integer(
-                index) }));
+        actionCountLabel.setText(MessageFormat.format(kActionCount, new Object[] {index}));
     }
 
     protected final void updateItems(String[] values) {
@@ -215,7 +214,7 @@ public class PopupCommandHistoryPanel extends PopupButton {
                     preventEvent = false;
                 } else if (propertyName.equals("enabled")) // NOT LOCALIZABLE,
                     // property key
-                    setEnabled(((Boolean) e.getNewValue()).booleanValue());
+                    setEnabled((Boolean) e.getNewValue());
                 else if (propertyName.equals(Action.SHORT_DESCRIPTION))
                     setToolTipText(e.getNewValue() == null ? "" : (String) e.getNewValue());
                 else if (propertyName.equals(AbstractApplicationAction.VISIBLE)
@@ -227,11 +226,10 @@ public class PopupCommandHistoryPanel extends PopupButton {
     }
 
     private void updateVisible() {
-        if (getAction() instanceof AbstractApplicationAction) {
+        if (getAction() instanceof AbstractApplicationAction action) {
             boolean newValue = true;
-            AbstractApplicationAction action = (AbstractApplicationAction) getAction();
             if ((action.getVisibilityMode() & AbstractApplicationAction.VISIBILITY_ALWAYS_VISIBLE_IN_TOOLBAR) == 0)
-                newValue = action.isVisible() && newValue;
+                newValue = action.isVisible();
             else if (!action.getToolBarVisibilityOption())
                 newValue = false;
             setVisible(newValue);
@@ -243,7 +241,7 @@ public class PopupCommandHistoryPanel extends PopupButton {
     protected final void configurePropertiesFromAction(Action a) {
         setToolTipText(a != null ? (String) a.getValue(Action.SHORT_DESCRIPTION) : null);
         setIcon(a != null ? (Icon) ((UndoRedoAbstractAction) a).getValue(Action.SMALL_ICON) : null);
-        setEnabled(a != null ? a.isEnabled() : false);
+        setEnabled(a != null && a.isEnabled());
         updateItems(a != null ? ((UndoRedoAbstractAction) a).getCommandList() : null);
         ActionHelpPropertySupport.registerHelpSupport(this, (AbstractApplicationAction) a);
         updateVisible();

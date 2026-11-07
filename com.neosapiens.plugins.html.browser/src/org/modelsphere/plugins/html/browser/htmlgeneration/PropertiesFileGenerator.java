@@ -34,6 +34,7 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.htmlgeneration;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -72,7 +73,7 @@ public class PropertiesFileGenerator
 	public PropertiesFileGenerator(Map<String, String> properties, int index)
 	{
 		this.properties = properties;
-		this.filepath = HTMLGenerationHelper.getProjectFolder() + "\\data\\properties_" + index + ".html";
+		this.filepath = HTMLGenerationHelper.getProjectFolder() + File.separator + "data" + File.separator + "properties_" + index + ".html";
 	}
 
 	/**

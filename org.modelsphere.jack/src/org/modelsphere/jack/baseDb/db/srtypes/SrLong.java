@@ -54,11 +54,11 @@ public final class SrLong extends SrType {
     }
 
     public SrLong(Long value) {
-        this.value = value.longValue();
+        this.value = value;
     }
 
     public final Object toApplType() {
-        return new Long(value);
+        return value;
     }
 
     public boolean equals(Object obj) {

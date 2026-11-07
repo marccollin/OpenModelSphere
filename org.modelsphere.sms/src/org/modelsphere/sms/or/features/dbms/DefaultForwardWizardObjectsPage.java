@@ -339,7 +339,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
         occurrenceTreePanel.add("empty", new JScrollPane()); //NOT LOCALIZABLE
         CardLayout layout = (CardLayout) occurrenceTreePanel.getLayout();
         cardLayoutLastItem++;
-        cardLayoutComponentTable.put("empty", new Integer(cardLayoutLastItem - 1)); //NOT LOCALIZABLE, associate name & rank
+        cardLayoutComponentTable.put("empty", cardLayoutLastItem - 1); //NOT LOCALIZABLE, associate name & rank
 
         // For unowned objects...
         for (int i = 0; i < scope.length; i++) {
@@ -687,7 +687,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
 
     private static final class GenerationParametersAction extends AbstractAction {
         private VariableScope m_variableScope;
-        private ArrayList m_propertyList;
+        private List m_propertyList;
         WizardPage m_wizardPage = null;
 
         GenerationParametersAction() {
@@ -701,7 +701,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
             //ArrayList plugins = mgr.getPluginsRegistry().getActivePluginInstances(
             //        toolkit.getForwardClass());
             SQLForwardEngineeringPlugin sqlForward = null;
-            if (plugins != null && plugins.size() > 0)
+            if (plugins != null && !plugins.isEmpty())
                 sqlForward = (SQLForwardEngineeringPlugin) plugins.get(0);
 
             if (sqlForward == null) {

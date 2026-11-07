@@ -43,6 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.beans.impl;
 
+
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.BeanInfo;
@@ -52,6 +53,7 @@ import org.modelsphere.jack.awt.beans.BeanDialog;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 // TODO : Support two modes
 //  (1) immediate change mode; close button to close dialog (Already supported)
@@ -68,11 +70,11 @@ public class PropertyDialog extends JDialog {
     //
     // PUBLIC CONSTRUCTORS
     //
-    public PropertyDialog(JFrame owner, String title, String buttonText, ArrayList propertyList) {
+    public PropertyDialog(JFrame owner, String title, String buttonText, List propertyList) {
         this(owner, title, buttonText, new BeanDialogImpl(propertyList));
     }
 
-    public PropertyDialog(JDialog owner, String title, String buttonText, ArrayList propertyList) {
+    public PropertyDialog(JDialog owner, String title, String buttonText, List propertyList) {
         this(owner, title, buttonText, new BeanDialogImpl(propertyList));
     }
 
@@ -177,7 +179,7 @@ public class PropertyDialog extends JDialog {
         mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // create propertyList
-        ArrayList propertyList = new ArrayList();
+        List propertyList = new ArrayList();
         propertyList.add(new AbstractProperty.BooleanProperty("generate user", true)); // NOT LOCALIZABLE, unit test
         propertyList.add(new AbstractProperty.BooleanProperty("physical specs", false)); // NOT LOCALIZABLE, unit test
 
@@ -188,10 +190,8 @@ public class PropertyDialog extends JDialog {
         dialog.setVisible(true);
 
         // display the values
-        java.util.Iterator iter = propertyList.iterator();
-        while (iter.hasNext()) {
-            AbstractProperty.BooleanProperty property = (AbstractProperty.BooleanProperty) iter
-                    .next();
+        for (Object o : propertyList) {
+            AbstractProperty.BooleanProperty property = (AbstractProperty.BooleanProperty) o;
             Serializable value = property.getValue();
             System.out.println(value.toString());
         }// end while

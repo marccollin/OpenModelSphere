@@ -9,8 +9,8 @@ GENERAL
 =======
 
   
-  1) Class DbSMSLinkModel, French plural name must be "modèles de lien", 
-     and not "modèle de lienss"
+  1) Class DbSMSLinkModel, French plural name must be "modÃ¨les de lien",
+     and not "modÃ¨le de lienss"
 
   2) Extract code from Meta-Model's method body, and replace it in 
      DbInitialization.java

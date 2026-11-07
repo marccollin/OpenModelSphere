@@ -60,7 +60,7 @@ public abstract class ForwardWorker extends Worker {
 
     // Check if some files have been overwritten by other ones in the generation
     // process
-    private int checkDuplicates(ArrayList generatedFiles) {
+    private int checkDuplicates(List generatedFiles) {
         // sort them on their names
         int len = generatedFiles.size();
         Object[] fileArray = generatedFiles.toArray();
@@ -79,7 +79,7 @@ public abstract class ForwardWorker extends Worker {
     }
 
     // Display how many files have been generated
-    protected void terminateRunJob(JackForwardEngineeringPlugin forward, ArrayList generatedFiles) {
+    protected void terminateRunJob(JackForwardEngineeringPlugin forward, List generatedFiles) {
         // get controller
         Controller controller = getController();
         String message;
@@ -92,7 +92,7 @@ public abstract class ForwardWorker extends Worker {
                 controller.println(message);
             } else {
                 String pattern = WARNING_SOME_FILES_DUPLICATED;
-                message = MessageFormat.format(pattern, new Object[] { new Integer(nbDuplicates) });
+                message = MessageFormat.format(pattern, new Object[] { nbDuplicates });
                 controller.println(message);
             } // end if
 

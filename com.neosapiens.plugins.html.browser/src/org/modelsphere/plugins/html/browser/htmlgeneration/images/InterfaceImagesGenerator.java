@@ -64,7 +64,7 @@ public class InterfaceImagesGenerator
 	 */
 	public InterfaceImagesGenerator()
 	{
-		folderpath = HTMLGenerationHelper.getProjectFolder() + "\\images\\";
+        folderpath = HTMLGenerationHelper.getProjectFolder() + File.separator + "images" + File.separator;
 	}
 
 	/**

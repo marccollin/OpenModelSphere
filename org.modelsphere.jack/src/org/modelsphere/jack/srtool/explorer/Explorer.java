@@ -77,7 +77,7 @@ public class Explorer extends DefaultTreeModel implements DbRefreshListener {
     public static final String ROOT = "ROOT"; // NOT LOCALIZABLE, property key
     public static final String DB_RAM = "RAM"; // NOT LOCALIZABLE, property key
 
-    private ArrayList tooltipsFields = new ArrayList();
+    private List tooltipsFields = new ArrayList();
 
     class PreferencesListener implements PropertyChangeListener {
         public void propertyChange(PropertyChangeEvent evt) {
@@ -167,16 +167,16 @@ public class Explorer extends DefaultTreeModel implements DbRefreshListener {
             RAMNode.setIcon(kLocalIcon);
             loadChildren(RAMNode);
             Db[] dbs = Db.getDbs();
-            for (int i = 0; i < dbs.length; i++) {
-                if (dbs[i] instanceof DbRAM)
+            for (Db db : dbs) {
+                if (db instanceof DbRAM)
                     continue;
                 if (rootNode == null) {
                     rootNode = new DynamicNode(ROOT);
                     rootNode.setHasLoaded();
                     rootNode.add(RAMNode);
                 }
-                DynamicNode dbNode = new DynamicNode(dbs[i]);
-                dbNode.setDisplayText(dbs[i].getDBMSName());
+                DynamicNode dbNode = new DynamicNode(db);
+                dbNode.setDisplayText(db.getDBMSName());
                 dbNode.setIcon(kRepositoryIcon);
                 rootNode.add(dbNode);
                 loadChildren(dbNode);
@@ -310,13 +310,13 @@ public class Explorer extends DefaultTreeModel implements DbRefreshListener {
                 }
                 else if (!groupNode.toString().equals(group.name)){
                 	boolean groupFound = false;
-                	for (int i = 0; i < groupNodeList.size(); i++){
-                		groupNode = (DynamicNode)groupNodeList.get(i);
-                		if (groupNode.toString().equals(group.name)){
-                			groupFound = true;
-                			break;
-                		}
-                	}
+                    for (Object o : groupNodeList) {
+                        groupNode = (DynamicNode) o;
+                        if (groupNode.toString().equals(group.name)) {
+                            groupFound = true;
+                            break;
+                        }
+                    }
                 	if (!groupFound){
                         groupNode = createGroupNode(group);
                         node.add(groupNode);
@@ -715,7 +715,7 @@ public class Explorer extends DefaultTreeModel implements DbRefreshListener {
                     removeNode(node);
             } else if (evt.op == Db.ADD_TO_RELN) {
                 // DbObject added or with a new parent: if its new parent has
-                // its chidren loaded,
+                // its children loaded,
                 // add a node for the new child.
                 getDynamicNode(evt.neighbor, false);
             } else { // Db.REINSERT_IN_RELN

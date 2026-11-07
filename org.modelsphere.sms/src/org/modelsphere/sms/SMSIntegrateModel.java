@@ -46,6 +46,7 @@ package org.modelsphere.sms;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.Icon;
 
@@ -645,8 +646,8 @@ public class SMSIntegrateModel extends IntegrateModel {
     // the tables, in second pass, the associations; this is because the
     // associations
     // can be matched only if their tables are already matched.
-    protected final ArrayList getChildren(DbObject parent) throws DbException {
-        ArrayList children = new ArrayList();
+    protected final List getChildren(DbObject parent) throws DbException {
+        List children = new ArrayList();
         DbEnumeration dbEnum = parent.getComponents().elements();
         while (dbEnum.hasMoreElements()) {
             DbObject child = dbEnum.nextElement();
@@ -1090,19 +1091,19 @@ public class SMSIntegrateModel extends IntegrateModel {
                 return true;
 
             if (DbORAbsTable.metaClass.isAssignableFrom(compositeMetaClass)) {
-                ArrayList leftColumns = new ArrayList();
-                for (int i = 0; i < leftVal.length; i++) {
+                List leftColumns = new ArrayList();
+                for (DbObject dbObject : leftVal) {
                     // Check sequence only for objects with a corresponding
                     // matching object
                     // (avoid returning not equals if column added or removed)
-                    if (leftVal[i] instanceof DbORColumn && leftVal[i].getMatchingObject() != null)
-                        leftColumns.add(leftVal[i]);
+                    if (dbObject instanceof DbORColumn && dbObject.getMatchingObject() != null)
+                        leftColumns.add(dbObject);
                 }
-                ArrayList rightColumns = new ArrayList();
-                for (int i = 0; i < rightVal.length; i++) {
-                    if (rightVal[i] instanceof DbORColumn
-                            && rightVal[i].getMatchingObject() != null)
-                        rightColumns.add(rightVal[i]);
+                List rightColumns = new ArrayList();
+                for (DbObject dbObject : rightVal) {
+                    if (dbObject instanceof DbORColumn
+                            && dbObject.getMatchingObject() != null)
+                        rightColumns.add(dbObject);
                 }
                 // if (leftColumns.size() != rightColumns.size())
                 // return true; // Component added or removed
@@ -1115,17 +1116,17 @@ public class SMSIntegrateModel extends IntegrateModel {
                 }
                 return true;
             } else if (DbORProcedure.metaClass.isAssignableFrom(compositeMetaClass)) {
-                ArrayList leftParams = new ArrayList();
-                for (int i = 0; i < leftVal.length; i++) {
-                    if (leftVal[i] instanceof DbORParameter
-                            && leftVal[i].getMatchingObject() != null)
-                        leftParams.add(leftVal[i]);
+                List leftParams = new ArrayList();
+                for (DbObject dbObject : leftVal) {
+                    if (dbObject instanceof DbORParameter
+                            && dbObject.getMatchingObject() != null)
+                        leftParams.add(dbObject);
                 }
-                ArrayList rightParams = new ArrayList();
-                for (int i = 0; i < rightVal.length; i++) {
-                    if (rightVal[i] instanceof DbORParameter
-                            && rightVal[i].getMatchingObject() != null)
-                        rightParams.add(rightVal[i]);
+                List rightParams = new ArrayList();
+                for (DbObject dbObject : rightVal) {
+                    if (dbObject instanceof DbORParameter
+                            && dbObject.getMatchingObject() != null)
+                        rightParams.add(dbObject);
                 }
                 // if (leftParams.size() != rightParams.size())
                 // return true; // Component added or removed
@@ -1215,12 +1216,12 @@ public class SMSIntegrateModel extends IntegrateModel {
             if (DbORAbsTable.metaClass.isAssignableFrom(value[0].getComposite().getMetaClass())) {
                 StringBuffer buffer = new StringBuffer();
                 boolean first = true;
-                for (int i = 0; i < value.length; i++) {
-                    if (!(value[i] instanceof DbORColumn))
+                for (DbObject dbObject : value) {
+                    if (!(dbObject instanceof DbORColumn))
                         continue;
                     if (!first)
                         buffer.append(", ");
-                    buffer.append(getName(value[i]));
+                    buffer.append(getName(dbObject));
                     first = false;
                 }
                 return buffer.toString();
@@ -1228,12 +1229,12 @@ public class SMSIntegrateModel extends IntegrateModel {
                     .getMetaClass())) {
                 StringBuffer buffer = new StringBuffer();
                 boolean first = true;
-                for (int i = 0; i < value.length; i++) {
-                    if (!(value[i] instanceof DbORParameter))
+                for (DbObject dbObject : value) {
+                    if (!(dbObject instanceof DbORParameter))
                         continue;
                     if (!first)
                         buffer.append(", ");
-                    buffer.append(getName(value[i]));
+                    buffer.append(getName(dbObject));
                     first = false;
                 }
                 return buffer.toString();
@@ -1627,7 +1628,7 @@ public class SMSIntegrateModel extends IntegrateModel {
 
     // This method is used for non standard path (non metafield or metaclass)
     // elements
-    protected void buildCustomProperty(ArrayList propList, DbObject leftDbo, DbObject rightDbo,
+    protected void buildCustomProperty(List propList, DbObject leftDbo, DbObject rightDbo,
             CheckTreeNode fieldNode, int action) throws DbException {
         if (!isSynchro)
             return;
@@ -1828,7 +1829,7 @@ public class SMSIntegrateModel extends IntegrateModel {
             return null;
 
         CheckTreeNode classNode = new CheckTreeNode(metaClass, true, true, term);
-        ArrayList screenFields = metaClass.getScreenMetaFields();
+        List screenFields = metaClass.getScreenMetaFields();
         int i;
         for (i = 0; i < screenFields.size(); i++) {
             MetaField metaField = (MetaField) screenFields.get(i);

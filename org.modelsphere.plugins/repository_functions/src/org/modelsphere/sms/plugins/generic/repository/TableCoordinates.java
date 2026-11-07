@@ -48,6 +48,7 @@ import java.awt.Rectangle;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
+import java.lang.reflect.Method;
 
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
@@ -101,7 +102,7 @@ public final class TableCoordinates extends UserDefinedField {
             DefaultMainFrame frame = null;
             try {
                 Class claz = Class.forName("org.modelsphere.sms.MainFrame"); //NOT LOCALIZABLE
-                java.lang.reflect.Method method = claz.getDeclaredMethod("getSingleton",
+                Method method = claz.getDeclaredMethod("getSingleton",
                         new Class[] {}); //NOT LOCALIZABLE
                 frame = (DefaultMainFrame) method.invoke(null, new Object[] {});
             } catch (Exception ex) {

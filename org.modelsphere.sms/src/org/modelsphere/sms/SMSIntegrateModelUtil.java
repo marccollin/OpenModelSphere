@@ -44,6 +44,7 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -497,7 +498,7 @@ public class SMSIntegrateModelUtil {
 
         CheckTreeNode classNode = new CheckTreeNode(metaClass, true, true, terminology
                 .getTerm(metaClass));
-        ArrayList screenFields = metaClass.getScreenMetaFields();
+        List screenFields = metaClass.getScreenMetaFields();
         int i;
         for (i = 0; i < screenFields.size(); i++) {
             MetaField metaField = (MetaField) screenFields.get(i);

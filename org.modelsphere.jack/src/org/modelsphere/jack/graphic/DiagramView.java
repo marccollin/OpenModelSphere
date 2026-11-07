@@ -48,6 +48,7 @@ import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.*;
 
@@ -80,7 +81,7 @@ public class DiagramView extends JPanel implements Scrollable, MouseListener, Mo
     private int drawingMode = GraphicComponent.DRAW_WHOLE;
     private boolean pageBreak = true;
     private float zoomFactor = 1.0f;
-    private HashMap fontTable = null; // accumulates the zoomed fonts for the current zoom factor.
+    private Map<Font, Font> fontTable = null; // accumulates the zoomed fonts for the current zoom factor.
 
     private Tool currentTool = null; // a DiagramView may have a Tool without a ToolGroup.
     private ToolButtonGroup toolGroup = null;
@@ -163,7 +164,7 @@ public class DiagramView extends JPanel implements Scrollable, MouseListener, Mo
     private void initGrid() {
         PropertiesSet options = PropertiesManager.APPLICATION_PROPERTIES_SET;
         boolean showGrid = !options.getPropertyBoolean(Grid.class, Grid.PROPERTY_HIDE_GRID,
-                new Boolean(Grid.PROPERTY_HIDE_GRID_DEFAULT));
+                Grid.PROPERTY_HIDE_GRID_DEFAULT);
         boolean damaged = false;
         if (grid != null) {
             grid.flush();
@@ -425,7 +426,7 @@ public class DiagramView extends JPanel implements Scrollable, MouseListener, Mo
         if (zoomFactor == 1.0f)
             return font;
         if (fontTable == null)
-            fontTable = new HashMap();
+            fontTable = new HashMap<>();
         Font newFont = (Font) fontTable.get(font);
         if (newFont == null) { // first time for this font
             FontMetrics fm = g.getFontMetrics(font);

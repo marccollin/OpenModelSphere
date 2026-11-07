@@ -34,6 +34,7 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.plugins.generic.validation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -289,59 +290,59 @@ public class GenericValidationPlugin extends ORValidationPlugin implements Plugi
     };
 
     private static Object[][] physNameMaxLen = new Object[][] {
-            new Object[] { DbGETable.metaClass.getGUIName(false, false), new Integer(30) },
-            new Object[] { DbGEColumn.metaClass.getGUIName(false, false), new Integer(30) },
-            new Object[] { DbGEView.metaClass.getGUIName(false, false), new Integer(30) },
-            new Object[] { DbGEPrimaryUnique.metaClass.getGUIName(false, false), new Integer(30) },
-            new Object[] { DbGEForeign.metaClass.getGUIName(false, false), new Integer(30) },
-            new Object[] { DbGECheck.metaClass.getGUIName(false, false), new Integer(30) },
-            new Object[] { DbGEIndex.metaClass.getGUIName(false, false), new Integer(30) },
-            new Object[] { DbORDomain.metaClass.getGUIName(false, false), new Integer(30) },
-            new Object[] { DbGETrigger.metaClass.getGUIName(false, false), new Integer(30) },
-            new Object[] { DbGEProcedure.metaClass.getGUIName(false, false), new Integer(30) },
-            new Object[] { DbGEParameter.metaClass.getGUIName(false, false), new Integer(30) },
-            new Object[] { DbGEDatabase.metaClass.getGUIName(false, false), new Integer(30) }, };
+            new Object[] { DbGETable.metaClass.getGUIName(false, false), 30},
+            new Object[] { DbGEColumn.metaClass.getGUIName(false, false), 30},
+            new Object[] { DbGEView.metaClass.getGUIName(false, false), 30},
+            new Object[] { DbGEPrimaryUnique.metaClass.getGUIName(false, false), 30},
+            new Object[] { DbGEForeign.metaClass.getGUIName(false, false), 30},
+            new Object[] { DbGECheck.metaClass.getGUIName(false, false), 30},
+            new Object[] { DbGEIndex.metaClass.getGUIName(false, false), 30},
+            new Object[] { DbORDomain.metaClass.getGUIName(false, false), 30},
+            new Object[] { DbGETrigger.metaClass.getGUIName(false, false), 30},
+            new Object[] { DbGEProcedure.metaClass.getGUIName(false, false), 30},
+            new Object[] { DbGEParameter.metaClass.getGUIName(false, false), 30},
+            new Object[] { DbGEDatabase.metaClass.getGUIName(false, false), 30}, };
 
     private static Object[][] dataTypes = new Object[][] {
-            new Object[] { "BINARY", new Integer(NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "BIT", new Integer(NO_PRECISION | NO_SCALE | NOT_INDEXABLE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "BLOB", new Integer(NO_PRECISION | NO_SCALE | NOT_INDEXABLE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "BOOLEAN", new Integer(NO_PRECISION | NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "BYTE", new Integer(NO_SCALE | NOT_INDEXABLE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "CHAR", new Integer(NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "CHAR VARYING", new Integer(PRECISION_REQUIRED | NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "CHARACTER", new Integer(NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "CHARACTER VARYING", new Integer(PRECISION_REQUIRED | NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "CLOB", new Integer(NO_PRECISION | NO_SCALE | NOT_INDEXABLE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "DATE", new Integer(NO_PRECISION | NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "DATE TIME", new Integer(NO_PRECISION | NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "DEC", new Integer(HAS_SCALE_IF) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "DECIMAL", new Integer(HAS_SCALE_IF) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "DOUBLE PRECISION", new Integer(NO_PRECISION | NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "FLOAT", new Integer(NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "INT", new Integer(NO_PRECISION | NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "INTEGER", new Integer(NO_PRECISION | NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "INTERVAL", new Integer(0) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "LARGE VARBINARY", new Integer(NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "LONG INTEGER", new Integer(NO_PRECISION | NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "LONG VARCHAR", new Integer(NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "MONEY", new Integer(HAS_SCALE_IF) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "NCHAR", new Integer(NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "NUMERIC", new Integer(HAS_SCALE_IF) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "NVARCHAR", new Integer(PRECISION_REQUIRED | NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "REAL", new Integer(NO_PRECISION | NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "ROWID", new Integer(NO_PRECISION | NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "SMALL DATE TIME", new Integer(NO_PRECISION | NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "SMALL FLOAT", new Integer(NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "SMALLINT", new Integer(NO_PRECISION | NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "SMALL INTEGER", new Integer(NO_PRECISION | NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "SMALL MONEY", new Integer(HAS_SCALE_IF) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "TEXT", new Integer(NO_PRECISION | NO_SCALE | NOT_INDEXABLE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "TIME", new Integer(NO_PRECISION | NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "TIMESTAMP", new Integer(NO_PRECISION | NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "VARCHAR", new Integer(NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "VARIABLE BINARY", new Integer(NO_SCALE) }, //NOT LOCALIZABLE, datatypes
-            new Object[] { "VARIABLE CHARACTER", new Integer(NO_SCALE) }, //NOT LOCALIZABLE, datatypes//NOT LOCALIZABLE, datatypes
+            new Object[] { "BINARY", NO_SCALE },
+            new Object[] { "BIT", NO_PRECISION | NO_SCALE | NOT_INDEXABLE },
+            new Object[] { "BLOB", NO_PRECISION | NO_SCALE | NOT_INDEXABLE },
+            new Object[] { "BOOLEAN", NO_PRECISION | NO_SCALE },
+            new Object[] { "BYTE", NO_SCALE | NOT_INDEXABLE },
+            new Object[] { "CHAR", NO_SCALE },
+            new Object[] { "CHAR VARYING", PRECISION_REQUIRED | NO_SCALE },
+            new Object[] { "CHARACTER", NO_SCALE },
+            new Object[] { "CHARACTER VARYING", PRECISION_REQUIRED | NO_SCALE },
+            new Object[] { "CLOB", NO_PRECISION | NO_SCALE | NOT_INDEXABLE },
+            new Object[] { "DATE", NO_PRECISION | NO_SCALE },
+            new Object[] { "DATE TIME", NO_PRECISION | NO_SCALE },
+            new Object[] { "DEC", HAS_SCALE_IF },
+            new Object[] { "DECIMAL", HAS_SCALE_IF },
+            new Object[] { "DOUBLE PRECISION", NO_PRECISION | NO_SCALE },
+            new Object[] { "FLOAT", NO_SCALE },
+            new Object[] { "INT", NO_PRECISION | NO_SCALE },
+            new Object[] { "INTEGER", NO_PRECISION | NO_SCALE },
+            new Object[] { "INTERVAL", 0 },
+            new Object[] { "LARGE VARBINARY", NO_SCALE },
+            new Object[] { "LONG INTEGER", NO_PRECISION | NO_SCALE },
+            new Object[] { "LONG VARCHAR", NO_SCALE },
+            new Object[] { "MONEY", HAS_SCALE_IF },
+            new Object[] { "NCHAR", NO_SCALE },
+            new Object[] { "NUMERIC", HAS_SCALE_IF },
+            new Object[] { "NVARCHAR", PRECISION_REQUIRED | NO_SCALE },
+            new Object[] { "REAL", NO_PRECISION | NO_SCALE },
+            new Object[] { "ROWID", NO_PRECISION | NO_SCALE },
+            new Object[] { "SMALL DATE TIME", NO_PRECISION | NO_SCALE },
+            new Object[] { "SMALL FLOAT", NO_SCALE },
+            new Object[] { "SMALLINT", NO_PRECISION | NO_SCALE },
+            new Object[] { "SMALL INTEGER", NO_PRECISION | NO_SCALE },
+            new Object[] { "SMALL MONEY", HAS_SCALE_IF },
+            new Object[] { "TEXT", NO_PRECISION | NO_SCALE | NOT_INDEXABLE },
+            new Object[] { "TIME", NO_PRECISION | NO_SCALE },
+            new Object[] { "TIMESTAMP", NO_PRECISION | NO_SCALE },
+            new Object[] { "VARCHAR", NO_SCALE },
+            new Object[] { "VARIABLE BINARY", NO_SCALE },
+            new Object[] { "VARIABLE CHARACTER", NO_SCALE },
     };
 
     final String[] validationMessages = { null // any for moment
@@ -404,7 +405,7 @@ public class GenericValidationPlugin extends ORValidationPlugin implements Plugi
      * Validation of Constraint Physical names Except DB2, the namespace is the database
      */
     public void validateConstraintPhysicalNames(StringBuffer errorString) throws DbException {
-        ArrayList constraintList = new ArrayList(primUniqKeyList);
+        List constraintList = new ArrayList(primUniqKeyList);
         constraintList.addAll(foreignKeyList);
         constraintList.addAll(checkList);
 

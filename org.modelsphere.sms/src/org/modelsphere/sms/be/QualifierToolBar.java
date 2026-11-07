@@ -36,6 +36,7 @@ package org.modelsphere.sms.be;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
@@ -73,7 +74,7 @@ public class QualifierToolBar extends JackToolBar implements CurrentFocusListene
     private DefaultLinkUnlinkListPanel listpanel;
     private DbObject lastModel; // retains last model to limit list refresh
 
-    public QualifierToolBar(ArrayList tools, ArrayList components, ToolButtonGroup toolGroup) {
+    public QualifierToolBar(List tools, List components, ToolButtonGroup toolGroup) {
         super();
         SMSActionsStore actionsStore = SMSActionsStore.getSingleton();
         setName(LocaleMgr.misc.getString("QualifierToolBarName"));
@@ -112,9 +113,9 @@ public class QualifierToolBar extends JackToolBar implements CurrentFocusListene
                     .getDiagramInternalFrames();
             if (diagrams == null)
                 return;
-            for (int i = 0; i < diagrams.length; i++) {
-                if (diagrams[i] instanceof DiagramInternalFrame) {
-                    DiagramInternalFrame diagframe = (DiagramInternalFrame) diagrams[i];
+            for (JInternalFrame diagram : diagrams) {
+                if (diagram instanceof DiagramInternalFrame) {
+                    DiagramInternalFrame diagframe = (DiagramInternalFrame) diagram;
                     DiagramView view = diagframe.getDiagram().getMainView();
                     toolGroup.setSelectedTool(view, 0);
                     toolGroup.setMasterTool(view, 0);
@@ -192,7 +193,7 @@ public class QualifierToolBar extends JackToolBar implements CurrentFocusListene
         Object[] backupSelection = list.getSelectedValues();
 
         list.removeAll();
-        ArrayList listItems = new ArrayList();
+        List listItems = new ArrayList();
         DbObject model = (dbo instanceof DbBEModel ? dbo : dbo
                 .getCompositeOfType(DbBEModel.metaClass));
         if (model != null) {

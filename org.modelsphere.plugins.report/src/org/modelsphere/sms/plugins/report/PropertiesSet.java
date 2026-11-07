@@ -34,9 +34,7 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.plugins.report;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Hashtable;
+import java.util.*;
 
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.ApplicationContext;
@@ -115,14 +113,14 @@ public class PropertiesSet {
                 outStream.writeBytes(EOL);
             }
 
-            HashSet keySet = new HashSet(properties.keySet());
+            Set keySet = new HashSet(properties.keySet());
             Object[] sortedkeys = keySet.toArray();
             Arrays.sort(sortedkeys);
 
             for (int i = 0; i < sortedkeys.length; i++) {
                 String key = (String) sortedkeys[i];
                 String value = (String) properties.get(key);
-                if ((key != null) && (key != null))
+                if ((key != null) && (value != null))
                     outStream.writeBytes(key + SEPARATOR + value + EOL);
             }
 
@@ -152,15 +150,15 @@ public class PropertiesSet {
     }
 
     public void setProperty(String key, int value) {
-        setProperty(key, new Integer(value).toString());
+        setProperty(key, value);
     }
 
     public void setProperty(String key, long value) {
-        setProperty(key, new Long(value).toString());
+        setProperty(key, value);
     }
 
     public void setProperty(String key, boolean value) {
-        setProperty(key, new Boolean(value).toString());
+        setProperty(key, String.valueOf(value));
     }
 
     /**
@@ -186,13 +184,13 @@ public class PropertiesSet {
         Integer valueInt = defaultValue;
         if (value != null) {
             try {
-                valueInt = new Integer(value);
+                valueInt = Integer.valueOf(value);
                 return valueInt;
             } catch (NumberFormatException e) {
             }
         }
         if (defaultValue != null) {
-            setProperty(key, defaultValue.intValue());
+            setProperty(key, defaultValue);
         }
         return valueInt;
     }
@@ -205,11 +203,11 @@ public class PropertiesSet {
         String value = (String) properties.get(key);
         Boolean valueBoolean = defaultValue;
         if (value != null) {
-            valueBoolean = new Boolean(value.equalsIgnoreCase("true")); //NOT LOCALIZABLE
+            valueBoolean = value.equalsIgnoreCase("true"); //NOT LOCALIZABLE
             return valueBoolean;
         }
         if (defaultValue != null) {
-            setProperty(key, defaultValue.booleanValue());
+            setProperty(key, defaultValue);
         }
         return valueBoolean;
     }
@@ -223,13 +221,13 @@ public class PropertiesSet {
         Long valueLong = defaultValue;
         if (value != null) {
             try {
-                valueLong = new Long(value);
+                valueLong = Long.valueOf(value);
                 return valueLong;
             } catch (NumberFormatException e) {
             }
         }
         if (defaultValue != null) {
-            setProperty(key, defaultValue.longValue());
+            setProperty(key, defaultValue);
         }
         return valueLong;
     }
@@ -254,12 +252,12 @@ public class PropertiesSet {
      * tested before adding it to the table.
      */
     public static final boolean isValidKey(Class c, String key) {
-        String result = new String(key);
+        String result = key;
         return (result.indexOf(' ') == -1) && (result.trim().indexOf(COMMENTS) != 0);
     }
 
     private static final boolean isValidKey(String key) {
-        String result = new String(key);
+        String result = key;
         return (result.indexOf(' ') == -1) && (result.trim().indexOf(COMMENTS) != 0);
     }
 

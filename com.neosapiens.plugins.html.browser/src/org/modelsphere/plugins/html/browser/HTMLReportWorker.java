@@ -187,7 +187,7 @@ public class HTMLReportWorker extends Worker
 		// Set current date
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH-mm-ss");
-		HTMLGenerationHelper.setProjectFolder(DirectoryOptionGroup.getHTMLGenerationDirectory() + "\\"
+		HTMLGenerationHelper.setProjectFolder(DirectoryOptionGroup.getHTMLGenerationDirectory() + File.separator
 				+ HTMLGenerationHelper.getProjectName() + dateFormat.format(date));
 		String message = "";
 
@@ -211,7 +211,7 @@ public class HTMLReportWorker extends Worker
 		message = LocaleMgr.getInstance().getString("createdFolder");
 		getController().println(MessageFormat.format(message, reportFolder.getAbsolutePath()));
 
-		File dataFolder = new File(HTMLGenerationHelper.getProjectFolder() + "\\data");
+		File dataFolder = new File(HTMLGenerationHelper.getProjectFolder() + File.separator + "data");
 		if (!dataFolder.mkdirs())
 		{
 			if (! dataFolder.exists())  {
@@ -223,7 +223,7 @@ public class HTMLReportWorker extends Worker
 		message = LocaleMgr.getInstance().getString("createdFolder");
 		getController().println(MessageFormat.format(message, dataFolder.getAbsolutePath()));
 
-		File imagesFolder = new File(HTMLGenerationHelper.getProjectFolder() + "\\images");
+		File imagesFolder = new File(HTMLGenerationHelper.getProjectFolder() + File.separator + "images");
 		if (!imagesFolder.mkdirs())
 		{
 			if (! imagesFolder.exists()) {
@@ -235,7 +235,7 @@ public class HTMLReportWorker extends Worker
 		message = LocaleMgr.getInstance().getString("createdFolder");
 		getController().println(MessageFormat.format(message, imagesFolder.getAbsolutePath()));
 
-		File diagramsFolder = new File(HTMLGenerationHelper.getProjectFolder() + "\\images\\diagrams");
+		File diagramsFolder = new File(HTMLGenerationHelper.getProjectFolder() + File.separator + "images" + File.separator + "diagrams");
 		if (!diagramsFolder.mkdirs())
 		{
 			if (! diagramsFolder.exists()) {
@@ -247,7 +247,7 @@ public class HTMLReportWorker extends Worker
 		message = LocaleMgr.getInstance().getString("createdFolder");
 		getController().println(MessageFormat.format(message, diagramsFolder.getAbsolutePath()));
 
-		File iconsFolder = new File(HTMLGenerationHelper.getProjectFolder() + "\\images\\icons");
+		File iconsFolder = new File(HTMLGenerationHelper.getProjectFolder() + File.separator + "images" + File.separator + "icons");
 		if (!iconsFolder.mkdirs())
 		{
 			if (! iconsFolder.exists())  {
@@ -259,7 +259,7 @@ public class HTMLReportWorker extends Worker
 		message = LocaleMgr.getInstance().getString("createdFolder");
 		getController().println(MessageFormat.format(message, iconsFolder.getAbsolutePath()));
 
-		File jsFolder = new File(HTMLGenerationHelper.getProjectFolder() + "\\js");
+		File jsFolder = new File(HTMLGenerationHelper.getProjectFolder() +  File.separator + "js");
 		if (!jsFolder.mkdirs())
 		{
 			if (!jsFolder.exists()) {
@@ -271,7 +271,7 @@ public class HTMLReportWorker extends Worker
 		message = LocaleMgr.getInstance().getString("createdFolder");
 		getController().println(MessageFormat.format(message, jsFolder.getAbsolutePath()));
 
-		File cssFolder = new File(HTMLGenerationHelper.getProjectFolder() + "\\css");
+		File cssFolder = new File(HTMLGenerationHelper.getProjectFolder() + File.separator + "css");
 		if (!cssFolder.mkdirs())
 		{
 			if (! cssFolder.exists()) {

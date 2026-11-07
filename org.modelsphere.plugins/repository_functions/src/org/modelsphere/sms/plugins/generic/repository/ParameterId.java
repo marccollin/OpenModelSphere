@@ -47,6 +47,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.modelsphere.jack.plugins.PluginSignature;
 import org.modelsphere.jack.srtool.ApplicationContext;
@@ -67,7 +68,7 @@ public final class ParameterId extends UserDefinedField {
     private static final PluginSignature signature = new PluginSignature("ParameterId",
             "$Revision: 4 $", ApplicationContext.APPLICATION_AUTHOR, "$Date: 2009/04/14 14:00p $",
             212); // NOT LOCALIZABLE
-    static HashMap map = new HashMap();
+    static Map map = new HashMap();
     private static int counter = 0;
 
     public static void reset() {
@@ -101,12 +102,7 @@ public final class ParameterId extends UserDefinedField {
 
         if ((object instanceof DbJVParameter) || (object instanceof DbJVMethod)) {
 
-            if (map.containsKey(object)) {
-                id = (Integer) map.get(object);
-            } else {
-                id = new Integer(counter++);
-                map.put(object, id);
-            }
+            id = (Integer) map.computeIfAbsent(object, k -> counter++);
 
             output.write(id.toString());
             expanded = true;

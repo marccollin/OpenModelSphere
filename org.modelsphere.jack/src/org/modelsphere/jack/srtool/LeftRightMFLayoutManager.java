@@ -76,6 +76,7 @@ class LeftRightMFLayoutManager implements MFLayoutManager {
         mainSplitPane.setLeftComponent(null);
         mainSplitPane.setRightComponent(designPanelContainer);
         designPanelContainer.setResizeWeight(1);
+        designPanelContainer.setDividerLocation(0);
     }
 
     public void setDesktop(JDesktopPane desktopPane) {
@@ -111,14 +112,12 @@ class LeftRightMFLayoutManager implements MFLayoutManager {
     }
 
     public Dimension getPreferredSize(DesignPanel designPanel) {
-        Dimension dim = new Dimension(designPanelContainer.getSize().width
+        return new Dimension(designPanelContainer.getSize().width
                 - designPanelContainer.getDividerLocation(), -1);
-        return dim;
     }
 
     public Dimension getPreferredSize(ExplorerPanel explorerPanel) {
-        Dimension dim = new Dimension(mainSplitPane.getDividerLocation(), -1);
-        return dim;
+        return new Dimension(mainSplitPane.getDividerLocation(), -1);
     }
 
     public void removeAll() {

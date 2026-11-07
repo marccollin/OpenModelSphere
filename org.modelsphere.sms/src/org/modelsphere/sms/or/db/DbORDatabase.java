@@ -134,7 +134,7 @@ public abstract class DbORDatabase extends DbORModel {
      * 
      * @param composite
      *            org.modelsphere.jack.baseDb.db.DbObject
-     * @param targetsystem
+     * @param targetSystem
      *            org.modelsphere.sms.db.DbSMSTargetSystem
      **/
     public DbORDatabase(DbObject composite, DbSMSTargetSystem targetSystem) throws DbException {

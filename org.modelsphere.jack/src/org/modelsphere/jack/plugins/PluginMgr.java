@@ -128,7 +128,7 @@ public final class PluginMgr {
 
     private static boolean pluginEnable = true;
 
-    private ArrayList<PluginsListener> pluginsListeners = new ArrayList<PluginsListener>();
+    private List<PluginsListener> pluginsListeners = new ArrayList<PluginsListener>();
 
     // /////////////
     // SINGLETON
@@ -230,9 +230,7 @@ public final class PluginMgr {
             // properties from the configuration to it. (This ensure that all the xml properties
             // contains in the plugin.xml file are available.  Configuration from xml plugins 
             // only save minor properties.  We also ensure the use of up to date values)
-            for (Iterator<PluginDescriptor> pluginsIterator = xmlPlugins.iterator(); pluginsIterator
-                    .hasNext();) {
-                PluginDescriptor scannedXMLPlugin = pluginsIterator.next();
+            for (PluginDescriptor scannedXMLPlugin : xmlPlugins) {
                 int index = configuredPlugins.indexOf(scannedXMLPlugin);
                 if (index > -1) {
                     PluginDescriptor configuredPlugin = configuredPlugins.get(index);
@@ -242,14 +240,8 @@ public final class PluginMgr {
             }
             // Check if a configuration exist without the scanned entry.  
             // If so, remove the configuration (deleted plugin)
-            for (Iterator<PluginDescriptor> iterator = configuredPlugins.iterator(); iterator
-                    .hasNext();) {
-                PluginDescriptor configuredPlugin = iterator.next();
-                if (configuredPlugin.getContext().getLoader() == xmlPluginLoader
-                        && !xmlPlugins.contains(configuredPlugin)) {
-                    iterator.remove();
-                }
-            }
+            configuredPlugins.removeIf(configuredPlugin -> configuredPlugin.getContext().getLoader() == xmlPluginLoader
+                    && !xmlPlugins.contains(configuredPlugin));
             tempPlugins.addAll(configuredPlugins);
         } else {
             if (splashWindow != null)
@@ -422,7 +414,7 @@ public final class PluginMgr {
                 String menukey = plugin.installAction(frame, menumanager);
                 String actionkey = plugin.getClass().getName();
                 AbstractApplicationAction action = actionstore.getAction(actionkey);
-                if (menukey != null && menukey.length() > 0) { // install in
+                if (menukey != null && !menukey.isEmpty()) { // install in
                     // menu
                     JMenu menu = menumanager.getMenuForKey(menukey);
                     if (menu == null)
@@ -458,11 +450,11 @@ public final class PluginMgr {
             actionkeys.add(actionkey);
             actionkeys.add(actionkey);
 
-            for (int i = 0; i < supportedclasses.length; i++) {
-                PopupMap map = popupmaps.get(supportedclasses[i]);
+            for (Class<? extends Object> supportedclass : supportedclasses) {
+                PopupMap map = popupmaps.get(supportedclass);
                 if (map == null) {
-                    map = new PopupMap(supportedclasses[i]);
-                    popupmaps.put(supportedclasses[i], map);
+                    map = new PopupMap(supportedclass);
+                    popupmaps.put(supportedclass, map);
                 }
                 map.add(actionkey);
             }
@@ -532,8 +524,7 @@ public final class PluginMgr {
             @SuppressWarnings("unchecked")
             Class<? extends Plugin> c = (Class<? extends Plugin>) loader.loadClass(className);
             return c;
-        } catch (Exception e) {
-        } catch (Error er) {
+        } catch (Exception | Error e) {
         }
         return null;
     }
@@ -566,11 +557,7 @@ public final class PluginMgr {
         if (dialog == null) {
             List<PluginDescriptor> plugins = pluginsRegistry.getValidPlugins();
 
-            for (Iterator<PluginDescriptor> iterator = plugins.iterator(); iterator.hasNext();) {
-                PluginDescriptor pluginDescriptor = iterator.next();
-                if (pluginDescriptor.getType() == PLUGIN_TYPE.RULE)
-                    iterator.remove();
-            }
+            plugins.removeIf(pluginDescriptor -> pluginDescriptor.getType() == PLUGIN_TYPE.RULE);
 
             dialog = new PluginsManagerDialog(plugins, new PluginConfigurationHandler());
         }
@@ -615,7 +602,7 @@ public final class PluginMgr {
     }
 
     public final void addPluginsListener(PluginsListener l) {
-        if (l != null && pluginsListeners.indexOf(l) == -1) {
+        if (l != null && !pluginsListeners.contains(l)) {
             pluginsListeners.add(l);
             if (initialized)
                 firePluginsListener(l);

@@ -141,7 +141,7 @@ public class PageTitlePanel extends JPanel implements ActionListener, DocumentLi
     }
 
     private void processFormatTextField() {
-        if (formatTextField.getText().length() == 0)
+        if (formatTextField.getText().isEmpty())
             return;
         String pattern = formatTextField.getText();
         String preview = getPageTitle(pattern);
@@ -156,9 +156,8 @@ public class PageTitlePanel extends JPanel implements ActionListener, DocumentLi
     }
 
     public String getPageTitle(String pattern) {
-        String title = getPageTitle(pattern, 0, 1, new Dimension(10, 10), DIAGRAM_NAME_DF,
+        return getPageTitle(pattern, 0, 1, new Dimension(10, 10), DIAGRAM_NAME_DF,
                 PROJECT_NAME_DF);
-        return title;
     }
 
     public static String getPageTitle(String pattern, int row, int col, Dimension nbPages,
@@ -176,10 +175,10 @@ public class PageTitlePanel extends JPanel implements ActionListener, DocumentLi
         String date = dateFormat.format(d);
 
         //build the objects
-        Object[] objects = new Object[] { new Integer(currentPage), new Integer(row + 1),
-                new Integer(col + 1), time, date, new Integer(totalPages),
-                new Integer(nbPages.height), //total rows
-                new Integer(nbPages.width), //total columns
+        Object[] objects = new Object[] { currentPage, row + 1,
+                col + 1, time, date, totalPages,
+                nbPages.height, //total rows
+                nbPages.width, //total columns
                 diagramName, projectName };
         try {
             title = MessageFormat.format(pattern, objects);
