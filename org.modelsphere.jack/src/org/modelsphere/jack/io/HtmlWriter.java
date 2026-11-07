@@ -62,9 +62,9 @@ import java.util.StringTokenizer;
  * a call to toSring() :
  *    <code>
  *    HtmlWriter writer = new HtmlWriter();
- *    writer.write("//symbols: È‡Ô\n");
- *    writer.write("if (i < 0) {..");
- *    String htmlText = writer.toString();
+ *  *    writer.write("//symbols: √©√†√Ø\n");
+ *  *    writer.write("if (i < 0) {..");
+ *  *    String htmlText = writer.toString();
  *    </code>
  *
  * You can also use it to wrap an other kind of writer, such as FileWriter.
@@ -72,7 +72,7 @@ import java.util.StringTokenizer;
  * having to manually replace all the HTML special characters:
  *    <code>
  *    HtmlWriter writer = new HtmlWriter(new FileWriter("index.html"));
- *    writer.write("//symbols: È‡Ô\n");
+ *    writer.write("//symbols: √©√†√Ø\n");
  *    writer.write("if (i < 0) {..");
  *    writer.close();
  *    </code>
@@ -113,25 +113,25 @@ public class HtmlWriter extends Writer {
             setMapping('>', "&gt;"); // NOT LOCALIZABLE - HTML tag
             setMapping('<', "&lt;"); // NOT LOCALIZABLE - HTML tag
             setMapping('\"', "&quot;"); // NOT LOCALIZABLE - HTML tag
-            setMapping('©', "&copy;"); // NOT LOCALIZABLE - HTML tag
-            setMapping('Æ', "&reg;"); // NOT LOCALIZABLE - HTML tag
+            setMapping('ÔøΩ', "&copy;"); // NOT LOCALIZABLE - HTML tag
+            setMapping('ÔøΩ', "&reg;"); // NOT LOCALIZABLE - HTML tag
 
             // diacritical characters
-            setMapping('‚', "&acirc;"); // NOT LOCALIZABLE - HTML tag
-            setMapping('‡', "&agrave;"); // NOT LOCALIZABLE - HTML tag
-            setMapping('Á', "&ccedil;"); // NOT LOCALIZABLE - HTML tag
+            setMapping('ÔøΩ', "&acirc;"); // NOT LOCALIZABLE - HTML tag
+            setMapping('ÔøΩ', "&agrave;"); // NOT LOCALIZABLE - HTML tag
+            setMapping('ÔøΩ', "&ccedil;"); // NOT LOCALIZABLE - HTML tag
 
-            setMapping('Í', "&ecirc;"); // NOT LOCALIZABLE - HTML tag
-            setMapping('Ë', "&egrave;"); // NOT LOCALIZABLE - HTML tag
-            setMapping('È', "&eacute;"); // NOT LOCALIZABLE - HTML tag
-            setMapping('Î', "&euml;"); // NOT LOCALIZABLE - HTML tag
+            setMapping('ÔøΩ', "&ecirc;"); // NOT LOCALIZABLE - HTML tag
+            setMapping('ÔøΩ', "&egrave;"); // NOT LOCALIZABLE - HTML tag
+            setMapping('ÔøΩ', "&eacute;"); // NOT LOCALIZABLE - HTML tag
+            setMapping('ÔøΩ', "&euml;"); // NOT LOCALIZABLE - HTML tag
 
-            setMapping('Ó', "&icirc;"); // NOT LOCALIZABLE - HTML tag
-            setMapping('Ô', "&iuml;"); // NOT LOCALIZABLE - HTML tag
-            setMapping('Ù', "&ocirc;"); // NOT LOCALIZABLE - HTML tag
+            setMapping('ÔøΩ', "&icirc;"); // NOT LOCALIZABLE - HTML tag
+            setMapping('ÔøΩ', "&iuml;"); // NOT LOCALIZABLE - HTML tag
+            setMapping('ÔøΩ', "&ocirc;"); // NOT LOCALIZABLE - HTML tag
 
-            setMapping('˚', "&ucirc;"); // NOT LOCALIZABLE - HTML tag
-            setMapping('˘', "&ugrave;"); // NOT LOCALIZABLE - HTML tag
+            setMapping('ÔøΩ', "&ucirc;"); // NOT LOCALIZABLE - HTML tag
+            setMapping('ÔøΩ', "&ugrave;"); // NOT LOCALIZABLE - HTML tag
 
             init = true;
         } // end if
@@ -270,7 +270,7 @@ public class HtmlWriter extends Writer {
         try {
             // test HTML buffer
             HtmlWriter htmlBuffer = new HtmlWriter();
-            htmlBuffer.write("//symbols:  È‡Ô\n"); // NOT LOCALIZABLE, unit test
+            htmlBuffer.write("//symbols:  ÔøΩÔøΩÔøΩ\n"); // NOT LOCALIZABLE, unit test
             htmlBuffer.write("if (i < 0) {.."); // NOT LOCALIZABLE, unit test
             String htmlText = htmlBuffer.toString();
             System.out.println(htmlText);
@@ -278,7 +278,7 @@ public class HtmlWriter extends Writer {
             // test HTML file
             HtmlWriter htmlFileWriter = new HtmlWriter(new java.io.FileWriter("index.html")); // NOT LOCALIZABLE, unit test
             htmlFileWriter.write("<html><body>"); // NOT LOCALIZABLE, unit test
-            htmlFileWriter.write("//symbols:  È‡Ô\n"); // NOT LOCALIZABLE, unit
+            htmlFileWriter.write("//symbols:  ÔøΩÔøΩÔøΩ\n"); // NOT LOCALIZABLE, unit
             // test
             htmlFileWriter.write("if (i < 0) {.."); // NOT LOCALIZABLE, unit
             // test

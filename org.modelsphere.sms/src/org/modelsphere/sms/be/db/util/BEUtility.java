@@ -778,7 +778,6 @@ public class BEUtility {
     public String getDisplayText(DbBEUseCase usecase) throws DbException {
         String displayText = null;
 
-        //usecase.getDb().beginReadTrans(); fait planter si appelé dans un Worker
         if (!(usecase.isExternal())) {
             String name = usecase.getSemanticalName(DbObject.LONG_FORM);
             displayText = name + " (" + usecase.getName() + ")";

@@ -126,8 +126,12 @@ public class GenericDDLForwardEngineeringPlugin extends SQLForwardEngineeringPlu
     }
 
     protected String getTemplateFileName() {
-    	String templateFilename = ANSI_TEMPLATE_URL.getFile();
-        return templateFilename;
+
+       // String templateFilename = ANSI_TEMPLATE_URL.getFile();
+       // return templateFilename;
+
+
+        return ANSI_TEMPLATE_FILENAME;
     }
 
     public PluginSignature getSignature() {
@@ -341,7 +345,7 @@ public class GenericDDLForwardEngineeringPlugin extends SQLForwardEngineeringPlu
     }
 
     protected Template getFileNotFoundRule() {
-    	String filename = ANSI_TEMPLATE_URL.getFile();
+    	String filename = ANSI_TEMPLATE_FILENAME;
         Template tmpl = new Template(null, "File not found: " + filename); //NOT LOCALIZABLE
         return tmpl;
     }

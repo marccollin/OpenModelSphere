@@ -130,7 +130,7 @@ public final class SMSGraphicalLink extends SrLine implements DbRefreshListener 
         if (stereotype != null) {
             label = stereotype.getName();
             if (label != null) {
-                label = "«" + label + "»";
+                label = "Â«" + label + "Â»";
             }
         }
 

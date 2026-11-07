@@ -207,7 +207,7 @@ public final class InputFileParser implements InputReadable, SRXConstants {
      * //Accept the following characters as part of tokens super.wordChars('\"', '\"'); // double
      * quote super.wordChars('\'', '\''); // single quote super.wordChars('-', '-'); // dash
      * super.wordChars('_', '_'); // underscore super.wordChars('0', '9'); // digits
-     * super.wordChars('Ç', 'Ü'); // characters with accents (é, à, etc.)
+     * super.wordChars('Ã‡', 'Ãœ'); // characters with accents (Ã©, Ã , etc.)
      * 
      * //ignore lines starting with '--' //super.defineLineComment(kComment); }
      * 

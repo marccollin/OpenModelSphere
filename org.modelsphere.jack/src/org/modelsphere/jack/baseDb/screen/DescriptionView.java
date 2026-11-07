@@ -121,12 +121,12 @@ public class DescriptionView extends ScreenView implements ListDataListener {
 
         descrModel.addListDataListener(this);
 
-        // Code rajouté par AQ - Gino devrait modifier la condition pour qu'on
-        // puisse utiliser le code même si on n'est pas en debug.
-        boolean qaGeneration = false; // pour ne pas que la génération
-        // s'effectue systématiquement dès qu'on
-        // ouvre la fenêtre de propriétés,
-        // mettre à false
+        // Code rajoutÃ© par AQ - Gino devrait modifier la condition pour qu'on
+        // puisse utiliser le code meme si on n'est pas en debug.
+        boolean qaGeneration = false; // pour ne pas que la generation
+        // s'effectue systematiquement des qu'on
+        // ouvre la fenetre de proprietes,
+        // mettre a false
         if (Debug.isDebug() && qaGeneration)
             this.getFieldsAndEditorsForQA();
 
@@ -147,8 +147,6 @@ public class DescriptionView extends ScreenView implements ListDataListener {
         return table.getSelectionForeground();
     }
 
-    // pour AQ - sert à générer les champs et les éditeurs des fenêtres de
-    // propriétés
 
     private void getFieldsAndEditorsForQA() {
 
@@ -193,7 +191,6 @@ public class DescriptionView extends ScreenView implements ListDataListener {
             // LOCALIZABLE
             // QA
             if (file.exists()) {
-                fileName = fieldValue.trim() + "1"; // pas génial, mais pas le
                 // temps de chercher autre
                 // chose pour le moment...
                 // // NOT LOCALIZABLE QA

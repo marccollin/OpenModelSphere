@@ -365,7 +365,6 @@ public class BEActorBox extends GraphicNode implements ActionInformation, DbRefr
                     } else if (mf.equals(DbBEActor.fUmlStereotype)) {
                         DbSMSStereotype stereotype = actorSO.getUmlStereotype();
                         if (stereotype != null) {
-                            strValue = "«" + stereotype.getName() + "»";
                             bSetStereotypeEditor = true;
                             Image image = stereotype.getIcon();
                         } // end if

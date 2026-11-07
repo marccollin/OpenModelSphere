@@ -128,8 +128,6 @@ public class ConceptChooser {
 
         void jbInit() {
             //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-            // CODE POUR CONCEPTION GRAPHIQUE (Libellés temporaires)
-            //A mettre en commentaire lorsque completé
 
             selectButton.setText(LocaleMgr.misc.getString("Select")); // NOT LOCALIZABLE
             cancelButton.setText(LocaleMgr.misc.getString("Cancel")); // NOT LOCALIZABLE

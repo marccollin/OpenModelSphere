@@ -50,7 +50,7 @@ import org.modelsphere.jack.services.ServiceMessage;
 
 public class NameListMessage extends ServiceMessage {
     public int connectionId; // in
-    public URL filename; // String privé avec get()...
+    public URL filename; // String prive avec get()...
     public boolean commaSeparated; // in
     public ArrayList ignoredStatementIds; // in
     public ArrayList nameList = new ArrayList(); // out
@@ -60,7 +60,7 @@ public class NameListMessage extends ServiceMessage {
         connectionId = aConnectionId;
         // String urlStr = null;
         // try{ urlStr = URLDecoder.decode(aFilename.getFile(), "UTF-8"); }
-        // //reporté à 2.6
+        // //reporte a 2.6
         // catch(Exception e){}
         filename = aFilename;
         commaSeparated = isCommaSeparated;

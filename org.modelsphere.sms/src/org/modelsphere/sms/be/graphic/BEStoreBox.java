@@ -356,7 +356,6 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
                         DbSMSStereotype stereotype = storeSO.getUmlStereotype();
                         bSetEditor = true;
                         if (stereotype != null) {
-                            strValue = "«" + stereotype.getName() + "»";
                         } // end if
                     } else {
                         strValue = (value != null ? value.toString() : "");

@@ -94,7 +94,7 @@ public final class IntegrityPlugin extends AbstractIntegrity implements Plugin2,
             objs = PluginServices.getSelectedSemanticalObjects();
         } //end of
 
-        //Sélection multiple mais pour le moment il y a un rapport par modele
+        //SÃ©lection multiple mais pour le moment il y a un rapport par modele
         int nbErrorsFound = 0;
         for (int i = 0; i < objs.length; i++) {
             DbObject obj = objs[i];

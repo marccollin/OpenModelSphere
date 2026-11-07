@@ -167,7 +167,7 @@ public abstract class PackageBox extends GraphicNode implements ActionInformatio
         DbSMSStereotype stereotype = pack.getUmlStereotype();
         String stereotypeName = null;
         if (stereotype != null) {
-            stereotypeName = "«" + stereotype.getName() + "»"; // NOT
+            stereotypeName = "Â«" + stereotype.getName() + "Â»"; // NOT
             // LOCALIZABLE
         }
 

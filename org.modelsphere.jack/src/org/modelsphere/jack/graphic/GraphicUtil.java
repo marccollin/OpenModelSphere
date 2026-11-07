@@ -58,13 +58,14 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.modelsphere.jack.debug.Debug;
 // this isn't working with openJDK
 //import com.sun.image.codec.jpeg.JPEGCodec;
 //import com.sun.image.codec.jpeg.JPEGEncodeParam;
 //import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+//import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public abstract class GraphicUtil {
 
@@ -577,11 +578,12 @@ public abstract class GraphicUtil {
     }
 
     /**
+     * @param image
      * @param opacity
      *            must a number between 0 and 1
      */
-    public static Image createDissolveImage(Image image, float opacacity) {
-        DissolveFilter filter = new DissolveFilter((int) (255 * opacacity));
+    public static Image createDissolveImage(Image image, float opacity) {
+        DissolveFilter filter = new DissolveFilter((int) (255 * opacity));
         FilteredImageSource fis = new FilteredImageSource(image.getSource(), filter);
         Image dissolveImage = Toolkit.getDefaultToolkit().createImage(fis);
         waitForImage(dissolveImage);

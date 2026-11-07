@@ -51,6 +51,7 @@ import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.apache.bcel.classfile.*;
 import org.modelsphere.jack.baseDb.db.*;
 import org.modelsphere.jack.graphic.GraphicComponent;
 import org.modelsphere.jack.gui.task.Controller;
@@ -69,6 +70,9 @@ import com.neosapiens.plugins.reverse.java.international.LocaleMgr;
 import com.sun.org.apache.bcel.internal.Constants;
 import com.sun.org.apache.bcel.internal.classfile.*;
 import com.sun.org.apache.bcel.internal.generic.*;
+
+import org.apache.bcel.Constants;
+import org.apache.bcel.generic.*;
 
 class ReverseJavaBytecodeWorker extends Worker {
     private DbSMSProject m_project;

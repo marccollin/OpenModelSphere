@@ -227,9 +227,9 @@ public final class NameListService extends NameListServiceProtocol {
             URL url = new URL(nameListMessage.filename.toExternalForm());
             InputStreamReader inputStreamReader = new InputStreamReader(url.openStream());
             // InputStream inputStream = new
-            // FileInputStream(nameListMessage.filename); //reporté à 2.6
+            // FileInputStream(nameListMessage.filename); //reporte a 2.6
             // InputStreamReader inputStreamReader = new
-            // InputStreamReader(inputStream); //reporté à 2.6
+            // InputStreamReader(inputStream); //reporte a 2.6
             BufferedReader bugReader = new BufferedReader(inputStreamReader);
             SQLLexerStream stream = new SQLLexerStream(bugReader);
 

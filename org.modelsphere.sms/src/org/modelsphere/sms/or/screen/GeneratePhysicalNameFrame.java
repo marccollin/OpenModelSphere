@@ -116,7 +116,7 @@ public class GeneratePhysicalNameFrame extends JDialog {
     // property
     // key
     private PropertiesSet physicalNameGenerationPropertiesSet = null;
-    private static final String DEFAULT_ACCENTED_CHARACTERS_TO_REPLACE = "Â=a;„=a;·=a;‡=a;‚=a;‰=a;Á=c;È=e;Ë=e;Í=e;Î=e;Ì=i;Ó=i;Ó=i;Ô=i;Ò=n;Û=o;ı=o;Ú=o;Ù=o;ˆ=o;˙=u;˘=u;˚=u;¸=u;˝=y;ˇ=y;≈=A;√=A;¡=A;¿=A;¬=A;ƒ=A;«=C;…=E;»=E; =E;À=E;Õ=I;Œ=I;Œ=I;œ=I;—=N;”=O;’=O;“=O;‘=O;÷=O;⁄=U;Ÿ=U;€=U;‹=U;›=Y;ü=Y;"; // NOT
+    private static final String DEFAULT_ACCENTED_CHARACTERS_TO_REPLACE = "√•=a;√£=a;√°=a;√†=a;√¢=a;√§=a;√ß=c;√©=e;√®=e;√™=e;√´=e;√≠=i;√Æ=i;√Æ=i;√Ø=i;√±=n;√≥=o;√µ=o;√≤=o;√¥=o;√∂=o;√∫=u;√π=u;√ª=u;√º=u;√Ω=y;√ø=y;√Ö=A;√É=A;√Å=A;√Ä=A;√Ç=A;√Ñ=A;√á=C;√â=E;√à=E;√ä=E;√ã=E;√ç=I;√é=I;√é=I;√è=I;√ë=N;√ì=O;√ï=O;√í=O;√î=O;√ñ=O;√ö=U;√ô=U;√õ=U;√ú=U;√ù=Y;≈∏=Y;"; // NOT
     // LOCALIZABLE
 
     private static final String DICTIONARY_DIR = "dictionaryDir"; // NOT

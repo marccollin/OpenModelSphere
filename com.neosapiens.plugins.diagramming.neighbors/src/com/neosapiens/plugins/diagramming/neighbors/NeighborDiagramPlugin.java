@@ -111,6 +111,10 @@ public class NeighborDiagramPlugin extends OOForwardEngineeringPlugin implements
     public void setVarScope(VariableScope varScope) {
     }
 
+    protected String getTemplateFileName() {
+        return null;
+    }
+
     public void execute(ActionEvent ev) throws Exception {
         final DbObject[] selectedobjs = FocusManager.getSingleton().getSelectedSemanticalObjects();
         if (selectedobjs == null || selectedobjs.length == 0) {

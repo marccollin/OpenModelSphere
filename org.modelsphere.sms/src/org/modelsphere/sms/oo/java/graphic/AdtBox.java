@@ -768,7 +768,6 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
             isStatic = ((DbJVClass) clMember).isStatic();
         else if (clMember instanceof DbJVMethod)
             isStatic = ((DbJVMethod) clMember).isStatic();
-        // GP: Que doit-on faire si static ne s'applique pas à Constructeur???
 
         Boolean b1 = (Boolean) adtGO.find(DbOOStyle.fOojv_staticModifierDisplayed);
         Boolean b2 = (Boolean) adtGO.find(DbOOStyle.fOojv_nonStaticModifierDisplayed);
@@ -853,7 +852,7 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
             val = ((DbOOMethod) member).isAbstract();
         else if (member instanceof DbOOClass)
             val = ((DbOOClass) member).isAbstract();
-        // GP: Que doit-on faire si abstract ne s'applique pas à Constructeur???
+        // GP: Que doit-on faire si abstract ne s'applique pas ï¿½ Constructeur???
 
         Boolean b1 = (Boolean) adtGO.find(DbOOStyle.fOojv_abstractModifierDisplayed);
         Boolean b2 = (Boolean) adtGO.find(DbOOStyle.fOojv_nonAbstractModifierDisplayed);
@@ -865,7 +864,7 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
         String stereotypeName = null;
         DbSMSStereotype stereotype = semObject.getUmlStereotype();
         if (stereotype != null) {
-            stereotypeName = "«" + stereotype.getName() + "»"; // NOT
+            stereotypeName = "ï¿½" + stereotype.getName() + "ï¿½"; // NOT
             // LOCALIZABLE
         }
 
@@ -1397,7 +1396,7 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
 
         // bean Session or Entity
         /*
-         * 16 oct 2001 Les attributs liés aux Java Bean on été détruits if( semObj instanceof
+         * 16 oct 2001 Les attributs liï¿½s aux Java Bean on ï¿½tï¿½ dï¿½truits if( semObj instanceof
          * DbJVClass ) { JVEJBType ejbtype = ((DbJVClass)semObj).getEjbType(); if (ejbtype != null){
          * if (ejbtype.getValue() == JVEJBType.ENTITY) addToCompositeElements(compositeElements,
          * (DbtPrefix)adtGO.find(DbOOStyle.fOojv_entityBeanClassPrefix)); else

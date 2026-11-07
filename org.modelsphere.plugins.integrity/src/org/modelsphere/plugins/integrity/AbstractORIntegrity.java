@@ -63,7 +63,7 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     static final String FK_MULTIPLICITY_SET_MAX_1 = "FK_MULTIPLICITY_SET_MAX_1"; // NOT LOCALIZABLE  
     static final String FK_CREATE_NON_UNIQUE_INDEX = "FK_CREATE_NON_UNIQUE_INDEX"; // NOT LOCALIZABLE  
 
-    //Messages des solutions d'intégrité
+    //Messages des solutions d'intÃ©gritÃ©
     static final String kSetColNotNull = LocaleMgr.misc.getString("DM-IS_SetColNotNull");
     static final String kSetFKColNotNull = LocaleMgr.misc.getString("DM-IS_SetFKColNotNull");
     static final String kSetFKColNull = LocaleMgr.misc.getString("DM-IS_SetFKColNull");
@@ -72,7 +72,7 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     static final String kUpdateUnicityIndex01 = LocaleMgr.misc
             .getString("DM-IS_UpdateUnicityIndex01");
 
-    //Messages des règles d'intégrité et messages extra
+    //Messages des rÃ¨gles d'intÃ©gritÃ© et messages extra
     public static final int OR_IR_COLUMN_NOT_NULL = 0;
     public static final int OR_IR_CHILD_MIN_0123 = 1;
     public static final int OR_IX_CHILD_MIN_0123 = 2;
@@ -99,7 +99,7 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     public static final int OR_IR_TABLE_WITHOUT_COLUMN = 23;
 
     final static String[] orIntegrityMessages = {
-            //LocaleMgr.misc.getString("Les colonnes suivantes ne devraient pas être nulles. --> font partie d'une clé primaire/unique"),
+            //LocaleMgr.misc.getString("Les colonnes suivantes ne devraient pas etre nulles. --> font partie d'une clÃ© primaire/unique"),
             LocaleMgr.misc.getString("DM-IR_PKUKColNotNull012"),//0
             LocaleMgr.misc.getString("DM-IR_ChildMin0123"),
             LocaleMgr.misc.getString("DM-IX_ChildMin0123"),
@@ -135,7 +135,7 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     /*
      * ORCleanup
      */
-    //ruleIndex spécifiques à ORCleanup 
+    //ruleIndex spÃ©cifiques Ã  ORCleanup
 
     public static final int OR_CR_TABLE_WITHOUT_CONNECTOR = 0;
     public static final int OR_CR_TABLE_WITHOUT_COLUMN = 1;
@@ -192,7 +192,7 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
      * ER Integrity
      */
 
-    //Messages des règles d'intégrité et messages extra
+    //Messages des regles d'intÃ©gritÃ© et messages extra
     public static final int ER_IR_COLUMN_NOT_NULL = 0;
     public static final int ER_IR_MULTIPLICITY_UNDEFINED = 1;
     public static final int ER_IR_PK_WITHOUT_DIR_COL = 2;
@@ -245,7 +245,7 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     /*
      * ERCleanup
      */
-    //ruleIndex spécifiques à ERCleanup 
+    //ruleIndex spÃ©cifiques Ã  ERCleanup
 
     public static final int ER_CR_ENTITY_WITHOUT_ATTRIBUTE = 0;
     public static final int ER_CR_ENTITY_WITHOUT_ARC = 1;
@@ -344,7 +344,7 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     }
 
     /**********************************************************************************
-     * MÉTHODES UTILISÉES POUR LES MODÈLES RELATIONNELS (INTÉGRITÉ ET ÉPURATION)
+     * MÃ‰THODES UTILISÃ‰ES POUR LES MODELES RELATIONNELS (INTÃ‰GRITÃ‰ ET Ã‰PURATION)
      **********************************************************************************/
 
     /**
@@ -527,14 +527,14 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     }
 
     /*******************************************************************************************
-     * MÉTHODES UTILISÉES POUR LES MODÈLES CONCEPTUELS ET RELATIONNELS (INTÉGRITÉ ET ÉPURATION)
+     * MÃ‰THODES UTILISÃ‰ES POUR LES MODELES CONCEPTUELS ET RELATIONNELS (INTÃ‰GRITÃ‰ ET Ã‰PURATION)
      *******************************************************************************************/
     /*
      * public static final int = 3;
      */
 
     /**
-     * Clés sans colonnes/attributs ni dépendances
+     * ClÃ©s sans colonnes/attributs ni dÃ©pendances
      */
     protected void verifyPrymaryUniquekeyWithoutColDir(ArrayList aList, StringBuffer buffer,
             int modelType, int operation) throws DbException {
@@ -570,7 +570,7 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     }
 
     /**
-     * Tables sans connecteurs / Entités ou Associations sans arc
+     * Tables sans connecteurs / EntitÃ©s ou Associations sans arc
      */
     protected void verifyTableWithoutConnector(ArrayList aList, StringBuffer buffer, int modelType,
             int operation) throws DbException {
@@ -604,7 +604,7 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     }
 
     /**
-     * Tables et vues sans colonnes / Entités sans attributs
+     * Tables et vues sans colonnes / EntitÃ©s sans attributs
      */
     protected void verifyTableWithoutColumn(ArrayList aList, StringBuffer buffer, int modelType,
             int operation) throws DbException {
@@ -639,7 +639,7 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     }
 
     /*******************************************************************************************
-     * MÉTHODES UTILISÉES POUR LES MODÈLES CONCEPTUELS (INTÉGRITÉ ET ÉPURATION)
+     * MÃ‰THODES UTILISÃ‰ES POUR LES MODELES CONCEPTUELS (INTÃ‰GRITÃ‰ ET Ã‰PURATION)
      *******************************************************************************************/
     /**
      * Association avec moins de 2 arcs

@@ -154,8 +154,8 @@ public class ListView extends ScreenView {
                 prefixColumnModel.addColumn(column);
             }
             /** Adding another fName at the end of table */
-            // ***BUG lorsqu'on déplace le duplicata, c'est l'original qui se
-            // déplace (modelIndex !!)
+            // ***BUG lorsqu'on deplace le duplicata, c'est l'original qui se
+            // deplace (modelIndex !!)
             /*
              * if (totalColWidth > TABLE_WIDTH){ TableColumn duplicatedColumn =
              * columnModel.getColumn(0); columnModel.addColumn(duplicatedColumn); }

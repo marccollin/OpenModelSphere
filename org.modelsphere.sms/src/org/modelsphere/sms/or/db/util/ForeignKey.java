@@ -600,7 +600,7 @@ public final class ForeignKey {
                 DbORAbsTable parentTable = choiceSpec.getParentTable();
                 String specChoiceLine = MessageFormat.format(kGenSpecChoiceforTableMsgLine, new Object[] { choicespecStr, parentTable.getName() });
                 report.append(specChoiceLine + '\n'); //NOT LOCALIZABLE
-                //report.append('\n' + "Génération de colonnes de " + choicespecStr +" pour la table " + parentTable.getName());//NOT LOCALIZABLE
+                //report.append('\n' + "GÃ©nÃ©ration de colonnes de " + choicespecStr +" pour la table " + parentTable.getName());//NOT LOCALIZABLE
          
             } //end for
         }

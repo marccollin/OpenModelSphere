@@ -49,7 +49,7 @@ public abstract class AbstractBEIntegrity extends AbstractIntegrity {
 
     protected static final String kBeModel = LocaleMgr.misc.getString("BE-BeModel");
 
-    //spécifiques à BeIntegrity
+    //spÃ©cifiques Ã  BeIntegrity
     public static final int BE_IR_PROCESS_SYNCHRO_RULE = 0;
     public static final int BE_IR_FLOW_EMISSION_CONDITION = 1;
     public static final int BE_IR_OBJECT_ERRORS_WITH_FLOW = 2;
@@ -95,7 +95,7 @@ public abstract class AbstractBEIntegrity extends AbstractIntegrity {
     /*
      * BeCleanup
      */
-    //ruleIndex spécifiques à BeCleanup 
+    //ruleIndex spÃ©cifiques Ã  BeCleanup
 
     public static final int BE_CR_RESOURCE_NOT_USED = 0;
     public static final int BE_CR_WITHOUT_GO = 1;
@@ -122,7 +122,7 @@ public abstract class AbstractBEIntegrity extends AbstractIntegrity {
     public ArrayList flowList;
     public ArrayList resourceList;
 
-    //méthodes 
+    //mÃ©thodes
     public void getAllObjects(DbObject beModel) throws DbException {
 
         useCaseList = getOccurrences(beModel, DbBEUseCase.metaClass);
@@ -133,7 +133,7 @@ public abstract class AbstractBEIntegrity extends AbstractIntegrity {
     }
 
     /**
-     * Occurence sans représentation graphique
+     * Occurence sans reprÃ©sentation graphique
      */
     public void verifyOccurenceWithoutGO(ArrayList aList, StringBuffer buffer, int operation)
             throws DbException {

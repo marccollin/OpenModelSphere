@@ -2,9 +2,9 @@ package org.modelsphere.plugins.layout.nodes.kandinsky;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
-import org.apache.commons.lang.NullArgumentException;
 import org.modelsphere.jack.srtool.features.layout.graph.*;
 import org.modelsphere.jack.srtool.features.layout.graph.Edge.RelationType;
 import org.modelsphere.jack.srtool.features.layout.graph.HyperVertex.HyperVertexType;
@@ -49,10 +49,7 @@ public class Preprocessing {
      * @return List of self loop edges
      */
     public List<LoopEdgeRef> removeSelfLoopEdges() {
-        if (graph == null) {
-            throw new NullArgumentException(
-                    "You must set the graph to process before calling this method. Use setGraphToProcess method.");
-        }
+        this.graph = Objects.requireNonNull(graph,  "You must set the graph to process before calling this method. Use setGraphToProcess method.");
         List<LoopEdgeRef> selfLoopEdges = new ArrayList<LoopEdgeRef>();
 
         for (Edge edge : graph.edgeSet()) {

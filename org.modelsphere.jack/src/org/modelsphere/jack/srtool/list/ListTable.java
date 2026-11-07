@@ -873,7 +873,7 @@ public class ListTable extends JTable implements ActionListener, MouseMotionList
             text += sValue;
             ToolTipManager.sharedInstance().setDismissDelay(defaultTooltipDismissDelay);
         } else {
-            StringTokenizer st = new StringTokenizer(sValue, ",.©®(;:?!<>& \n\"", true); // NOT LOCALIZABLE
+            StringTokenizer st = new StringTokenizer(sValue, ",.Â©Â®(;:?!<>& \n\"", true);  // NOT LOCALIZABLE
             int count = 0;
             int linecount = 0;
             int charinline = 0;
@@ -896,10 +896,10 @@ public class ListTable extends JTable implements ActionListener, MouseMotionList
                 } else if (token.equals("\"")) {
                     text += QUOT;
                     charinline += 1;
-                } else if (token.equals("©")) {
+                } else if (token.equals("Â©")) {
                     text += COPY;
                     charinline += 1;
-                } else if (token.equals("®")) {
+                } else if (token.equals("Â®")) {
                     text += REG;
                     charinline += 1;
                 } else if (charinline >= MAX_CHAR_PER_LINE) { // NOT LOCALIZABLE

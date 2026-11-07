@@ -171,7 +171,6 @@ public final class BeIntegrity extends AbstractBEIntegrity {
     }
 
     /**
-     * On vérifie si l'objet n'a aucun flux relié ou des flux seulement en entrée ou seulement en
      * sortie
      */
     private void verifyOccurencesWithFlowError(ArrayList aList, StringBuffer buffer)
@@ -220,7 +219,6 @@ public final class BeIntegrity extends AbstractBEIntegrity {
                 modelIntegrityReport.printError(BE_IR_OBJECT_ERRORS_WITH_FLOW, buffer, semObj,
                         false, true, BE_IX_WITHOUT_FLOW_OUT);
                 modelWarningCount++;
-            } else if (nbFirstEnd == 0 && nbSecondEnd == 0) { //aucun flux rattaché
                 modelIntegrityReport.printError(BE_IR_OBJECT_ERRORS_WITH_FLOW, buffer, semObj,
                         false, true, BE_IX_ORPHAN_OCCURENCE);
                 modelWarningCount++;
@@ -305,7 +303,6 @@ public final class BeIntegrity extends AbstractBEIntegrity {
     }
 
     /**
-     * Flux sans condition d'émission
      */
     private void verifyFlowEmissionCondition(ArrayList aList, StringBuffer buffer)
             throws DbException {
@@ -321,7 +318,6 @@ public final class BeIntegrity extends AbstractBEIntegrity {
     }
 
     /**
-     * Flux liés incorectement
      */
     private void verifyFlowLinking(ArrayList aList, StringBuffer buffer) throws DbException {
         for (int i = 0; i < aList.size(); i++) {

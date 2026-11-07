@@ -148,7 +148,7 @@ public class OOInheritance extends SrLine implements DbRefreshListener {
     // or a solid
     // line connecting a class symbol and an interface circle, maps into an
     // Abstraction
-    // dependency with the «realize» stereotype between the corresponding
+    // dependency with the Â«realizeÂ» stereotype between the corresponding
     // Classifier and
     // Interface elements.
     private Boolean findDashstyle(DbSMSInheritanceGo inherGo, boolean realization)

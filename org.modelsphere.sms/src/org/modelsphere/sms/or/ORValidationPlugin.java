@@ -787,7 +787,7 @@ public abstract class ORValidationPlugin implements Plugin {
              * }
              */
 
-            /* ATTENTION----> pas d'index sur les colonnes liÈes ‡ un domaine pour ORACLE */
+            /* ATTENTION----> pas d'index sur les colonnes li√©es √† un domaine pour ORACLE */
 
             if ((type != null) && (dataTypesMap.containsKey(type.getName()))) {
                 Integer flag = (Integer) (dataTypesMap.get(type.getName()));

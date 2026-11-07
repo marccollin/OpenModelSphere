@@ -263,7 +263,7 @@ public final class PhysicalNameGeneration {
         return newName;
     }
 
-    // replace all accented characters ex: é = e à = a
+    // replace all accented characters ex: Ã© = e Ã  = a
     private final String getNameWithAccentedCharactersReplaced(String name) {
         String newName = name;
         Set keySet = accentedCharactersHashMap.keySet();

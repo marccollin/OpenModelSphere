@@ -123,6 +123,10 @@ public final class ProcessTreePlugin extends OOForwardEngineeringPlugin implemen
         m_varScope = varScope;
     }
 
+    protected String getTemplateFileName() {
+        return null;
+    }
+
     ////////////////////////////////////////////////////////////////////////
     // OVERRIDES Class Forward
 

@@ -71,7 +71,7 @@ import java.util.StringTokenizer;
  * a call to toSring() :
  *    <code>
  *    HtmlWriter writer = new HtmlWriter();
- *    writer.write("//symbols: È‡Ô\n");
+ *    writer.write("//symbols: √©√†√Ø\n");
  *    writer.write("if (i < 0) {..");
  *    String htmlText = writer.toString();
  *    </code>
@@ -81,13 +81,13 @@ import java.util.StringTokenizer;
  * having to manually replace all the XML special characters:
  *    <code>
  *    HtmlWriter writer = new HtmlWriter(new FileWriter("index.html"));
- *    writer.write("//symbols: È‡Ô\n");
+ *    writer.write("//symbols: √©√†√Ø\n");
  *    writer.write("if (i < 0) {..");
  *    writer.close();
  *    </code>
  *
  *  Because several XML viewers (such as MS-Explorer) and several XML parsers
- *  do not support neither diacritical characters (È‡..) nor HTML special tags
+ *  do not support neither diacritical characters (√©√†..) nor HTML special tags
  *  (&eacute;, &agrave;, ..), those characters are translated as ASCII-coded
  *  tags (&#226, ..).
  *
@@ -132,7 +132,7 @@ public class XmlWriter extends Writer {
             setMapping('\'', "&apos;"); // NOT LOCALIZABLE - HTML tag
             setMapping('\"', "&quot;"); // NOT LOCALIZABLE - HTML tag
 
-            // diacritical characters, such as È‡Ù.. (from 192 (a grave) to 255
+            // diacritical characters, such as ÔøΩÔøΩÔøΩ.. (from 192 (a grave) to 255
             // (y umlaut) )
             // &eacute; not always supported in XML
             for (int i = 192; i <= 255; i++) {
@@ -287,7 +287,7 @@ public class XmlWriter extends Writer {
         try {
             // test HTML buffer
             HtmlWriter htmlBuffer = new HtmlWriter();
-            htmlBuffer.write("//symbols:  È‡Ô\n"); // NOT LOCALIZABLE, unit test
+            htmlBuffer.write("//symbols:  √©√†√Ø\\n"); // NOT LOCALIZABLE, unit test
             htmlBuffer.write("if (i < 0) {.."); // NOT LOCALIZABLE, unit test
             String htmlText = htmlBuffer.toString();
             System.out.println(htmlText);
@@ -295,7 +295,7 @@ public class XmlWriter extends Writer {
             // test HTML file
             HtmlWriter htmlFileWriter = new HtmlWriter(new java.io.FileWriter("index.html")); // NOT LOCALIZABLE, unit test
             htmlFileWriter.write("<html><body>"); // NOT LOCALIZABLE, unit test
-            htmlFileWriter.write("//symbols:  È‡Ô\n"); // NOT LOCALIZABLE, unit
+            htmlFileWriter.write("//symbols:  √©√†√Ø\\n"); // NOT LOCALIZABLE, unit
             // test
             htmlFileWriter.write("if (i < 0) {.."); // NOT LOCALIZABLE, unit
             // test

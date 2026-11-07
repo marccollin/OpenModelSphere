@@ -499,7 +499,7 @@ public class SMSPropertiesFrame extends PropertiesFrame {
                 //listView.setTabName(LocaleMgr.screen.getString("TablespaceList"));
             }
             /*
-             * réévaluer la problématique avec Steph. int action = (semObj instanceof
+             * rÃ©Ã©valuer la problÃ©matique avec Steph. int action = (semObj instanceof
              * DbORANestedTableStorage ? ScreenView.PROPERTIES_BTN | ScreenView.NAME_ONLY :
              * ScreenView.LINK_UNL_ACTIONS | ScreenView.REINSERT_ACTION | ScreenView.NAME_ONLY);
              * vecPanels.add(listView = new ORListView(semObj, DbORAAbsTable.fTablespaces,

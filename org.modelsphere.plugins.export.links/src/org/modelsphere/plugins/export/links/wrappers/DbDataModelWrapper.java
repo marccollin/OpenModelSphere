@@ -30,8 +30,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 or see http://www.gnu.org/licenses/.
 
 Link Report plug-in has been developed by neosapiens inc. for
-the purposes of the Ministère de la Santé et des Services Sociaux
-du Québec (MSSS).
  
 You can reach neosapiens inc. at: 
   http://www.neosapiens.com

@@ -348,11 +348,11 @@ public class OrStyle {
         DbORStyle.or_prefixOptionDefaultValues = new DbtPrefix[] {
                 new DbtPrefix(DbtPrefix.DISPLAY_IMAGE, "v", null, kSubObjImage), // fOr_columnLinkedToSubModelPrefix,
                 new DbtPrefix(DbtPrefix.DISPLAY_IMAGE, "^", null, kSuperObjImage), // fOr_columnLinkedToSuperModelPrefix,
-                new DbtPrefix(DbtPrefix.DISPLAY_NONE, "Ø", null, null), // fOr_columnNullValuePrefix,
+                new DbtPrefix(DbtPrefix.DISPLAY_NONE, "Ã˜", null, null), // fOr_columnNullValuePrefix,
                 new DbtPrefix(DbtPrefix.DISPLAY_TEXT, "FK%#", null, null), // fOr_fkColumnsPrefix,
                 new DbtPrefix(DbtPrefix.DISPLAY_TEXT, "X%#", null, null), // fOr_indexColumnsPrefix,
                 keyPrefix, // fOr_pkColumnsPrefix,
-                new DbtPrefix(DbtPrefix.DISPLAY_TEXT, "©", null, null), //DbORStyle.fOr_columnChoicePrefix,
+                new DbtPrefix(DbtPrefix.DISPLAY_TEXT, "Â©", null, null), //DbORStyle.fOr_columnChoicePrefix,
                 new DbtPrefix(DbtPrefix.DISPLAY_TEXT, "@", null, null), //DbORStyle.fOr_columnSpecializationPrefix,
                 new DbtPrefix(DbtPrefix.DISPLAY_IMAGE, "v", null, kSubObjImage), // fOr_tableLinkedToSubModelPrefix,
                 new DbtPrefix(DbtPrefix.DISPLAY_IMAGE, "^", null, kSuperObjImage), // fOr_tableLinkedToSuperModelPrefix,

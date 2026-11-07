@@ -190,7 +190,7 @@ public class OrCleanUp extends AbstractORIntegrity {
      */
 
     /**
-     * Domaines non utilisés
+     * Domaines non utilisÃ©s
      */
     private void verifyDomainNotUsed(ArrayList aList, StringBuffer buffer) throws DbException {
         for (int i = 0; i < aList.size(); i++) {

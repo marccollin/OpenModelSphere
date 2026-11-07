@@ -6,7 +6,6 @@ import java.util.List;
 import org.modelsphere.jack.srtool.features.layout.LayoutAlgorithm;
 import org.modelsphere.jack.srtool.features.layout.LayoutPlugin;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class RectanglePackerPlugin extends LayoutPlugin {
     private RectanglePackerAlgorithm rectanglePackerAlgorithm;
@@ -24,7 +23,7 @@ public class RectanglePackerPlugin extends LayoutPlugin {
 	@Override
 	public List<LayoutAlgorithm> getDefaultLayoutAlgorithms() {
 		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+		throw new UnsupportedOperationException();
 //		return null;
 	}
 

@@ -44,9 +44,10 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.srtool.features;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
-import org.apache.regexp.RE;
-import org.apache.regexp.RESyntaxException;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.srtool.graphic.DbGraphic;
@@ -65,19 +66,23 @@ public class FindOption {
     private boolean wholeWord;
     private boolean useGrep;
     private boolean recursive;
-    private RE re = null;
+  //  private RE re = null;
+    private Pattern pattern = null;
     private ArrayList scopeOptions = new ArrayList();
 
     public FindOption(String textToFind, boolean caseSensitive, boolean wholeWord, boolean useGrep,
-            boolean recursive, ArrayList scopeOptions) throws RESyntaxException {
+            boolean recursive, ArrayList scopeOptions) throws PatternSyntaxException {
         this.textToFind = textToFind;
         this.caseSensitive = caseSensitive;
         this.wholeWord = wholeWord;
         this.useGrep = useGrep;
         this.recursive = recursive;
         this.scopeOptions = scopeOptions;
-        if (useGrep)
-            re = new RE(textToFind, caseSensitive ? 0 : RE.MATCH_CASEINDEPENDENT);
+        if (useGrep) {
+        //    re = new RE(textToFind, caseSensitive ? 0 : RE.MATCH_CASEINDEPENDENT);
+            int flags = caseSensitive ? 0 : Pattern.CASE_INSENSITIVE;
+            pattern = Pattern.compile(textToFind, flags);
+        }
         else if (!caseSensitive)
             lowerCaseTextToFind = textToFind.toLowerCase();
     }
@@ -85,8 +90,10 @@ public class FindOption {
     public boolean match(String textToMatch) {
         if (textToMatch == null)
             return false;
-        if (re != null)
-            return re.match(textToMatch);
+        if (pattern != null) {
+            Matcher matcher = pattern.matcher(textToMatch);
+            return matcher.find();
+        }
         int foundIndex;
         if (caseSensitive)
             foundIndex = textToMatch.indexOf(textToFind);

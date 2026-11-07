@@ -644,7 +644,7 @@ public final class ORAssociation extends SrLine implements DbRefreshListener {
         if (displayUmlStereotype) {
             DbSMSStereotype stereotype = ((DbORAssociation) semObj).getUmlStereotype();
             if (stereotype != null) {
-                label += "«" + stereotype.getName() + "» ";
+                label += "Â«" + stereotype.getName() + "Â» ";
             }
         } // end if
 

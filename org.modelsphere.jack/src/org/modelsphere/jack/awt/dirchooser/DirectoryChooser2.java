@@ -61,7 +61,6 @@ import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.util.FileUtils;
 
-import sun.awt.shell.ShellFolder;
 
 public final class DirectoryChooser2 extends JDialog {
     private static final String kDefaultTitle = LocaleMgr.screen.getString("SelectDirectory");
@@ -164,8 +163,6 @@ public final class DirectoryChooser2 extends JDialog {
             }
             directories.clear();
             FileSystemView fsv = FileSystemView.getFileSystemView();
-            File[] baseFolders = (File[]) ShellFolder.get("fileChooserComboBoxFolders"); // NOT LOCALIZABLE
-            directories.addAll(Arrays.asList(baseFolders));
 
             File canonical = null;
             try {

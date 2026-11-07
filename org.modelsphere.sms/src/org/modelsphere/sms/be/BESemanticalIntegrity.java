@@ -202,8 +202,6 @@ public final class BESemanticalIntegrity implements DbUpdateListener {
             }
         }
 
-        // Attention la séquence des objets détruits est importante
-        // Je considère ici que le premier trappé est l'objet détruit
         // directement suivi des autres
         // qui le sont en cascade.
 

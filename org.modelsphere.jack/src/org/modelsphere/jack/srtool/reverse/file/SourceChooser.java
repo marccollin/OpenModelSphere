@@ -97,7 +97,7 @@ public final class SourceChooser extends JFileChooser {
     }
 
     // BUG Swing du JFileChooser qui calcule mal la dimension des composantes.
-    // Ça semble être le popup des FileFilters
+    // ca semble etre le popup des FileFilters
     // I've increased the width from 600 to 700 because buttons were troncated
     // in French [MS]
     public Dimension getPreferredSize() {

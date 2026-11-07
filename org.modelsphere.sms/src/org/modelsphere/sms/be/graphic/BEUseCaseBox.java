@@ -578,7 +578,6 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
                         else if (mf.equals(DbBEUseCase.fUmlStereotype)) {
                             DbSMSStereotype stereotype = useCaseSO.getUmlStereotype();
                             if (stereotype != null) {
-                                value = "«" + stereotype.getName() + "»";
                                 bSetStereotypeEditor = true;
                             }
                         }

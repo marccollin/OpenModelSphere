@@ -32,9 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.features.startupwizard;
 
-import it.cnr.imaa.essi.lablib.gui.checkboxtree.*;
-import it.cnr.imaa.essi.lablib.gui.checkboxtree.TreeCheckingModel.CheckingMode;
-
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -48,6 +45,11 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+
+import eu.essilab.lablib.checkboxtree.CheckboxTree;
+import eu.essilab.lablib.checkboxtree.DefaultCheckboxTreeCellRenderer;
+import eu.essilab.lablib.checkboxtree.TreeCheckingModel;
+import eu.essilab.lablib.checkboxtree.DefaultTreeCheckingModel;
 
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.gui.wizard2.AbstractPage;
@@ -297,7 +299,7 @@ class UMLClassPackagePage extends AbstractPage {
             checkingModel = new DefaultTreeCheckingModel(treemodel);
             tree.setModel(treemodel);
             tree.setCheckingModel(checkingModel);
-            checkingModel.setCheckingMode(CheckingMode.SIMPLE);
+            checkingModel.setCheckingMode(TreeCheckingModel.CheckingMode.SIMPLE);
 
             if (treemodel.getJavaLangNode() != null) {
                 ArrayList<DefaultMutableTreeNode> path = new ArrayList<DefaultMutableTreeNode>();
@@ -311,7 +313,7 @@ class UMLClassPackagePage extends AbstractPage {
                 path.add(treemodel.getJavaLangNode());
                 checkingModel.setCheckingPath(new TreePath(path.toArray()));
             }
-            checkingModel.setCheckingMode(CheckingMode.PROPAGATE);
+            checkingModel.setCheckingMode(TreeCheckingModel.CheckingMode.PROPAGATE);
         }
 
     }

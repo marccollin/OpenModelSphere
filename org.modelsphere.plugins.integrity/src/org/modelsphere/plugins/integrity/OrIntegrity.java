@@ -130,7 +130,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
             verifyArcWithDependenceNotAloneOnKey(erAssociationList,
                     modelIntegrityReport.errorStrBuffer);
             verifyArcWithDependenceNotExactlyOne(arcList, modelIntegrityReport.errorStrBuffer);
-            //BUILD 507 on retire cette règle qui selon Axel ne serait pas une erreur
+            //BUILD 507 on retire cette regle qui selon Axel ne serait pas une erreur
             //verifyArcWithDependenceAloneOnKey(erAssociationList, modelIntegrityReport.errorStrBuffer);
 
             // --- Warning ---
@@ -166,11 +166,11 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**********************************************************************************
-     * MÉTHODES UTILISÉES POUR LES MODÈLES RELATIONNELS
+     * MÃ‰THODES UTILISÃ‰ES POUR LES MODELES RELATIONNELS
      **********************************************************************************/
 
     /**
-     * Règle :
+     * Regle :
      */
     private void verifyForeignkeyColumnIntegrity(ArrayList aList, StringBuffer buffer)
             throws DbException {
@@ -246,8 +246,8 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**
-     * Règle : Lors d'une connectivité minimale 0, les colonnes de clés étrangères correspondantes
-     * doivent être valeur nulle possible.
+     * Regle : Lors d'une connectivitÃ© minimale 0, les colonnes de clÃ©s Ã©trangÃ¨res correspondantes
+     * doivent etre valeur nulle possible.
      * 
      * check minimum connectivity - if == 0 - fk columns should be null possible
      */
@@ -305,8 +305,8 @@ public final class OrIntegrity extends AbstractORIntegrity {
     } //verifyChildMinConnectivity0()
 
     /**
-     * Règle : Lors d'une connectivité minimale 1, les colonnes de clés étrangères correspondantes
-     * NE doivent PAS être valeur nulle possible.
+     * Regle : Lors d'une connectivitÃ© minimale 1, les colonnes de clÃ©s Ã©trangeres correspondantes
+     * NE doivent PAS etre valeur nulle possible.
      */
     private void verifyChildMinConnectivity1(ArrayList aList, StringBuffer buffer)
             throws DbException {
@@ -602,7 +602,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**********************************************************************************
-     * MÉTHODES UTILISÉES POUR LES MODÈLES CONCEPTUELS ET RELATIONNELS
+     * Mï¿½THODES UTILISï¿½ES POUR LES MODï¿½LES CONCEPTUELS ET RELATIONNELS
      **********************************************************************************/
 
     /**
@@ -628,7 +628,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**
-     * Règle : Une colonne faisant partie d'une clé primaire ou unique doit être NON NUL
+     * Rï¿½gle : Une colonne faisant partie d'une clï¿½ primaire ou unique doit ï¿½tre NON NUL
      */
     private void verifyPKUKColumnsNullity(ArrayList aList, StringBuffer buffer) throws DbException {
         for (int i = 0; i < aList.size(); i++) {
@@ -657,11 +657,11 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**********************************************************************************
-     * MÉTHODES UTILISÉES POUR LES MODÈLES CONCEPTUELS
+     * Mï¿½THODES UTILISï¿½ES POUR LES MODï¿½LES CONCEPTUELS
      **********************************************************************************/
 
     /**
-     * Entités sans clés
+     * Entitï¿½s sans clï¿½s
      */
     protected void verifyEntityWithoutKeys(ArrayList aList, StringBuffer buffer) throws DbException {
         ArrayList keyList = new ArrayList();
@@ -685,7 +685,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**
-     * Association ternaire avec une dépendance
+     * Association ternaire avec une dï¿½pendance
      */
     protected void verifyTernaryRelationWithDependence(ArrayList aList, StringBuffer buffer)
             throws DbException {
@@ -711,7 +711,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**
-     * Association binaire avec dépendance sur plus d'un arc
+     * Association binaire avec dï¿½pendance sur plus d'un arc
      */
     protected void verifyBinaryRelationWithTooManyDependence(ArrayList aList, StringBuffer buffer)
             throws DbException {
@@ -738,7 +738,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**
-     * Association binaire avec dépendance sur une relation récursive
+     * Association binaire avec dï¿½pendance sur une relation rï¿½cursive
      */
     protected void verifyBinaryRecursiveWithDependence(ArrayList aList, StringBuffer buffer)
             throws DbException {
@@ -774,7 +774,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**
-     * Association contenant un attribut et un arc avec une multiplicité 1,1
+     * Association contenant un attribut et un arc avec une multiplicitï¿½ 1,1
      */
     protected void verifyRelationshipWithAttributeAndExactlyOneMult(ArrayList aList,
             StringBuffer buffer) throws DbException {
@@ -805,7 +805,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**
-     * Arc avec une dépendance et dont la multiplicité n'est pas 1,1
+     * Arc avec une dï¿½pendance et dont la multiplicitï¿½ n'est pas 1,1
      */
     protected void verifyArcWithDependenceNotExactlyOne(ArrayList aList, StringBuffer buffer)
             throws DbException {
@@ -822,7 +822,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**
-     * Règle : Vérification de la navigabilité des rôles de relations binaires
+     * Rï¿½gle : Vï¿½rification de la navigabilitï¿½ des rï¿½les de relations binaires
      */
     private void verifyNavigability(ArrayList aList, StringBuffer buffer) throws DbException {
         for (int i = 0; i < aList.size(); i++) {
@@ -864,10 +864,10 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**
-     * Les arcs ayant une dépendance sur le rôle qui est le seul membre de la clé et le rôle opposé
-     * a une multiplicité maximale différente de 1
+     * Les arcs ayant une dï¿½pendance sur le rï¿½le qui est le seul membre de la clï¿½ et le rï¿½le opposï¿½
+     * a une multiplicitï¿½ maximale diffï¿½rente de 1
      * 
-     * BUILD 507 on retire cette règle qui selon Axel ne serait pas une erreur
+     * BUILD 507 on retire cette rï¿½gle qui selon Axel ne serait pas une erreur
      */
     protected void verifyArcWithDependenceAloneOnKey(ArrayList aList, StringBuffer buffer)
             throws DbException {
@@ -895,7 +895,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
                     DbEnumeration depEnum = firstEnd.getDependentConstraints().elements();
                     while (depEnum.hasMoreElements()) {
                         DbORPrimaryUnique key = (DbORPrimaryUnique) depEnum.nextElement();
-                        //  pas de colonne et opposé Max N
+                        //  pas de colonne et opposï¿½ Max N
                         if ((key.getColumns().size() == 0) && (oppositeEndMult.isMaxN())) {
                             modelIntegrityReport.printError(ER_IX_DEP_ALONE_WITH_OPPOSITE_MAXN,
                                     buffer, arc, true);
@@ -910,7 +910,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
                     DbEnumeration depEnum = secondEnd.getDependentConstraints().elements();
                     while (depEnum.hasMoreElements()) {
                         DbORPrimaryUnique key = (DbORPrimaryUnique) depEnum.nextElement();
-                        // pas de colonne et opposé Max N
+                        // pas de colonne et opposï¿½ Max N
 
                         if ((key.getColumns().size() == 0) && (oppositeEndMult.isMaxN())) {
                             modelIntegrityReport.printError(ER_IX_DEP_ALONE_WITH_OPPOSITE_MAXN,
@@ -925,8 +925,8 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**
-     * Les arcs ayant une dépendance sur le rôle qui n'est pas le seul membre de la clé et le rôle
-     * opposé a une multiplicité maximale égale à 1
+     * Les arcs ayant une dï¿½pendance sur le rï¿½le qui n'est pas le seul membre de la clï¿½ et le rï¿½le
+     * opposï¿½ a une multiplicitï¿½ maximale ï¿½gale ï¿½ 1
      */
     protected void verifyArcWithDependenceNotAloneOnKey(ArrayList aList, StringBuffer buffer)
             throws DbException {
@@ -954,7 +954,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
                     DbEnumeration depEnum = firstEnd.getDependentConstraints().elements();
                     while (depEnum.hasMoreElements()) {
                         DbORPrimaryUnique key = (DbORPrimaryUnique) depEnum.nextElement();
-                        //  avec colonne et opposé Max 1
+                        //  avec colonne et opposï¿½ Max 1
                         if ((key.getColumns().size() > 0) && (!oppositeEndMult.isMaxN())) {
                             modelIntegrityReport.printError(ER_IX_DEP_NOT_ALONE_WITH_OPPOSITE_MAX1,
                                     buffer, arc, true);
@@ -969,7 +969,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
                     DbEnumeration depEnum = secondEnd.getDependentConstraints().elements();
                     while (depEnum.hasMoreElements()) {
                         DbORPrimaryUnique key = (DbORPrimaryUnique) depEnum.nextElement();
-                        //  avec colonne et opposé Max 1                          
+                        //  avec colonne et opposï¿½ Max 1                          
                         if ((key.getColumns().size() > 0) && (!oppositeEndMult.isMaxN())) {
                             modelIntegrityReport.printError(ER_IX_DEP_NOT_ALONE_WITH_OPPOSITE_MAX1,
                                     buffer, arc, true);
@@ -983,7 +983,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
     }
 
     /**************************************************************************************
-     * MÉTHODES DE CORRECTION DE DATAMODEL
+     * Mï¿½THODES DE CORRECTION DE DATAMODEL
      **************************************************************************************/
 
     protected static boolean correctPKUKColumnsNullity(DbORColumn column) throws DbException {
@@ -1118,7 +1118,7 @@ public final class OrIntegrity extends AbstractORIntegrity {
         return false;
     }
 
-    //fin Méthodes de corrections des DataModel
+    //fin Mï¿½thodes de corrections des DataModel
 
     private String[] getReportMessages() {
         String[] integMsgs = null;

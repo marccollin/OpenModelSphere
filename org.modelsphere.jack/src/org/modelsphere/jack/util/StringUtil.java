@@ -354,14 +354,14 @@ public final class StringUtil implements Testable {
     // Convert the specified String to ensure that html special characters are
     // converted to their
     // html tag.
-    // Supported characters are <>&"©®
+    // Supported characters are <>&"Â©Â®
     public static String replaceHTMLSpecialCharacters(String s) {
         if (s == null)
             return null;
         StringWriter writer = new StringWriter();
 
         int index = -1;
-        StringTokenizer st = new StringTokenizer(s, "<>&\"©®", true); // NOT
+        StringTokenizer st = new StringTokenizer(s, "<>&\"Â©Â®", true); // NOT
         // LOCALIZABLE
         while (st.hasMoreElements()) {
             String token = (String) st.nextElement();
@@ -373,9 +373,9 @@ public final class StringUtil implements Testable {
                 writer.write("&amp;"); // NOT LOCALIZABLE
             else if (token.equals("\""))
                 writer.write("&quot;"); // NOT LOCALIZABLE
-            else if (token.equals("©"))
+            else if (token.equals("ï¿½"))
                 writer.write("&copy;"); // NOT LOCALIZABLE
-            else if (token.equals("®"))
+            else if (token.equals("ï¿½"))
                 writer.write("&reg;"); // NOT LOCALIZABLE
             else
                 writer.write(token);

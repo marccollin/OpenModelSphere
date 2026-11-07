@@ -399,7 +399,6 @@ public class BEContext extends GraphicNode implements ActionInformation {
      * DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay)i.next(); if
      * (!zoneDisplay.isDisplayed() ||
      * zoneDisplay.getMetaField().equals(DbBEUseCaseResource.fResource)) //todo pour ressource cas
-     * spécifique!!!!!! continue;
      * 
      * Object srcObj = zoneDisplay.getSourceObject(); MatrixZone zone =
      * (MatrixZone)zonesMap.get(srcObj); if (zone != null){ zone.removeAllRows(); int row = 0;
@@ -437,7 +436,6 @@ public class BEContext extends GraphicNode implements ActionInformation {
      * DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay)i.next(); if
      * (!zoneDisplay.isDisplayed() ||
      * zoneDisplay.getMetaField().equals(DbBEUseCaseResource.fResource)) //todo pour ressource cas
-     * spécifique!!!!!! continue; int alignment; switch (zoneDisplay.getJustification().getValue()){
      * case ZoneJustification.CENTER: alignment = GraphicUtil.CENTER_ALIGNMENT; break; case
      * ZoneJustification.RIGHT: alignment = GraphicUtil.RIGHT_ALIGNMENT; break; default: alignment =
      * GraphicUtil.LEFT_ALIGNMENT; } MatrixZone zone = new MatrixZone(zoneDisplay.getGUIName(),

@@ -276,12 +276,12 @@ public abstract class PluginLoader implements PluginConstants {
             return true;
         Class<? extends Plugin> pluginClass = null;
         PluginContext context = pluginDescriptor.getContext();
-        
-        //XML plugin (format 2.0 for OMS 3.2) will be initialized later
+
+        // XML plugin (format 2.0 for OMS 3.2) will be initialized later
         if (context instanceof XMLPluginContext) {
-        	return false;
+            return false;
         }
-        
+
         String className = pluginDescriptor.getClassName();
 
         try {
@@ -289,14 +289,28 @@ public abstract class PluginLoader implements PluginConstants {
             if (classLoader == null) {
                 URL url = context.getURL();
                 if (url != null) {
-                    classLoader = new URLClassLoader(new URL[] { url });
+                    ClassLoader parentClassLoader = Thread.currentThread().getContextClassLoader();
+                    if (parentClassLoader == null) {
+                        parentClassLoader = PluginLoader.class.getClassLoader();
+                    }
+                    classLoader = new URLClassLoader(new URL[] { url }, parentClassLoader);
                 } else {
-                    System.out.println("Undefined class loader for " + pluginDescriptor);
-                    return false;
+                    System.out.println("PluginLoad: URL is null, using application ClassLoader " + pluginDescriptor);
+                    classLoader = Thread.currentThread().getContextClassLoader();
+                    if (classLoader == null) {
+                        classLoader = PluginLoader.class.getClassLoader();
+                    }
+                    if (classLoader == null) {
+                        System.out.println("Undefined class loader for " + pluginDescriptor);
+                        return false;
+                    }
                 }
                 context.setClassLoader(classLoader);
             }
+
+            // Charger la classe en utilisant le ClassLoader approprié
             pluginClass = (Class<? extends Plugin>) Class.forName(className, true, classLoader);
+
             if (pluginClass != null && Plugin.class.isAssignableFrom(pluginClass)
                     && Modifier.isPublic(pluginClass.getModifiers())) {
                 ((DefaultPluginDescriptor) pluginDescriptor).setPluginClass(pluginClass);
@@ -304,7 +318,6 @@ public abstract class PluginLoader implements PluginConstants {
                         .getType(pluginClass));
                 return true;
             } else {
-                // not a plugin
                 ((DefaultPluginDescriptor) pluginDescriptor).setPluginType(null);
                 return false;
             }

@@ -324,9 +324,9 @@ public final class TargetSystem {
     /*
      * public ArrayList getUserTargetSystems(DbProject project) throws DbException { ArrayList
      * arrayTS = new ArrayList();
-     * 
-     * // Énumère les DbSMSTargetSystem qui ont été créés mais qui ne sont pas nécessairement
-     * présent dans le BuiltInTypeNode DbEnumeration dbEnum = ((DbSMSProject
+     *
+     * // Ã‰numÃ¨re les DbSMSTargetSystem qui ont Ã©tÃ© crÃ©Ã©s mais qui ne sont pas nÃ©cessairement
+     * prÃ©sent dans le BuiltInTypeNode DbEnumeration dbEnum = ((DbSMSProject
      * )project).getComponents().elements(DbSMSTargetSystem.metaClass); while
      * (dbEnum.hasMoreElements()) { DbSMSTargetSystem dbts =
      * ((DbSMSTargetSystem)dbEnum.nextElement()); int rootID = dbts.getRootID().intValue

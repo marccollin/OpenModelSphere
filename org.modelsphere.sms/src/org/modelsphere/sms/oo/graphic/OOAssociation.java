@@ -148,7 +148,7 @@ public final class OOAssociation extends SrLine implements DbRefreshListener {
         String stereotypeName = ""; //NOT LOCALIZABLE
         DbSMSStereotype stereotype = semObject.getUmlStereotype();
         if (stereotype != null) {
-            stereotypeName = "«" + stereotype.getName() + "»"; //NOT LOCALIZABLE
+            stereotypeName = "Â«" + stereotype.getName() + "Â»"; //NOT LOCALIZABLE
         }
 
         return stereotypeName;

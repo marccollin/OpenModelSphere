@@ -83,7 +83,6 @@ public class BeCleanUp extends AbstractBEIntegrity {
     }
 
     /**
-     * Ressources non-utilisées dans les processus
      */
     private void verifyResourcesNotUsed(ArrayList aList, StringBuffer buffer) throws DbException {
         for (int i = 0; i < aList.size(); i++) {

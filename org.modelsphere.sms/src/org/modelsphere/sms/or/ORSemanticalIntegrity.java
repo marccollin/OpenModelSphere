@@ -394,7 +394,7 @@ public final class ORSemanticalIntegrity implements DbUpdateListener {
         table.setIsDependant(hasAtLeastOneFK ? Boolean.TRUE : Boolean.FALSE);
 
         //a table containing one or more PUKs is not an association table 
-        // mais seulement si cette clé est constituée de colonnes de cette table et non liée à une dépendance via l'AssociationEnd.
+        // mais seulement si cette clÃ© est constituÃ©e de colonnes de cette table et non liÃ©e Ã  une dÃ©pendance via l'AssociationEnd.
         int nbPKCol = 0;
         relN = table.getComponents();
         dbEnum = relN.elements(DbORPrimaryUnique.metaClass);

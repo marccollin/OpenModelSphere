@@ -262,7 +262,6 @@ public class BEFlow extends SrLine implements DbRefreshListener {
 
                 if (value instanceof DbSMSStereotype) {
                     DbSMSStereotype stereotype = (DbSMSStereotype) value;
-                    labelValue = "«" + stereotype.getName() + "»";
                 } else {
                     labelValue = value != null ? value.toString() : "";
                 }

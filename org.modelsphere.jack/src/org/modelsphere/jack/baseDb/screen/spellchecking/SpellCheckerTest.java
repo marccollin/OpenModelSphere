@@ -66,7 +66,7 @@ public class SpellCheckerTest {
 
         Locale.setDefault(Locale.FRENCH);
         // String text = "this sentense containes some speling misstakes";
-        String text = "Ce text contien des fauts d'orthographe; il est mal-corrigé.";
+        String text = "Ce text contien des fauts d'orthographe; il est mal-corrigÃ©.";
 
         boolean doCheckSpell = true;
         String title = "Test";

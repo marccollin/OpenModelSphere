@@ -521,30 +521,30 @@ public final class SMSVersionConverter implements VersionConverter {
             if (m_arrayFrench == null) {
                 m_arrayFrench = new ArrayList<String>();
                 m_arrayFrench.add("Datarun-Fonctionnement de l'organisation");
-                m_arrayFrench.add("Datarun-Architecture du système d'information");
-                m_arrayFrench.add("Datarun-Fonctionnement du système d'information");
+                m_arrayFrench.add("Datarun-Architecture du systÃ¨me d'information");
+                m_arrayFrench.add("Datarun-Fonctionnement du systÃ¨me d'information");
                 m_arrayFrench.add("Gane Sarson");
                 m_arrayFrench.add("Merise");
                 m_arrayFrench.add("Yourdon-DeMarco");
                 m_arrayFrench.add("Ward-Mellor");
                 m_arrayFrench.add("Diagramme fonctionnel");
                 m_arrayFrench.add("Merise MCT");
-                m_arrayFrench.add("Merise schéma de flux");
+                m_arrayFrench.add("Merise schï¿½ma de flux");
                 m_arrayFrench.add("Merise OOM");
                 m_arrayFrench.add("P+");
                 m_arrayFrench.add("P+ OPAL");
                 m_arrayFrench.add("Cycle de vie des objets");
                 m_arrayFrench.add("Interaction de messages");
 
-                m_arrayFrench.add("UML-Diagramme d'activité");
+                m_arrayFrench.add("UML-Diagramme d'activitÃ©");
                 m_arrayFrench.add("UML-Diagramme de collaboration");
                 m_arrayFrench.add("UML-Diagramme de composants");
                 m_arrayFrench.add("UML-Diagramme de classes");
-                m_arrayFrench.add("UML-Diagramme de déploiement");
-                m_arrayFrench.add("Modèle UML");
-                m_arrayFrench.add("UML-Diagramme de séquence");
-                m_arrayFrench.add("UML-Diagramme d'état");
-                m_arrayFrench.add("UML-Diagramme d'état");
+                m_arrayFrench.add("UML-Diagramme de dÃ©ploiement");
+                m_arrayFrench.add("ModÃ¨le UML");
+                m_arrayFrench.add("UML-Diagramme de sÃ©quence");
+                m_arrayFrench.add("UML-Diagramme d'Ã©tat");
+                m_arrayFrench.add("UML-Diagramme d'Ã©tat");
                 m_arrayFrench.add("UML-Diagramme de cas d'utilisation");
                 m_arrayFrench.add("UML - Cas d'utilisation");
                 m_arrayFrench.add("UML-Diagramme de cas d'utilisation");
@@ -554,12 +554,12 @@ public final class SMSVersionConverter implements VersionConverter {
                 m_arrayFrenchStyles.add("Cas d'utilisation UML");
                 m_arrayFrenchStyles.add("UML Cas d'utilisation");
                 m_arrayFrenchStyles.add("BPM - Normal");
-                m_arrayFrenchStyles.add("Séquences UML");
-                m_arrayFrenchStyles.add("États UML");
+                m_arrayFrenchStyles.add("SÃ©quences UML");
+                m_arrayFrenchStyles.add("Ã‰tats UML");
                 m_arrayFrenchStyles.add("Collaborations UML");
-                m_arrayFrenchStyles.add("Activités UML");
+                m_arrayFrenchStyles.add("ActivitÃ©s UML");
                 m_arrayFrenchStyles.add("Composantes UML");
-                m_arrayFrenchStyles.add("Déploiement UML");
+                m_arrayFrenchStyles.add("DÃ©ploiement UML");
             }
             if (m_arrayEnglish == null) {
                 m_arrayEnglish = new ArrayList<String>();

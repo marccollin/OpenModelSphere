@@ -72,7 +72,7 @@ public class ModelIntegrityReport {
     private static final String kCleanRuleTip = LocaleMgr.misc.getString("CleanRuleTip");
     private static final String kCleanAllTip = LocaleMgr.misc.getString("CleanAllTip");
 
-    // ramené de AbstractIntegrity
+    // ramenÃ© de AbstractIntegrity
 
     private static final String EOL = "<br> " + System.getProperty("line.separator"); // NOT LOCALIZABLE
     private static final String BR = "<br> "; // NOT LOCALIZABLE
@@ -111,7 +111,7 @@ public class ModelIntegrityReport {
         showPuceWarningImageURL = LocaleMgr.misc.getUrl("puce_warning"); // NOT LOCALIZABLE 
     }
 
-    // reçu en parametre  
+    // recu en parametre
     private String[] cleanUpSectionLinkStr;
     private String[] reportMessages;
     private Boolean[] errorFlags;
@@ -147,7 +147,7 @@ public class ModelIntegrityReport {
         JEditorPane editorpane = (JEditorPane) frame.getTextPanel();
         editorpane.addHyperlinkListener(new InternalLinkAdapter() {
             /*
-             * Hyperliens avec Dbobject associés
+             * Hyperliens avec Dbobject associÃ©s
              */
             protected int internalLinkActivated(DbObject dbo, String action) throws DbException {
                 int status = InternalLinkAdapter.NONE;
@@ -206,7 +206,7 @@ public class ModelIntegrityReport {
             }
 
             /*
-             * Hyperliens sans Dbobject associés
+             * Hyperliens sans Dbobject associÃ©s
              */
             protected int internalLinkActivated(String action) throws DbException {
                 if (action == null)
@@ -251,7 +251,7 @@ public class ModelIntegrityReport {
     }
 
     /*
-     * Méthodes printError
+     * MÃ©thodes printError
      */
 
     //- MSG-4: semObj
@@ -308,7 +308,7 @@ public class ModelIntegrityReport {
     }
 
     /*
-     * ****** Méthode principale *******
+     * ****** MÃ©thode principale *******
      */
     //- MSG-11 
     public void printError(int ruleMsgIndex, StringBuffer buffer, DbSemanticalObject semObj,
@@ -518,7 +518,7 @@ public class ModelIntegrityReport {
     }
 
     /*
-     * retourne le nom à afficher
+     * retourne le nom a afficher
      */
     private String getDisplayName(DbObject dbo) throws DbException {
         String dboDisplayName = null;

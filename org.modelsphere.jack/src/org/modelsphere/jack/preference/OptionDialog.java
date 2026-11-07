@@ -372,13 +372,13 @@ public final class OptionDialog extends JDialog implements ActionListener {
                 continue;
             if (update.value instanceof String) {
                 update.set.setProperty(update.cls, update.key, (String) update.value);
-                //Cas spécial Pour ne faire le setLocale qu'au APPLY seulement
+                //Cas special Pour ne faire le setLocale qu'au APPLY seulement
                 if (update.key.equalsIgnoreCase("Language")) {
                     try {
                         if (update.value.toString().equalsIgnoreCase("fr"))
                             LocaleMgr.setLocaleInPreferences(Locale.FRENCH);
                         else
-                            // par défaut : anglais
+                            // par defaut : anglais
                             LocaleMgr.setLocaleInPreferences(Locale.ENGLISH);
                     } catch (IOException ex) {
                         ExceptionHandler.processUncatchedException(ApplicationContext

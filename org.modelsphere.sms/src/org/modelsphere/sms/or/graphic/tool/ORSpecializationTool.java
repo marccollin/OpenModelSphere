@@ -455,7 +455,7 @@ public class ORSpecializationTool extends Tool {
                     assocClassifierGO, srcArc);
             DbORAssociationGo destArcGO = new DbORAssociationGo(diagram, destClassifierGO,
                     assocClassifierGO, destArc);
-            // transfert des caractéristiques de l'association originale vers
+            // transfert des caractÃ¨ristiques de l'association originale vers
             // les arcs
             boolean isRightAngle = originAssocGo.isRightAngle();
             srcArcGO.setDashStyle(originAssocGo.getDashStyle());

@@ -140,8 +140,14 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
             .getString("NO_DOMAIN_ALLOWED_PATTERN");
 
     protected URL getTemplateURL() {
-        return null;
+        String templateFileName = getTemplateFileName();
+        if (templateFileName == null) {
+            return null;
+        }
+        return getClass().getResource(templateFileName);
     }
+
+    protected abstract String getTemplateFileName();
 
     //one variable list per forward module
     //protected VariableScope m_varList = new VariableScope(GENERIC_FORWARD);
@@ -152,8 +158,12 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
     //Required by the unit test. Do not remove!
     static {
         try {
-            Class<?> claz = Class.forName("org.modelsphere.sms.Application"); //NOT LOCALIZABLE, unit test
-            java.lang.reflect.Method method = claz.getDeclaredMethod("initMeta", new Class[] {}); //NOT LOCALIZABLE, unit test
+            Class<?> claz = Class.forName(
+                    "org.modelsphere.sms.Application",
+                    true,
+                    Thread.currentThread().getContextClassLoader()
+            );
+            java.lang.reflect.Method method = claz.getDeclaredMethod("initMeta", new Class[] {});
             method.invoke(null, new Object[] {});
         } catch (Exception ex) {
             ex.printStackTrace(System.out);
@@ -480,16 +490,32 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
             GenericRuleStructure currentRS, String repositoryFunctionName, Modifier[] modifiers)
             throws NoSuchMethodException, InvocationTargetException, IllegalAccessException,
             InstantiationException, ClassNotFoundException, RuleException {
-    	
-        String actualName = "org.modelsphere.sms.plugins.generic.repository."; //NOT LOCALIZABLE
+
+        String actualName = "org.modelsphere.sms.plugins.generic.repository.";
         actualName += repositoryFunctionName;
         String rulename = currentRS.getRuleName();
-
         Class claz = null;
+
         PluginMgr pluginMgr = PluginMgr.getSingleInstance();
         claz = pluginMgr.getPluginClass(actualName);
-        if (claz == null)
-            claz = Class.forName(actualName);
+
+        // CORRECTION : Utiliser le Context ClassLoader si pluginMgr échoue
+        if (claz == null) {
+            try {
+                claz = Class.forName(
+                        actualName,
+                        true,
+                        Thread.currentThread().getContextClassLoader()
+                );
+            } catch (ClassNotFoundException e) {
+                // Fallback vers le ClassLoader de la classe courante
+                claz = Class.forName(
+                        actualName,
+                        true,
+                        GenericForwardEngineeringPlugin.class.getClassLoader()
+                );
+            }
+        }
 
         if (claz == null) {
             throw new ClassNotFoundException();
@@ -983,7 +1009,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
     //get the rule named 'rulename' in the template file named 'filename'
     protected boolean m_successfullyInitialized = false; //only used in getTableRule()
 
-    protected void lazyInit(VariableScope varList, URL templateURL, boolean parseAlways)
+    public void lazyInit(VariableScope varList, URL templateURL, boolean parseAlways)
             throws RuleException, NoSuchMethodException, InvocationTargetException,
             ClassNotFoundException, FileNotFoundException, InstantiationException,
             IllegalAccessException, GenericForwardEngineeringPlugin.InitializationException,

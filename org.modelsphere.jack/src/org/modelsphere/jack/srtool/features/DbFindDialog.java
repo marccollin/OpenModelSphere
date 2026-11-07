@@ -43,7 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.features;
 
-import org.apache.regexp.RESyntaxException;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Vector;
@@ -224,14 +223,14 @@ public class DbFindDialog extends JDialog implements ActionListener, TestableWin
         // VK_ENTER sert a
         // faire disparaitre le popup du combo s'il est visible. Le combo ne
         // devrait pas
-        // consommer l'événement du VK_ENTER si son popup n'est pas visible. On
+        // consommer l'ï¿½vï¿½nement du VK_ENTER si son popup n'est pas visible. On
         // attend pour
-        // régler ca ... Sun ont le temps de corriger ce pb d'ici la livraison
+        // rï¿½gler ca ... Sun ont le temps de corriger ce pb d'ici la livraison
         // de l'outil
-        // mrd. Si non corrigé, faudra vérifier via combo.isPopupVisible() avant
-        // de déclancher
+        // mrd. Si non corrigï¿½, faudra vï¿½rifier via combo.isPopupVisible() avant
+        // de dï¿½clancher
         // l'action du VK_ENTER que l'on veut avoir pour ne pas courcircuiter la
-        // sélection
+        // sï¿½lection
         // standard dans le combo.
         /*
          * combo.getEditor().getEditorComponent().addKeyListener(new KeyAdapter(){ public void
@@ -281,7 +280,6 @@ public class DbFindDialog extends JDialog implements ActionListener, TestableWin
                         .isSelected(), grepCB.isSelected(), recursiveCB.isSelected(), scopeOptions);
                 if (withDispose)
                     dispose();
-            } catch (RESyntaxException ex) {
                 javax.swing.JOptionPane.showMessageDialog(getParent(), LocaleMgr.screen
                         .getString("regularExpressionInvalid")
                         + ex.getMessage());

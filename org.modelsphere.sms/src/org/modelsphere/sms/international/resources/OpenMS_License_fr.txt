@@ -1,10 +1,10 @@
 Bienvenue dans Open ModelSphere!
 
-Veuillez noter que pour des considérations juridiques, nous affichons 
-ici le texte de la licence originale. Pour une meilleure compréhension 
-du texte, il existe des traductions françaises mais dans le cas où il 
+Veuillez noter que pour des considÃ©rations juridiques, nous affichons
+ici le texte de la licence originale. Pour une meilleure comprÃ©hension
+du texte, il existe des traductions franÃ§aises mais dans le cas oÃ¹ il
 pourrait y avoir une confusion, ce sera toujours la version originale 
-anglaise qui prédominera.
+anglaise qui prÃ©dominera.
 
 
 This program is free software: you can redistribute it and/or modify 
@@ -36,7 +36,7 @@ Proprietary plugins will be installed in this program's subfolders
 
 
 Vous pouvez nous adresser vos questions ou commentaires concernant 
-Open ModelSphere à :
+Open ModelSphere Ã  :
 
 Grandite
 20-1220 Lebourgneuf Blvd

@@ -399,7 +399,6 @@ public class DesignPanel extends JPanel implements AncestorListener, SelectionLi
             text += sValue;
             ToolTipManager.sharedInstance().setDismissDelay(defaultTooltipDismissDelay);
         } else {
-            StringTokenizer st = new StringTokenizer(sValue, ",.©®(;:?!<>& \n\"", true); // NOT
             // LOCALIZABLE
             int count = 0;
             int linecount = 0;
@@ -423,10 +422,10 @@ public class DesignPanel extends JPanel implements AncestorListener, SelectionLi
                 } else if (token.equals("\"")) {
                     text += QUOT;
                     charinline += 1;
-                } else if (token.equals("©")) {
+                } else if (token.equals("ï¿½")) {
                     text += COPY;
                     charinline += 1;
-                } else if (token.equals("®")) {
+                } else if (token.equals("ï¿½")) {
                     text += REG;
                     charinline += 1;
                 } else if (charinline >= MAX_CHAR_PER_LINE) { // NOT LOCALIZABLE
