@@ -43,24 +43,25 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.file;
 
-import java.util.*;
-
-import org.modelsphere.jack.awt.*;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.awt.LongTask;
+import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
+
+import java.util.List;
+import java.util.Vector;
 
 //Contents moved in ReverseWorker
 public abstract class ReverseTask extends LongTask {
 
-    protected ReverseTask(Vector aFileVector, ArrayList aReverseList, DbProject targetProj,
-            DefaultMainFrame mainFrame) {
-        super(0);
+    protected ReverseTask(Vector aFileVector, List aReverseList, DbProject targetProj,
+                          DefaultMainFrame mainFrame) {
+        super();
     }
 
     protected final void performTask(DefaultMainFrame mainFrame) {
     }
 
-    final public void go() {
+    public final void go() {
     }
 
 } // end ReverseTask

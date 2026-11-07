@@ -43,6 +43,7 @@ public class PropertyGroup {
         properties = someProperties;
     }
 
+    @Override
     public String toString() {
         return name;
     }

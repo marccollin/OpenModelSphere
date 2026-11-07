@@ -4,13 +4,13 @@ We do this by loading a large class file Blob.class from blob.jar (source inside
 the bug is present, if the load succeeds, the bug is fixed, if something else occurs, we don't know.
 """
 
+import os
 import unittest
+from java.lang import System, ClassFormatError
+from jreload import makeLoadSet
+
 import test_support
 
-from jreload import makeLoadSet
-from java.lang import System, ClassFormatError
-
-import os
 
 class JreloadTestCase(unittest.TestCase):
 

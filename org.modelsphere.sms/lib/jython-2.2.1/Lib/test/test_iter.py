@@ -6,6 +6,7 @@ Commented out features specific to the JVM platform.
 '''
 
 import unittest
+
 from test_support import run_unittest, TESTFN, unlink, have_unicode
 
 # Test result of triple loop (too big to inline)

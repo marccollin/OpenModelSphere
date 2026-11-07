@@ -34,13 +34,14 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.data;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.plugins.html.browser.htmlgeneration.HTMLGenerationHelper;
 import org.modelsphere.plugins.html.browser.io.IndentWriter;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This class represent a collection of DbObjects of the same type.
@@ -50,8 +51,8 @@ import org.modelsphere.plugins.html.browser.io.IndentWriter;
  */
 public class DataDbObjectsGroup extends DataComponent
 {
-	/** ArrayList containing the group of objects */
-	private ArrayList<DataComponent> components;
+	/** List containing the group of objects */
+	private List<DataComponent> components;
 
 	/**
 	 * Constructor
@@ -88,10 +89,7 @@ public class DataDbObjectsGroup extends DataComponent
 	 */
 	public void remove(DataComponent component)
 	{
-		if (components.contains(component))
-		{
-			components.remove(component);
-		}
+        components.remove(component);
 	}
 
 	/**

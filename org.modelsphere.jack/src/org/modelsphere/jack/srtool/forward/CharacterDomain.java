@@ -43,23 +43,28 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.StringTokenizer;
+import java.util.List;
 
 public final class CharacterDomain extends Rule {
     Rule[] rules = null;
     String[] stringRules;
-    ArrayList m_domainList = new ArrayList(); // contains string lists
+    List<List<String>> m_domainList = new ArrayList<>(); // contains string lists
     public static final String DEFAULT_STRING = "ORG.MODELSPHERE.SR_DEFAULT"; // NOT LOCALIZABLE
     public static final String NULL_STRING = "ORG.MODELSPHERE.SR_NULL"; // NOT LOCALIZABLE
 
     private void processDomainStrings(String[] strings) {
         int nb = strings.length;
         for (int i = 0; i < nb; i++) {
-            ArrayList subList = new ArrayList();
+            List<String> subList = new ArrayList<>();
             String domain = strings[i];
 
-            if (domain.equals("")) {
+            if (domain.isEmpty()) {
                 // this is a special case
                 subList.add("");
             } else {
@@ -107,7 +112,7 @@ public final class CharacterDomain extends Rule {
 
             // TODO: from s='$domain;', extract subRules={'domain'}
             TemplateEnumeration enumeration = new TemplateEnumeration(s);
-            ArrayList list = new ArrayList();
+            List<StringStructure> list = new ArrayList<>();
 
             while (enumeration.hasMoreElements()) {
                 StringStructure ss = (StringStructure) enumeration.nextElement();
@@ -117,7 +122,7 @@ public final class CharacterDomain extends Rule {
             int size = list.size();
             Rule[] subRules = new Rule[size];
             for (int j = 0; j < size; j++) {
-                StringStructure ss = (StringStructure) list.get(j);
+                StringStructure ss = list.get(j);
                 String str = ss.stringRule;
                 if (str != null) {
                     str = str.substring(1, str.length() - 1); // in '$rule;',
@@ -145,7 +150,7 @@ public final class CharacterDomain extends Rule {
 
         int nbDomains = m_domainList.size();
         for (int i = 0; i < nbDomains; i++) {
-            ArrayList subList = (ArrayList) m_domainList.get(i);
+            List<String> subList = m_domainList.get(i);
             if (subList.contains(aString)) {
                 Rule r = rules[i];
                 expanded |= r.expand(output, object, options);
@@ -155,7 +160,7 @@ public final class CharacterDomain extends Rule {
 
         // get the DEFAULT clause, if any (always the last one)
         if (contained == false) {
-            ArrayList sr_default = (ArrayList) m_domainList.get(nbDomains - 1);
+            List<String> sr_default = m_domainList.get(nbDomains - 1);
             if (sr_default.contains(DEFAULT_STRING)) {
                 Rule r = rules[nbDomains - 1];
                 expanded |= r.expand(output, object, options);

@@ -1,8 +1,9 @@
 # Test the windows specific win32reg module.
 # Only win32reg functions not hit here: FlushKey, LoadKey and SaveKey
 
+import os
+import sys
 from _winreg import *
-import os, sys
 
 from test_support import verify, have_unicode
 

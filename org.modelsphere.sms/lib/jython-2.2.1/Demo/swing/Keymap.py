@@ -1,6 +1,7 @@
+import string
 from java.awt.event import KeyEvent, InputEvent
 from pawt.swing import KeyStroke, text
-import string
+
 from Action import Action
 
 _keynames = {}

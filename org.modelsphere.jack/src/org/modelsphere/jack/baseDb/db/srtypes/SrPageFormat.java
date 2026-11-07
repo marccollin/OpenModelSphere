@@ -43,7 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.srtypes;
 
-import java.awt.print.*;
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
 
 public final class SrPageFormat extends SrType {
 

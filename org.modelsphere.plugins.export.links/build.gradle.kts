@@ -13,7 +13,10 @@ val targetPluginsDir = rootProject.projectDir.resolve("org.modelsphere.sms/plugi
 dependencies {
     implementation(project(":org.modelsphere.jack"))
     implementation(project(":org.modelsphere.sms"))
-    implementation("org.apache.velocity:velocity:1.6.1")
+
+    implementation(libs.velocity.engine)
+
+    //implementation("org.apache.velocity:velocity:1.6.1")
 }
 
 sourceSets {

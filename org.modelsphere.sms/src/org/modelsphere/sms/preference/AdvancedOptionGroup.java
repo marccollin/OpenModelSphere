@@ -33,25 +33,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.preference;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
 import org.modelsphere.jack.awt.NumericTextField;
-import org.modelsphere.jack.preference.OptionDialog;
 import org.modelsphere.jack.preference.OptionGroup;
 import org.modelsphere.jack.preference.OptionPanel;
 import org.modelsphere.jack.preference.PropertiesManager;
@@ -59,6 +41,15 @@ import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.services.ServiceProtocolList;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 public class AdvancedOptionGroup extends OptionGroup {
 
@@ -96,18 +87,18 @@ public class AdvancedOptionGroup extends OptionGroup {
         public void init() {
             PropertiesSet options = PropertiesManager.APPLICATION_PROPERTIES_SET;
             portNumber.setText((options.getPropertyInteger(ServiceProtocolList.class,
-                    ServiceProtocolList.PROPERTY_INITITIAL_PORT, new Integer(
+                    ServiceProtocolList.PROPERTY_INITITIAL_PORT, Integer.valueOf(
                             ServiceProtocolList.PROPERTY_INITITIAL_PORT_DEFAULT)).toString()));
         }
 
         public void actionPerformed(ActionEvent e) {
             Object source = e.getSource();
             if (source == defButton) {
-                portNumber.setText(new Integer(ServiceProtocolList.PROPERTY_INITITIAL_PORT_DEFAULT)
+                portNumber.setText(Integer.valueOf(ServiceProtocolList.PROPERTY_INITITIAL_PORT_DEFAULT)
                         .toString());
                 fireOptionChanged(PropertiesManager.APPLICATION_PROPERTIES_SET,
                         ServiceProtocolList.class, ServiceProtocolList.PROPERTY_INITITIAL_PORT,
-                        new Integer(ServiceProtocolList.PROPERTY_INITITIAL_PORT_DEFAULT));
+                        Integer.valueOf(ServiceProtocolList.PROPERTY_INITITIAL_PORT_DEFAULT));
             }
         }
 
@@ -116,7 +107,7 @@ public class AdvancedOptionGroup extends OptionGroup {
 
         public void focusLost(FocusEvent e) {
             if (e.getSource() == portNumber) {
-                int value = new Integer(portNumber.getText()).intValue();
+                int value = Integer.valueOf(portNumber.getText()).intValue();
                 if (value < 1025 || value > 65529) { // Usually 65534 but we use
                     // 6 ports starting with
                     // the provide number
@@ -125,7 +116,7 @@ public class AdvancedOptionGroup extends OptionGroup {
                             JOptionPane.ERROR_MESSAGE);
                     portNumber.setText((PropertiesManager.APPLICATION_PROPERTIES_SET
                             .getPropertyInteger(ServiceProtocolList.class,
-                                    ServiceProtocolList.PROPERTY_INITITIAL_PORT, new Integer(
+                                    ServiceProtocolList.PROPERTY_INITITIAL_PORT, Integer.valueOf(
                                             ServiceProtocolList.PROPERTY_INITITIAL_PORT_DEFAULT))
                             .toString()));
                 }
@@ -144,7 +135,7 @@ public class AdvancedOptionGroup extends OptionGroup {
         private void validatePortValue() {
             if (portNumber.getText().length() == 0)
                 return;
-            Integer value = new Integer(portNumber.getText());
+            Integer value = Integer.valueOf(portNumber.getText());
             if (value.intValue() < 1025 || value.intValue() > 65529) { // Usually 65534 but we use 6 ports starting with the provide number
                 return;
             }

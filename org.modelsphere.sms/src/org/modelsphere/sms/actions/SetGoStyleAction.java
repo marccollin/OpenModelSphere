@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.actions.AbstractDomainAction;
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.actions.SelectionActionListener;
@@ -63,6 +61,9 @@ import org.modelsphere.sms.or.db.DbORDomainStyle;
 import org.modelsphere.sms.or.db.DbORStyle;
 import org.modelsphere.sms.style.FormatFrame;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class SetGoStyleAction extends AbstractDomainAction implements SelectionActionListener {
 
     private static final String kSetStyle = LocaleMgr.action.getString("setstyle");
@@ -70,7 +71,7 @@ public final class SetGoStyleAction extends AbstractDomainAction implements Sele
     private static final String kDiagramDefaultStyle = LocaleMgr.action
             .getString("DiagramDefaultStyle");
 
-    private ArrayList dbos = new ArrayList(0);
+    private List<DbSMSStyle> dbos = new ArrayList<>(0);
 
     public SetGoStyleAction() {
         super(kStyle);
@@ -84,7 +85,7 @@ public final class SetGoStyleAction extends AbstractDomainAction implements Sele
             Object[] objects = ApplicationContext.getFocusManager().getSelectedObjects();
             DbSMSStyle style = null;
             if (selidx != 0) {
-                style = (DbSMSStyle) dbos.get(selidx - 2);
+                style = dbos.get(selidx - 2);
             }
             try {
                 Db db = ApplicationContext.getFocusManager().getCurrentProject().getDb();
@@ -152,7 +153,7 @@ public final class SetGoStyleAction extends AbstractDomainAction implements Sele
 
         DbEnumeration dbEnum = project.getComponents().elements(styleMetaClass);
         while (dbEnum.hasMoreElements()) {
-            Object style = dbEnum.nextElement();
+            DbSMSStyle style = (DbSMSStyle) dbEnum.nextElement();
             dbos.add(style);
         }
         dbEnum.close();
@@ -164,7 +165,7 @@ public final class SetGoStyleAction extends AbstractDomainAction implements Sele
         items[0] = kDiagramDefaultStyle;
         items[1] = null;
         for (int i = 0; i < dbos.size(); i++) {
-            items[i + 2] = ((DbSMSStyle) dbos.get(i)).getName();
+            items[i + 2] = dbos.get(i).getName();
         }
 
         DbSMSStyle selstyle = null;

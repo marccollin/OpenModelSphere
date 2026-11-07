@@ -43,7 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.tree;
 
-import javax.swing.tree.*;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
 
 public class CheckTreeModel extends DefaultTreeModel {
 

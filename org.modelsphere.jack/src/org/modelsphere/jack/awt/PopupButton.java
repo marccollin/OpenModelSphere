@@ -43,11 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.*;
-import java.awt.event.*;
-
 import javax.swing.*;
 import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 public class PopupButton extends JButton {
     private static final int ICONS_GAP = 6; // space between the 2 icons

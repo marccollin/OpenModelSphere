@@ -33,13 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.extract;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
@@ -57,6 +50,13 @@ import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 import org.modelsphere.sms.or.db.DbORTable;
 import org.modelsphere.sms.or.db.DbORUser;
 import org.modelsphere.sms.or.db.srtypes.ORIndexKeySort;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.MessageFormat;
+import java.util.List;
 
 /**
  *
@@ -100,7 +100,7 @@ class AnsiExtractFileWriter extends ExtractFileWriter {
         writer.println();
     } // end writeHeader()
 
-    protected void writeDataModel(DbORDataModel dataModel, File directory, ArrayList fileList)
+    protected void writeDataModel(DbORDataModel dataModel, File directory, List fileList)
             throws IOException, DbException {
         // create file and write file header
         File file = createFile(dataModel, directory, fileList);
@@ -147,7 +147,7 @@ class AnsiExtractFileWriter extends ExtractFileWriter {
 
     protected void writeTable(DbORTable table, PrintWriter writer) throws DbException {
         String tableName = table.getPhysicalName();
-        if ((tableName == null) || (tableName.equals("")))
+        if ((tableName == null) || (tableName.isEmpty()))
             tableName = table.getName();
 
         m_controller.println(DbORTable.metaClass.getGUIName() + " " + tableName + "..");
@@ -200,7 +200,7 @@ class AnsiExtractFileWriter extends ExtractFileWriter {
     protected void writeColumn(DbORColumn column, PrintWriter writer, String tableName, int colID)
             throws DbException {
         String colName = column.getPhysicalName();
-        if ((colName == null) || (colName.equals("")))
+        if ((colName == null) || (colName.isEmpty()))
             colName = column.getName();
 
         writer.println("sr_occurrence_type column");
@@ -275,13 +275,13 @@ class AnsiExtractFileWriter extends ExtractFileWriter {
             writer.println("tab_name " + tableName);
 
             String name = key.getPhysicalName();
-            if ((name == null) || (name.equals(""))) {
+            if ((name == null) || (name.isEmpty())) {
                 name = key.getName();
             }
             writer.println("name " + name);
 
             String colname = col.getPhysicalName();
-            if ((colname == null) || (colname.equals(""))) {
+            if ((colname == null) || (colname.isEmpty())) {
                 colname = col.getName();
             }
             writer.println("col_name " + colname);
@@ -310,7 +310,7 @@ class AnsiExtractFileWriter extends ExtractFileWriter {
             throws DbException {
         int seq = 0;
         String name = index.getPhysicalName();
-        if ((name == null) || (name.equals(""))) {
+        if ((name == null) || (name.isEmpty())) {
             name = index.getName();
         }
 
@@ -324,7 +324,7 @@ class AnsiExtractFileWriter extends ExtractFileWriter {
 
             DbORColumn col = key.getIndexedElement();
             String colname = col.getPhysicalName();
-            if ((colname == null) || (colname.equals(""))) {
+            if ((colname == null) || (colname.isEmpty())) {
                 colname = col.getName();
             }
             writer.println("col_name " + colname);
@@ -365,7 +365,7 @@ class AnsiExtractFileWriter extends ExtractFileWriter {
             throws DbException {
         int seq = 0;
         String name = fKey.getPhysicalName();
-        if ((name == null) || (name.equals(""))) {
+        if ((name == null) || (name.isEmpty())) {
             name = fKey.getName();
         }
 
@@ -381,7 +381,7 @@ class AnsiExtractFileWriter extends ExtractFileWriter {
             writer.println("name " + name);
 
             String colName = col.getPhysicalName();
-            if ((colName == null) || (colName.equals(""))) {
+            if ((colName == null) || (colName.isEmpty())) {
                 colName = col.getName();
             }
 

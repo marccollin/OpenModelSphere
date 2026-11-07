@@ -43,20 +43,23 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import org.modelsphere.jack.actions.AbstractApplicationAction;
+import org.modelsphere.jack.actions.AbstractMenuAction;
+import org.modelsphere.jack.srtool.AddElement;
+import org.modelsphere.jack.srtool.list.ListDescriptor;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
-
-import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.actions.AbstractMenuAction;
-import org.modelsphere.jack.srtool.AddElement;
-import org.modelsphere.jack.srtool.list.ListDescriptor;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class PopupMenuButton extends JButton implements ActionListener {
 
@@ -68,6 +71,7 @@ public class PopupMenuButton extends JButton implements ActionListener {
         setText(null);
         setFocusable(false);
         addMouseListener(new MouseAdapter() {
+            @Override
             public void mousePressed(MouseEvent e) {
                 showPopup();
             }
@@ -430,10 +434,10 @@ public class PopupMenuButton extends JButton implements ActionListener {
         /*
          * if (action != null){ action.setSelectedPrivate_(index, this); }
          */
-        fireActionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, new Integer(index)
+        fireActionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Integer.valueOf(index)
                 .toString()
                 + AbstractMenuAction.ACTION_COMMAND_SUB_VALUE_SEPARATOR
-                + new Integer(subindex).toString(), 0));
+                + Integer.valueOf(subindex).toString(), 0));
     }
 
     // This class provide a way to popup

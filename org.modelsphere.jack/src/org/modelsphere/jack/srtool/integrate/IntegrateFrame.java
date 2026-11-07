@@ -43,23 +43,29 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.integrate;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.table.*;
-import javax.swing.tree.TreePath;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.HotKeysSupport;
 import org.modelsphere.jack.awt.JTextAreaFix;
 import org.modelsphere.jack.awt.ThinBevelBorder;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbUDF;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.integrate.IntegrateNode.IntegrateProperty;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.text.MessageFormat;
+
+import javax.swing.*;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumnModel;
+import javax.swing.tree.TreePath;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
 public class IntegrateFrame extends JDialog implements ActionListener, TreeSelectionListener {
     private static final String kObjectsDiffer = LocaleMgr.screen.getString("objectsDiffer");

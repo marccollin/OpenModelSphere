@@ -43,18 +43,19 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.screen.design;
 
-import java.awt.Font;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.swing.JLabel;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
-
 import org.modelsphere.jack.actions.util.DbMultiTrans;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.meta.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
+import org.modelsphere.jack.baseDb.db.DbUDF;
+import org.modelsphere.jack.baseDb.db.DbUDFValue;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
+import org.modelsphere.jack.baseDb.meta.MetaRelationship;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.explorer.ExplorerView;
@@ -62,8 +63,16 @@ import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.DefaultComparableElement;
 import org.modelsphere.jack.util.ExceptionHandler;
 
+import javax.swing.*;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class DesignTableModel implements TableModel {
-    private ArrayList<MetaField> fields = new ArrayList<MetaField>();
+    private List<MetaField> fields = new ArrayList<MetaField>();
     private DbObject[] dbos = new DbObject[] {};
     private List<DbUDF> udfs = new ArrayList<DbUDF>();
 
@@ -258,7 +267,7 @@ public class DesignTableModel implements TableModel {
         TerminologyUtil terminologyUtil = TerminologyUtil.getInstance();
         int udfIndex = 0;
         data = new ArrayList<RowData>(fields.size());
-        ArrayList<RowData> arrayList = null;
+        List<RowData> arrayList = null;
         boolean bRemoveMarkedFields = !showPhysicalProperties();
         if (bRemoveMarkedFields)
             arrayList = new ArrayList<RowData>();
@@ -335,9 +344,9 @@ public class DesignTableModel implements TableModel {
         if (deadObjects)
             dbos = new DbObject[] {};
 
-        ArrayList<MetaField> allMetafields = new ArrayList<MetaField>();
-        ArrayList<MetaField> tempMetafields = new ArrayList<MetaField>();
-        ArrayList<MetaClass> metaClasses = new ArrayList<MetaClass>();
+        List<MetaField> allMetafields = new ArrayList<MetaField>();
+        List<MetaField> tempMetafields = new ArrayList<MetaField>();
+        List<MetaClass> metaClasses = new ArrayList<MetaClass>();
 
         Db db = null;
         if (dbos.length > 0) {

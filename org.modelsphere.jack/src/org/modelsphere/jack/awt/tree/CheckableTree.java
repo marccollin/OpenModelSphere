@@ -42,16 +42,24 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.awt.tree;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.EventListener;
+import org.modelsphere.jack.debug.TestableWindow;
 
 import javax.swing.*;
-import javax.swing.tree.*;
-
-import org.modelsphere.jack.debug.TestableWindow;
-import org.modelsphere.jack.international.LocaleMgr;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.EventListener;
+import java.util.List;
 
 /**
  * This class works is a JTree except that it supports the check items
@@ -65,6 +73,7 @@ public class CheckableTree extends JTree implements TestableWindow, ActionListen
     private JPopupMenu popup;
     private JMenuItem mi;
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("check")) {
             int[] selectedRows = getSelectionRows();
@@ -173,15 +182,14 @@ public class CheckableTree extends JTree implements TestableWindow, ActionListen
 
         boolean newState = !((CheckTreeNode) clickPath.getLastPathComponent()).isSelected();
         TreePath[] paths = getSelectionPaths();
-        ArrayList nodeList = new ArrayList();
+        List<CheckTreeNode> nodeList = new ArrayList<>();
         int i;
         for (i = 0; i < paths.length; i++) {
             Object node = paths[i].getLastPathComponent();
-            if (node instanceof CheckTreeNode)
-                nodeList.add(node);
+            if (node instanceof CheckTreeNode checkNode)
+                nodeList.add(checkNode);
         }
-        CheckTreeNode[] nodes = new CheckTreeNode[nodeList.size()];
-        nodeList.toArray(nodes);
+        CheckTreeNode[] nodes = nodeList.toArray(new CheckTreeNode[0]);
         for (i = 0; i < nodes.length; i++) {
             nodes[i].setSelected(newState);
             ((CheckTreeModel) getModel()).nodeChanged(nodes[i]);
@@ -242,8 +250,8 @@ public class CheckableTree extends JTree implements TestableWindow, ActionListen
             return true;
         node = node.getParent();
         while ((node != root) && (node != null)) {
-            if (node instanceof CheckTreeNode) {
-                if (!((CheckTreeNode) node).isSelected())
+            if (node instanceof CheckTreeNode checkNode) {
+                if (!checkNode.isSelected())
                     return false;
             }
             node = node.getParent();

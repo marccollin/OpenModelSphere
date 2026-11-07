@@ -43,25 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.choosers;
 
-import java.awt.BorderLayout;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import org.modelsphere.jack.international.LocaleMgr;
+import org.modelsphere.jack.text.MessageFormat;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import org.modelsphere.jack.international.LocaleMgr;
-import org.modelsphere.jack.text.MessageFormat;
 
 public class ExternalDocumentDialog extends JDialog implements ActionListener {
     private static final String EXTERNAL_REFERENCES = LocaleMgr.screen
@@ -77,11 +67,11 @@ public class ExternalDocumentDialog extends JDialog implements ActionListener {
 
     JPanel panel1 = new JPanel();
     private JLabel jLabel1 = new JLabel();
-    private JTextField jTextField1 = new JTextField();
-    private JButton jButton1 = new JButton();
-    private JButton jButton2 = new JButton();
-    private JButton jButton3 = new JButton();
-    private JButton jButton4 = new JButton();
+    private JTextField txtFieldExternalDocument = new JTextField();
+    private JButton buttonBrowse = new JButton();
+    private JButton buttonClose = new JButton();
+    private JButton buttonApply = new JButton();
+    private JButton buttonOpenDoc = new JButton();
     private GridBagLayout gridBagLayout1 = new GridBagLayout();
     private BorderLayout borderLayout1 = new BorderLayout();
     private String m_command = null;
@@ -105,11 +95,12 @@ public class ExternalDocumentDialog extends JDialog implements ActionListener {
         return m_command;
     }
 
+    @Override
     public void actionPerformed(ActionEvent ev) {
         Object src = ev.getSource();
-        if (src.equals(jButton2)) {
+        if (src.equals(buttonClose)) {
             this.dispose();
-        } else if (src.equals(jButton1)) {
+        } else if (src.equals(buttonBrowse)) {
             File workingDir = null;
             JFileChooser chooser = new JFileChooser(workingDir);
             int result = chooser.showDialog(this, SELECT);
@@ -117,15 +108,15 @@ public class ExternalDocumentDialog extends JDialog implements ActionListener {
             if ((result != JFileChooser.CANCEL_OPTION) && file != null) {
                 String filename = file.getAbsolutePath();
                 m_command = MessageFormat.format(CMD_PATTRN, new Object[] { filename });
-                jTextField1.setText(m_command);
-                jButton2.setText(CANCEL);
-                jButton3.setEnabled(true);
-                jButton4.setEnabled(true);
+                txtFieldExternalDocument.setText(m_command);
+                buttonClose.setText(CANCEL);
+                buttonApply.setEnabled(true);
+                buttonOpenDoc.setEnabled(true);
             } // end if
-        } else if (src.equals(jButton3)) {
-            jButton3.setEnabled(false);
-            jButton2.setText(CLOSE);
-        } else if (src.equals(jButton4)) {
+        } else if (src.equals(buttonApply)) {
+            buttonApply.setEnabled(false);
+            buttonClose.setText(CLOSE);
+        } else if (src.equals(buttonOpenDoc)) {
             invoke(m_command);
         } // end if
     } // end actionPerformed()
@@ -148,38 +139,38 @@ public class ExternalDocumentDialog extends JDialog implements ActionListener {
         panel1.setLayout(gridBagLayout1);
         this.getContentPane().setLayout(borderLayout1);
         jLabel1.setText(EXTERNAL_REFERENCES);
-        jTextField1.setText(externalDocument);
-        jButton1.setText(BROWSE + "...");
-        jButton2.setText(CLOSE);
-        jButton3.setText(APPLY);
-        jButton4.setText(OPEN_DOCUMENT);
-        jButton3.setEnabled(false);
-        jButton4.setEnabled(m_command != null);
+        txtFieldExternalDocument.setText(externalDocument);
+        buttonBrowse.setText(BROWSE + "...");
+        buttonClose.setText(CLOSE);
+        buttonApply.setText(APPLY);
+        buttonOpenDoc.setText(OPEN_DOCUMENT);
+        buttonApply.setEnabled(false);
+        buttonOpenDoc.setEnabled(m_command != null);
 
         getContentPane().add(panel1, BorderLayout.CENTER);
         panel1.add(jLabel1, new GridBagConstraints(0, 0, 3, 1, 0.0, 0.0,
                 GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(12, 12, 6, 12),
                 0, 0));
-        panel1.add(jTextField1, new GridBagConstraints(0, 1, 3, 1, 1.0, 1.0,
+        panel1.add(txtFieldExternalDocument, new GridBagConstraints(0, 1, 3, 1, 1.0, 1.0,
                 GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL, new Insets(6, 12, 12,
                         36), 0, 6));
-        panel1.add(jButton1, new GridBagConstraints(2, 1, 2, 1, 0.0, 0.0,
+        panel1.add(buttonBrowse, new GridBagConstraints(2, 1, 2, 1, 0.0, 0.0,
                 GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(6, 6, 12, 12), 0,
                 0));
-        panel1.add(jButton2, new GridBagConstraints(3, 2, 1, 1, 0.0, 0.0,
+        panel1.add(buttonClose, new GridBagConstraints(3, 2, 1, 1, 0.0, 0.0,
                 GridBagConstraints.SOUTHEAST, GridBagConstraints.NONE, new Insets(12, 3, 12, 12),
                 0, 0));
-        panel1.add(jButton3, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0,
+        panel1.add(buttonApply, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0,
                 GridBagConstraints.SOUTHEAST, GridBagConstraints.NONE, new Insets(12, 12, 12, 3),
                 5, 0));
-        panel1.add(jButton4, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
+        panel1.add(buttonOpenDoc, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
                 GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(36, 12, 12, 72),
                 0, 0));
 
         // add action listeners
-        jButton1.addActionListener(this);
-        jButton2.addActionListener(this);
-        jButton3.addActionListener(this);
-        jButton4.addActionListener(this);
+        buttonBrowse.addActionListener(this);
+        buttonClose.addActionListener(this);
+        buttonApply.addActionListener(this);
+        buttonOpenDoc.addActionListener(this);
     } // end jbInit()
 } // end ExternalDocumentDialog

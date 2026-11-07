@@ -43,14 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.graphic;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -92,6 +84,13 @@ import org.modelsphere.sms.db.srtypes.SMSHorizontalAlignment;
 import org.modelsphere.sms.db.srtypes.SMSVerticalAlignment;
 import org.modelsphere.sms.db.util.DbInitialization;
 
+import java.awt.*;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Map;
+
 public class BEContext extends GraphicNode implements ActionInformation {
 
     static {
@@ -110,7 +109,7 @@ public class BEContext extends GraphicNode implements ActionInformation {
     protected DbBENotation notation;
     private SingletonZone nameZone;
     private TableZone tableZone;
-    private HashMap zonesMap = new HashMap();
+    private Map zonesMap = new HashMap();
     private boolean displayFrameBox;
 
     // listeners
@@ -209,9 +208,9 @@ public class BEContext extends GraphicNode implements ActionInformation {
 
     private void setTextColor() throws DbException {
         Color color = (Color) contextGO.find(DbBEContextGo.fTextColor);
-        Enumeration enumeration = this.displayedZones();
+        Enumeration<Zone> enumeration = this.displayedZones();
         while (enumeration.hasMoreElements()) {
-            Zone zone = (Zone) enumeration.nextElement();
+            Zone zone = enumeration.nextElement();
             zone.setTextColor(color);
         }
     } // end setTextColor()
@@ -295,9 +294,9 @@ public class BEContext extends GraphicNode implements ActionInformation {
         contextGO.setGraphicPeer(null);
         contextGO.removeDbRefreshListener(useCaseGoRefreshTg);
         MetaField.removeDbRefreshListener(useCaseGoRefreshTg, refreshMetaFields);
-        Enumeration enumeration = this.displayedZones();
+        Enumeration<Zone> enumeration = this.displayedZones();
         while (enumeration.hasMoreElements()) {
-            Zone zone = (Zone) enumeration.nextElement();
+            Zone zone = enumeration.nextElement();
             if (zone instanceof MatrixZone)
                 ((MatrixZone) zone).removeAllRows();
         }
@@ -399,6 +398,7 @@ public class BEContext extends GraphicNode implements ActionInformation {
      * DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay)i.next(); if
      * (!zoneDisplay.isDisplayed() ||
      * zoneDisplay.getMetaField().equals(DbBEUseCaseResource.fResource)) //todo pour ressource cas
+     * specifique!!!!!! continue;
      * 
      * Object srcObj = zoneDisplay.getSourceObject(); MatrixZone zone =
      * (MatrixZone)zonesMap.get(srcObj); if (zone != null){ zone.removeAllRows(); int row = 0;
@@ -436,6 +436,7 @@ public class BEContext extends GraphicNode implements ActionInformation {
      * DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay)i.next(); if
      * (!zoneDisplay.isDisplayed() ||
      * zoneDisplay.getMetaField().equals(DbBEUseCaseResource.fResource)) //todo pour ressource cas
+     * specifique!!!!!! continue; int alignment; switch (zoneDisplay.getJustification().getValue()){
      * case ZoneJustification.CENTER: alignment = GraphicUtil.CENTER_ALIGNMENT; break; case
      * ZoneJustification.RIGHT: alignment = GraphicUtil.RIGHT_ALIGNMENT; break; default: alignment =
      * GraphicUtil.LEFT_ALIGNMENT; } MatrixZone zone = new MatrixZone(zoneDisplay.getGUIName(),
@@ -484,7 +485,7 @@ public class BEContext extends GraphicNode implements ActionInformation {
             return null;
         String pattern = "({0}/{1})";
         return MessageFormat.format(pattern,
-                new Object[] { new Integer(index), new Integer(count) });
+                new Object[] { Integer.valueOf(index), Integer.valueOf(count) });
     }
 
     // overriden
@@ -504,7 +505,7 @@ public class BEContext extends GraphicNode implements ActionInformation {
      */
     private static class BoxRefreshTg implements DbRefreshListener, DbRefreshPassListener {
 
-        private HashSet refreshedBoxs = null;
+        private Set<DbBEUseCase> refreshedBoxs = null;
 
         BoxRefreshTg() {
         }
@@ -542,7 +543,7 @@ public class BEContext extends GraphicNode implements ActionInformation {
          */
         private void refreshBox(DbBEUseCase useCase) throws DbException {
             if (refreshedBoxs == null)
-                refreshedBoxs = new HashSet();
+                refreshedBoxs = new HashSet<>();
             if (!refreshedBoxs.add(useCase)) // already done in this transaction
                 return;
             useCase.getDb().beginReadTrans();
@@ -600,4 +601,3 @@ public class BEContext extends GraphicNode implements ActionInformation {
         }
     } // end BoxGoRefreshTg
 } // end BEContext
-

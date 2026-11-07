@@ -43,9 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import javax.swing.Icon;
+import org.modelsphere.jack.plugins.Plugin;
+import org.modelsphere.jack.plugins.PluginAction;
 
-import org.modelsphere.jack.plugins.*;
+import javax.swing.*;
 
 public class PluginDefaultAction extends PluginAction {
     public PluginDefaultAction(Plugin plugin) {

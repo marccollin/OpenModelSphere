@@ -43,31 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.dbms;
 
-import java.awt.CardLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Hashtable;
-import java.util.List;
-
-import javax.swing.AbstractAction;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
-
 import org.modelsphere.jack.awt.AwtUtil;
+import org.modelsphere.jack.awt.beans.impl.AbstractProperty;
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.awt.beans.impl.PropertyDialog;
 import org.modelsphere.jack.awt.tree.CheckTreeModel;
@@ -95,6 +72,22 @@ import org.modelsphere.sms.or.db.DbORUser;
 import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.preference.DirectoryOptionGroup;
 import org.modelsphere.sms.templates.SQLForwardEngineeringPlugin;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 
 public class DefaultForwardWizardObjectsPage extends WizardPage {
 
@@ -129,7 +122,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
     private GenerationParametersAction m_generationParametersAction;
 
     int cardLayoutCurrentItem = 0, cardLayoutLastItem = 0;
-    Hashtable cardLayoutComponentTable = new Hashtable();
+    Map<Object, Integer> cardLayoutComponentTable = new Hashtable<>();
 
     private DatabaseNamePanel databaseNamePanel = null;
 
@@ -228,10 +221,10 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
         //get the actual SQL forward
         ForwardToolkitPlugin toolkit = ForwardToolkitPlugin.getToolkit();
         PluginMgr mgr = PluginMgr.getSingleInstance();
-        ArrayList plugins = mgr.getPluginsRegistry().getActivePluginInstances(
+        List<?> plugins = mgr.getPluginsRegistry().getActivePluginInstances(
                 toolkit.getForwardClass());
         SQLForwardEngineeringPlugin sqlForward = null;
-        if (plugins != null && plugins.size() > 0)
+        if (plugins != null && !plugins.isEmpty())
             sqlForward = (SQLForwardEngineeringPlugin) plugins.get(0);
 
         //is output in HTML?
@@ -342,8 +335,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
         cardLayoutComponentTable.put("empty", cardLayoutLastItem - 1); //NOT LOCALIZABLE, associate name & rank
 
         // For unowned objects...
-        for (int i = 0; i < scope.length; i++) {
-            ObjectScope concept = scope[i];
+        for (ObjectScope concept : scope) {
             if (!concept.isOwnedObject && concept.isSelected && concept.showOccurences) {
                 s += "." + concept.conceptName;
                 addComponentToCardLayout(occurrenceTreePanel, concept.conceptID, options,
@@ -352,8 +344,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
         } //end for
 
         // For owned objects...
-        for (int i = 0; i < scope.length; i++) {
-            ObjectScope concept = scope[i];
+        for (ObjectScope concept : scope) {
             boolean createOccurenceTree = false;
             if (concept.isOwnedObject && concept.isSelected && concept.showOccurences) {
                 createOccurenceTree = true;
@@ -381,7 +372,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
     } //end createOccurenceTrees()
 
     //Sort objects by their physical name
-    private void sortObjArrayByName(ArrayList arrayObjs) {
+    private void sortObjArrayByName(List arrayObjs) {
         Comparator comparator = new Comparator() {
             public int compare(Object obj1, Object obj2) {
                 ObjectSelection sel1 = (ObjectSelection) obj1;
@@ -401,7 +392,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
 
     // Create the Occurences Tree for unowned and owned objects
     private void addComponentToCardLayout(JPanel panel, int id, DBMSForwardOptions options,
-            ArrayList arrayObjs) {
+            List arrayObjs) {
         sortObjArrayByName(arrayObjs);
         CheckableTree occurrenceTree = new CheckableTree();
         occurrenceTree.setModel(new OccurrenceTreeModel(
@@ -414,20 +405,20 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
         panel.add(String.valueOf(id), comp);
         CardLayout layout = (CardLayout) panel.getLayout();
         cardLayoutLastItem++;
-        cardLayoutComponentTable.put(new Integer(id), new Integer(cardLayoutLastItem - 1)); //associate name & rank
+        cardLayoutComponentTable.put(id, cardLayoutLastItem - 1); //associate name & rank
     }
 
     private void showCardLayoutComponent(JPanel panel, int id) {
         CardLayout layout = (CardLayout) panel.getLayout();
 
         //another way to implement layout.show()
-        Integer iPosition = (Integer) cardLayoutComponentTable.get(new Integer(id));
+        Integer iPosition = cardLayoutComponentTable.get(id);
 
         //iPositon null if user selects a non-leaf node: do nothing in this case
         if (iPosition == null)
-            iPosition = (Integer) cardLayoutComponentTable.get("empty"); //NOT LOCALIZABLE
+            iPosition = cardLayoutComponentTable.get("empty"); //NOT LOCALIZABLE
 
-        cardLayoutCurrentItem = iPosition.intValue();
+        cardLayoutCurrentItem = iPosition;
         layout.first(panel);
         for (int i = 0; i < cardLayoutCurrentItem; i++) {
             layout.next(panel);
@@ -463,8 +454,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
                 try {
                     abstractPackage.getDb().beginTrans(Db.READ_TRANS);
                     // First, add all unowned objects...
-                    for (int i = 0; i < scope.length; i++) {
-                        ObjectScope concept = scope[i];
+                    for (ObjectScope concept : scope) {
                         if (!concept.isOwnedObject && concept.isSelected && concept.showOccurences) {
                             concept.conceptID = id;
                             id++;
@@ -474,8 +464,8 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
                     } //end for
 
                     // Second, create all user nodes...
-                    ArrayList listNode = new ArrayList();
-                    ArrayList userList = (userScope == null) ? null : userScope.occurences;
+                    List<DefaultMutableTreeNode> listNode = new ArrayList<>();
+                    List<?> userList = (userScope == null) ? null : userScope.occurences;
                     if (userList != null) {
                         for (int i = 0; i < userList.size(); i++) {
                             ObjectSelection userObj = (ObjectSelection) userScope.occurences.get(i);
@@ -490,13 +480,12 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
                         } //end for
                     } //end if
 
-                    for (int i = 0; i < listNode.size(); i++) {
-                        root.add((UserNode) listNode.get(i));
+                    for (DefaultMutableTreeNode defaultMutableTreeNode : listNode) {
+                        root.add(defaultMutableTreeNode);
                     } //end for
 
                     // Third, add all owned objects associated with the user...
-                    for (int i = 0; i < scope.length; i++) {
-                        ObjectScope concept = scope[i];
+                    for (ObjectScope concept : scope) {
                         boolean addConcept = false;
                         if (concept.isOwnedObject && concept.isSelected && concept.showOccurences) {
                             addConcept = true;
@@ -586,14 +575,14 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
 
     // INNER CLASS
     private class OccurrenceTreeModel extends CheckTreeModel {
-        OccurrenceTreeModel(DefaultMutableTreeNode root, ArrayList arrayObjs,
+        OccurrenceTreeModel(DefaultMutableTreeNode root, List arrayObjs,
                 DBMSForwardOptions options) {
             super(root);
             DefaultMutableTreeNode parent;
             try {
                 options.getAbstractPackage().getDb().beginTrans(Db.READ_TRANS);
-                for (int i = 0; i < arrayObjs.size(); i++) {
-                    ObjectSelection obj = (ObjectSelection) arrayObjs.get(i);
+                for (Object arrayObj : arrayObjs) {
+                    ObjectSelection obj = (ObjectSelection) arrayObj;
                     parent = new OccurrenceNode(obj, 0, false, true);
                     root.add(parent);
                 }
@@ -687,7 +676,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
 
     private static final class GenerationParametersAction extends AbstractAction {
         private VariableScope m_variableScope;
-        private List m_propertyList;
+        private List<AbstractProperty> m_propertyList;
         WizardPage m_wizardPage = null;
 
         GenerationParametersAction() {
@@ -696,8 +685,7 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
             PluginMgr mgr = PluginMgr.getSingleInstance();
             PluginsRegistry registry = mgr.getPluginsRegistry();
             Class fwdClass = toolkit.getForwardClass();
-            List plugins = registry.getActivePluginInstances(fwdClass); 
-            
+            List<?> plugins = registry.getActivePluginInstances(fwdClass);
             //ArrayList plugins = mgr.getPluginsRegistry().getActivePluginInstances(
             //        toolkit.getForwardClass());
             SQLForwardEngineeringPlugin sqlForward = null;
@@ -742,4 +730,3 @@ public class DefaultForwardWizardObjectsPage extends WizardPage {
         } //end actionPerformed()
     } //end GenerationParametersAction
 } //end DefaultForwardWizardObjectsPage
-

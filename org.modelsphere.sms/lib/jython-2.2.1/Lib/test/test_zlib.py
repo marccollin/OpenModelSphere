@@ -1,7 +1,8 @@
-import unittest
-from test import test_support
-import zlib
 import random
+import unittest
+import zlib
+from test import test_support
+
 
 # print test_support.TESTFN
 
@@ -473,7 +474,6 @@ def test(tests=''):
 if False:
     import sys
     sys.path.insert(1, '/Py23Src/python/dist/src/Lib/test')
-    import test_zlib as tz
     ts, ut = tz.test_support, tz.unittest
     su = ut.TestSuite()
     su.addTest(ut.makeSuite(tz.CompressTestCase))

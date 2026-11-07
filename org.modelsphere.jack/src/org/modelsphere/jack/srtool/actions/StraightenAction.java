@@ -43,19 +43,21 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.awt.event.ActionEvent;
-import javax.swing.KeyStroke;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.actions.util.DbMultiTrans;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.graphic.DbGraphic;
 import org.modelsphere.jack.srtool.graphic.SrLine;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public final class StraightenAction extends AbstractApplicationAction implements
         SelectionActionListener {

@@ -1,6 +1,8 @@
-from test_support import verbose, TestFailed, verify
-import types
 import sys
+import types
+
+from test_support import TestFailed, verify
+
 
 class F:
     def a(self):

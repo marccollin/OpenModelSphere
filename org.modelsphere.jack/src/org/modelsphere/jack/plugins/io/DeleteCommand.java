@@ -43,12 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins.io;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.plugins.PluginDescriptor;
 import org.modelsphere.jack.util.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
 
 public class DeleteCommand extends ConfigurationCommand {
     public DeleteCommand() {

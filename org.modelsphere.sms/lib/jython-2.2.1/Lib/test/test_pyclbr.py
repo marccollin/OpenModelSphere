@@ -2,14 +2,16 @@
    Test cases for pyclbr.py
    Nick Mathewson
 '''
-from test_support import run_unittest
-import unittest, sys
-from types import ClassType, FunctionType, MethodType
 import pyclbr
+import sys
+import unittest
+from commands import getstatus
+from types import ClassType, FunctionType, MethodType
+
+from test_support import run_unittest
+
 
 # This next line triggers an error on old versions of pyclbr.
-
-from commands import getstatus
 
 # Here we test the python class browser code.
 #

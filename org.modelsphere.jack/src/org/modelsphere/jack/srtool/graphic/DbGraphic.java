@@ -43,14 +43,28 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.graphic;
 
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbGraphicalObjectI;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.baseDb.db.event.DbRefreshListener;
+import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
+import org.modelsphere.jack.baseDb.db.event.DbUpdateListener;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelation1;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
+import org.modelsphere.jack.graphic.Diagram;
+import org.modelsphere.jack.graphic.GraphicComponent;
+import org.modelsphere.jack.graphic.GraphicNode;
+import org.modelsphere.jack.graphic.GraphicUtil;
+import org.modelsphere.jack.graphic.Line;
+import org.modelsphere.jack.srtool.ApplicationContext;
+
 import java.awt.*;
 import java.awt.print.PageFormat;
-
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.event.*;
-import org.modelsphere.jack.baseDb.meta.*;
-import org.modelsphere.jack.graphic.*;
-import org.modelsphere.jack.srtool.ApplicationContext;
 
 public abstract class DbGraphic {
 

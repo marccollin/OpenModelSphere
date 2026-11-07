@@ -43,13 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.graphic;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
-import javax.swing.*;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.baseDb.db.event.DbListener;
 import org.modelsphere.jack.baseDb.db.event.DbRefreshListener;
 import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
@@ -58,6 +55,11 @@ import org.modelsphere.jack.graphic.DiagramView;
 import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.ApplicationContext;
+
+import javax.swing.*;
+import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class DiagramInternalFrame extends CascadingJInternalFrame implements
         PropertyChangeListener, DbRefreshListener, DbListener {
@@ -73,7 +75,7 @@ public class DiagramInternalFrame extends CascadingJInternalFrame implements
         PropertiesSet preferences = PropertiesManager.getPreferencePropertiesSet();
         view.setZoomFactor(preferences.getPropertyFloat(DiagramView.class,
                 DiagramView.ZOOM_FACTOR_PROPERTY,
-                new Float(DiagramView.ZOOM_FACTOR_PROPERTY_DEFAULT)).floatValue());
+                Float.valueOf(DiagramView.ZOOM_FACTOR_PROPERTY_DEFAULT)).floatValue());
 
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());

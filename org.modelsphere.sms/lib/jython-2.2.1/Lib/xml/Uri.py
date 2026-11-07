@@ -11,9 +11,12 @@
 # Detailed license and copyright information: http://4suite.org/COPYRIGHT
 # Project home, documentation, distributions: http://4suite.org/
 import os.path
-import sys
 import re
-import urlparse, urllib, urllib2
+import sys
+import urllib
+import urllib2
+import urlparse
+
 
 def UnsplitUriRef(uriRefSeq):
     """should replace urlparse.urlunsplit

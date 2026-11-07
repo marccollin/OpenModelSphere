@@ -43,8 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -67,6 +65,9 @@ import org.modelsphere.sms.or.db.DbORIndex;
 import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 import org.modelsphere.sms.or.db.DbORTable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class ReverseUtilities {
 
     // Link indexes to PUF constraints with the same composition.
@@ -77,32 +78,31 @@ public abstract class ReverseUtilities {
                 new MetaClass[] { DbORDataModel.metaClass });
         while (enumTables.hasMoreElements()) {
             DbORAbsTable table = (DbORAbsTable) enumTables.nextElement();
-            ArrayList pufKeys = new ArrayList(); // list of PUF constraints
+            List<DbORConstraint> pufKeys = new ArrayList<>(); // list of PUF constraints
             // without index
-            ArrayList indexes = new ArrayList(); // list of indexes without
+            List<DbORIndex> indexes = new ArrayList<>(); // list of indexes without
             // constraint
             DbEnumeration dbEnum = table.getComponents().elements();
             while (dbEnum.hasMoreElements()) {
                 DbObject dbo = dbEnum.nextElement();
                 if (dbo instanceof DbORPrimaryUnique) {
                     if (((DbORPrimaryUnique) dbo).getIndex() == null)
-                        pufKeys.add(dbo);
+                        pufKeys.add((DbORPrimaryUnique) dbo);
                 } else if (dbo instanceof DbORForeign) {
                     if (((DbORForeign) dbo).getIndex() == null)
-                        pufKeys.add(dbo);
+                        pufKeys.add((DbORForeign) dbo);
                 } else if (dbo instanceof DbORIndex) {
                     if (((DbORIndex) dbo).getConstraint() == null)
-                        indexes.add(dbo);
+                        indexes.add((DbORIndex) dbo);
                 }
             }
             dbEnum.close();
 
             // Compare the composition of all constraints with all indexes and
             // link the matching pairs
-            for (int i = 0; i < pufKeys.size(); i++) {
-                DbORConstraint pufKey = (DbORConstraint) pufKeys.get(i);
+            for (DbORConstraint pufKey : pufKeys) {
                 for (int j = 0; j < indexes.size(); j++) {
-                    DbORIndex index = (DbORIndex) indexes.get(j);
+                    DbORIndex index = indexes.get(j);
                     if (index.matchesConstraint(pufKey)) {
                         // Avoid matching of non unique indexes with
                         // DbORPrimaryUnique constraint
@@ -136,7 +136,7 @@ public abstract class ReverseUtilities {
     private static void reverseDependencies(DbORPrimaryUnique puKey) throws DbException {
         // First get in a list the foreign columns present in the primary/unique
         // key.
-        ArrayList foreignCols = new ArrayList();
+        List<DbORColumn> foreignCols = new ArrayList<>();
         DbRelationN cols = puKey.getColumns();
         int i;
         for (i = 0; i < cols.size(); i++) {
@@ -145,12 +145,12 @@ public abstract class ReverseUtilities {
                 foreignCols.add(col);
         }
 
-        while (foreignCols.size() > 0) {
+        while (!foreignCols.isEmpty()) {
             // For each foreign column, check if one of its foreign keys has all
             // its columns present in the PU key;
             // if one such foreign key is found, add it to the dependencies of
             // the PU key.
-            DbORColumn foreignCol = (DbORColumn) foreignCols.get(0);
+            DbORColumn foreignCol = foreignCols.get(0);
             DbRelationN foreignKeys = foreignCol.getFKeyColumns();
             for (i = 0; i < foreignKeys.size(); i++) {
                 DbORForeign foreignKey = (DbORForeign) foreignKeys.elementAt(i).getComposite();
@@ -171,7 +171,7 @@ public abstract class ReverseUtilities {
     // Return true if all the columns of the foreign key are present in the list
     // of PU columns.
     // If purge, remove from the list all the columns of the foreign key.
-    private static boolean isFKeyInPUKey(DbORForeign foreignKey, ArrayList puCols, boolean purge)
+    private static boolean isFKeyInPUKey(DbORForeign foreignKey, List<DbORColumn> puCols, boolean purge)
             throws DbException {
         boolean isPresent = true;
         DbRelationN foreignCols = foreignKey.getComponents();

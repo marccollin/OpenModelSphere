@@ -33,14 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be;
 
-import java.awt.Component;
-import java.awt.Image;
-import java.awt.Point;
-import java.text.MessageFormat;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -86,6 +78,10 @@ import org.modelsphere.sms.be.text.BETextUtil;
 import org.modelsphere.sms.db.util.DbInitialization;
 import org.modelsphere.sms.graphic.tool.SMSGraphicalLinkTool;
 import org.modelsphere.sms.graphic.tool.SMSNoticeTool;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.MessageFormat;
 
 public final class BEModelToolkit extends SMSToolkit implements CurrentFocusListener {
 

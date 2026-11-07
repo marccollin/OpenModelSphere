@@ -43,10 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.engine;
 
-import java.util.*;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.debug.Debug;
+
+import java.util.Map;
 
 // This class is basically a wrapper of FieldMapping.  In this case, the FieldMapping is
 // used as a constraint.  So the Db Value (DbElement) defined in the FieldMapping is compare with the srx value (SrxElement
@@ -71,7 +71,7 @@ public final class Constraint {
     }
 
     // Compare the db value represented by the metafield with the srx value
-    public boolean dBEqualsSRX(Object hookContainer, HashMap currentObject, DbObject dbo)
+    public boolean dBEqualsSRX(Object hookContainer, Map currentObject, DbObject dbo)
             throws Exception {
         if (fieldMapping == null)
             return true;
@@ -103,7 +103,7 @@ public final class Constraint {
     }
 
     // Return an explicit info String for this constraint
-    public String getDebugInfo(HashMap currentObject) throws Exception {
+    public String getDebugInfo(Map currentObject) throws Exception {
         String s = "Constraint="; // NOT LOCALIZABLE
         if (fieldMapping != null) {
             s += "\nMetafield = " + fieldMapping.dbElement.metaField.getJName(); // NOT LOCALIZABLE

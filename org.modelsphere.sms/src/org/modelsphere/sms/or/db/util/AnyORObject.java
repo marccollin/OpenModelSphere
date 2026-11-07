@@ -43,9 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.db.util;
 
-import java.util.Arrays;
-import java.util.Collection;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -138,6 +135,9 @@ import org.modelsphere.sms.or.oracle.db.DbORATable;
 import org.modelsphere.sms.or.oracle.db.DbORATrigger;
 import org.modelsphere.sms.or.oracle.db.DbORAView;
 import org.modelsphere.sms.plugins.TargetSystem;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 public abstract class AnyORObject {
 
@@ -255,16 +255,12 @@ public abstract class AnyORObject {
             throws DbException {
         int rootID = getRootIDFromTargetSystem(target);
 
-        switch (rootID) {
-        case TargetSystem.SGBD_ORACLE_ROOT:
-            return new DbORADataModel(composite, target);
-        case TargetSystem.SGBD_INFORMIX_ROOT:
-            return new DbINFDataModel(composite, target);
-        case TargetSystem.SGBD_IBM_DB2_ROOT:
-            return new DbIBMDataModel(composite, target);
-        default:
-            return new DbGEDataModel(composite, target);
-        }
+        return switch (rootID) {
+            case TargetSystem.SGBD_ORACLE_ROOT -> new DbORADataModel(composite, target);
+            case TargetSystem.SGBD_INFORMIX_ROOT -> new DbINFDataModel(composite, target);
+            case TargetSystem.SGBD_IBM_DB2_ROOT -> new DbIBMDataModel(composite, target);
+            default -> new DbGEDataModel(composite, target);
+        };
     }
 
     public static DbORDataModel createConceptualDataModel(DbObject composite,
@@ -276,48 +272,36 @@ public abstract class AnyORObject {
             throws DbException {
         int rootID = getRootIDFromTargetSystem(target);
 
-        switch (rootID) {
-        case TargetSystem.SGBD_ORACLE_ROOT:
-            return new DbORADatabase(composite, target);
-        case TargetSystem.SGBD_INFORMIX_ROOT:
-            return new DbINFDatabase(composite, target);
-        case TargetSystem.SGBD_IBM_DB2_ROOT:
-            return new DbIBMDatabase(composite, target);
-        default:
-            return new DbGEDatabase(composite, target);
-        }
+        return switch (rootID) {
+            case TargetSystem.SGBD_ORACLE_ROOT -> new DbORADatabase(composite, target);
+            case TargetSystem.SGBD_INFORMIX_ROOT -> new DbINFDatabase(composite, target);
+            case TargetSystem.SGBD_IBM_DB2_ROOT -> new DbIBMDatabase(composite, target);
+            default -> new DbGEDatabase(composite, target);
+        };
     }
 
     public static DbOROperationLibrary createOperationLibrary(DbObject composite,
             DbSMSTargetSystem target) throws DbException {
         int rootID = getRootIDFromTargetSystem(target);
 
-        switch (rootID) {
-        case TargetSystem.SGBD_ORACLE_ROOT:
-            return new DbORAProgramUnitLibrary(composite, target);
-        case TargetSystem.SGBD_INFORMIX_ROOT:
-            return new DbINFOperationLibrary(composite, target);
-        case TargetSystem.SGBD_IBM_DB2_ROOT:
-            return new DbIBMOperationLibrary(composite, target);
-        default:
-            return new DbGEOperationLibrary(composite, target);
-        }
+        return switch (rootID) {
+            case TargetSystem.SGBD_ORACLE_ROOT -> new DbORAProgramUnitLibrary(composite, target);
+            case TargetSystem.SGBD_INFORMIX_ROOT -> new DbINFOperationLibrary(composite, target);
+            case TargetSystem.SGBD_IBM_DB2_ROOT -> new DbIBMOperationLibrary(composite, target);
+            default -> new DbGEOperationLibrary(composite, target);
+        };
     }
 
     public static DbORForeign createForeignKey(DbORAssociationEnd assocEnd, DbSMSTargetSystem target)
             throws DbException {
         int rootID = getRootIDFromTargetSystem(target);
 
-        switch (rootID) {
-        case TargetSystem.SGBD_ORACLE_ROOT:
-            return new DbORAForeign(assocEnd);
-        case TargetSystem.SGBD_INFORMIX_ROOT:
-            return new DbINFForeign(assocEnd);
-        case TargetSystem.SGBD_IBM_DB2_ROOT:
-            return new DbIBMForeign(assocEnd);
-        default:
-            return new DbGEForeign(assocEnd);
-        }
+        return switch (rootID) {
+            case TargetSystem.SGBD_ORACLE_ROOT -> new DbORAForeign(assocEnd);
+            case TargetSystem.SGBD_INFORMIX_ROOT -> new DbINFForeign(assocEnd);
+            case TargetSystem.SGBD_IBM_DB2_ROOT -> new DbIBMForeign(assocEnd);
+            default -> new DbGEForeign(assocEnd);
+        };
     }
 
     public static DbORTable createERRelationship(DbORDataModel dataModel) throws DbException {

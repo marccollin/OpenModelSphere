@@ -1,24 +1,14 @@
 package com.neosapiens.plugins.reverse.javasource.ui;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import com.neosapiens.plugins.reverse.javasource.international.JavaSourceReverseLocaleMgr;
+import org.modelsphere.jack.awt.AwtUtil;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import org.modelsphere.jack.awt.AwtUtil;
-
-import com.neosapiens.plugins.reverse.javasource.international.JavaSourceReverseLocaleMgr;
 
 
 public class Wizard<P extends WizardParameters> {

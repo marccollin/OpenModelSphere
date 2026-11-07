@@ -43,30 +43,42 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.dirchooser;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.filechooser.FileSystemView;
-import javax.swing.tree.*;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.NullFrame;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.util.FileUtils;
 
+import javax.swing.*;
+import javax.swing.event.TreeExpansionEvent;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.event.TreeWillExpandListener;
+import javax.swing.filechooser.FileSystemView;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeCellRenderer;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Vector;
+
+//import sun.awt.shell.ShellFolder;
 
 public final class DirectoryChooser2 extends JDialog {
     private static final String kDefaultTitle = LocaleMgr.screen.getString("SelectDirectory");
 
-    private static long startInitFileChooser = System.currentTimeMillis();
-    private static long finishInitFileChooser = System.currentTimeMillis();
+
     private JTree m_view;
     private JLabel lookInLabel = new JLabel(LocaleMgr.screen.getString("LookIn"));
     private JComboBox lookIn = new LookInComboBox(/* new DirectoryComboBoxModel() */);
@@ -145,7 +157,7 @@ public final class DirectoryChooser2 extends JDialog {
     }
 
     final class DirectoryComboBoxModel extends AbstractListModel implements ComboBoxModel {
-        Vector directories = new Vector();
+        List<File> directories = new Vector<>();
         int[] depths = null;
         File selectedDirectory = null;
 
@@ -162,7 +174,10 @@ public final class DirectoryChooser2 extends JDialog {
                 return;
             }
             directories.clear();
+
             FileSystemView fsv = FileSystemView.getFileSystemView();
+            directories.addAll(Arrays.asList(fsv.getRoots())); // Poste de travail / disques
+            directories.add(fsv.getHomeDirectory());
 
             File canonical = null;
             try {
@@ -174,19 +189,19 @@ public final class DirectoryChooser2 extends JDialog {
 
             File sf = canonical;
             File f = sf;
-            Vector path = new Vector(10);
+            List<File> path = new Vector<>(10);
             do {
-                path.addElement(f);
+                path.add(f);
             } while ((f = f.getParentFile()) != null);
 
             int pathCount = path.size();
             // Insert chain at appropriate place in vector
             for (int i = 0; i < pathCount; i++) {
-                f = (File) path.get(i);
+                f = path.get(i);
                 if (directories.contains(f)) {
                     int topIndex = directories.indexOf(f);
                     for (int j = i - 1; j >= 0; j--) {
-                        directories.insertElementAt(path.get(j), topIndex + i - j);
+                        directories.add(topIndex + i - j, path.get(j));
                     }
                     break;
                 }
@@ -198,12 +213,12 @@ public final class DirectoryChooser2 extends JDialog {
         private void calculateDepths() {
             depths = new int[directories.size()];
             for (int i = 0; i < depths.length; i++) {
-                File dir = (File) directories.get(i);
+                File dir = directories.get(i);
                 File parent = dir.getParentFile();
                 depths[i] = 0;
                 if (parent != null) {
                     for (int j = i - 1; j >= 0; j--) {
-                        if (parent.equals((File) directories.get(j))) {
+                        if (parent.equals(directories.get(j))) {
                             depths[i] = depths[j] + 1;
                             break;
                         }
@@ -218,8 +233,8 @@ public final class DirectoryChooser2 extends JDialog {
 
         public void setSelectedItem(Object selectedDirectory) {
             this.selectedDirectory = (File) selectedDirectory;
-            if (this.selectedDirectory == null && directories.size() > 0)
-                this.selectedDirectory = (File) directories.get(0);
+            if (this.selectedDirectory == null && !directories.isEmpty())
+                this.selectedDirectory = directories.get(0);
             fireContentsChanged(this, -1, -1);
         }
 
@@ -232,7 +247,7 @@ public final class DirectoryChooser2 extends JDialog {
         }
 
         public Object getElementAt(int index) {
-            return directories.elementAt(index);
+            return directories.get(index);
         }
     }
 
@@ -265,6 +280,7 @@ public final class DirectoryChooser2 extends JDialog {
         public void treeWillCollapse(TreeExpansionEvent event) {
         }
 
+        @Override
         public void valueChanged(TreeSelectionEvent e) {
             Object selectedPath = getLastSelectedPathComponent();
             if (selectedPath instanceof DirectoryTreeNode) {
@@ -422,6 +438,7 @@ public final class DirectoryChooser2 extends JDialog {
             this(file, false);
         }
 
+        @Override
         public String toString() {
             return display;
         }
@@ -543,7 +560,7 @@ public final class DirectoryChooser2 extends JDialog {
         }
 
         selected = file;
-        lookIn.setModel(new DirectoryComboBoxModel()); // 110 ms
+        lookIn.setModel(new DirectoryComboBoxModel());
 
         if (m_view.getRowCount() > 0)
             m_view.expandRow(0); // 120 ms
@@ -564,58 +581,56 @@ public final class DirectoryChooser2 extends JDialog {
     // Note : 700 ms to run, needs to be optimized
     private DirectoryChooserModel m_model = null; // set at instantiation i/o
     // one each getNode() call
-    private final ArrayList m_parentFiles = new ArrayList(); // set at
+    private final List<File> m_parentFiles = new ArrayList<>(); // set at
 
-    // instantiation
-    // i/o one each
-    // getNode()
-    // call
     private FileTreeNode getNode(File file) {
-        long start = System.currentTimeMillis();
         if (m_model == null) {
             m_model = (DirectoryChooserModel) m_view.getModel();
         }
 
-        // Build the directory path from 'root' to 'file' (110ms)
-        File parentF = file;
-        DirectoryTreeRootNode root = (DirectoryTreeRootNode) m_model.getRoot();
-        FileSystemView fsv = FileSystemView.getFileSystemView();
-        while (parentF != null) {
-            m_parentFiles.add(parentF);
-            parentF = fsv.getParentDirectory(parentF); // File.getParent is
-            // faster? ... maybe but
-            // does not provide the
-            // native hierarchical
-            // view (GP)
+        //Construire le chemin du fichier vers la racine
+        List<File> pathToRoot = new ArrayList<>();
+        File current = file;
+        while (current != null) {
+            pathToRoot.add(current);
+            current = current.getParentFile();
         }
 
-        // Retrieve the node associated to 'file' in the while file tree (500
-        // ms)
-        FileTreeNode node = null;
-        int nb = m_parentFiles.size();
-        for (int i = nb - 1; i > -1; i--) {
-            File parentFile = (File) m_parentFiles.get(i);
-            DefaultMutableTreeNode parentNode = (node == null) ? (DefaultMutableTreeNode) root
-                    : node;
-            m_model.loadChildren(parentNode);
-            int count = parentNode.getChildCount();
+        //Le nœud racine est un DirectoryTreeRootNode.
+        DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode) m_model.getRoot();
+
+        //Parcourir le chemin de la racine vers la feuille (Top-Down)
+        for (int i = pathToRoot.size() - 1; i >= 0; i--) {
+            File targetFile = pathToRoot.get(i);
+
+            //Chargement des enfants (nécessaire pour le lazy-loading du modèle)
+            m_model.loadChildren(currentNode);
+
+            FileTreeNode nextNode = null;
+            int count = currentNode.getChildCount();
+
             for (int j = 0; j < count; j++) {
-                FileTreeNode child = (FileTreeNode) parentNode.getChildAt(j);
-                Object obj = child.getUserObject();
-                if (obj.equals(parentFile)) {
-                    node = child;
-                    break;
-                }
-            } // end for
-        } // end for
-        m_parentFiles.clear(); // for furthur use
+                //Les enfants de la racine (et des nœuds suivants) sont bien des FileTreeNode
+                FileTreeNode child = (FileTreeNode) currentNode.getChildAt(j);
 
-        // System.out.println("getNode: " + ( System.currentTimeMillis() -
-        // start));
-        if (node != null && node.getUserObject().equals(file)) {
-            return node;
+                if (targetFile.equals(child.getUserObject())) {
+                    nextNode = child;
+                    break; // Trouvé à ce niveau, on arrête la boucle interne
+                }
+            }
+
+            //EARLY EXIT : Si le nœud n'est pas trouvé à ce niveau, inutile de continuer, on échoue immédiatement
+            if (nextNode == null) {
+                return null;
+            }
+
+            //On descend d'un cran dans l'arbre.
+            //nextNode est un FileTreeNode, qui est aussi un DefaultMutableTreeNode.
+            currentNode = nextNode;
         }
-        return null;
+
+        //À la fin de la boucle, currentNode est le FileTreeNode cible que nous cherchions
+        return (FileTreeNode) currentNode;
     }
 
     private static final int CANCEL = 1;
@@ -650,9 +665,7 @@ public final class DirectoryChooser2 extends JDialog {
             chooser = new DirectoryChooser2(NullFrame.singleton, selected, showFiles);
         else
             return selected;
-        // System.out.println("Time in LoadChildren: " + chooser.timeinload);
-        // System.out.println("Total: " + ( System.currentTimeMillis() -
-        // start));
+
         // configure
         if (title != null)
             chooser.setTitle(title);
@@ -693,7 +706,7 @@ public final class DirectoryChooser2 extends JDialog {
         // (finishInitFileChooser - startInitFileChooser));
         // File file = new
         // File("C:/java/modelsphere21/src/org/modelsphere/jack/awt");
-        File file = new File("C:/java/modelsphere21");
+        File file = new File("/home/collinm/bin/dd/");
         for (int i = 0; i < 5; i++) {
             File selectedFile = DirectoryChooser2.selectDirectory(frame, file, "Browse", "Select",
                     true);

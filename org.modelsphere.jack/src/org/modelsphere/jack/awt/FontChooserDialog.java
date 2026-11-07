@@ -43,16 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Locale;
+import org.modelsphere.jack.international.LocaleChangeManager;
+import org.modelsphere.jack.international.LocaleMgr;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import org.modelsphere.jack.international.LocaleChangeManager;
-import org.modelsphere.jack.international.LocaleMgr;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.Locale;
 
 //import org.modelsphere.jack.debug.TestableWindow;
 
@@ -191,6 +193,7 @@ public class FontChooserDialog extends JDialog implements ComponentTestable {
 
         /* main components actionListner Installation */
         list.addListSelectionListener(new ListSelectionListener() {
+            @Override
             public void valueChanged(ListSelectionEvent e) {
                 manageSelectButton();
                 if (!e.getValueIsAdjusting())

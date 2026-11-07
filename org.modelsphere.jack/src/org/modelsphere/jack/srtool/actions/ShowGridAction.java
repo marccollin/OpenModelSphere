@@ -65,7 +65,7 @@ public class ShowGridAction extends AbstractTriStatesAction implements Selection
         PropertiesSet options = PropertiesManager.APPLICATION_PROPERTIES_SET;
         Boolean retVal = Boolean.FALSE;
         if (options != null)
-            retVal = options.getPropertyBoolean(Grid.class, Grid.PROPERTY_HIDE_GRID, new Boolean(
+            retVal = options.getPropertyBoolean(Grid.class, Grid.PROPERTY_HIDE_GRID, Boolean.valueOf(
                     Grid.PROPERTY_HIDE_GRID_DEFAULT));
         setState(!retVal.booleanValue() ? STATE_ON : STATE_OFF);
     }
@@ -83,7 +83,7 @@ public class ShowGridAction extends AbstractTriStatesAction implements Selection
         PropertiesSet options = PropertiesManager.APPLICATION_PROPERTIES_SET;
         Boolean retVal = Boolean.FALSE;
         if (options != null)
-            retVal = options.getPropertyBoolean(Grid.class, Grid.PROPERTY_HIDE_GRID, new Boolean(
+            retVal = options.getPropertyBoolean(Grid.class, Grid.PROPERTY_HIDE_GRID, Boolean.valueOf(
                     Grid.PROPERTY_HIDE_GRID_DEFAULT));
         options.setProperty(Grid.class, Grid.PROPERTY_HIDE_GRID, !retVal.booleanValue());
         setState(!retVal.booleanValue() ? STATE_ON : STATE_OFF);

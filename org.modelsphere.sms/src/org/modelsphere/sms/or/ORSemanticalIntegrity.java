@@ -32,8 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.or;
 
-import java.util.HashMap;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -46,12 +44,10 @@ import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.baseDb.util.Terminology;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.sms.db.DbSMSAbstractPackage;
 import org.modelsphere.sms.db.DbSMSAssociationEnd;
 import org.modelsphere.sms.db.DbSMSBuiltInTypePackage;
 import org.modelsphere.sms.db.DbSMSTargetSystem;
 import org.modelsphere.sms.db.srtypes.SMSMultiplicity;
-import org.modelsphere.sms.oo.db.DbOODataMember;
 import org.modelsphere.sms.or.db.DbORAbsTable;
 import org.modelsphere.sms.or.db.DbORAssociation;
 import org.modelsphere.sms.or.db.DbORAssociationEnd;
@@ -70,6 +66,9 @@ import org.modelsphere.sms.or.db.DbORTable;
 import org.modelsphere.sms.or.db.DbORView;
 import org.modelsphere.sms.plugins.TargetSystemInfo;
 import org.modelsphere.sms.plugins.TargetSystemManager;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public final class ORSemanticalIntegrity implements DbUpdateListener {
     //private static final String UNVALIDATED = "{0} Unvalidated";
@@ -224,12 +223,12 @@ public final class ORSemanticalIntegrity implements DbUpdateListener {
         // it does not match; recreate the index keys from the constraint columns.
         int i;
         DbRelationN indCols = index.getComponents();
-        HashMap old = new HashMap();
+        Map<DbObject, DbORIndexKey> old = new HashMap<>();
         for (i = indCols.size(); --i >= 0;) {
             DbObject dbo = indCols.elementAt(i);
             if (dbo instanceof DbORIndexKey) {
                 if (((DbORIndexKey) dbo).getIndexedElement() != null)
-                    old.put(((DbORIndexKey) dbo).getIndexedElement(), dbo);
+                    old.put(((DbORIndexKey) dbo).getIndexedElement(), (DbORIndexKey) dbo);
                 dbo.remove();
             }
         }
@@ -240,10 +239,10 @@ public final class ORSemanticalIntegrity implements DbUpdateListener {
                     .elementAt(i) : ((DbORFKeyColumn) pufCols.elementAt(i)).getColumn());
             DbORIndexKey indCol = new DbORIndexKey(index);
             indCol.setIndexedElement(pufCol);
-            Object oldIndexKey = old.get(pufCol);
+            DbORIndexKey oldIndexKey = old.get(pufCol);
             if (oldIndexKey != null) {
-                indCol.setSortOption(((DbORIndexKey) oldIndexKey).getSortOption());
-                indCol.setExpression(((DbORIndexKey) oldIndexKey).getExpression());
+                indCol.setSortOption(oldIndexKey.getSortOption());
+                indCol.setExpression(oldIndexKey.getExpression());
             }
         }
         old.clear();
@@ -333,14 +332,13 @@ public final class ORSemanticalIntegrity implements DbUpdateListener {
      * are part of FKs
      */
     private void updateTableCalculatedFields(DbUpdateEvent event) throws DbException {
-        if ((event.dbo == null) || !(event.dbo instanceof DbORTable))
+        if ((event.dbo == null) || !(event.dbo instanceof DbORTable table))
             return;
 
         if (event.op == Db.REMOVE_FROM_RELN)
             return;
 
         //if table is going to be deleted, return
-        DbORTable table = (DbORTable) event.dbo;
         DbObject composite = table.getComposite();
         if (composite == null)
             return;
@@ -732,4 +730,3 @@ public final class ORSemanticalIntegrity implements DbUpdateListener {
      */
     // //end updateAssociationCalculatedFields()
 } //end ORSemanticalIntegrity
-

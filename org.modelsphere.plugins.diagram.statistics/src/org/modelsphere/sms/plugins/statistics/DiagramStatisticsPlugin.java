@@ -33,10 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.statistics;
 
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.util.Vector;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -72,6 +68,10 @@ import org.modelsphere.sms.or.db.DbORCommonItemModel;
 import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.db.DbORDiagram;
 import org.modelsphere.sms.or.db.DbORDomainModel;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.Vector;
 
 //import org.modelsphere.sms.db.DbSMSDiagram;
 

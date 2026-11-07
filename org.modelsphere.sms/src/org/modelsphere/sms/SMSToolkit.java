@@ -43,11 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.awt.Image;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -69,6 +64,12 @@ import org.modelsphere.sms.graphic.tool.SMSSelectTool;
 import org.modelsphere.sms.graphic.tool.SMSStampTool;
 import org.modelsphere.sms.graphic.tool.SMSTextTool;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class provide a way for actions and other fontionnalities to make abstraction of the active
@@ -110,7 +111,7 @@ public abstract class SMSToolkit {
     // - tool
     // image
 
-    private static Hashtable toolkits = new Hashtable(20);
+    private static Map<MetaClass, SMSToolkit> toolkits = new Hashtable<>(20);
 
     // The default toolkit is considered as a Null Object.
     // Getting the toolkit doesn't need a (toolkit != null) verification.
@@ -151,17 +152,15 @@ public abstract class SMSToolkit {
      * Note: The 'null toolkit' instance of DefaultSMSToolkit will not be returned.
      */
     static final SMSToolkit[] getToolkits() {
-        ArrayList list = new ArrayList(toolkits.values());
-        ArrayList noduplicatelist = new ArrayList();
-        for (int i = 0; i < list.size(); i++) {
-            Object o = list.get(i);
+        List<SMSToolkit> list = new ArrayList<>(toolkits.values());
+        List<SMSToolkit> noduplicatelist = new ArrayList<>();
+        for (SMSToolkit o : list) {
             if (!noduplicatelist.contains(o) && (o != null))
                 noduplicatelist.add(o);
         }
-        noduplicatelist.trimToSize();
         SMSToolkit[] objs = new SMSToolkit[noduplicatelist.size()];
         for (int i = 0; i < noduplicatelist.size(); i++) {
-            objs[i] = (SMSToolkit) noduplicatelist.get(i);
+            objs[i] = noduplicatelist.get(i);
         }
         return objs;
     }
@@ -183,8 +182,8 @@ public abstract class SMSToolkit {
                 if ((focusobjects == null) || (focusobjects.length == 0))
                     return defaultToolkit;
                 SMSToolkit candidatekit = null;
-                for (int i = 0; i < focusobjects.length; i++) {
-                    SMSToolkit objectkit = getToolkit(focusobjects[i]);
+                for (DbObject dbObject : focusobjects) {
+                    SMSToolkit objectkit = getToolkit(dbObject);
                     if ((objectkit != candidatekit) && (candidatekit != null))
                         return defaultToolkit;
                     candidatekit = objectkit;
@@ -332,16 +331,15 @@ public abstract class SMSToolkit {
 
         // add specific toolkit tools
         SMSToolkit[] kits = getToolkits();
-        for (int i = 0; i < kits.length; i++) {
-            SMSToolkit toolkit = kits[i];
+        for (SMSToolkit toolkit : kits) {
             Tool[] kittools = toolkit.createTools();
             MetaClass[] mcs = toolkit.getSupportedPackage();
 
             if (kittools == null)
                 continue;
-            for (int j = 0; j < kittools.length; j++) {
-                kittools[j].setSupportedDiagramMetaClasses(mcs);
-                allTools.add(kittools[j]);
+            for (Tool kittool : kittools) {
+                kittool.setSupportedDiagramMetaClasses(mcs);
+                allTools.add(kittool);
             } //end for
         } //end for
 

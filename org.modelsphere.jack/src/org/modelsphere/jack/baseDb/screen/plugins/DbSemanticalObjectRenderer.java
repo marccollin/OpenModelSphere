@@ -43,13 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.Component;
-import java.awt.Image;
-import javax.swing.*;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.screen.ScreenView;
 import org.modelsphere.jack.util.DefaultComparableElement;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class DbSemanticalObjectRenderer extends org.modelsphere.jack.baseDb.screen.DefaultRenderer {
 

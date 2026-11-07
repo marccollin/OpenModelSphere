@@ -32,13 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.oo.java.features;
 
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -89,6 +82,12 @@ import org.modelsphere.sms.or.db.DbORTableGo;
 import org.modelsphere.sms.or.db.DbORTypeClassifier;
 import org.modelsphere.sms.or.db.srtypes.ORDomainCategory;
 import org.modelsphere.sms.or.db.util.AnyORObject;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public final class JavaToDataModelConversion {
 

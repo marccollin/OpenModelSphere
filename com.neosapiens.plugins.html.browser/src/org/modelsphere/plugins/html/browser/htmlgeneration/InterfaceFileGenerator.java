@@ -34,11 +34,11 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.htmlgeneration;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import org.modelsphere.plugins.html.browser.international.LocaleMgr;
 import org.modelsphere.plugins.html.browser.io.IndentWriter;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * This class is used to generate a file containing the necessary HTML code for

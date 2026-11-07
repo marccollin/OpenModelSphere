@@ -32,15 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.preference;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JPanel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import org.modelsphere.jack.graphic.Grid;
 import org.modelsphere.jack.preference.OptionGroup;
 import org.modelsphere.jack.preference.OptionPanel;
@@ -49,6 +40,13 @@ import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.preference.GridOptionPanel;
 import org.modelsphere.sms.MainFrame;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author Grandite
@@ -88,21 +86,20 @@ public final class DiagramGridOptionGroup extends OptionGroup implements ActionL
         public void init() {
 
             Boolean b = options.getPropertyBoolean(Grid.class, Grid.PROPERTY_HIDE_GRID,
-                    new Boolean(Grid.PROPERTY_HIDE_GRID_DEFAULT));
+                    Grid.PROPERTY_HIDE_GRID_DEFAULT);
             Boolean c = options.getPropertyBoolean(Grid.class, Grid.PROPERTY_GRID_ACTIVE,
-                    new Boolean(Grid.PROPERTY_GRID_ACTIVE_DEFAULT));
+                    Grid.PROPERTY_GRID_ACTIVE_DEFAULT);
             Integer x = options.getPropertyInteger(Grid.class, Grid.PROPERTY_NB_OF_CELLS_IN_X,
-                    new Integer(5));
+                    5);
             Integer y = options.getPropertyInteger(Grid.class, Grid.PROPERTY_NB_OF_CELLS_IN_Y,
-                    new Integer(5));
+                    5);
             Integer perc = options.getPropertyInteger(Grid.class, Grid.PROPERTY_PERCENT_OF_CELL,
-                    new Integer(50));
+                    50);
             Integer ic = options.getPropertyInteger(Grid.class, Grid.PROPERTY_GRID_COLOR,
-                    new Integer(0));
-            Color color = new Color(ic.intValue());
+                    0);
+            Color color = new Color(ic);
 
-            GridOptionPanel.GridOptions gridOptions = new GridOptionPanel.GridOptions(!b
-                    .booleanValue(), c.booleanValue(), x.intValue(), y.intValue(), perc.intValue(),
+            GridOptionPanel.GridOptions gridOptions = new GridOptionPanel.GridOptions(!b, c, x, y, perc,
                     color);
             JPanel panel = new GridOptionPanel(gridOptions, this);
             this.setLayout(new BorderLayout());

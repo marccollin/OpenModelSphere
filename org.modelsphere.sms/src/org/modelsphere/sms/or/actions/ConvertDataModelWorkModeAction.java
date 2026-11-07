@@ -32,9 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.or.actions;
 
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.awt.AwtUtil;
@@ -51,6 +48,8 @@ import org.modelsphere.sms.or.db.DbORDiagram;
 import org.modelsphere.sms.or.features.ConvertDataModelWorkModeDialog;
 import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.plugins.TargetSystem;
+
+import javax.swing.*;
 
 final class ConvertDataModelWorkModeAction extends AbstractApplicationAction implements
         SelectionActionListener {

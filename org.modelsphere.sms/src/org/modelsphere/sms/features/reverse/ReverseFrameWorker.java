@@ -33,16 +33,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.features.reverse;
 
-import java.awt.Container;
-import java.awt.Window;
-import java.util.Vector;
-
-import javax.swing.JPanel;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.debug.TestableWindow;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.Vector;
 
 public final class ReverseFrameWorker extends
         org.modelsphere.jack.srtool.reverse.file.ReverseFrameWorker implements TestableWindow {

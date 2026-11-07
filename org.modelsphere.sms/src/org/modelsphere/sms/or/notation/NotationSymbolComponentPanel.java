@@ -32,29 +32,17 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.or.notation;
 
-import java.awt.Component;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Box;
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.border.TitledBorder;
-
 import org.modelsphere.sms.notation.OptionComponent;
 import org.modelsphere.sms.or.db.srtypes.ORConnectivitiesDisplay;
 import org.modelsphere.sms.or.db.srtypes.ORConnectivityPosition;
 import org.modelsphere.sms.or.db.srtypes.ORNotationSymbol;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public final class NotationSymbolComponentPanel extends JPanel {
     private static final String kDisplay = LocaleMgr.screen.getString("displayAsNoun");
@@ -140,12 +128,12 @@ public final class NotationSymbolComponentPanel extends JPanel {
         // init a client property so that we can use one method to deal with all
         // symbol combo
         // The object value represent the index in the 'values' array.
-        min0.putClientProperty(VALUE_INDEX_PROPERTY, new Integer(3));
-        min1.putClientProperty(VALUE_INDEX_PROPERTY, new Integer(4));
-        max1.putClientProperty(VALUE_INDEX_PROPERTY, new Integer(5));
-        maxN.putClientProperty(VALUE_INDEX_PROPERTY, new Integer(6));
-        keyDependency.putClientProperty(VALUE_INDEX_PROPERTY, new Integer(8));
-        childDirection.putClientProperty(VALUE_INDEX_PROPERTY, new Integer(10));
+        min0.putClientProperty(VALUE_INDEX_PROPERTY, Integer.valueOf(3));
+        min1.putClientProperty(VALUE_INDEX_PROPERTY, Integer.valueOf(4));
+        max1.putClientProperty(VALUE_INDEX_PROPERTY, Integer.valueOf(5));
+        maxN.putClientProperty(VALUE_INDEX_PROPERTY, Integer.valueOf(6));
+        keyDependency.putClientProperty(VALUE_INDEX_PROPERTY, Integer.valueOf(8));
+        childDirection.putClientProperty(VALUE_INDEX_PROPERTY, Integer.valueOf(10));
 
     }
 

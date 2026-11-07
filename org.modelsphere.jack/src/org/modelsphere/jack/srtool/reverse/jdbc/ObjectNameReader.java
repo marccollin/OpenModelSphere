@@ -43,17 +43,19 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.jdbc; //org.modelsphere.jack.srtool.reverse;
 
-import java.io.*;
-import java.util.*;
-
 import org.modelsphere.jack.io.LexerStream;
 import org.modelsphere.jack.srtool.reverse.InputReadable;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.List;
+
 public final class ObjectNameReader implements InputReadable {
     // ObjectBuilder builder;
-    ArrayList nameList;
+    private final List<? super String> nameList;
 
-    public ObjectNameReader(ArrayList anArray) {
+    public ObjectNameReader(List<? super String> anArray) {
         nameList = anArray;
     }
 
@@ -79,7 +81,7 @@ public final class ObjectNameReader implements InputReadable {
 
     // INNER CLASSES
     class InputFileParserStream extends LexerStream {
-        private final String eol = System.getProperty("line.separator");
+        private final String eol = System.lineSeparator();
 
         InputFileParserStream(Reader reader) {
             super(reader);
@@ -109,8 +111,8 @@ public final class ObjectNameReader implements InputReadable {
                     "text" }; // NOT LOCALIZABLE, keywords
 
             boolean found = false;
-            for (int i = 0; i < keywords.length; i++) {
-                if (word.equals(keywords[i])) {
+            for (String keyword : keywords) {
+                if (word.equals(keyword)) {
                     found = true;
                     break;
                 }

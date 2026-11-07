@@ -43,12 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.preference;
 
+import org.modelsphere.jack.srtool.screen.ScreenPerspective;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import org.modelsphere.jack.srtool.screen.ScreenPerspective;
 
 public final class DriversManager {
 

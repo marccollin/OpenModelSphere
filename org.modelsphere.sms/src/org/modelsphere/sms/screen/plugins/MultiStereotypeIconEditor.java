@@ -33,22 +33,19 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.awt.Component;
-import java.awt.Image;
-import java.awt.event.MouseEvent;
-import java.util.EventObject;
-
-import javax.swing.JDialog;
-import javax.swing.JTable;
-import javax.swing.event.CellEditorListener;
-import javax.swing.table.TableCellEditor;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.srtool.screen.design.DesignTableModel;
 import org.modelsphere.sms.MainFrame;
 import org.modelsphere.sms.db.DbSMSStereotype;
+
+import javax.swing.*;
+import javax.swing.event.CellEditorListener;
+import javax.swing.table.TableCellEditor;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.util.EventObject;
 
 public class MultiStereotypeIconEditor implements TableCellEditor {
 

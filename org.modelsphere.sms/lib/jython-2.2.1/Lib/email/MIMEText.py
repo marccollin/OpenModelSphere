@@ -5,11 +5,10 @@
 """
 
 import warnings
-from email.MIMENonMultipart import MIMENonMultipart
 from email.Encoders import encode_7or8bit
+from email.MIMENonMultipart import MIMENonMultipart
 
 
-
 class MIMEText(MIMENonMultipart):
     """Class for generating text/* type MIME documents."""
 

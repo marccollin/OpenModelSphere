@@ -5,13 +5,13 @@ See tabulate() for output format.
 
 """
 
-import sys
-import time
-import random
 import marshal
-import tempfile
 import operator
 import os
+import random
+import sys
+import tempfile
+import time
 
 td = tempfile.gettempdir()
 

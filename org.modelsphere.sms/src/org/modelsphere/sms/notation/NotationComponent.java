@@ -33,20 +33,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.notation;
 
-import java.awt.BorderLayout;
-import java.lang.reflect.Constructor;
-
-import javax.swing.BorderFactory;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.sms.db.DbSMSNotation;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Constructor;
 
 public class NotationComponent extends JPanel {
 

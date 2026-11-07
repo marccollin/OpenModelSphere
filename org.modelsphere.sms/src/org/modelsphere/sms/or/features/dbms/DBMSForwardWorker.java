@@ -44,22 +44,23 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.or.features.dbms;
 
 //Java
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.gui.task.Controller;
-import org.modelsphere.jack.plugins.PluginMgr;
-import org.modelsphere.jack.plugins.PluginSignature;
 import org.modelsphere.jack.plugins.PluginDescriptor;
+import org.modelsphere.jack.plugins.PluginMgr;
 import org.modelsphere.jack.plugins.PluginsRegistry;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.forward.*;
+import org.modelsphere.jack.srtool.forward.EditionCode;
+import org.modelsphere.jack.srtool.forward.ForwardWorker;
+import org.modelsphere.jack.srtool.forward.Rule;
+import org.modelsphere.jack.srtool.forward.RuleException;
 import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectScope;
 import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectSelection;
 import org.modelsphere.jack.srtool.plugins.generic.dbms.UserInfo;
@@ -72,6 +73,15 @@ import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 import org.modelsphere.sms.or.db.DbORUser;
 import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.templates.SQLForwardEngineeringPlugin;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public final class DBMSForwardWorker extends ForwardWorker {
     private static final String EOL = System.getProperty("line.separator"); // NOT
@@ -148,14 +158,14 @@ public final class DBMSForwardWorker extends ForwardWorker {
         //ArrayList plugins = mgr.getPluginsRegistry()
         //        .getActivePluginInstances(kit.getForwardClass());
         SQLForwardEngineeringPlugin sqlForward = null;
-        if (plugins != null && plugins.size() > 0)
+        if (plugins != null && !plugins.isEmpty())
             sqlForward = (SQLForwardEngineeringPlugin) plugins.get(0);
         if (sqlForward == null) {
             displayError(kit);
             return;
         }
 
-        ArrayList generatedFiles = new ArrayList();
+        List<String> generatedFiles = new ArrayList<>();
         String filename = m_options.getOutputFile();
         FileWriter fileWriter = new FileWriter(filename);
         PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -165,7 +175,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
         ObjectScope userScope = ObjectScope.findConceptInObjectScopeWithConceptName(scope,
                 DbORUser.metaClass.getGUIName());
         CheckTreeNode treeNode = m_options.getCheckTreeNode();
-        ArrayList excludeList = DBMSForwardOptions.getExcludeList(treeNode);
+        List<String> excludeList = DBMSForwardOptions.getExcludeList(treeNode);
         DbSMSAbstractPackage pack = m_options.getAbstractPackage();
         pack.getDb().beginTrans(Db.READ_TRANS);
 
@@ -208,7 +218,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
 
     private final void doCreationStatements(FileWriter fileWriter, ObjectScope[] scope,
             ObjectScope userScope, int statementType, SQLForwardEngineeringPlugin sqlForward,
-            Controller controller, ArrayList excludeList, boolean isHtml) throws DbException,
+            Controller controller, List<String> excludeList, boolean isHtml) throws DbException,
             IOException, RuleException {
         writeStatementTypeComment(fileWriter, DBMSForwardOptions.CREATE_STATEMENTS, sqlForward,
                 isHtml);
@@ -222,7 +232,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
 
     private final void doDropStatements(FileWriter fileWriter, ObjectScope[] scope,
             ObjectScope userScope, int statementType, SQLForwardEngineeringPlugin sqlForward,
-            Controller controller, ArrayList excludeList, boolean isHtml) throws DbException,
+            Controller controller, List<String> excludeList, boolean isHtml) throws DbException,
             IOException, RuleException {
         writeStatementTypeComment(fileWriter, DBMSForwardOptions.DROP_STATEMENTS, sqlForward,
                 isHtml);
@@ -236,7 +246,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
 
     private final void doStatement(FileWriter fileWriter, ObjectScope objectScope,
             ObjectScope userScope, ObjectScope[] scope, int statementType,
-            SQLForwardEngineeringPlugin sqlForward, Controller controller, ArrayList excludeList)
+            SQLForwardEngineeringPlugin sqlForward, Controller controller, List<String> excludeList)
             throws DbException, IOException, RuleException {
 
         String conceptName = objectScope.conceptName;
@@ -256,8 +266,8 @@ public final class DBMSForwardWorker extends ForwardWorker {
             return;
         }
 
-        ArrayList objectSelectionToForward = new ArrayList();
-        ArrayList occurences = objectScope.occurences;
+        List<ObjectSelection> objectSelectionToForward = new ArrayList<>();
+        List occurences = objectScope.occurences;
 
         // Owned Object (objects that can be owned by a user, like table, view,
         // column, index, pk, uk, ect.)
@@ -266,7 +276,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
             for (int j = 0; j < nbOccurrences && getController().checkPoint(); j++) {
                 UserInfo userInfo = (UserInfo) occurences.get(j);
                 if (ObjectScope.isOccurenceIsSelectedByObject(userScope, userInfo.user)) {
-                    ArrayList userOccurences = userInfo.occurences;
+                    List<ObjectSelection> userOccurences = userInfo.occurences;
                     for (int k = 0; k < userOccurences.size() && getController().checkPoint(); k++) {
                         ObjectSelection objectSelection = (ObjectSelection) userOccurences.get(k);
                         if (objectSelection.getIsSelected()) {
@@ -288,8 +298,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
 
         Collections.sort(objectSelectionToForward, new CollationComparator());
         int objectSelectionToForwardSize = objectSelectionToForward.size();
-        for (int i = 0; i < objectSelectionToForwardSize; i++) {
-            ObjectSelection objectSelection = (ObjectSelection) objectSelectionToForward.get(i);
+        for (ObjectSelection objectSelection : objectSelectionToForward) {
             if (parent != null) {
                 DbObject composite = objectSelection.occurence.getComposite();
                 boolean isSelected = ObjectScope.isOccurenceIsSelectedByObject(parent, composite);
@@ -306,7 +315,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
 
     private final void generateStatement(FileWriter fileWriter, ObjectScope objectScope,
             ObjectScope[] scope, int statementType, SQLForwardEngineeringPlugin sqlForward,
-            ObjectSelection objectSelection, Controller controller, ArrayList excludeList)
+            ObjectSelection objectSelection, Controller controller, List<String> excludeList)
             throws DbException, IOException, RuleException {
 
         if (objectScope.childrenID != null) {
@@ -444,7 +453,7 @@ public final class DBMSForwardWorker extends ForwardWorker {
 
     private final void expandRule(Rule rule, FileWriter fileWriter, DbObject obj,
             ObjectScope objectScope, SQLForwardEngineeringPlugin sqlForward, Controller controller,
-            ArrayList excludeList) throws DbException, IOException, RuleException {
+                                  List<String> excludeList) throws DbException, IOException, RuleException {
         StringWriter stringWriter = new StringWriter();
 
         DbObject refObject = null;

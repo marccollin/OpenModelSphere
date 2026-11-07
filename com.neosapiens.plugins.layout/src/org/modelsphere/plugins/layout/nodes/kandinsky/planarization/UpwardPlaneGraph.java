@@ -3,13 +3,13 @@
  */
 package org.modelsphere.plugins.layout.nodes.kandinsky.planarization;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
-
 import org.modelsphere.jack.srtool.features.layout.graph.Edge;
 import org.modelsphere.jack.srtool.features.layout.graph.Vertex;
 import org.modelsphere.plugins.layout.nodes.layerers.LayeredGraph;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
 
 /**
  * Adds the following restrictions : edges's source will always be in a lower or equal layer than

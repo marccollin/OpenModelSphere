@@ -42,12 +42,15 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.db;
 
-import java.awt.*;
-import org.modelsphere.jack.baseDb.meta.*;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import org.modelsphere.sms.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.srtypes.SrImage;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.awt.*;
 
 /**
  * <b>Direct subclass(es)/subinterface(s) : </b>none.<br>
@@ -109,7 +112,7 @@ public final class DbSMSImageGo extends DbSMSGraphicalObject {
     }
 
     private void setDefaultInitialValues() throws DbException {
-        setOpacityFactor(new Float(1.0f));
+        setOpacityFactor(Float.valueOf(1.0f));
     }
 
     /**

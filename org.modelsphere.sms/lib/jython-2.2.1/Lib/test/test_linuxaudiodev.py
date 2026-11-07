@@ -1,14 +1,14 @@
-from test_support import verbose, findfile, TestFailed, TestSkipped
-
+import audioop
 import errno
 import fcntl
 import linuxaudiodev
 import os
-import sys
 import select
 import sunaudio
+import sys
 import time
-import audioop
+
+from test_support import findfile, TestFailed, TestSkipped
 
 SND_FORMAT_MULAW_8 = 1
 

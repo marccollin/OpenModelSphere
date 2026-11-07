@@ -43,10 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.actions;
 
-import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
-
 import org.modelsphere.jack.debug.Debug;
+
+import javax.swing.*;
 
 public abstract class JInternalFrameAbstractAction extends AbstractApplicationAction {
     private JDesktopPane desktop;

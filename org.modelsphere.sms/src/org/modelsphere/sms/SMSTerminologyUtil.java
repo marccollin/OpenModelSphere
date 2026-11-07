@@ -46,12 +46,6 @@ package org.modelsphere.sms;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 
-import java.awt.Component;
-import java.util.ArrayList;
-import java.util.HashSet;
-
-import javax.swing.Icon;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbDeadObjectException;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -91,6 +85,13 @@ import org.modelsphere.sms.or.db.DbORTrigger;
 import org.modelsphere.sms.or.db.DbORView;
 import org.modelsphere.sms.or.generic.db.DbGEView;
 import org.modelsphere.sms.screen.DbSMSTreeLookupDialog;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author nicolask
@@ -349,7 +350,7 @@ public final class SMSTerminologyUtil extends TerminologyUtil {
                         beModel.getDb().beginReadTrans();
                         String name = beModel.getTerminologyName();
                         beModel.getDb().commitTrans();
-                        if (name != null && !name.equals(""))
+                        if (name != null && !name.isEmpty())
                             return Terminology.findTerminologyByName(name);
                         else
                             return Terminology.findTerminologyByName(DbBENotation.GANE_SARSON);
@@ -361,7 +362,7 @@ public final class SMSTerminologyUtil extends TerminologyUtil {
                         if (name == null) {
                             DbBEUseCase explodedOrContext = (DbBEUseCase) useCase.getComposite();
                             name = explodedOrContext.getTerminologyName();
-                        } else if (name.equals("")) {
+                        } else if (name.isEmpty()) {
                             if (useCase.isContext())
                                 name = ((DbBEModel) useCase.getComposite()).getTerminologyName();
                             else
@@ -404,8 +405,8 @@ public final class SMSTerminologyUtil extends TerminologyUtil {
             DbRelationN relN = model.getComponents();
             DbEnumeration dbEnum = relN.elements(DbORDiagram.metaClass);
 
-            ArrayList array = new ArrayList();
-            HashSet notationsCollection = new HashSet();
+            List array = new ArrayList();
+            Set<DbORNotation> notationsCollection = new HashSet<>();
 
             while (dbEnum.hasMoreElements()) {
                 DbObject object = dbEnum.nextElement();
@@ -442,7 +443,7 @@ public final class SMSTerminologyUtil extends TerminologyUtil {
 
                 term = Terminology.findTerminology(notation);
             } else {
-                DbORNotation notation = (DbORNotation) notationsCollection.iterator().next();
+                DbORNotation notation = notationsCollection.iterator().next();
                 term = Terminology.findTerminology(notation);
             }
         } catch (Exception e) {
@@ -486,7 +487,7 @@ public final class SMSTerminologyUtil extends TerminologyUtil {
                 break;
             }
         }
-        if (bPure == true) { // View is a special case, this is the relational
+        if (bPure) { // View is a special case, this is the relational
             // concept
             try {
                 for (int i = 0; i < dbos.length; i++) {
@@ -526,28 +527,28 @@ public final class SMSTerminologyUtil extends TerminologyUtil {
         try {
             DbObject[] dbObject = ApplicationContext.getFocusManager()
                     .getSelectedSemanticalObjects();
-            for (int i = 0; i < dbObject.length; i++) {
-                dbObject[i].getDb().beginReadTrans();
-                if (dbObject[i] instanceof DbORDataModel) {
-                    DbORDataModel dataModel = (DbORDataModel) dbObject[i];
+            for (DbObject object : dbObject) {
+                object.getDb().beginReadTrans();
+                if (object instanceof DbORDataModel) {
+                    DbORDataModel dataModel = (DbORDataModel) object;
                     if (dataModel.getOperationalMode() == DbORDataModel.LOGICAL_MODE_ENTITY_RELATIONSHIP) {
                         nMode = LOGICAL_MODE_ENTITY_RELATIONSHIP;
-                        dbObject[i].getDb().commitTrans();
+                        object.getDb().commitTrans();
                         break;
                     }
                 } else {
-                    DbObject otherdbObject = dbObject[i]
+                    DbObject otherdbObject = object
                             .getCompositeOfType(DbORDataModel.metaClass);
                     if (otherdbObject != null) {
                         DbORDataModel dataModel = (DbORDataModel) otherdbObject;
                         if (dataModel.getOperationalMode() == DbORDataModel.LOGICAL_MODE_ENTITY_RELATIONSHIP) {
                             nMode = LOGICAL_MODE_ENTITY_RELATIONSHIP;
-                            dbObject[i].getDb().commitTrans();
+                            object.getDb().commitTrans();
                             break;
                         }
                     }
                 }
-                dbObject[i].getDb().commitTrans();
+                object.getDb().commitTrans();
             }
         } catch (DbException dbe) {
             throw new RuntimeException("Could not determine the current OR logical mode.");
@@ -599,16 +600,12 @@ public final class SMSTerminologyUtil extends TerminologyUtil {
 
     public boolean isClassModel(DbObject dbObject) throws DbException {
 
-        if (dbObject instanceof DbOOClassModel)
-            return true;
-        return false;
+        return dbObject instanceof DbOOClassModel;
     }
 
     public boolean isObjectDiagram(DbObject dbObject) throws DbException {
 
-        if (dbObject instanceof DbSMSDiagram)
-            return true;
-        return false;
+        return dbObject instanceof DbSMSDiagram;
 
     }
 

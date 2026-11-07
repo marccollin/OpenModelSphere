@@ -43,11 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.actions;
 
-import java.util.ArrayList;
-
-import javax.swing.Action;
-import javax.swing.Icon;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbProject;
@@ -56,6 +51,10 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.CurrentProjectEvent;
 import org.modelsphere.jack.srtool.CurrentProjectListener;
 import org.modelsphere.jack.text.MessageFormat;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class UndoRedoAbstractAction extends AbstractApplicationAction implements
         CurrentProjectListener, DbUndoRedoListener {
@@ -109,7 +108,7 @@ public abstract class UndoRedoAbstractAction extends AbstractApplicationAction i
     protected final void refresh() {
         DbProject project = ApplicationContext.getFocusManager().getCurrentProject();
         String name = (project != null ? getNextCommandName(project.getDb(), 0) : null);
-        ArrayList list = new ArrayList();
+        List<String> list = new ArrayList<>();
         if (name != null) {
             putValue(Action.NAME, MessageFormat.format(pattern, new Object[] { name }));
             setEnabled(true);
@@ -128,7 +127,7 @@ public abstract class UndoRedoAbstractAction extends AbstractApplicationAction i
         }
         String[] commands = new String[list.size()];
         for (int i = 0; i < commands.length; i++)
-            commands[i] = (String) list.get(i);
+            commands[i] = list.get(i);
         putValue(COMMANDS, commands);
     }
 

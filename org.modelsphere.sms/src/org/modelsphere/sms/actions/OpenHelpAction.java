@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.io.File;
-import java.util.Locale;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -44,6 +41,9 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.io.File;
+import java.util.Locale;
 
 /**
  * @author nicolask

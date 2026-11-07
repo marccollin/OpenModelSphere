@@ -1,10 +1,13 @@
 package org.modelsphere.plugins.layout.nodes.sugiyama;
 
-import java.util.*;
-
 import org.modelsphere.jack.srtool.features.layout.LayoutException;
 import org.modelsphere.jack.srtool.features.layout.graph.Vertex;
 import org.modelsphere.plugins.layout.nodes.layerers.LayeredGraph;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * The Class BarycenterNodeOrderer.

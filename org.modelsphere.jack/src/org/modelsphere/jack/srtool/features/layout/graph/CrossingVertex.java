@@ -42,8 +42,7 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.srtool.features.layout.graph;
 
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
 
 /**
  * The Class CrossingVertex.

@@ -49,15 +49,14 @@ open-modelsphere@grandite.com
  */
 package org.modelsphere.jack.graphic.zone;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.text.MessageFormat;
+
+import java.util.ArrayList;
 
 /**
  * @author nicolask
@@ -105,6 +104,7 @@ public abstract class StereotypeCellEditor extends ComboBoxCellEditor {
 
     }
 
+    @Override
     public String toString() {
         if (value != null)
             return value.toString();

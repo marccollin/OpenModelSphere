@@ -32,14 +32,9 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.be.actions;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.jack.baseDb.util.Terminology;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.text.MessageFormat;
@@ -48,15 +43,12 @@ import org.modelsphere.sms.be.db.DbBEContextCell;
 import org.modelsphere.sms.be.db.DbBEContextGo;
 import org.modelsphere.sms.be.db.DbBEDiagram;
 import org.modelsphere.sms.be.db.DbBENotation;
-import org.modelsphere.sms.be.db.DbBEStoreGo;
-import org.modelsphere.sms.be.db.DbBEUseCaseGo;
 import org.modelsphere.sms.be.db.util.BEUtility;
 import org.modelsphere.sms.be.db.util.CellUtility;
-import org.modelsphere.sms.be.graphic.tool.BESelectToolCommand;
 import org.modelsphere.sms.be.international.LocaleMgr;
-import org.modelsphere.sms.db.srtypes.SMSHorizontalAlignment;
-import org.modelsphere.sms.db.srtypes.SMSVerticalAlignment;
 import org.modelsphere.sms.db.util.DbInitialization;
+
+import java.awt.*;
 
 /**
  * @author Grandite

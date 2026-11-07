@@ -32,8 +32,12 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.oo.java.features;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.StringTokenizer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -63,19 +67,18 @@ public class JavaToolkit {
     // public methods
     //
     public Object[] getSystemJarFiles() {
-        List systemJarList = new ArrayList();
+        List<String> systemJarList = new ArrayList<>();
         String path = System.getProperty("sun.boot.class.path"); //NOT LOCALIZABLE, property name
-        String delim = System.getProperty("path.separator"); //NOT LOCALIZABLE, property name
+        String delim = File.pathSeparator; //NOT LOCALIZABLE, property name
         StringTokenizer st = new StringTokenizer(path, delim);
         while (st.hasMoreTokens()) {
             systemJarList.add(st.nextToken());
         } //end while
 
-        Object[] objs = systemJarList.toArray();
-        return objs;
+        return systemJarList.toArray();
     } //end getSystemJarFiles() 
 
-    public void fillClassList(Object[] jarFiles, List packageList, List classList) {
+    public void fillClassList(Object[] jarFiles, List<String> packageList, List<String> classList) {
         for (Object file : jarFiles) {
             String jarFile = file.toString();
             scanJarFile(jarFile, packageList, classList);
@@ -85,12 +88,12 @@ public class JavaToolkit {
     //
     // private methods
     //
-    private void scanJarFile(String filename, List packageList, List classList) {
+    private void scanJarFile(String filename, List<String> packageList, List<String> classList) {
         try {
             ZipFile file = new ZipFile(filename);
-            Enumeration enumeration = file.entries();
+            Enumeration<? extends ZipEntry> enumeration = file.entries();
             while (enumeration.hasMoreElements()) {
-                ZipEntry entry = (ZipEntry) enumeration.nextElement();
+                ZipEntry entry = enumeration.nextElement();
                 String name = entry.getName();
                 String packagename = name.substring(0, name.lastIndexOf('/')).replace('/', '.');
                 if (packageList.contains(packagename)) {
@@ -113,16 +116,14 @@ public class JavaToolkit {
     //
     public static void main(String[] args) {
         JavaToolkit toolkit = JavaToolkit.getSingleton();
-        List packageList = new ArrayList();
+        List<String> packageList = new ArrayList<>();
         packageList.add("java.lang");
 
         Object[] jarFiles = toolkit.getSystemJarFiles();
-        List classList = new ArrayList();
+        List<String> classList = new ArrayList<>();
         toolkit.fillClassList(jarFiles, packageList, classList);
 
-        Iterator iter = classList.iterator();
-        while (iter.hasNext()) {
-            String className = (String) iter.next();
+        for (String className : classList) {
             System.out.println(className);
         } //end while
 

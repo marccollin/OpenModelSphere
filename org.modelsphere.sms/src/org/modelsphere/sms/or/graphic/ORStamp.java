@@ -33,10 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.graphic;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbProject;
@@ -60,6 +56,8 @@ import org.modelsphere.sms.db.DbSMSPackage;
 import org.modelsphere.sms.db.DbSMSStampGo;
 import org.modelsphere.sms.graphic.ImageCellEditor;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import java.awt.*;
 
 public class ORStamp extends Stamp implements DbRefreshListener {
 

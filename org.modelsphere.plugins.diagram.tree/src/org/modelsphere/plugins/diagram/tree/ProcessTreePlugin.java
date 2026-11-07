@@ -33,19 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.diagram.tree;
 
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.awt.print.PageFormat;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Enumeration;
-
-import javax.swing.JDialog;
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -92,6 +79,15 @@ import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.db.DbORDiagram;
 import org.modelsphere.sms.or.db.DbORModel;
 import org.modelsphere.sms.templates.BasicForwardToolkit;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import java.awt.*;
+import java.awt.print.PageFormat;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.List;
+import java.util.Enumeration;
 
 public final class ProcessTreePlugin extends OOForwardEngineeringPlugin implements Plugin2 {
     private static final String TREE_DIAGRAM = LocaleMgr.misc.getString("TreeDiagram");
@@ -390,7 +386,7 @@ public final class ProcessTreePlugin extends OOForwardEngineeringPlugin implemen
 
     private void arrangeLevel(DbSMSDiagram diagram, ProcessTreeModel model, int level,
             TreeDiagramOptions options) throws DbException {
-        ArrayList list = model.getNodesByLevels(level);
+        List<?> list = model.getNodesByLevels(level);
         int nb = list.size();
         for (int i = 0; i < nb; i++) {
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) list.get(i);
@@ -774,4 +770,3 @@ public final class ProcessTreePlugin extends OOForwardEngineeringPlugin implemen
 		return new PluginDefaultAction(this);
 	}
 } //end ProcessTree
-

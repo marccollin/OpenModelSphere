@@ -4,8 +4,9 @@
 """Module containing compatibility functions for Python 2.2.
 """
 
-from __future__ import generators
 from __future__ import division
+from __future__ import generators
+
 from cStringIO import StringIO
 from types import StringTypes
 

@@ -43,32 +43,34 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.io.*;
-import java.util.EventObject;
-import java.util.HashMap;
-
-import javax.swing.JComboBox;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
-
 import org.modelsphere.jack.baseDb.meta.MetaClass;
-import org.modelsphere.jack.baseDb.screen.model.*;
+import org.modelsphere.jack.baseDb.screen.model.DbDescriptionModel;
+import org.modelsphere.jack.baseDb.screen.model.DescriptionField;
+import org.modelsphere.jack.baseDb.screen.model.DescriptionModel;
+import org.modelsphere.jack.baseDb.screen.model.ReflectionDescriptionModel;
+import org.modelsphere.jack.baseDb.screen.model.ScreenModel;
 import org.modelsphere.jack.baseDb.screen.plugins.ExternalDocumentEditor;
 import org.modelsphere.jack.baseDb.screen.plugins.LookupDescriptionEditor;
-import org.modelsphere.jack.baseDb.screen.plugins.MultiExternalDocumentEditor;
-import org.modelsphere.jack.baseDb.screen.plugins.MultiLookupDescriptionEditor;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;
+
+import javax.swing.*;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.EventObject;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DescriptionView extends ScreenView implements ListDataListener {
 
@@ -147,11 +149,13 @@ public class DescriptionView extends ScreenView implements ListDataListener {
         return table.getSelectionForeground();
     }
 
+    // pour AQ - sert a generer les champs et les editeurs des fenetres de
+    // proprietees
 
     private void getFieldsAndEditorsForQA() {
 
         String title = "";
-        java.util.ArrayList ligne = new java.util.ArrayList();
+        java.util.List<String> ligne = new java.util.ArrayList<>();
         DescriptionTableModel tableDescrModel = (DescriptionTableModel) table.getModel();
         int nbRow = table.getRowCount();
         String fieldValue = tableDescrModel.getValueAt(0, 1).toString();
@@ -170,7 +174,7 @@ public class DescriptionView extends ScreenView implements ListDataListener {
         writeFile(title, ligne, fieldValue);
     }
 
-    private void writeFile(String title, java.util.ArrayList ligne, String fieldValue) {
+    private void writeFile(String title, java.util.List<String> ligne, String fieldValue) {
 
         String directoryName = System.getProperty("user.dir"); // NOT
         // LOCALIZABLE
@@ -191,6 +195,7 @@ public class DescriptionView extends ScreenView implements ListDataListener {
             // LOCALIZABLE
             // QA
             if (file.exists()) {
+                fileName = fieldValue.trim() + "1"; // pas genial, mais pas le
                 // temps de chercher autre
                 // chose pour le moment...
                 // // NOT LOCALIZABLE QA
@@ -208,7 +213,7 @@ public class DescriptionView extends ScreenView implements ListDataListener {
         try {
             fileWriter.write(title);
             for (int i = 0; i < ligne.size(); i++) {
-                String toWrite = ligne.get(i).toString();
+                String toWrite = ligne.get(i);
                 fileWriter.write(toWrite);
             }
             fileWriter.write("\n"); // / Espace entre les concepts. // NOT
@@ -285,7 +290,7 @@ public class DescriptionView extends ScreenView implements ListDataListener {
     }
 
     class DescriptionEditor extends org.modelsphere.jack.awt.AbstractTableCellEditor {
-        HashMap<String, Editor> editorSamples = new HashMap<String, Editor>();
+        Map<String, Editor> editorSamples = new HashMap<String, Editor>();
 
         transient private Editor delegate;
 

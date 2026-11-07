@@ -5,8 +5,8 @@ http://www.w3.org/hypertext/WWW/MarkUp/html-spec/html-spec_toc.html
 """
 
 
-from sgmllib import SGMLParser
 from formatter import AS_IS
+from sgmllib import SGMLParser
 
 __all__ = ["HTMLParser"]
 
@@ -18,8 +18,6 @@ class HTMLParser(SGMLParser):
     and 3.2 elements.
 
     """
-
-    from htmlentitydefs import entitydefs
 
     def __init__(self, formatter, verbose=0):
         """Creates an instance of the HTMLParser class.

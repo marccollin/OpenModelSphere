@@ -43,10 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.xml;
 
-import java.io.*;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.srtool.ApplicationContext;
+
+import java.io.IOException;
 
 public class XMLBuilder implements XMLConstants {
     private static final String PROLOG = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>";

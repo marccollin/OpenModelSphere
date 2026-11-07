@@ -43,13 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool;
 
-import java.awt.Image;
-import java.io.*;
-import java.util.*;
-
 import org.modelsphere.jack.actions.AbstractActionsStore;
 import org.modelsphere.jack.baseDb.db.Db;
-import org.modelsphere.jack.debug.Log;
 import org.modelsphere.jack.io.PathFile;
 import org.modelsphere.jack.plugins.io.PluginLoader;
 import org.modelsphere.jack.preference.PropertiesManager;
@@ -58,7 +53,22 @@ import org.modelsphere.jack.srtool.features.SrDragDrop;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.popupMenu.ApplicationPopupMenu;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;
-import org.modelsphere.jack.util.ExceptionHandler;
+
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.FileSystems;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.StringTokenizer;
+import java.util.List;
 
 public abstract class ApplicationContext {
     // property keys for look&feel
@@ -160,7 +170,7 @@ public abstract class ApplicationContext {
         if (JVM_VERSION != 0)
             return JVM_VERSION;
         String version = System.getProperty("java.version"); // NOT LOCALIZABLE
-        if (version == null || version.length() == 0)
+        if (version == null || version.isEmpty())
             JVM_VERSION = JVM_BASE_RELEASE;
         else if (version.indexOf("1.0") == 0) // NOT LOCALIZABLE
             JVM_VERSION = JVM_UNSUPORTED_RELEASE;
@@ -244,7 +254,7 @@ public abstract class ApplicationContext {
     }
 
     public static String getPathOf(String folder) {
-        String SEPARATOR = System.getProperty("file.separator");
+        String SEPARATOR = FileSystems.getDefault().getSeparator();
         String fixPath = System.getProperty("user.home");
         String path = "." + APPLICATION_NAME + (folder == null ? "" : SEPARATOR + folder); //NOT LOCALIZABLE, property key
 
@@ -260,7 +270,7 @@ public abstract class ApplicationContext {
 
     //Create a path structure if they don't already exist.
     private static File createPath(String fixPath, String pathname) throws IOException {
-        String separator = System.getProperty("file.separator");
+        String separator = FileSystems.getDefault().getSeparator();
 
         File file = new File(fixPath);
         //for each token
@@ -295,7 +305,7 @@ public abstract class ApplicationContext {
                 
                 if (param.startsWith("-") && param.length() > 1) { //NOT LOCALIZABLE
                     String key, value;
-                    if (param.indexOf("=") != -1) { //NOT LOCALIZABLE
+                    if (param.contains("=")) { //NOT LOCALIZABLE
                         param = param.substring(param.indexOf("-") + 1, param.length()); //NOT LOCALIZABLE
                         key = param.substring(0, param.indexOf("=")); //NOT LOCALIZABLE
                         value = param.substring(param.indexOf("=") + 1); //NOT LOCALIZABLE
@@ -374,7 +384,7 @@ public abstract class ApplicationContext {
     } //end getArgList()
 
     //called by sms.features.SafeMode, jack.plugins.PluginsDialog
-    public static void setArgList(File file, ArrayList list) throws IOException {
+    public static void setArgList(File file, List<String> list) throws IOException {
         File renamedFile = new File(file.getParent(), file.getName() + PathFile.BACKUP_EXTENSION);
         if (renamedFile.exists()) {
             renamedFile.delete();
@@ -382,9 +392,9 @@ public abstract class ApplicationContext {
         file.renameTo(renamedFile);
 
         PrintWriter writer = new PrintWriter(new FileWriter(file));
-        Iterator iter = list.iterator();
+        Iterator<String> iter = list.iterator();
         while (iter.hasNext()) {
-            String arg = (String) iter.next();
+            String arg = iter.next();
             writer.println(arg);
         } //end while
         writer.close();
@@ -393,10 +403,10 @@ public abstract class ApplicationContext {
     //Read 'modelsphere.args' and add additional arguments
     private static String[] readAdditionalArguments(String[] args) {
         File file = new File(System.getProperty("user.dir"), MODELSPHERE_ARGS); //NOT LOCALIZABLE, property
-        ArrayList list = getArgList(file);
+        List<String> list = getArgList(file);
 
         //if modelsphere.args does not exist, or it's empty, then return the original args
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             return args;
         } //end if
 
@@ -407,7 +417,7 @@ public abstract class ApplicationContext {
             newArgs[i] = args[i];
         }
         for (int i = 0; i < list.size(); i++) {
-            newArgs[args.length + i] = (String) list.get(i);
+            newArgs[args.length + i] = list.get(i);
         }
 
         return newArgs;

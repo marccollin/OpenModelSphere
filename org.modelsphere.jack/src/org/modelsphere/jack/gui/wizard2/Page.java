@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.gui.wizard2;
 
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.baseDb.db.DbException;
+
+import javax.swing.*;
 
 public interface Page {
     public String getTitle();

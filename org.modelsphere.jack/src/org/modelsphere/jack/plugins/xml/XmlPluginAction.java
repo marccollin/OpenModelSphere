@@ -44,9 +44,6 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package org.modelsphere.jack.plugins.xml;
 
-import java.awt.event.ActionEvent;
-import java.util.List;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.awt.JackPopupMenu;
@@ -57,11 +54,12 @@ import org.modelsphere.jack.plugins.Plugin2;
 import org.modelsphere.jack.plugins.PluginSelectionListener;
 import org.modelsphere.jack.plugins.PluginSelectionListener2;
 import org.modelsphere.jack.plugins.PluginServices;
-import org.modelsphere.jack.plugins.xml.extensions.AbstractPluginExtension;
 import org.modelsphere.jack.plugins.xml.extensions.PopupExtension;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.util.ExceptionHandler;
+
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class XmlPluginAction extends AbstractApplicationAction implements SelectionActionListener {

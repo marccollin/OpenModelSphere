@@ -43,15 +43,21 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.zone;
 
-import java.util.*;
-import java.awt.*;
+import org.modelsphere.jack.graphic.Diagram;
+import org.modelsphere.jack.graphic.DiagramView;
+import org.modelsphere.jack.graphic.GraphicComponent;
+import org.modelsphere.jack.graphic.GraphicUtil;
+import org.modelsphere.jack.graphic.ZoneBox;
 
-import org.modelsphere.jack.graphic.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Vector;
+import java.util.List;
 
 public class MatrixZone extends Zone {
     private int m_zoneMinimumHeight;
-    private ArrayList rows = new ArrayList();
-    private ArrayList colOptions = new ArrayList();
+    private List<ZoneCell[]> rows = new ArrayList<>();
+    private List<ColumnCellsOption> colOptions = new ArrayList<>();
     private int alignment;
     private int wrappingCol = -1; // no wrapping col
     private int[] widths;
@@ -88,11 +94,11 @@ public class MatrixZone extends Zone {
     }
 
     public final ZoneCell get(int row, int col) {
-        return ((ZoneCell[]) rows.get(row))[col];
+        return rows.get(row)[col];
     }
 
     public final void set(int row, int col, ZoneCell data) {
-        ZoneCell[] cells = (ZoneCell[]) rows.get(row);
+        ZoneCell[] cells = rows.get(row);
         cells[col] = data;
     }
 
@@ -187,7 +193,7 @@ public class MatrixZone extends Zone {
 
         CellRenderingOption option = value.getCellRenderingOption();
         if (option == null)
-            option = ((ColumnCellsOption) colOptions.get(col)).cellOption;
+            option = colOptions.get(col).cellOption;
 
         if (option == null) // if option is still null, return to avoid a
             // NullPointerException [MS]
@@ -226,7 +232,7 @@ public class MatrixZone extends Zone {
                 ZoneCell value = get(row, col);
                 CellRenderingOption option = value.getCellRenderingOption();
                 if (option == null)
-                    option = ((ColumnCellsOption) colOptions.get(col)).cellOption;
+                    option = colOptions.get(col).cellOption;
                 CellRenderer renderer = option.getCellRenderer();
                 if (drawSel) {
                     if (value.isSelected()) {
@@ -271,7 +277,7 @@ public class MatrixZone extends Zone {
         int bottom = (int) ((rect.y + rect.height) * zoomFactor);
         int colCount = getColumnCount();
         for (int col = 0; col < colCount; col++) {
-            if (((ColumnCellsOption) colOptions.get(col)).hasLeftLine) {
+            if (colOptions.get(col).hasLeftLine) {
                 int zoomX = (int) (x * zoomFactor);
                 g.drawLine(zoomX, top, zoomX, bottom);
             }
@@ -328,7 +334,7 @@ public class MatrixZone extends Zone {
             return null;
         CellEditor editor = value.getCellEditor();
         if (editor == null)
-            editor = ((ColumnCellsOption) colOptions.get(((MatrixCellID) cellID).col)).editor;
+            editor = colOptions.get(((MatrixCellID) cellID).col).editor;
         return editor;
     }
 
@@ -337,7 +343,7 @@ public class MatrixZone extends Zone {
     }
 
     public final ZoneCell getCell(CellID cellId) {
-        if (rows.size() != 0)
+        if (!rows.isEmpty())
             return get(((MatrixCellID) cellId).row, ((MatrixCellID) cellId).col);
         else
             return null;

@@ -43,24 +43,32 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.features.layout.ui;
 
-import java.awt.Dimension;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.awt.geom.Dimension2D;
-import java.util.*;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbGraphicalObjectI;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.srtool.FocusManager;
-import org.modelsphere.jack.srtool.features.layout.*;
+import org.modelsphere.jack.srtool.features.layout.ClustersLayoutAlgorithm;
+import org.modelsphere.jack.srtool.features.layout.EdgesLayoutAlgorithm;
+import org.modelsphere.jack.srtool.features.layout.GraphFactory;
+import org.modelsphere.jack.srtool.features.layout.LayoutAttribute;
+import org.modelsphere.jack.srtool.features.layout.LayoutAttributes;
+import org.modelsphere.jack.srtool.features.layout.LayoutExecutor;
+import org.modelsphere.jack.srtool.features.layout.NodesLayoutAlgorithm;
 import org.modelsphere.jack.srtool.features.layout.graph.Edge;
 import org.modelsphere.jack.srtool.features.layout.graph.Graph;
 import org.modelsphere.jack.srtool.features.layout.graph.Node;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.graphic.DbGraphic;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import java.awt.*;
+import java.awt.geom.Dimension2D;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The Class LayoutDialogDataOperator.
@@ -123,7 +131,7 @@ public class LayoutDialogDataOperator {
 
         LayoutExecutor executor = new LayoutExecutor(graph, clustersAlgo, nodesAlgo, edgesAlgo);
 
-        HashMap<LayoutAttribute<?>, Object> attributes = new HashMap<LayoutAttribute<?>, Object>();
+        Map<LayoutAttribute<?>, Object> attributes = new HashMap<LayoutAttribute<?>, Object>();
 
         setLayoutAttributes(growWidth, growHeight, randomize, initialSize, pagesize, attributes);
 
@@ -255,7 +263,7 @@ public class LayoutDialogDataOperator {
      */
     private static void setLayoutAttributes(boolean growWidth, boolean growHeight,
             boolean randomize, Dimension initialSize, Dimension pagesize,
-            HashMap<LayoutAttribute<?>, Object> attributes) {
+            Map<LayoutAttribute<?>, Object> attributes) {
         LayoutAttributes.RANDOMIZE.setValue(attributes, randomize);
         LayoutAttributes.CANVAS_HORIZONTAL_RESIZE_INCREMENT.setValue(attributes,
                 (double) (growWidth ? pagesize.width : 0));

@@ -33,13 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.features;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.StringTokenizer;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -77,6 +70,13 @@ import org.modelsphere.sms.db.DbSMSStereotype;
 import org.modelsphere.sms.db.DbSMSUmlConstraint;
 import org.modelsphere.sms.db.DbSMSUmlExtensibility;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.StringTokenizer;
+import java.util.Map;
+
 public final class MergeUseCase {
     private static final String kCouldNotResolve0 = LocaleMgr.message.getString("CouldNotResolve0");
     private static final String kNoNumId = LocaleMgr.message.getString("NoNumId");
@@ -92,10 +92,10 @@ public final class MergeUseCase {
     // usecases external process
     // This is used for restoring link between the usecase and other objects
     // involved in the merge.
-    private HashMap refUseCase = new HashMap();
+    private Map<DbBEUseCase, DbBEUseCase> refUseCase = new HashMap<>();
     // Mapping for actors, stores, notations and styles (the Db mapping facility
     // does not match the 2 models
-    private HashMap refComponents = new HashMap();
+    private Map<DbObject, DbObject> refComponents = new HashMap<>();
 
     private boolean sameProject = false;
 
@@ -107,7 +107,7 @@ public final class MergeUseCase {
     private DefaultController controler = null;
 
     // contains MergeInfo objects to update at the end
-    private ArrayList toMerge = new ArrayList();
+    private List<MergeInfo> toMerge = new ArrayList<>();
 
     private class MergeInfo {
         DbObject source;
@@ -156,7 +156,7 @@ public final class MergeUseCase {
                     return target;
                 if (targetNeighbor != null)
                     return targetNeighbor;
-                return (DbObject) refUseCase.get(srcNeighbor);
+                return refUseCase.get(srcNeighbor);
             }
 
             // Resolve styles or notations
@@ -171,7 +171,7 @@ public final class MergeUseCase {
             if (targetNeighbor != null)
                 return targetNeighbor;
             if (srcNeighbor instanceof DbBEActor || srcNeighbor instanceof DbBEStore) {
-                targetNeighbor = (DbObject) refComponents.get(srcNeighbor);
+                targetNeighbor = refComponents.get(srcNeighbor);
                 if (targetNeighbor == null && srcNeighbor instanceof DbBEActor) {
                     targetNeighbor = targetModel.findComponentByName(DbBEActor.metaClass,
                             srcNeighbor.getName());
@@ -184,7 +184,7 @@ public final class MergeUseCase {
             return targetNeighbor;
         }
 
-        public void endCopy(ArrayList srcRoots) throws DbException {
+        public void endCopy(List<DbObject> srcRoots) throws DbException {
         }
     }
 
@@ -339,14 +339,11 @@ public final class MergeUseCase {
     // catched,
     // generating an error. The exception is catched now. [MS]
     private void copyMissingUDFsFor(MetaClass metaclass) throws DbException {
-        List udfs = Arrays.asList(DbUDF.getUDF(sourceModel.getProject(), metaclass));
+        List<DbUDF> udfs = Arrays.asList(DbUDF.getUDF(sourceModel.getProject(), metaclass));
 
-        ArrayList toCreate = new ArrayList();
+        List<DbUDF> toCreate = new ArrayList<>();
         DbProject project = targetModel.getProject();
-        Iterator iter = udfs.iterator();
-        while (iter.hasNext()) {
-            DbUDF udf = (DbUDF) iter.next();
-
+        for (DbUDF udf : udfs) {
             String name = udf.getName();
             if (DbUDF.getUDF(project, metaclass, name) != null) {
                 continue;
@@ -362,7 +359,7 @@ public final class MergeUseCase {
     private void copyMissingStyles() throws DbException {
         DbEnumeration dbEnum = sourceModel.getProject().getComponents().elements(
                 DbBEStyle.metaClass);
-        ArrayList styles = new ArrayList();
+        List<DbObject> styles = new ArrayList();
         while (dbEnum.hasMoreElements()) {
             // todo filter used styles only ???
             DbObject dbo = dbEnum.nextElement();
@@ -380,7 +377,7 @@ public final class MergeUseCase {
     private void copyMissingNotations() throws DbException {
         DbEnumeration dbEnum = sourceModel.getProject().getComponents().elements(
                 DbBENotation.metaClass);
-        ArrayList notations = new ArrayList();
+        List<DbObject> notations = new ArrayList();
         while (dbEnum.hasMoreElements()) {
             // todo filter used notations only ???
             DbObject dbo = dbEnum.nextElement();
@@ -397,7 +394,7 @@ public final class MergeUseCase {
 
     // copy UML Extensibilities, actors, stores, qualifiers and resources
     private void copyMissingModelComponents() throws DbException {
-        ArrayList components = new ArrayList();
+        List<DbObject> components = new ArrayList();
         DbEnumeration dbEnum = null;
         if (!sameProject) {
             // copy missing UML Extensibilities
@@ -487,7 +484,7 @@ public final class MergeUseCase {
     }
 
     private void matchExternalProcesses() throws DbException {
-        ArrayList externalUseCases = new ArrayList();
+        List<DbBEUseCase> externalUseCases = new ArrayList<>();
         // beware: sub external processes must be kept external. They are not
         // part of this split-merge operation
         DbEnumeration dbEnum = source.getComponents().elements(DbBEUseCase.metaClass);
@@ -499,9 +496,7 @@ public final class MergeUseCase {
         }
         dbEnum.close();
 
-        Iterator iter = externalUseCases.iterator();
-        while (iter.hasNext()) {
-            DbBEUseCase usecase = (DbBEUseCase) iter.next();
+        for (DbBEUseCase usecase : externalUseCases) {
             DbBEUseCase matchingUsecase = getMatchingDbBEUseCase(usecase);
             if (matchingUsecase == null) {
                 String usecaseInfo = usecase.getName() + " ("; // NOT
@@ -510,8 +505,8 @@ public final class MergeUseCase {
                         .getSourceNumericIdentifier());
                 usecaseInfo += " - "
                         + (usecase.getSourceAlphanumericIdentifier() == null ? kNoAlphaId : usecase
-                                .getSourceAlphanumericIdentifier()) + ")"; // NOT LOCALIZABLE
-                String line = MessageFormat.format(kCouldNotResolve0, new Object[] { usecaseInfo });
+                        .getSourceAlphanumericIdentifier()) + ")"; // NOT LOCALIZABLE
+                String line = MessageFormat.format(kCouldNotResolve0, new Object[]{usecaseInfo});
                 controler.println(line);
             } else {
                 refUseCase.put(usecase, matchingUsecase);
@@ -524,10 +519,10 @@ public final class MergeUseCase {
         String numericId = usecase.getSourceNumericIdentifier();
         String alphaId = usecase.getSourceAlphanumericIdentifier();
         DbBEUseCase matchingUsecase = null;
-        if (numericId != null && numericId.length() > 0) {
+        if (numericId != null && !numericId.isEmpty()) {
             matchingUsecase = resolveDbUseCaseID(targetModel, numericId, true);
         }
-        if (matchingUsecase == null && alphaId != null && alphaId.length() > 0) {
+        if (matchingUsecase == null && alphaId != null && !alphaId.isEmpty()) {
             matchingUsecase = resolveDbUseCaseID(targetModel, alphaId, false);
         }
         return matchingUsecase;
@@ -535,8 +530,8 @@ public final class MergeUseCase {
 
     private DbBEUseCase resolveDbUseCaseID(DbBEModel model, String sPath, boolean numeric)
             throws DbException {
-        ArrayList path = getPath(sPath, numeric);
-        if (path.size() == 0)
+        List<String> path = getPath(sPath, numeric);
+        if (path.isEmpty())
             return null;
         DbObject composite = model;
         for (int i = 0; i < path.size() && composite != null; i++) {
@@ -560,17 +555,17 @@ public final class MergeUseCase {
         return (DbBEUseCase) composite;
     }
 
-    private ArrayList getPath(String s, boolean numeric) {
-        ArrayList path = new ArrayList();
-        if (s == null || s.length() == 0)
+    private List<String> getPath(String s, boolean numeric) {
+        List<String> path = new ArrayList<>();
+        if (s == null || s.isEmpty())
             return path;
         StringTokenizer st = new StringTokenizer(s, ".", false);
         while (st.hasMoreTokens()) {
             String token = st.nextToken();
             try {
-                Object pathElement = null;
+                String pathElement = null;
                 if (numeric)
-                    pathElement = new Integer(token);
+                    pathElement = token;
                 else
                     pathElement = token;
                 path.add(pathElement);
@@ -589,7 +584,7 @@ public final class MergeUseCase {
     // (DbBEUseCaseResource.metaClass, DbBEUseCaseQualifier.metaClass has been
     // processed previously)
     private void copyComponents() throws DbException {
-        ArrayList dbos = new ArrayList();
+        List<DbObject> dbos = new ArrayList<>();
         DbEnumeration dbEnum = source.getComponents().elements();
         while (dbEnum.hasMoreElements()) {
             DbObject dbo = (DbObject) dbEnum.nextElement();
@@ -607,20 +602,18 @@ public final class MergeUseCase {
         deepCopy(dbos, target);
     }
 
-    private DbObject[] deepCopy(List components, DbObject targetComposite) throws DbException {
-        if (components == null || components.size() == 0)
+    private DbObject[] deepCopy(List<? extends DbObject> components, DbObject targetComposite) throws DbException {
+        if (components == null || components.isEmpty())
             return null;
         DbObject[] sourceDbos = new DbObject[components.size()];
         for (int i = 0; i < sourceDbos.length; i++)
-            sourceDbos[i] = (DbObject) components.get(i);
+            sourceDbos[i] = components.get(i);
 
         return DbObject.deepCopy(sourceDbos, targetComposite, copyCustomizer, false);
     }
 
     private void mergeComponents() throws DbException {
-        Iterator iter = toMerge.iterator();
-        while (iter.hasNext()) {
-            MergeInfo info = (MergeInfo) iter.next();
+        for (MergeInfo info : toMerge) {
             println(info.target, REPORT_INDENT, true);
             merge(info.source, info.target);
         }
@@ -635,13 +628,13 @@ public final class MergeUseCase {
         if (source.getMetaClass() != target.getMetaClass())
             return;
         MetaField[] metafields = source.getMetaClass().getAllMetaFields();
-        for (int i = 0; i < metafields.length; i++) {
-            if (metafields[i] == DbObject.fComponents || metafields[i] == DbObject.fComposite
-                    || metafields[i] == DbBEUseCase.fExternal
-                    || metafields[i] == DbBEUseCase.fSourceAlphanumericIdentifier
-                    || metafields[i] == DbBEUseCase.fSourceNumericIdentifier)
+        for (MetaField metafield : metafields) {
+            if (metafield == DbObject.fComponents || metafield == DbObject.fComposite
+                    || metafield == DbBEUseCase.fExternal
+                    || metafield == DbBEUseCase.fSourceAlphanumericIdentifier
+                    || metafield == DbBEUseCase.fSourceNumericIdentifier)
                 continue;
-            if (metafields[i] == DbSemanticalObject.fDescription) {
+            if (metafield == DbSemanticalObject.fDescription) {
                 String sDescr = (String) source.get(DbSemanticalObject.fDescription);
                 String tDescr = (String) target.get(DbSemanticalObject.fDescription);
                 if (tDescr != null && sDescr != null && mergeComments && !sDescr.equals(tDescr))
@@ -650,25 +643,25 @@ public final class MergeUseCase {
                     target.set(DbSemanticalObject.fDescription, sDescr);
                 continue;
             }
-            if (metafields[i] == DbSMSSemanticalObject.fUmlStereotype) {
+            if (metafield == DbSMSSemanticalObject.fUmlStereotype) {
                 DbObject sourcestereotype = (DbObject) source
                         .get(DbSMSSemanticalObject.fUmlStereotype);
                 DbObject targetstereotype = sourcestereotype == null ? null
                         : ((DbSMSProject) target.getProject()).getUmlExtensibility()
-                                .findComponentByName(DbSMSStereotype.metaClass,
-                                        sourcestereotype.getName());
+                        .findComponentByName(DbSMSStereotype.metaClass,
+                                sourcestereotype.getName());
                 target.set(DbSMSSemanticalObject.fUmlStereotype, targetstereotype);
                 continue;
             }
-            if (metafields[i] instanceof MetaRelationship) {
+            if (metafield instanceof MetaRelationship) {
                 continue;
             }
-            target.set(metafields[i], source.get(metafields[i]));
+            target.set(metafield, source.get(metafield));
         }
 
         if (mergeQualifiers) {
             // update existing and add missing
-            ArrayList toCopy = new ArrayList();
+            List<DbObject> toCopy = new ArrayList<>();
             if (source instanceof DbBEActor) {
                 DbEnumeration dbEnum = source.getComponents()
                         .elements(DbBEActorQualifier.metaClass);
@@ -756,7 +749,7 @@ public final class MergeUseCase {
 
         if (mergeResources) {
             // update existing and add missing
-            ArrayList toCopy = new ArrayList();
+            List<DbObject> toCopy = new ArrayList<>();
             if (source instanceof DbBEUseCase) {
                 DbEnumeration dbEnum = source.getComponents().elements(
                         DbBEUseCaseResource.metaClass);

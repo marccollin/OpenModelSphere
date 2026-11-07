@@ -30,17 +30,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 or see http://www.gnu.org/licenses/.
 
 Link Report plug-in has been developed by neosapiens inc. for
+the purposes of the Ministère de la Santé et des Services Sociaux
+du Québec (MSSS).
  
 You can reach neosapiens inc. at: 
   http://www.neosapiens.com
 
  **********************************************************************/
 package org.modelsphere.plugins.export.links.wrappers;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -49,6 +46,11 @@ import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.db.DbORTable;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DbDataModelWrapper implements Comparable<DbDataModelWrapper> {
     private List<DbDataModelWrapper> m_subModels = new ArrayList<DbDataModelWrapper>();

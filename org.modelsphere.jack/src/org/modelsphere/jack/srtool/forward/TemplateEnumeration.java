@@ -43,12 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.util.Enumeration;
-
 import org.modelsphere.jack.debug.TestException;
 import org.modelsphere.jack.debug.Testable;
-import org.modelsphere.jack.srtool.forward.EditionCode;
 import org.modelsphere.jack.srtool.forward.exceptions.TemplateFormatException;
+
+import java.util.Enumeration;
 
 public final class TemplateEnumeration implements Testable, Enumeration {
     private String m_formatString;

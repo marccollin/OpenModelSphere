@@ -34,11 +34,6 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.data.extractor.dbobject;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -46,6 +41,11 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.SemanticalModel;
 import org.modelsphere.jack.srtool.explorer.Explorer;
 import org.modelsphere.sms.db.DbSMSDiagram;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class is used to extract the components of a project from a point of
@@ -85,7 +85,7 @@ public class ComponentsExtractor
 	 */
 	public Map<String, List<DbObject>> extractComponents() throws DbException
 	{
-		LinkedHashMap<String, List<DbObject>> groupedComponents = new LinkedHashMap<String, List<DbObject>>();
+		Map<String, List<DbObject>> groupedComponents = new LinkedHashMap<String, List<DbObject>>();
 
 		DbEnumeration components = object.getComponents().elements();
 		while (components.hasMoreElements())

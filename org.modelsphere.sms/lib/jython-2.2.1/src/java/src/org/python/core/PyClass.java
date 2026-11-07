@@ -34,7 +34,7 @@ public class PyClass extends PyObject {
     protected Class proxyClass;
 
     // xxx map 'super__*' names -> array of methods
-    protected java.util.HashMap super__methods;
+    protected java.util.Map super__methods;
 
     public static PyClass __class__;
 
@@ -157,7 +157,7 @@ public class PyClass extends PyObject {
                 java.lang.reflect.Method meth = proxy_methods[i];
                 String meth_name = meth.getName();
                 if (meth_name.startsWith("super__")) {
-                    java.util.ArrayList samename = (java.util.ArrayList) super__methods
+                    java.util.List samename = (java.util.ArrayList) super__methods
                             .get(meth_name);
                     if (samename == null) {
                         samename = new java.util.ArrayList();

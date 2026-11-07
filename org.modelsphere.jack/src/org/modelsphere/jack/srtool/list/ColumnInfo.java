@@ -43,13 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.list;
 
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbUDF;
 import org.modelsphere.jack.baseDb.db.srtypes.UDFValueType;
-import org.modelsphere.jack.baseDb.meta.*;
+import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.baseDb.screen.ScreenPlugins;
 import org.modelsphere.jack.baseDb.util.DbPath;
 
-final class ColumnInfo implements Comparable {
+final class ColumnInfo implements Comparable<ColumnInfo> {
     // A column Info represent a metafield value, an udf, a custom ListColumn or
     // the type of the object.
     MetaField metafield;
@@ -125,10 +127,9 @@ final class ColumnInfo implements Comparable {
 
     }
 
-    public int compareTo(Object obj) {
-        if (obj == null || !(obj instanceof ColumnInfo))
+    public int compareTo(ColumnInfo ci) {
+        if (ci == null)
             return -1;
-        ColumnInfo ci = (ColumnInfo) obj;
         int thisindex = index == -1 ? preferredIndex : index;
         int objindex = ci.index == -1 ? ci.preferredIndex : ci.index;
         if (thisindex == objindex)

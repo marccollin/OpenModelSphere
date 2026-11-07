@@ -43,10 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.Enumeration;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -59,6 +55,11 @@ import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.graphic.DbGraphic;
 import org.modelsphere.jack.srtool.graphic.DbSelectTool;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public final class SetDrawingAreaAction extends AbstractApplicationAction implements
@@ -80,15 +81,15 @@ public final class SetDrawingAreaAction extends AbstractApplicationAction implem
                 diagGO.getDb().beginTrans(Db.WRITE_TRANS,
                         LocaleMgr.action.getString("drawingSizeUpdate"));
                 diagGO.set(DbGraphic.fDiagramNbPages, dialog.getNbPages());
-                diagGO.set(DbGraphic.fDiagramPrintScale, new Integer(dialog.getPrintScale()));
+                diagGO.set(DbGraphic.fDiagramPrintScale, dialog.getPrintScale());
 
                 // Pan graphical objects
                 Dimension pan = dialog.getPan();
                 if (pan.width != 0 || pan.height != 0) {
-                    Enumeration components = diag.components();
-                    ArrayList<GraphicComponent> gcs = new ArrayList<GraphicComponent>();
+                    Enumeration<GraphicComponent> components = diag.components();
+                    List<GraphicComponent> gcs = new ArrayList<GraphicComponent>();
                     while (components.hasMoreElements()) {
-                        GraphicComponent gc = (GraphicComponent) components.nextElement();
+                        GraphicComponent gc = components.nextElement();
                         gcs.add(gc);
                     }
                     DbSelectTool.translate(gcs.toArray(new GraphicComponent[gcs.size()]),

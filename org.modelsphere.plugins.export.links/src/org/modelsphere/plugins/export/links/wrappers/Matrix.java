@@ -39,6 +39,10 @@ You can reach neosapiens inc. at:
  **********************************************************************/
 package org.modelsphere.plugins.export.links.wrappers;
 
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
+import org.modelsphere.plugins.export.links.international.LocaleMgr;
+import org.modelsphere.sms.or.db.DbORColumn;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,10 +50,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
-import org.modelsphere.plugins.export.links.international.LocaleMgr;
-import org.modelsphere.sms.or.db.DbORColumn;
 
 public class Matrix {
     private static final String EMPTY = LocaleMgr.misc.getString("Empty");

@@ -44,11 +44,13 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.awt.dirchooser;
 
 import javax.swing.*;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.filechooser.FileSystemView;
-import javax.swing.event.*;
 import javax.swing.tree.TreeModel;
-import java.awt.event.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -100,7 +102,7 @@ public final class DirectoryChooser extends AbstractDirectoryChooser {
      * Constructs a <code>DirectoryChooser</code> using the given path. Passing in a
      * <code>null</code> string causes the directory chooser to point to the user's home directory.
      * 
-     * @param currentDirectoryPath
+     * @param currentDirectory
      *            a <code>File</code> giving the path to a directory
      */
     public DirectoryChooser(File currentDirectory) {
@@ -113,7 +115,7 @@ public final class DirectoryChooser extends AbstractDirectoryChooser {
      * 
      * @param fsv
      *            a given FileSystemView
-     * @param currentDirectoryPath
+     * @param currentDirectory
      *            a <code>File</code> giving the path to a directory
      */
     public DirectoryChooser(File currentDirectory, FileSystemView fsv) {
@@ -265,6 +267,7 @@ public final class DirectoryChooser extends AbstractDirectoryChooser {
 
         private void addListeners() {
             m_selectBtn.addActionListener(new ActionListener() {
+                @Override
                 public void actionPerformed(ActionEvent ev) {
                     m_theDialog.m_result = JFileChooser.APPROVE_OPTION;
                     m_theDialog.m_cancelled = false;

@@ -42,13 +42,15 @@ open-modelsphere@grandite.com
  ***********************************************************************/
 package org.modelsphere.jack.baseDb.screen.spellchecking;
 
-import java.util.*;
-
-import org.modelsphere.jack.properties.PropertySet;
-
 import com.swabunga.spell.engine.SpellDictionary;
 import com.swabunga.spell.event.Word;
 import com.swabunga.spell.event.WordTokenizer;
+import org.modelsphere.jack.properties.PropertySet;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Implementation of ISpellChecking

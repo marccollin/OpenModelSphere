@@ -32,14 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.features.startupwizard;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
 import org.modelsphere.jack.awt.ColorIcon;
 import org.modelsphere.jack.awt.ThinBevelBorder;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -49,6 +41,13 @@ import org.modelsphere.jack.gui.wizard2.SectionHeader;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.FocusManager;
 import org.modelsphere.sms.features.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 @SuppressWarnings("serial")
 class ProjectModelPage extends AbstractPage {

@@ -43,17 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.*;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.TextViewerDialog;
 import org.modelsphere.jack.baseDb.objectviewer.Viewer;
 import org.modelsphere.jack.debug.TechnicalSupport;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public final class ShowTechInfoAction extends AbstractApplicationAction {
     private static final String kTitle = LocaleMgr.action.getString("showTeckInfoTitle");

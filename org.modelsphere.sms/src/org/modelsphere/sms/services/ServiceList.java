@@ -41,7 +41,7 @@ import org.modelsphere.jack.srtool.services.ServiceProtocolList;
 public final class ServiceList extends ServiceProtocolList {
 
     public ServiceList() {
-        Integer port = new Integer(PROPERTY_INITITIAL_PORT_DEFAULT);
+        Integer port = Integer.valueOf(PROPERTY_INITITIAL_PORT_DEFAULT);
         PropertiesSet set = PropertiesManager.APPLICATION_PROPERTIES_SET;
         if (set != null) {
             Integer initPort = set.getPropertyInteger(ServiceProtocolList.class,

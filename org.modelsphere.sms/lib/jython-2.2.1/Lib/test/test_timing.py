@@ -1,5 +1,6 @@
-from test_support import verbose
 import timing
+
+from test_support import verbose
 
 r = range(100000)
 if verbose:

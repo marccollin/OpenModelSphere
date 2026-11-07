@@ -43,9 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import org.modelsphere.jack.actions.AbstractApplicationAction;
+import org.modelsphere.jack.actions.AbstractDomainAction;
+import org.modelsphere.jack.actions.AbstractMenuAction;
+import org.modelsphere.jack.srtool.AddElement;
+import org.modelsphere.jack.srtool.list.ListDescriptor;
+
+import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -53,16 +60,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.*;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
-
-import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.actions.AbstractDomainAction;
-import org.modelsphere.jack.actions.AbstractMenuAction;
-import org.modelsphere.jack.srtool.AddElement;
-import org.modelsphere.jack.srtool.list.ListDescriptor;
 
 /**
  * This class define a component for supporting the AbstractDomainAction in a JackMenu. See
@@ -88,7 +85,7 @@ final class DomainMenu extends JackMenu implements ActionListener {
     // LOCALIZABLE
 
     // may contains null - represented by separator
-    private List items = new ArrayList(0);
+    private List<JMenuItem> items = new ArrayList<>(0);
     private Object oldSelection = null;
     private boolean uiSelectionVisible = true;
     private ButtonGroup group = new ButtonGroup();
@@ -167,12 +164,7 @@ final class DomainMenu extends JackMenu implements ActionListener {
                     invalidate();
                     repaint();
                 } else if (propertyName.equals(AbstractApplicationAction.VISIBLE)) { // Disabled
-                    // in
-                    // menu
-                    // (item
-                    // must
-                    // stay
-                    // visible)
+                    // in menu (item must stay visible)
                     if (getAction() instanceof AbstractApplicationAction) {
                         boolean newValue = true;
                         // Since we use JackPopupMenu for our popups, I use that
@@ -291,9 +283,9 @@ final class DomainMenu extends JackMenu implements ActionListener {
     public void removeAll() {
         oldSelection = null;
         for (int i = 0; i < items.size(); i++) {
-            Object obj = items.get(i);
+            JMenuItem obj = items.get(i);
             if (obj != null)
-                ((JMenuItem) obj).removeActionListener(this);
+                obj.removeActionListener(this);
         }
         items.clear();
         super.removeAll();
@@ -314,7 +306,7 @@ final class DomainMenu extends JackMenu implements ActionListener {
 
     private void updateSelectedItem_Impl() {
         if (lastSelected != -1) { // set new selection
-            ((JMenuItem) items.get(lastSelected)).setSelected(true);
+            items.get(lastSelected).setSelected(true);
         }
         oldSelection = (lastSelected == -1) ? null : items.get(lastSelected);
     }
@@ -328,6 +320,7 @@ final class DomainMenu extends JackMenu implements ActionListener {
         return dim;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
         if (actionCommand != null && (getAction() instanceof AbstractMenuAction)

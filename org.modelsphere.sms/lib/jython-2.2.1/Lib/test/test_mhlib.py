@@ -6,13 +6,12 @@
 ### BUG: This suite doesn't currently test the mime functionality of
 ###      mhlib.  It should.
 
+import StringIO
+import mhlib
+import os
+import sys
 import unittest
 from test.test_support import run_unittest, TESTFN, TestSkipped, underlying_system
-import os, StringIO
-import sys
-import mhlib
-
-
 
 if (underlying_system.startswith("win") or underlying_system=="riscos" or
       underlying_system.startswith("atheos")):

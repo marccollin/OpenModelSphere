@@ -42,19 +42,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.db.util;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.ImageIcon;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -107,6 +94,13 @@ import org.modelsphere.sms.or.db.srtypes.ORConnectivitiesDisplay;
 import org.modelsphere.sms.or.db.srtypes.ORConnectivityPosition;
 import org.modelsphere.sms.or.db.srtypes.ORNotationSymbol;
 import org.modelsphere.sms.or.db.srtypes.ORNumericRepresentation;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Grandite
@@ -491,8 +485,8 @@ public class DbInitialization {
     }// end getNextNewNotationId
 
     public static void initCellValues(DbBEContextCell cell) throws DbException {
-        cell.setXweight(new Double(1.0));
-        cell.setYweight(new Double(1.0));
+        cell.setXweight(Double.valueOf(1.0));
+        cell.setYweight(Double.valueOf(1.0));
         SMSVerticalAlignment verticalAlign = convertToVerticalAlignment(0);
         SMSHorizontalAlignment horizontalAlign = convertToHorizontalAlignment(0);
         cell.setVerticalJustification2(verticalAlign);
@@ -575,9 +569,9 @@ public class DbInitialization {
                 DbBENotation datarunBPMNotation = new DbBENotation(thisProject);
                 datarunBPMNotation.setName(DbBENotation.DATARUN_BPM);
                 datarunBPMNotation.setTerminologyName(DbBENotation.DATARUN_BPM);
-                datarunBPMNotation.setNotationID(new Integer(DATARUN_BPM));
-                datarunBPMNotation.setMasterNotationID(new Integer(DATARUN_BPM));
-                datarunBPMNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                datarunBPMNotation.setNotationID(Integer.valueOf(DATARUN_BPM));
+                datarunBPMNotation.setMasterNotationID(Integer.valueOf(DATARUN_BPM));
+                datarunBPMNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 datarunBPMNotation.setBuiltIn(Boolean.TRUE);
                 datarunBPMNotation.setHasFrame(Boolean.FALSE);
                 // UseCase
@@ -597,8 +591,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(datarunBPMNotation, DbBEUseCaseResource.fResource, true,
                         ZoneJustification.getInstance(ZoneJustification.RIGHT), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                datarunBPMNotation.setUseCaseDefaultWidth(new Integer(95));
-                datarunBPMNotation.setUseCaseDefaultHeight(new Integer(95));
+                datarunBPMNotation.setUseCaseDefaultWidth(Integer.valueOf(95));
+                datarunBPMNotation.setUseCaseDefaultHeight(Integer.valueOf(95));
                 // Store
                 datarunBPMNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.OPENED_RECTANGLE_LEFT_RIGHT));
@@ -608,8 +602,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(datarunBPMNotation, DbBEStore.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), true,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                datarunBPMNotation.setStoreDefaultWidth(new Integer(160));
-                datarunBPMNotation.setStoreDefaultHeight(new Integer(30));
+                datarunBPMNotation.setStoreDefaultWidth(Integer.valueOf(160));
+                datarunBPMNotation.setStoreDefaultHeight(Integer.valueOf(30));
                 datarunBPMNotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 // Actor
                 datarunBPMNotation.setActorShape(SMSNotationShape
@@ -620,8 +614,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(datarunBPMNotation, DbBEActor.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                datarunBPMNotation.setActorDefaultWidth(new Integer(95));
-                datarunBPMNotation.setActorDefaultHeight(new Integer(95));
+                datarunBPMNotation.setActorDefaultWidth(Integer.valueOf(95));
+                datarunBPMNotation.setActorDefaultHeight(Integer.valueOf(95));
                 datarunBPMNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -640,9 +634,9 @@ public class DbInitialization {
                 DbBENotation datarunSPMNotation = new DbBENotation(thisProject);
                 datarunSPMNotation.setName(DbBENotation.DATARUN_SPM);
                 datarunSPMNotation.setTerminologyName(DbBENotation.DATARUN_SPM);
-                datarunSPMNotation.setNotationID(new Integer(DATARUN_SPM));
-                datarunSPMNotation.setMasterNotationID(new Integer(DATARUN_SPM));
-                datarunSPMNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                datarunSPMNotation.setNotationID(Integer.valueOf(DATARUN_SPM));
+                datarunSPMNotation.setMasterNotationID(Integer.valueOf(DATARUN_SPM));
+                datarunSPMNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 datarunSPMNotation.setBuiltIn(Boolean.TRUE);
                 datarunSPMNotation.setHasFrame(Boolean.TRUE);
                 // UseCase
@@ -662,8 +656,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(datarunSPMNotation, DbBEUseCaseResource.fResource, true,
                         ZoneJustification.getInstance(ZoneJustification.RIGHT), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                datarunSPMNotation.setUseCaseDefaultWidth(new Integer(95));
-                datarunSPMNotation.setUseCaseDefaultHeight(new Integer(95));
+                datarunSPMNotation.setUseCaseDefaultWidth(Integer.valueOf(95));
+                datarunSPMNotation.setUseCaseDefaultHeight(Integer.valueOf(95));
                 // Store
                 datarunSPMNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.OPENED_RECTANGLE_RIGHT));
@@ -673,8 +667,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(datarunSPMNotation, DbBEStore.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.LEFT), true,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                datarunSPMNotation.setStoreDefaultWidth(new Integer(160));
-                datarunSPMNotation.setStoreDefaultHeight(new Integer(30));
+                datarunSPMNotation.setStoreDefaultWidth(Integer.valueOf(160));
+                datarunSPMNotation.setStoreDefaultHeight(Integer.valueOf(30));
                 datarunSPMNotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 // Actor
                 datarunSPMNotation.setActorShape(SMSNotationShape
@@ -685,8 +679,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(datarunSPMNotation, DbBEActor.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                datarunSPMNotation.setActorDefaultWidth(new Integer(95));
-                datarunSPMNotation.setActorDefaultHeight(new Integer(95));
+                datarunSPMNotation.setActorDefaultWidth(Integer.valueOf(95));
+                datarunSPMNotation.setActorDefaultHeight(Integer.valueOf(95));
                 datarunSPMNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -705,9 +699,9 @@ public class DbInitialization {
                 DbBENotation datarunISANotation = new DbBENotation(thisProject);
                 datarunISANotation.setName(DbBENotation.DATARUN_ISA);
                 datarunISANotation.setTerminologyName(DbBENotation.DATARUN_ISA);
-                datarunISANotation.setNotationID(new Integer(DATARUN_ISA));
-                datarunISANotation.setMasterNotationID(new Integer(DATARUN_ISA));
-                datarunISANotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                datarunISANotation.setNotationID(Integer.valueOf(DATARUN_ISA));
+                datarunISANotation.setMasterNotationID(Integer.valueOf(DATARUN_ISA));
+                datarunISANotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 datarunISANotation.setBuiltIn(Boolean.TRUE);
                 datarunISANotation.setHasFrame(Boolean.TRUE);
                 // UseCase
@@ -719,15 +713,15 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(datarunISANotation, DbBEUseCase.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), true,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                datarunISANotation.setUseCaseDefaultWidth(new Integer(95));
-                datarunISANotation.setUseCaseDefaultHeight(new Integer(95));
+                datarunISANotation.setUseCaseDefaultWidth(Integer.valueOf(95));
+                datarunISANotation.setUseCaseDefaultHeight(Integer.valueOf(95));
                 // Store
                 datarunISANotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.OPENED_RECTANGLE_RIGHT));
                 datarunISANotation.setStoreZoneOrientation(SMSZoneOrientation
                         .getInstance(SMSZoneOrientation.HORIZONTAL));
-                datarunISANotation.setStoreDefaultWidth(new Integer(160));
-                datarunISANotation.setStoreDefaultHeight(new Integer(30));
+                datarunISANotation.setStoreDefaultWidth(Integer.valueOf(160));
+                datarunISANotation.setStoreDefaultHeight(Integer.valueOf(30));
                 datarunISANotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 // Actor
                 datarunISANotation.setActorShape(SMSNotationShape
@@ -735,8 +729,8 @@ public class DbInitialization {
                 datarunISANotation.setActorZoneOrientation(SMSZoneOrientation
                         .getInstance(SMSZoneOrientation.HORIZONTAL));
                 // ZONE 1
-                datarunISANotation.setActorDefaultWidth(new Integer(95));
-                datarunISANotation.setActorDefaultHeight(new Integer(95));
+                datarunISANotation.setActorDefaultWidth(Integer.valueOf(95));
+                datarunISANotation.setActorDefaultHeight(Integer.valueOf(95));
                 datarunISANotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -751,9 +745,9 @@ public class DbInitialization {
                 DbBENotation ganeSarsonNotation = new DbBENotation(thisProject);
                 ganeSarsonNotation.setName(DbBENotation.GANE_SARSON);
                 ganeSarsonNotation.setTerminologyName(DbBENotation.GANE_SARSON);
-                ganeSarsonNotation.setNotationID(new Integer(GANE_SARSON));
-                ganeSarsonNotation.setMasterNotationID(new Integer(GANE_SARSON));
-                ganeSarsonNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                ganeSarsonNotation.setNotationID(Integer.valueOf(GANE_SARSON));
+                ganeSarsonNotation.setMasterNotationID(Integer.valueOf(GANE_SARSON));
+                ganeSarsonNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 ganeSarsonNotation.setBuiltIn(Boolean.TRUE);
                 ganeSarsonNotation.setHasFrame(Boolean.TRUE);
                 // UseCase
@@ -779,8 +773,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(ganeSarsonNotation, DbBEUseCaseResource.fResource, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                ganeSarsonNotation.setUseCaseDefaultWidth(new Integer(95));
-                ganeSarsonNotation.setUseCaseDefaultHeight(new Integer(95));
+                ganeSarsonNotation.setUseCaseDefaultWidth(Integer.valueOf(95));
+                ganeSarsonNotation.setUseCaseDefaultHeight(Integer.valueOf(95));
                 // Store
                 ganeSarsonNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.OPENED_RECTANGLE_RIGHT));
@@ -794,8 +788,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(ganeSarsonNotation, DbBEStore.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.LEFT), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                ganeSarsonNotation.setStoreDefaultWidth(new Integer(160));
-                ganeSarsonNotation.setStoreDefaultHeight(new Integer(30));
+                ganeSarsonNotation.setStoreDefaultWidth(Integer.valueOf(160));
+                ganeSarsonNotation.setStoreDefaultHeight(Integer.valueOf(30));
                 ganeSarsonNotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 // Actor
                 ganeSarsonNotation.setActorShape(SMSNotationShape
@@ -816,8 +810,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(ganeSarsonNotation, DbBEActor.fPhysicalName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                ganeSarsonNotation.setActorDefaultWidth(new Integer(95));
-                ganeSarsonNotation.setActorDefaultHeight(new Integer(95));
+                ganeSarsonNotation.setActorDefaultWidth(Integer.valueOf(95));
+                ganeSarsonNotation.setActorDefaultHeight(Integer.valueOf(95));
                 ganeSarsonNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -832,9 +826,9 @@ public class DbInitialization {
                 DbBENotation meriseNotation = new DbBENotation(thisProject);
                 meriseNotation.setName(DbBENotation.MERISE);
                 meriseNotation.setTerminologyName(DbBENotation.MERISE);
-                meriseNotation.setNotationID(new Integer(MERISE));
-                meriseNotation.setMasterNotationID(new Integer(MERISE));
-                meriseNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                meriseNotation.setNotationID(Integer.valueOf(MERISE));
+                meriseNotation.setMasterNotationID(Integer.valueOf(MERISE));
+                meriseNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 meriseNotation.setBuiltIn(Boolean.TRUE);
                 meriseNotation.setHasFrame(Boolean.TRUE);
                 // UseCase
@@ -854,8 +848,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(meriseNotation, DbBEUseCase.fNumericIdentifier, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                meriseNotation.setUseCaseDefaultWidth(new Integer(95));
-                meriseNotation.setUseCaseDefaultHeight(new Integer(95));
+                meriseNotation.setUseCaseDefaultWidth(Integer.valueOf(95));
+                meriseNotation.setUseCaseDefaultHeight(Integer.valueOf(95));
                 // Store
                 meriseNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.OPENED_RECTANGLE_RIGHT));
@@ -869,8 +863,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(meriseNotation, DbBEStore.fName, true, ZoneJustification
                         .getInstance(ZoneJustification.CENTER), false, BEZoneStereotype
                         .getInstance(BEZoneStereotype.STORE));
-                meriseNotation.setStoreDefaultWidth(new Integer(160));
-                meriseNotation.setStoreDefaultHeight(new Integer(30));
+                meriseNotation.setStoreDefaultWidth(Integer.valueOf(160));
+                meriseNotation.setStoreDefaultHeight(Integer.valueOf(30));
                 meriseNotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 // Actor
                 meriseNotation.setActorShape(SMSNotationShape.getInstance(SMSNotationShape.OVALE));
@@ -880,8 +874,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(meriseNotation, DbBEActor.fName, true, ZoneJustification
                         .getInstance(ZoneJustification.CENTER), false, BEZoneStereotype
                         .getInstance(BEZoneStereotype.ACTOR));
-                meriseNotation.setActorDefaultWidth(new Integer(95));
-                meriseNotation.setActorDefaultHeight(new Integer(95));
+                meriseNotation.setActorDefaultWidth(Integer.valueOf(95));
+                meriseNotation.setActorDefaultHeight(Integer.valueOf(95));
                 meriseNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -900,9 +894,9 @@ public class DbInitialization {
                 DbBENotation yourdonDeMarcoNotation = new DbBENotation(thisProject);
                 yourdonDeMarcoNotation.setName(DbBENotation.YOURDON_DEMARCO);
                 yourdonDeMarcoNotation.setTerminologyName(DbBENotation.YOURDON_DEMARCO);
-                yourdonDeMarcoNotation.setNotationID(new Integer(YOURDON_DEMARCO));
-                yourdonDeMarcoNotation.setMasterNotationID(new Integer(YOURDON_DEMARCO));
-                yourdonDeMarcoNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                yourdonDeMarcoNotation.setNotationID(Integer.valueOf(YOURDON_DEMARCO));
+                yourdonDeMarcoNotation.setMasterNotationID(Integer.valueOf(YOURDON_DEMARCO));
+                yourdonDeMarcoNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 yourdonDeMarcoNotation.setBuiltIn(Boolean.TRUE);
                 yourdonDeMarcoNotation.setHasFrame(Boolean.FALSE);
                 // UseCase
@@ -914,8 +908,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(yourdonDeMarcoNotation, DbBEUseCase.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                yourdonDeMarcoNotation.setUseCaseDefaultWidth(new Integer(95));
-                yourdonDeMarcoNotation.setUseCaseDefaultHeight(new Integer(95));
+                yourdonDeMarcoNotation.setUseCaseDefaultWidth(Integer.valueOf(95));
+                yourdonDeMarcoNotation.setUseCaseDefaultHeight(Integer.valueOf(95));
                 // Store
                 yourdonDeMarcoNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.OPENED_RECTANGLE_LEFT_RIGHT));
@@ -925,8 +919,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(yourdonDeMarcoNotation, DbBEStore.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                yourdonDeMarcoNotation.setStoreDefaultWidth(new Integer(160));
-                yourdonDeMarcoNotation.setStoreDefaultHeight(new Integer(30));
+                yourdonDeMarcoNotation.setStoreDefaultWidth(Integer.valueOf(160));
+                yourdonDeMarcoNotation.setStoreDefaultHeight(Integer.valueOf(30));
                 yourdonDeMarcoNotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 // Actor
                 yourdonDeMarcoNotation.setActorShape(SMSNotationShape
@@ -937,8 +931,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(yourdonDeMarcoNotation, DbBEActor.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                yourdonDeMarcoNotation.setActorDefaultWidth(new Integer(95));
-                yourdonDeMarcoNotation.setActorDefaultHeight(new Integer(95));
+                yourdonDeMarcoNotation.setActorDefaultWidth(Integer.valueOf(95));
+                yourdonDeMarcoNotation.setActorDefaultHeight(Integer.valueOf(95));
                 yourdonDeMarcoNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -953,9 +947,9 @@ public class DbInitialization {
                 DbBENotation wardMellorNotation = new DbBENotation(thisProject);
                 wardMellorNotation.setName(DbBENotation.WARD_MELLOR);
                 wardMellorNotation.setTerminologyName(DbBENotation.WARD_MELLOR);
-                wardMellorNotation.setNotationID(new Integer(WARD_MELLOR));
-                wardMellorNotation.setMasterNotationID(new Integer(WARD_MELLOR));
-                wardMellorNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                wardMellorNotation.setNotationID(Integer.valueOf(WARD_MELLOR));
+                wardMellorNotation.setMasterNotationID(Integer.valueOf(WARD_MELLOR));
+                wardMellorNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 wardMellorNotation.setBuiltIn(Boolean.TRUE);
                 wardMellorNotation.setHasFrame(Boolean.FALSE);
                 // UseCase
@@ -971,8 +965,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(wardMellorNotation, DbBEUseCase.fNumericIdentifier, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                wardMellorNotation.setUseCaseDefaultWidth(new Integer(95));
-                wardMellorNotation.setUseCaseDefaultHeight(new Integer(95));
+                wardMellorNotation.setUseCaseDefaultWidth(Integer.valueOf(95));
+                wardMellorNotation.setUseCaseDefaultHeight(Integer.valueOf(95));
                 // Store
                 wardMellorNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.OPENED_RECTANGLE_LEFT_RIGHT));
@@ -982,8 +976,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(wardMellorNotation, DbBEStore.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                wardMellorNotation.setStoreDefaultWidth(new Integer(160));
-                wardMellorNotation.setStoreDefaultHeight(new Integer(30));
+                wardMellorNotation.setStoreDefaultWidth(Integer.valueOf(160));
+                wardMellorNotation.setStoreDefaultHeight(Integer.valueOf(30));
                 wardMellorNotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 // Actor
                 wardMellorNotation.setActorShape(SMSNotationShape
@@ -994,8 +988,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(wardMellorNotation, DbBEActor.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                wardMellorNotation.setActorDefaultWidth(new Integer(95));
-                wardMellorNotation.setActorDefaultHeight(new Integer(95));
+                wardMellorNotation.setActorDefaultWidth(Integer.valueOf(95));
+                wardMellorNotation.setActorDefaultHeight(Integer.valueOf(95));
                 wardMellorNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -1010,9 +1004,9 @@ public class DbInitialization {
                 DbBENotation functionalDiagramNotation = new DbBENotation(thisProject);
                 functionalDiagramNotation.setName(DbBENotation.FUNCTIONAL_DIAGRAM);
                 functionalDiagramNotation.setTerminologyName(DbBENotation.FUNCTIONAL_DIAGRAM);
-                functionalDiagramNotation.setNotationID(new Integer(FUNCTIONAL_DIAGRAM));
-                functionalDiagramNotation.setMasterNotationID(new Integer(FUNCTIONAL_DIAGRAM));
-                functionalDiagramNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                functionalDiagramNotation.setNotationID(Integer.valueOf(FUNCTIONAL_DIAGRAM));
+                functionalDiagramNotation.setMasterNotationID(Integer.valueOf(FUNCTIONAL_DIAGRAM));
+                functionalDiagramNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 functionalDiagramNotation.setBuiltIn(Boolean.TRUE);
                 functionalDiagramNotation.setHasFrame(Boolean.TRUE);
                 // UseCase
@@ -1024,8 +1018,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(functionalDiagramNotation, DbBEUseCase.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                functionalDiagramNotation.setUseCaseDefaultWidth(new Integer(95));
-                functionalDiagramNotation.setUseCaseDefaultHeight(new Integer(95));
+                functionalDiagramNotation.setUseCaseDefaultWidth(Integer.valueOf(95));
+                functionalDiagramNotation.setUseCaseDefaultHeight(Integer.valueOf(95));
                 // Store
                 functionalDiagramNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.OPENED_RECTANGLE_LEFT_RIGHT));
@@ -1035,8 +1029,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(functionalDiagramNotation, DbBEStore.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                functionalDiagramNotation.setStoreDefaultWidth(new Integer(160));
-                functionalDiagramNotation.setStoreDefaultHeight(new Integer(30));
+                functionalDiagramNotation.setStoreDefaultWidth(Integer.valueOf(160));
+                functionalDiagramNotation.setStoreDefaultHeight(Integer.valueOf(30));
                 functionalDiagramNotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 // Actor
                 functionalDiagramNotation.setActorShape(SMSNotationShape
@@ -1047,8 +1041,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(functionalDiagramNotation, DbBEActor.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                functionalDiagramNotation.setActorDefaultWidth(new Integer(95));
-                functionalDiagramNotation.setActorDefaultHeight(new Integer(95));
+                functionalDiagramNotation.setActorDefaultWidth(Integer.valueOf(95));
+                functionalDiagramNotation.setActorDefaultHeight(Integer.valueOf(95));
                 functionalDiagramNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -1063,9 +1057,9 @@ public class DbInitialization {
                 DbBENotation meriseMCTNotation = new DbBENotation(thisProject);
                 meriseMCTNotation.setName(DbBENotation.MERISE_MCT);
                 meriseMCTNotation.setTerminologyName(DbBENotation.MERISE_MCT);
-                meriseMCTNotation.setNotationID(new Integer(MERISE_MCT));
-                meriseMCTNotation.setMasterNotationID(new Integer(MERISE_MCT));
-                meriseMCTNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                meriseMCTNotation.setNotationID(Integer.valueOf(MERISE_MCT));
+                meriseMCTNotation.setMasterNotationID(Integer.valueOf(MERISE_MCT));
+                meriseMCTNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 meriseMCTNotation.setBuiltIn(Boolean.TRUE);
                 meriseMCTNotation.setHasFrame(Boolean.TRUE);
                 // UseCase
@@ -1085,8 +1079,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(meriseMCTNotation, DbBEUseCase.fNumericIdentifier, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                meriseMCTNotation.setUseCaseDefaultWidth(new Integer(95));
-                meriseMCTNotation.setUseCaseDefaultHeight(new Integer(95));
+                meriseMCTNotation.setUseCaseDefaultWidth(Integer.valueOf(95));
+                meriseMCTNotation.setUseCaseDefaultHeight(Integer.valueOf(95));
                 // Store
                 meriseMCTNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.ROUND_RECTANGLE));
@@ -1096,8 +1090,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(meriseMCTNotation, DbBEStore.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                meriseMCTNotation.setStoreDefaultWidth(new Integer(160));
-                meriseMCTNotation.setStoreDefaultHeight(new Integer(50));
+                meriseMCTNotation.setStoreDefaultWidth(Integer.valueOf(160));
+                meriseMCTNotation.setStoreDefaultHeight(Integer.valueOf(50));
                 meriseMCTNotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 // Actor
                 meriseMCTNotation.setActorShape(SMSNotationShape
@@ -1108,8 +1102,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(meriseMCTNotation, DbBEActor.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                meriseMCTNotation.setActorDefaultWidth(new Integer(130));
-                meriseMCTNotation.setActorDefaultHeight(new Integer(95));
+                meriseMCTNotation.setActorDefaultWidth(Integer.valueOf(130));
+                meriseMCTNotation.setActorDefaultHeight(Integer.valueOf(95));
                 meriseMCTNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -1128,9 +1122,9 @@ public class DbInitialization {
                 DbBENotation meriseFlowSchemaNotation = new DbBENotation(thisProject);
                 meriseFlowSchemaNotation.setName(DbBENotation.MERISE_FLOW_SCHEMA);
                 meriseFlowSchemaNotation.setTerminologyName(DbBENotation.MERISE_FLOW_SCHEMA);
-                meriseFlowSchemaNotation.setNotationID(new Integer(MERISE_FLOW_SCHEMA));
-                meriseFlowSchemaNotation.setMasterNotationID(new Integer(MERISE_FLOW_SCHEMA));
-                meriseFlowSchemaNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                meriseFlowSchemaNotation.setNotationID(Integer.valueOf(MERISE_FLOW_SCHEMA));
+                meriseFlowSchemaNotation.setMasterNotationID(Integer.valueOf(MERISE_FLOW_SCHEMA));
+                meriseFlowSchemaNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 meriseFlowSchemaNotation.setBuiltIn(Boolean.TRUE);
                 meriseFlowSchemaNotation.setHasFrame(Boolean.TRUE);
                 // UseCase
@@ -1151,8 +1145,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(meriseFlowSchemaNotation, DbBEUseCase.fNumericIdentifier,
                         true, ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                meriseFlowSchemaNotation.setUseCaseDefaultWidth(new Integer(95));
-                meriseFlowSchemaNotation.setUseCaseDefaultHeight(new Integer(95));
+                meriseFlowSchemaNotation.setUseCaseDefaultWidth(Integer.valueOf(95));
+                meriseFlowSchemaNotation.setUseCaseDefaultHeight(Integer.valueOf(95));
                 // Store
                 meriseFlowSchemaNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.OPENED_RECTANGLE_RIGHT));
@@ -1166,8 +1160,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(meriseFlowSchemaNotation, DbBEStore.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                meriseFlowSchemaNotation.setStoreDefaultWidth(new Integer(160));
-                meriseFlowSchemaNotation.setStoreDefaultHeight(new Integer(50));
+                meriseFlowSchemaNotation.setStoreDefaultWidth(Integer.valueOf(160));
+                meriseFlowSchemaNotation.setStoreDefaultHeight(Integer.valueOf(50));
                 meriseFlowSchemaNotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 // Actor
                 meriseFlowSchemaNotation.setActorShape(SMSNotationShape
@@ -1178,8 +1172,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(meriseFlowSchemaNotation, DbBEActor.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                meriseFlowSchemaNotation.setActorDefaultWidth(new Integer(95));
-                meriseFlowSchemaNotation.setActorDefaultHeight(new Integer(95));
+                meriseFlowSchemaNotation.setActorDefaultWidth(Integer.valueOf(95));
+                meriseFlowSchemaNotation.setActorDefaultHeight(Integer.valueOf(95));
                 meriseFlowSchemaNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -1198,9 +1192,9 @@ public class DbInitialization {
                 DbBENotation meriseOOMNotation = new DbBENotation(thisProject);
                 meriseOOMNotation.setName(DbBENotation.MERISE_OOM);
                 meriseOOMNotation.setTerminologyName(DbBENotation.MERISE_OOM);
-                meriseOOMNotation.setNotationID(new Integer(MERISE_OOM));
-                meriseOOMNotation.setMasterNotationID(new Integer(MERISE_OOM));
-                meriseOOMNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                meriseOOMNotation.setNotationID(Integer.valueOf(MERISE_OOM));
+                meriseOOMNotation.setMasterNotationID(Integer.valueOf(MERISE_OOM));
+                meriseOOMNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 meriseOOMNotation.setBuiltIn(Boolean.TRUE);
                 meriseOOMNotation.setHasFrame(Boolean.FALSE);
                 // UseCase
@@ -1220,8 +1214,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(meriseOOMNotation, DbBEUseCaseResource.fResource, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                meriseOOMNotation.setUseCaseDefaultWidth(new Integer(150));
-                meriseOOMNotation.setUseCaseDefaultHeight(new Integer(150));
+                meriseOOMNotation.setUseCaseDefaultWidth(Integer.valueOf(150));
+                meriseOOMNotation.setUseCaseDefaultHeight(Integer.valueOf(150));
                 // Store
                 meriseOOMNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.ROUND_RECTANGLE));
@@ -1235,8 +1229,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(meriseOOMNotation, DbBEStore.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                meriseOOMNotation.setStoreDefaultWidth(new Integer(75));
-                meriseOOMNotation.setStoreDefaultHeight(new Integer(75));
+                meriseOOMNotation.setStoreDefaultWidth(Integer.valueOf(75));
+                meriseOOMNotation.setStoreDefaultHeight(Integer.valueOf(75));
                 meriseOOMNotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 // Actor
                 meriseOOMNotation.setActorShape(SMSNotationShape
@@ -1247,8 +1241,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(meriseOOMNotation, DbBEActor.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                meriseOOMNotation.setActorDefaultWidth(new Integer(95));
-                meriseOOMNotation.setActorDefaultHeight(new Integer(75));
+                meriseOOMNotation.setActorDefaultWidth(Integer.valueOf(95));
+                meriseOOMNotation.setActorDefaultHeight(Integer.valueOf(75));
                 meriseOOMNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -1263,9 +1257,9 @@ public class DbInitialization {
                 DbBENotation pPlusNotation = new DbBENotation(thisProject);
                 pPlusNotation.setName(DbBENotation.P_PLUS);
                 pPlusNotation.setTerminologyName(DbBENotation.P_PLUS);
-                pPlusNotation.setNotationID(new Integer(P_PLUS));
-                pPlusNotation.setMasterNotationID(new Integer(P_PLUS));
-                pPlusNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                pPlusNotation.setNotationID(Integer.valueOf(P_PLUS));
+                pPlusNotation.setMasterNotationID(Integer.valueOf(P_PLUS));
+                pPlusNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 pPlusNotation.setBuiltIn(Boolean.TRUE);
                 pPlusNotation.setHasFrame(Boolean.TRUE);
                 // UseCase
@@ -1291,8 +1285,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(pPlusNotation, DbBEUseCaseResource.fResource, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                pPlusNotation.setUseCaseDefaultWidth(new Integer(95));
-                pPlusNotation.setUseCaseDefaultHeight(new Integer(95));
+                pPlusNotation.setUseCaseDefaultWidth(Integer.valueOf(95));
+                pPlusNotation.setUseCaseDefaultHeight(Integer.valueOf(95));
                 // Store
                 pPlusNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.OPENED_RECTANGLE_RIGHT));
@@ -1306,8 +1300,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(pPlusNotation, DbBEStore.fName, true, ZoneJustification
                         .getInstance(ZoneJustification.LEFT), false, BEZoneStereotype
                         .getInstance(BEZoneStereotype.STORE));
-                pPlusNotation.setStoreDefaultWidth(new Integer(160));
-                pPlusNotation.setStoreDefaultHeight(new Integer(50));
+                pPlusNotation.setStoreDefaultWidth(Integer.valueOf(160));
+                pPlusNotation.setStoreDefaultHeight(Integer.valueOf(50));
                 pPlusNotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 // Actor
                 pPlusNotation.setActorShape(SMSNotationShape
@@ -1328,8 +1322,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(pPlusNotation, DbBEActor.fPhysicalName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                pPlusNotation.setActorDefaultWidth(new Integer(95));
-                pPlusNotation.setActorDefaultHeight(new Integer(95));
+                pPlusNotation.setActorDefaultWidth(Integer.valueOf(95));
+                pPlusNotation.setActorDefaultHeight(Integer.valueOf(95));
                 pPlusNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -1348,9 +1342,9 @@ public class DbInitialization {
                 DbBENotation pPlusOpalNotation = new DbBENotation(thisProject);
                 pPlusOpalNotation.setName(DbBENotation.P_PLUS_OPAL);
                 pPlusOpalNotation.setTerminologyName(DbBENotation.P_PLUS_OPAL);
-                pPlusOpalNotation.setNotationID(new Integer(P_PLUS_OPAL));
-                pPlusOpalNotation.setMasterNotationID(new Integer(P_PLUS_OPAL));
-                pPlusOpalNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                pPlusOpalNotation.setNotationID(Integer.valueOf(P_PLUS_OPAL));
+                pPlusOpalNotation.setMasterNotationID(Integer.valueOf(P_PLUS_OPAL));
+                pPlusOpalNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 pPlusOpalNotation.setBuiltIn(Boolean.TRUE);
                 pPlusOpalNotation.setHasFrame(Boolean.FALSE);
                 // UseCase
@@ -1373,8 +1367,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(pPlusOpalNotation, DbBEUseCaseResource.fResource, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                pPlusOpalNotation.setUseCaseDefaultWidth(new Integer(150));
-                pPlusOpalNotation.setUseCaseDefaultHeight(new Integer(150));
+                pPlusOpalNotation.setUseCaseDefaultWidth(Integer.valueOf(150));
+                pPlusOpalNotation.setUseCaseDefaultHeight(Integer.valueOf(150));
                 // Store
                 pPlusOpalNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.ROUND_RECTANGLE));
@@ -1388,8 +1382,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(pPlusOpalNotation, DbBEStore.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                pPlusOpalNotation.setStoreDefaultWidth(new Integer(75));
-                pPlusOpalNotation.setStoreDefaultHeight(new Integer(95));
+                pPlusOpalNotation.setStoreDefaultWidth(Integer.valueOf(75));
+                pPlusOpalNotation.setStoreDefaultHeight(Integer.valueOf(95));
                 pPlusOpalNotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 // Actor
                 pPlusOpalNotation.setActorShape(SMSNotationShape
@@ -1400,8 +1394,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(pPlusOpalNotation, DbBEActor.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                pPlusOpalNotation.setActorDefaultWidth(new Integer(75));
-                pPlusOpalNotation.setActorDefaultHeight(new Integer(75));
+                pPlusOpalNotation.setActorDefaultWidth(Integer.valueOf(75));
+                pPlusOpalNotation.setActorDefaultHeight(Integer.valueOf(75));
                 pPlusOpalNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -1419,9 +1413,9 @@ public class DbInitialization {
                 DbBENotation umlUseCaseNotation = new DbBENotation(thisProject);
                 umlUseCaseNotation.setName(DbBENotation.UML_USE_CASE);
                 umlUseCaseNotation.setTerminologyName(DbBENotation.UML_USE_CASE);
-                umlUseCaseNotation.setNotationID(new Integer(UML_USE_CASE));
-                umlUseCaseNotation.setMasterNotationID(new Integer(UML_USE_CASE));
-                umlUseCaseNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                umlUseCaseNotation.setNotationID(Integer.valueOf(UML_USE_CASE));
+                umlUseCaseNotation.setMasterNotationID(Integer.valueOf(UML_USE_CASE));
+                umlUseCaseNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 umlUseCaseNotation.setBuiltIn(Boolean.TRUE);
                 umlUseCaseNotation.setHasFrame(Boolean.TRUE);
                 // UseCase
@@ -1436,8 +1430,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlUseCaseNotation, DbBEUseCase.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                umlUseCaseNotation.setUseCaseDefaultWidth(new Integer(125));
-                umlUseCaseNotation.setUseCaseDefaultHeight(new Integer(75));
+                umlUseCaseNotation.setUseCaseDefaultWidth(Integer.valueOf(125));
+                umlUseCaseNotation.setUseCaseDefaultHeight(Integer.valueOf(75));
                 // Store
                 umlUseCaseNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.RECTANGLE));
@@ -1450,8 +1444,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlUseCaseNotation, DbBEStore.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                umlUseCaseNotation.setStoreDefaultWidth(new Integer(120));
-                umlUseCaseNotation.setStoreDefaultHeight(new Integer(80));
+                umlUseCaseNotation.setStoreDefaultWidth(Integer.valueOf(120));
+                umlUseCaseNotation.setStoreDefaultHeight(Integer.valueOf(80));
                 umlUseCaseNotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 // Actor
                 umlUseCaseNotation.setActorShape(SMSNotationShape
@@ -1465,8 +1459,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlUseCaseNotation, DbBEActor.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                umlUseCaseNotation.setActorDefaultWidth(new Integer(95));
-                umlUseCaseNotation.setActorDefaultHeight(new Integer(130));
+                umlUseCaseNotation.setActorDefaultWidth(Integer.valueOf(95));
+                umlUseCaseNotation.setActorDefaultHeight(Integer.valueOf(130));
                 umlUseCaseNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -1480,16 +1474,16 @@ public class DbInitialization {
                 DbBENotation umlSequenceDiagramNotation = new DbBENotation(thisProject);
                 umlSequenceDiagramNotation.setName(DbBENotation.UML_SEQUENCE_DIAGRAM);
                 umlSequenceDiagramNotation.setTerminologyName(DbBENotation.UML_SEQUENCE_DIAGRAM);
-                umlSequenceDiagramNotation.setNotationID(new Integer(UML_SEQUENCE_DIAGRAM));
-                umlSequenceDiagramNotation.setMasterNotationID(new Integer(UML_SEQUENCE_DIAGRAM));
-                umlSequenceDiagramNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                umlSequenceDiagramNotation.setNotationID(Integer.valueOf(UML_SEQUENCE_DIAGRAM));
+                umlSequenceDiagramNotation.setMasterNotationID(Integer.valueOf(UML_SEQUENCE_DIAGRAM));
+                umlSequenceDiagramNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 umlSequenceDiagramNotation.setBuiltIn(Boolean.TRUE);
                 umlSequenceDiagramNotation.setDisplayFrameBox(Boolean.FALSE);
                 umlSequenceDiagramNotation.setCellTitleBoxed(Boolean.FALSE);
                 umlSequenceDiagramNotation.setCenterDisplay(Boolean.TRUE);
                 umlSequenceDiagramNotation.setConstraintCenter(Boolean.TRUE);
                 umlSequenceDiagramNotation.setDefButtomBorder(Boolean.FALSE);
-                umlSequenceDiagramNotation.setDefVerticalAlignment(new Integer(TableCell.START));
+                umlSequenceDiagramNotation.setDefVerticalAlignment(Integer.valueOf(TableCell.START));
                 umlSequenceDiagramNotation.setHasFrame(Boolean.TRUE);
 
                 //
@@ -1505,8 +1499,8 @@ public class DbInitialization {
                 // ZoneJustification.getInstance(ZoneJustification.CENTER),
                 // false,
                 // BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                umlSequenceDiagramNotation.setUseCaseDefaultWidth(new Integer(10));
-                umlSequenceDiagramNotation.setUseCaseDefaultHeight(new Integer(80));
+                umlSequenceDiagramNotation.setUseCaseDefaultWidth(Integer.valueOf(10));
+                umlSequenceDiagramNotation.setUseCaseDefaultHeight(Integer.valueOf(80));
 
                 // Class Role
                 umlSequenceDiagramNotation.setStoreShape(SMSNotationShape
@@ -1520,8 +1514,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlSequenceDiagramNotation, DbBEStore.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                umlSequenceDiagramNotation.setStoreDefaultWidth(new Integer(120));
-                umlSequenceDiagramNotation.setStoreDefaultHeight(new Integer(32));
+                umlSequenceDiagramNotation.setStoreDefaultWidth(Integer.valueOf(120));
+                umlSequenceDiagramNotation.setStoreDefaultHeight(Integer.valueOf(32));
                 // umlSequenceDiagramNotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 umlSequenceDiagramNotation.setStoreIdPrefix("{0}: {1}");
 
@@ -1538,8 +1532,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlSequenceDiagramNotation, DbBEActor.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                umlSequenceDiagramNotation.setActorDefaultWidth(new Integer(95));
-                umlSequenceDiagramNotation.setActorDefaultHeight(new Integer(130));
+                umlSequenceDiagramNotation.setActorDefaultWidth(Integer.valueOf(95));
+                umlSequenceDiagramNotation.setActorDefaultHeight(Integer.valueOf(130));
                 umlSequenceDiagramNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
 
                 // FLOW
@@ -1564,9 +1558,9 @@ public class DbInitialization {
                 DbBENotation umlStateDiagramNotation = new DbBENotation(thisProject);
                 umlStateDiagramNotation.setName(DbBENotation.UML_STATE_DIAGRAM);
                 umlStateDiagramNotation.setTerminologyName(DbBENotation.UML_STATE_DIAGRAM);
-                umlStateDiagramNotation.setNotationID(new Integer(UML_STATE_DIAGRAM));
-                umlStateDiagramNotation.setMasterNotationID(new Integer(UML_STATE_DIAGRAM));
-                umlStateDiagramNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                umlStateDiagramNotation.setNotationID(Integer.valueOf(UML_STATE_DIAGRAM));
+                umlStateDiagramNotation.setMasterNotationID(Integer.valueOf(UML_STATE_DIAGRAM));
+                umlStateDiagramNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 umlStateDiagramNotation.setBuiltIn(Boolean.TRUE);
                 umlStateDiagramNotation.setDisplayFrameBox(Boolean.FALSE);
                 umlStateDiagramNotation.setDisplayStereotypesAsIcons(Boolean.TRUE);
@@ -1588,8 +1582,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlStateDiagramNotation, DbBEUseCase.fDescription, true,
                         ZoneJustification.getInstance(ZoneJustification.LEFT), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                umlStateDiagramNotation.setUseCaseDefaultWidth(new Integer(95));
-                umlStateDiagramNotation.setUseCaseDefaultHeight(new Integer(65));
+                umlStateDiagramNotation.setUseCaseDefaultWidth(Integer.valueOf(95));
+                umlStateDiagramNotation.setUseCaseDefaultHeight(Integer.valueOf(65));
                 // Store
                 umlStateDiagramNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.RECTANGLE));
@@ -1602,8 +1596,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlStateDiagramNotation, DbBEUseCase.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                umlStateDiagramNotation.setStoreDefaultWidth(new Integer(120));
-                umlStateDiagramNotation.setStoreDefaultHeight(new Integer(80));
+                umlStateDiagramNotation.setStoreDefaultWidth(Integer.valueOf(120));
+                umlStateDiagramNotation.setStoreDefaultHeight(Integer.valueOf(80));
                 umlStateDiagramNotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 // Actor
                 umlStateDiagramNotation.setActorShape(SMSNotationShape
@@ -1617,8 +1611,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlStateDiagramNotation, DbBEActor.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                umlStateDiagramNotation.setActorDefaultWidth(new Integer(95));
-                umlStateDiagramNotation.setActorDefaultHeight(new Integer(130));
+                umlStateDiagramNotation.setActorDefaultWidth(Integer.valueOf(95));
+                umlStateDiagramNotation.setActorDefaultHeight(Integer.valueOf(130));
                 umlStateDiagramNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -1638,10 +1632,10 @@ public class DbInitialization {
                 umlCollaborationDiagramNotation
                         .setTerminologyName(DbBENotation.UML_COLLABORATION_DIAGRAM);
                 umlCollaborationDiagramNotation
-                        .setNotationID(new Integer(UML_COLLABORATION_DIAGRAM));
-                umlCollaborationDiagramNotation.setMasterNotationID(new Integer(
+                        .setNotationID(Integer.valueOf(UML_COLLABORATION_DIAGRAM));
+                umlCollaborationDiagramNotation.setMasterNotationID(Integer.valueOf(
                         UML_COLLABORATION_DIAGRAM));
-                umlCollaborationDiagramNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                umlCollaborationDiagramNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 umlCollaborationDiagramNotation.setBuiltIn(Boolean.TRUE);
                 umlCollaborationDiagramNotation.setHasFrame(Boolean.FALSE);
                 // UseCase
@@ -1657,8 +1651,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlCollaborationDiagramNotation, true, ZoneJustification
                         .getInstance(ZoneJustification.CENTER), false, BEZoneStereotype
                         .getInstance(BEZoneStereotype.USECASE));
-                umlCollaborationDiagramNotation.setUseCaseDefaultWidth(new Integer(95));
-                umlCollaborationDiagramNotation.setUseCaseDefaultHeight(new Integer(60));
+                umlCollaborationDiagramNotation.setUseCaseDefaultWidth(Integer.valueOf(95));
+                umlCollaborationDiagramNotation.setUseCaseDefaultHeight(Integer.valueOf(60));
                 // Store
                 umlCollaborationDiagramNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.OPENED_RECTANGLE_LEFT_RIGHT));
@@ -1668,8 +1662,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlCollaborationDiagramNotation, DbBEStore.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                umlCollaborationDiagramNotation.setStoreDefaultWidth(new Integer(160));
-                umlCollaborationDiagramNotation.setStoreDefaultHeight(new Integer(30));
+                umlCollaborationDiagramNotation.setStoreDefaultWidth(Integer.valueOf(160));
+                umlCollaborationDiagramNotation.setStoreDefaultHeight(Integer.valueOf(30));
                 umlCollaborationDiagramNotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 // Actor
                 umlCollaborationDiagramNotation.setActorShape(SMSNotationShape
@@ -1680,8 +1674,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlCollaborationDiagramNotation, DbBEActor.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                umlCollaborationDiagramNotation.setActorDefaultWidth(new Integer(95));
-                umlCollaborationDiagramNotation.setActorDefaultHeight(new Integer(130));
+                umlCollaborationDiagramNotation.setActorDefaultWidth(Integer.valueOf(95));
+                umlCollaborationDiagramNotation.setActorDefaultHeight(Integer.valueOf(130));
                 umlCollaborationDiagramNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -1695,16 +1689,16 @@ public class DbInitialization {
                 DbBENotation umlActivityDiagramNotation = new DbBENotation(thisProject);
                 umlActivityDiagramNotation.setName(UML_ACTIVITY_DIAGRAM_TXT);
                 umlActivityDiagramNotation.setTerminologyName(UML_ACTIVITY_DIAGRAM_TXT);
-                umlActivityDiagramNotation.setNotationID(new Integer(UML_ACTIVITY_DIAGRAM));
-                umlActivityDiagramNotation.setMasterNotationID(new Integer(UML_ACTIVITY_DIAGRAM));
-                umlActivityDiagramNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                umlActivityDiagramNotation.setNotationID(Integer.valueOf(UML_ACTIVITY_DIAGRAM));
+                umlActivityDiagramNotation.setMasterNotationID(Integer.valueOf(UML_ACTIVITY_DIAGRAM));
+                umlActivityDiagramNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 umlActivityDiagramNotation.setBuiltIn(Boolean.TRUE);
                 umlActivityDiagramNotation.setDisplayFrameBox(Boolean.FALSE);
                 umlActivityDiagramNotation.setCellTitleBoxed(Boolean.TRUE);
                 umlActivityDiagramNotation.setCenterDisplay(Boolean.FALSE);
                 umlActivityDiagramNotation.setConstraintCenter(Boolean.FALSE);
                 umlActivityDiagramNotation.setDefButtomBorder(Boolean.FALSE);
-                umlActivityDiagramNotation.setDefVerticalAlignment(new Integer(TableCell.START));
+                umlActivityDiagramNotation.setDefVerticalAlignment(Integer.valueOf(TableCell.START));
                 umlActivityDiagramNotation.setHasFrame(Boolean.TRUE);
 
                 // UseCase
@@ -1719,8 +1713,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlActivityDiagramNotation, DbBEUseCase.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                umlActivityDiagramNotation.setUseCaseDefaultWidth(new Integer(125));
-                umlActivityDiagramNotation.setUseCaseDefaultHeight(new Integer(55));
+                umlActivityDiagramNotation.setUseCaseDefaultWidth(Integer.valueOf(125));
+                umlActivityDiagramNotation.setUseCaseDefaultHeight(Integer.valueOf(55));
                 // Store
                 umlActivityDiagramNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.RECTANGLE));
@@ -1733,8 +1727,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlActivityDiagramNotation, DbBEUseCase.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                umlActivityDiagramNotation.setStoreDefaultWidth(new Integer(120));
-                umlActivityDiagramNotation.setStoreDefaultHeight(new Integer(80));
+                umlActivityDiagramNotation.setStoreDefaultWidth(Integer.valueOf(120));
+                umlActivityDiagramNotation.setStoreDefaultHeight(Integer.valueOf(80));
 
                 // Actor
                 umlActivityDiagramNotation.setActorShape(SMSNotationShape
@@ -1748,8 +1742,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlActivityDiagramNotation, DbBEActor.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                umlActivityDiagramNotation.setActorDefaultWidth(new Integer(95));
-                umlActivityDiagramNotation.setActorDefaultHeight(new Integer(130));
+                umlActivityDiagramNotation.setActorDefaultWidth(Integer.valueOf(95));
+                umlActivityDiagramNotation.setActorDefaultHeight(Integer.valueOf(130));
                 umlActivityDiagramNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -1767,16 +1761,16 @@ public class DbInitialization {
                 DbBENotation umlComponentDiagramNotation = new DbBENotation(thisProject);
                 umlComponentDiagramNotation.setName(UML_COMPONENT_DIAGRAM_TXT);
                 umlComponentDiagramNotation.setTerminologyName(UML_COMPONENT_DIAGRAM_TXT);
-                umlComponentDiagramNotation.setNotationID(new Integer(UML_COMPONENT_DIAGRAM));
-                umlComponentDiagramNotation.setMasterNotationID(new Integer(UML_COMPONENT_DIAGRAM));
-                umlComponentDiagramNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                umlComponentDiagramNotation.setNotationID(Integer.valueOf(UML_COMPONENT_DIAGRAM));
+                umlComponentDiagramNotation.setMasterNotationID(Integer.valueOf(UML_COMPONENT_DIAGRAM));
+                umlComponentDiagramNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 umlComponentDiagramNotation.setBuiltIn(Boolean.TRUE);
                 umlComponentDiagramNotation.setDisplayFrameBox(Boolean.TRUE);
                 umlComponentDiagramNotation.setCellTitleBoxed(Boolean.FALSE);
                 umlComponentDiagramNotation.setCenterDisplay(Boolean.FALSE);
                 umlComponentDiagramNotation.setConstraintCenter(Boolean.FALSE);
                 umlComponentDiagramNotation.setDefButtomBorder(Boolean.FALSE);
-                umlComponentDiagramNotation.setDefVerticalAlignment(new Integer(TableCell.START));
+                umlComponentDiagramNotation.setDefVerticalAlignment(Integer.valueOf(TableCell.START));
                 umlComponentDiagramNotation.setHasFrame(Boolean.TRUE);
 
                 // UseCase
@@ -1791,8 +1785,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlComponentDiagramNotation, DbBEUseCase.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                umlComponentDiagramNotation.setUseCaseDefaultWidth(new Integer(120));
-                umlComponentDiagramNotation.setUseCaseDefaultHeight(new Integer(80));
+                umlComponentDiagramNotation.setUseCaseDefaultWidth(Integer.valueOf(120));
+                umlComponentDiagramNotation.setUseCaseDefaultHeight(Integer.valueOf(80));
                 // Store
                 umlComponentDiagramNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.RECTANGLE));
@@ -1805,8 +1799,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlComponentDiagramNotation, DbBEUseCase.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                umlComponentDiagramNotation.setStoreDefaultWidth(new Integer(120));
-                umlComponentDiagramNotation.setStoreDefaultHeight(new Integer(80));
+                umlComponentDiagramNotation.setStoreDefaultWidth(Integer.valueOf(120));
+                umlComponentDiagramNotation.setStoreDefaultHeight(Integer.valueOf(80));
 
                 // Actor
                 umlComponentDiagramNotation.setActorShape(SMSNotationShape
@@ -1820,8 +1814,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlComponentDiagramNotation, DbBEActor.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                umlComponentDiagramNotation.setActorDefaultWidth(new Integer(95));
-                umlComponentDiagramNotation.setActorDefaultHeight(new Integer(130));
+                umlComponentDiagramNotation.setActorDefaultWidth(Integer.valueOf(95));
+                umlComponentDiagramNotation.setActorDefaultHeight(Integer.valueOf(130));
                 umlComponentDiagramNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -1844,17 +1838,17 @@ public class DbInitialization {
                 DbBENotation umlDeploymentDiagramNotation = new DbBENotation(thisProject);
                 umlDeploymentDiagramNotation.setName(UML_DEPLOYMENT_DIAGRAM_TXT);
                 umlDeploymentDiagramNotation.setTerminologyName(UML_DEPLOYMENT_DIAGRAM_TXT);
-                umlDeploymentDiagramNotation.setNotationID(new Integer(UML_DEPLOYMENT_DIAGRAM));
+                umlDeploymentDiagramNotation.setNotationID(Integer.valueOf(UML_DEPLOYMENT_DIAGRAM));
                 umlDeploymentDiagramNotation
-                        .setMasterNotationID(new Integer(UML_DEPLOYMENT_DIAGRAM));
-                umlDeploymentDiagramNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                        .setMasterNotationID(Integer.valueOf(UML_DEPLOYMENT_DIAGRAM));
+                umlDeploymentDiagramNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 umlDeploymentDiagramNotation.setBuiltIn(Boolean.TRUE);
                 umlDeploymentDiagramNotation.setDisplayFrameBox(Boolean.TRUE);
                 umlDeploymentDiagramNotation.setCellTitleBoxed(Boolean.FALSE);
                 umlDeploymentDiagramNotation.setCenterDisplay(Boolean.FALSE);
                 umlDeploymentDiagramNotation.setConstraintCenter(Boolean.FALSE);
                 umlDeploymentDiagramNotation.setDefButtomBorder(Boolean.FALSE);
-                umlDeploymentDiagramNotation.setDefVerticalAlignment(new Integer(TableCell.START));
+                umlDeploymentDiagramNotation.setDefVerticalAlignment(Integer.valueOf(TableCell.START));
                 umlDeploymentDiagramNotation.setHasFrame(Boolean.FALSE);
 
                 // UseCase
@@ -1869,8 +1863,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlDeploymentDiagramNotation, DbBEUseCase.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                umlDeploymentDiagramNotation.setUseCaseDefaultWidth(new Integer(120));
-                umlDeploymentDiagramNotation.setUseCaseDefaultHeight(new Integer(80));
+                umlDeploymentDiagramNotation.setUseCaseDefaultWidth(Integer.valueOf(120));
+                umlDeploymentDiagramNotation.setUseCaseDefaultHeight(Integer.valueOf(80));
                 // Store
                 umlDeploymentDiagramNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.UML_COMPONENT));
@@ -1883,8 +1877,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlDeploymentDiagramNotation, DbBEUseCase.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                umlDeploymentDiagramNotation.setStoreDefaultWidth(new Integer(120));
-                umlDeploymentDiagramNotation.setStoreDefaultHeight(new Integer(80));
+                umlDeploymentDiagramNotation.setStoreDefaultWidth(Integer.valueOf(120));
+                umlDeploymentDiagramNotation.setStoreDefaultHeight(Integer.valueOf(80));
 
                 // Actor
                 umlDeploymentDiagramNotation.setActorShape(SMSNotationShape
@@ -1898,8 +1892,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(umlDeploymentDiagramNotation, DbBEActor.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                umlDeploymentDiagramNotation.setActorDefaultWidth(new Integer(95));
-                umlDeploymentDiagramNotation.setActorDefaultHeight(new Integer(130));
+                umlDeploymentDiagramNotation.setActorDefaultWidth(Integer.valueOf(95));
+                umlDeploymentDiagramNotation.setActorDefaultHeight(Integer.valueOf(130));
                 umlDeploymentDiagramNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 // ZONE 1
@@ -1924,9 +1918,9 @@ public class DbInitialization {
                 DbBENotation messageModelingNotation = new DbBENotation(thisProject);
                 messageModelingNotation.setName(DbBENotation.MESSAGE_MODELING);
                 messageModelingNotation.setTerminologyName(DbBENotation.MESSAGE_MODELING);
-                messageModelingNotation.setNotationID(new Integer(MESSAGE_MODELING));
-                messageModelingNotation.setMasterNotationID(new Integer(MESSAGE_MODELING));
-                messageModelingNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                messageModelingNotation.setNotationID(Integer.valueOf(MESSAGE_MODELING));
+                messageModelingNotation.setMasterNotationID(Integer.valueOf(MESSAGE_MODELING));
+                messageModelingNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 messageModelingNotation.setBuiltIn(Boolean.TRUE);
                 messageModelingNotation.setHasFrame(Boolean.TRUE);
                 // UseCase
@@ -1938,8 +1932,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(messageModelingNotation, DbBEUseCase.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                messageModelingNotation.setUseCaseDefaultWidth(new Integer(95));
-                messageModelingNotation.setUseCaseDefaultHeight(new Integer(60));
+                messageModelingNotation.setUseCaseDefaultWidth(Integer.valueOf(95));
+                messageModelingNotation.setUseCaseDefaultHeight(Integer.valueOf(60));
                 // Store
                 messageModelingNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.OPENED_RECTANGLE_LEFT_RIGHT));
@@ -1949,8 +1943,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(messageModelingNotation, DbBEStore.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                messageModelingNotation.setStoreDefaultWidth(new Integer(160));
-                messageModelingNotation.setStoreDefaultHeight(new Integer(30));
+                messageModelingNotation.setStoreDefaultWidth(Integer.valueOf(160));
+                messageModelingNotation.setStoreDefaultHeight(Integer.valueOf(30));
                 messageModelingNotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 // Actor
                 messageModelingNotation.setActorShape(SMSNotationShape
@@ -1961,8 +1955,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(messageModelingNotation, DbBEActor.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                messageModelingNotation.setActorDefaultWidth(new Integer(95));
-                messageModelingNotation.setActorDefaultHeight(new Integer(95));
+                messageModelingNotation.setActorDefaultWidth(Integer.valueOf(95));
+                messageModelingNotation.setActorDefaultHeight(Integer.valueOf(95));
                 messageModelingNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 messageModelingNotation.setFlowIdPrefix(DbBENotation.FLOW_ID_PREFIX);
@@ -1973,9 +1967,9 @@ public class DbInitialization {
                 DbBENotation objectLifeCycleNotation = new DbBENotation(thisProject);
                 objectLifeCycleNotation.setName(DbBENotation.OBJECT_LIFE_CYCLE);
                 objectLifeCycleNotation.setTerminologyName(DbBENotation.OBJECT_LIFE_CYCLE);
-                objectLifeCycleNotation.setNotationID(new Integer(OBJECT_LIFE_CYCLE));
-                objectLifeCycleNotation.setMasterNotationID(new Integer(OBJECT_LIFE_CYCLE));
-                objectLifeCycleNotation.setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                objectLifeCycleNotation.setNotationID(Integer.valueOf(OBJECT_LIFE_CYCLE));
+                objectLifeCycleNotation.setMasterNotationID(Integer.valueOf(OBJECT_LIFE_CYCLE));
+                objectLifeCycleNotation.setNotationMode(Integer.valueOf(DbSMSNotation.BE_MODE));
                 objectLifeCycleNotation.setBuiltIn(Boolean.TRUE);
                 objectLifeCycleNotation.setHasFrame(Boolean.TRUE);
                 // UseCase
@@ -1987,8 +1981,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(objectLifeCycleNotation, DbBEUseCase.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
-                objectLifeCycleNotation.setUseCaseDefaultWidth(new Integer(95));
-                objectLifeCycleNotation.setUseCaseDefaultHeight(new Integer(60));
+                objectLifeCycleNotation.setUseCaseDefaultWidth(Integer.valueOf(95));
+                objectLifeCycleNotation.setUseCaseDefaultHeight(Integer.valueOf(60));
                 // Store
                 objectLifeCycleNotation.setStoreShape(SMSNotationShape
                         .getInstance(SMSNotationShape.RECTANGLE));
@@ -1998,8 +1992,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(objectLifeCycleNotation, DbBEStore.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
-                objectLifeCycleNotation.setStoreDefaultWidth(new Integer(95));
-                objectLifeCycleNotation.setStoreDefaultHeight(new Integer(35));
+                objectLifeCycleNotation.setStoreDefaultWidth(Integer.valueOf(95));
+                objectLifeCycleNotation.setStoreDefaultHeight(Integer.valueOf(35));
                 objectLifeCycleNotation.setStoreIdPrefix(DbBENotation.STORE_ID_PREFIX);
                 // Actor
                 objectLifeCycleNotation.setActorShape(SMSNotationShape
@@ -2010,8 +2004,8 @@ public class DbInitialization {
                 new DbBESingleZoneDisplay(objectLifeCycleNotation, DbBEActor.fName, true,
                         ZoneJustification.getInstance(ZoneJustification.CENTER), false,
                         BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
-                objectLifeCycleNotation.setActorDefaultWidth(new Integer(80));
-                objectLifeCycleNotation.setActorDefaultHeight(new Integer(80));
+                objectLifeCycleNotation.setActorDefaultWidth(Integer.valueOf(80));
+                objectLifeCycleNotation.setActorDefaultHeight(Integer.valueOf(80));
                 objectLifeCycleNotation.setActorIdPrefix(DbBENotation.ACTOR_ID_PREFIX);
                 // FLOW
                 objectLifeCycleNotation.setFlowIdPrefix(DbBENotation.FLOW_ID_PREFIX);
@@ -2278,9 +2272,9 @@ public class DbInitialization {
             datarunNotation.initOptions();
             datarunNotation.setName(DbORNotation.DATARUN);
             datarunNotation.setTerminologyName(DbORNotation.DATARUN);
-            datarunNotation.setNotationID(new Integer(DATARUN));
-            datarunNotation.setMasterNotationID(new Integer(DATARUN));
-            datarunNotation.setNotationMode(new Integer(DbSMSNotation.OR_MODE));
+            datarunNotation.setNotationID(Integer.valueOf(DATARUN));
+            datarunNotation.setMasterNotationID(Integer.valueOf(DATARUN));
+            datarunNotation.setNotationMode(Integer.valueOf(DbSMSNotation.OR_MODE));
             datarunNotation.setNumericDisplay(ORConnectivitiesDisplay
                     .getInstance(ORConnectivitiesDisplay.MIN_MAX));
             datarunNotation.setSymbolicDisplay(ORConnectivitiesDisplay
@@ -2308,8 +2302,8 @@ public class DbInitialization {
             infoEngNotation.initOptions();
             infoEngNotation.setName(DbORNotation.INFORMATION_ENGINEERING);
             infoEngNotation.setTerminologyName(DbORNotation.INFORMATION_ENGINEERING);
-            infoEngNotation.setNotationID(new Integer(INFORMATION_ENGINEERING));
-            infoEngNotation.setNotationMode(new Integer(DbSMSNotation.OR_MODE));
+            infoEngNotation.setNotationID(Integer.valueOf(INFORMATION_ENGINEERING));
+            infoEngNotation.setNotationMode(Integer.valueOf(DbSMSNotation.OR_MODE));
             infoEngNotation.setNumericDisplay(ORConnectivitiesDisplay
                     .getInstance(ORConnectivitiesDisplay.NONE));
             infoEngNotation.setNumericPosition(ORConnectivityPosition
@@ -2349,9 +2343,9 @@ public class DbInitialization {
             infoEngPlusNotation.initOptions();
             infoEngPlusNotation.setName(DbORNotation.INFORMATION_ENGINEERING_PLUS);
             infoEngPlusNotation.setTerminologyName(DbORNotation.INFORMATION_ENGINEERING_PLUS);
-            infoEngPlusNotation.setNotationID(new Integer(INFORMATION_ENGINEERING_PLUS));
-            infoEngPlusNotation.setMasterNotationID(new Integer(INFORMATION_ENGINEERING_PLUS));
-            infoEngPlusNotation.setNotationMode(new Integer(DbSMSNotation.OR_MODE));
+            infoEngPlusNotation.setNotationID(Integer.valueOf(INFORMATION_ENGINEERING_PLUS));
+            infoEngPlusNotation.setMasterNotationID(Integer.valueOf(INFORMATION_ENGINEERING_PLUS));
+            infoEngPlusNotation.setNotationMode(Integer.valueOf(DbSMSNotation.OR_MODE));
             infoEngPlusNotation.setNumericDisplay(ORConnectivitiesDisplay
                     .getInstance(ORConnectivitiesDisplay.NONE));
             infoEngPlusNotation.setSymbolicDisplay(ORConnectivitiesDisplay
@@ -2390,9 +2384,9 @@ public class DbInitialization {
             logicalDSNotation.initOptions();
             logicalDSNotation.setName(DbORNotation.LOGICAL_DATA_STRUCTURE);
             logicalDSNotation.setTerminologyName(DbORNotation.LOGICAL_DATA_STRUCTURE);
-            logicalDSNotation.setNotationID(new Integer(LOGICAL_DATA_STRUCTURE));
-            logicalDSNotation.setMasterNotationID(new Integer(LOGICAL_DATA_STRUCTURE));
-            logicalDSNotation.setNotationMode(new Integer(DbSMSNotation.OR_MODE));
+            logicalDSNotation.setNotationID(Integer.valueOf(LOGICAL_DATA_STRUCTURE));
+            logicalDSNotation.setMasterNotationID(Integer.valueOf(LOGICAL_DATA_STRUCTURE));
+            logicalDSNotation.setNotationMode(Integer.valueOf(DbSMSNotation.OR_MODE));
             logicalDSNotation.setNumericDisplay(ORConnectivitiesDisplay
                     .getInstance(ORConnectivitiesDisplay.NONE));
             logicalDSNotation.setSymbolicDisplay(ORConnectivitiesDisplay
@@ -2428,9 +2422,9 @@ public class DbInitialization {
             umlNotation.initOptions();
             umlNotation.setName(DbORNotation.UML);
             umlNotation.setTerminologyName(DbORNotation.UML);
-            umlNotation.setNotationID(new Integer(UML));
-            umlNotation.setMasterNotationID(new Integer(UML));
-            umlNotation.setNotationMode(new Integer(DbSMSNotation.OR_MODE));
+            umlNotation.setNotationID(Integer.valueOf(UML));
+            umlNotation.setMasterNotationID(Integer.valueOf(UML));
+            umlNotation.setNotationMode(Integer.valueOf(DbSMSNotation.OR_MODE));
             umlNotation.setNumericDisplay(ORConnectivitiesDisplay
                     .getInstance(ORConnectivitiesDisplay.MIN_MAX));
             umlNotation.setNumericPosition(ORConnectivityPosition
@@ -2496,9 +2490,9 @@ public class DbInitialization {
             erNotation.initOptions();
             erNotation.setName(DbORNotation.ENTITY_RELATIONSHIP);
             erNotation.setTerminologyName(DbORNotation.ENTITY_RELATIONSHIP);
-            erNotation.setNotationID(new Integer(ENTITY_RELATIONSHIP));
-            erNotation.setMasterNotationID(new Integer(ENTITY_RELATIONSHIP));
-            erNotation.setNotationMode(new Integer(DbSMSNotation.ER_MODE));
+            erNotation.setNotationID(Integer.valueOf(ENTITY_RELATIONSHIP));
+            erNotation.setMasterNotationID(Integer.valueOf(ENTITY_RELATIONSHIP));
+            erNotation.setNotationMode(Integer.valueOf(DbSMSNotation.ER_MODE));
             erNotation.setNumericDisplay(ORConnectivitiesDisplay
                     .getInstance(ORConnectivitiesDisplay.MIN_MAX));
             erNotation.setNumericPosition(ORConnectivityPosition

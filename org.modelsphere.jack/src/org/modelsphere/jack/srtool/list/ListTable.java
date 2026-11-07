@@ -43,18 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.list;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
-
-import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.*;
-
 import org.modelsphere.jack.awt.SelectDialog;
 import org.modelsphere.jack.awt.SelectDialogItem;
 import org.modelsphere.jack.awt.ThinBevelBorder;
@@ -72,6 +60,27 @@ import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.util.ExceptionHandler;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.StringTokenizer;
+import java.util.List;
 
 public class ListTable extends JTable implements ActionListener, MouseMotionListener, MouseListener {
     private static final String kRessetDefault = LocaleMgr.action.getString("ressetSetting");
@@ -99,8 +108,8 @@ public class ListTable extends JTable implements ActionListener, MouseMotionList
 
     private static final int ROW_EXTRA_HEIGHT = 0;
 
-    protected static final Integer ASC = new Integer(1);
-    protected static final Integer DESC = new Integer(-1);
+    protected static final Integer ASC = 1;
+    protected static final Integer DESC = -1;
 
     private static final int MAX_LINE_COUNT_IN_TOOLTIPS = 12;
     private static final int MAX_CHAR_COUNT_IN_TOOLTIPS = 800;
@@ -530,7 +539,7 @@ public class ListTable extends JTable implements ActionListener, MouseMotionList
         }
 
         protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
-            if (propertyName == "text") { // NOT LOCALIZABLE - property
+            if (Objects.equals(propertyName, "text")) { // NOT LOCALIZABLE - property
                 super.firePropertyChange(propertyName, oldValue, newValue);
             }
         }
@@ -664,20 +673,20 @@ public class ListTable extends JTable implements ActionListener, MouseMotionList
         // Clear insert and remove Menu
         Component[] components = insertMenu.getComponents();
         if (components != null) {
-            for (int i = 0; i < components.length; i++) {
-                if (!(components[i] instanceof JMenuItem))
+            for (Component component : components) {
+                if (!(component instanceof JMenuItem))
                     continue;
-                ((JMenuItem) components[i]).removeActionListener(this);
+                ((JMenuItem) component).removeActionListener(this);
             }
         }
         insertMenu.removeAll();
         //
         components = removeMenu.getComponents();
         if (components != null) {
-            for (int i = 0; i < components.length; i++) {
-                if (!(components[i] instanceof JMenuItem))
+            for (Component component : components) {
+                if (!(component instanceof JMenuItem))
                     continue;
-                ((JMenuItem) components[i]).removeActionListener(this);
+                ((JMenuItem) component).removeActionListener(this);
             }
         }
         removeMenu.removeAll();
@@ -685,15 +694,15 @@ public class ListTable extends JTable implements ActionListener, MouseMotionList
         // Populate insert and remove Menu
         ListTableModel model = getListTableModel();
         ColumnDescriptor[] descriptors = model.getColumnDescriptors();
-        if (descriptors != null && descriptors.length > 0) {
-            for (int i = 0; i < descriptors.length; i++) {
-                int columnindex = model.indexInModelOf(descriptors[i]);
+        if (descriptors != null) {
+            for (ColumnDescriptor descriptor : descriptors) {
+                int columnindex = model.indexInModelOf(descriptor);
                 JMenuItem item = null;
                 if (columnindex > -1) { // remove
-                    item = new ColumnMenuItem(descriptors[i], false);
+                    item = new ColumnMenuItem(descriptor, false);
                     removeMenu.add(item);
                 } else { // add
-                    item = new ColumnMenuItem(descriptors[i], true);
+                    item = new ColumnMenuItem(descriptor, true);
                     insertMenu.add(item);
                 }
                 item.addActionListener(this);
@@ -750,14 +759,14 @@ public class ListTable extends JTable implements ActionListener, MouseMotionList
                     kSelectColumns, items, SelectDialog.OPTION_SELECT_MIN_1);
             if (result == SelectDialog.ACTION_CANCEL)
                 return;
-            ArrayList newcols = new ArrayList();
-            for (int i = 0; i < items.length; i++) {
-                if (items[i].selected)
-                    newcols.add(items[i].object);
+            List<ColumnDescriptor> newcols = new ArrayList<>();
+            for (SelectDialogItem item : items) {
+                if (item.selected)
+                    newcols.add((ColumnDescriptor) item.object);
             }
             descriptors = new ColumnDescriptor[newcols.size()];
             for (int i = 0; i < descriptors.length; i++) {
-                descriptors[i] = (ColumnDescriptor) newcols.get(i);
+                descriptors[i] = newcols.get(i);
             }
             try {
                 getListTableModel().setColumns(descriptors, popupColumn);
@@ -805,8 +814,8 @@ public class ListTable extends JTable implements ActionListener, MouseMotionList
             return;
         DbObject dbo = null;
         int idx = -1;
-        for (int i = 0; i < dbos.length; i++) {
-            idx = getListTableModel().indexOf(dbos[i]);
+        for (DbObject dbObject : dbos) {
+            idx = getListTableModel().indexOf(dbObject);
             if (idx > -1) {
                 addRowSelectionInterval(idx, idx);
             }
@@ -857,9 +866,9 @@ public class ListTable extends JTable implements ActionListener, MouseMotionList
         }
         Object value = getValueAt(row, col);
         String colheader = this.getColumnName(col).toString();
-        String text = "";
-        text += "<html>"; // NOT LOCALIZABLE
-        text += "<b>" + colheader + "</b><br>"; // NOT LOCALIZABLE
+        StringBuilder text = new StringBuilder();
+        text.append("<html>"); // NOT LOCALIZABLE
+        text.append("<b>").append(colheader).append("</b><br>"); // NOT LOCALIZABLE
 
         if (value == null || value instanceof Image) {
             ListTableModel model = getListTableModel();
@@ -870,7 +879,7 @@ public class ListTable extends JTable implements ActionListener, MouseMotionList
 
         String sValue = value.toString();
         if (sValue.indexOf("\n") < 0) { // NOT LOCALIZABLE
-            text += sValue;
+            text.append(sValue);
             ToolTipManager.sharedInstance().setDismissDelay(defaultTooltipDismissDelay);
         } else {
             StringTokenizer st = new StringTokenizer(sValue, ",.©®(;:?!<>& \n\"", true);  // NOT LOCALIZABLE
@@ -881,46 +890,46 @@ public class ListTable extends JTable implements ActionListener, MouseMotionList
                     && linecount < MAX_LINE_COUNT_IN_TOOLTIPS) {
                 String token = st.nextToken();
                 if (token.equals("\n")) { // NOT LOCALIZABLE
-                    text += "<br>"; // NOT LOCALIZABLE
+                    text.append("<br>"); // NOT LOCALIZABLE
                     linecount++;
                     charinline = 0;
                 } else if (token.equals("<")) {
-                    text += LT;
+                    text.append(LT);
                     charinline += 1;
                 } else if (token.equals(">")) {
-                    text += GT;
+                    text.append(GT);
                     charinline += 1;
                 } else if (token.equals("&")) {
-                    text += AMP;
+                    text.append(AMP);
                     charinline += 1;
                 } else if (token.equals("\"")) {
-                    text += QUOT;
+                    text.append(QUOT);
                     charinline += 1;
                 } else if (token.equals("©")) {
-                    text += COPY;
+                    text.append(COPY);
                     charinline += 1;
                 } else if (token.equals("®")) {
-                    text += REG;
+                    text.append(REG);
                     charinline += 1;
                 } else if (charinline >= MAX_CHAR_PER_LINE) { // NOT LOCALIZABLE
-                    text += "<br>"; // NOT LOCALIZABLE
+                    text.append("<br>"); // NOT LOCALIZABLE
                     linecount++;
                     charinline = 0;
-                    text += (token.equals(" ") ? NBSP : token);
+                    text.append(token.equals(" ") ? NBSP : token);
                     charinline += token.length();
                 } else {
-                    text += (token.equals(" ") ? NBSP : token);
+                    text.append(token.equals(" ") ? NBSP : token);
                     charinline += token.length();
                 }
                 count += token.length();
             }
             if (count >= MAX_CHAR_COUNT_IN_TOOLTIPS || linecount >= MAX_LINE_COUNT_IN_TOOLTIPS)
-                text += "<br><b>...</b>"; // NOT LOCALIZABLE
+                text.append("<br><b>...</b>"); // NOT LOCALIZABLE
             ToolTipManager.sharedInstance().setDismissDelay(LONG_TEXT_TOOLTIPS_DELAY);
         }
 
-        text += "</html>"; // NOT LOCALIZABLE
-        setToolTipText(text);
+        text.append("</html>"); // NOT LOCALIZABLE
+        setToolTipText(text.toString());
     }
 
     public void mouseClicked(MouseEvent e) {

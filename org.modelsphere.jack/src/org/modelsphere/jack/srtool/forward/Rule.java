@@ -43,20 +43,28 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.awt.event.ActionEvent;
-import java.io.*;
-import java.util.*;
-import java.text.MessageFormat;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.gui.task.Controller;
-import org.modelsphere.jack.plugins.*;
+import org.modelsphere.jack.plugins.Plugin;
+import org.modelsphere.jack.plugins.PluginSelectionListener;
+import org.modelsphere.jack.plugins.PluginSignature;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.MainFrameMenu;
-import org.modelsphere.jack.srtool.forward.exceptions.*;
+import org.modelsphere.jack.srtool.forward.exceptions.ErrorInRuleException;
+import org.modelsphere.jack.srtool.forward.exceptions.NoEqualCharacterRuleException;
+import org.modelsphere.jack.srtool.forward.exceptions.VariableNotDefinedRuleException;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.Writer;
+import java.text.MessageFormat;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Vector;
 
 /**
  * A Rule variable is a variable on which the operation expand() can be performed. Rule is an
@@ -140,6 +148,7 @@ public abstract class Rule implements Plugin, Serializable {
 
     //////////////////
     //OVERRIDES Object
+    @Override
     public String toString() {
         return m_ruleName;
     }
@@ -338,7 +347,7 @@ public abstract class Rule implements Plugin, Serializable {
             return false;
         }
 
-        List excludeList = options.getExcludeList();
+        List<?> excludeList = options.getExcludeList();
 
         if (excludeList != null) {
             if (excludeList.contains(className)) {
@@ -358,7 +367,7 @@ public abstract class Rule implements Plugin, Serializable {
             return false;
         }
 
-        List excludeList = options.getExcludeList();
+        List<?> excludeList = options.getExcludeList();
 
         if (obj != null) {
             if (obj instanceof DbObject) {
@@ -400,17 +409,17 @@ public abstract class Rule implements Plugin, Serializable {
 
         //Used by Property rules, ignored by others
         //If a property's name is contained in the excludeList, then doesn't generate the property
-        private List m_propertyExcludeList;
+        private List<?> m_propertyExcludeList;
 
         public RuleOptions(DbObject refObject, MetaField[] metafields, Controller controller,
-                List excludeList) {
+                List<?> excludeList) {
             m_refObject = refObject;
             m_metafields = metafields;
             m_controller = controller;
             m_propertyExcludeList = excludeList;
         }
 
-        List getExcludeList() {
+        List<?> getExcludeList() {
             return m_propertyExcludeList;
         }
 

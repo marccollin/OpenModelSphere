@@ -50,10 +50,10 @@ public final class ORPNGParameters {
             Integer length, Boolean unique, Integer nbrCharByWord, ORPNGCase c) {
         conceptMC = metaclass;
         this.status = status.getValue();
-        this.replacementChar = replacementChar.toString();
-        this.length = length.intValue();
-        this.unique = unique.booleanValue();
-        this.nbrCharByWord = nbrCharByWord.intValue();
+        this.replacementChar = replacementChar;
+        this.length = length;
+        this.unique = unique;
+        this.nbrCharByWord = nbrCharByWord;
         casePNG = c.getValue();
     }
 
@@ -86,23 +86,23 @@ public final class ORPNGParameters {
     }
 
     public final Boolean isUnique() {
-        return new Boolean(unique);
+        return unique;
     }
 
     public final void setUnique(Boolean b) {
-        unique = b.booleanValue();
+        unique = b;
     }
 
     public final Integer getLength() {
-        return new Integer(length);
+        return length;
     }
 
     public final void setLength(Integer i) {
-        length = i.intValue();
+        length = i;
     }
 
     public final Integer getNbrCharByWord() {
-        return new Integer(nbrCharByWord);
+        return nbrCharByWord;
     }
 
     public final void setNbrCharByWord(Integer i) {

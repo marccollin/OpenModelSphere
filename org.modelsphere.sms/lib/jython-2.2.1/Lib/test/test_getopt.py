@@ -3,7 +3,9 @@
 
 import getopt
 from getopt import GetoptError
+
 from test_support import verify, verbose
+
 
 def expectException(teststr, expected, failure=AssertionError):
     """Executes a statement passed in teststr, and raises an exception

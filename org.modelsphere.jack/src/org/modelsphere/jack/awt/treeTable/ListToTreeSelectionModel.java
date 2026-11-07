@@ -43,13 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.treeTable;
 
-import javax.swing.ListSelectionModel;
+import org.modelsphere.jack.awt.treeTable.TreeTable.TreeTableCellRenderer;
+
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.tree.DefaultTreeSelectionModel;
 import javax.swing.tree.TreePath;
-
-import org.modelsphere.jack.awt.treeTable.TreeTable.TreeTableCellRenderer;
 
 class ListToTreeSelectionModel extends DefaultTreeSelectionModel {
     protected boolean updatingListSelectionModel;
@@ -106,6 +106,7 @@ class ListToTreeSelectionModel extends DefaultTreeSelectionModel {
     }
 
     class ListSelectionHandler implements ListSelectionListener {
+        @Override
         public void valueChanged(ListSelectionEvent e) {
             updateSelectedPathsFromSelectedRows();
         }

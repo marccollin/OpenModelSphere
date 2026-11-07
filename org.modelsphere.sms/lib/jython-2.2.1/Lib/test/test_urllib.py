@@ -1,6 +1,7 @@
 # Minimal test of the quote function
-from test_support import verify, verbose
 import urllib
+
+from test_support import verify
 
 chars = 'abcdefghijklmnopqrstuvwxyz'\
         '\337\340\341\342\343\344\345\346\347\350\351\352\353\354\355\356' \

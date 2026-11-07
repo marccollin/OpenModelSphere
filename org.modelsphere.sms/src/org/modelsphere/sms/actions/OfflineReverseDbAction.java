@@ -33,18 +33,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.swing.JFileChooser;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.sms.international.LocaleMgr;
 import org.modelsphere.sms.or.features.dbms.DBMSReverseOptions;
 import org.modelsphere.sms.or.features.dbms.ReverseToolkitPlugin;
+
+import javax.swing.*;
+import java.io.File;
 
 /**
  * 
@@ -62,10 +59,7 @@ public final class OfflineReverseDbAction extends AbstractApplicationAction {
     protected final void doActionPerformed() {
         JFileChooser chooser = new JFileChooser(ApplicationContext.getDefaultWorkingDirectory());
 
-        ArrayList filters = ReverseToolkitPlugin.getExtensionFileFilters();
-        Iterator iter = filters.iterator();
-        while (iter.hasNext()) {
-            ExtensionFileFilter filter = (ExtensionFileFilter) iter.next();
+        for (ExtensionFileFilter filter : ReverseToolkitPlugin.getExtensionFileFilters()) {
             chooser.addChoosableFileFilter(filter);
         }
 

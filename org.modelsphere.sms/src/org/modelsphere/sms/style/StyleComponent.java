@@ -33,14 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.style;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.srtypes.DbtPrefix;
@@ -49,6 +41,9 @@ import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.sms.db.DbSMSStyle;
 import org.modelsphere.sms.db.srtypes.SMSDisplayDescriptor;
 import org.modelsphere.sms.or.db.srtypes.ORDescriptorFormat;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class StyleComponent extends JPanel {
 

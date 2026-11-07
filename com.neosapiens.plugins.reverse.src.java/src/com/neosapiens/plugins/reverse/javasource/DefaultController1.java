@@ -43,33 +43,18 @@ open-modelsphere@grandite.com
 
 package com.neosapiens.plugins.reverse.javasource;
 
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import javax.swing.Box;
-import javax.swing.Icon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.UIManager;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.JTextAreaFix;
 import org.modelsphere.jack.gui.task.GuiController;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.ApplicationContext;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 public class DefaultController1 extends GuiController {
@@ -315,7 +300,6 @@ public class DefaultController1 extends GuiController {
         try {
             logWriter = new FileWriter(logFileName, false);
         } catch (IOException e) {
-            logWriter = null;
         }
         return logWriter;
     }

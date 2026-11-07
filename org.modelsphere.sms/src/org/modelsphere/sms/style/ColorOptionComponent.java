@@ -33,21 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.style;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-
 import org.modelsphere.jack.awt.AbstractTableCellEditor;
 import org.modelsphere.jack.awt.ColorIcon;
 import org.modelsphere.jack.awt.JackColorChooser;
@@ -55,6 +40,13 @@ import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ColorOptionComponent extends OptionComponent {
 

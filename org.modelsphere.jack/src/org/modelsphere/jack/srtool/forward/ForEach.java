@@ -43,16 +43,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.Writer;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.Hashtable;
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import org.modelsphere.jack.srtool.forward.exceptions.EndlessLoopRuleException;
 import org.modelsphere.jack.srtool.forward.exceptions.VariableNotDefinedRuleException;
 import org.modelsphere.jack.templates.GenericModifierStructure;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
 
 public class ForEach extends Rule {
 
@@ -118,7 +119,7 @@ public class ForEach extends Rule {
 
         // start iterator
         int currentValue = m_start.evaluate(obj);
-        m_targetVariable.setValue(new Integer(currentValue));
+        m_targetVariable.setValue(Integer.valueOf(currentValue));
 
         // while end value not reached
         int nbIterations = 0;
@@ -133,7 +134,7 @@ public class ForEach extends Rule {
 
             // increment iterator
             currentValue++;
-            m_targetVariable.setValue(new Integer(currentValue));
+            m_targetVariable.setValue(Integer.valueOf(currentValue));
 
             // prevent endless loop
             nbIterations++;
@@ -151,8 +152,8 @@ public class ForEach extends Rule {
             throws /* DbException, */IOException, RuleException {
         boolean expanded = false;
 
-        ArrayList list = (ArrayList) m_list.getValue();
-        Iterator iter = list.iterator();
+        List<?> list = (List<?>) m_list.getValue();
+        Iterator<?> iter = list.iterator();
         while (iter.hasNext()) {
             // set enumerator
             Serializable o = (Serializable) iter.next();
@@ -170,11 +171,11 @@ public class ForEach extends Rule {
         boolean expanded = false;
 
         // find duplicates
-        ArrayList list = (ArrayList) m_list.getValue();
-        ArrayList uniList = new ArrayList(); // list of unique occurrences
-        ArrayList dupList = new ArrayList(); // list od duplicated occurrences
+        List<?> list = (List<?>) m_list.getValue();
+        List<Serializable> uniList = new ArrayList<>(); // list of unique occurrences
+        List<Serializable> dupList = new ArrayList<>(); // list od duplicated occurrences
 
-        Iterator iter = list.iterator();
+        Iterator<?> iter = list.iterator();
         while (iter.hasNext()) {
             Serializable o = (Serializable) iter.next();
 
@@ -216,4 +217,3 @@ public class ForEach extends Rule {
     } // end expand()
 
 } // end ForEach
-

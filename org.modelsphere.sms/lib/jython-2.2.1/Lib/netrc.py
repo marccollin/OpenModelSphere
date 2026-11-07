@@ -2,7 +2,8 @@
 
 # Module and documentation by Eric S. Raymond, 21 Dec 1998
 
-import os, shlex
+import os
+import shlex
 
 __all__ = ["netrc", "NetrcParseError"]
 

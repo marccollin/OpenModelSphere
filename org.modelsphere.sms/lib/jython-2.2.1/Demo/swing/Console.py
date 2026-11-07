@@ -10,15 +10,17 @@ ideas for this tool -- his JPConsole is a more refined implementation
 of similar ideas.
 """
 
-from Styles import Styles
-from Keymap import Keymap
-
-from pawt import swing, colors
-from java.awt.event.KeyEvent import VK_UP, VK_DOWN
+import re
+import string
+import sys
+from code import compile_command
 from java.awt.event import ActionEvent
 from java.lang import Thread, System
-from code import compile_command
-import string, sys, re
+from pawt import swing, colors
+
+from Keymap import Keymap
+from Styles import Styles
+
 
 class OutputBuffer:
 	def __init__(self, console, stylename):

@@ -45,8 +45,8 @@ package org.modelsphere.jack.awt.dirchooser;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionListener;
-import java.io.*;
 import java.awt.*;
+import java.io.File;
 
 class FileSystemTreePanel extends JPanel {
     private JTree tree;

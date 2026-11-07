@@ -33,10 +33,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.java.genmeta;
 
-import java.io.File;
-import org.modelsphere.jack.srtool.forward.JackForwardEngineeringPlugin;
-import org.modelsphere.jack.srtool.forward.ForwardOptions;
 import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.srtool.forward.ForwardOptions;
+import org.modelsphere.jack.srtool.forward.JackForwardEngineeringPlugin;
+
+import java.io.File;
 
 final class DbForwardOptions implements ForwardOptions {
     private JackForwardEngineeringPlugin m_forward = null;

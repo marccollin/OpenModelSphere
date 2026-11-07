@@ -43,18 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.util;
 
-import java.awt.FontMetrics;
+import org.modelsphere.jack.debug.TestException;
+import org.modelsphere.jack.debug.Testable;
+import org.modelsphere.jack.international.LocaleMgr;
+
+import java.awt.*;
 import java.io.File;
 import java.io.StringWriter;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
-
-import org.modelsphere.jack.debug.TestException;
-import org.modelsphere.jack.debug.Testable;
-import org.modelsphere.jack.international.LocaleMgr;
 
 /**
  * Utility methods for String processing.
@@ -500,7 +500,7 @@ public final class StringUtil implements Testable {
     //
     // UK equivalent
     //
-    private static HashMap g_ukMapping = null;
+    private static Map g_ukMapping = null;
 
     public static String getUKEquivalent(String str) {
         /*

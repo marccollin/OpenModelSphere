@@ -1,6 +1,6 @@
-from test_support import *
-
 import time
+
+from test_support import *
 
 print_test('time (test_time.py)', 1)
 

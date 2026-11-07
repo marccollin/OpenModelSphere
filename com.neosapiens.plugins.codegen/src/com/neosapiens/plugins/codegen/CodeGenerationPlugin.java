@@ -45,17 +45,16 @@ Email: marco.savard@neosapiens.com
 
 package com.neosapiens.plugins.codegen;
 
-import java.awt.event.ActionEvent;
-import java.io.File;
-import java.util.List;
-
-import javax.swing.JFrame;
-
+import com.neosapiens.plugins.codegen.international.LocaleMgr;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.gui.task.DefaultController;
 import org.modelsphere.jack.gui.task.Worker;
-import org.modelsphere.jack.plugins.*;
+import org.modelsphere.jack.plugins.Plugin2;
+import org.modelsphere.jack.plugins.PluginAction;
+import org.modelsphere.jack.plugins.PluginSelectionListener;
+import org.modelsphere.jack.plugins.PluginServices;
+import org.modelsphere.jack.plugins.PluginSignature;
 import org.modelsphere.jack.preference.OptionGroup;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
@@ -65,7 +64,10 @@ import org.modelsphere.sms.oo.java.db.DbJVClassModel;
 import org.modelsphere.sms.oo.java.db.DbJVPackage;
 import org.modelsphere.sms.or.db.DbORTable;
 
-import com.neosapiens.plugins.codegen.international.LocaleMgr;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.util.List;
 
 public class CodeGenerationPlugin implements Plugin2 {
     private CodeGenerationDialog exportDialog;
@@ -100,8 +102,7 @@ public class CodeGenerationPlugin implements Plugin2 {
     @Override
     public PluginAction getPluginAction() {
         String name = LocaleMgr.misc.getString("CodeGeneration") + "...";
-        PluginAction action = new PluginAction(this, name);
-        return action;
+        return new PluginAction(this, name);
     }
 
     @Override

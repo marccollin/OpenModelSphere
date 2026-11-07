@@ -33,12 +33,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.integrity;
 
-import java.awt.event.ActionEvent;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.plugins.*;
+import org.modelsphere.jack.plugins.Plugin2;
+import org.modelsphere.jack.plugins.PluginAction;
+import org.modelsphere.jack.plugins.PluginSelectionListener;
+import org.modelsphere.jack.plugins.PluginServices;
+import org.modelsphere.jack.plugins.PluginSignature;
 import org.modelsphere.jack.preference.OptionGroup;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.MainFrameMenu;
@@ -46,7 +48,14 @@ import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.sms.SMSFilter;
 import org.modelsphere.sms.be.db.DbBEDiagram;
 import org.modelsphere.sms.be.db.DbBEModel;
-import org.modelsphere.sms.or.db.*;
+import org.modelsphere.sms.or.db.DbORCommonItemModel;
+import org.modelsphere.sms.or.db.DbORDataModel;
+import org.modelsphere.sms.or.db.DbORDiagram;
+import org.modelsphere.sms.or.db.DbORDomainModel;
+import org.modelsphere.sms.or.db.DbORModel;
+import org.modelsphere.sms.or.db.DbOROperationLibrary;
+
+import java.awt.event.ActionEvent;
 
 public final class IntegrityPlugin extends AbstractIntegrity implements Plugin2, PluginSelectionListener {
     private static final String IS_VALIDATED = org.modelsphere.sms.international.LocaleMgr.db

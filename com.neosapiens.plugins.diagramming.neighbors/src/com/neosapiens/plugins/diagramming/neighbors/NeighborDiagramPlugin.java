@@ -45,33 +45,51 @@ Email: marco.savard@neosapiens.com
 
 package com.neosapiens.plugins.diagramming.neighbors;
 
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.jack.graphic.GraphicComponent;
 import org.modelsphere.jack.plugins.Plugin2;
 import org.modelsphere.jack.plugins.PluginAction;
 import org.modelsphere.jack.plugins.PluginSignature;
 import org.modelsphere.jack.preference.OptionGroup;
-import org.modelsphere.jack.srtool.*;
+import org.modelsphere.jack.srtool.ApplicationContext;
+import org.modelsphere.jack.srtool.DefaultMainFrame;
+import org.modelsphere.jack.srtool.FocusManager;
+import org.modelsphere.jack.srtool.MainFrameMenu;
 import org.modelsphere.jack.srtool.actions.PluginDefaultAction;
 import org.modelsphere.jack.srtool.forward.VariableScope;
-import org.modelsphere.jack.srtool.graphic.DbGraphic;
 import org.modelsphere.jack.srtool.graphic.DiagramInternalFrame;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.sms.db.DbSMSClassifierGo;
 import org.modelsphere.sms.db.DbSMSInheritanceGo;
 import org.modelsphere.sms.db.util.AnyGo;
-import org.modelsphere.sms.oo.db.*;
+import org.modelsphere.sms.oo.db.DbOOAdtGo;
+import org.modelsphere.sms.oo.db.DbOOAssociation;
+import org.modelsphere.sms.oo.db.DbOOAssociationEnd;
+import org.modelsphere.sms.oo.db.DbOOAssociationGo;
+import org.modelsphere.sms.oo.db.DbOOClass;
+import org.modelsphere.sms.oo.db.DbOODiagram;
+import org.modelsphere.sms.oo.db.DbOOInheritance;
 import org.modelsphere.sms.oo.forward.OOForwardEngineeringPlugin;
 import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.DbJVDataMember;
 import org.modelsphere.sms.oo.java.graphic.JVDiagramLayout;
-import org.modelsphere.sms.or.db.*;
+import org.modelsphere.sms.or.db.DbORAbsTable;
+import org.modelsphere.sms.or.db.DbORAssociation;
+import org.modelsphere.sms.or.db.DbORAssociationEnd;
+import org.modelsphere.sms.or.db.DbORChoiceOrSpecialization;
+import org.modelsphere.sms.or.db.DbORDiagram;
+import org.modelsphere.sms.or.db.DbORTable;
+import org.modelsphere.sms.or.db.DbORTableGo;
 import org.modelsphere.sms.or.graphic.ORDiagramLayout;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -317,7 +335,6 @@ public class NeighborDiagramPlugin extends OOForwardEngineeringPlugin implements
         //add choice's neighbors
         if (table instanceof DbORChoiceOrSpecialization) {
             DbORChoiceOrSpecialization choiceSpec = (DbORChoiceOrSpecialization)table;
-            
             
             enu = choiceSpec.getAssociations().elements(DbORAssociation.metaClass); 
             while (enu.hasMoreElements()) {

@@ -43,16 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins;
 
-import java.awt.Window;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
-import javax.swing.JMenu;
-
 import org.modelsphere.jack.actions.AbstractActionsStore;
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.awt.AwtUtil;
@@ -75,6 +65,15 @@ import org.modelsphere.jack.srtool.actions.PluginDefaultAction;
 import org.modelsphere.jack.srtool.actions.PluginGenerationAction;
 import org.modelsphere.jack.srtool.forward.JackForwardEngineeringPlugin;
 import org.modelsphere.jack.srtool.popupMenu.ApplicationPopupMenu;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Uses for reverse, forward and jdbc driver plugins.
@@ -166,13 +165,17 @@ public final class PluginMgr {
     // //////////////////
     
     public void loadPlugins(Splash splash, Class<? extends Plugin>[] builtInPlugins) {    	
-    	try {
+        try (PluginStartupTiming total = PluginStartupTiming.start("load.total")) {
         	//load old-style plug-ins
-        	loadOldPlugins(splash, builtInPlugins);
+            try (PluginStartupTiming timing = PluginStartupTiming.start("legacy.load")) {
+                loadOldPlugins(splash, builtInPlugins);
+            }
         	
         	//load new-style plug-ins
         	XmlPluginInstaller installer = XmlPluginInstaller.getInstance();
-        	installer.installSignatures(splash, pluginsRegistry); 
+            try (PluginStartupTiming timing = PluginStartupTiming.start("xml.discovery")) {
+                installer.installSignatures(splash, pluginsRegistry);
+            }
     	} finally {
     		splashWindow = null;
             pluginsLoaded = true;
@@ -180,12 +183,15 @@ public final class PluginMgr {
     }
     
     public final void initPlugins(Splash splash) {    
-    	//init old-style plug-ins
-    	initOldPlugins(splash);
-    	
-    	//init new-style plug-ins
-    	XmlPluginInstaller installer = XmlPluginInstaller.getInstance();
-    	installer.install(splash, pluginsRegistry); 
+        try (PluginStartupTiming total = PluginStartupTiming.start("init.total")) {
+            try (PluginStartupTiming timing = PluginStartupTiming.start("legacy.install")) {
+                initOldPlugins(splash);
+            }
+            XmlPluginInstaller installer = XmlPluginInstaller.getInstance();
+            try (PluginStartupTiming timing = PluginStartupTiming.start("xml.install")) {
+                installer.install(splash, pluginsRegistry);
+            }
+        }
     }
 
     private void loadOldPlugins(Splash splash, Class<? extends Plugin>[] builtInPlugins) {
@@ -199,18 +205,20 @@ public final class PluginMgr {
 
         ((BuiltInPluginLoader) PluginLoader.getBuiltInInstance()).setBuiltInPlugins(builtInPlugins);
 
-        ArrayList<PluginDescriptor> tempPlugins = new ArrayList<PluginDescriptor>();
+        List<PluginDescriptor> tempPlugins = new ArrayList<PluginDescriptor>();
 
         // add built ins first
         if (builtInPlugins != null) {
-            List<PluginDescriptor> pluginDescriptors = PluginLoader.getBuiltInInstance().scan();
-            for (PluginDescriptor pluginDescriptor : pluginDescriptors) {
-                tempPlugins.add(pluginDescriptor);
+            try (PluginStartupTiming timing = PluginStartupTiming.start("legacy.scan.builtin")) {
+                List<PluginDescriptor> pluginDescriptors = PluginLoader.getBuiltInInstance().scan();
+                for (PluginDescriptor pluginDescriptor : pluginDescriptors) {
+                    tempPlugins.add(pluginDescriptor);
+                }
             }
         }
 
         // keep Plugin classes not instance of Rule class (must be init after all Rule plugins)
-        ArrayList<PluginDescriptor> notRuleClassStructs = new ArrayList<PluginDescriptor>();
+        List<PluginDescriptor> notRuleClassStructs = new ArrayList<PluginDescriptor>();
 
         PluginsConfiguration pluginsConfiguration = PluginsConfiguration.getSingleton();
 
@@ -220,11 +228,37 @@ public final class PluginMgr {
         List<PluginDescriptor> scannedPlugins = new ArrayList<PluginDescriptor>();
         List<PluginDescriptor> configuredPlugins = new ArrayList<PluginDescriptor>();
 
-        boolean configurationLoaded = pluginsConfiguration.load(configuredPlugins);
+        boolean configurationLoaded;
+        try (PluginStartupTiming timing = PluginStartupTiming.start("legacy.configuration")) {
+            configurationLoaded = pluginsConfiguration.load(configuredPlugins);
+        }
         PluginLoader xmlPluginLoader = PluginLoader.getXMLInstance();
-        List<PluginDescriptor> xmlPlugins = xmlPluginLoader.scan();
+        List<PluginDescriptor> xmlPlugins;
+        try (PluginStartupTiming timing = PluginStartupTiming.start("legacy.scan.xml")) {
+            xmlPlugins = xmlPluginLoader.scan();
+        }
+
+        if (splashWindow != null)
+            splashWindow.setGUIText(kScanning);
+        try (PluginStartupTiming timing = PluginStartupTiming.start("legacy.scan.jar")) {
+            scannedPlugins.addAll(PluginLoader.getJARInstance().scan());
+        }
+        try (PluginStartupTiming timing = PluginStartupTiming.start("legacy.scan.class")) {
+            scannedPlugins.addAll(PluginLoader.getClassInstance().scan());
+        }
 
         if (configurationLoaded) {
+            // Apply saved settings to scanned plugins, and include plugins added since
+            // the configuration was last saved.
+            for (PluginDescriptor scannedPlugin : scannedPlugins) {
+                int index = configuredPlugins.indexOf(scannedPlugin);
+                if (index > -1) {
+                    PluginDescriptor configuredPlugin = configuredPlugins.get(index);
+                    PluginLoader.applyConfiguration(scannedPlugin, configuredPlugin);
+                    configuredPlugins.remove(index);
+                }
+            }
+
             // Check if the scanned plugin (from xml) has a saved configuration.
             // If so, use the entry from the scanning and apply the configurable 
             // properties from the configuration to it. (This ensure that all the xml properties
@@ -243,20 +277,9 @@ public final class PluginMgr {
             configuredPlugins.removeIf(configuredPlugin -> configuredPlugin.getContext().getLoader() == xmlPluginLoader
                     && !xmlPlugins.contains(configuredPlugin));
             tempPlugins.addAll(configuredPlugins);
-        } else {
-            if (splashWindow != null)
-                splashWindow.setGUIText(kScanning);
-            List<PluginDescriptor> plugins = PluginLoader.getJARInstance().scan();
-            for (PluginDescriptor pluginDescriptor : plugins) {
-                scannedPlugins.add(pluginDescriptor);
-            }
-            plugins = PluginLoader.getClassInstance().scan();
-            for (PluginDescriptor pluginDescriptor : plugins) {
-                scannedPlugins.add(pluginDescriptor);
-            }
-            tempPlugins.addAll(scannedPlugins);
         }
 
+        tempPlugins.addAll(scannedPlugins);
         tempPlugins.addAll(xmlPlugins);
 
         for (PluginDescriptor pluginDescriptor : tempPlugins) {
@@ -317,7 +340,10 @@ public final class PluginMgr {
                 if (!initPluginInstance(pluginDescriptor)) {
                     iter.remove();
                 } else if (isActive(pluginDescriptor)) {
-                    initPluginAction(pluginDescriptor);
+                    try (PluginStartupTiming timing = PluginStartupTiming.start(
+                            "legacy.action", pluginDescriptor.getClassName())) {
+                        initPluginAction(pluginDescriptor);
+                    }
                 }
             }
         }
@@ -344,7 +370,7 @@ public final class PluginMgr {
 
     private class PopupMap {
         Class<?> clazz;
-        ArrayList<String> keys = new ArrayList<String>();
+        List<String> keys = new ArrayList<String>();
 
         PopupMap(Class<?> c) {
             this.clazz = c;
@@ -401,7 +427,7 @@ public final class PluginMgr {
         MainFrameMenu menumanager = frame.getMainFrameMenu();
 
         Iterator<PluginDescriptor> iter = pluginsRegistry.iterator();
-        ArrayList<String> separatorAdded = new ArrayList<String>(5);
+        List<String> separatorAdded = new ArrayList<String>(5);
         AbstractActionsStore actionstore = ApplicationContext.getActionStore();
 
         while (iter.hasNext()) {
@@ -410,7 +436,8 @@ public final class PluginMgr {
                 continue;
             }
             Plugin plugin = pluginDescriptor.getContext().getInstance();
-            try {
+            try (PluginStartupTiming timing = PluginStartupTiming.start(
+                    "legacy.installAction", pluginDescriptor.getClassName())) {
                 String menukey = plugin.installAction(frame, menumanager);
                 String actionkey = plugin.getClass().getName();
                 AbstractApplicationAction action = actionstore.getAction(actionkey);
@@ -432,8 +459,8 @@ public final class PluginMgr {
         }
 
         ApplicationPopupMenu applpopup = ApplicationContext.getApplPopupMenu();
-        HashMap<Class<? extends Object>, PopupMap> popupmaps = new HashMap<Class<? extends Object>, PopupMap>();
-        ArrayList<String> actionkeys = new ArrayList<String>();
+        Map<Class<? extends Object>, PopupMap> popupmaps = new HashMap<Class<? extends Object>, PopupMap>();
+        List<String> actionkeys = new ArrayList<String>();
 
         Iterator<PluginDescriptor> iter2 = pluginsRegistry.iterator();
         while (iter2.hasNext()) {
@@ -461,7 +488,7 @@ public final class PluginMgr {
         }
 
         Iterator<Class<? extends Object>> iter3 = popupmaps.keySet().iterator();
-        ArrayList<Object> popups = new ArrayList<Object>();
+        List<Object> popups = new ArrayList<Object>();
         while (iter3.hasNext()) {
             PopupMap map = (PopupMap) popupmaps.get(iter3.next());
             Object[] actionkeysobj = map.keys.toArray();
@@ -544,13 +571,19 @@ public final class PluginMgr {
     private boolean initPluginClass(PluginDescriptor pluginDescriptor) {
         PluginContext context = pluginDescriptor.getContext();
         PluginLoader loader = context == null ? null : context.getLoader();
-        return loader.initPluginClass(pluginDescriptor, splashWindow);
+        try (PluginStartupTiming timing = PluginStartupTiming.start(
+                "legacy.class", pluginDescriptor.getClassName())) {
+            return loader.initPluginClass(pluginDescriptor, splashWindow);
+        }
     }
 
     private boolean initPluginInstance(PluginDescriptor pluginDescriptor) {
         PluginContext context = pluginDescriptor.getContext();
         PluginLoader loader = context == null ? null : context.getLoader();
-        return loader.initPluginInstance(pluginDescriptor, splashWindow);
+        try (PluginStartupTiming timing = PluginStartupTiming.start(
+                "legacy.instance", pluginDescriptor.getClassName())) {
+            return loader.initPluginInstance(pluginDescriptor, splashWindow);
+        }
     }
 
     public void showConfigurationDialog() {

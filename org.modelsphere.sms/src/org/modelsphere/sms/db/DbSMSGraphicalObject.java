@@ -32,8 +32,6 @@ open-modelsphere@grandite.com
 **********************************************************************/
 package org.modelsphere.sms.db;
 
-import java.awt.Rectangle;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbGraphicalObjectI;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -44,6 +42,8 @@ import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.baseDb.meta.MetaRelation1;
 import org.modelsphere.jack.baseDb.meta.MetaRelationN;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.awt.*;
 
 /**
 <b>Direct subclass(es)/subinterface(s) : </b><A HREF="../../../../org/modelsphere/sms/db/DbSMSImageGo.html">DbSMSImageGo</A>, <A HREF="../../../../org/modelsphere/sms/db/DbSMSStampGo.html">DbSMSStampGo</A>, <A HREF="../../../../org/modelsphere/sms/db/DbSMSClassifierGo.html">DbSMSClassifierGo</A>, <A HREF="../../../../org/modelsphere/sms/db/DbSMSLineGo.html">DbSMSLineGo</A>, <A HREF="../../../../org/modelsphere/sms/db/DbSMSUserTextGo.html">DbSMSUserTextGo</A>, <A HREF="../../../../org/modelsphere/sms/db/DbSMSPackageGo.html">DbSMSPackageGo</A>, <A HREF="../../../../org/modelsphere/sms/db/DbSMSFreeGraphicGo.html">DbSMSFreeGraphicGo</A>, <A HREF="../../../../org/modelsphere/sms/db/DbSMSCommonItemGo.html">DbSMSCommonItemGo</A>, <A HREF="../../../../org/modelsphere/sms/db/DbSMSNoticeGo.html">DbSMSNoticeGo</A>.<br>

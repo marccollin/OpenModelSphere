@@ -43,13 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
-
-import javax.swing.*;
 
 /**
  * This class provide a way to merge 2 icons in one. The first icon is a checkbox icon (specific UI)

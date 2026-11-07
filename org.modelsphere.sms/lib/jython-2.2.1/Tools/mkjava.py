@@ -1,5 +1,7 @@
+import sys
+import types
 from org.python.compiler import JavaMaker, ProxyMaker
-import sys, types
+
 
 def make(name, directory, jclass, pyclass, module, properties={}):
 	ps = ProxyMaker.getFile(directory, 'org.python.proxies.'+jclass)

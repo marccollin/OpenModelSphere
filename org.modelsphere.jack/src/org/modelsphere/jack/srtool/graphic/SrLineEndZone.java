@@ -44,8 +44,10 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.srtool.graphic;
 
 import org.modelsphere.jack.actions.ActionInformation;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.graphic.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.graphic.Diagram;
+import org.modelsphere.jack.graphic.LineEndZone;
 
 public class SrLineEndZone extends LineEndZone implements ActionInformation {
 

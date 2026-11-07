@@ -45,7 +45,8 @@ driver=org.postgresql.Driver
 datahandler=com.ziclix.python.sql.handler.PostgresqlDataHandler
 """
 
-import os, re
+import os
+import re
 from types import StringType
 
 __author__ = "brian zimmer (bzimmer@ziclix.com)"

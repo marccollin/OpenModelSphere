@@ -33,11 +33,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.notation;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.sms.or.db.DbORNotation;
+
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class NotationNode extends DefaultMutableTreeNode implements Comparable {
 

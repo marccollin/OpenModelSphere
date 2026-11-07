@@ -33,21 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.awt.Point;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.beans.PropertyVetoException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-
-import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
-
 import org.modelsphere.jack.actions.AbstractDomainAction;
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.actions.SelectionActionListener;
@@ -108,6 +93,17 @@ import org.modelsphere.sms.or.db.DbORTableGo;
 import org.modelsphere.sms.or.db.DbORTypeClassifier;
 import org.modelsphere.sms.or.graphic.ORChoiceSpecialization;
 import org.modelsphere.sms.or.oracle.db.DbORANestedTableStorage;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyVetoException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @SuppressWarnings("serial")
 public class SendToDiagramAction extends AbstractDomainAction implements SelectionActionListener {
@@ -320,7 +316,7 @@ public class SendToDiagramAction extends AbstractDomainAction implements Selecti
         ApplicationDiagram diagModel = diagFrame.getDiagram();
         DbSMSDiagram diagGO = (DbSMSDiagram) diagModel.getDiagramGO();
         diagGO.getDb().beginTrans(Db.WRITE_TRANS, kCreateGraphRep);
-        ArrayList<DbSMSGraphicalObject> graphicComponents = sendToDiagram(diagModel, objects);
+        List<DbSMSGraphicalObject> graphicComponents = sendToDiagram(diagModel, objects);
 
         // select the new graphical objects in the diagram
         diagModel.deselectAll();
@@ -380,7 +376,7 @@ public class SendToDiagramAction extends AbstractDomainAction implements Selecti
 
         DbSMSDiagram diagGO = (DbSMSDiagram) targetObjectContainer;
         diagGO.getDb().beginTrans(Db.WRITE_TRANS, kCreateGraphRep);
-        ArrayList<DbSMSGraphicalObject> graphicComponents = sendToDiagram(diagGO, dropObjects,
+        List<DbSMSGraphicalObject> graphicComponents = sendToDiagram(diagGO, dropObjects,
                 location);
 
         diagGO.getDb().commitTrans();
@@ -404,8 +400,7 @@ public class SendToDiagramAction extends AbstractDomainAction implements Selecti
         // select the new graphical objects in the diagram
         diagGO.getDb().beginTrans(Db.WRITE_TRANS, kCreateGraphRep);
         m_matchingAppDiag.deselectAll();
-        for (int i = 0; i < graphicComponents.size(); i++) {
-            DbSMSGraphicalObject go = graphicComponents.get(i);
+        for (DbSMSGraphicalObject go : graphicComponents) {
             if (go != null) {
                 GraphicComponent gc = (GraphicComponent) ((DbGraphicalObjectI) go).getGraphicPeer();
                 if (gc != null)
@@ -542,7 +537,7 @@ public class SendToDiagramAction extends AbstractDomainAction implements Selecti
     // If a line is selected, return also the DbGraphicalObjects corresponding to the nodes of the line
     private DbSMSGraphicalObject[] getSourceGos(Object[] objects, DbSMSDiagram diagGO)
             throws DbException {
-        HashSet srcGoSet = new HashSet(objects.length * 2);
+        Set<DbObject> srcGoSet = new HashSet<>(objects.length * 2);
         for (int i = 0; i < objects.length; i++) {
             if (objects[i] instanceof LineLabel || objects[i] instanceof Attachment)
                 continue;
@@ -571,23 +566,23 @@ public class SendToDiagramAction extends AbstractDomainAction implements Selecti
                 srcGoSet.add(((ActionInformation) objects[i]).getGraphicalObject());
         }
         DbSMSGraphicalObject[] srcGos = new DbSMSGraphicalObject[srcGoSet.size()];
-        return (DbSMSGraphicalObject[]) srcGoSet.toArray(srcGos);
+        return srcGoSet.toArray(srcGos);
     }
 
     private void translateDestGos(DbObject[] dstGos, int x, int y) throws DbException {
-        for (int i = 0; i < dstGos.length; i++) {
-            if (dstGos[i] instanceof DbSMSLineGo) {
-                Polygon poly = ((DbSMSLineGo) dstGos[i]).getPolyline();
+        for (DbObject dstGo : dstGos) {
+            if (dstGo instanceof DbSMSLineGo) {
+                Polygon poly = ((DbSMSLineGo) dstGo).getPolyline();
                 poly.translate(x, y);
-                ((DbSMSLineGo) dstGos[i]).setPolyline(poly);
-            } else if (dstGos[i] instanceof DbSMSFreeLineGo) {
-                Polygon poly = ((DbSMSFreeLineGo) dstGos[i]).getPolyline();
+                ((DbSMSLineGo) dstGo).setPolyline(poly);
+            } else if (dstGo instanceof DbSMSFreeLineGo) {
+                Polygon poly = ((DbSMSFreeLineGo) dstGo).getPolyline();
                 poly.translate(x, y);
-                ((DbSMSFreeLineGo) dstGos[i]).setPolyline(poly);
-            } else if (dstGos[i] != null) {
-                Rectangle rect = ((DbSMSGraphicalObject) dstGos[i]).getRectangle();
+                ((DbSMSFreeLineGo) dstGo).setPolyline(poly);
+            } else if (dstGo != null) {
+                Rectangle rect = ((DbSMSGraphicalObject) dstGo).getRectangle();
                 rect.translate(x, y);
-                ((DbSMSGraphicalObject) dstGos[i]).setRectangle(rect);
+                ((DbSMSGraphicalObject) dstGo).setRectangle(rect);
             } //end if
         } //end for
     } //end translateDestGos()
@@ -621,8 +616,8 @@ public class SendToDiagramAction extends AbstractDomainAction implements Selecti
             //if all objects do not belong to the same model node, reject the selection
             smsPackage = (DbSMSPackage) dbos[0].getCompositeOfType(DbBEModel.metaClass);
             if (smsPackage instanceof DbBEModel) {
-                for (int i = 0; i < dbos.length; i++) {
-                    if (!smsPackage.equals(dbos[i].getCompositeOfType(DbBEModel.metaClass))) {
+                for (DbObject dbo : dbos) {
+                    if (!smsPackage.equals(dbo.getCompositeOfType(DbBEModel.metaClass))) {
                         setDomainValues(null);
                         setEnabled(false);
                         return;
@@ -669,8 +664,8 @@ public class SendToDiagramAction extends AbstractDomainAction implements Selecti
         if (objects.length == 0)
             return null;
         boolean beContextInSelection = false;
-        for (int i = 0; i < objects.length; i++) {
-            if (objects[i] instanceof BEContext) {
+        for (Object object : objects) {
+            if (object instanceof BEContext) {
                 beContextInSelection = true;
                 break;
             }
@@ -735,10 +730,10 @@ public class SendToDiagramAction extends AbstractDomainAction implements Selecti
     // All selected objects must be GraphicComponents; there must not be only LineLabels
     private boolean isValidDiagramSelection(Object[] objects) {
         int nb = 0;
-        for (int i = 0; i < objects.length; i++) {
-            if (!(objects[i] instanceof GraphicComponent))
+        for (Object object : objects) {
+            if (!(object instanceof GraphicComponent))
                 return false;
-            if (!(objects[i] instanceof LineLabel || objects[i] instanceof Attachment))
+            if (!(object instanceof LineLabel || object instanceof Attachment))
                 nb++;
         }
         return (nb > 0);

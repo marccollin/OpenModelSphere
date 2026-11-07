@@ -43,21 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.dbms;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
-
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.gui.wizard.WizardPage;
@@ -67,6 +52,15 @@ import org.modelsphere.jack.srtool.services.NameListMessage;
 import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.sms.or.db.DbORUser;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 /**
  * 
@@ -231,8 +225,8 @@ public class DefaultSynchroOptionPage extends WizardPage {
             options.setRequestFile(kit.getSQLFileName_Gets(options));
 
             NameListMessage nameListMessage = DefaultReverseWizardOptionPage.getNameList(options);
-            ArrayList nameList = nameListMessage.nameList;
-            if (nameList.size() == 0)
+            List nameList = nameListMessage.nameList;
+            if (nameList.isEmpty())
                 return false;
 
             kit.processNameListMessage(options, nameListMessage);

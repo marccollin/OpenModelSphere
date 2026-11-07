@@ -42,10 +42,10 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.graphic.zone;
 
-import java.util.Vector;
-import java.awt.*;
+import org.modelsphere.jack.graphic.DiagramView;
 
-import org.modelsphere.jack.graphic.*;
+import java.awt.*;
+import java.util.List;
 
 /**
  * A CompositeCellRenderer is a renderer that use vector of other cellrenderer as an object data,
@@ -57,7 +57,7 @@ public class CompositeCellRenderer extends AbstractSelectionCellRenderer {
     // BEWARE: diagView is null for printing
     public final void paint(Graphics g, DiagramView diagView, Rectangle rect, Font font,
             Color color, int margin, int alignment, Cell cell) {
-        Vector renderers = (Vector) cell.getPaintData();
+        List<?> renderers = (List<?>) cell.getPaintData();
         if (renderers == null)
             return;
         Rectangle subRect = new Rectangle(rect);
@@ -65,7 +65,7 @@ public class CompositeCellRenderer extends AbstractSelectionCellRenderer {
         int count = renderers.size();
         for (int i = 0; i < count; i++) {
             CompositeCellRendererElement element = (CompositeCellRendererElement) renderers
-                    .elementAt(i);
+                    .get(i);
             subRect.width = element.getDataWidth();
             element.renderer.paint(g, diagView, subRect, font, color, 0, alignment, element);
             subRect.x += subRect.width;
@@ -73,14 +73,13 @@ public class CompositeCellRenderer extends AbstractSelectionCellRenderer {
     }
 
     public final Dimension getDimension(Graphics g, Font font, int margin, Cell cell, int fixedWidth) {
-        Vector renderers = (Vector) cell.getCellData();
+        List<?> renderers = (List<?>) cell.getCellData();
         Dimension dim = new Dimension(0, 0);
         if (renderers != null) {
             dim.width = margin * 2;
             int count = renderers.size();
-            for (int i = 0; i < count; i++) {
-                CompositeCellRendererElement element = (CompositeCellRendererElement) renderers
-                        .elementAt(i);
+            for (Object renderer : renderers) {
+                CompositeCellRendererElement element = (CompositeCellRendererElement) renderer;
                 Dimension d = element.renderer.getDimension(g, font, 0, element, 0);
                 dim.width += d.width;
                 if (dim.height < d.height)

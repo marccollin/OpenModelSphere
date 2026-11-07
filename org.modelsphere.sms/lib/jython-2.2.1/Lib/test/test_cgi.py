@@ -1,7 +1,9 @@
-from test_support import verify, verbose
 import cgi
 import os
 import sys
+
+from test_support import verify
+
 
 class HackedSysModule:
     # The regression test will have real values in sys.argv, which

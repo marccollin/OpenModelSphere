@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.Writer;
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.Writer;
 
 public class DollarSign extends EditionCode {
 

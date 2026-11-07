@@ -53,7 +53,6 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.actions.ExpandAllAction;
 import org.modelsphere.jack.srtool.actions.ShowDiagramAction;
-import org.modelsphere.jack.srtool.explorer.ExplorerPanel;
 import org.modelsphere.jack.srtool.explorer.ExplorerView;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;
@@ -63,8 +62,6 @@ import org.modelsphere.sms.be.db.DbBEModel;
 import org.modelsphere.sms.be.db.DbBEUseCase;
 import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.db.DbSMSPackage;
-import org.modelsphere.sms.db.DbSMSStereotype;
-import org.modelsphere.sms.db.DbSMSUmlExtensibility;
 import org.modelsphere.sms.db.util.DbUtility;
 import org.modelsphere.sms.graphic.SMSClassifierBox;
 import org.modelsphere.sms.international.LocaleMgr;
@@ -80,7 +77,6 @@ import org.modelsphere.sms.or.db.DbORDomainModel;
 import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 import org.modelsphere.sms.or.generic.db.DbGECheck;
 import org.modelsphere.sms.preference.DiagramAutomaticCreationOptionGroup;
-import org.modelsphere.sms.screen.SMSScreenPerspective;
 
 public final class AddAction extends org.modelsphere.jack.srtool.actions.AddAction {
     protected static final String kAddTransName0 = LocaleMgr.misc.getString("Add0");
@@ -211,7 +207,7 @@ public final class AddAction extends org.modelsphere.jack.srtool.actions.AddActi
                 bExpandModelNode = true;
             }
         }
-        return new Object[] { object, new Boolean(abortOverride), new Boolean(bExpandModelNode) };
+        return new Object[] { object, Boolean.valueOf(abortOverride), Boolean.valueOf(bExpandModelNode) };
     }
 
     private void autoCreateDiagramFrame(DbObject object) throws DbException {

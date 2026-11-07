@@ -33,37 +33,40 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.graphic;
 
-import java.awt.Image;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Vector;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.graphic.Diagram;
 import org.modelsphere.jack.graphic.GraphicNode;
 import org.modelsphere.jack.graphic.zone.CompositeCellRenderer;
+import org.modelsphere.jack.graphic.zone.CompositeCellRenderer.CompositeCellRendererElement;
 import org.modelsphere.jack.graphic.zone.ImageCellRenderer;
 import org.modelsphere.jack.graphic.zone.ZoneCell;
-import org.modelsphere.jack.graphic.zone.CompositeCellRenderer.CompositeCellRendererElement;
 import org.modelsphere.jack.srtool.graphic.SrAttachment;
 import org.modelsphere.sms.be.db.DbBEQualifier;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+
 public class BEQualifier extends SrAttachment {
 
-    public BEQualifier(Diagram diag, GraphicNode node, MetaField offsetMF, ArrayList qualifiers)
+    public BEQualifier(Diagram diag, GraphicNode node, MetaField offsetMF, List<DbBEQualifier> qualifiers)
             throws DbException {
         super(diag, node, offsetMF);
-        zone.setCellRenderer(new CompositeCellRenderer());
-        Iterator i = qualifiers.iterator();
-        Vector icons = new Vector();
-        while (i.hasNext()) {
-            DbBEQualifier qualifier = (DbBEQualifier) i.next();
+
+        CompositeCellRenderer renderer = new CompositeCellRenderer();
+        zone.setCellRenderer(renderer);
+
+        List<CompositeCellRendererElement> iconElements = new ArrayList<>();
+        for (DbBEQualifier qualifier : qualifiers) {
             Image icon = qualifier.getIcon();
-            if (icon != null)
-                icons.addElement(new CompositeCellRendererElement(new ImageCellRenderer(), icon));
+            if (icon != null) {
+                iconElements.add(new CompositeCellRendererElement(new ImageCellRenderer(), icon));
+            }
         }
-        zone.setValue(new ZoneCell(semObj, icons));
+
+        zone.setValue(new ZoneCell(semObj, new Vector<>(iconElements)));
     }
 
     // overridden

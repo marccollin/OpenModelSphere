@@ -43,10 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins.io;
 
-import java.awt.Image;
-import java.net.URL;
-import java.util.*;
-
 import org.modelsphere.jack.plugins.Plugin;
 import org.modelsphere.jack.plugins.PluginDescriptor;
 import org.modelsphere.jack.plugins.PluginSignature;
@@ -54,6 +50,13 @@ import org.modelsphere.jack.srtool.Splash;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import java.awt.*;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 public class BuiltInPluginLoader extends PluginLoader {
     private Class<? extends Plugin>[] builtInPlugins;

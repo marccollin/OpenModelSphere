@@ -1,8 +1,8 @@
-from test_support import TESTFN, TestFailed
-
 import os
 import random
 import sys
+
+from test_support import TESTFN, TestFailed
 
 # Brief digression to test that import is case-sensitive:  if we got this
 # far, we know for sure that "random" exists.
@@ -14,7 +14,6 @@ else:
     raise TestFailed("import of RAnDoM should have failed (case mismatch)")
 
 # Another brief digression to test the accuracy of manifest float constants.
-import double_const  # don't blink -- that *was* the test
 
 def test_with_extension(ext): # ext normally ".py"; perhaps ".pyw"
     source = TESTFN + ext

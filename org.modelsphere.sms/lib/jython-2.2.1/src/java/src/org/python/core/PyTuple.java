@@ -356,7 +356,7 @@ public class PyTuple extends PySequenceList implements ClassDictInit
             }
             PyObject iter = S.__iter__();
             // it's not always possible to know the length of the iterable
-            ArrayList a = new ArrayList(10);
+            List a = new ArrayList(10);
             for (PyObject item = null; (item = iter.__iternext__()) != null; ) {
                 a.add(item);
             }
@@ -367,7 +367,7 @@ public class PyTuple extends PySequenceList implements ClassDictInit
             }
             PyObject iter = S.__iter__();
             // it's not always possible to know the length of the iterable
-            ArrayList a = new ArrayList(10);
+            List a = new ArrayList(10);
             for (PyObject item = null; (item = iter.__iternext__()) != null; ) {
                 a.add(item);
             }

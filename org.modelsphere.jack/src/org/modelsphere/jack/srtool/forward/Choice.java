@@ -43,7 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.Hashtable;
 
 /**

@@ -1,9 +1,10 @@
 # Tests StringIO and cStringIO
 
-import unittest
 import StringIO
 import cStringIO
 import types
+import unittest
+
 import test_support
 
 

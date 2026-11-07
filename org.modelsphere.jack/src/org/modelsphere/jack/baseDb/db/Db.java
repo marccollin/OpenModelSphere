@@ -43,16 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db;
 
-import java.awt.Component;
-import java.lang.reflect.Constructor;
-import java.util.HashMap;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
 import org.modelsphere.jack.awt.NullFrame;
 import org.modelsphere.jack.awt.WaitDialog;
-import org.modelsphere.jack.baseDb.db.event.*;
+import org.modelsphere.jack.baseDb.db.event.DbListener;
+import org.modelsphere.jack.baseDb.db.event.DbRefreshListener;
+import org.modelsphere.jack.baseDb.db.event.DbRefreshPassListener;
+import org.modelsphere.jack.baseDb.db.event.DbTransListener;
+import org.modelsphere.jack.baseDb.db.event.DbUndoRedoListener;
+import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
+import org.modelsphere.jack.baseDb.db.event.DbUpdatePassListener;
 import org.modelsphere.jack.baseDb.db.srtypes.DbtPassword;
 import org.modelsphere.jack.baseDb.db.srtypes.UserType;
 import org.modelsphere.jack.baseDb.international.LocaleMgr;
@@ -66,6 +65,11 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.ExceptionMessage;
 import org.modelsphere.jack.util.SrVector;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Constructor;
+import java.util.HashMap;
 
 /**
  * This is the facade of the DB modeling framework. All the instances of DbObject belong to a Db
@@ -212,15 +216,15 @@ public abstract class Db {
                 String[] dbClassNames = new String[] { "DbGemStone", "DbObjectivity",
                         "DbObjectStore" }; // NOT LOCALIZABLE - Class name
                 //Db db = null;
-                for (int i = 0; i < dbClassNames.length; i++) {
+                for (String dbClassName : dbClassNames) {
                     try {
                         Class dbClass = Class.forName("org.modelsphere.jack.baseDb.db."
-                                + dbClassNames[i]); // NOT LOCALIZABLE - Package name
-                        Constructor dbConstructor = dbClass.getDeclaredConstructor(new Class[] {
-                                String.class, int.class, boolean.class });
-                        tempdb = (Db) dbConstructor.newInstance(new Object[] { rootName,
+                                + dbClassName); // NOT LOCALIZABLE - Package name
+                        Constructor dbConstructor = dbClass.getDeclaredConstructor(new Class[]{
+                                String.class, int.class, boolean.class});
+                        tempdb = (Db) dbConstructor.newInstance(new Object[]{rootName,
                                 converter.getCurrentVersion(),
-                                (convert ? Boolean.FALSE : Boolean.TRUE) });
+                                (convert ? Boolean.FALSE : Boolean.TRUE)});
                     } catch (ClassNotFoundException e1) {
                         Debug.trace(e1);
                         //org.modelsphere.jack.util.ExceptionHandler.processUncatchedException(null, e1);
@@ -345,7 +349,7 @@ public abstract class Db {
     public static void beginMatching() {
         if (DbObject.matchingMap != null)
             throw new RuntimeException("Matching facility already used"); // NOT LOCALIZABLE RuntimeException
-        DbObject.matchingMap = new HashMap();
+        DbObject.matchingMap = new HashMap<>();
     }
 
     public static void endMatching() {

@@ -43,11 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.model;
 
-import java.util.Enumeration;
-
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -66,6 +61,10 @@ import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.util.CollationComparator;
 import org.modelsphere.jack.util.DefaultComparableElement;
 import org.modelsphere.jack.util.SrVector;
+
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
+import java.util.Enumeration;
 
 public class DbListModel extends javax.swing.table.AbstractTableModel implements ListModel,
         DbRefreshListener, ListDataListener {

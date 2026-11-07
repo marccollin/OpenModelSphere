@@ -44,20 +44,14 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package com.neosapiens.plugins.reverse.java.ui;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.io.File;
-import java.text.MessageFormat;
-
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
-
-import org.modelsphere.jack.gui.task.Controller;
-
 import com.neosapiens.plugins.reverse.java.ReverseJavaBytecodeParameters;
 import com.neosapiens.plugins.reverse.java.international.LocaleMgr;
+import org.modelsphere.jack.gui.task.Controller;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.text.MessageFormat;
 
 public class ReverseJavaBytecodeWizardPage2 extends WizardPage {
     private static final long serialVersionUID = 1L;

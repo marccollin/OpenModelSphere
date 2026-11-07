@@ -34,18 +34,18 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.data;
 
-import java.awt.Rectangle;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Set;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.plugins.html.browser.htmlgeneration.DiagramGenerator;
 import org.modelsphere.plugins.html.browser.htmlgeneration.HTMLGenerationHelper;
 import org.modelsphere.plugins.html.browser.htmlgeneration.PropertiesFileGenerator;
 import org.modelsphere.plugins.html.browser.io.IndentWriter;
 import org.modelsphere.sms.db.DbSMSDiagram;
+
+import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This class represent all the data present in a diagram.

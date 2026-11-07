@@ -43,16 +43,22 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.services;
 
-import java.io.*;
-import java.sql.*;
-import java.util.HashMap;
-import java.util.Properties;
-
 import org.modelsphere.jack.preference.DriverInfo;
 import org.modelsphere.jack.preference.DriversManager;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
-import org.modelsphere.jack.srtool.services.ConnectionMessage;
-import org.modelsphere.jack.srtool.services.ConnectionServiceProtocol;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Properties;
+import java.util.Map;
 
 /**
  * 
@@ -63,11 +69,11 @@ import org.modelsphere.jack.srtool.services.ConnectionServiceProtocol;
 public final class ConnectionService extends ConnectionServiceProtocol {
     public static final String kNoSuchDriver = LocaleMgr.message.getString("NoSuchDriver");
 
-    private static HashMap connectionMap = new HashMap();
+    private static Map<Integer, Connection> connectionMap = new HashMap<>();
     private static int currentConnectionID = 0;
 
     public static Connection getConnection(int connectionId) {
-        Connection connection = (Connection) connectionMap.get(new Integer(connectionId));
+        Connection connection = connectionMap.get(Integer.valueOf(connectionId));
         return connection;
     }
 
@@ -108,7 +114,7 @@ public final class ConnectionService extends ConnectionServiceProtocol {
                     connection = DriverManager.getConnection(url, info);
 
                     currentConnectionID++;
-                    connectionMap.put(new Integer(currentConnectionID), connection);
+                    connectionMap.put(Integer.valueOf(currentConnectionID), connection);
                     DatabaseMetaData metadata = connection.getMetaData();
                     connectionMessage.databaseProductName = metadata.getDatabaseProductName();
                     connectionMessage.databaseProductVersion = metadata.getDatabaseProductVersion();

@@ -43,18 +43,25 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.jdbc;
 
-import java.io.*;
-import java.util.*;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.script.Shell;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.reverse.SQLLexerStream;
-import org.modelsphere.jack.srtool.reverse.jdbc.ActiveConnectionManager;
 import org.modelsphere.jack.srtool.services.ConnectionMessage;
 import org.modelsphere.jack.srtool.services.ServiceProtocolList;
 import org.modelsphere.jack.srtool.services.StatementMessage;
 import org.modelsphere.jack.text.MessageFormat;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Iterator;
+import java.util.List;
 
 public final class SQLShell extends Shell {
     private static final String SQL_SHELL = LocaleMgr.misc.getString("SQL_SHELL");
@@ -67,7 +74,6 @@ public final class SQLShell extends Shell {
     private static final String kResult0 = LocaleMgr.screen.getString("Result0");
     private static final String kUpdate0 = LocaleMgr.message.getString("Update0");
 
-    private boolean connected = false;
     private ConnectionMessage connection;
     private StatementMessage statementMsg;
     private String addressIP = ServiceProtocolList.getServerIP();
@@ -75,11 +81,12 @@ public final class SQLShell extends Shell {
 
     private int resultCount = 0;
 
-    private Shell.ShellInitializer shellInitializer = new Shell.ShellInitializer(SQL_SHELL,
+    private final Shell.ShellInitializer shellInitializer = new Shell.ShellInitializer(SQL_SHELL,
             SQL_PROMPT + " ", "sql", // NOT LOCALIZABLE
             SQL_SCRIPTS);
 
-    private ActiveConnectionListener connectionListener = new ActiveConnectionListener() {
+    private final ActiveConnectionListener connectionListener = new ActiveConnectionListener() {
+        @Override
         public void activeConnectionChanged(ConnectionMessage cm) {
             setConnection(cm);
         }
@@ -98,6 +105,7 @@ public final class SQLShell extends Shell {
         updateTitle();
     }
 
+    @Override
     public void dispose() {
         super.dispose();
         ActiveConnectionManager.removeActiveConnectionListener(connectionListener);
@@ -144,17 +152,17 @@ public final class SQLShell extends Shell {
             if (errMsg != null) {
                 result += "\n" + errMsg + "\n"; // NOT LOCALIZABLE, escade code
             } else if (statementMsg.resultList != null) {
-                ArrayList resultList = statementMsg.resultList;
+                List<List<String>> resultList = statementMsg.resultList;
 
                 // for each row
-                Iterator iter = resultList.iterator();
+                Iterator<List<String>> iter = resultList.iterator();
                 while (iter.hasNext()) {
-                    ArrayList row = (ArrayList) iter.next();
+                    List<String> row = iter.next();
 
                     // for each column
-                    Iterator iter2 = row.iterator();
+                    Iterator<String> iter2 = row.iterator();
                     while (iter2.hasNext()) {
-                        String column = (String) iter2.next();
+                        String column = iter2.next();
                         result += column + "\t"; // NOT LOCALIZABLE, escade code
                     } // end of each column
 
@@ -163,15 +171,14 @@ public final class SQLShell extends Shell {
 
                 result += "\n"; // new line //NOT LOCALIZABLE, escade code
 
-                if (resultList.size() > 0 && statementMsg.columnList.size() > 0) {
+                if (!resultList.isEmpty() && !statementMsg.columnList.isEmpty()) {
                     resultCount++;
-                    String paneTitle = MessageFormat.format(kResult0, new Object[] { new Integer(
-                            resultCount) });
+                    String paneTitle = MessageFormat.format(kResult0, new Object[] {resultCount});
                     addSecondaryOutputPanel(new SQLShellResultSetPanel(statementMsg), paneTitle);
                 }
             } // end if
             else {
-                result += MessageFormat.format(kUpdate0, new Object[] { new Integer(updateCount) })
+                result += MessageFormat.format(kUpdate0, new Object[] {updateCount})
                         + "\n"; // NOT LOCALIZABLE, escade code
             }
 
@@ -229,12 +236,6 @@ public final class SQLShell extends Shell {
                     break;
                 }
             } // end while
-        } catch (FileNotFoundException ex) {
-            resultArea.append(ex.toString() + NEWLINE);
-        } catch (IOException ex) {
-            resultArea.append(ex.toString() + NEWLINE);
-        } catch (Shell.ShellException ex) {
-            resultArea.append(ex.toString() + NEWLINE);
         } catch (Exception ex) {
             resultArea.append(ex.toString() + NEWLINE);
         }

@@ -43,10 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse;
 
-import java.io.IOException;
-
 import org.modelsphere.jack.debug.Debug;
-import org.modelsphere.jack.srtool.reverse.Actions;
+
+import java.util.Locale;
 
 public final class TargetObjectBuilder extends ObjectBuilder {
 
@@ -60,22 +59,22 @@ public final class TargetObjectBuilder extends ObjectBuilder {
         actions = someActions;
     }
 
+    @Override
     void makeComment(String cmt) throws Exception {
         Debug.trace("Comments: " + cmt);
     }
 
+    @Override
     public void makeOccurrence(String occ) throws Exception {
         // from occ, via Mapping, find dboj
-        String lowercase = occ.toLowerCase();
+        String lowercase = occ.toLowerCase(Locale.ROOT);
         currentOccurrenceId = -1;
 
-        try {
-            // via actions, create it
-            actions.processOccurrenceId(currentOccurrenceId, lowercase);
-        } catch (IOException ex) {
-        }
+        // via actions, create it
+        actions.processOccurrenceId(currentOccurrenceId, lowercase);
     }
 
+    @Override
     public void makeStringAttr(String attr, String val) throws Exception {
 
         // if occurrence's identifier (eg: table's name)
@@ -92,6 +91,7 @@ public final class TargetObjectBuilder extends ObjectBuilder {
         // Debug.trace("  attr " + attr + " = " + val);
     }
 
+    @Override
     public void makeTextAttr(String attr, String val) throws Exception {
         actions.setAttribute(attr, val);
     }

@@ -26,8 +26,8 @@ wrapping issues, use the email.Header module.
 """
 
 import re
-from string import hexdigits
 from email.Utils import fix_eols
+from string import hexdigits
 
 CRLF = '\r\n'
 NL = '\n'

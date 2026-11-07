@@ -44,7 +44,6 @@ package org.modelsphere.sms.or.ibm.db.util;
 
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.sms.or.ibm.db.DbIBMBufferPool;
 import org.modelsphere.sms.or.ibm.db.DbIBMCheck;
 import org.modelsphere.sms.or.ibm.db.DbIBMColumn;
@@ -151,16 +150,16 @@ public class IBMUtility {
 
     private void setInitialValues(DbIBMBufferPool bp) throws DbException {
         bp.setName(LocaleMgr.misc.getString("bufferPool"));
-        bp.setSize(new Integer(4096));
-        bp.setBlockSize(new Integer(32));
-        bp.setPageSize(new Integer(4096));
+        bp.setSize(Integer.valueOf(4096));
+        bp.setBlockSize(Integer.valueOf(32));
+        bp.setPageSize(Integer.valueOf(4096));
     }
 
     private void setInitialValues(DbIBMExceptClause ec) throws DbException {
         ec.setName(LocaleMgr.misc.getString("exceptOnDBClause"));
-        ec.setFromPartition(new Integer(0));
+        ec.setFromPartition(Integer.valueOf(0));
         //ec.setToPartition(new Integer(99)); 
-        ec.setNumberOfPages(new Integer(4096));
+        ec.setNumberOfPages(Integer.valueOf(4096));
     }
 
     private void setInitialValues(DbIBMTablespace tabsp) throws DbException {
@@ -168,11 +167,11 @@ public class IBMUtility {
 
         tabsp.setName(LocaleMgr.misc.getString("tablespace"));
         tabsp.setManagedBy(systemManaged);
-        tabsp.setPageSize(new Integer(4096));
-        tabsp.setExtentSize(new Integer(64));
-        tabsp.setPrefetchSize(new Integer(32));
-        tabsp.setOverhead(new Double(24.1));
-        tabsp.setTransferRate(new Double(0.9));
+        tabsp.setPageSize(Integer.valueOf(4096));
+        tabsp.setExtentSize(Integer.valueOf(64));
+        tabsp.setPrefetchSize(Integer.valueOf(32));
+        tabsp.setOverhead(Double.valueOf(24.1));
+        tabsp.setTransferRate(Double.valueOf(0.9));
 
         //add a container
         DbIBMContainerClause container = new DbIBMContainerClause(tabsp);
@@ -190,7 +189,7 @@ public class IBMUtility {
         contIt.setName(LocaleMgr.misc.getString("containerItem"));
         contIt.setFileOrDevice(file);
         contIt.setContainerString("/dev/container $N");
-        contIt.setNbOfPage(new Integer(4096));
+        contIt.setNbOfPage(Integer.valueOf(4096));
     }
 
     //
@@ -234,11 +233,11 @@ public class IBMUtility {
 
     private void setInitialValues(DbIBMSequence seq) throws DbException {
         seq.setName(LocaleMgr.misc.getString("sequence"));
-        seq.setStartWith(new Integer(1));
-        seq.setIncrementBy(new Integer(1));
-        seq.setMinValue(new Integer(1));
-        seq.setMaxValue(new Integer(255));
-        seq.setCache(new Integer(20));
+        seq.setStartWith(Integer.valueOf(1));
+        seq.setIncrementBy(Integer.valueOf(1));
+        seq.setMinValue(Integer.valueOf(1));
+        seq.setMaxValue(Integer.valueOf(255));
+        seq.setCache(Integer.valueOf(20));
     }
 
     //

@@ -33,17 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.oo.java.graphic;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Vector;
-
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -127,11 +116,16 @@ import org.modelsphere.sms.oo.java.db.util.AnyAdt.MethodsWithSameSignature;
 import org.modelsphere.sms.oo.java.international.LocaleMgr;
 import org.modelsphere.sms.style.PrefixOptionComponent;
 
+import javax.swing.*;
+import java.awt.*;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Vector;
+
 public final class AdtBox extends GraphicNode implements ActionInformation, SMSClassifierBox {
     // zone columns index , WARNING if the values change you must also change
-    // the
-    // addColumn order in setZones
-    // the adt prefix
+    // the addColumn order in setZones the adt prefix
     private static final int ADT_PREFIX_IDX = 0;
     // the adt name
     private static final int ADT_NAME_IDX = 1;
@@ -768,6 +762,7 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
             isStatic = ((DbJVClass) clMember).isStatic();
         else if (clMember instanceof DbJVMethod)
             isStatic = ((DbJVMethod) clMember).isStatic();
+        // GP: Que doit-on faire si static ne s'applique pas à Constructeur???
 
         Boolean b1 = (Boolean) adtGO.find(DbOOStyle.fOojv_staticModifierDisplayed);
         Boolean b2 = (Boolean) adtGO.find(DbOOStyle.fOojv_nonStaticModifierDisplayed);
@@ -789,24 +784,25 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
 
             if (visibility != null) {
                 Boolean b;
-                switch (visibility.getValue()) {
-                case JVVisibility.PUBLIC:
-                    b = (Boolean) adtGO.find(DbOOStyle.fOojv_publicModifierDisplayed);
-                    isShown = (b != null) && (b.booleanValue());
-                    break;
-                case JVVisibility.PROTECTED:
-                    b = (Boolean) adtGO.find(DbOOStyle.fOojv_protectedModifierDisplayed);
-                    isShown = (b != null) && (b.booleanValue());
-                    break;
-                case JVVisibility.PRIVATE:
-                    b = (Boolean) adtGO.find(DbOOStyle.fOojv_privateModifierDisplayed);
-                    isShown = (b != null) && (b.booleanValue());
-                    break;
-                case JVVisibility.DEFAULT:
-                    b = (Boolean) adtGO.find(DbOOStyle.fOojv_packageModifierDisplayed);
-                    isShown = (b != null) && (b.booleanValue());
-                    break;
-                }
+                isShown = switch (visibility.getValue()) {
+                    case JVVisibility.PUBLIC -> {
+                        b = (Boolean) adtGO.find(DbOOStyle.fOojv_publicModifierDisplayed);
+                        yield (b != null) && (b);
+                    }
+                    case JVVisibility.PROTECTED -> {
+                        b = (Boolean) adtGO.find(DbOOStyle.fOojv_protectedModifierDisplayed);
+                        yield (b != null) && (b);
+                    }
+                    case JVVisibility.PRIVATE -> {
+                        b = (Boolean) adtGO.find(DbOOStyle.fOojv_privateModifierDisplayed);
+                        yield (b != null) && (b);
+                    }
+                    case JVVisibility.DEFAULT -> {
+                        b = (Boolean) adtGO.find(DbOOStyle.fOojv_packageModifierDisplayed);
+                        yield (b != null) && (b);
+                    }
+                    default -> isShown;
+                };
             }
         }
 
@@ -872,7 +868,7 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
     }
 
     private String getUMLConstraintsName(DbSMSSemanticalObject semObject) throws DbException {
-        String constraintsName = "";
+        StringBuilder constraintsName = new StringBuilder();
 
         DbEnumeration dbEnum = semObject.getUmlConstraints().elements(DbSMSUmlConstraint.metaClass);
         while (dbEnum.hasMoreElements()) {
@@ -882,10 +878,10 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
                 constraintName = "";
             else
                 constraintName = "{" + constraintName + "}"; // NOT LOCALIZABLE
-            constraintsName = constraintsName + constraintName;
+            constraintsName.append(constraintName);
         } // end while
         dbEnum.close();
-        return constraintsName;
+        return constraintsName.toString();
     }
 
     private String getClassStereotypeName(DbJVClass adtSO) throws DbException {
@@ -893,7 +889,7 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
 
         MetaField mf = DbOOStyle.fOojv_umlStereotypeDisplayed;
         Boolean b = (Boolean) adtGO.find(mf);
-        if (b.booleanValue()) {
+        if (b) {
             // note: I don't use static field for <<Interface>> and
             // <<exception>>
             // because I don't want to listen to localeChange [author?]
@@ -918,7 +914,7 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
     private void populateStereotype(boolean interfaceShownAsCircle,
             boolean associationClassShownAsDiamond) throws DbException {
         String stereotypeName = getClassStereotypeName(adtSO);
-        Vector composite = getStereotypeImageData(adtSO);
+        Vector<CompositeCellRendererElement> composite = getStereotypeImageData(adtSO);
         DbOOStyle style = getStyleFrom(adtGO);
         stereotypeZone.clear();
 
@@ -965,8 +961,8 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
         } // end switch
     } // end populateStereotype()
 
-    private Vector getStereotypeImageData(DbJVClass adtSO) throws DbException {
-        Vector compositeElements = new Vector();
+    private Vector<CompositeCellRendererElement> getStereotypeImageData(DbJVClass adtSO) throws DbException {
+        Vector<CompositeCellRendererElement> compositeElements = new Vector<>();
 
         Image image = null;
 
@@ -1069,7 +1065,7 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
             return null;
         String pattern = "{0}/{1}";
         return MessageFormat.format(pattern,
-                new Object[] { new Integer(index), new Integer(count) });
+                new Object[] { Integer.valueOf(index), Integer.valueOf(count) });
     }
 
     // must be within a read transaction
@@ -1228,9 +1224,9 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
         return option;
     } // end getFieldRenderingOption()
 
-    private Vector getPrefixData(DbSemanticalObject semObj) throws DbException {
+    private Vector<CompositeCellRendererElement> getPrefixData(DbSemanticalObject semObj) throws DbException {
         Debug.assert2(semObj != null, "null argument not allowed. AdtBox.getPrefixData().");
-        Vector compositeElements = new Vector();
+        Vector<CompositeCellRendererElement> compositeElements = new Vector<>();
 
         // Semantic Object prefix
         int status = semObj.getValidationStatus();
@@ -1316,21 +1312,13 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
             semObjVisibility = (visib == null) ? OOVisibility.PRIVATE : visib.getValue();
         } // end if
 
-        DbtPrefix prefix = null;
-        switch (semObjVisibility) {
-        case JVVisibility.PUBLIC:
-            prefix = (DbtPrefix) adtGO.find(DbOOStyle.fOojv_publicVisibilityPrefix);
-            break;
-        case JVVisibility.PROTECTED:
-            prefix = (DbtPrefix) adtGO.find(DbOOStyle.fOojv_protectedVisibilityPrefix);
-            break;
-        case JVVisibility.PRIVATE:
-            prefix = (DbtPrefix) adtGO.find(DbOOStyle.fOojv_privateVisibilityPrefix);
-            break;
-        case JVVisibility.DEFAULT:
-            prefix = (DbtPrefix) adtGO.find(DbOOStyle.fOojv_packageVisibilityPrefix);
-            break;
-        }
+        DbtPrefix prefix = switch (semObjVisibility) {
+            case JVVisibility.PUBLIC -> (DbtPrefix) adtGO.find(DbOOStyle.fOojv_publicVisibilityPrefix);
+            case JVVisibility.PROTECTED -> (DbtPrefix) adtGO.find(DbOOStyle.fOojv_protectedVisibilityPrefix);
+            case JVVisibility.PRIVATE -> (DbtPrefix) adtGO.find(DbOOStyle.fOojv_privateVisibilityPrefix);
+            case JVVisibility.DEFAULT -> (DbtPrefix) adtGO.find(DbOOStyle.fOojv_packageVisibilityPrefix);
+            default -> null;
+        };
         addToCompositeElements(compositeElements, prefix);
 
         boolean isAbstract = false;
@@ -1444,8 +1432,8 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
     // must be within a read transaction
     private void populateMethods() throws DbException {
         if (methodZone.isVisible()) {
-            Vector orderedVector = new Vector(); // Constructor first!
-            Vector methodVector = new Vector();
+            Vector<DbOOAbstractMethod> orderedVector = new Vector<>(); // Constructor first!
+            Vector<DbOOAbstractMethod> methodVector = new Vector<>();
             methodZone.removeAllRows();
             DbEnumeration ins = adtSO.getComponents().elements(DbOOAbstractMethod.metaClass);
 
@@ -1476,7 +1464,7 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
             // for
             // efficiency
             for (int j = 0; j < orderedVector.size(); j++) {
-                DbOOAbstractMethod method = (DbOOAbstractMethod) orderedVector.get(j);
+                DbOOAbstractMethod method = orderedVector.get(j);
                 boolean rowAdded = populateMethod(method, rowCtr, forceUnderlineOnStatic,
                         forceItalicOnAbstract);
                 if (rowAdded) {
@@ -1949,7 +1937,7 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
      */
     private static class BoxRefreshTg implements DbRefreshListener, DbRefreshPassListener {
 
-        private HashSet refreshedAdts = null;
+        private Set<DbOOClass> refreshedAdts = null;
 
         BoxRefreshTg() {
         }
@@ -1999,7 +1987,7 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
          */
         private void refreshAdt(DbOOClass adt) throws DbException {
             if (refreshedAdts == null)
-                refreshedAdts = new HashSet();
+                refreshedAdts = new HashSet<>();
             if (!refreshedAdts.add(adt)) // already done in this transaction
                 return;
             DbRelationN adtGos = adt.getClassifierGos();
@@ -2093,4 +2081,3 @@ public final class AdtBox extends GraphicNode implements ActionInformation, SMSC
         boolean isEnumeration;
     }
 } // end AdtBox
-

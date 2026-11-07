@@ -33,6 +33,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.features.reverse;
 
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.srtool.reverse.file.JackPositions;
+import org.modelsphere.jack.srtool.reverse.file.JackReverseEngineeringPlugin;
+import org.modelsphere.jack.srtool.reverse.file.ReverseFileOptions;
+import org.modelsphere.jack.srtool.reverse.file.ReverseParameters;
+import org.modelsphere.sms.db.DbSMSPackage;
+import org.modelsphere.sms.international.LocaleMgr;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -40,17 +51,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
 import java.util.Date;
-
-import org.modelsphere.jack.baseDb.db.Db;
-import org.modelsphere.jack.baseDb.db.DbException;
-import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.baseDb.db.DbProject;
-import org.modelsphere.jack.srtool.reverse.file.JackReverseEngineeringPlugin;
-import org.modelsphere.jack.srtool.reverse.file.JackPositions;
-import org.modelsphere.jack.srtool.reverse.file.ReverseFileOptions;
-import org.modelsphere.jack.srtool.reverse.file.ReverseParameters;
-import org.modelsphere.sms.db.DbSMSPackage;
-import org.modelsphere.sms.international.LocaleMgr;
 
 /**
  * 

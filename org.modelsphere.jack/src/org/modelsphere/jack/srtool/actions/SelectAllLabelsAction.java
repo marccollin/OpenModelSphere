@@ -43,9 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
@@ -54,9 +51,13 @@ import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.graphic.SrLineLabel;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public final class SelectAllLabelsAction extends AbstractSelectAction implements
         SelectionActionListener {
-    private static ArrayList EXCLUDED_MODELS = null;
+    private static List<Class> EXCLUDED_MODELS = null;
 
     public SelectAllLabelsAction() {
         super(LocaleMgr.action.getString("selectAllLabels"));
@@ -100,7 +101,7 @@ public final class SelectAllLabelsAction extends AbstractSelectAction implements
 
     public static final void setExcludedModels(Class[] models) {
         if (models != null)
-            EXCLUDED_MODELS = new ArrayList(Arrays.asList(models));
+            EXCLUDED_MODELS = new ArrayList<>(Arrays.asList(models));
     }
 
 }

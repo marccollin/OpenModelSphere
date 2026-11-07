@@ -33,22 +33,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.notation;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-
-import javax.swing.Box;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.sms.be.db.DbBENotation;
 import org.modelsphere.sms.be.db.srtypes.BEZoneStereotype;
 import org.modelsphere.sms.be.international.LocaleMgr;
 import org.modelsphere.sms.notation.OptionComponent;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
 
 public final class FlowComponentPanel extends JPanel implements DocumentListener {
     private OptionComponent optionComponent;

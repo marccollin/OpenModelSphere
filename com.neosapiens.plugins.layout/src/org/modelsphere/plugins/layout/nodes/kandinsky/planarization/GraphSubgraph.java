@@ -3,17 +3,17 @@
  */
 package org.modelsphere.plugins.layout.nodes.kandinsky.planarization;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DirectedSubgraph;
 import org.modelsphere.jack.srtool.features.layout.graph.Edge;
 import org.modelsphere.jack.srtool.features.layout.graph.Graph;
 import org.modelsphere.jack.srtool.features.layout.graph.Vertex;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * The Class GraphSubgraph.

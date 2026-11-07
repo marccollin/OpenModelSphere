@@ -43,22 +43,33 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.datatransfer.*;
+import org.modelsphere.jack.srtool.ApplicationContext;
+
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.ClipboardOwner;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.FlavorEvent;
+import java.awt.datatransfer.FlavorListener;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.RenderedImage;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.imageio.*;
-import javax.imageio.stream.ImageOutputStream;
-
-import org.modelsphere.jack.srtool.ApplicationContext;
 
 public class SRSystemClipboard {
     private static String clipboardText;
@@ -86,7 +97,7 @@ public class SRSystemClipboard {
 
     }
 
-    private static ArrayList<SRSystemClipboardListener> systemClipboardListeners = new ArrayList<SRSystemClipboardListener>();
+    private static List<SRSystemClipboardListener> systemClipboardListeners = new ArrayList<SRSystemClipboardListener>();
 
     private static void fireSystemClipboardListeners() {
         if (systemClipboardListeners == null)

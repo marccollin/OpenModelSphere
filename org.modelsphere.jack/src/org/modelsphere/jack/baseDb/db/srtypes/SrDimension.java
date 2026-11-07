@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.srtypes;
 
-import java.awt.Dimension;
+import java.awt.*;
 
 public final class SrDimension extends SrType {
 
@@ -76,6 +76,7 @@ public final class SrDimension extends SrType {
         return (width == dimension.width && height == dimension.height);
     }
 
+    @Override
     public String toString() {
         return "width=" + width + ",height=" + height; // NOT LOCALIZABLE
     }

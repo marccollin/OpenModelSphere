@@ -43,17 +43,19 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.*;
-import javax.swing.table.*;
-import javax.swing.event.*;
-
 import org.modelsphere.jack.baseDb.meta.MetaField;
-import org.modelsphere.jack.baseDb.screen.*;
+import org.modelsphere.jack.baseDb.screen.TextEditorDialog;
 import org.modelsphere.jack.srtool.screen.design.DesignTableModel;
 
+import javax.swing.*;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.EventListenerList;
+import javax.swing.table.TableCellEditor;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.util.EventObject;
 
 public class MultiLookupDescriptionEditor implements TableCellEditor, ActionListener {

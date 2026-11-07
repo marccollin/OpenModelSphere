@@ -32,14 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.be.graphic.tool;
 
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
@@ -58,6 +50,13 @@ import org.modelsphere.sms.be.graphic.BEUseCaseBox;
 import org.modelsphere.sms.be.international.LocaleMgr;
 import org.modelsphere.sms.db.DbSMSClassifierGo;
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Map;
+
 /**
  * @author Grandite
  * 
@@ -73,8 +72,7 @@ public final class BESelectToolCommand {
             throws DbException {
 
         int nb = gcs.length;
-        for (int i = 0; i < nb; i++) {
-            GraphicComponent gc = gcs[i];
+        for (GraphicComponent gc : gcs) {
             if (gc instanceof BEContext) {
                 BEContext context = (BEContext) gc;
                 translateContextContent(context, dx, dy);
@@ -111,12 +109,9 @@ public final class BESelectToolCommand {
             return;
 
         DbBENotation notation = diag.getNotation();
-        boolean constraintCenter = (notation == null) ? false : notation.getConstraintCenter()
-                .booleanValue();
-        boolean rightBorder = (notation == null) ? false : notation.getDefRightBorder()
-                .booleanValue();
-        boolean bottomBorder = (notation == null) ? false : notation.getDefButtomBorder()
-                .booleanValue();
+        boolean constraintCenter = (notation == null) ? false : notation.getConstraintCenter();
+        boolean rightBorder = (notation == null) ? false : notation.getDefRightBorder();
+        boolean bottomBorder = (notation == null) ? false : notation.getDefButtomBorder();
         Rectangle boxRect = go.getRectangle();
         int xPos = boxRect.x, yPos = boxRect.y;
 
@@ -287,8 +282,8 @@ public final class BESelectToolCommand {
     } // end moveOutsideCell()
 
     private DbBEContextCell getAdjacentCell(DbBEContextCell cell, int border) throws DbException {
-        int x = cell.getX().intValue();
-        int y = cell.getY().intValue();
+        int x = cell.getX();
+        int y = cell.getY();
 
         switch (border) {
         case GraphicComponent.TOP_BORDER:
@@ -400,7 +395,7 @@ public final class BESelectToolCommand {
 
             if (ratio != 0.0) {
                 // map each graphical process or store to its current cell
-                HashMap map = new HashMap();
+                Map<DbSMSClassifierGo, DbBEContextCell> map = new HashMap<>();
                 DbRelationN relN = frame.getComponents();
                 DbEnumeration dbEnum = relN.elements(DbBEContextCell.metaClass);
                 while (dbEnum.hasMoreElements()) {
@@ -434,13 +429,13 @@ public final class BESelectToolCommand {
 
                 // for each mapped process or store, reput it in its original
                 // cell
-                Set keySet = map.keySet();
-                Iterator iter = keySet.iterator();
+                Set<DbSMSClassifierGo> keySet = map.keySet();
+                Iterator<DbSMSClassifierGo> iter = keySet.iterator();
                 BEUtility util = BEUtility.getSingleInstance();
                 DbBEDiagram diagram = (DbBEDiagram) frame.getCompositeOfType(DbBEDiagram.metaClass);
                 while (iter.hasNext()) {
-                    DbSMSClassifierGo go = (DbSMSClassifierGo) iter.next();
-                    DbBEContextCell cell = (DbBEContextCell) map.get(go);
+                    DbSMSClassifierGo go = iter.next();
+                    DbBEContextCell cell = map.get(go);
                     Rectangle newCellRect = util.getCellRectangle(cell);
                     moveInsideCell(diagram, go, newCellRect);
                 } // end while
@@ -475,7 +470,7 @@ public final class BESelectToolCommand {
                 double oldCellYWeight = cell.getYweight().doubleValue();
                 Rectangle oldCellRect = util.getCellRectangle(cell);
                 double newCellYWeight = oldCellYWeight + ratio;
-                cell.setYweight(new Double(newCellYWeight));
+                cell.setYweight(Double.valueOf(newCellYWeight));
                 double newHeight = (oldCellRect.height / oldCellYWeight) * newCellYWeight;
                 Rectangle newCellRect = new Rectangle(oldCellRect.x, oldCellRect.y,
                         oldCellRect.width, (int) newHeight);
@@ -498,7 +493,7 @@ public final class BESelectToolCommand {
                 double oldCellXWeight = cell.getXweight().doubleValue();
                 Rectangle oldCellRect = util.getCellRectangle(cell);
                 double newCellXWeight = oldCellXWeight + ratio;
-                cell.setXweight(new Double(newCellXWeight));
+                cell.setXweight(Double.valueOf(newCellXWeight));
                 double newWidth = (oldCellRect.width / oldCellXWeight) * newCellXWeight;
                 Rectangle newCellRect = new Rectangle(oldCellRect.x, oldCellRect.y, (int) newWidth,
                         oldCellRect.height);
@@ -580,27 +575,26 @@ public final class BESelectToolCommand {
     private double getFrameSize(DbBEContextGo frame, int boundary) throws DbException {
         BEUtility util = BEUtility.getSingleInstance();
         util.computeCellDimensions(frame);
-        double frameSize = 0;
-        switch (boundary) {
-        case GraphicComponent.BOTTOM_BORDER:
-        case GraphicComponent.TOP_BORDER:
-            double[] heights = util.getRowHeights();
-            frameSize = sum(heights); // sum?
-            break;
-        case GraphicComponent.LEFT_BORDER:
-        case GraphicComponent.RIGHT_BORDER:
-            double[] widths = util.getColWidths();
-            frameSize = sum(widths);
-            break;
-        } // end switch
+        // end switch
+        double frameSize = switch (boundary) {
+            case GraphicComponent.BOTTOM_BORDER, GraphicComponent.TOP_BORDER -> {
+                double[] heights = util.getRowHeights();
+                yield sum(heights);
+            }
+            case GraphicComponent.LEFT_BORDER, GraphicComponent.RIGHT_BORDER -> {
+                double[] widths = util.getColWidths();
+                yield sum(widths);
+            }
+            default -> 0;
+        };
 
         return frameSize;
     } // getFrameSize()
 
     private double sum(double[] sizes) {
         double total = 0;
-        for (int i = 0; i < sizes.length; i++) {
-            total += sizes[i];
+        for (double size : sizes) {
+            total += size;
         }
 
         return total;

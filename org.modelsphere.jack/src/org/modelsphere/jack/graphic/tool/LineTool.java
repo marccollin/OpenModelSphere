@@ -43,23 +43,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.tool;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.text.MessageFormat;
-
 import org.modelsphere.jack.graphic.Diagram;
 import org.modelsphere.jack.graphic.GraphicComponent;
 import org.modelsphere.jack.graphic.GraphicNode;
 import org.modelsphere.jack.graphic.GraphicUtil;
 import org.modelsphere.jack.graphic.Line;
 import org.modelsphere.jack.international.LocaleMgr;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.text.MessageFormat;
 
 public abstract class LineTool extends ButtonSelectionPanelTool {
     private static final String HELP_STEP0 = LocaleMgr.misc.getString("HelpLine0");

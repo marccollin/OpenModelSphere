@@ -33,16 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.graphic;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.HashSet;
-import java.util.Vector;
-
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -70,11 +60,11 @@ import org.modelsphere.jack.graphic.zone.CellRenderer;
 import org.modelsphere.jack.graphic.zone.CellRenderingOption;
 import org.modelsphere.jack.graphic.zone.ColumnCellsOption;
 import org.modelsphere.jack.graphic.zone.CompositeCellRenderer;
+import org.modelsphere.jack.graphic.zone.CompositeCellRenderer.CompositeCellRendererElement;
 import org.modelsphere.jack.graphic.zone.ImageCellRenderer;
 import org.modelsphere.jack.graphic.zone.MatrixZone;
 import org.modelsphere.jack.graphic.zone.StringCellRenderer;
 import org.modelsphere.jack.graphic.zone.ZoneCell;
-import org.modelsphere.jack.graphic.zone.CompositeCellRenderer.CompositeCellRendererElement;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.graphic.DbTextFieldCellEditor;
 import org.modelsphere.jack.text.MessageFormat;
@@ -91,6 +81,13 @@ import org.modelsphere.sms.or.db.DbORTypeClassifier;
 import org.modelsphere.sms.or.db.DbORUser;
 import org.modelsphere.sms.or.db.srtypes.ORDomainCategory;
 import org.modelsphere.sms.or.db.util.AnyORObject;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Vector;
+import java.util.List;
 
 public class ORTypeBox extends GraphicNode implements ActionInformation,
         org.modelsphere.sms.graphic.SMSClassifierBox {
@@ -456,12 +453,12 @@ public class ORTypeBox extends GraphicNode implements ActionInformation,
             return null;
         String pattern = "{0}/{1}";
         return MessageFormat.format(pattern,
-                new Object[] { new Integer(index), new Integer(count) });
+                new Object[] { Integer.valueOf(index), Integer.valueOf(count) });
     }
 
-    private final Vector getPrefixData(DbSemanticalObject semObj) throws DbException {
+    private final List<CompositeCellRendererElement> getPrefixData(DbSemanticalObject semObj) throws DbException {
         Debug.assert2(semObj != null, "null argument not allowed. ORTypeBox.getPrefixData().");
-        Vector compositeElements = new Vector();
+        List<CompositeCellRendererElement> compositeElements = new Vector<>();
 
         // Domain Prefix
         if (semObj instanceof DbORDomain) {
@@ -479,16 +476,16 @@ public class ORTypeBox extends GraphicNode implements ActionInformation,
         return compositeElements;
     }
 
-    private final void addToCompositeElements(Vector compositeElements, DbtPrefix prefix) {
+    private final void addToCompositeElements(List<CompositeCellRendererElement> compositeElements, DbtPrefix prefix) {
         if (prefix.getDisplayedComponent() == DbtPrefix.DISPLAY_TEXT) {
             String textPrefix = prefix.getText();
             if (textPrefix != null && textPrefix.length() > 0)
-                compositeElements.addElement(new CompositeCellRendererElement(
+                compositeElements.add(new CompositeCellRendererElement(
                         new StringCellRenderer(), textPrefix));
         } else if (prefix.getDisplayedComponent() == DbtPrefix.DISPLAY_IMAGE) {
             Image imagePrefix = prefix.getImage();
             if (imagePrefix != null)
-                compositeElements.addElement(new CompositeCellRendererElement(
+                compositeElements.add(new CompositeCellRendererElement(
                         new ImageCellRenderer(), imagePrefix));
         }
     }
@@ -588,7 +585,7 @@ public class ORTypeBox extends GraphicNode implements ActionInformation,
      */
     private static class BoxRefreshTg implements DbRefreshListener, DbRefreshPassListener {
 
-        private HashSet refreshedTypes = null;
+        private Set<DbORTypeClassifier> refreshedTypes = null;
 
         BoxRefreshTg() {
         }
@@ -646,7 +643,7 @@ public class ORTypeBox extends GraphicNode implements ActionInformation,
          */
         private void refreshType(DbORTypeClassifier type) throws DbException {
             if (refreshedTypes == null)
-                refreshedTypes = new HashSet();
+                refreshedTypes = new HashSet<>();
             if (!refreshedTypes.add(type)) // already done in this transaction
                 return;
             DbRelationN typeGos = type.getClassifierGos();

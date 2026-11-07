@@ -42,20 +42,20 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.awt.dirchooser;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
-import java.awt.*;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.WindowEvent;
-import javax.swing.event.TreeSelectionListener;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.international.LocaleMgr;
 
+import javax.swing.*;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.filechooser.FileSystemView;
+import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
 import java.io.FileFilter;
+import java.io.IOException;
+import java.util.Collections;
 import java.util.Vector;
 
 //Contains DirectoryChooser's & MultiDirectoryChooser's common stuff
@@ -102,9 +102,9 @@ abstract class AbstractDirectoryChooser {
      * directoryChooser.showDialog(parentDialog, &quot;Set Directory&quot;);
      * </pre>
      * 
-     * @param parent
+     * @param owner
      *            a frame or a dialog containing the directory chooser; can be <code>null</code>
-     * @param approveButtonText
+     * @param approveText
      *            the text of the <code>ApproveButton</code>
      * @param title
      *            (optional) the text of the <code>JDialog's title</code>
@@ -195,13 +195,11 @@ abstract class AbstractDirectoryChooser {
             m_theChooser = chooser;
             GridBagLayout layout = new GridBagLayout();
             this.setLayout(layout);
-            Vector vec = new Vector();
+            Vector<File> vec = new Vector<>();
             vec.add(root);
             File[] roots = getRoots(fsv);
 
-            for (int i = 0; i < roots.length; i++) {
-                vec.add(roots[i]);
-            }
+            Collections.addAll(vec, roots);
 
             JLabel label = new JLabel(LOOK_IN);
             JComboBox combo = new JComboBox(vec);
@@ -216,7 +214,7 @@ abstract class AbstractDirectoryChooser {
 
         private File[] getRoots(FileSystemView fsv) {
             if (roots == null) {
-                Vector vec = new Vector();
+                Vector<File> vec = new Vector<>();
                 if (isWindows()) {
                     vec.add(new File("A:\\"));
                     for (char ch = 'C'; ch <= 'Z'; ch++) {
@@ -228,7 +226,7 @@ abstract class AbstractDirectoryChooser {
                     } // end for
                     roots = new File[vec.size()];
                     for (int i = 0; i < vec.size(); i++) {
-                        roots[i] = (File) vec.elementAt(i);
+                        roots[i] = vec.elementAt(i);
                     }
                 } else { // Not Windwos 2000
                     roots = fsv.getRoots();

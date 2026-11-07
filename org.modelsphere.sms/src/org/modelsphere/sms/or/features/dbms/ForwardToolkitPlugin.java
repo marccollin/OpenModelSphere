@@ -43,16 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.dbms;
 
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.jack.gui.task.DefaultController;
 import org.modelsphere.jack.gui.wizard.WizardPage;
-import org.modelsphere.jack.plugins.*;
+import org.modelsphere.jack.plugins.Plugin2;
+import org.modelsphere.jack.plugins.PluginAction;
+import org.modelsphere.jack.plugins.PluginDescriptor;
+import org.modelsphere.jack.plugins.PluginMgr;
+import org.modelsphere.jack.plugins.PluginSelectionListener;
+import org.modelsphere.jack.plugins.PluginSignature;
+import org.modelsphere.jack.plugins.PluginsRegistry;
 import org.modelsphere.jack.preference.OptionGroup;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
@@ -63,9 +65,15 @@ import org.modelsphere.sms.db.DbSMSAbstractPackage;
 import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.templates.SQLForwardEngineeringPlugin;
 
+import java.awt.event.ActionEvent;
+import java.lang.reflect.InvocationTargetException;
+import java.nio.file.FileSystems;
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class ForwardToolkitPlugin implements Plugin2 {
     public static final String DEFAULT_LOG_FILENAME = ApplicationContext.getLogPath()
-            + System.getProperty("file.separator") + "forward.log"; //NOT LOCALIZABLE
+            + FileSystems.getDefault().getSeparator() + "forward.log"; //NOT LOCALIZABLE
     public static final String ForwardEngineering = LocaleMgr.screen
             .getString("ForwardEngineering");
 
@@ -125,11 +133,11 @@ public abstract class ForwardToolkitPlugin implements Plugin2 {
     } //end ForwardToolkit()
     
     // Toolkits - DBMS name mapping
-    private static List g_toolkitsTarget = null;
-    private static List getToolkitTargets() {
+    private static List<KitTargetMapping> g_toolkitsTarget = null;
+    private static List<KitTargetMapping> getToolkitTargets() {
     	if (g_toolkitsTarget == null) {
     		//init toolkit
-    		g_toolkitsTarget = new ArrayList();
+            g_toolkitsTarget = new ArrayList<>();
     		PluginMgr mgr = PluginMgr.getSingleInstance();
     		PluginsRegistry registry = mgr.getPluginsRegistry(); 
     		List<PluginDescriptor> allpluginDescriptors = registry.getAllPlugins();
@@ -139,6 +147,8 @@ public abstract class ForwardToolkitPlugin implements Plugin2 {
     			
     			if (mgr.isValid(pluginDescriptor)) {
     				Class<?> claz = pluginDescriptor.getPluginClass();
+				if (claz == null)
+					continue;
     		
     				//if it's a toolkit
     				if (ForwardToolkitPlugin.class.isAssignableFrom(claz))  {
@@ -168,14 +178,14 @@ public abstract class ForwardToolkitPlugin implements Plugin2 {
 		Plugin2 plugin; 
     	
     	try {
-    		plugin = (Plugin2)claz.newInstance();
-    	} catch (InstantiationException ex) {
+    		plugin = (Plugin2)claz.getDeclaredConstructor().newInstance();
+    	} catch (InstantiationException | IllegalAccessException ex) {
     		plugin = null;
-    	} catch (IllegalAccessException e) {
-    		plugin = null;
-		}
-    	
-		return plugin;
+    	} catch (InvocationTargetException | NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+
+        return plugin;
 	}
 
     private void init2() {
@@ -243,10 +253,9 @@ public abstract class ForwardToolkitPlugin implements Plugin2 {
             return defaultToolkit;
 
         //search the kit
-        Object[] map = getToolkitTargets().toArray();
+        KitTargetMapping[] map = getToolkitTargets().toArray(new KitTargetMapping[0]);
         int nb = map.length;
-        for (int i = 0; i < nb; i++) {
-            KitTargetMapping mapping = (KitTargetMapping) map[i];
+        for (KitTargetMapping mapping : map) {
             int targetId = mapping.targetId;
             if (targetId == 999 && activeDiagramTargetId > 999)
                 return mapping.kit;
@@ -257,21 +266,21 @@ public abstract class ForwardToolkitPlugin implements Plugin2 {
         return defaultToolkit;
     } //end getToolkit()
 
-    private static final ArrayList findMatchingToolkitsForTargetId(int id) {
-        ArrayList kits = new ArrayList(5);
-        Object[] map = getToolkitTargets().toArray();
-        for (int i = 0; i < map.length; i++) {
-            if (id == ((KitTargetMapping) map[i]).targetId) {
-                kits.add(((KitTargetMapping) map[i]).kit);
+    private static final List<ForwardToolkitPlugin> findMatchingToolkitsForTargetId(int id) {
+        List<ForwardToolkitPlugin> kits = new ArrayList<>(5);
+        KitTargetMapping[] map = getToolkitTargets().toArray(new KitTargetMapping[0]);
+        for (KitTargetMapping mapping : map) {
+            if (id == mapping.targetId) {
+                kits.add(mapping.kit);
             }
         }
         return kits;
     }
 
     private final int findMatchingAnsiTargetId(int id) {
-        Object[] map = getToolkitTargets().toArray();
+        KitTargetMapping[] map = getToolkitTargets().toArray(new KitTargetMapping[0]);
         for (int i = 0; i < map.length; i++) {
-            if (id == ((KitTargetMapping) map[i]).targetId)
+            if (id == map[i].targetId)
                 return i;
         }
         return -1;
@@ -414,4 +423,3 @@ public abstract class ForwardToolkitPlugin implements Plugin2 {
     //
     /////////////////////////
 } //end ForwardToolkit
-

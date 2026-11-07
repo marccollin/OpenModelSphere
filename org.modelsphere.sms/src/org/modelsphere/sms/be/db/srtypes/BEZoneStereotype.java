@@ -43,7 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.db.srtypes;
 
-import org.modelsphere.jack.baseDb.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.srtypes.DbtAbstract;
+import org.modelsphere.jack.baseDb.db.srtypes.Domain;
+import org.modelsphere.jack.baseDb.db.srtypes.IntDomain;
 import org.modelsphere.sms.be.db.DbBEActor;
 import org.modelsphere.sms.be.db.DbBEFlow;
 import org.modelsphere.sms.be.db.DbBEStore;

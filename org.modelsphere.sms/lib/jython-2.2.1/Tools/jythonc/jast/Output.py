@@ -1,7 +1,7 @@
 # Copyright (c) Corporation for National Research Initiatives
 import os
-from Modifier import ModifierString
 
+from Modifier import ModifierString
 
 
 class SourceFile:

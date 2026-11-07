@@ -1,6 +1,7 @@
+import warnings
+
 from test_support import verify, TestFailed, check_syntax
 
-import warnings
 warnings.filterwarnings("ignore", r"import \*", SyntaxWarning, "<string>")
 
 print "1. simple nesting"

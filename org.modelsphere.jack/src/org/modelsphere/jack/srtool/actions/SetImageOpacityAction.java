@@ -46,7 +46,8 @@ package org.modelsphere.jack.srtool.actions;
 import org.modelsphere.jack.actions.AbstractDomainAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.actions.util.DbMultiTrans;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.graphic.DbGraphic;
 import org.modelsphere.jack.srtool.graphic.DiagramImage;
@@ -69,7 +70,7 @@ public final class SetImageOpacityAction extends AbstractDomainAction implements
     protected final void doActionPerformed() {
         try {
             Object[] objects = ApplicationContext.getFocusManager().getSelectedObjects();
-            Float selValue = new Float(possibleOpacityValues[getSelectedIndex()]);
+            Float selValue = Float.valueOf(possibleOpacityValues[getSelectedIndex()]);
             DbMultiTrans.beginTrans(Db.WRITE_TRANS, objects, kSetImageOpacity);
             for (int i = 0; i < objects.length; i++) {
                 ((DiagramImage) objects[i]).getGraphicalObject().set(

@@ -1,9 +1,11 @@
 from __future__ import division
+
+from test_support import TestFailed, verify, verbose
+
+
 # When true division is the default, get rid of this and add it to
 # test_long.py instead.  In the meantime, it's too obscure to try to
 # trick just part of test_long into using future division.
-
-from test_support import TestFailed, verify, verbose
 
 def test_true_division():
     if verbose:

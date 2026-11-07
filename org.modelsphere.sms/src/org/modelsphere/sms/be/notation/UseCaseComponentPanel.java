@@ -33,23 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.notation;
 
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Box;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
 import org.modelsphere.jack.awt.NumericTextField;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.sms.be.db.DbBENotation;
@@ -57,6 +40,13 @@ import org.modelsphere.sms.be.db.srtypes.BEZoneStereotype;
 import org.modelsphere.sms.be.international.LocaleMgr;
 import org.modelsphere.sms.db.srtypes.SMSNotationShape;
 import org.modelsphere.sms.notation.OptionComponent;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public final class UseCaseComponentPanel extends JPanel implements ActionListener {
     private OptionComponent optionComponent;
@@ -175,7 +165,7 @@ public final class UseCaseComponentPanel extends JPanel implements ActionListene
         try {
             if (width.getText() == null || width.getText().length() == 0)
                 return;
-            optionComponent.setValue(new Integer(width.getText()), 0);
+            optionComponent.setValue(Integer.valueOf(width.getText()), 0);
         } catch (NumberFormatException e) {
         }
     }
@@ -186,7 +176,7 @@ public final class UseCaseComponentPanel extends JPanel implements ActionListene
         try {
             if (height.getText() == null || height.getText().length() == 0)
                 return;
-            optionComponent.setValue(new Integer(height.getText()), 1);
+            optionComponent.setValue(Integer.valueOf(height.getText()), 1);
         } catch (NumberFormatException e) {
         }
     }

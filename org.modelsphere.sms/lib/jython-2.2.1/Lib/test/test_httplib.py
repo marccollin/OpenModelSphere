@@ -1,6 +1,6 @@
-from test_support import verify,verbose
 import httplib
-import StringIO
+import httplib
+
 
 class FakeSocket:
     def __init__(self, text):

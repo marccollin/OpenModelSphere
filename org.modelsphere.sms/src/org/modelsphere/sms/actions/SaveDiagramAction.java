@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.awt.event.ActionEvent;
-import java.util.Enumeration;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.awt.AwtUtil;
@@ -53,6 +50,9 @@ import org.modelsphere.sms.SMSToolkit;
 import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.features.SaveDiagramDialog;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.awt.event.ActionEvent;
+import java.util.Enumeration;
 
 public class SaveDiagramAction extends AbstractApplicationAction implements SelectionActionListener {
 
@@ -82,16 +82,16 @@ public class SaveDiagramAction extends AbstractApplicationAction implements Sele
 
             dbObjects = ApplicationContext.getFocusManager().getSelectedSemanticalObjects();
             // for each selected node in the explorer ...
-            for (int i = 0; i < dbObjects.length; i++) {
+            for (DbObject dbObject : dbObjects) {
 
-                diagramInternalFrame = mainFrame.getDiagramInternalFrame(dbObjects[i]);
+                diagramInternalFrame = mainFrame.getDiagramInternalFrame(dbObject);
                 if (diagramInternalFrame == null) {
                     /*
                      * ApplicationDiagram appDiagram =
                      * createApplicationDiagramFromDbObject(dbObjects[i]); showDialog(appDiagram,
                      * true);
                      */
-                    showDialog((DbSMSDiagram) dbObjects[i]);
+                    showDialog((DbSMSDiagram) dbObject);
                 } else {
                     showDialog(diagramInternalFrame.getDiagram(), false);
                 }
@@ -131,11 +131,11 @@ public class SaveDiagramAction extends AbstractApplicationAction implements Sele
         SrVector selectedObjects = getValidObjects();
         boolean enabled = true;
 
-        if (selectedObjects.size() == 0) {
+        if (selectedObjects.isEmpty()) {
             enabled = false;
         } else {
             // setEnabled(true);
-            Enumeration enumeration = selectedObjects.elements();
+            Enumeration<?> enumeration = selectedObjects.elements();
             while (enumeration.hasMoreElements()) {
                 Object element = enumeration.nextElement();
                 if (element instanceof ApplicationDiagram) {

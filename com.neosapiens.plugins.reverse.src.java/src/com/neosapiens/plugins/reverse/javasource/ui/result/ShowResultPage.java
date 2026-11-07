@@ -1,21 +1,13 @@
 package com.neosapiens.plugins.reverse.javasource.ui.result;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.text.MessageFormat;
-import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
+import java.awt.*;
+import java.text.MessageFormat;
+import java.util.List;
 
 //import org.modelsphere.jack.baseDb.db.DbObject;
 

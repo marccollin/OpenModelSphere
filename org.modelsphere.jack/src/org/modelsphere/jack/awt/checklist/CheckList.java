@@ -43,11 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.checklist;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.EventListener;
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.EventListener;
 
 public class CheckList extends JList implements ListSelectionListener, MouseListener {
     private Rectangle iconRect;
@@ -67,6 +69,7 @@ public class CheckList extends JList implements ListSelectionListener, MouseList
         listenerList.remove(CheckListListener.class, listener);
     }
 
+    @Override
     public void mouseClicked(MouseEvent e) {
         if (iconRect == null) {
             Icon checkIcon = UIManager.getIcon("CheckBox.icon"); // NOT

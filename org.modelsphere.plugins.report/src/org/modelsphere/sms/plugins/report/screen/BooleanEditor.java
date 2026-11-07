@@ -34,8 +34,8 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.plugins.report.screen;
 
 // Jack
-import javax.swing.JCheckBox;
-import javax.swing.JTable;
+
+import javax.swing.*;
 
 public class BooleanEditor extends JCheckBox implements Editor {
 

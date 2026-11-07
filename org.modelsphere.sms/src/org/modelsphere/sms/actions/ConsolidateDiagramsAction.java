@@ -39,15 +39,6 @@ open-modelsphere@grandite.com
  */
 package org.modelsphere.sms.actions;
 
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-
-import javax.swing.Icon;
-import javax.swing.JFrame;
-
 import org.modelsphere.jack.actions.AbstractActionsStore;
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
@@ -93,6 +84,12 @@ import org.modelsphere.sms.or.db.DbORNotation;
 import org.modelsphere.sms.or.db.DbOROperationLibrary;
 import org.modelsphere.sms.or.db.DbORStyle;
 import org.modelsphere.sms.or.db.DbORUserNode;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author nicolask
@@ -200,7 +197,7 @@ public class ConsolidateDiagramsAction extends AbstractApplicationAction impleme
         DbObject[] diagrams = null;
         try {
             if (modelOrUseCase != null) {
-                ArrayList<DbObject> arrayDiagrams = new ArrayList<DbObject>();
+                List<DbObject> arrayDiagrams = new ArrayList<DbObject>();
                 modelOrUseCase.getDb().beginReadTrans();
                 DbEnumeration dbEnum = modelOrUseCase.getComponents().elements(
                         DbSMSDiagram.metaClass);
@@ -234,7 +231,7 @@ public class ConsolidateDiagramsAction extends AbstractApplicationAction impleme
 
     protected final void doActionPerformed(ActionEvent e) {
         try {
-            ArrayList<DbObject> al = new ArrayList<DbObject>();
+            List<DbObject> al = new ArrayList<DbObject>();
             Point pos = getDiagramLocation(e); // if triggered from the diagram, create all graphics at the click position
             DbObject[] diagrams;
             Object focusObject = ApplicationContext.getFocusManager().getFocusObject();

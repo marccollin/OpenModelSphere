@@ -43,15 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.zone;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import org.modelsphere.jack.graphic.DiagramView;
 import org.modelsphere.jack.graphic.GraphicComponent;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author Grandite
@@ -60,9 +58,9 @@ import org.modelsphere.jack.graphic.GraphicComponent;
  *         Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
 public class TableZone extends SingletonZone {
-    private ArrayList m_cellList = new ArrayList();
+    private List<TableCell> m_cellList = new ArrayList<>();
 
-    private ArrayList getCellList() {
+    private List<TableCell> getCellList() {
         return m_cellList;
     }
 
@@ -90,10 +88,10 @@ public class TableZone extends SingletonZone {
             boolean drawSel, boolean bottomClipped) {
         computeSizeOfRowsAndColumns();
 
-        Iterator iter = m_cellList.iterator();
+        Iterator<TableCell> iter = m_cellList.iterator();
         Rectangle zoomedRect = (diagView == null) ? rect : diagView.zoom(rect);
         while (iter.hasNext()) {
-            TableCell cell = (TableCell) iter.next();
+            TableCell cell = iter.next();
             cell.paint(g, zoomedRect, m_rowHeights, m_colWidths);
         } // end while
 
@@ -131,9 +129,7 @@ public class TableZone extends SingletonZone {
         m_rowHeights = new double[dim.height];
         m_colWidths = new double[dim.width];
 
-        Iterator iter = m_cellList.iterator();
-        while (iter.hasNext()) {
-            TableCell cell = (TableCell) iter.next();
+        for (TableCell cell : m_cellList) {
             int x = cell.getX();
             int y = cell.getY();
             double xw = cell.getXW();
@@ -154,9 +150,7 @@ public class TableZone extends SingletonZone {
             computeSizeOfRowsAndColumns();
         }
 
-        Iterator iter = m_cellList.iterator();
-        while (iter.hasNext()) {
-            TableCell cell = (TableCell) iter.next();
+        for (TableCell cell : m_cellList) {
             int x = cell.getX();
             int y = cell.getY();
 
@@ -190,9 +184,7 @@ public class TableZone extends SingletonZone {
     private Dimension computeNbRowsAndColumns() {
         int maxX = -1;
         int maxY = -1;
-        Iterator iter = m_cellList.iterator();
-        while (iter.hasNext()) {
-            TableCell cell = (TableCell) iter.next();
+        for (TableCell cell : m_cellList) {
             int x = cell.getX();
             int y = cell.getY();
             if (x > maxX)
@@ -202,15 +194,14 @@ public class TableZone extends SingletonZone {
                 maxY = y;
         } // end while
 
-        Dimension dim = new Dimension(maxX + 1, maxY + 1);
-        return dim;
+        return new Dimension(maxX + 1, maxY + 1);
     } // end computeNbRowsAndColumns()
 
     private static double sum(double[] array) {
         double total = 0.0;
         int nb = array.length;
-        for (int i = 0; i < nb; i++) {
-            total += array[i];
+        for (double v : array) {
+            total += v;
         }
         return total;
     } // end computeNbRowsAndColumns()
@@ -242,9 +233,7 @@ public class TableZone extends SingletonZone {
         }
 
         public void resizeCells() {
-            Iterator iter = zone.getCellList().iterator();
-            while (iter.hasNext()) {
-                TableCell cell = (TableCell) iter.next();
+            for (TableCell cell : zone.getCellList()) {
                 // cell.
             } // end while
         } // end resizeCells()

@@ -63,7 +63,6 @@ import org.modelsphere.sms.or.generic.db.DbGEProcedure;
 import org.modelsphere.sms.or.generic.db.DbGETable;
 import org.modelsphere.sms.or.generic.db.DbGEView;
 import org.modelsphere.sms.plugins.TargetSystem;
-import org.modelsphere.sms.plugins.jdbc.bridge.LocaleMgr;
 
 public class JdbcReverseToolkitPlugin extends ReverseToolkitPlugin {
     private static final String jobTitleKey = LocaleMgr.misc.getString("JdbcReverseEng");
@@ -168,25 +167,25 @@ public class JdbcReverseToolkitPlugin extends ReverseToolkitPlugin {
         return new ObjectScope[] {
                 //                    Concept Name                                          ConceptID  ParentID             ShowConcept  ShowOccurences  IsOwnedObject  SQLGetID
                 new ObjectScope(DbORUser.metaClass.getGUIName(), USERID, null, false, false, false,
-                        new Integer(0)),
+                        Integer.valueOf(0)),
                 new ObjectScope(LocaleMgr.misc.getString("dataType"), TYPEID, null, true, true,
-                        false, new Integer(1)),
-                new ObjectScope(UDTID, new Integer(TYPEID)),
+                        false, Integer.valueOf(1)),
+                new ObjectScope(UDTID, Integer.valueOf(TYPEID)),
                 new ObjectScope(DbGETable.metaClass.getGUIName(false, false), TABLEID, null, true,
-                        true, true, new Integer(2)),
-                new ObjectScope(COLUMNID, new Integer(TABLEID)),
+                        true, true, Integer.valueOf(2)),
+                new ObjectScope(COLUMNID, Integer.valueOf(TABLEID)),
                 new ObjectScope(DbGEPrimaryUnique.metaClass.getGUIName(false, false), PKID,
-                        new Integer(TABLEID), true, false, true, null),
-                new ObjectScope(DbGEForeign.metaClass.getGUIName(false, false), FKID, new Integer(
+                        Integer.valueOf(TABLEID), true, false, true, null),
+                new ObjectScope(DbGEForeign.metaClass.getGUIName(false, false), FKID, Integer.valueOf(
                         TABLEID), true, false, true, null),
-                new ObjectScope(DbGEIndex.metaClass.getGUIName(false, false), INDEXID, new Integer(
+                new ObjectScope(DbGEIndex.metaClass.getGUIName(false, false), INDEXID, Integer.valueOf(
                         TABLEID), true, false, true, null),
                 new ObjectScope(DbGEProcedure.metaClass.getGUIName(false, false), PROCID, null,
-                        true, true, true, new Integer(3), false),
-                new ObjectScope(PROCCOLID, new Integer(PROCID)),
+                        true, true, true, Integer.valueOf(3), false),
+                new ObjectScope(PROCCOLID, Integer.valueOf(PROCID)),
                 new ObjectScope(DbGEView.metaClass.getGUIName(false, false), VIEWID, null, true,
-                        true, true, new Integer(4), false),
-                new ObjectScope(COLUMNVIEWID, new Integer(VIEWID)), };
+                        true, true, Integer.valueOf(4), false),
+                new ObjectScope(COLUMNVIEWID, Integer.valueOf(VIEWID)), };
     }
 
     protected Worker createReverseWorker(DBMSReverseOptions options) {

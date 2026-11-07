@@ -1,7 +1,8 @@
 # Test various flavors of legal and illegal future statements
 
-from test_support import unload
 import re
+
+from test_support import unload
 
 rx = re.compile('\((\S+).py, line (\d+)')
 
@@ -12,13 +13,10 @@ def check_error_location(msg):
 # The first two tests should work
 
 unload('test_future1')
-import test_future1
 
 unload('test_future2')
-import test_future2
 
 unload('test_future3')
-import test_future3
 
 # The remaining tests should fail
 try:

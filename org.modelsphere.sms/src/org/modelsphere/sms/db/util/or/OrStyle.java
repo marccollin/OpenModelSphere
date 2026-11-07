@@ -43,12 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.db.util.or;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.srtypes.DbtPrefix;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.graphic.GraphicUtil;
@@ -60,6 +54,10 @@ import org.modelsphere.sms.db.srtypes.SMSDisplayDescriptor;
 import org.modelsphere.sms.oo.db.DbOOStyle;
 import org.modelsphere.sms.or.db.DbORStyle;
 import org.modelsphere.sms.or.db.srtypes.ORDescriptorFormat;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrStyle {
 	

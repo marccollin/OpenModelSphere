@@ -33,15 +33,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.text;
 
-import java.text.MessageFormat;
-import java.util.Locale;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.util.Terminology;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.sms.be.international.LocaleMgr;
+
+import java.text.MessageFormat;
+import java.util.Locale;
 
 //access to names of BE concepts should be localized here
 public class BETextUtil {

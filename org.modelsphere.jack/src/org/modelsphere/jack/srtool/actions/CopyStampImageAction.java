@@ -43,8 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.awt.Image;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -52,6 +50,8 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.graphic.DbGraphic;
 import org.modelsphere.jack.srtool.graphic.Stamp;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import java.awt.*;
 
 public final class CopyStampImageAction extends AbstractApplicationAction {
     public CopyStampImageAction() {

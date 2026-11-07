@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.actions.AbstractDomainAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -47,6 +45,9 @@ import org.modelsphere.sms.be.db.DbBENotation;
 import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.international.LocaleMgr;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class SetProjectDefaultBENotationAction extends AbstractDomainAction implements
         SelectionActionListener {
 
@@ -55,7 +56,7 @@ public final class SetProjectDefaultBENotationAction extends AbstractDomainActio
     private static final String kSetDefaultNotation = LocaleMgr.action
             .getString("setdefaultBEnotation");
 
-    private ArrayList notations = new ArrayList(0); // null object means
+    private List<DbBENotation> notations = new ArrayList<>(0); // null object means
 
     // separator
 
@@ -71,7 +72,7 @@ public final class SetProjectDefaultBENotationAction extends AbstractDomainActio
         if (selidx != -1) {
             DbSMSProject project = (DbSMSProject) ApplicationContext.getFocusManager()
                     .getCurrentProject();
-            DbBENotation notation = (DbBENotation) notations.get(selidx);
+            DbBENotation notation = notations.get(selidx);
             try {
                 project.getDb().beginTrans(Db.WRITE_TRANS, kSetDefaultNotation);
                 if (notation != null)
@@ -119,7 +120,7 @@ public final class SetProjectDefaultBENotationAction extends AbstractDomainActio
 
         Object[] items = new Object[notations.size()];
         for (int i = 0; i < notations.size(); i++) {
-            items[i] = ((DbBENotation) notations.get(i)).getName();
+            items[i] = notations.get(i).getName();
         }
 
         setDomainValues(items);

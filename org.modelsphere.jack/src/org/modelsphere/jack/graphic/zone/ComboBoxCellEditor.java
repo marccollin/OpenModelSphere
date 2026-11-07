@@ -43,13 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.zone;
 
-import java.awt.Rectangle;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JComponent;
-import javax.swing.JComboBox;
+import org.modelsphere.jack.graphic.Diagram;
+import org.modelsphere.jack.graphic.DiagramView;
+import org.modelsphere.jack.graphic.ZoneBox;
 
-import org.modelsphere.jack.graphic.*;
+import javax.swing.*;
+import java.awt.*;
 
 public abstract class ComboBoxCellEditor implements CellEditor {
 
@@ -67,11 +66,7 @@ public abstract class ComboBoxCellEditor implements CellEditor {
         diagram = box.getDiagram();
         combo = new JComboBox();
         populateCombo();
-        combo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                diagram.removeEditor(CellEditor.NORMAL_ENDING);
-            }
-        });
+        combo.addActionListener(e -> diagram.removeEditor(CellEditor.NORMAL_ENDING));
         return combo;
     }
 

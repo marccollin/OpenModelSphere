@@ -43,17 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.graphic;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.print.PageFormat;
-import java.util.HashSet;
-
-import javax.swing.JPopupMenu;
-import javax.swing.SwingUtilities;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.awt.JackPopupMenu;
 import org.modelsphere.jack.awt.choosers.PageTitlePanel;
@@ -71,7 +60,6 @@ import org.modelsphere.jack.graphic.Diagram;
 import org.modelsphere.jack.graphic.DiagramView;
 import org.modelsphere.jack.graphic.GraphicComponent;
 import org.modelsphere.jack.graphic.GraphicNode;
-import org.modelsphere.jack.graphic.Grid;
 import org.modelsphere.jack.graphic.ZoneBox;
 import org.modelsphere.jack.graphic.tool.ToolButtonGroup;
 import org.modelsphere.jack.graphic.zone.CellID;
@@ -79,6 +67,12 @@ import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.print.PageFormat;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ApplicationDiagram extends Diagram implements DbRefreshListener {
 
@@ -150,16 +144,15 @@ public class ApplicationDiagram extends Diagram implements DbRefreshListener {
         GraphicComponent[] selComps = getSelectedComponents();
         if (selComps.length == 0)
             return new Object[0];
-        HashSet selObjs = new HashSet();
-        for (int i = 0; i < selComps.length; i++) {
-            GraphicComponent gc = selComps[i];
+        Set<Object> selObjs = new HashSet<>();
+        for (GraphicComponent gc : selComps) {
             if (gc.selectAtCellLevel()) {
                 CellID[] cellIds = ((ZoneBox) gc).getSelectedCells();
                 if (cellIds.length == 0)
                     selObjs.add(gc);
                 else {
-                    for (int j = 0; j < cellIds.length; j++) {
-                        Object obj = ((ZoneBox) gc).getCell(cellIds[j]).getObject();
+                    for (CellID cellId : cellIds) {
+                        Object obj = ((ZoneBox) gc).getCell(cellId).getObject();
                         selObjs.add(obj == ((ActionInformation) gc).getSemanticalObject() ? gc
                                 : obj);
                     }

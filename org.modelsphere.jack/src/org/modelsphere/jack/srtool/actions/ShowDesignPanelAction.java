@@ -43,12 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import javax.swing.Action;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.screen.design.DesignPanel;
+
+import javax.swing.*;
 
 public final class ShowDesignPanelAction extends AbstractApplicationAction {
 

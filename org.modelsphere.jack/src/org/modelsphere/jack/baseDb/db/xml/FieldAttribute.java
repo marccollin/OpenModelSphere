@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.xml;
 
-import java.lang.reflect.*;
+import java.lang.reflect.Field;
 
 //import javax.xml.transform.stream.StreamResult;
 

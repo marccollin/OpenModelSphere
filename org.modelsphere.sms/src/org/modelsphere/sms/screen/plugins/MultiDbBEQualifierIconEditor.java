@@ -43,32 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.EventObject;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JList;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.event.CellEditorListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.EventListenerList;
-import javax.swing.table.TableCellEditor;
-
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.awt.ImagePreviewer;
 import org.modelsphere.jack.baseDb.screen.MultiDefaultRenderer;
@@ -76,9 +50,23 @@ import org.modelsphere.jack.baseDb.screen.plugins.SrImageEditor;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.graphic.GraphicUtil;
 import org.modelsphere.jack.srtool.screen.design.DesignTableModel;
-import org.modelsphere.sms.be.BEModule;
 import org.modelsphere.sms.international.LocaleMgr;
 import org.modelsphere.sms.screen.plugins.util.QualifierBuiltinImages;
+
+import javax.swing.*;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.EventListenerList;
+import javax.swing.table.TableCellEditor;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.EventObject;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * 
@@ -100,10 +88,10 @@ public final class MultiDbBEQualifierIconEditor implements TableCellEditor {
     private int noneIndex = -1;
 
     static {
-        ArrayList images = new ArrayList();
+        List<Image> images = new ArrayList<>();
         try {
             int count = 1;
-            String fileName = new Integer(count).toString();
+            String fileName = Integer.valueOf(count).toString();
             while (fileName.length() < 4)
                 fileName = "0" + fileName; // NOT LOCALIZABLE
             Image image = GraphicUtil.loadImage(
@@ -113,7 +101,7 @@ public final class MultiDbBEQualifierIconEditor implements TableCellEditor {
             while (image != null) {
                 images.add(image);
                 count++;
-                fileName = new Integer(count).toString();
+                fileName = Integer.valueOf(count).toString();
                 while (fileName.length() < 4)
                     fileName = "0" + fileName; // NOT LOCALIZABLE
                 image = GraphicUtil.loadImage(org.modelsphere.sms.be.international.LocaleMgr.class,
@@ -134,10 +122,8 @@ public final class MultiDbBEQualifierIconEditor implements TableCellEditor {
         try {
             JComboBox combo = new JComboBox();
             int selInd = -1;
-            Collection values = getSelectionSet(value);
-            Iterator iter = values.iterator();
-            while (iter.hasNext()) {
-                Object avalue = iter.next();
+            Collection<Object> values = getSelectionSet(value);
+            for (Object avalue : values) {
                 combo.addItem(avalue);
                 if (avalue == value)
                     selInd = combo.getItemCount() - 1;
@@ -161,8 +147,8 @@ public final class MultiDbBEQualifierIconEditor implements TableCellEditor {
         return comp;
     }
 
-    protected final Collection getSelectionSet(Object value) {
-        ArrayList values = new ArrayList();
+    protected final Collection<Object> getSelectionSet(Object value) {
+        List<Object> values = new ArrayList<>();
         values.add(MultiDefaultRenderer.kNone);
         values.add(kSelect);
         //values.addAll(Arrays.asList(BUILTIN_IMAGES));
@@ -183,7 +169,7 @@ public final class MultiDbBEQualifierIconEditor implements TableCellEditor {
                     setIcon(new ImageIcon((Image) value) {
                         public int getIconHeight() {
                             int height = super.getIconHeight();
-                            return height > 30 ? 30 : height;
+                            return Math.min(height, 30);
                         }
 
                     });
@@ -203,8 +189,7 @@ public final class MultiDbBEQualifierIconEditor implements TableCellEditor {
             return image;
         if (((JComboBox) comp).getSelectedIndex() == noneIndex)
             return null;
-        Object value = ((JComboBox) comp).getSelectedItem();
-        return value;
+        return ((JComboBox) comp).getSelectedItem();
     }
 
     public boolean isCellEditable(EventObject e) {

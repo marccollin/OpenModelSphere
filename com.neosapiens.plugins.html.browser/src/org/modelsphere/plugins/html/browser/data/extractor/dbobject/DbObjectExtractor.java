@@ -34,8 +34,6 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.data.extractor.dbobject;
 
-import java.util.*;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.plugins.html.browser.data.DataComponent;
@@ -44,6 +42,10 @@ import org.modelsphere.plugins.html.browser.data.DataDbObjectsGroup;
 import org.modelsphere.plugins.html.browser.data.DataDiagram;
 import org.modelsphere.plugins.html.browser.data.extractor.smsdiagram.SMSDiagramExtractor;
 import org.modelsphere.sms.db.DbSMSDiagram;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class is used to extract the necessary information of a project from a

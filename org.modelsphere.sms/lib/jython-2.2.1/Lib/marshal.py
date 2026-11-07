@@ -5,9 +5,11 @@ Performance or careful error checking is not an issue.
 
 """
 
+from types import *
+
 import StringIO
 import string
-from types import *
+
 try:
     import new
 except ImportError:

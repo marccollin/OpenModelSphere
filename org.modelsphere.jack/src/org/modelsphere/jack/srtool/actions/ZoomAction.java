@@ -43,15 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import javax.swing.KeyStroke;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.graphic.DiagramView;
 import org.modelsphere.jack.graphic.tool.ZoomCombo;
-import org.modelsphere.jack.srtool.*;
+import org.modelsphere.jack.srtool.ApplicationContext;
+import org.modelsphere.jack.srtool.CurrentFocusListener;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
 
 public class ZoomAction extends AbstractApplicationAction implements CurrentFocusListener {
     static final float[] zoomfactors = new float[] { 0.01f, 0.02f, 0.03f, 0.05f, 0.07f, 0.10f,

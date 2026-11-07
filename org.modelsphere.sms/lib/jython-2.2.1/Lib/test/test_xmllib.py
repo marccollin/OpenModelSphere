@@ -13,9 +13,10 @@ testdoc = """\
 <greeting>Hello, world!</greeting>
 """
 
-import test_support
 import unittest
 import xmllib
+
+import test_support
 
 
 class XMLParserTestCase(unittest.TestCase):

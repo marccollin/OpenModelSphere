@@ -42,13 +42,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.or;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.net.URL;
-
-import javax.swing.JEditorPane;
-import javax.swing.text.JTextComponent;
-
 import org.modelsphere.jack.awt.TextViewerFrame;
 import org.modelsphere.jack.awt.html.InternalLink;
 import org.modelsphere.jack.awt.html.InternalLinkAdapter;
@@ -63,9 +56,16 @@ import org.modelsphere.sms.or.db.DbORTable;
 import org.modelsphere.sms.or.db.DbORView;
 import org.modelsphere.sms.or.international.LocaleMgr;
 
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.net.URL;
+import java.nio.file.FileSystems;
+
 public final class ValidationReport {
 
-    private static final String EOL = "<br> " + System.getProperty("line.separator"); // NOT LOCALIZABLE
+    private static final String EOL = "<br> " + FileSystems.getDefault().getSeparator(); // NOT LOCALIZABLE
     private static final String SPACE = "&nbsp; "; // NOT LOCALIZABLE
     private static final String INDENT = SPACE + SPACE + SPACE;
 
@@ -197,7 +197,7 @@ public final class ValidationReport {
 
         if (isGenericMsg) {
             if (genericErrorFlags[msgIndex] != null) {
-                if (genericErrorFlags[msgIndex].booleanValue() == false) {
+                if (!genericErrorFlags[msgIndex]) {
                     printValidationMsgTitle(msgIndex, isGenericMsg, buffer);
                     genericErrorFlags[msgIndex] = Boolean.TRUE;
                 }
@@ -206,7 +206,7 @@ public final class ValidationReport {
             int nb = errorFlags.length;
             if (msgIndex < nb) {
                 if (errorFlags[msgIndex] != null) {
-                    if (errorFlags[msgIndex].booleanValue() == false) {
+                    if (!errorFlags[msgIndex]) {
                         printValidationMsgTitle(msgIndex, isGenericMsg, buffer);
                         errorFlags[msgIndex] = Boolean.TRUE;
                     }
@@ -240,7 +240,7 @@ public final class ValidationReport {
     }
 
     private void printValidationMsgTitle(int msgIndex, boolean isGenericMsg, StringBuffer buffer) {
-        if (isGenericMsg == true)
+        if (isGenericMsg)
             buffer.append("\n\n" + genericValidationMessages[msgIndex] + "\n");//NOT LOCALIZABLE
         else
             buffer.append("\n\n" + validationMessages[msgIndex] + "\n");//NOT LOCALIZABLE
@@ -307,11 +307,10 @@ public final class ValidationReport {
         writer.write(EOL + EOL);
         if (errorCount > 0)
             writer.write(MessageFormat.format(kErrorCount0,
-                    new Object[] { new Integer(errorCount) })
-                    + EOL);
+                    new Object[] { errorCount }) + EOL);
         if (warningCount > 0)
-            writer.write(MessageFormat.format(kWarningCount0, new Object[] { new Integer(
-                    warningCount) })
+            writer.write(MessageFormat.format(kWarningCount0, new Object[] {
+                    warningCount })
                     + EOL);
         if (errorCount == 0 && warningCount == 0)
             writer.write(kNoErrorFound + EOL);

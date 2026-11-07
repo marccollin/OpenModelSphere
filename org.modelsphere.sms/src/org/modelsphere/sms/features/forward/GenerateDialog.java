@@ -43,31 +43,21 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.features.forward;
 
-import java.awt.BorderLayout;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import org.modelsphere.jack.awt.AwtUtil;
+import org.modelsphere.jack.awt.beans.impl.AbstractProperty;
 import org.modelsphere.jack.awt.beans.impl.PropertyDialog;
 import org.modelsphere.jack.io.IoUtil;
 import org.modelsphere.jack.srtool.forward.VariableScope;
 import org.modelsphere.jack.templates.TemplateDialog;
 import org.modelsphere.sms.features.international.LocaleMgr;
 import org.modelsphere.sms.templates.GenericForwardEngineeringPlugin;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.List;
 
 public class GenerateDialog extends JDialog {
     JPanel panel1 = new JPanel();
@@ -87,7 +77,7 @@ public class GenerateDialog extends JDialog {
     private static final String CLOSE = LocaleMgr.screen.getString("Close");
     private static File g_selectedDirectory = null; //last selected output directory property
     private File m_actualDir;
-    private List m_propertyList = null;
+    private List<AbstractProperty> m_propertyList = null;
     private VariableScope m_variableList;
 
     //called by GenericDDLBasicForwardToolkit

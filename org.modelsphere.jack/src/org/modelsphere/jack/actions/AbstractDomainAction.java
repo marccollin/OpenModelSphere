@@ -43,11 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.actions;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
-
-import javax.swing.Icon;
-import javax.swing.SwingUtilities;
 
 /**
  * This class provides offer an additionnal feature over AbstractApplicationAction. It can manage a
@@ -139,10 +137,7 @@ public abstract class AbstractDomainAction extends AbstractApplicationAction {
             actionPerformed(new ActionEvent(source, ActionEvent.ACTION_PERFORMED, "")); // NOT LOCALIZABLE -
             // empty string
             SwingUtilities.invokeLater(new Runnable() { // Make sure that
-                        // changes made during
-                        // actionPerformed are
-                        // propagated to this
-                        // action's components
+                        // changes made during actionPerformed are propagated to this action's components
                         public void run() {
                             preventEvent = false;
                             firePropertyChange(SELECTED_VALUE, null, getValue(SELECTED_VALUE));

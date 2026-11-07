@@ -43,14 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.srtypes;
 
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.image.MemoryImageSource;
-import java.awt.image.PixelGrabber;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.debug.Debug;
+
+import java.awt.*;
+import java.awt.image.MemoryImageSource;
+import java.awt.image.PixelGrabber;
 
 /* <equals> is not defined on SrImage; so it returns always false.
  */

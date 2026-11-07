@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
@@ -48,8 +45,12 @@ import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.sms.be.db.DbBEFlow;
 import org.modelsphere.sms.be.text.BETextUtil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public final class SelectAllLinesAction extends AbstractSelectAction {
-    private static ArrayList EXCLUDED_MODELS = null;
+    private static List<Class> EXCLUDED_MODELS = null;
 
     public static String kSelectAllLines = LocaleMgr.action.getString("selectAllLines");
     public static String kSelectAllArcs = LocaleMgr.action.getString("selectAllArcs");
@@ -122,7 +123,7 @@ public final class SelectAllLinesAction extends AbstractSelectAction {
 
     public static final void setExcludedModels(Class[] models) {
         if (models != null)
-            EXCLUDED_MODELS = new ArrayList(Arrays.asList(models));
+            EXCLUDED_MODELS = new ArrayList<>(Arrays.asList(models));
     }
 
 }

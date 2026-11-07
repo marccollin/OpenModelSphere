@@ -43,18 +43,22 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.io;
 
-import java.awt.Component;
-import java.io.*;
-import java.net.URL;
-
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-
 import org.modelsphere.jack.awt.dirchooser.DirectoryChooser;
 import org.modelsphere.jack.awt.dirchooser.DirectoryChooser2;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 /**
  * 

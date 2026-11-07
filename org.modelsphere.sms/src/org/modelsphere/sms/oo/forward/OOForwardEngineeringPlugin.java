@@ -33,13 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.oo.forward;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.io.HTMLStringWriter;
@@ -49,6 +42,11 @@ import org.modelsphere.jack.srtool.forward.VariableDecl;
 import org.modelsphere.jack.srtool.forward.VariableScope;
 import org.modelsphere.sms.actions.GenerateFromTemplatesAction;
 import org.modelsphere.sms.templates.GenericForwardEngineeringPlugin;
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.List;
 
 /**
  * This class provides common services for OO code generation plug-ins.
@@ -65,10 +63,8 @@ public abstract class OOForwardEngineeringPlugin extends GenericForwardEngineeri
         //look for a html variable
         String condition = "html"; //NOT LOCALIZABLE
         VariableScope vars = getVarScope();
-        ArrayList conds = GenerateFromTemplatesAction.getConditions(vars);
-        Iterator iter = conds.iterator();
-        while (iter.hasNext()) {
-            VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) iter.next();
+        List<VariableDecl.VariableStructure> conds = GenerateFromTemplatesAction.getConditions(vars);
+        for (VariableDecl.VariableStructure variable : conds) {
             String varName = variable.getName();
             if (varName.equals(condition)) {
                 variable.setValue(Boolean.TRUE);
@@ -81,10 +77,8 @@ public abstract class OOForwardEngineeringPlugin extends GenericForwardEngineeri
         //look for a html variable
         String condition = "html"; //NOT LOCALIZABLE
         VariableScope varScope = getVarScope();
-        ArrayList conds = GenerateFromTemplatesAction.getConditions(varScope);
-        Iterator iter = conds.iterator();
-        while (iter.hasNext()) {
-            VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) iter.next();
+        List<VariableDecl.VariableStructure> conds = GenerateFromTemplatesAction.getConditions(varScope);
+        for (VariableDecl.VariableStructure variable : conds) {
             String varName = variable.getName();
             if (varName.equals(condition)) {
                 variable.setValue(Boolean.FALSE);

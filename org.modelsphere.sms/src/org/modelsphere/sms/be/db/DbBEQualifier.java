@@ -42,19 +42,19 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.be.db;
 
-import java.awt.*;
-import org.modelsphere.jack.baseDb.meta.*;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import org.modelsphere.sms.be.db.srtypes.*;
-import org.modelsphere.sms.be.international.LocaleMgr;
-import org.modelsphere.sms.db.*;
-import org.modelsphere.sms.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.baseDb.db.srtypes.SrImage;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
 import org.modelsphere.sms.SMSFilter;
-import javax.swing.Icon;
-import org.modelsphere.jack.graphic.GraphicUtil;
-import org.modelsphere.sms.be.BEModule;
+import org.modelsphere.sms.be.international.LocaleMgr;
+import org.modelsphere.sms.db.DbSMSSemanticalObject;
 import org.modelsphere.sms.screen.plugins.MultiDbBEQualifierIconEditor;
+
+import java.awt.*;
 
 /**
  * <b>Direct subclass(es)/subinterface(s) : </b>none.<br>
@@ -167,7 +167,7 @@ public final class DbBEQualifier extends DbSMSSemanticalObject {
             // if the icon we are setting is one of these images
             if (value.equals(imageList[i])) {
                 //set the index as the qualifier Id
-                String qualifierId = new Integer(i).toString();
+                String qualifierId = Integer.valueOf(i).toString();
                 while (qualifierId.length() < 4)
                     qualifierId = "0" + qualifierId; // NOT LOCALIZABLE 
                 basicSet(fQualifierId, qualifierId);

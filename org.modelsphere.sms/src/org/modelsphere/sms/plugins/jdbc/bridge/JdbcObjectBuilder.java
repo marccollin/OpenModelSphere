@@ -138,22 +138,22 @@ public final class JdbcObjectBuilder extends JdbcBuilder {
 
     // Table Column Size
     protected void buildTableColumnSize(int size) throws Exception {
-        actions.setAttribute("size", new Integer(size).toString());
+        actions.setAttribute("size", Integer.valueOf(size).toString());
     };
 
     // Table Column Decimals
     protected void buildTableColumnDecimals(int decimals) throws Exception {
-        actions.setAttribute("decimals", new Integer(decimals).toString());
+        actions.setAttribute("decimals", Integer.valueOf(decimals).toString());
     };
 
     // Table Column SQL Data Type
     protected void buildTableColumnSQLDataType(short colJavaSQLDataType) throws Exception {
-        actions.setAttribute("sql_type", new Short(colJavaSQLDataType).toString());
+        actions.setAttribute("sql_type", Short.valueOf(colJavaSQLDataType).toString());
     };
 
     // Table Column Null
     protected void buildTableColumnNull(int colNull) throws Exception {
-        actions.setAttribute("null", new Integer(colNull).toString());
+        actions.setAttribute("null", Integer.valueOf(colNull).toString());
     };
 
     // Table Column Default Value
@@ -194,22 +194,22 @@ public final class JdbcObjectBuilder extends JdbcBuilder {
 
     // View Column Size
     protected void buildViewColumnSize(int size) throws Exception {
-        actions.setAttribute("size", new Integer(size).toString());
+        actions.setAttribute("size", Integer.valueOf(size).toString());
     };
 
     // View Column Decimals
     protected void buildViewColumnDecimals(int decimals) throws Exception {
-        actions.setAttribute("decimals", new Integer(decimals).toString());
+        actions.setAttribute("decimals", Integer.valueOf(decimals).toString());
     };
 
     // View Column SQL Data Type
     protected void buildViewColumnSQLDataType(short colJavaSQLDataType) throws Exception {
-        actions.setAttribute("sql_type", new Short(colJavaSQLDataType).toString());
+        actions.setAttribute("sql_type", Short.valueOf(colJavaSQLDataType).toString());
     };
 
     // View Column Null
     protected void buildViewColumnNull(int colNull) throws Exception {
-        actions.setAttribute("null", new Integer(colNull).toString());
+        actions.setAttribute("null", Integer.valueOf(colNull).toString());
     };
 
     // View Column Default Value
@@ -389,12 +389,12 @@ public final class JdbcObjectBuilder extends JdbcBuilder {
 
     // Procedure Column Type (category)
     protected void buildProcColType(short procColType) throws Exception {
-        actions.setAttribute("type", new Short(procColType).toString());
+        actions.setAttribute("type", Short.valueOf(procColType).toString());
     };
 
     // Procedure Column SQL Type
     protected void buildProcColSQLType(short procColSQLDataType) throws Exception {
-        actions.setAttribute("sql_type", new Short(procColSQLDataType).toString());
+        actions.setAttribute("sql_type", Short.valueOf(procColSQLDataType).toString());
     };
 
     // Procedure Column Data Type
@@ -404,12 +404,12 @@ public final class JdbcObjectBuilder extends JdbcBuilder {
 
     // Procedure Column Length
     protected void buildProcColPrec(int procColPrecision) throws Exception {
-        actions.setAttribute("length", new Integer(procColPrecision).toString());
+        actions.setAttribute("length", Integer.valueOf(procColPrecision).toString());
     };
 
     // Procedure Column Nb Decimals
     protected void buildProcColScale(short procColScale) throws Exception {
-        actions.setAttribute("nb_decimals", new Short(procColScale).toString());
+        actions.setAttribute("nb_decimals", Short.valueOf(procColScale).toString());
     };
 
     // Procedure Column Comments
@@ -430,17 +430,17 @@ public final class JdbcObjectBuilder extends JdbcBuilder {
 
     // Type SQL Data Type (java.sql.Types)
     protected void buildTypeDataType(short dataType) throws Exception {
-        actions.setAttribute("sql_type", new Short(dataType).toString());
+        actions.setAttribute("sql_type", Short.valueOf(dataType).toString());
     };
 
     // Type Length
     protected void buildTypePrecision(int precision) throws Exception {
-        actions.setAttribute("length", new Integer(precision).toString());
+        actions.setAttribute("length", Integer.valueOf(precision).toString());
     };
 
     // Type Nullable
     protected void buildTypeNullable(int nullable) throws Exception {
-        actions.setAttribute("nullable", new Integer(nullable).toString());
+        actions.setAttribute("nullable", Integer.valueOf(nullable).toString());
     };
 
     // Type Case Sensitive
@@ -471,7 +471,7 @@ public final class JdbcObjectBuilder extends JdbcBuilder {
 
     // UDT SQL Type
     protected void buildUDTType(short uDTType) throws Exception {
-        actions.setAttribute("sql_type", new Short(uDTType).toString());
+        actions.setAttribute("sql_type", Short.valueOf(uDTType).toString());
     };
 
     // UDT Comments

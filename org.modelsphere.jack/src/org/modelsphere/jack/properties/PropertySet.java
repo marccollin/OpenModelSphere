@@ -1,11 +1,14 @@
 package org.modelsphere.jack.properties;
 
-import java.io.*;
+import org.modelsphere.jack.srtool.ApplicationContext;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
-import org.modelsphere.jack.srtool.ApplicationContext;
 
 public class PropertySet {
     private static Map<Class, PropertySet> propertySet = null;

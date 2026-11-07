@@ -8,6 +8,7 @@ from xml.parsers import expat
 
 from test_support import sortdict
 
+
 class Outputter:
     def StartElementHandler(self, name, attrs):
         print 'Start element:\n\t', repr(name), sortdict(attrs)

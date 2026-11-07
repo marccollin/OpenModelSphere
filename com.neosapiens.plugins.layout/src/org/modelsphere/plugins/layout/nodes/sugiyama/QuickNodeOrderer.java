@@ -1,10 +1,10 @@
 package org.modelsphere.plugins.layout.nodes.sugiyama;
 
-import java.util.Arrays;
-
 import org.modelsphere.jack.srtool.features.layout.LayoutException;
 import org.modelsphere.jack.srtool.features.layout.graph.Vertex;
 import org.modelsphere.plugins.layout.nodes.layerers.LayeredGraph;
+
+import java.util.Arrays;
 
 /**
  * <p>

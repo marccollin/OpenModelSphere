@@ -1,5 +1,4 @@
 # Copyright (c) Corporation for National Research Initiatives
-from Output import SourceFile
 
 COMMASPACE = ', '
 

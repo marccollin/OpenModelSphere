@@ -1,6 +1,9 @@
+import gzip
+import os
+import sys
+import tempfile
+
 from test_support import verify
-import sys, os
-import gzip, tempfile
 
 filename = tempfile.mktemp()
 

@@ -43,11 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.dirchooser;
 
-import javax.swing.event.*;
-import java.util.*;
+import javax.swing.event.TreeModelEvent;
+import javax.swing.event.TreeModelListener;
+import java.util.Enumeration;
+import java.util.Vector;
 
 class TreeModelSupport {
-    private Vector vector = new Vector();
+    private Vector<TreeModelListener> vector = new Vector<>();
 
     public void addTreeModelListener(TreeModelListener listener) {
         if (listener != null && !vector.contains(listener)) {
@@ -62,33 +64,33 @@ class TreeModelSupport {
     }
 
     public void fireTreeNodesChanged(TreeModelEvent e) {
-        Enumeration listeners = vector.elements();
+        Enumeration<TreeModelListener> listeners = vector.elements();
         while (listeners.hasMoreElements()) {
-            TreeModelListener listener = (TreeModelListener) listeners.nextElement();
+            TreeModelListener listener = listeners.nextElement();
             listener.treeNodesChanged(e);
         }
     }
 
     public void fireTreeNodesInserted(TreeModelEvent e) {
-        Enumeration listeners = vector.elements();
+        Enumeration<TreeModelListener> listeners = vector.elements();
         while (listeners.hasMoreElements()) {
-            TreeModelListener listener = (TreeModelListener) listeners.nextElement();
+            TreeModelListener listener = listeners.nextElement();
             listener.treeNodesInserted(e);
         }
     }
 
     public void fireTreeNodesRemoved(TreeModelEvent e) {
-        Enumeration listeners = vector.elements();
+        Enumeration<TreeModelListener> listeners = vector.elements();
         while (listeners.hasMoreElements()) {
-            TreeModelListener listener = (TreeModelListener) listeners.nextElement();
+            TreeModelListener listener = listeners.nextElement();
             listener.treeNodesRemoved(e);
         }
     }
 
     public void fireTreeStructureChanged(TreeModelEvent e) {
-        Enumeration listeners = vector.elements();
+        Enumeration<TreeModelListener> listeners = vector.elements();
         while (listeners.hasMoreElements()) {
-            TreeModelListener listener = (TreeModelListener) listeners.nextElement();
+            TreeModelListener listener = listeners.nextElement();
             listener.treeStructureChanged(e);
         }
     }

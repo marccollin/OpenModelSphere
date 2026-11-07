@@ -43,13 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.db.util;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.preference.PropertiesManager;
@@ -59,6 +52,11 @@ import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.db.DbORForeign;
 import org.modelsphere.sms.or.db.DbORStyle;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 @SuppressWarnings("serial")
 public class ForeignKeyNamingButton extends JButton implements ActionListener {

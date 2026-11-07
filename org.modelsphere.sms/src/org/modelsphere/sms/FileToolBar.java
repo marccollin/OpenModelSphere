@@ -33,11 +33,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import javax.swing.JButton;
-
 import org.modelsphere.jack.awt.JackToolBar;
 import org.modelsphere.sms.actions.SMSActionsStore;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import javax.swing.*;
 
 public class FileToolBar extends JackToolBar {
     private JButton buttonNew;

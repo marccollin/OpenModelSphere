@@ -43,12 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
+import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
-import javax.swing.*;
-import javax.swing.border.Border;
 
 public class StatusBar extends JPanel implements PropertyChangeListener {
     public static final int RELATIVE_WIDTH = -1;

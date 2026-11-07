@@ -33,11 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.ansi.forward;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -80,6 +75,10 @@ import org.modelsphere.sms.or.generic.db.DbGETable;
 import org.modelsphere.sms.or.generic.db.DbGETrigger;
 import org.modelsphere.sms.or.generic.db.DbGEView;
 import org.modelsphere.sms.templates.SQLForwardEngineeringPlugin;
+
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This plug-in will is generating DDL from the generic application relational concepts. -

@@ -33,14 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.features;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.swing.SwingUtilities;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -56,7 +48,6 @@ import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.jack.gui.task.DefaultController;
 import org.modelsphere.jack.gui.task.Worker;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.sms.be.db.DbBEActor;
 import org.modelsphere.sms.be.db.DbBEActorQualifier;
@@ -82,6 +73,13 @@ import org.modelsphere.sms.db.DbSMSStereotype;
 import org.modelsphere.sms.db.DbSMSUmlConstraint;
 import org.modelsphere.sms.db.DbSMSUmlExtensibility;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public final class SplitUseCase {
     private static final int REPORT_INDENT = 4;
 
@@ -94,10 +92,10 @@ public final class SplitUseCase {
     // usecases that become external.
     // This is used for restoring link between the usecase and other objects
     // involved in the split.
-    private HashMap refUseCase = new HashMap();
+    private Map<DbBEUseCase, DbBEUseCase> refUseCase = new HashMap<>();
     // Mapping for actors, stores, styles and notations (the Db mapping facility
     // does not match the 2 models
-    private HashMap refComponents = new HashMap();
+    private Map<DbObject, DbObject> refComponents = new HashMap<>();
 
     private boolean sameProject = false;
     private DbSMSProject newproject = null;
@@ -150,19 +148,19 @@ public final class SplitUseCase {
                     return context;
                 if (targetNeighbor != null)
                     return targetNeighbor;
-                return (DbObject) refUseCase.get(srcNeighbor);
+                return refUseCase.get(srcNeighbor);
             }
 
             DbObject targetNeighbor = srcNeighbor.findMatchingObject();
             if (targetNeighbor != null)
                 return targetNeighbor;
             if (srcNeighbor instanceof DbBEActor || srcNeighbor instanceof DbBEStore) {
-                return (DbObject) refComponents.get(srcNeighbor);
+                return refComponents.get(srcNeighbor);
             }
             return targetNeighbor;
         }
 
-        public void endCopy(ArrayList srcRoots) throws DbException {
+        public void endCopy(List<DbObject> srcRoots) throws DbException {
         }
     }
 
@@ -301,10 +299,9 @@ public final class SplitUseCase {
     }
 
     private void copyUDFsFor(MetaClass metaclass) throws DbException {
-        List udfs = Arrays.asList(DbUDF.getUDF(sourceModel.getProject(), metaclass));
-        Iterator iter = udfs.iterator();
-        while (iter.hasNext()) {
-            println(iter.next(), REPORT_INDENT);
+        List<DbUDF> udfs = Arrays.asList(DbUDF.getUDF(sourceModel.getProject(), metaclass));
+        for (DbUDF udf : udfs) {
+            println(udf, REPORT_INDENT);
         }
         deepCopy(udfs, targetModel.getProject());
     }
@@ -351,7 +348,7 @@ public final class SplitUseCase {
     private void copyStyles() throws DbException {
         DbEnumeration dbEnum = sourceModel.getProject().getComponents().elements(
                 DbBEStyle.metaClass);
-        ArrayList styles = new ArrayList();
+        List<DbObject> styles = new ArrayList<>();
         while (dbEnum.hasMoreElements()) {
             // todo filter used styles only ???
             DbObject dbo = dbEnum.nextElement();
@@ -369,7 +366,7 @@ public final class SplitUseCase {
     private void copyNotations() throws DbException {
         DbEnumeration dbEnum = sourceModel.getProject().getComponents().elements(
                 DbBENotation.metaClass);
-        ArrayList notations = new ArrayList();
+        List<DbObject> notations = new ArrayList<>();
         while (dbEnum.hasMoreElements()) {
             // todo filter used notations only ???
             DbObject dbo = dbEnum.nextElement();
@@ -407,19 +404,19 @@ public final class SplitUseCase {
 
         MetaField[] metafields = DbBEUseCase.metaClass.getAllMetaFields();
         // copy non relationship metafields
-        for (int i = 0; i < metafields.length; i++) {
-            if (metafields[i] instanceof MetaRelationship)
+        for (MetaField metafield : metafields) {
+            if (metafield instanceof MetaRelationship)
                 continue;
-            duplicate.set(metafields[i], source.get(metafields[i]));
+            duplicate.set(metafield, source.get(metafield));
         }
         // copy metafields values
         DbUDF[] udfs = DbUDF.getUDF(source.getProject(), DbBEUseCase.metaClass);
-        for (int i = 0; i < udfs.length; i++) {
-            DbUDF targetUDF = DbUDF.getUDF(composite.getProject(), DbBEUseCase.metaClass, udfs[i]
+        for (DbUDF udf : udfs) {
+            DbUDF targetUDF = DbUDF.getUDF(composite.getProject(), DbBEUseCase.metaClass, udf
                     .getName());
             if (targetUDF == null) // should not happen
                 continue;
-            duplicate.set(targetUDF, source.get(udfs[i]));
+            duplicate.set(targetUDF, source.get(udf));
         }
 
         // copy all components excepts usecases and flows -
@@ -429,7 +426,7 @@ public final class SplitUseCase {
         // creating their target composite (the root context in target)
         // Basically, those components are the link objects between the root
         // usecase and resources or qualifiers
-        ArrayList components = new ArrayList();
+        List<DbObject> components = new ArrayList<>();
         DbEnumeration dbEnum = source.getComponents().elements(DbBEUseCaseResource.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbObject dbo = dbEnum.nextElement();
@@ -475,7 +472,7 @@ public final class SplitUseCase {
         // object
         // because a process can be link with a flow and without any graphical
         // representations.)
-        ArrayList externalUseCases = new ArrayList();
+        List<DbObject> externalUseCases = new ArrayList<>();
         DbEnumeration dbEnum = usecase.componentTree(DbBEFlow.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbBEFlow flow = (DbBEFlow) dbEnum.nextElement();
@@ -506,9 +503,7 @@ public final class SplitUseCase {
         // We must also set the duplicated usecase (in target) as external and
         // backup source identifiers (for restoring the links
         // in GroupUseCase feature.
-        Iterator iter = externalUseCases.iterator();
-        while (iter.hasNext()) {
-            DbObject dbo = (DbObject) iter.next();
+        for (DbObject dbo : externalUseCases) {
             if (!(dbo instanceof DbBEUseCase))
                 continue;
             DbBEUseCase sourceusecase = (DbBEUseCase) dbo;
@@ -548,8 +543,8 @@ public final class SplitUseCase {
             externalusecase.setSourceAlphanumericIdentifier(alphaId);
             externalusecase.setSourceNumericIdentifier(numericId);
 
-            if (((alphaId != null && alphaId.length() == 0) || alphaId == null)
-                    && ((numericId != null && numericId.length() == 0) || numericId == null)) {
+            if (((alphaId != null && alphaId.isEmpty()) || alphaId == null)
+                    && ((numericId != null && numericId.isEmpty()) || numericId == null)) {
                 println(dbo, REPORT_INDENT, true, LocaleMgr.message.getString("noExternalID"));
                 // return false;
             } else
@@ -566,7 +561,7 @@ public final class SplitUseCase {
     // (DbBEUseCaseResource.metaClass, DbBEUseCaseQualifier.metaClass has been
     // processed previously)
     private void copyContextComponents() throws DbException {
-        ArrayList dbos = new ArrayList();
+        List<DbObject> dbos = new ArrayList<>();
         DbEnumeration dbEnum = usecase.getComponents().elements();
         while (dbEnum.hasMoreElements()) {
             DbObject dbo = (DbObject) dbEnum.nextElement();
@@ -609,7 +604,7 @@ public final class SplitUseCase {
 
     // copy UML Extensibilities, actors, stores, qualifiers and resources
     private void copyModelComponents() throws DbException {
-        ArrayList components = new ArrayList();
+        List<DbObject> components = new ArrayList<>();
         DbEnumeration dbEnum = null;
         if (!sameProject) {
             // copy missing UML Extensibilities
@@ -662,12 +657,12 @@ public final class SplitUseCase {
         }
     }
 
-    private DbObject[] deepCopy(List components, DbObject targetComposite) throws DbException {
-        if (components == null || components.size() == 0)
+    private DbObject[] deepCopy(List<? extends DbObject> components, DbObject targetComposite) throws DbException {
+        if (components == null || components.isEmpty())
             return null;
         DbObject[] sourceDbos = new DbObject[components.size()];
         for (int i = 0; i < sourceDbos.length; i++)
-            sourceDbos[i] = (DbObject) components.get(i);
+            sourceDbos[i] = components.get(i);
 
         return DbObject.deepCopy(sourceDbos, targetComposite, copyCustomizer, false);
     }

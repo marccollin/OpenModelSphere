@@ -43,9 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.*;
-
 import javax.swing.border.Border;
+import java.awt.*;
 
 public final class LineBorder2 implements Border {
     private Color color;

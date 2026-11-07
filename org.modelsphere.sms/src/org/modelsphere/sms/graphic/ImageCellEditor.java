@@ -32,11 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.graphic;
 
-import java.awt.Rectangle;
-
-import javax.swing.JComponent;
-
-import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.graphic.DiagramView;
 import org.modelsphere.jack.graphic.ZoneBox;
 import org.modelsphere.jack.graphic.zone.CellEditor;
@@ -45,6 +40,9 @@ import org.modelsphere.jack.graphic.zone.ZoneCell;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.actions.ChangeStampImageAction;
 import org.modelsphere.sms.actions.SMSActionsStore;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * @author nicolask

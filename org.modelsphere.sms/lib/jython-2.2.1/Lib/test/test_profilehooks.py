@@ -1,12 +1,11 @@
 from __future__ import generators
 
-from test_support import TestFailed
-
 import pprint
 import sys
 import unittest
 
 import test_support
+from test_support import TestFailed
 
 
 class HookWatcher:

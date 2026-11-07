@@ -33,13 +33,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.actions;
 
-import java.awt.event.ActionEvent;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
-import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbProject;
@@ -58,6 +53,9 @@ import org.modelsphere.sms.or.features.dbms.DBMSReverseOptions;
 import org.modelsphere.sms.or.features.dbms.ReverseToolkitPlugin;
 import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.plugins.TargetSystem;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class SynchroDBAction extends AbstractApplicationAction implements SelectionActionListener {
     private static final String kSynchroDB = LocaleMgr.action.getString("Synchronization_");

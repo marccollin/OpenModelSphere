@@ -1,7 +1,8 @@
 # Copyright (c) Corporation for National Research Initiatives
-import jast
-import org, java
+import java
+import org
 
+import jast
 
 
 def makeAnys(args):

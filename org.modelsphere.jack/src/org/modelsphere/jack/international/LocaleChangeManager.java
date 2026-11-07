@@ -45,6 +45,7 @@ package org.modelsphere.jack.international;
 
 import java.util.Locale;
 import java.util.Vector;
+import java.util.List;
 
 /**
  * LocaleChangeManager is a non-visual java bean which notifies registered observers when a locale
@@ -62,7 +63,7 @@ public class LocaleChangeManager implements LocaleChangeListener {
     // holds the single instance of the LocaleChangeManager
     private static LocaleChangeManager localeChangeManager = null;
     // holds registered event listeners
-    Vector localeChangeListeners = new Vector();
+    Vector<LocaleChangeListener> localeChangeListeners = new Vector<>();
     private static Locale locale = Locale.getDefault();
 
     protected LocaleChangeManager() {
@@ -117,15 +118,15 @@ public class LocaleChangeManager implements LocaleChangeListener {
      *            LocaleChangeEvent describing new locale
      */
     public void localeChanged(LocaleChangeEvent e) {
-        Vector listeners;
+        List<LocaleChangeListener> listeners;
 
         locale = e.getLocale();
 
         synchronized (this) {
-            listeners = (Vector) localeChangeListeners.clone();
+            listeners = new Vector<>(localeChangeListeners);
         }
-        for (int i = 0; i < listeners.size(); i++) {
-            ((LocaleChangeListener) listeners.elementAt(i)).localeChanged(e);
+        for (LocaleChangeListener listener : listeners) {
+            listener.localeChanged(e);
         }
     }
 }

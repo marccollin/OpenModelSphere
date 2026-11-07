@@ -42,17 +42,15 @@ open-modelsphere@grandite.com
 **********************************************************************/
 package org.modelsphere.sms.or.db;
 
-import java.awt.*;
-import org.modelsphere.jack.baseDb.meta.*;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import org.modelsphere.sms.or.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelation1;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
+import org.modelsphere.jack.baseDb.util.TerminologyUtil;
+import org.modelsphere.sms.db.DbSMSTargetSystem;
 import org.modelsphere.sms.or.international.LocaleMgr;
-import org.modelsphere.sms.db.*;
-import org.modelsphere.sms.db.srtypes.*;
-import java.util.*;
-import org.modelsphere.jack.srtool.*;
-import org.modelsphere.jack.baseDb.util.*;
 
 /**
 <b>Direct subclass(es)/subinterface(s) : </b><A HREF="../../../../../org/modelsphere/sms/or/oracle/db/DbORADataModel.html">DbORADataModel</A>, <A HREF="../../../../../org/modelsphere/sms/or/ibm/db/DbIBMDataModel.html">DbIBMDataModel</A>, <A HREF="../../../../../org/modelsphere/sms/or/informix/db/DbINFDataModel.html">DbINFDataModel</A>, <A HREF="../../../../../org/modelsphere/sms/or/generic/db/DbGEDataModel.html">DbGEDataModel</A>.<br>
@@ -124,7 +122,7 @@ public abstract class DbORDataModel extends DbORModel {
   public DbORDataModel(DbObject composite, DbSMSTargetSystem targetSystem, int logicalMode) throws DbException {
     super(composite, targetSystem);
     setDefaultInitialValues();
-    set(fLogicalMode, new Integer(logicalMode));
+    set(fLogicalMode, logicalMode);
 
   }
 
@@ -141,7 +139,7 @@ public abstract class DbORDataModel extends DbORModel {
   }
 
   private void setDefaultInitialValues() throws DbException {
-    setLogicalMode(new Integer(LOGICAL_MODE_OBJECT_RELATIONAL));
+    setLogicalMode(LOGICAL_MODE_OBJECT_RELATIONAL);
     setIsConverted(Boolean.FALSE);
     TerminologyUtil terminologyUtil = TerminologyUtil.getInstance();  
       setName(terminologyUtil.findModelTerminology(this).getTerm(metaClass));

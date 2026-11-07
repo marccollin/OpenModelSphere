@@ -43,10 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.dirchooser;
 
-import javax.swing.tree.*;
+import javax.swing.tree.TreePath;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.Serializable;
+import java.util.Objects;
 
 class FileSystemModel extends AbstractTreeModel implements Serializable {
     public static final int SHOW_ALL = 0;
@@ -76,6 +77,7 @@ class FileSystemModel extends AbstractTreeModel implements Serializable {
     public Object getChild(Object parent, int index) {
         File directory = (File) parent;
         File[] children = directory.listFiles(m_filter);
+        assert children != null;
         String childName = children[index].getName();
         File child = new File(directory, childName);
 
@@ -109,7 +111,7 @@ class FileSystemModel extends AbstractTreeModel implements Serializable {
         File[] children = directory.listFiles(m_filter);
         int result = -1;
 
-        for (int i = 0; i < children.length; ++i) {
+        for (int i = 0; i < Objects.requireNonNull(children).length; ++i) {
             String childName = children[i].getName();
             if (fileSysEntity.getName().equals(childName)) {
                 result = i;

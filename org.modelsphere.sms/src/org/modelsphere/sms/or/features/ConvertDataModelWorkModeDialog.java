@@ -33,29 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features;
 
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
-import javax.swing.border.TitledBorder;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -65,6 +42,14 @@ import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.db.DbORDiagram;
 import org.modelsphere.sms.or.db.DbORNotation;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConvertDataModelWorkModeDialog extends JDialog {
     private TitledBorder titledBorder1;
@@ -128,7 +113,7 @@ public class ConvertDataModelWorkModeDialog extends JDialog {
     private static final String kGenerateFKMessage = LocaleMgr.screen
             .getString("generateFKMessage");
 
-    private ArrayList m_SubModelsList = new ArrayList();
+    private List<DbORDataModel> m_SubModelsList = new ArrayList<>();
 
     public ConvertDataModelWorkModeDialog(Frame frame, String title, boolean modal,
             DbObject[] semObjs, int workMode) {
@@ -451,7 +436,7 @@ public class ConvertDataModelWorkModeDialog extends JDialog {
         this.getAllSubModels(currentModel);
         DbObject[] models = new DbObject[m_SubModelsList.size()];
         for (int i = 0; i < models.length; i++) {
-            models[i] = (DbObject) m_SubModelsList.get(i);
+            models[i] = m_SubModelsList.get(i);
             if (!((DbORDataModel) models[i]).isIsValidated())
                 nbSubModelNoValid++;
         }

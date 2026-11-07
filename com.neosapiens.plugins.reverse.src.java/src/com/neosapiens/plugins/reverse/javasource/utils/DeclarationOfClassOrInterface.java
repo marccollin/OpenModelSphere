@@ -1,9 +1,10 @@
 package com.neosapiens.plugins.reverse.javasource.utils;
 
+import com.neosapiens.plugins.reverse.javasource.actions.SemanticAction;
+
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
-import java.lang.reflect.Modifier;
-import com.neosapiens.plugins.reverse.javasource.actions.SemanticAction;
 
 public class DeclarationOfClassOrInterface implements SemanticDeclaration {
 

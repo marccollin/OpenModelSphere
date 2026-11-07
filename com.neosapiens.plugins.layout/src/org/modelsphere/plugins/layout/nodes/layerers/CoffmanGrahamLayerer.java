@@ -1,13 +1,18 @@
 package org.modelsphere.plugins.layout.nodes.layerers;
 
-import java.util.*;
-
 import org.jgrapht.DirectedGraph;
 import org.modelsphere.jack.srtool.features.layout.LayoutException;
 import org.modelsphere.jack.srtool.features.layout.graph.Edge;
 import org.modelsphere.jack.srtool.features.layout.graph.Graph;
 import org.modelsphere.jack.srtool.features.layout.graph.Vertex;
 import org.modelsphere.plugins.layout.CyclicGraphException;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Layerer that implements the Coffman Graham layering algorithm.

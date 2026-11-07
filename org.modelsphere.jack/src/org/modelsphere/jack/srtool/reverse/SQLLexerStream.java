@@ -43,11 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse;
 
-import java.io.*;
-
 import org.modelsphere.jack.io.LexerStream;
 
+import java.io.Reader;
+
 public final class SQLLexerStream extends LexerStream {
+    private static final char STATEMENT_END = ';';
 
     public SQLLexerStream(Reader reader) {
         super(reader);
@@ -63,14 +64,14 @@ public final class SQLLexerStream extends LexerStream {
         defineLineComment("--");
 
         // Each SELECT statement begins by SELECT keyword and ends by ';'
-        defineStatement("SELECT", ';'); // NOT LOCALIZABLE, keyword
-        defineStatement("CREATE", ';'); // NOT LOCALIZABLE, keyword
-        defineStatement("DROP", ';'); // NOT LOCALIZABLE, keyword
-        defineStatement("ALTER", ';'); // NOT LOCALIZABLE, keyword
-        defineStatement("MODIFY", ';'); // NOT LOCALIZABLE, keyword
-        defineStatement("INSERT", ';'); // NOT LOCALIZABLE, keyword
-        defineStatement("DELETE", ';'); // NOT LOCALIZABLE, keyword
-        defineStatement("UPDATE", ';'); // NOT LOCALIZABLE, keyword
+        defineStatement("SELECT", STATEMENT_END); // NOT LOCALIZABLE, keyword
+        defineStatement("CREATE", STATEMENT_END); // NOT LOCALIZABLE, keyword
+        defineStatement("DROP", STATEMENT_END); // NOT LOCALIZABLE, keyword
+        defineStatement("ALTER", STATEMENT_END); // NOT LOCALIZABLE, keyword
+        defineStatement("MODIFY", STATEMENT_END); // NOT LOCALIZABLE, keyword
+        defineStatement("INSERT", STATEMENT_END); // NOT LOCALIZABLE, keyword
+        defineStatement("DELETE", STATEMENT_END); // NOT LOCALIZABLE, keyword
+        defineStatement("UPDATE", STATEMENT_END); // NOT LOCALIZABLE, keyword
 
         // In SQL, use single quote as quote character
         quoteChar('\'');

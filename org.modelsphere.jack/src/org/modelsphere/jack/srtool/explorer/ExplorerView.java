@@ -43,25 +43,49 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.explorer;
 
-import java.awt.*;
-import java.awt.dnd.Autoscroll;
-import java.awt.event.*;
-import java.util.*;
-
-import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.event.*;
-import javax.swing.tree.*;
-
 import org.modelsphere.jack.actions.AbstractActionsStore;
 import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.awt.GradientTopBorder;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.baseDb.objectviewer.Viewer;
-import org.modelsphere.jack.srtool.*;
+import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.FocusManager;
+import org.modelsphere.jack.srtool.SelectionChangedEvent;
+import org.modelsphere.jack.srtool.SelectionListener;
+import org.modelsphere.jack.srtool.ToolTipsServices;
 import org.modelsphere.jack.srtool.features.SrDropTarget;
 import org.modelsphere.jack.util.ExceptionHandler;
+
+import javax.swing.*;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.TreeExpansionEvent;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.event.TreeWillExpandListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellEditor;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreeCellEditor;
+import javax.swing.tree.TreeCellRenderer;
+import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreeSelectionModel;
+import java.awt.*;
+import java.awt.dnd.Autoscroll;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.EventObject;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class ExplorerView extends JTree implements Autoscroll, TreeSelectionListener,
         TreeWillExpandListener, SrDropTarget, SelectionListener {
@@ -279,9 +303,9 @@ public class ExplorerView extends JTree implements Autoscroll, TreeSelectionList
                             TreePath[] selectedPath = getSelectionPaths();
                             if (selectedPath == null)
                                 return;
-                            ArrayList tempRoots = new ArrayList();
-                            for (int i = 0; i < selectedPath.length; i++) {
-                                Object obj = selectedPath[i].getLastPathComponent();
+                            List<Object> tempRoots = new ArrayList<>();
+                            for (TreePath treePath : selectedPath) {
+                                Object obj = treePath.getLastPathComponent();
                                 tempRoots.add(((DefaultMutableTreeNode) obj).getUserObject());
                             }
                             Viewer.showViewer(ApplicationContext.getDefaultMainFrame(), tempRoots
@@ -521,7 +545,7 @@ public class ExplorerView extends JTree implements Autoscroll, TreeSelectionList
         if (treePaths != null) {
             for (int i = 0; i < treePaths.length; i++) {
                 DynamicNode node = (DynamicNode) treePaths[i].getLastPathComponent();
-                Enumeration enumeration = node.depthFirstEnumeration();
+                Enumeration<TreeNode> enumeration = node.depthFirstEnumeration();
                 while (enumeration.hasMoreElements()) {
                     DynamicNode nodeElem = (DynamicNode) enumeration.nextElement();
                     if (!nodeElem.isLeaf()) {
@@ -630,9 +654,9 @@ public class ExplorerView extends JTree implements Autoscroll, TreeSelectionList
         TreePath[] treePaths = getSelectionPaths();
         if (treePaths == null)
             return new Object[0];
-        HashSet objs = new HashSet();
-        for (int i = 0; i < treePaths.length; i++) {
-            DynamicNode node = (DynamicNode) treePaths[i].getLastPathComponent();
+        Set<Object> objs = new HashSet<>();
+        for (TreePath treePath : treePaths) {
+            DynamicNode node = (DynamicNode) treePath.getLastPathComponent();
             if (node.getUserObject() instanceof GroupParams) {
                 int nb = node.getChildCount();
                 for (int j = 0; j < nb; j++) {
@@ -654,8 +678,8 @@ public class ExplorerView extends JTree implements Autoscroll, TreeSelectionList
         if (paths == null)
             return null;
         Object selProject = null;
-        for (int i = 0; i < paths.length; i++) {
-            for (DynamicNode node = (DynamicNode) paths[i].getLastPathComponent(); node != null; node = (DynamicNode) node
+        for (TreePath path : paths) {
+            for (DynamicNode node = (DynamicNode) path.getLastPathComponent(); node != null; node = (DynamicNode) node
                     .getParent()) {
                 Object userObject = node.getUserObject();
                 if (userObject instanceof GroupParams)

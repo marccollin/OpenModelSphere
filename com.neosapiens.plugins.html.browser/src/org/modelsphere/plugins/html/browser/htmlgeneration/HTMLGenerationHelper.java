@@ -34,13 +34,13 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.htmlgeneration;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-
-import javax.swing.Icon;
-
 import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.plugins.html.browser.international.LocaleMgr;
+
+import javax.swing.*;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is used to help in the creation of the data files which each
@@ -58,7 +58,7 @@ public class HTMLGenerationHelper
 	private static int numberOfFilesGenerated;
 
 	/** The list of icons */
-	private static ArrayList<Icon> icons;
+	private static List<Icon> icons;
 
 	/** The path for the project folder */
 	private static String projectFolder;

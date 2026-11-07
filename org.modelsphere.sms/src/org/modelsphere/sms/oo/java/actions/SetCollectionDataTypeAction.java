@@ -32,8 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.oo.java.actions;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.actions.AbstractDomainAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -52,6 +50,9 @@ import org.modelsphere.sms.oo.java.db.DbJVDataMember;
 import org.modelsphere.sms.oo.java.db.util.AnyAdt;
 import org.modelsphere.sms.oo.java.international.LocaleMgr;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class SetCollectionDataTypeAction extends AbstractDomainAction implements
         SelectionActionListener {
 
@@ -68,8 +69,8 @@ public final class SetCollectionDataTypeAction extends AbstractDomainAction impl
         DbOOAdt collType = (DbOOAdt) ((DefaultComparableElement) getSelectedObject()).object;
         try {
             objects[0].getDb().beginTrans(Db.WRITE_TRANS, kSetCollType);
-            for (int i = 0; i < objects.length; i++) {
-                DbOODataMember dm = (DbOODataMember) objects[i];
+            for (DbObject object : objects) {
+                DbOODataMember dm = (DbOODataMember) object;
                 DbOOAdt type = (DbOOAdt) (dm.getAssociationEnd().getOppositeEnd()
                         .getAssociationMember().getComposite());
                 if (collType != null) {
@@ -105,13 +106,13 @@ public final class SetCollectionDataTypeAction extends AbstractDomainAction impl
             }
         }
 
-        ArrayList collTypes = (ArrayList) AnyAdt.getCollectionAdtsAux(new ArrayList(), objects[0]
-                .getProject());
+        List<DbOOAdt> collTypes = new ArrayList<>();
+        AnyAdt.getCollectionAdtsAux(collTypes, objects[0].getProject());
         int nbTypes = collTypes.size();
         DefaultComparableElement[] values = new DefaultComparableElement[nbTypes > 0 ? nbTypes + 2
                 : 1];
         for (i = 0; i < nbTypes; i++) {
-            DbOOAdt adt = (DbOOAdt) collTypes.get(i);
+            DbOOAdt adt = collTypes.get(i);
             String name = adt.getSemanticalName(DbObject.LONG_FORM);
             int iname = name.lastIndexOf('.');
             if (iname != -1)

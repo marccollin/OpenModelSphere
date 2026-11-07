@@ -2,10 +2,11 @@
 
 # Create a bunch of threads, let each do some work, wait until all are done
 
-from test_support import *
-import whrandom
 import thread
 import time
+
+import whrandom
+from test_support import *
 
 print_test('thread (test_thread.py)', 1)
 

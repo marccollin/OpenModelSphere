@@ -43,17 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.dbms;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
-
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -88,6 +77,18 @@ import org.modelsphere.sms.or.db.DbORTable;
 import org.modelsphere.sms.or.db.srtypes.ORValidationRule;
 import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.templates.SQLForwardEngineeringPlugin;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 public final class DefaultSynchroModel extends SMSSynchroModel {
     private static final String EOL = System.getProperty("line.separator");
@@ -143,8 +144,8 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
         } //end if
 
         PluginMgr mgr = PluginMgr.getSingleInstance();
-        ArrayList genlist = mgr.getPluginsRegistry().getActivePluginInstances(generatorClass);
-        if (genlist.size() > 0)
+        List genlist = mgr.getPluginsRegistry().getActivePluginInstances(generatorClass);
+        if (!genlist.isEmpty())
             generator = (SQLForwardEngineeringPlugin) genlist.get(0);
 
         dependencies = ReverseToolkitPlugin.getToolkit().getDependencies_Synchro();
@@ -161,11 +162,11 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
     }
 
     protected void genSyncObjs() throws DbException {
-        ArrayList toGenObjs = new ArrayList();
-        ArrayList addedGenObjs = new ArrayList();
+        List toGenObjs = new ArrayList();
+        List addedGenObjs = new ArrayList();
 
         // Split actions to simple action - for modify
-        ArrayList temp = new ArrayList();
+        List temp = new ArrayList();
         Iterator iter = syncObjs.iterator();
         while (iter.hasNext()) {
             SynchroObject synobj = (SynchroObject) iter.next();
@@ -196,12 +197,12 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
             }
             // Modif on fComponents represents sequence of the components in the composite.  Replace this one with a drop/create
             MetaField[] modifiedFields = synobj.modifiedMetaFields;
-            ArrayList newModifiedFields = new ArrayList();
+            List<MetaField> newModifiedFields = new ArrayList<>();
             boolean sequenceModified = false;
             if (modifiedFields != null) {
-                for (int i = 0; i < modifiedFields.length; i++) {
-                    if (modifiedFields[i] != DbObject.fComponents)
-                        newModifiedFields.add(modifiedFields[i]);
+                for (MetaField modifiedField : modifiedFields) {
+                    if (modifiedField != DbObject.fComponents)
+                        newModifiedFields.add(modifiedField);
                     else
                         sequenceModified = true;
                 }
@@ -217,14 +218,13 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
 
             modifiedFields = new MetaField[newModifiedFields.size()];
             for (int i = 0; i < modifiedFields.length; i++)
-                modifiedFields[i] = (MetaField) newModifiedFields.get(i);
+                modifiedFields[i] = newModifiedFields.get(i);
 
             if (sequenceModified) { // add equivalent drop/create
-                ArrayList equivalences = getEquivalentDropCreateFor(synobj.refDbo, synobj.physDbo);
+                List<SynchroObject> equivalences = getEquivalentDropCreateFor(synobj.refDbo, synobj.physDbo);
                 if (equivalences != null && equivalences.size() > 0) {
-                    Iterator iterator = equivalences.iterator();
-                    while (iterator.hasNext()) {
-                        temp.add(iterator.next());
+                    for (SynchroObject equivalence : equivalences) {
+                        temp.add(equivalence);
                     }
                 }
             }
@@ -292,11 +292,10 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
                         if (node != null)
                             rDbo = node.getLeftDbo();
                     }
-                    ArrayList equivalences = getEquivalentDropCreateFor(rDbo, pDbo);
+                    List<SynchroObject> equivalences = getEquivalentDropCreateFor(rDbo, pDbo);
                     if (equivalences != null && equivalences.size() > 0) {
-                        Iterator iterator = equivalences.iterator();
-                        while (iterator.hasNext()) {
-                            addedGenObjs.add(iterator.next());
+                        for (SynchroObject equivalence : equivalences) {
+                            addedGenObjs.add(equivalence);
                         }
                         continue;
                     }
@@ -334,11 +333,10 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
                 }
                 Debug.assert2(rDbo != null && pDbo != null,
                         "DefaultSynchroModel:  No matching object found in IntegrateModel."); // NOT LOCALIZABLE
-                ArrayList equivalences = getEquivalentDropCreateFor(rDbo, pDbo);
+                List<SynchroObject> equivalences = getEquivalentDropCreateFor(rDbo, pDbo);
                 if (equivalences != null && equivalences.size() > 0) {
-                    Iterator iterator = equivalences.iterator();
-                    while (iterator.hasNext()) {
-                        addedGenObjs.add(iterator.next());
+                    for (SynchroObject equivalence : equivalences) {
+                        addedGenObjs.add(equivalence);
                     }
                 } else {
                     Debug
@@ -361,9 +359,8 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
         }
 
         // For each created table, add the fks SynchroObjects for creating the Fks of the created table
-        Iterator iter4 = toGenObjs.iterator();
-        while (iter4.hasNext()) {
-            SynchroObject syncobj = (SynchroObject) iter4.next();
+        for (Object toGenObj : toGenObjs) {
+            SynchroObject syncobj = (SynchroObject) toGenObj;
             if (syncobj.action != SynchroObject.ACT_ADD || syncobj.refDbo == null
                     || !(syncobj.refDbo instanceof DbORTable))
                 continue;
@@ -421,7 +418,7 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
         addDependencies(toGenObjs);
 
         // Ask the toolkit for any specific replacement statement for each SynchroObject
-        ArrayList newGenObjs = new ArrayList();
+        List newGenObjs = new ArrayList();
         iter2 = toGenObjs.iterator();
         while (iter2.hasNext()) {
             SynchroObject syncobj = (SynchroObject) iter2.next();
@@ -477,8 +474,8 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
         return null;
     }
 
-    private ArrayList getEquivalentDropCreateFor(DbObject rDbo, DbObject pDbo) throws DbException {
-        ArrayList objs = new ArrayList(5);
+    private List<SynchroObject> getEquivalentDropCreateFor(DbObject rDbo, DbObject pDbo) throws DbException {
+        List<SynchroObject> objs = new ArrayList<>(5);
         if (rDbo == null && pDbo == null)
             return objs;
         SynchroObject objAdd = new SynchroObject(pDbo, rDbo, SynchroObject.ACT_ADD, getSyncOrder(
@@ -533,7 +530,7 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
     }
 
     // Add all children not included in the parent CREATE STATEMENT clause
-    private void addChildren(ArrayList list, DbObject parent) throws DbException {
+    private void addChildren(List list, DbObject parent) throws DbException {
         if (parent == null || list == null)
             return;
         ReverseToolkitPlugin toolkit = ReverseToolkitPlugin.getToolkit();
@@ -564,7 +561,7 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
         }
     }
 
-    private void addDependencies(ArrayList list) throws DbException {
+    private void addDependencies(List list) throws DbException {
         // This is important to use list.size() since adding a dependant object will allow a
         // dependencies check for this added object (recursively)
         // We don't need to check for recursive dependencies (2 opposites dependencies relations because
@@ -574,8 +571,7 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
             // Dependencies are added for drop /create only
             if ((syncobj.action & (SynchroObject.ACT_MODIFY | SynchroObject.ACT_RENAME)) != 0)
                 continue;
-            for (int i = 0; i < dependencies.length; i++) {
-                MetaRelationship dependency = dependencies[i];
+            for (MetaRelationship dependency : dependencies) {
                 MetaClass metaclass = dependency.getMetaClass();
 
                 MetaRelationship oppositeRel = dependency
@@ -600,7 +596,7 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
                         .get(dependency.getOppositeRel(syncobj.refDbo));
                 if (value == null)
                     continue;
-                ArrayList toAdd = new ArrayList();
+                List toAdd = new ArrayList();
                 if (value instanceof DbRelationN) {
                     DbRelationN values = (DbRelationN) value;
                     for (int j = 0; j < values.size(); j++)
@@ -611,9 +607,8 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
                     Debug.trace("Unexpected Value in DefaultSynchroModel: addDependencies");
                     continue;
                 }
-                Iterator iter = toAdd.iterator();
-                while (iter.hasNext()) {
-                    DbObject dbo = (DbObject) iter.next();
+                for (Object o : toAdd) {
+                    DbObject dbo = (DbObject) o;
                     DbObject ref = ((syncobj.action & SynchroObject.ACT_ADD) != 0) ? dbo : null;
                     DbObject phys = ((syncobj.action & SynchroObject.ACT_DELETE) != 0) ? dbo : null;
                     SynchroObject newObj = new SynchroObject(phys, ref, syncobj.action,
@@ -630,7 +625,7 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
         }
     }
 
-    private void addPKUKDependencies(ArrayList list, SynchroObject syncobj) throws DbException {
+    private void addPKUKDependencies(List list, SynchroObject syncobj) throws DbException {
         // check dependency for FK referencing PK/UK
         if (syncobj.refDbo instanceof DbORPrimaryUnique
                 || syncobj.physDbo instanceof DbORPrimaryUnique) {
@@ -668,11 +663,10 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
         }
     }
 
-    private void removeDuplicates(ArrayList list) throws DbException {
-        ArrayList newList = new ArrayList();
-        Iterator iter = list.iterator();
-        while (iter.hasNext()) {
-            SynchroObject synobj = (SynchroObject) iter.next();
+    private void removeDuplicates(List list) throws DbException {
+        List<SynchroObject> newList = new ArrayList<>();
+        for (Object o : list) {
+            SynchroObject synobj = (SynchroObject) o;
             if (!newList.contains(synobj))
                 newList.add(synobj);
         }
@@ -681,17 +675,16 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
     }
 
     // Remove invalid Modify or Rename (if drop create has been added, no need to modify or rename)
-    private ArrayList removeInvalidModifyRename(ArrayList list) throws DbException {
-        ArrayList newlist = new ArrayList();
-        Iterator iter = list.iterator();
-        while (iter.hasNext()) {
-            SynchroObject synobj = (SynchroObject) iter.next();
+    private List removeInvalidModifyRename(List list) throws DbException {
+        List<SynchroObject> newlist = new ArrayList<>();
+        for (Object o : list) {
+            SynchroObject synobj = (SynchroObject) o;
             if (((synobj.action & SynchroObject.ACT_MODIFY) != 0)
                     || ((synobj.action & SynchroObject.ACT_RENAME) != 0)) {
                 // just need to check for a create (if a create exists, a drop will exist) - check for the object and for the composite
                 if (!list.contains(new SynchroObject(synobj.physDbo, synobj.refDbo,
                         SynchroObject.ACT_ADD, getSyncOrder(synobj.physDbo, synobj.refDbo,
-                                SynchroObject.ACT_ADD)))) {
+                        SynchroObject.ACT_ADD)))) {
                     newlist.add(synobj);
                 }
             } else
@@ -704,12 +697,11 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
     // this applies to an object only if the create clause of the composite supports the component object inclusion.
     // (This case may only occur for previously added drop create statements.  Integration will not list modify/rename/add/delete when
     // the composite is added or removed.)
-    private ArrayList removeFromAncestorInclusion(ArrayList list) throws DbException {
+    private List removeFromAncestorInclusion(List list) throws DbException {
         ReverseToolkitPlugin toolkit = ReverseToolkitPlugin.getToolkit();
-        ArrayList newlist = new ArrayList();
-        Iterator iter = list.iterator();
-        while (iter.hasNext()) {
-            SynchroObject synobj = (SynchroObject) iter.next();
+        List<SynchroObject> newlist = new ArrayList<>();
+        for (Object o : list) {
+            SynchroObject synobj = (SynchroObject) o;
             // just need to check for a create (if a create exists, a drop will exist)
             // If add, check if this add clause is included in the add composite
             MetaClass composite = synobj.refDbo == null ? synobj.physDbo.getComposite()
@@ -733,11 +725,11 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
                 // the component clause
                 if (toolkit.isSupportedInCreate_Synchro(composite, component)
                         && list.contains(new SynchroObject(synobj.physDbo == null ? null
-                                : synobj.physDbo.getComposite(), synobj.refDbo == null ? null
-                                : synobj.refDbo.getComposite(), SynchroObject.ACT_ADD,
-                                getSyncOrder(synobj.physDbo == null ? null : synobj.physDbo
-                                        .getComposite(), synobj.refDbo == null ? null
-                                        : synobj.refDbo.getComposite(), SynchroObject.ACT_ADD)))) {
+                        : synobj.physDbo.getComposite(), synobj.refDbo == null ? null
+                        : synobj.refDbo.getComposite(), SynchroObject.ACT_ADD,
+                        getSyncOrder(synobj.physDbo == null ? null : synobj.physDbo
+                                .getComposite(), synobj.refDbo == null ? null
+                                : synobj.refDbo.getComposite(), SynchroObject.ACT_ADD)))) {
                     continue;
                 }
                 newlist.add(synobj);
@@ -745,11 +737,11 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
             // Any modify-rename is invalid if there is a create on the composite
             else if (((synobj.action & (SynchroObject.ACT_MODIFY | SynchroObject.ACT_RENAME)) != 0)
                     && !list.contains(new SynchroObject(synobj.physDbo == null ? null
-                            : synobj.physDbo.getComposite(), synobj.refDbo == null ? null
-                            : synobj.refDbo.getComposite(), SynchroObject.ACT_ADD, getSyncOrder(
-                            synobj.physDbo == null ? null : synobj.physDbo.getComposite(),
-                            synobj.refDbo == null ? null : synobj.refDbo.getComposite(),
-                            SynchroObject.ACT_ADD)))) {
+                    : synobj.physDbo.getComposite(), synobj.refDbo == null ? null
+                    : synobj.refDbo.getComposite(), SynchroObject.ACT_ADD, getSyncOrder(
+                    synobj.physDbo == null ? null : synobj.physDbo.getComposite(),
+                    synobj.refDbo == null ? null : synobj.refDbo.getComposite(),
+                    SynchroObject.ACT_ADD)))) {
                 newlist.add(synobj);
             } else if (((synobj.action & SynchroObject.ACT_DELETE) != 0)) {
                 newlist.add(synobj);
@@ -758,7 +750,7 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
         return newlist;
     }
 
-    private void generate(ArrayList genobjs) throws DbException {
+    private void generate(List genobjs) throws DbException {
         if (generator == null)
             return;
 
@@ -786,15 +778,14 @@ public final class DefaultSynchroModel extends SMSSynchroModel {
         try {
             fileWriter = new FileWriter(sqlFile);
             PrintWriter printWriter = new PrintWriter(fileWriter);
-            if (genobjs.size() > 0)
+            if (!genobjs.isEmpty())
                 writeSQLFileHeader(printWriter);
-            Iterator iter = genobjs.iterator();
-            while (iter.hasNext()) {
-                SynchroObject obj = (SynchroObject) iter.next();
+            for (Object genobj : genobjs) {
+                SynchroObject obj = (SynchroObject) genobj;
                 generate(fileWriter, obj);
             }
             fileWriter.close();
-            if (report.length() > 0) {
+            if (!report.isEmpty()) {
                 reportBuffer.append(EOL + EOL + EOL + kDDLGenMessages + EOL);
                 reportBuffer.append(report.toString());
             }

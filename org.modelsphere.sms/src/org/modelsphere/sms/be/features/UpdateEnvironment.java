@@ -33,14 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.features;
 
-import java.awt.Dimension;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -67,15 +59,21 @@ import org.modelsphere.sms.db.util.AnyGo;
 import org.modelsphere.sms.db.util.AnySemObject;
 import org.modelsphere.sms.db.util.DbInitialization;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public final class UpdateEnvironment {
     private static final int MAX_DIAGRAM_INTERNAL_FRAME = 5;
 
     private DbBEUseCase useCase;
     private boolean addGo = true;
-    private ArrayList useCaseDiags = new ArrayList();
-    private HashMap flowSemObjectMap = new HashMap();
+    private List<DbBEDiagram> useCaseDiags = new ArrayList<>();
+    private Map<DbBEFlow, DbSMSClassifier> flowSemObjectMap = new HashMap<>();
     private DeepCopyCustomizer copyCustomizer = new CopyCustomizer();
-    private ArrayList addedClassifierGos = new ArrayList();
+    private List addedClassifierGos = new ArrayList();
     private boolean m_updatedEnvironment = false;
 
     private int m_leftCounter, m_rightCounter;
@@ -107,7 +105,7 @@ public final class UpdateEnvironment {
             if (!(useCaseDiags.get(i) instanceof DbBEDiagram))
                 continue;
             ApplicationContext.getDefaultMainFrame().addDiagramInternalFrame(
-                    (DbBEDiagram) useCaseDiags.get(i));
+                    useCaseDiags.get(i));
             diagcount++;
         }
     } // end execute()
@@ -148,15 +146,14 @@ public final class UpdateEnvironment {
 
         if (flowSemObjectMap.isEmpty())
             return;
-        Iterator iter = flowSemObjectMap.keySet().iterator();
-        while (iter.hasNext()) {
-            ArrayList matchedFlowsList = new ArrayList();
+        for (DbBEFlow dbBEFlow : flowSemObjectMap.keySet()) {
+            List<DbBEFlow> matchedFlowsList = new ArrayList<>();
             DbSMSClassifier end1 = null;
             DbSMSClassifier end2 = null;
-            DbBEFlow flow = (DbBEFlow) iter.next();
+            DbBEFlow flow = dbBEFlow;
             end1 = flow.getFirstEnd();
             end2 = flow.getSecondEnd();
-            DbSMSClassifier classifier = (DbSMSClassifier) flowSemObjectMap.get(flow);
+            DbSMSClassifier classifier = flowSemObjectMap.get(flow);
             boolean recursive = DbObject.valuesAreEqual(useCase, classifier);
             boolean addEnd1 = true;
             boolean addEnd2 = true;
@@ -193,8 +190,8 @@ public final class UpdateEnvironment {
             if (matchedFlowsList.size() < nbAdd) { // need to create
                 int count = nbAdd - matchedFlowsList.size();
                 for (int i = 0; i < count; i++) {
-                    DbObject[] newFlows = new DbObject[] {};
-                    newFlows = DbObject.deepCopy(new DbObject[] { flow }, this.useCase,
+                    DbObject[] newFlows = new DbObject[]{};
+                    newFlows = DbObject.deepCopy(new DbObject[]{flow}, this.useCase,
                             this.copyCustomizer, false);
                     DbBEFlow newFlow = (DbBEFlow) newFlows[0];
                     if (recursive) {
@@ -215,12 +212,10 @@ public final class UpdateEnvironment {
         resetFrameMargins();
     } // end doUpdate()
 
-    private void updateFlowDiagrams(DbBEFlow flow, List matchedFlows, DbSMSClassifier classifier,
+    private void updateFlowDiagrams(DbBEFlow flow, List<DbBEFlow> matchedFlows, DbSMSClassifier classifier,
             DbBEDiagram parentDiagram, DbBEContextGo frame) throws DbException {
-        for (int i = 0; i < useCaseDiags.size(); i++) {
-            DbBEDiagram diagram = (DbBEDiagram) useCaseDiags.get(i);
-            for (int j = 0; j < matchedFlows.size(); j++) {
-                DbBEFlow matchedFlow = (DbBEFlow) matchedFlows.get(j);
+        for (DbBEDiagram diagram : useCaseDiags) {
+            for (DbBEFlow matchedFlow : matchedFlows) {
                 DbRelationN flowGos = ApplicationContext.getSemanticalModel().getGos(matchedFlow);
                 boolean addGos = true;
                 if (flowGos != null) {
@@ -254,8 +249,7 @@ public final class UpdateEnvironment {
         m_leftMargin += 20;
         m_rightMargin -= 20;
 
-        for (int i = 0; i < useCaseDiags.size(); i++) {
-            DbBEDiagram diagram = (DbBEDiagram) useCaseDiags.get(i);
+        for (DbBEDiagram diagram : useCaseDiags) {
             DbRelationN relN = diagram.getComponents();
             DbEnumeration dbEnum = relN.elements(DbBEContextGo.metaClass);
             while (dbEnum.hasMoreElements()) {
@@ -318,7 +312,7 @@ public final class UpdateEnvironment {
         int masterNotationID = diagram.getNotation().getMasterNotationID().intValue();
         DbBENotation parentNotation = (parentDiagram == null) ? null : parentDiagram.getNotation();
         int parentMasterNotationID = (parentNotation == null) ? 0 : parentNotation
-                .getMasterNotationID().intValue();
+                .getMasterNotationID();
         // String parentName = (parentNotation == null) ? "" :
         // parentNotation.getName();
 
@@ -403,7 +397,7 @@ public final class UpdateEnvironment {
             throws DbException {
         // get diagram dimension
         Dimension dim = ApplicationDiagram.getPageSize(diagram.getPageFormat(), diagram
-                .getPrintScale().intValue());
+                .getPrintScale());
         Rectangle rect = classGo.getRectangle();
         int offset = 120; // distance between frame and top
         int gap = 100; // process height
@@ -449,7 +443,7 @@ public final class UpdateEnvironment {
                 throws DbException {
             /* Keep only the destination object */
             if ((metaRel == DbBEFlow.fFirstEnd) || (metaRel == DbBEFlow.fSecondEnd)) {
-                DbSMSClassifier classifier = (DbSMSClassifier) flowSemObjectMap.get(srcObj);
+                DbSMSClassifier classifier = flowSemObjectMap.get(srcObj);
                 if (DbObject.valuesAreEqual(classifier, srcNeighbor))
                     return srcNeighbor;
             }
@@ -460,11 +454,11 @@ public final class UpdateEnvironment {
             return srcNeighbor.findMatchingObject();
         }
 
-        public void endCopy(ArrayList srcRoots) throws DbException {
+        public void endCopy(List<DbObject> srcRoots) throws DbException {
             if (srcRoots.size() != 1)
                 return;
 
-            DbObject dbo = (DbObject) srcRoots.get(0);
+            DbObject dbo = srcRoots.get(0);
             if (!AnySemObject.supportsSuper(dbo.getMetaClass()))
                 return;
             if (!(dbo instanceof DbBEFlow))

@@ -43,21 +43,26 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.features;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Vector;
-import java.util.ArrayList;
-import javax.swing.*;
-import javax.swing.border.*;
-
 import org.modelsphere.jack.awt.HotKeysSupport;
 import org.modelsphere.jack.debug.TestableWindow;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Vector;
+import java.util.regex.PatternSyntaxException;
+import java.util.List;
+
 public class DbFindDialog extends JDialog implements ActionListener, TestableWindow {
 
     private static final int MAX_RECENT_SEARCHES = 10;
-    private static Vector recentSearches = null;
+    private static Vector<String> recentSearches = null;
     private static boolean caseSensitiveValue = false;
     private static boolean wholeWordsOnlyValue = false;
     private static boolean regularExpressionsValue = false;
@@ -240,7 +245,7 @@ public class DbFindDialog extends JDialog implements ActionListener, TestableWin
 
     private void saveSearchToRecentSearch(String newSearch) {
         if (recentSearches == null)
-            recentSearches = new Vector();
+            recentSearches = new Vector<>();
         int index = searchStringInRecents(newSearch);
         if (index != -1)
             recentSearches.removeElementAt(index);
@@ -262,8 +267,8 @@ public class DbFindDialog extends JDialog implements ActionListener, TestableWin
 
     private void doFind(boolean withDispose) {
         String textToFind = getComboBoxText(findCombo);
-        ArrayList scopeOptions = getScopeValue();
-        if (textToFind != null && textToFind.length() != 0) {
+        List<Boolean> scopeOptions = getScopeValue();
+        if (textToFind != null && !textToFind.isEmpty()) {
             try {
                 saveSearchToRecentSearch(textToFind);
                 // Save CheckBox Value for next search
@@ -280,6 +285,7 @@ public class DbFindDialog extends JDialog implements ActionListener, TestableWin
                         .isSelected(), grepCB.isSelected(), recursiveCB.isSelected(), scopeOptions);
                 if (withDispose)
                     dispose();
+            } catch (PatternSyntaxException ex) {
                 javax.swing.JOptionPane.showMessageDialog(getParent(), LocaleMgr.screen
                         .getString("regularExpressionInvalid")
                         + ex.getMessage());
@@ -297,14 +303,14 @@ public class DbFindDialog extends JDialog implements ActionListener, TestableWin
         return -1;
     }
 
-    private ArrayList getScopeValue() {
-        ArrayList scopeOptions = new ArrayList();
+    private List<Boolean> getScopeValue() {
+        List<Boolean> scopeOptions = new ArrayList<>();
 
-        scopeOptions.add(new Boolean(nameCB.isSelected()));
-        scopeOptions.add(new Boolean(codedNameCB.isSelected()));
-        scopeOptions.add(new Boolean(aliasCB.isSelected()));
-        scopeOptions.add(new Boolean(descriptionCB.isSelected()));
-        scopeOptions.add(new Boolean(allOtherTextCB.isSelected()));
+        scopeOptions.add(nameCB.isSelected());
+        scopeOptions.add(codedNameCB.isSelected());
+        scopeOptions.add(aliasCB.isSelected());
+        scopeOptions.add(descriptionCB.isSelected());
+        scopeOptions.add(allOtherTextCB.isSelected());
         return scopeOptions;
     }
 
@@ -363,8 +369,7 @@ public class DbFindDialog extends JDialog implements ActionListener, TestableWin
     } // end runDemo()
 
     public Window createTestWindow(Container owner) {
-        DbFindDialog dialog = new DbFindDialog();
-        return dialog;
+        return new DbFindDialog();
     }
 
     /*
@@ -372,4 +377,3 @@ public class DbFindDialog extends JDialog implements ActionListener, TestableWin
      */
 
 } // end DbFindDialog
-

@@ -1,14 +1,17 @@
 package org.modelsphere.plugins.layout.nodes.kandinsky;
 
+import org.modelsphere.jack.srtool.features.layout.graph.Edge;
+import org.modelsphere.jack.srtool.features.layout.graph.Edge.RelationType;
+import org.modelsphere.jack.srtool.features.layout.graph.Graph;
+import org.modelsphere.jack.srtool.features.layout.graph.HyperVertex;
+import org.modelsphere.jack.srtool.features.layout.graph.HyperVertex.HyperVertexType;
+import org.modelsphere.jack.srtool.features.layout.graph.Vertex;
+import org.modelsphere.plugins.layout.nodes.kandinsky.struct.LoopEdgeRef;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
-import org.modelsphere.jack.srtool.features.layout.graph.*;
-import org.modelsphere.jack.srtool.features.layout.graph.Edge.RelationType;
-import org.modelsphere.jack.srtool.features.layout.graph.HyperVertex.HyperVertexType;
-import org.modelsphere.plugins.layout.nodes.kandinsky.struct.LoopEdgeRef;
 
 /**
  * <pre>

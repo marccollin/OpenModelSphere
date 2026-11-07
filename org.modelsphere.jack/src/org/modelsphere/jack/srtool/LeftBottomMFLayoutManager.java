@@ -43,14 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.srtool.explorer.ExplorerPanel;
 import org.modelsphere.jack.srtool.screen.design.DesignPanel;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * A DefaultMainFrame components layout manager. Layout the explorer on the left side of the root

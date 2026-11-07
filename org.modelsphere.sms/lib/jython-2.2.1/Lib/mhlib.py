@@ -74,12 +74,13 @@ FOLDER_PROTECT = 0700
 
 import os
 import sys
-from stat import ST_NLINK
-import re
+
 import mimetools
 import multifile
+import re
 import shutil
 from bisect import bisect
+from stat import ST_NLINK
 
 __all__ = ["MH","Error","Folder","Message"]
 

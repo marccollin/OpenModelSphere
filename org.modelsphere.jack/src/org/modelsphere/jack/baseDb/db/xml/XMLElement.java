@@ -43,15 +43,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.xml;
 
-import java.io.*;
-import java.util.*;
+import org.modelsphere.jack.baseDb.db.DbException;
 
-import org.modelsphere.jack.baseDb.db.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 abstract class XMLElement implements XMLConstants {
     String name;
-    private ArrayList attributes = new ArrayList();
-    private ArrayList elements = new ArrayList();
+    private List<XMLAttribute> attributes = new ArrayList<>();
+    private List<XMLElement> elements = new ArrayList<>();
 
     XMLElement(String name) {
         this.name = name;
@@ -82,7 +84,7 @@ abstract class XMLElement implements XMLConstants {
 
     boolean writeElements(XMLWriter writer) throws DbException, IOException {
         boolean elementWritten = false;
-        Iterator iter = elements.iterator();
+        Iterator<XMLElement> iter = elements.iterator();
         if (iter.hasNext()) {
             writer.write(ELEMENT_BEGIN_SUFFIX, false);
             writer.increaseIndent();
@@ -92,7 +94,7 @@ abstract class XMLElement implements XMLConstants {
             if (!elementWritten)
                 writer.writeln();
 
-            XMLElement element = (XMLElement) iter.next();
+            XMLElement element = iter.next();
             element.write(writer);
             elementWritten = true;
         } // end while
@@ -108,13 +110,11 @@ abstract class XMLElement implements XMLConstants {
     } // end writeElements()
 
     void writeAttributes(XMLWriter writer) throws DbException, IOException {
-        if (attributes.size() == 0)
+        if (attributes.isEmpty())
             return;
         writer.increaseIndent();
         writer.writeln();
-        Iterator iter = attributes.iterator();
-        while (iter.hasNext()) {
-            XMLAttribute attr = (XMLAttribute) iter.next();
+        for (XMLAttribute attr : attributes) {
             attr.write(writer);
         }
         writer.write("", true);

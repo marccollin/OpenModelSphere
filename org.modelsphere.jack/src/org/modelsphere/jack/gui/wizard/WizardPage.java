@@ -43,8 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.gui.wizard;
 
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * 

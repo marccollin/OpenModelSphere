@@ -44,14 +44,14 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package com.neosapiens.plugins.codegen;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.List;
-import java.util.StringTokenizer;
-
-import org.modelsphere.jack.baseDb.db.*;
+import com.neosapiens.plugins.codegen.international.LocaleMgr;
+import com.neosapiens.plugins.codegen.wrappers.DbClassWrapper;
+import com.neosapiens.plugins.codegen.wrappers.DbPackageWrapper;
+import com.neosapiens.plugins.codegen.wrappers.DbTableWrapper;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.jack.gui.task.Worker;
 import org.modelsphere.sms.oo.java.db.DbJVClass;
@@ -59,10 +59,12 @@ import org.modelsphere.sms.oo.java.db.DbJVClassModel;
 import org.modelsphere.sms.oo.java.db.DbJVPackage;
 import org.modelsphere.sms.or.db.DbORTable;
 
-import com.neosapiens.plugins.codegen.international.LocaleMgr;
-import com.neosapiens.plugins.codegen.wrappers.DbClassWrapper;
-import com.neosapiens.plugins.codegen.wrappers.DbPackageWrapper;
-import com.neosapiens.plugins.codegen.wrappers.DbTableWrapper;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public class CodeGenerationWorker extends Worker {
     private GenerationTarget m_target;

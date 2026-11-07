@@ -45,14 +45,14 @@ Email: marco.savard@neosapiens.com
 
 package com.neosapiens.plugins.codegen.wrappers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.DbJVPackage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbPackageWrapper extends DbObjectWrapper {
     private DbJVPackage m_pack;

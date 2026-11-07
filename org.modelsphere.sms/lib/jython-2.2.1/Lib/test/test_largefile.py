@@ -12,8 +12,12 @@ Commented out features specific to the JVM
 #
 #----------------------------------------------------------------------
 
+import os
+import stat
+import struct
+import sys
+
 import test_support
-import os, struct, stat, sys
 
 try:
     import signal

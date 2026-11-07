@@ -21,13 +21,14 @@ child processes to terminate.
 """
 
 import jarray
+from java.io import BufferedInputStream
+from java.io import BufferedOutputStream
+from java.io import PipedInputStream
+from java.io import PipedOutputStream
 from java.lang import System
 from java.util import Vector
-from java.io import BufferedOutputStream
-from java.io import BufferedInputStream
-from java.io import PipedOutputStream
-from java.io import PipedInputStream
 from org.python.core import PyFile
+
 from javashell import shellexecute
 
 __all__ = ["popen", "popen2", "popen3", "popen4", "Popen3", "Popen4"]

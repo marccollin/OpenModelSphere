@@ -43,14 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.gui.wizard;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.util.ExceptionHandler;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public final class Wizard extends JDialog {
     // Constants used to identify the panel
@@ -149,6 +150,7 @@ public final class Wizard extends JDialog {
                 GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(6, 6, 12, 12), 0, 0));
 
         cancelButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 cancelPerformed();
             }

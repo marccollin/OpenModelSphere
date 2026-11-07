@@ -43,14 +43,26 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.services;
 
-import java.io.*;
-import java.util.*;
-import java.sql.*;
-
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.reverse.SRXConstants;
-import org.modelsphere.jack.srtool.services.StatementMessage;
-import org.modelsphere.jack.srtool.services.StatementServiceProtocol;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.PipedReader;
+import java.io.PipedWriter;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.Writer;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A very simple service. It displays the current time on the server to the client, and closes the
@@ -152,7 +164,7 @@ public final class StatementService extends StatementServiceProtocol implements 
                 // mode
                 if (resultMode == MODE_NO_FORMAT) {
                     while (rs.next()) {
-                        ArrayList row = new ArrayList();
+                        List<String> row = new ArrayList<>();
                         for (int j = 1; j <= nbCols; j++) {
                             try {
                                 Object value = null;
@@ -181,7 +193,7 @@ public final class StatementService extends StatementServiceProtocol implements 
                 } else { // use column name as tag and append a EOL after each
                     // column - informix
                     while (rs.next()) {
-                        ArrayList row = new ArrayList();
+                        List<String> row = new ArrayList<>();
                         for (int j = 1; j <= nbCols; j++) {
                             try {
                                 Object value = null;
@@ -200,7 +212,7 @@ public final class StatementService extends StatementServiceProtocol implements 
                                 String colName = metadata.getColumnName(j);
                                 if (colName.toLowerCase().equals(kEOT)) {
                                     if (row.size() > 1) {
-                                        String lastAddedRow = (String) row.get(row.size() - 1);
+                                        String lastAddedRow = row.get(row.size() - 1);
                                         int idx = lastAddedRow.lastIndexOf(EOL);
                                         if (idx != -1) { // Remove previously
                                             // EOL added

@@ -43,12 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.actions;
 
-import java.awt.Rectangle;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.srtool.graphic.MagnifierInternalFrame;
 import org.modelsphere.jack.srtool.graphic.OverviewInternalFrame;
+
+import javax.swing.*;
+import java.awt.*;
 
 public abstract class JInternalFrameAbstractLayoutAction extends JInternalFrameAbstractAction {
 
@@ -92,9 +91,9 @@ public abstract class JInternalFrameAbstractLayoutAction extends JInternalFrameA
 
             int framesNotIconifiedCount = 0;
 
-            for (int i = 0; i < frameCount; i++) {
-                if (!frames[i].isIcon() && !(frames[i] instanceof OverviewInternalFrame)
-                        && !(frames[i] instanceof MagnifierInternalFrame)) {
+            for (JInternalFrame frame : frames) {
+                if (!frame.isIcon() && !(frame instanceof OverviewInternalFrame)
+                        && !(frame instanceof MagnifierInternalFrame)) {
                     framesNotIconifiedCount++;
                 }
             }
@@ -104,12 +103,12 @@ public abstract class JInternalFrameAbstractLayoutAction extends JInternalFrameA
             int activeFramePosition = -1;
 
             int j = 0;
-            for (int i = 0; i < frameCount; i++) {
-                if (!frames[i].isIcon() && !(frames[i] instanceof OverviewInternalFrame)
-                        && !(frames[i] instanceof MagnifierInternalFrame)) {
-                    framesNotIconified[j] = frames[i];
-                    if (frames[i].isSelected()) {
-                        activeFrame = frames[i];
+            for (JInternalFrame frame : frames) {
+                if (!frame.isIcon() && !(frame instanceof OverviewInternalFrame)
+                        && !(frame instanceof MagnifierInternalFrame)) {
+                    framesNotIconified[j] = frame;
+                    if (frame.isSelected()) {
+                        activeFrame = frame;
                         activeFramePosition = j;
                     }
                     j++;

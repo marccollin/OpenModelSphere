@@ -1,15 +1,18 @@
 package org.modelsphere.plugins.layout.nodes.sugiyama;
 
-import java.awt.Polygon;
-import java.util.List;
-
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.srtool.features.layout.LayoutException;
 import org.modelsphere.jack.srtool.features.layout.NodesLayoutAlgorithm;
-import org.modelsphere.jack.srtool.features.layout.graph.*;
+import org.modelsphere.jack.srtool.features.layout.graph.DummyVertex;
+import org.modelsphere.jack.srtool.features.layout.graph.Edge;
+import org.modelsphere.jack.srtool.features.layout.graph.Graph;
+import org.modelsphere.jack.srtool.features.layout.graph.Node;
+import org.modelsphere.jack.srtool.features.layout.graph.Vertex;
 import org.modelsphere.plugins.layout.nodes.layerers.LayeredGraph;
 import org.modelsphere.plugins.layout.nodes.layerers.Layerer;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
 
 /**
  * The Class SugiyamaLayoutAlgorithm.

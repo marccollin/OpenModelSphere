@@ -34,15 +34,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.or.graphic;
 
 //Java
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.HashSet;
-import java.util.Vector;
-
-import javax.swing.JComponent;
 
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -70,22 +61,27 @@ import org.modelsphere.jack.graphic.zone.CellRenderer;
 import org.modelsphere.jack.graphic.zone.CellRenderingOption;
 import org.modelsphere.jack.graphic.zone.ColumnCellsOption;
 import org.modelsphere.jack.graphic.zone.CompositeCellRenderer;
+import org.modelsphere.jack.graphic.zone.CompositeCellRenderer.CompositeCellRendererElement;
 import org.modelsphere.jack.graphic.zone.ImageCellRenderer;
 import org.modelsphere.jack.graphic.zone.MatrixZone;
 import org.modelsphere.jack.graphic.zone.StringCellRenderer;
 import org.modelsphere.jack.graphic.zone.ZoneCell;
-import org.modelsphere.jack.graphic.zone.CompositeCellRenderer.CompositeCellRendererElement;
 import org.modelsphere.jack.srtool.graphic.DbTextFieldCellEditor;
 import org.modelsphere.jack.srtool.graphic.DomainCellEditor;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.sms.db.DbSMSCommonItemGo;
 import org.modelsphere.sms.db.DbSMSGraphicalObject;
 import org.modelsphere.sms.db.srtypes.SMSDisplayDescriptor;
-import org.modelsphere.sms.or.db.DbORColumn;
 import org.modelsphere.sms.or.db.DbORCommonItem;
 import org.modelsphere.sms.or.db.DbORCommonItemStyle;
 import org.modelsphere.sms.or.db.DbORTypeClassifier;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Vector;
 
 public class ORCommonItemBox extends GraphicNode implements ActionInformation {
 
@@ -383,7 +379,7 @@ public class ORCommonItemBox extends GraphicNode implements ActionInformation {
             return null;
         String pattern = "{0}/{1}";
         return MessageFormat.format(pattern,
-                new Object[] { new Integer(index), new Integer(count) });
+                new Object[] { Integer.valueOf(index), Integer.valueOf(count) });
     }
 
     private Vector getPrefixData(DbObject semObj) throws DbException {
@@ -438,7 +434,7 @@ public class ORCommonItemBox extends GraphicNode implements ActionInformation {
      */
     private static class BoxRefreshTg implements DbRefreshListener, DbRefreshPassListener {
 
-        private HashSet refreshedBoxs = null;
+        private Set<DbORCommonItem> refreshedBoxs = null;
 
         BoxRefreshTg() {
         }
@@ -478,7 +474,7 @@ public class ORCommonItemBox extends GraphicNode implements ActionInformation {
          */
         private void refreshBox(DbORCommonItem commonItem) throws DbException {
             if (refreshedBoxs == null)
-                refreshedBoxs = new HashSet();
+                refreshedBoxs = new HashSet<>();
             if (!refreshedBoxs.add(commonItem)) // already done in this transaction
                 return;
             DbRelationN commonItemGos = commonItem.getCommonItemGos();

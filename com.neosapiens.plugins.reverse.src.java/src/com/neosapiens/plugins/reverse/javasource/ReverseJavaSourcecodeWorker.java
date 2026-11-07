@@ -43,16 +43,15 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package com.neosapiens.plugins.reverse.javasource;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-
+import com.neosapiens.plugins.reverse.javasource.actions.ModelSemanticAction;
+import com.neosapiens.plugins.reverse.javasource.actions.SemanticAction;
+import com.neosapiens.plugins.reverse.javasource.actions.SemanticActionError;
+import com.neosapiens.plugins.reverse.javasource.diagrams.DiagramCreator;
+import com.neosapiens.plugins.reverse.javasource.international.JavaSourceReverseLocaleMgr;
+import com.neosapiens.plugins.reverse.javasource.parsing.Java1_6Lexer;
+import com.neosapiens.plugins.reverse.javasource.parsing.Java1_6Parser;
+import com.neosapiens.plugins.reverse.javasource.ui.result.ShowResultDialog;
+import com.neosapiens.plugins.reverse.javasource.utils.ModelHelper;
 import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.TokenStream;
@@ -68,15 +67,12 @@ import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.oo.java.db.DbJVClassModel;
 import org.modelsphere.sms.oo.java.db.DbJVPackage;
 
-import com.neosapiens.plugins.reverse.javasource.actions.ModelSemanticAction;
-import com.neosapiens.plugins.reverse.javasource.actions.SemanticAction;
-import com.neosapiens.plugins.reverse.javasource.actions.SemanticActionError;
-import com.neosapiens.plugins.reverse.javasource.diagrams.DiagramCreator;
-import com.neosapiens.plugins.reverse.javasource.international.JavaSourceReverseLocaleMgr;
-import com.neosapiens.plugins.reverse.javasource.parsing.Java1_6Lexer;
-import com.neosapiens.plugins.reverse.javasource.parsing.Java1_6Parser;
-import com.neosapiens.plugins.reverse.javasource.ui.result.ShowResultDialog;
-import com.neosapiens.plugins.reverse.javasource.utils.ModelHelper;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReverseJavaSourcecodeWorker extends Worker implements ActionListener {
 

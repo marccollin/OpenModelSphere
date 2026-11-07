@@ -28,10 +28,11 @@ are strings, not numbers, since they are rarely used for calculations.
 # xover, xgtitle, xpath, date methods by Kevan Heydon
 
 
+import types
+
 # Imports
 import re
 import socket
-import types
 
 __all__ = ["NNTP","NNTPReplyError","NNTPTemporaryError",
            "NNTPPermanentError","NNTPProtocolError","NNTPDataError",

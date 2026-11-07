@@ -45,24 +45,19 @@ Email: marco.savard@neosapiens.com
 
 package org.modelsphere.jack.plugins.xml.fs;
 
+import org.modelsphere.jack.io.IoUtil;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URI;
+import java.net.JarURLConnection;
 import java.net.URL;
-import java.net.URLDecoder;
-import java.util.Enumeration;
-import java.util.List;
 import java.util.StringTokenizer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-
-import org.modelsphere.jack.io.IoUtil;
 
 public class FsFile extends FsEntry {
 	
@@ -109,19 +104,24 @@ public class FsFile extends FsEntry {
 		
 		try {
 			if ("file".equals(protocol)) {
-				String encoded = url.getFile();
-	            String decoded = URLDecoder.decode(encoded, "UTF-8"); //important
-	            File file = new File(decoded);
+	            File file = new File(url.toURI());
 	            File parent = file.getParentFile();
 	            FsFolder folder = FsFolder.createRoot(parent); 
 	            fileRef = new FsFile(folder, file);
 			} else if ("jar".equals(protocol)) {
-				String encoded = getEncodedJarName(url);
-	            String decoded = URLDecoder.decode(encoded, "UTF-8"); //important
-	            
-	            File file = new File(decoded);
+	            JarURLConnection connection = (JarURLConnection) url.openConnection();
+	            URL archiveURL = connection.getJarFileURL();
+	            if (!"file".equals(archiveURL.getProtocol())) {
+	                throw new IOException(
+	                        "Only local archive URLs are supported: " + archiveURL);
+	            }
+	            File file = new File(archiveURL.toURI());
+	            String entryName = connection.getEntryName();
+	            if (entryName == null || entryName.isEmpty()
+	                    || entryName.endsWith("/")) {
+	                throw new IOException("Archive URL must identify a file entry: " + url);
+	            }
 	            ZipFile zipfile = new ZipFile(file);
-	            String entryName = getEntryName(url, zipfile);
 	            
 	            File parentFile = file.getParentFile();
 	            FsFolder parent = FsFolder.createRoot(parentFile);
@@ -136,6 +136,10 @@ public class FsFile extends FsEntry {
 	            	
 	            	folderEntryName += token; 
 	            	ZipEntry entry = zipfile.getEntry(folderEntryName);
+	            	if (entry == null) {
+	            	    throw new IOException(
+	            	            "Archive entry not found: " + folderEntryName);
+	            	}
 	            	//AbsFolderElement elem = parent.getInstance(zipfile, entry); 
 	            	ZipFileAndURLUnion composite = new ZipFileAndURLUnion(zipfile);
 	            	FsEntry elem = FsEntry.createFolderElement(parent, folderEntryName, composite, entry); 
@@ -164,7 +168,7 @@ public class FsFile extends FsEntry {
 				fileRef = null;
 			} //end if
 		
-		} catch (IOException ex) {
+		} catch (IOException | java.net.URISyntaxException ex) {
 	       ex.printStackTrace();
 	       fileRef = null;
         } //end if
@@ -229,34 +233,6 @@ public class FsFile extends FsEntry {
 	// private methods
 	//
 	
-	private static String getEncodedJarName(URL url) throws UnsupportedEncodingException {
-		String jarname = url.toExternalForm();
-		int index = Math.max(jarname.indexOf(".jar!"), jarname.indexOf(".zip!")); 
-        if (index > -1)
-            jarname = jarname.substring(0, index + 4);
-        index = jarname.indexOf("jar:");
-        if (index > -1) {
-            jarname = jarname.substring(4);
-        }
-        index = jarname.indexOf("file:/");
-        if (index > -1) {
-            jarname = jarname.substring(6);
-        }
-        index = jarname.indexOf("file:");
-        if (index > -1) {
-            jarname = jarname.substring(5);
-        }
-		
-		return jarname;
-	}
-	
-	private static String getEntryName(URL url, ZipFile zipfile) {
-		String jarname = url.toExternalForm();
-		int idx = Math.max(jarname.indexOf(".jar!"), jarname.indexOf(".zip!")); 
-		String entryName = (idx == -1) ? null : jarname.substring(idx+6);
-		return entryName;
-	}
-
 	@Override public void copyTo(FsFolder destFolder) throws IOException {
 		FsFile copy = null;
 		
@@ -283,17 +259,14 @@ public class FsFile extends FsEntry {
 			IoUtil.copyFile(m_file, copy.m_file, true, false);
 		} else {
 			copy.m_file.createNewFile();
-			InputStream input = m_composite.getInputStream(m_entry);
-			OutputStream output = new FileOutputStream(copy.m_file); 
-			
-			 byte[] buffer = new byte[8 * 1024];
-	         int count = 0;
-	            do {
-	            	output.write(buffer, 0, count);
-	                count = input.read(buffer, 0, buffer.length);
-	            } while (count != -1);
-
-	            output.close();
+			try (InputStream input = m_composite.getInputStream(m_entry);
+					OutputStream output = new FileOutputStream(copy.m_file)) {
+				byte[] buffer = new byte[8 * 1024];
+				int count;
+				while ((count = input.read(buffer)) != -1) {
+					output.write(buffer, 0, count);
+				}
+			}
 		}
 	}
 

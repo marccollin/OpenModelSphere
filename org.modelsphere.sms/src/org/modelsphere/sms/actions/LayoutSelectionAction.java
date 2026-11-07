@@ -43,10 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.lang.reflect.Constructor;
-
-import javax.swing.Action;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -56,10 +52,13 @@ import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.graphic.GraphicComponent;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
+import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.sms.be.db.DbBEDiagram;
 import org.modelsphere.sms.db.DbSMSDiagram;
-import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.sms.oo.db.DbOODiagram;
+
+import javax.swing.*;
+import java.lang.reflect.Constructor;
 
 public final class LayoutSelectionAction extends AbstractApplicationAction implements
         SelectionActionListener {

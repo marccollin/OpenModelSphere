@@ -43,15 +43,20 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.services;
 
-import java.io.*;
+import org.modelsphere.jack.debug.Log;
+import org.modelsphere.jack.text.MessageFormat;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InterruptedIOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Vector;
-
-import org.modelsphere.jack.debug.Log;
-import org.modelsphere.jack.text.MessageFormat;
 
 /**
  * 
@@ -137,7 +142,7 @@ public class ServiceServer {
 
     // This is the state for the server
     ConnectionManager connectionManager; // The ConnectionManager object
-    Hashtable services; // The current services and their ports
+    Hashtable<Integer, Listener> services; // The current services and their ports
     ThreadGroup threadGroup; // The threadgroup for all our threads
     PrintWriter logStream; // Where we send our logging output to
 
@@ -152,7 +157,7 @@ public class ServiceServer {
         threadGroup = new ThreadGroup("Server"); // NOT LOCALIZABLE, internal code
         connectionManager = new ConnectionManager(threadGroup, maxConnections);
         connectionManager.start();
-        services = new Hashtable();
+        services = new Hashtable<>();
     }
 
     /**
@@ -190,14 +195,12 @@ public class ServiceServer {
             Class serviceClass = Class.forName(serviceName);
             Service service = (Service) serviceClass.newInstance();
             addService(service, port);
-        } catch (ClassNotFoundException e) {
-        } catch (IllegalAccessException e) {
-        } catch (InstantiationException e) {
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
         }
     }
 
     public void addService(Service service, int port) throws IOException {
-        Integer key = new Integer(port); // the hashtable key
+        Integer key = port; // the hashtable key
         // Check whether a service is already on that port
         if (services.get(key) != null) {
 
@@ -224,9 +227,9 @@ public class ServiceServer {
      * connections
      **/
     public void removeService(int port) {
-        Integer key = new Integer(port); // hashtable key
+        Integer key = Integer.valueOf(port); // hashtable key
         // Look up the Listener object for the port in the hashtable of services
-        final Listener listener = (Listener) services.get(key);
+        final Listener listener = services.get(key);
         if (listener == null)
             return;
         // Ask the listener to stop

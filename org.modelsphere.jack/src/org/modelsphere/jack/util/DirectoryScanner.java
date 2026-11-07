@@ -43,26 +43,25 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.util;
 
+import javax.swing.filechooser.FileFilter;
 import java.io.File;
 import java.util.Vector;
 
-import javax.swing.filechooser.FileFilter;
-
 public class DirectoryScanner {
-    private Vector filesList;
+    private Vector<File> filesList;
 
     public DirectoryScanner() {
-        filesList = new Vector();
+        filesList = new Vector<>();
     }
 
     private void scanFiles(File dirFile, FileScanner scanner, boolean includeSubDir) {
         if (dirFile.isDirectory()) {
             String[] files = dirFile.list();
-            for (int i = 0; i < files.length; i++) {
+            for (String s : files) {
                 String path = dirFile.getAbsolutePath();
                 if (!path.endsWith(File.separator))
                     path += File.separator;
-                File file = new File(path + files[i]);
+                File file = new File(path + s);
                 if (file != null) {
                     if (file.isFile())
                         scanner.scanning(file);

@@ -34,8 +34,8 @@ saferepr()
 
 """
 
-from types import DictType, ListType, TupleType, StringType
 import sys
+from types import DictType, ListType, TupleType, StringType
 
 try:
     from cStringIO import StringIO

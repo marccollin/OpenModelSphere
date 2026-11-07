@@ -46,12 +46,12 @@ package org.modelsphere.jack.srtool.reverse;
 // Define constants used by the SRX format. 
 
 public interface SRXConstants {
-    public static final String kOccurrenceType = "sr_occurrence"; // NOT LOCALIZABLE, keyword
-    public static final String kOccurrenceTypeAlt = "sr_occurrence_type"; // NOT LOCALIZABLE, keyword
-    public static final String kEOT = "_sr_e_o_t_"; // NOT LOCALIZABLE, keyword
-    public static final String kEmpty = "";
-    public static final String kComment = "--"; // NOT LOCALIZABLE, keyword
-    public static final String[] kTextKeywords = new String[] { "comments", "oid_text",
+    String kOccurrenceType = "sr_occurrence"; // NOT LOCALIZABLE, keyword
+    String kOccurrenceTypeAlt = "sr_occurrence_type"; // NOT LOCALIZABLE, keyword
+    String kEOT = "_sr_e_o_t_"; // NOT LOCALIZABLE, keyword
+    String kEmpty = "";
+    String kComment = "--"; // NOT LOCALIZABLE, keyword
+    String[] kTextKeywords = new String[] { "comments", "oid_text",
             "view_text", // NOT LOCALIZABLE, keywords
             "data_default", "search", "part_value", // NOT LOCALIZABLE, keywords
             "description", "trig_body", "when_clause", // NOT LOCALIZABLE, keywords

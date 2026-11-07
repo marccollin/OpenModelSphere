@@ -74,6 +74,7 @@ public final class SrDate extends SrType {
         return (time == theDate.time);
     }
 
+    @Override
     public String toString() {
         return (new Date(time)).toString();
     }

@@ -44,17 +44,14 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package com.neosapiens.plugins.reverse.javasource.ui;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.io.File;
-import java.text.MessageFormat;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
-import org.modelsphere.jack.gui.task.Controller;
 import com.neosapiens.plugins.reverse.javasource.ReverseJavaSourcecodeParameters;
 import com.neosapiens.plugins.reverse.javasource.international.JavaSourceReverseLocaleMgr;
+import org.modelsphere.jack.gui.task.Controller;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.text.MessageFormat;
 
 public class ReverseJavaSourcecodeWizardPage2 extends WizardPage {
 

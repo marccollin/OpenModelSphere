@@ -1,7 +1,9 @@
 # Test the frozen module defined in frozen.c.
 
+import os
+import sys
+
 from test_support import TestFailed
-import sys, os
 
 try:
     import __hello__

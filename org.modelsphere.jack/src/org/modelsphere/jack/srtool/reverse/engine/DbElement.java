@@ -43,21 +43,27 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.engine;
 
-import java.util.*;
-import java.lang.reflect.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.srtypes.SrBoolean;
+import org.modelsphere.jack.baseDb.db.srtypes.SrDouble;
+import org.modelsphere.jack.baseDb.db.srtypes.SrInteger;
+import org.modelsphere.jack.baseDb.db.srtypes.SrLong;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelation1;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
+import org.modelsphere.jack.debug.Debug;
 
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import org.modelsphere.jack.baseDb.meta.*;
-import org.modelsphere.jack.debug.*;
+import java.lang.reflect.Field;
+import java.util.Map;
 
 public final class DbElement {
     // Fields used to access the DB Value or to set the DB Value
-    private MetaRelation1[] path; // Path to the metafield to set.
+    private final MetaRelation1[] path; // Path to the metafield to set.
     // The path doesn't include the metafield to set. Only the path to follow
     // for reaching the object
     // containing the specified metaField.
-    MetaField metaField; // Metafield to set.
+    final MetaField metaField; // Metafield to set.
 
     public DbElement(MetaRelation1[] path, MetaField metafield) {
         this.path = path;
@@ -75,18 +81,18 @@ public final class DbElement {
             return start;
         DbObject end = start;
         int pathlength = path.length;
-        for (int i = 0; i < pathlength; i++) {
-            if (!end.hasField(path[i])) {
+        for (MetaRelation1 metaRelation1 : path) {
+            if (!end.hasField(metaRelation1)) {
                 end = null;
                 Debug.trace("Cannot reach MetaField: <"
                         + (metaField == null ? "" : metaField.getJName())
-                        + ">.  Invalid path MetaField: <" + path[i].getJName() + ">.");
+                        + ">.  Invalid path MetaField: <" + metaRelation1.getJName() + ">.");
                 break;
             }
-            Object temp = end.get(path[i]);
+            Object temp = end.get(metaRelation1);
             if ((temp == null) || !(temp instanceof DbObject)) {
                 end = null;
-                Debug.trace("Invalid MetaField in path: <" + path[i].getJName()
+                Debug.trace("Invalid MetaField in path: <" + metaRelation1.getJName()
                         + "> : Expecting non null DbObject instance. ");
                 break;
             }
@@ -96,7 +102,7 @@ public final class DbElement {
     }
 
     // Return the value of metaField for the currentObject
-    public final Object getValue(Object hookContainer, HashMap currentObject) throws DbException {
+    public final Object getValue(Object hookContainer, Map currentObject) throws DbException {
         DbObject pathobject = (DbObject) currentObject.get(ReverseBuilder.CURRENT_OBJECT);
         pathobject = navigateToPath(pathobject);
         if ((pathobject != null) && pathobject.hasField(metaField)) {
@@ -109,13 +115,14 @@ public final class DbElement {
     public final Object getValue(Object hookContainer, DbObject dbObject) throws DbException {
         DbObject pathobject = dbObject;
         pathobject = navigateToPath(pathobject);
+        //pathobject is not take in consideration, a bug?
         if ((dbObject != null) && dbObject.hasField(metaField)) {
             return dbObject.get(metaField);
         }
         return null;
     }
 
-    public final void setValue(Object hookContainer, HashMap currentObject, Object value)
+    public final void setValue(Object hookContainer, Map currentObject, Object value)
             throws DbException {
         if (metaField != null) {
             DbObject pathobject = (DbObject) currentObject.get(ReverseBuilder.CURRENT_OBJECT);

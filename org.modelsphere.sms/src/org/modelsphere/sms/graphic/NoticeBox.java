@@ -32,19 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.graphic;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.io.File;
-import java.net.URL;
-import java.text.MessageFormat;
-import java.util.Vector;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.filechooser.FileSystemView;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.awt.choosers.ExternalDocumentDialog;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -60,7 +47,6 @@ import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.graphic.Diagram;
 import org.modelsphere.jack.graphic.DiagramView;
-import org.modelsphere.jack.graphic.ExtZoneBox;
 import org.modelsphere.jack.graphic.GraphicComponent;
 import org.modelsphere.jack.graphic.GraphicNode;
 import org.modelsphere.jack.graphic.GraphicUtil;
@@ -70,24 +56,37 @@ import org.modelsphere.jack.graphic.zone.CellRenderer;
 import org.modelsphere.jack.graphic.zone.CellRenderingOption;
 import org.modelsphere.jack.graphic.zone.ColumnCellsOption;
 import org.modelsphere.jack.graphic.zone.CompositeCellRenderer;
+import org.modelsphere.jack.graphic.zone.CompositeCellRenderer.CompositeCellRendererElement;
 import org.modelsphere.jack.graphic.zone.ImageCellRenderer;
 import org.modelsphere.jack.graphic.zone.MatrixZone;
 import org.modelsphere.jack.graphic.zone.SingletonZone;
-import org.modelsphere.jack.graphic.zone.StereotypeCellEditor;
 import org.modelsphere.jack.graphic.zone.StringCellRenderer;
 import org.modelsphere.jack.graphic.zone.Zone;
 import org.modelsphere.jack.graphic.zone.ZoneCell;
-import org.modelsphere.jack.graphic.zone.CompositeCellRenderer.CompositeCellRendererElement;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.graphic.DbTextAreaCellEditor;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;
-import org.modelsphere.sms.db.*;
+import org.modelsphere.sms.db.DbSMSDiagram;
+import org.modelsphere.sms.db.DbSMSGraphicalObject;
+import org.modelsphere.sms.db.DbSMSNotice;
+import org.modelsphere.sms.db.DbSMSNoticeGo;
+import org.modelsphere.sms.db.DbSMSSemanticalObject;
+import org.modelsphere.sms.db.DbSMSStereotype;
+import org.modelsphere.sms.db.DbSMSStyle;
 import org.modelsphere.sms.db.srtypes.SMSHorizontalAlignment;
 import org.modelsphere.sms.international.LocaleMgr;
 import org.modelsphere.sms.oo.db.DbOOStyle;
-import org.modelsphere.sms.or.db.DbORPackage;
 import org.modelsphere.sms.or.db.DbORStyle;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
+import java.awt.*;
+import java.io.File;
+import java.net.URL;
+import java.text.MessageFormat;
+import java.util.Vector;
+import java.util.List;
 
 /**
  * @author Grandite
@@ -328,17 +327,12 @@ public class NoticeBox extends GraphicNode implements ActionInformation, DbRefre
         SMSHorizontalAlignment alignment = m_notice.getAlignment();
         int align = GraphicUtil.LEFT_ALIGNMENT; //default alignment
         if (alignment != null) {
-            switch (alignment.getValue()) {
-            case SMSHorizontalAlignment.LEFT:
-                align = GraphicUtil.LEFT_ALIGNMENT;
-                break;
-            case SMSHorizontalAlignment.CENTER:
-                align = GraphicUtil.CENTER_ALIGNMENT;
-                break;
-            case SMSHorizontalAlignment.RIGHT:
-                align = GraphicUtil.RIGHT_ALIGNMENT;
-                break;
-            } //end switch
+            align = switch (alignment.getValue()) {
+                case SMSHorizontalAlignment.LEFT -> GraphicUtil.LEFT_ALIGNMENT;
+                case SMSHorizontalAlignment.CENTER -> GraphicUtil.CENTER_ALIGNMENT;
+                case SMSHorizontalAlignment.RIGHT -> GraphicUtil.RIGHT_ALIGNMENT;
+                default -> align;
+            }; //end switch
         } //end if
 
         //create compartments
@@ -366,17 +360,12 @@ public class NoticeBox extends GraphicNode implements ActionInformation, DbRefre
 
         int align = GraphicUtil.LEFT_ALIGNMENT; //default alignment
         if (alignment != null) {
-            switch (alignment.getValue()) {
-            case SMSHorizontalAlignment.LEFT:
-                align = GraphicUtil.LEFT_ALIGNMENT;
-                break;
-            case SMSHorizontalAlignment.CENTER:
-                align = GraphicUtil.CENTER_ALIGNMENT;
-                break;
-            case SMSHorizontalAlignment.RIGHT:
-                align = GraphicUtil.RIGHT_ALIGNMENT;
-                break;
-            } //end switch
+            align = switch (alignment.getValue()) {
+                case SMSHorizontalAlignment.LEFT -> GraphicUtil.LEFT_ALIGNMENT;
+                case SMSHorizontalAlignment.CENTER -> GraphicUtil.CENTER_ALIGNMENT;
+                case SMSHorizontalAlignment.RIGHT -> GraphicUtil.RIGHT_ALIGNMENT;
+                default -> align;
+            }; //end switch
         } //end if
 
         //create compartments
@@ -401,11 +390,9 @@ public class NoticeBox extends GraphicNode implements ActionInformation, DbRefre
         DbSMSStyle style = getStyleFrom(m_noticeGo);
         if (style != null) {
             if (style instanceof DbORStyle) {
-                stereotypeDisplayed = ((DbORStyle) style).getOr_umlStereotypeDisplayed()
-                        .booleanValue();
+                stereotypeDisplayed = ((DbORStyle) style).getOr_umlStereotypeDisplayed();
             } else if (style instanceof DbOOStyle) {
-                stereotypeDisplayed = ((DbOOStyle) style).getOojv_umlStereotypeDisplayed()
-                        .booleanValue();
+                stereotypeDisplayed = ((DbOOStyle) style).getOojv_umlStereotypeDisplayed();
             }
         } //end if
 
@@ -413,7 +400,7 @@ public class NoticeBox extends GraphicNode implements ActionInformation, DbRefre
             return;
 
         String stereotypeName = getTableStereotypeName(m_notice);
-        Vector composite = getStereotypeImageData(m_notice);
+        List<CompositeCellRendererElement> composite = getStereotypeImageData(m_notice);
 
         int stereotypeStyle = 0;
         m_stereotypeZone.addColumn(new ColumnCellsOption(stereotypeNameCRO,
@@ -450,14 +437,14 @@ public class NoticeBox extends GraphicNode implements ActionInformation, DbRefre
 
     } //end populateStereotype()
 
-    private Vector getStereotypeImageData(DbSMSNotice notice) throws DbException {
-        Vector compositeElements = new Vector();
+    private List<CompositeCellRendererElement> getStereotypeImageData(DbSMSNotice notice) throws DbException {
+        List<CompositeCellRendererElement> compositeElements = new Vector<>();
 
         DbSMSStereotype stereotype = notice.getUmlStereotype();
         if (stereotype != null) {
             Image image = stereotype.getIcon();
             if (image != null) {
-                compositeElements.addElement(new CompositeCellRendererElement(
+                compositeElements.add(new CompositeCellRendererElement(
                         new ImageCellRenderer(), image));
             }
         } //end if
@@ -492,7 +479,7 @@ public class NoticeBox extends GraphicNode implements ActionInformation, DbRefre
             String pathname = getPath(externalDoc);
             File file = new File(pathname);
             String filename = file.getName();
-            Vector composite = getDocumentImageData(m_notice, file);
+            List<?> composite = getDocumentImageData(m_notice, file);
             m_documentZone.set(0, 0, new ZoneCell(m_notice, composite));
             m_documentZone.set(0, 1, new ZoneCell(m_notice, filename));
             m_documentZone.setVisible(true);
@@ -519,7 +506,7 @@ public class NoticeBox extends GraphicNode implements ActionInformation, DbRefre
             return null;
         String pattern = "{0}/{1}";
         return MessageFormat.format(pattern,
-                new Object[] { new Integer(index), new Integer(count) });
+                new Object[] { index, count });
     }
 
     //TODO : parse 'cmd /c ""'
@@ -527,12 +514,11 @@ public class NoticeBox extends GraphicNode implements ActionInformation, DbRefre
         int idx1 = externalDoc.indexOf('\"');
         int idx2 = externalDoc.lastIndexOf('\"');
 
-        String filename = externalDoc.substring(idx1 + 1, idx2);
-        return filename;
+        return externalDoc.substring(idx1 + 1, idx2);
     } //end getActualName()
 
     protected Vector getDocumentImageData(DbSMSNotice notice, File file) throws DbException {
-        Vector compositeElements = new Vector();
+        Vector<CompositeCellRendererElement> compositeElements = new Vector<>();
 
         ImageIcon icon;
         Icon systemIcon = FileSystemView.getFileSystemView().getSystemIcon(file);

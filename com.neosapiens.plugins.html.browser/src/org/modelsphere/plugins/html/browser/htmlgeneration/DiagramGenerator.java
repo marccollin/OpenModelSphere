@@ -34,17 +34,6 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.htmlgeneration;
 
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Set;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.graphic.GraphicUtil;
@@ -57,6 +46,15 @@ import org.modelsphere.plugins.html.browser.io.IndentWriter;
 import org.modelsphere.sms.MainFrame;
 import org.modelsphere.sms.SMSToolkit;
 import org.modelsphere.sms.db.DbSMSDiagram;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This class is used to generate a file for a diagram that will be used with

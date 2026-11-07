@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.oo.java.features;
 
 //Java
-import java.awt.Rectangle;
-import java.util.Vector;
 
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -58,6 +56,9 @@ import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.DbJVDataMember;
 import org.modelsphere.sms.oo.java.db.DbJVPrimitiveType;
 import org.modelsphere.sms.oo.java.international.LocaleMgr;
+
+import java.awt.*;
+import java.util.Vector;
 
 public class JVCreateAssociation {
 

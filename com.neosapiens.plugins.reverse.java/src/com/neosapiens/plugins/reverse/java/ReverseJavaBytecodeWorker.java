@@ -44,35 +44,65 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package com.neosapiens.plugins.reverse.java;
 
-import java.awt.Point;
-import java.io.*;
-import java.text.MessageFormat;
-import java.util.*;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-
-import org.apache.bcel.classfile.*;
-import org.modelsphere.jack.baseDb.db.*;
+import com.neosapiens.plugins.reverse.java.international.LocaleMgr;
+import org.apache.bcel.Constants;
+import org.apache.bcel.classfile.AccessFlags;
+import org.apache.bcel.classfile.ClassParser;
+import org.apache.bcel.classfile.ExceptionTable;
+import org.apache.bcel.classfile.Field;
+import org.apache.bcel.classfile.JavaClass;
+import org.apache.bcel.classfile.Method;
+import org.apache.bcel.generic.ArrayType;
+import org.apache.bcel.generic.BasicType;
+import org.apache.bcel.generic.ObjectType;
+import org.apache.bcel.generic.Type;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.jack.graphic.GraphicComponent;
 import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.jack.gui.task.Worker;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.sms.actions.CreateMissingGraphicsAction;
-import org.modelsphere.sms.db.*;
-import org.modelsphere.sms.oo.db.*;
-import org.modelsphere.sms.oo.java.db.*;
+import org.modelsphere.sms.db.DbSMSBuiltInTypeNode;
+import org.modelsphere.sms.db.DbSMSBuiltInTypePackage;
+import org.modelsphere.sms.db.DbSMSProject;
+import org.modelsphere.sms.db.DbSMSTargetSystem;
+import org.modelsphere.sms.oo.db.DbOOAbsPackage;
+import org.modelsphere.sms.oo.db.DbOOAbstractMethod;
+import org.modelsphere.sms.oo.db.DbOOAdt;
+import org.modelsphere.sms.oo.db.DbOODiagram;
+import org.modelsphere.sms.oo.java.db.DbJVClass;
+import org.modelsphere.sms.oo.java.db.DbJVClassModel;
+import org.modelsphere.sms.oo.java.db.DbJVConstructor;
+import org.modelsphere.sms.oo.java.db.DbJVDataMember;
+import org.modelsphere.sms.oo.java.db.DbJVInheritance;
+import org.modelsphere.sms.oo.java.db.DbJVInitBlock;
+import org.modelsphere.sms.oo.java.db.DbJVMethod;
+import org.modelsphere.sms.oo.java.db.DbJVPackage;
+import org.modelsphere.sms.oo.java.db.DbJVParameter;
+import org.modelsphere.sms.oo.java.db.DbJVPrimitiveType;
 import org.modelsphere.sms.oo.java.db.srtypes.JVClassCategory;
 import org.modelsphere.sms.oo.java.db.srtypes.JVVisibility;
 import org.modelsphere.sms.oo.java.graphic.JVDiagramLayout;
 
-import com.neosapiens.plugins.reverse.java.international.LocaleMgr;
-import com.sun.org.apache.bcel.internal.Constants;
-import com.sun.org.apache.bcel.internal.classfile.*;
-import com.sun.org.apache.bcel.internal.generic.*;
-
-import org.apache.bcel.Constants;
-import org.apache.bcel.generic.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 class ReverseJavaBytecodeWorker extends Worker {
     private DbSMSProject m_project;

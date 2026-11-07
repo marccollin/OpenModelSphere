@@ -43,17 +43,23 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Comparator;
+import org.modelsphere.jack.awt.AwtUtil;
+import org.modelsphere.jack.awt.HotKeysSupport;
+import org.modelsphere.jack.international.LocaleMgr;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import org.modelsphere.jack.awt.AwtUtil;
-import org.modelsphere.jack.awt.HotKeysSupport;
-import org.modelsphere.jack.international.LocaleMgr;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Comparator;
 
 public class LookupDialog extends JDialog {
 
@@ -116,6 +122,7 @@ public class LookupDialog extends JDialog {
                 : ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         if (selMode != SELECT_NONE) {
             list.addListSelectionListener(new ListSelectionListener() {
+                @Override
                 public void valueChanged(ListSelectionEvent e) {
                     manageSelectButton();
                 }

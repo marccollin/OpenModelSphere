@@ -45,9 +45,6 @@ Email: marco.savard@neosapiens.com
 
 package com.neosapiens.plugins.codegen.wrappers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.sms.db.srtypes.SMSMultiplicity;
 import org.modelsphere.sms.oo.db.DbOOAdt;
@@ -58,6 +55,9 @@ import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.DbJVDataMember;
 import org.modelsphere.sms.oo.java.db.DbJVPrimitiveType;
 import org.modelsphere.sms.oo.java.db.srtypes.JVVisibility;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbFieldWrapper extends DbObjectWrapper {
     private DbJVDataMember m_field;
@@ -159,24 +159,21 @@ public class DbFieldWrapper extends DbObjectWrapper {
 
     //TODO returns [1], [+], etc.
     public String getEmfaticMultiplicity() {
-        String mult = "[*]";
-        return mult;
+        return "[*]";
     }
 
     public String getContainment() throws DbException {
         DbOOAssociationEnd end = m_field.getAssociationEnd();
         OOAggregation aggr = (end == null) ? null : end.getAggregation();
         int kind = (aggr == null) ? OOAggregation.NONE : aggr.getValue();
-        String value = (kind == OOAggregation.COMPOSITE) ? "true" : "";
-        return value;
+        return (kind == OOAggregation.COMPOSITE) ? "true" : "";
     }
 
     public boolean isContainment() throws DbException {
         DbOOAssociationEnd end = m_field.getAssociationEnd();
         OOAggregation aggr = (end == null) ? null : end.getAggregation();
         int kind = (aggr == null) ? OOAggregation.NONE : aggr.getValue();
-        boolean containment = (kind == OOAggregation.COMPOSITE) ? true : false;
-        return containment;
+        return (kind == OOAggregation.COMPOSITE) ? true : false;
     }
 
     public String getLowerBound() throws DbException {

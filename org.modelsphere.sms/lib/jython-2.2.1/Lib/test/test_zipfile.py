@@ -1,5 +1,9 @@
-import zlib # implied prerequisite
-import zipfile, os, StringIO, tempfile
+import StringIO
+import os
+import tempfile
+import zipfile
+import zlib  # implied prerequisite
+
 from test_support import TestFailed
 
 srcname = "junk9630"+os.extsep+"tmp"

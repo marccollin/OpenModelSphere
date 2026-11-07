@@ -33,17 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.graphic;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -99,6 +88,17 @@ import org.modelsphere.sms.db.srtypes.SMSNotationShape;
 import org.modelsphere.sms.db.srtypes.SMSZoneOrientation;
 import org.modelsphere.sms.graphic.SMSStereotypeEditor;
 
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRefreshListener {
 
     static {
@@ -123,12 +123,12 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
     protected DbBEUseCaseGo useCaseGO;
     protected DbBEUseCase useCaseSO;
     protected DbBENotation notation;
-    private HashMap zonesMap = null;
+    private Map<DbBESingleZoneDisplay, MatrixZone> zonesMap = null;
     private DbBEDiagram beDiagram;
-    private ArrayList zones = null;
-    private ArrayList resources = null;
+    private List<DbBESingleZoneDisplay> zones = null;
+    private List<DbBEResource> resources = null;
     private BEQualifier qualifiersGo = null;
-    private ArrayList qualifiers = null;
+    private List<DbBEQualifier> qualifiers = null;
     private String boxName = null;
     private DbObject composite = null;
 
@@ -185,9 +185,9 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
         if (m_stereotype != null) {
             Image image = m_stereotypeIcon;
             if (image != null) {
-                Enumeration enumeration = displayedZones();
+                Enumeration<Zone> enumeration = displayedZones();
                 while (enumeration.hasMoreElements()) {
-                    Zone zone = (Zone) enumeration.nextElement();
+                    Zone zone = enumeration.nextElement();
                     String id = zone.getNameID();
                     if (id != null) {
                         String stereotypeName = DbBEUseCase.fUmlStereotype.getGUIName();
@@ -358,9 +358,9 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
         removeRefreshListener();
         removeZonesListener();
         removeQualifiersListener();
-        Enumeration enumeration = this.displayedZones();
+        Enumeration<Zone> enumeration = this.displayedZones();
         while (enumeration.hasMoreElements()) {
-            Zone zone = (Zone) enumeration.nextElement();
+            Zone zone = enumeration.nextElement();
             if (zone instanceof MatrixZone)
                 try {
                     ((MatrixZone) zone).removeAllRows();
@@ -374,12 +374,12 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
         clearAllZones();
         if (zonesMap != null)
             removeZonesListener();
-        zonesMap = new HashMap();
+        zonesMap = new HashMap<>();
         zones = notation.getUseCaseZones();
-        Iterator i = zones.iterator();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         int index = 0;
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
 
             zoneDisplay.getDb().beginReadTrans();
             boolean displayed = zoneDisplay.isDisplayed();
@@ -415,7 +415,7 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
                     String stringValue = value.toString();
                     if (stringValue == null)
                         cro.setCanReceiveFocus(false);
-                    else if (stringValue.equals(""))
+                    else if (stringValue.isEmpty())
                         cro.setCanReceiveFocus(false);
                 }
                 zone.addColumn(new ColumnCellsOption(cro, tfEditor, false));
@@ -453,9 +453,9 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
 
     private void addZonesListener() {
 
-        Iterator i = zones.iterator();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             zoneDisplay.addDbRefreshListener(this);
         }
     }
@@ -464,9 +464,9 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
         if (zones == null)
             return;
 
-        Iterator i = zones.iterator();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             zoneDisplay.removeDbRefreshListener(this);
         }
     } // end removeZonesListener()
@@ -474,16 +474,16 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
     private void populateZones() throws DbException {
         boxName = useCaseSO.getName();
         int zonePos = 0;
-        ArrayList zones = notation.getUseCaseZones();
-        Iterator i = zones.iterator();
+        List<DbBESingleZoneDisplay> zones = notation.getUseCaseZones();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             if (!zoneDisplay.isDisplayed())
                 continue;
 
             boolean bSetStereotypeEditor = false;
 
-            MatrixZone zone = (MatrixZone) zonesMap.get(zoneDisplay);
+            MatrixZone zone = zonesMap.get(zoneDisplay);
             if (zone != null) {
                 zone.removeAllRows();
                 if (zoneDisplay.getMetaField() != null
@@ -578,6 +578,7 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
                         else if (mf.equals(DbBEUseCase.fUmlStereotype)) {
                             DbSMSStereotype stereotype = useCaseSO.getUmlStereotype();
                             if (stereotype != null) {
+                                value = "«" + stereotype.getName() + "»";
                                 bSetStereotypeEditor = true;
                             }
                         }
@@ -659,7 +660,7 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
     private void populateResourcesZone(MatrixZone zone) throws DbException {
         if (resources != null)
             removeResoucesListener();
-        resources = new ArrayList();
+        resources = new ArrayList<>();
         DbEnumeration dbEnum = useCaseSO.getComponents().elements(DbBEUseCaseResource.metaClass);
         int row = 0;
         while (dbEnum.hasMoreElements()) {
@@ -676,9 +677,9 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
     private void addResoucesListener() {
         if (resources == null)
             return;
-        Iterator i = resources.iterator();
+        Iterator<DbBEResource> i = resources.iterator();
         while (i.hasNext()) {
-            DbBEResource resource = (DbBEResource) i.next();
+            DbBEResource resource = i.next();
             resource.addDbRefreshListener(this);
         }
     }
@@ -686,9 +687,9 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
     private void removeResoucesListener() {
         if (resources == null)
             return;
-        Iterator i = resources.iterator();
+        Iterator<DbBEResource> i = resources.iterator();
         while (i.hasNext()) {
-            DbBEResource resource = (DbBEResource) i.next();
+            DbBEResource resource = i.next();
             resource.removeDbRefreshListener(this);
         }
     }
@@ -696,9 +697,9 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
     private void addQualifiersListener() {
         if (qualifiers == null)
             return;
-        Iterator i = qualifiers.iterator();
+        Iterator<DbBEQualifier> i = qualifiers.iterator();
         while (i.hasNext()) {
-            DbBEQualifier qualifier = (DbBEQualifier) i.next();
+            DbBEQualifier qualifier = i.next();
             qualifier.addDbRefreshListener(this);
         }
     }
@@ -706,9 +707,9 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
     private void removeQualifiersListener() {
         if (qualifiers == null)
             return;
-        Iterator i = qualifiers.iterator();
+        Iterator<DbBEQualifier> i = qualifiers.iterator();
         while (i.hasNext()) {
-            DbBEQualifier qualifier = (DbBEQualifier) i.next();
+            DbBEQualifier qualifier = i.next();
             qualifier.removeDbRefreshListener(this);
         }
         qualifiers = null;
@@ -716,9 +717,9 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
 
     protected void setTextColor() throws DbException {
         Color color = (Color) useCaseGO.find(DbBEUseCaseGo.fTextColor);
-        Enumeration enumeration = this.displayedZones();
+        Enumeration<Zone> enumeration = this.displayedZones();
         while (enumeration.hasMoreElements()) {
-            Zone zone = (Zone) enumeration.nextElement();
+            Zone zone = enumeration.nextElement();
             zone.setTextColor(color);
         }
     }
@@ -761,7 +762,7 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
             while (dbEnum.hasMoreElements()) {
                 DbBEUseCaseQualifier useCaseQualifier = (DbBEUseCaseQualifier) dbEnum.nextElement();
                 if (qualifiers == null) {
-                    qualifiers = new ArrayList();
+                    qualifiers = new ArrayList<>();
                 }
                 qualifiers.add(useCaseQualifier.getQualifier());
             }
@@ -793,7 +794,7 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
             return null;
         String pattern = "({0}/{1})";
         return MessageFormat.format(pattern,
-                new Object[] { new Integer(index), new Integer(count) });
+                new Object[] { Integer.valueOf(index), Integer.valueOf(count) });
     }
 
     public final String getToolTipText() {
@@ -838,7 +839,7 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
      */
     private static class BoxRefreshTg implements DbRefreshListener, DbRefreshPassListener {
 
-        private HashSet refreshedBoxs = null;
+        private Set<DbBEUseCase> refreshedBoxs = null;
 
         BoxRefreshTg() {
         }
@@ -875,7 +876,7 @@ public class BEUseCaseBox extends GraphicNode implements ActionInformation, DbRe
          */
         private void refreshBox(DbBEUseCase useCase) throws DbException {
             if (refreshedBoxs == null)
-                refreshedBoxs = new HashSet();
+                refreshedBoxs = new HashSet<>();
             if (!refreshedBoxs.add(useCase)) // already done in this transaction
                 return;
             useCase.getDb().beginReadTrans();

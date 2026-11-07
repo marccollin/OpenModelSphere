@@ -33,23 +33,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.preference;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-
 import org.modelsphere.jack.preference.OptionGroup;
 import org.modelsphere.jack.preference.OptionPanel;
 import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.sms.MainFrame;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class DisplayWindowsOptionGroup extends OptionGroup {
     private static final String DIAGRAM_FRAME_DEFAULT_SIZE = "DiagramFrameDefaultSize"; // NOT
@@ -98,10 +92,10 @@ public class DisplayWindowsOptionGroup extends OptionGroup {
         public void init() {
             PropertiesSet prefs = PropertiesManager.getPreferencePropertiesSet();
             diagSizeCombo.setSelectedIndex((prefs.getPropertyInteger(
-                    DisplayWindowsOptionGroup.class, DIAGRAM_FRAME_DEFAULT_SIZE, new Integer(
+                    DisplayWindowsOptionGroup.class, DIAGRAM_FRAME_DEFAULT_SIZE, Integer.valueOf(
                             MainFrame.WINDOWS_DESKTOPSIZE)).intValue()));
             propertySizeCombo.setSelectedIndex((prefs.getPropertyInteger(
-                    DisplayWindowsOptionGroup.class, PROPERTY_FRAME_DEFAULT_SIZE, new Integer(
+                    DisplayWindowsOptionGroup.class, PROPERTY_FRAME_DEFAULT_SIZE, Integer.valueOf(
                             MainFrame.WINDOWS_3_4_DESKTOPSIZE)).intValue()));
         }
 
@@ -110,10 +104,10 @@ public class DisplayWindowsOptionGroup extends OptionGroup {
             Object source = e.getSource();
             if (source == diagSizeCombo)
                 fireOptionChanged(prefs, DisplayWindowsOptionGroup.class,
-                        DIAGRAM_FRAME_DEFAULT_SIZE, new Integer(diagSizeCombo.getSelectedIndex()));
+                        DIAGRAM_FRAME_DEFAULT_SIZE, Integer.valueOf(diagSizeCombo.getSelectedIndex()));
             else if (source == propertySizeCombo)
                 fireOptionChanged(prefs, DisplayWindowsOptionGroup.class,
-                        PROPERTY_FRAME_DEFAULT_SIZE, new Integer(propertySizeCombo
+                        PROPERTY_FRAME_DEFAULT_SIZE, Integer.valueOf(propertySizeCombo
                                 .getSelectedIndex()));
             else if (source == defButton) {
                 diagSizeCombo.setSelectedIndex(MainFrame.WINDOWS_3_4_DESKTOPSIZE);
@@ -136,13 +130,13 @@ public class DisplayWindowsOptionGroup extends OptionGroup {
     public static int getDiagramFrameDefaultSize() {
         PropertiesSet prefs = PropertiesManager.getPreferencePropertiesSet();
         return prefs.getPropertyInteger(DisplayWindowsOptionGroup.class,
-                DIAGRAM_FRAME_DEFAULT_SIZE, new Integer(MainFrame.WINDOWS_DESKTOPSIZE)).intValue();
+                DIAGRAM_FRAME_DEFAULT_SIZE, Integer.valueOf(MainFrame.WINDOWS_DESKTOPSIZE)).intValue();
     }
 
     public static int getPropertyFrameDefaultSize() {
         PropertiesSet prefs = PropertiesManager.getPreferencePropertiesSet();
         return prefs.getPropertyInteger(DisplayWindowsOptionGroup.class,
-                PROPERTY_FRAME_DEFAULT_SIZE, new Integer(MainFrame.WINDOWS_3_4_DESKTOPSIZE))
+                PROPERTY_FRAME_DEFAULT_SIZE, Integer.valueOf(MainFrame.WINDOWS_3_4_DESKTOPSIZE))
                 .intValue();
     }
 

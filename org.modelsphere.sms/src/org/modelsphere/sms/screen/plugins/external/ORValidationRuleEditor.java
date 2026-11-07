@@ -43,20 +43,24 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins.external;
 
-import java.awt.Component;
-
 import org.modelsphere.jack.awt.AbstractTableCellEditor;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.baseDb.screen.ScreenView;
-import org.modelsphere.jack.baseDb.screen.model.*;
+import org.modelsphere.jack.baseDb.screen.model.DbDescriptionModel;
+import org.modelsphere.jack.baseDb.screen.model.DbListModel;
+import org.modelsphere.jack.baseDb.screen.model.DescriptionField;
+import org.modelsphere.jack.baseDb.screen.model.MetaFieldDescriptionField;
+import org.modelsphere.jack.baseDb.screen.model.ScreenModel;
 import org.modelsphere.jack.baseDb.screen.plugins.DomainEditor;
 import org.modelsphere.sms.db.DbSMSAssociationEnd;
 import org.modelsphere.sms.db.srtypes.SMSMultiplicity;
 import org.modelsphere.sms.or.db.DbORAssociationEnd;
 import org.modelsphere.sms.or.features.ReferentialRules;
+
+import java.awt.*;
 
 /**
  * 

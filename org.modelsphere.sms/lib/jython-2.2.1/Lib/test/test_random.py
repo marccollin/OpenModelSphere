@@ -1,5 +1,6 @@
-import test_support
 import random
+
+import test_support
 
 # Ensure that the seed() method initializes all the hidden state.  In
 # particular, through 2.2.1 it failed to reset a piece of state used by

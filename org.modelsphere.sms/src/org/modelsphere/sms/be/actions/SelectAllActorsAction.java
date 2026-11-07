@@ -38,7 +38,6 @@ import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.srtool.actions.AbstractSelectAction;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.sms.be.db.DbBEActor;
-import org.modelsphere.sms.be.db.DbBEStore;
 import org.modelsphere.sms.be.db.DbBEUseCase;
 import org.modelsphere.sms.be.graphic.BEActorBox;
 import org.modelsphere.sms.be.text.BETextUtil;

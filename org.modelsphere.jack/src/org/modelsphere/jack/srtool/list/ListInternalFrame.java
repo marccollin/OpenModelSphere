@@ -43,17 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.list;
 
-import java.awt.BorderLayout;
-import java.util.ArrayList;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JScrollPane;
-import javax.swing.UIManager;
-import javax.swing.WindowConstants;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -69,6 +58,13 @@ import org.modelsphere.jack.srtool.graphic.CascadingJInternalFrame;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.text.MessageFormat;
 
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ListInternalFrame extends CascadingJInternalFrame implements DbRefreshListener,
         DbListener {
     private static final String kListTitle01 = LocaleMgr.screen.getString("ListTitle01");
@@ -79,7 +75,7 @@ public class ListInternalFrame extends CascadingJInternalFrame implements DbRefr
     private DbObject root;
     private DbProject project;
     private MetaClass neighborsMetaClass;
-    Boolean bIsRelationships = new Boolean(false);
+    Boolean bIsRelationships = Boolean.FALSE;
 
     public Boolean isRelationships() {
         return bIsRelationships;
@@ -184,9 +180,9 @@ public class ListInternalFrame extends CascadingJInternalFrame implements DbRefr
         int[] selectedRows = table.getSelectedRows();
         if (selectedRows == null || selectedRows.length == 0)
             return new Object[0];
-        ArrayList selection = new ArrayList();
-        for (int i = 0; i < selectedRows.length; i++) {
-            selection.add(model.getDbObjectAt(selectedRows[i]));
+        List<DbObject> selection = new ArrayList<>();
+        for (int selectedRow : selectedRows) {
+            selection.add(model.getDbObjectAt(selectedRow));
         }
         Object[] selarray = new Object[selection.size()];
         for (int i = 0; i < selarray.length; i++) {

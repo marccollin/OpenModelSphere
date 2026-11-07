@@ -33,16 +33,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.features.startupwizard;
 
+import org.modelsphere.jack.gui.wizard2.Wizard;
+import org.modelsphere.sms.features.international.LocaleMgr;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-
-import org.modelsphere.jack.gui.wizard2.Wizard;
-import org.modelsphere.sms.features.international.LocaleMgr;
 
 @SuppressWarnings("serial")
 public final class StartupWizard extends Wizard {

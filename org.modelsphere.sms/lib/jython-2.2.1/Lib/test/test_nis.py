@@ -1,5 +1,6 @@
-from test_support import verbose, TestFailed, TestSkipped
 import nis
+
+from test_support import verbose, TestFailed, TestSkipped
 
 print 'nis.maps()'
 try:

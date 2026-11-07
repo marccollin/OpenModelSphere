@@ -48,12 +48,14 @@ __author__ = "Steve Purcell"
 __email__ = "stephen_purcell at yahoo dot com"
 __version__ = "#Revision: 1.43 $"[11:-2]
 
-import time
-import sys
-import traceback
-import string
 import os
+import sys
+import time
 import types
+
+import string
+import traceback
+
 
 ##############################################################################
 # Test framework core

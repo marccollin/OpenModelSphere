@@ -43,15 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.io.File;
-import java.awt.Image;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
-import org.modelsphere.jack.awt.*;
+import org.modelsphere.jack.awt.AwtUtil;
+import org.modelsphere.jack.awt.ExtensionFileFilter;
+import org.modelsphere.jack.awt.SRSystemClipboard;
+import org.modelsphere.jack.awt.SRSystemClipboardListener;
 import org.modelsphere.jack.graphic.GraphicUtil;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import java.awt.*;
+import java.io.File;
 
 public class SaveClipboardImageAction extends AbstractApplicationAction implements
         SelectionActionListener, SRSystemClipboardListener {

@@ -44,9 +44,10 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.preference;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class OptionGroup {
-    private ArrayList optionGroups = new ArrayList(5);
+    private List<OptionGroup> optionGroups = new ArrayList<>(5);
 
     private String title = "";
 

@@ -46,23 +46,19 @@ package org.modelsphere.sms.plugins.statistics;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 
-import java.awt.Dimension;
-import java.io.File;
-import java.io.FileWriter;
-import java.text.MessageFormat;
-import java.util.Enumeration;
-import java.util.Vector;
-
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileFilter;
-
 import org.modelsphere.jack.debug.ConceptPair;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.FocusManager;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.util.ExceptionMessage;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.text.MessageFormat;
+import java.util.List;
 
 public class DiagramStatisticsSaveXML {
 
@@ -209,10 +205,9 @@ public class DiagramStatisticsSaveXML {
                 // common concepts
 
                 filewriter.write("<CommonConcepts>\n");
-                Vector results = dgmStatsProvider.getResults();
-                Enumeration enumResults = results.elements();
-                while (enumResults.hasMoreElements()) {
-                    ConceptPair pair = (ConceptPair) enumResults.nextElement();
+                List<?> results = dgmStatsProvider.getResults();
+                for (int i = 0; i < results.size(); i++) {
+                    ConceptPair pair = (ConceptPair) results.get(i);
                     String name = pair.getConceptName();
                     int nCount = pair.getOccurrencesCount();
                     if (!pair.IsSpecialized()) {
@@ -228,9 +223,8 @@ public class DiagramStatisticsSaveXML {
                 // specialized concepts
 
                 filewriter.write("<SpecializedConcepts>\n");
-                enumResults = results.elements();
-                while (enumResults.hasMoreElements()) {
-                    ConceptPair pair = (ConceptPair) enumResults.nextElement();
+                for (int i = 0; i < results.size(); i++) {
+                    ConceptPair pair = (ConceptPair) results.get(i);
                     String name = pair.getConceptName();
                     int nCount = pair.getOccurrencesCount();
                     if (pair.IsSpecialized()) {
@@ -258,4 +252,3 @@ public class DiagramStatisticsSaveXML {
     } //end doActionPerformed()
 
 } //end ExportToXMLAction
-

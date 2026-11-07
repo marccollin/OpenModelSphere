@@ -33,14 +33,19 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.integrity;
 
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.sms.be.db.DbBEActor;
+import org.modelsphere.sms.be.db.DbBEFlow;
+import org.modelsphere.sms.be.db.DbBEModel;
+import org.modelsphere.sms.be.db.DbBEStore;
+import org.modelsphere.sms.be.db.DbBEUseCase;
+import org.modelsphere.sms.db.DbSMSClassifier;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import org.modelsphere.jack.baseDb.db.DbEnumeration;
-import org.modelsphere.jack.baseDb.db.DbException;
-import org.modelsphere.sms.be.db.*;
-import org.modelsphere.sms.db.DbSMSClassifier;
+import java.util.List;
 
 /**
  * @author pierrem
@@ -103,9 +108,9 @@ public final class BeIntegrity extends AbstractBEIntegrity {
     /**
      * Processus sans regle de synchronisation
      */
-    private void verifyProcessSynchroRule(ArrayList aList, StringBuffer buffer) throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbBEUseCase semObj = (DbBEUseCase) (aList.get(i));
+    private void verifyProcessSynchroRule(List aList, StringBuffer buffer) throws DbException {
+        for (Object o : aList) {
+            DbBEUseCase semObj = (DbBEUseCase) o;
             if ((semObj.getSynchronizationRule() == null)
                     || (semObj.getSynchronizationRule().length() == 0)) {
                 modelIntegrityReport.printError(BE_IR_PROCESS_SYNCHRO_RULE, buffer, semObj, false);
@@ -117,16 +122,16 @@ public final class BeIntegrity extends AbstractBEIntegrity {
     /**
      *  
      */
-    private void verifyDefaultName(ArrayList aList, StringBuffer buffer) throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbSMSClassifier semObj = (DbSMSClassifier) (aList.get(i));
+    private void verifyDefaultName(List aList, StringBuffer buffer) throws DbException {
+        for (Object o : aList) {
+            DbSMSClassifier semObj = (DbSMSClassifier) o;
             boolean defaultnameFound = false;
 
             if (semObj instanceof DbBEUseCase) {
                 if ((((DbBEUseCase) semObj).isContext())
                         && (semObj.getName()
-                                .equals(org.modelsphere.sms.be.international.LocaleMgr.misc
-                                        .getString("context"))))
+                        .equals(org.modelsphere.sms.be.international.LocaleMgr.misc
+                                .getString("context"))))
                     defaultnameFound = true;
                 else if (semObj.getName().equals(
                         org.modelsphere.sms.be.international.LocaleMgr.misc.getString("process"))) {
@@ -155,9 +160,9 @@ public final class BeIntegrity extends AbstractBEIntegrity {
     /**
      *  
      */
-    private void verifyFlowDefaultName(ArrayList aList, StringBuffer buffer) throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbBEFlow semObj = (DbBEFlow) (aList.get(i));
+    private void verifyFlowDefaultName(List aList, StringBuffer buffer) throws DbException {
+        for (Object o : aList) {
+            DbBEFlow semObj = (DbBEFlow) o;
             DbEnumeration flows = null;
 
             String name = (semObj).getName();
@@ -171,16 +176,17 @@ public final class BeIntegrity extends AbstractBEIntegrity {
     }
 
     /**
+     * On vérifie si l'objet n'a aucun flux relié ou des flux seulement en entrée ou seulement en
      * sortie
      */
-    private void verifyOccurencesWithFlowError(ArrayList aList, StringBuffer buffer)
+    private void verifyOccurencesWithFlowError(List aList, StringBuffer buffer)
             throws DbException {
         int nbFirstEnd;
         int nbSecondEnd;
 
-        for (int i = 0; i < aList.size(); i++) {
-            DbSMSClassifier semObj = (DbSMSClassifier) (aList.get(i));
-            ArrayList ObjectLinkedList = new ArrayList();
+        for (Object o : aList) {
+            DbSMSClassifier semObj = (DbSMSClassifier) o;
+            List ObjectLinkedList = new ArrayList();
             DbEnumeration flowsFirst = null;
             DbEnumeration flowsSecond = null;
             nbFirstEnd = 0;
@@ -219,6 +225,7 @@ public final class BeIntegrity extends AbstractBEIntegrity {
                 modelIntegrityReport.printError(BE_IR_OBJECT_ERRORS_WITH_FLOW, buffer, semObj,
                         false, true, BE_IX_WITHOUT_FLOW_OUT);
                 modelWarningCount++;
+            } else if (nbFirstEnd == 0 && nbSecondEnd == 0) { //aucun flux rattaché
                 modelIntegrityReport.printError(BE_IR_OBJECT_ERRORS_WITH_FLOW, buffer, semObj,
                         false, true, BE_IX_ORPHAN_OCCURENCE);
                 modelWarningCount++;
@@ -229,10 +236,10 @@ public final class BeIntegrity extends AbstractBEIntegrity {
     /**
      *  
      */
-    private void verifyObjectTypeLinked(ArrayList aList, StringBuffer buffer) throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbSMSClassifier semObj = (DbSMSClassifier) (aList.get(i));
-            ArrayList ObjectLinkedList = new ArrayList();
+    private void verifyObjectTypeLinked(List aList, StringBuffer buffer) throws DbException {
+        for (Object o : aList) {
+            DbSMSClassifier semObj = (DbSMSClassifier) o;
+            List<DbSMSClassifier> ObjectLinkedList = new ArrayList<>();
             DbEnumeration flows = null;
             boolean priorMsg = false;
             int MsgExtraIndex = -1;
@@ -285,15 +292,15 @@ public final class BeIntegrity extends AbstractBEIntegrity {
             if (ObjectLinkedList.size() == 0)
                 continue;
 
-            Iterator iter = ObjectLinkedList.iterator();
+            Iterator<DbSMSClassifier> iter = ObjectLinkedList.iterator();
             String objectStrList = "";
             boolean first = true;
             while (iter.hasNext()) {
                 if (!first)
                     objectStrList = objectStrList + ", "; // NOT LOCALIZABLE
                 objectStrList = objectStrList
-                        + modelIntegrityReport.getLinksForDbObject((DbSMSClassifier) iter.next(),
-                                true, false);
+                        + modelIntegrityReport.getLinksForDbObject(iter.next(),
+                        true, false);
                 first = false;
             }
             modelIntegrityReport.printError(BE_IR_OBJECT_LINKED_ERRORS, buffer, semObj, false,
@@ -303,13 +310,14 @@ public final class BeIntegrity extends AbstractBEIntegrity {
     }
 
     /**
+     * Flux sans condition d'émission
      */
-    private void verifyFlowEmissionCondition(ArrayList aList, StringBuffer buffer)
+    private void verifyFlowEmissionCondition(List aList, StringBuffer buffer)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbBEFlow semObj = (DbBEFlow) (aList.get(i));
+        for (Object o : aList) {
+            DbBEFlow semObj = (DbBEFlow) o;
             if ((semObj.getEmissionCondition() == null)
-                    || (semObj.getEmissionCondition().length() == 0)) {
+                    || (semObj.getEmissionCondition().isEmpty())) {
                 modelIntegrityReport.printError(BE_IR_FLOW_EMISSION_CONDITION, buffer, semObj,
                         false);
                 modelWarningCount++;
@@ -318,10 +326,11 @@ public final class BeIntegrity extends AbstractBEIntegrity {
     }
 
     /**
+     * Flux liés incorectement
      */
-    private void verifyFlowLinking(ArrayList aList, StringBuffer buffer) throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbBEFlow semObj = (DbBEFlow) (aList.get(i));
+    private void verifyFlowLinking(List aList, StringBuffer buffer) throws DbException {
+        for (Object o : aList) {
+            DbBEFlow semObj = (DbBEFlow) o;
 
             if ((semObj.getFirstEnd() == null) && (semObj.getSecondEnd() == null)) {
                 modelIntegrityReport.printError(BE_IR_FLOW_ERRORS, buffer, semObj, false, false,

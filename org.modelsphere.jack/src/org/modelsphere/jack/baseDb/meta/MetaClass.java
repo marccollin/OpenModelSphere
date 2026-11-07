@@ -43,17 +43,21 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.meta;
 
-import java.awt.Image;
-import java.lang.reflect.Field;
-import java.text.MessageFormat;
-import java.util.*;
-
-import javax.swing.Icon;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.srtypes.SrType;
 import org.modelsphere.jack.graphic.GraphicUtil;
 import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Field;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 /**
  * The central concept of the meta package. Each DbObject instance is associated to a MetaClass (in
@@ -77,7 +81,7 @@ public final class MetaClass {
     public final static int NO_UDF = 0x0010;
     public final static int UML_EXTENSIBILITY_FILTER = 0x0020;
 
-    private static Map metaClasses = new HashMap();
+    private static Map<String, MetaClass> metaClasses = new HashMap<>();
     private static int maxLevel = 0;
 
     private String GUIName;
@@ -95,7 +99,7 @@ public final class MetaClass {
     // Called once during application initialization, immediatly after loading
     // all the meta classes.
     public static void initMetaClasses() {
-        for (Object o : metaClasses.values()) ((MetaClass) o).initAux();
+        for (MetaClass metaClass : metaClasses.values()) metaClass.initAux();
     }
 
     private void initAux() {
@@ -153,10 +157,10 @@ public final class MetaClass {
     } // end initAux()
 
     public static MetaClass find(String className) {
-        return (MetaClass) metaClasses.get(className);
+        return metaClasses.get(className);
     }
 
-    public static Enumeration enumMetaClasses() {
+    public static Enumeration<MetaClass> enumMetaClasses() {
         return DbObject.metaClass.enumMetaClassHierarchy(false);
     }
 
@@ -347,7 +351,7 @@ public final class MetaClass {
     }
 
     // <this> is included in the enumeration.
-    public final Enumeration enumMetaClassHierarchy(boolean leafOnly) {
+    public final Enumeration<MetaClass> enumMetaClassHierarchy(boolean leafOnly) {
         return new EnumMetaClassHierarchy(this, leafOnly);
     }
 
@@ -368,9 +372,9 @@ public final class MetaClass {
     public final boolean[] markCompositePaths() {
         boolean[] processed = new boolean[metaClasses.size()];
         boolean[] selected = new boolean[metaClasses.size()];
-        Enumeration enumeration = enumMetaClassHierarchy(true);
+        Enumeration<MetaClass> enumeration = enumMetaClassHierarchy(true);
         while (enumeration.hasMoreElements())
-            ((MetaClass) enumeration.nextElement()).markCompositePathsAux(processed, selected);
+            enumeration.nextElement().markCompositePathsAux(processed, selected);
         return selected;
     }
 
@@ -382,9 +386,9 @@ public final class MetaClass {
         boolean[] processed = new boolean[metaClasses.size()];
         boolean[] selected = new boolean[metaClasses.size()];
         for (MetaClass mClass : mClasses) {
-            Enumeration enumeration = mClass.enumMetaClassHierarchy(true);
+            Enumeration<MetaClass> enumeration = mClass.enumMetaClassHierarchy(true);
             while (enumeration.hasMoreElements())
-                ((MetaClass) enumeration.nextElement()).markCompositePathsAux(processed, selected);
+                enumeration.nextElement().markCompositePathsAux(processed, selected);
         }
         return selected;
     }
@@ -393,14 +397,14 @@ public final class MetaClass {
         if (processed[seqNo])
             return;
         processed[seqNo] = true;
-        Enumeration enumeration = MetaClass.enumMetaClasses();
+        Enumeration<MetaClass> enumeration = MetaClass.enumMetaClasses();
         while (enumeration.hasMoreElements()) {
-            MetaClass metaClass = (MetaClass) enumeration.nextElement();
+            MetaClass metaClass = enumeration.nextElement();
             for (int i = 0; i < metaClass.componentMetaClasses.length; i++) {
                 if (metaClass.componentMetaClasses[i].jClass.isAssignableFrom(jClass)) {
-                    Enumeration enumeration2 = metaClass.enumMetaClassHierarchy(false);
+                    Enumeration<MetaClass> enumeration2 = metaClass.enumMetaClassHierarchy(false);
                     while (enumeration2.hasMoreElements()) {
-                        metaClass = (MetaClass) enumeration2.nextElement();
+                        metaClass = enumeration2.nextElement();
                         selected[metaClass.seqNo] = true;
                         if (metaClass.getSubMetaClasses().length == 0)
                             metaClass.markCompositePathsAux(processed, selected);
@@ -424,10 +428,10 @@ public final class MetaClass {
                 continue;
             processed[metaClass.seqNo] = true;
             for (int i = 0; i < metaClass.componentMetaClasses.length; i++) {
-                Enumeration enumeration = metaClass.componentMetaClasses[i]
+                Enumeration<MetaClass> enumeration = metaClass.componentMetaClasses[i]
                         .enumMetaClassHierarchy(leafOnly);
                 while (enumeration.hasMoreElements()) {
-                    selected[((MetaClass) enumeration.nextElement()).seqNo] = true;
+                    selected[enumeration.nextElement().seqNo] = true;
                 }
             }
             metaClass = metaClass.getSuperMetaClass();
@@ -453,9 +457,9 @@ public final class MetaClass {
             }
             metaClasses = new MetaClass[count];
             int loc = 0;
-            Enumeration enumeration = MetaClass.enumMetaClasses();
+            Enumeration<MetaClass> enumeration = MetaClass.enumMetaClasses();
             while (enumeration.hasMoreElements()) {
-                MetaClass metaClass = (MetaClass) enumeration.nextElement();
+                MetaClass metaClass = enumeration.nextElement();
                 if (selected[metaClass.seqNo]) {
                     metaClasses[loc] = metaClass;
                     loc++;
@@ -504,7 +508,7 @@ public final class MetaClass {
         return LocaleMgr.getResourceEquivalent(guiName);
     }
 
-    private int getFieldOrder(MetaField field, List fields, int index) {
+    private int getFieldOrder(MetaField field, List<MetaField> fields, int index) {
         String order = field.getScreenOrder();
         if (order == null || order.isEmpty())
             return index;
@@ -514,7 +518,7 @@ public final class MetaClass {
         String name = order.substring(1);
         int i, nb;
         for (i = 0, nb = fields.size(); i < nb; i++) {
-            MetaField aField = (MetaField) fields.get(i);
+            MetaField aField = fields.get(i);
             if (name.equals(aField.getJName().substring(2))) {
                 index = (pos == '>' ? i + 1 : i);
                 break;
@@ -537,7 +541,7 @@ public final class MetaClass {
     // INNER CLASS
     //
 
-    private static class EnumMetaClassHierarchy implements Enumeration {
+    private static class EnumMetaClassHierarchy implements Enumeration<MetaClass> {
 
         private MetaClass metaClass;
         private boolean leafOnly;
@@ -555,7 +559,7 @@ public final class MetaClass {
             return (metaClass != null);
         }
 
-        public Object nextElement() {
+        public MetaClass nextElement() {
             if (metaClass == null)
                 throw new NoSuchElementException();
             MetaClass result = metaClass;
@@ -591,4 +595,3 @@ public final class MetaClass {
         }
     } // end EnumMetaClassHierarchy
 } // end MetaClass
-

@@ -3,7 +3,7 @@
  */
 package org.modelsphere.plugins.layout.clusters.arevalo;
 
-import java.awt.Point;
+import java.awt.*;
 
 /**
  * An anchor is a free point where a new bounds may be added.
@@ -47,20 +47,14 @@ public class Anchor extends Point implements Comparable<Point> {
         Integer thisX = x;
         Integer thisY = y;
 
-        switch (thisX.compareTo(point.x)) {
-        case 1:
-            return 1;
-
-        case 0:
-            return thisY.compareTo(point.y);
-
-        case -1:
-            return -1;
-
-        default:
-            // Should never happen
-            return 0;
-        }
+        return switch (thisX.compareTo(point.x)) {
+            case 1 -> 1;
+            case 0 -> thisY.compareTo(point.y);
+            case -1 -> -1;
+            default ->
+                // Should never happen
+                    0;
+        };
     }
 
 }

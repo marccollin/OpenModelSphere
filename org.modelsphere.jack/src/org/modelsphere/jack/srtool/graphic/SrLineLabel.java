@@ -43,9 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.graphic;
 
-import java.awt.Font;
-import java.awt.Point;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -62,6 +59,8 @@ import org.modelsphere.jack.graphic.zone.MatrixZone;
 import org.modelsphere.jack.graphic.zone.SingletonZone;
 import org.modelsphere.jack.graphic.zone.StringCellRenderer;
 import org.modelsphere.jack.graphic.zone.ZoneCell;
+
+import java.awt.*;
 
 public abstract class SrLineLabel extends LineLabel implements ActionInformation, DbRefreshListener {
 
@@ -139,7 +138,7 @@ public abstract class SrLineLabel extends LineLabel implements ActionInformation
     }
 
     public final void resizeLabel(int width) throws DbException {
-        lineGo.set(maxWidthMF, new Integer(width));
+        lineGo.set(maxWidthMF, Integer.valueOf(width));
     }
 
     public final DbObject getSemanticalObject() {

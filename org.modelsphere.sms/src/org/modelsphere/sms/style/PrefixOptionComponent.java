@@ -33,28 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.style;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Image;
-import java.awt.Label;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.ImageObserver;
-import java.io.File;
-import java.net.URL;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-
 import org.modelsphere.jack.awt.AbstractTableCellEditor;
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.awt.ImagePreviewer;
@@ -65,12 +43,21 @@ import org.modelsphere.jack.baseDb.db.srtypes.DbtPrefix;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.graphic.GraphicUtil;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.sms.Module;
 import org.modelsphere.sms.db.DbSMSStyle;
 import org.modelsphere.sms.db.util.DbInitialization;
 import org.modelsphere.sms.international.LocaleMgr;
 import org.modelsphere.sms.oo.db.DbOOStyle;
 import org.modelsphere.sms.or.db.DbORStyle;
+
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.net.URL;
 
 public class PrefixOptionComponent extends OptionComponent {
 

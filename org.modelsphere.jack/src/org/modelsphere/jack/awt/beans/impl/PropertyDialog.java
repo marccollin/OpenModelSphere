@@ -44,13 +44,15 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.awt.beans.impl;
 
 
-import java.awt.*;
-import java.awt.event.*;
-import java.beans.BeanInfo;
-import javax.swing.*;
-
 import org.modelsphere.jack.awt.beans.BeanDialog;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.BeanInfo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,11 +72,13 @@ public class PropertyDialog extends JDialog {
     //
     // PUBLIC CONSTRUCTORS
     //
-    public PropertyDialog(JFrame owner, String title, String buttonText, List propertyList) {
+    public PropertyDialog(JFrame owner, String title, String buttonText,
+            List<? extends AbstractProperty> propertyList) {
         this(owner, title, buttonText, new BeanDialogImpl(propertyList));
     }
 
-    public PropertyDialog(JDialog owner, String title, String buttonText, List propertyList) {
+    public PropertyDialog(JDialog owner, String title, String buttonText,
+            List<? extends AbstractProperty> propertyList) {
         this(owner, title, buttonText, new BeanDialogImpl(propertyList));
     }
 
@@ -152,6 +156,7 @@ public class PropertyDialog extends JDialog {
         jButton2.setText(buttonText); // localize button here
 
         this.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent e) {
                 dialog.stopCellEditing();
             }
@@ -179,7 +184,7 @@ public class PropertyDialog extends JDialog {
         mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // create propertyList
-        List propertyList = new ArrayList();
+        List<AbstractProperty> propertyList = new ArrayList<>();
         propertyList.add(new AbstractProperty.BooleanProperty("generate user", true)); // NOT LOCALIZABLE, unit test
         propertyList.add(new AbstractProperty.BooleanProperty("physical specs", false)); // NOT LOCALIZABLE, unit test
 

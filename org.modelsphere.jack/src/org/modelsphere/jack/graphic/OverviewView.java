@@ -43,16 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic;
 
+import org.modelsphere.jack.graphic.tool.Tool;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
-
-import javax.swing.JViewport;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
-import org.modelsphere.jack.graphic.tool.Tool;
 
 public class OverviewView extends DiagramView implements ChangeListener {
 

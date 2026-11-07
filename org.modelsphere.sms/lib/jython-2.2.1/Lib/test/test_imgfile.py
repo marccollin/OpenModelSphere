@@ -4,9 +4,11 @@
    Roger E. Masse
 """
 
-from test_support import verbose, unlink, findfile
+import imgfile
+import os
+import uu
 
-import imgfile, uu, os
+from test_support import verbose, unlink, findfile
 
 
 def main():

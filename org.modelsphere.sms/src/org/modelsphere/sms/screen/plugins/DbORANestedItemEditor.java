@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -44,10 +41,14 @@ import org.modelsphere.sms.or.db.DbORAbsTable;
 import org.modelsphere.sms.or.oracle.db.DbORAColumn;
 import org.modelsphere.sms.or.oracle.db.DbORANestedTableStorage;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 public class DbORANestedItemEditor extends DbSemanticalObjectEditor {
 
-    protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList dbos = new ArrayList();
+    protected Collection<DbORAColumn> getSelectionSet(DbObject parentDbo) throws DbException {
+        List<DbORAColumn> dbos = new ArrayList<>();
         DbEnumeration dbEnum = parentDbo.getCompositeOfType(DbORAbsTable.metaClass).getComponents()
                 .elements(DbORAColumn.metaClass);
         while (dbEnum.hasMoreElements()) {

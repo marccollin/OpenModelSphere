@@ -34,12 +34,13 @@ __version__ = "2.6"
 # Imports
 # =======
 
-import sys
 import os
-import urllib
+import sys
+
+import UserDict
 import mimetools
 import rfc822
-import UserDict
+import urllib
 from StringIO import StringIO
 
 __all__ = ["MiniFieldStorage", "FieldStorage", "FormContentDict",
@@ -877,7 +878,6 @@ def test(environ=os.environ):
     the script in HTML form.
 
     """
-    import traceback
     print "Content-type: text/html"
     print
     sys.stderr = sys.stdout

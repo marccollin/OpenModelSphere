@@ -43,10 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
@@ -70,6 +66,11 @@ import org.modelsphere.sms.or.db.DbORIndex;
 import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 import org.modelsphere.sms.preference.DirectoryOptionGroup;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public abstract class SMSSynchroModel extends SMSIntegrateModel {
 
     private static final String kSaveSQL = LocaleMgr.screen.getString("SaveSQL");
@@ -82,7 +83,7 @@ public abstract class SMSSynchroModel extends SMSIntegrateModel {
             DbORPrimaryUnique.class, DbORForeign.class, DbORCheck.class, DbORAbstractMethod.class };
 
     protected Class[] classOrder = defaultClassOrder;
-    protected ArrayList syncObjs;
+    protected List syncObjs;
     protected File sqlFile;
     protected StringBuffer reportBuffer;
 
@@ -96,7 +97,7 @@ public abstract class SMSSynchroModel extends SMSIntegrateModel {
         this.reportBuffer = reportBuffer;
         syncObjs = new ArrayList();
         fillSyncObjs((IntegrateNode) getRoot());
-        if (syncObjs.size() == 0)
+        if (syncObjs.isEmpty())
             return;
         Collections.sort(syncObjs);
 
@@ -143,21 +144,21 @@ public abstract class SMSSynchroModel extends SMSIntegrateModel {
 
     private void fillSyncObjs(IntegrateNode node) {
         int syncAction = 0;
-        ArrayList metafields = new ArrayList();
-        ArrayList customfields = new ArrayList();
+        List<MetaField> metafields = new ArrayList<>();
+        List<String> customfields = new ArrayList<>();
         if (node.getAction() == ACT_DELETE_RIGHT)
             syncAction = SynchroObject.ACT_DELETE;
         else if (node.getAction() == ACT_ADD_IN_RIGHT)
             syncAction = SynchroObject.ACT_ADD;
         else if (node.getProperties() != null) {
             IntegrateProperty[] props = node.getProperties();
-            for (int i = 0; i < props.length; i++) {
-                if (props[i].getAction() == ACT_MODIFY_RIGHT) {
-                    syncAction |= getSyncAction(props[i].getProperty());
-                    if (props[i].getProperty() instanceof MetaField)
-                        metafields.add(props[i].getProperty());
-                    if (props[i].getProperty() instanceof String)
-                        customfields.add(props[i].getProperty());
+            for (IntegrateProperty prop : props) {
+                if (prop.getAction() == ACT_MODIFY_RIGHT) {
+                    syncAction |= getSyncAction(prop.getProperty());
+                    if (prop.getProperty() instanceof MetaField)
+                        metafields.add((MetaField) prop.getProperty());
+                    if (prop.getProperty() instanceof String)
+                        customfields.add((String) prop.getProperty());
                 }
             }
         }
@@ -165,10 +166,10 @@ public abstract class SMSSynchroModel extends SMSIntegrateModel {
             int order = getSyncOrder(node.getRightDbo(), node.getLeftDbo(), syncAction);
             MetaField[] modifiedFields = new MetaField[metafields.size()];
             for (int i = 0; i < modifiedFields.length; i++)
-                modifiedFields[i] = (MetaField) metafields.get(i);
+                modifiedFields[i] = metafields.get(i);
             String[] modifiedCustomFields = new String[customfields.size()];
             for (int i = 0; i < modifiedCustomFields.length; i++)
-                modifiedCustomFields[i] = (String) customfields.get(i);
+                modifiedCustomFields[i] = customfields.get(i);
             syncObjs.add(new SynchroObject(node.getRightDbo(), node.getLeftDbo(), syncAction,
                     order, modifiedFields.length == 0 ? null : modifiedFields,
                     modifiedCustomFields.length == 0 ? null : modifiedCustomFields));
@@ -255,6 +256,7 @@ public abstract class SMSSynchroModel extends SMSIntegrateModel {
         }
 
         // For debug purpose only
+        @Override
         public String toString() {
             if (!Debug.isDebug())
                 return super.toString();

@@ -43,16 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool;
 
-import java.awt.event.ActionEvent;
-import java.util.HashMap;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.awt.JackMenu;
 import org.modelsphere.jack.preference.RecentFiles;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.util.StringUtil;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainFrameMenu {
     public static final String MENU_FILE = "file"; // NOT LOCALIZABLE - Property Key
@@ -73,7 +73,7 @@ public class MainFrameMenu {
     //menu file
     JackMenu menuForRecentFile = new JackMenu(RECENT_FILES);
 
-    private HashMap keyMapping = new HashMap(8);
+    private Map<String, JMenu> keyMapping = new HashMap<>(8);
 
     protected MainFrameMenu(DefaultMainFrame mf) {
         this.mf = mf;
@@ -101,7 +101,7 @@ public class MainFrameMenu {
     }
 
     public JMenu getMenuForKey(String key) {
-        return (JMenu) keyMapping.get(key);
+        return keyMapping.get(key);
     }
 
     public final void updateRecentFiles() {
@@ -119,8 +119,7 @@ public class MainFrameMenu {
 
                 recentFiles.clean();
 
-                int max = recentFiles.getNbVisibleRF() < recentFiles.size() ? recentFiles
-                        .getNbVisibleRF() : recentFiles.size();
+                int max = Math.min(recentFiles.getNbVisibleRF(), recentFiles.size());
 
                 while (i < max) {
                     String fileName = recentFiles.elementAt(i);

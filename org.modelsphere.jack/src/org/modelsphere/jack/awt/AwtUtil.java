@@ -43,6 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
+import org.modelsphere.jack.debug.Debug;
+import org.modelsphere.jack.graphic.GraphicUtil;
+import org.modelsphere.jack.international.LocaleMgr;
+import org.modelsphere.jack.plugins.xml.extensions.SaveFileExtension;
+import org.modelsphere.jack.srtool.ApplicationContext;
+import org.modelsphere.jack.text.MessageFormat;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
@@ -50,16 +59,6 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-
-import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
-
-import org.modelsphere.jack.debug.Debug;
-import org.modelsphere.jack.graphic.GraphicUtil;
-import org.modelsphere.jack.international.LocaleMgr;
-import org.modelsphere.jack.plugins.xml.extensions.SaveFileExtension;
-import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.text.MessageFormat;
 
 public class AwtUtil {
     private static final String kFileReadOnly = LocaleMgr.message.getString("fileReadOnly");

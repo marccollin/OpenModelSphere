@@ -33,7 +33,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.report.screen;
 
-import javax.swing.JTable;
+import javax.swing.*;
 
 public interface Editor {
 

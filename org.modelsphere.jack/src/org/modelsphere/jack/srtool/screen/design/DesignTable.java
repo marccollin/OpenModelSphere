@@ -43,12 +43,22 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.screen.design;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.EventObject;
-import java.util.HashMap;
-import java.util.Map;
+import org.modelsphere.jack.actions.util.DbMultiTrans;
+import org.modelsphere.jack.awt.AwtUtil;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbUDFValue;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaRelationship;
+import org.modelsphere.jack.baseDb.screen.MultiDefaultRenderer;
+import org.modelsphere.jack.baseDb.screen.ScreenPlugins;
+import org.modelsphere.jack.baseDb.screen.plugins.MultiDbSemanticalObjectRenderer;
+import org.modelsphere.jack.baseDb.screen.plugins.MultiExternalDocumentEditor;
+import org.modelsphere.jack.baseDb.screen.plugins.MultiLookupDescriptionEditor;
+import org.modelsphere.jack.baseDb.util.TerminologyUtil;
+import org.modelsphere.jack.srtool.screen.ScreenPerspective;
+import org.modelsphere.jack.util.ExceptionHandler;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -57,22 +67,11 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-
-import org.modelsphere.jack.actions.util.DbMultiTrans;
-import org.modelsphere.jack.awt.AwtUtil;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.meta.MetaClass;
-import org.modelsphere.jack.baseDb.meta.MetaField;
-import org.modelsphere.jack.baseDb.meta.MetaRelationship;
-import org.modelsphere.jack.baseDb.screen.MultiDefaultRenderer;
-import org.modelsphere.jack.baseDb.screen.ScreenPlugins;
-import org.modelsphere.jack.baseDb.screen.plugins.MultiDbSemanticalObjectRenderer;
-import org.modelsphere.jack.baseDb.screen.plugins.MultiExternalDocumentEditor;
-import org.modelsphere.jack.baseDb.screen.plugins.MultiLookupDescriptionEditor;
-import org.modelsphere.jack.baseDb.util.TerminologyUtil;
-import org.modelsphere.jack.srtool.features.SafeMode;
-import org.modelsphere.jack.srtool.screen.ScreenPerspective;
-import org.modelsphere.jack.util.ExceptionHandler;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.util.EventObject;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *

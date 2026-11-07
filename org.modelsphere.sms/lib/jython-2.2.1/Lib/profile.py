@@ -35,9 +35,10 @@
 
 
 
-import sys
 import os
+import sys
 import time
+
 import marshal
 
 __all__ = ["run","help","Profile"]

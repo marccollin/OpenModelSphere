@@ -1,5 +1,7 @@
+import string
+import sys
+
 from test_support import *
-import string, sys
 
 print_test('string (test_string.py)', 1)
 

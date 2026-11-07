@@ -43,6 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.tool;
 
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.graphic.Diagram;
+import org.modelsphere.jack.graphic.DiagramView;
+import org.modelsphere.jack.srtool.ApplicationContext;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -50,19 +57,11 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.*;
-
-import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.baseDb.meta.MetaClass;
-import org.modelsphere.jack.graphic.Diagram;
-import org.modelsphere.jack.graphic.DiagramView;
-import org.modelsphere.jack.srtool.ApplicationContext;
-
 public class Tool implements Cloneable {
     private static final Color MASTER_TOOL_HIGHLIGHT_COLOR = UIManager
             .getColor("List.selectionBackground");
 
-    public List masterActivationListeners = new ArrayList();
+    public List<MasterActivationListener> masterActivationListeners = new ArrayList<>();
 
     // Tool categories
     public static final int CREATION_TOOL = 0;
@@ -186,7 +185,7 @@ public class Tool implements Cloneable {
 
     public void fireMasterActivationListeners() {
         for (int i = masterActivationListeners.size(); --i >= 0;) {
-            MasterActivationListener listener = (MasterActivationListener) masterActivationListeners
+            MasterActivationListener listener = masterActivationListeners
                     .get(i);
             listener.masterActivated(this);
         }

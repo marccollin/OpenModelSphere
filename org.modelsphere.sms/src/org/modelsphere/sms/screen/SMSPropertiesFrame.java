@@ -33,12 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
-
-import javax.swing.Icon;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
@@ -153,6 +147,10 @@ import org.modelsphere.sms.or.oracle.db.DbORAView;
 import org.modelsphere.sms.or.screen.ORListView;
 import org.modelsphere.sms.plugins.ForwardPanel;
 
+import javax.swing.*;
+import java.util.List;
+import java.util.Vector;
+
 @SuppressWarnings("serial")
 public class SMSPropertiesFrame extends PropertiesFrame {
 
@@ -171,7 +169,7 @@ public class SMSPropertiesFrame extends PropertiesFrame {
     }
 
     private static ScreenTabPanel[] getScreenPanels(DbObject semObj) throws DbException {
-        Vector vecPanels = new Vector(10);
+        List<ScreenTabPanel> vecPanels = new Vector<>(10);
         vecPanels.add(new DbDescriptionView(SrScreenContext.singleton, semObj));
         MetaClass[] metaClasses = AnyORObject.getTargetMetaClasses(semObj);
         DbListView listView;
@@ -466,7 +464,7 @@ public class SMSPropertiesFrame extends PropertiesFrame {
                 vecPanels
                         .add(listView = new ORListView(semObj, metaClasses[AnyORObject.I_TRIGGER]));
 
-            if (bAssociationTable == false)
+            if (!bAssociationTable)
                 vecPanels.add(listView = new ORListView(semObj, DbORTable.fSubCopies,
                         DbORTable.metaClass, ScreenView.UNLINK_BTN | ScreenView.PROPERTIES_BTN
                                 | ScreenView.SORTED_LIST | ScreenView.NAME_ONLY
@@ -862,16 +860,13 @@ public class SMSPropertiesFrame extends PropertiesFrame {
         	getForwardPanels(vecPanels, semObj);
         } 
 
-        ScreenTabPanel[] panels = new ScreenTabPanel[vecPanels.size()];
-        vecPanels.copyInto(panels);
-        return panels;
+        return vecPanels.toArray(new ScreenTabPanel[0]);
     }
 
     private static boolean isSupported(Class claz, Class[] supportedClasses) {
         boolean supported = false;
 
-        for (int i = 0; i < supportedClasses.length; i++) {
-            Class supportedClass = supportedClasses[i];
+        for (Class supportedClass : supportedClasses) {
             if (supportedClass.isAssignableFrom(claz)) {
                 supported = true;
                 break;
@@ -921,7 +916,7 @@ public class SMSPropertiesFrame extends PropertiesFrame {
         return super.getSemanticalIcon(semObject);
     }
 
-    private static void getForwardPanels(Vector vecPanels, DbObject semObj) throws DbException {
+    private static void getForwardPanels(List<ScreenTabPanel> vecPanels, DbObject semObj) throws DbException {
         DbORDataModel dataModel = null;
         if (semObj instanceof DbORDataModel)
             dataModel = (DbORDataModel) semObj;
@@ -938,23 +933,21 @@ public class SMSPropertiesFrame extends PropertiesFrame {
         PluginMgr mgr = PluginMgr.getSingleInstance();
         PluginsRegistry registry = mgr.getPluginsRegistry();
         try {
-        	List forwardList = registry.getActivePluginInstances(JackForwardEngineeringPlugin.class);
-        
-	        for (int i = 0; i < forwardList.size(); i++) {
-	            JackForwardEngineeringPlugin forward = (JackForwardEngineeringPlugin) forwardList
-	                    .get(i);
-	            PropertyScreenPreviewInfo info = forward.getPropertyScreenPreviewInfo();
-	            if (info != null) {
-	                Class[] supportedClasses = info.getSupportedClasses();
-	                Class claz = semObj.getClass();
-	                if (isSupported(claz, supportedClasses)) {
-	                    boolean isEditable = false; //by default
-	                    ForwardPanel panel = new ForwardPanel((DbSemanticalObject) semObj, forward,
-	                            isEditable);
-	                    vecPanels.add(panel);
-	                } //end if
-	            } //end if
-	        } //end for
+            List<JackForwardEngineeringPlugin> forwardList = registry.getActivePluginInstances(JackForwardEngineeringPlugin.class);
+
+            for (JackForwardEngineeringPlugin forward : forwardList) {
+                PropertyScreenPreviewInfo info = forward.getPropertyScreenPreviewInfo();
+                if (info != null) {
+                    Class[] supportedClasses = info.getSupportedClasses();
+                    Class claz = semObj.getClass();
+                    if (isSupported(claz, supportedClasses)) {
+                        boolean isEditable = false; //by default
+                        ForwardPanel panel = new ForwardPanel((DbSemanticalObject) semObj, forward,
+                                isEditable);
+                        vecPanels.add(panel);
+                    } //end if
+                } //end if
+            } //end for
         } catch (Throwable th) {
         	th.printStackTrace(); 
         }

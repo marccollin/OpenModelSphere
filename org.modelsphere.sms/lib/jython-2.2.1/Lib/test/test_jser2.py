@@ -1,6 +1,9 @@
-import test_support, unittest
 import java
 from org.python.util import PythonObjectInputStream
+
+import test_support
+import unittest
+
 
 def serialize(o, special=0):
     b = java.io.ByteArrayOutputStream()

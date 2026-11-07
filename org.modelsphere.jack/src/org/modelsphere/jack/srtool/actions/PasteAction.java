@@ -43,12 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-
-import javax.swing.KeyStroke;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.actions.util.DbMultiTrans;
@@ -67,6 +61,10 @@ import org.modelsphere.jack.srtool.graphic.DbGraphic;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;
 import org.modelsphere.jack.util.ExceptionHandler;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class PasteAction extends AbstractApplicationAction implements SelectionActionListener,

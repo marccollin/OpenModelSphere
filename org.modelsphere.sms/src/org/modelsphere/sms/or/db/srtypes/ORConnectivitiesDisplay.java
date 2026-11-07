@@ -48,7 +48,9 @@ open-modelsphere@grandite.com
 // MIN_MAX
 package org.modelsphere.sms.or.db.srtypes;
 
-import org.modelsphere.jack.baseDb.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.srtypes.DbtAbstract;
+import org.modelsphere.jack.baseDb.db.srtypes.Domain;
+import org.modelsphere.jack.baseDb.db.srtypes.IntDomain;
 import org.modelsphere.sms.or.international.LocaleMgr;
 
 public class ORConnectivitiesDisplay extends IntDomain {

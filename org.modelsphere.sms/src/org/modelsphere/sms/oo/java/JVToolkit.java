@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.oo.java;
 
-import java.awt.Image;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
@@ -42,9 +40,7 @@ import org.modelsphere.jack.graphic.GraphicUtil;
 import org.modelsphere.jack.graphic.tool.LineTool;
 import org.modelsphere.jack.graphic.tool.Tool;
 import org.modelsphere.jack.srtool.graphic.GraphicComponentFactory;
-import org.modelsphere.sms.MainFrame;
 import org.modelsphere.sms.SMSToolkit;
-import org.modelsphere.sms.graphic.tool.SMSFreeFormTool;
 import org.modelsphere.sms.graphic.tool.SMSGraphicalLinkTool;
 import org.modelsphere.sms.graphic.tool.SMSNoticeTool;
 import org.modelsphere.sms.oo.db.DbOOAdt;
@@ -69,12 +65,13 @@ import org.modelsphere.sms.oo.java.graphic.tool.JVAggregationTool;
 import org.modelsphere.sms.oo.java.graphic.tool.JVAssociationTool;
 import org.modelsphere.sms.oo.java.graphic.tool.JVClassTool;
 import org.modelsphere.sms.oo.java.graphic.tool.JVCompositionTool;
-import org.modelsphere.sms.oo.java.graphic.tool.JVExceptionTool;
 import org.modelsphere.sms.oo.java.graphic.tool.JVInheritanceTool;
 import org.modelsphere.sms.oo.java.graphic.tool.JVInterfaceTool;
 import org.modelsphere.sms.oo.java.graphic.tool.JVOtherClassifierTool;
 import org.modelsphere.sms.oo.java.graphic.tool.JVPackageTool;
 import org.modelsphere.sms.oo.java.international.LocaleMgr;
+
+import java.awt.*;
 
 public final class JVToolkit extends SMSToolkit {
     private static final String kClassCreationTool = LocaleMgr.screen

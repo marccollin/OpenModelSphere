@@ -33,27 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins;
 
-import java.awt.BorderLayout;
-import java.awt.Cursor;
-import java.awt.FlowLayout;
-import java.awt.ScrollPane;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.EmptyStackException;
-import java.util.List;
-import java.util.Vector;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JEditorPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -71,6 +50,18 @@ import org.modelsphere.jack.srtool.forward.RuleException;
 import org.modelsphere.sms.international.LocaleMgr;
 import org.modelsphere.sms.templates.SQLForwardEngineeringPlugin;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.EmptyStackException;
+import java.util.List;
+import java.util.Vector;
+
 public final class ForwardPanel extends JPanel implements ScreenTabPanel {
 
     private DbSemanticalObject semanticalObject;
@@ -85,7 +76,7 @@ public final class ForwardPanel extends JPanel implements ScreenTabPanel {
     private JPanel m_borderPanel;
     private JPanel controlPanel = null;
     private JButton[] jButtonList;
-    private Vector vecButton = new Vector();
+    private List<JButton> vecButton = new Vector<>();
     private ForwardPanelOptions m_options;
     private static final String WRITING_ERROR = LocaleMgr.message.getString("WRITING_ERROR");
     private PropertyScreenPreviewInfo m_info;
@@ -247,7 +238,7 @@ public final class ForwardPanel extends JPanel implements ScreenTabPanel {
                     DbObject refObject = null;
                     MetaField[] metafields = null;
                     Controller controller = null;
-                    List excludeList = null;
+                    List<?> excludeList = null;
 
                     Rule.RuleOptions options = new Rule.RuleOptions(refObject, metafields,
                             controller, excludeList);

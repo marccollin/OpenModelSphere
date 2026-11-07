@@ -43,13 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.db.util;
 
-import java.awt.Component;
-import java.awt.Image;
-import java.awt.MediaTracker;
-import java.net.URL;
-
-import javax.swing.ImageIcon;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
@@ -70,6 +63,10 @@ import org.modelsphere.sms.oo.db.DbOODataMember;
 import org.modelsphere.sms.oo.db.DbOOMethod;
 import org.modelsphere.sms.or.db.DbORColumn;
 import org.modelsphere.sms.or.db.DbORTable;
+
+import javax.swing.*;
+import java.awt.*;
+import java.net.URL;
 
 public class Extensibility {
     private static final String EXTENSION = ".gif"; //NOT LOCALIZABLE, file extension

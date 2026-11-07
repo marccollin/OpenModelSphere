@@ -33,22 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.screen;
 
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import org.modelsphere.jack.awt.HotKeysSupport;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -67,6 +51,11 @@ import org.modelsphere.sms.oo.java.db.DbJVPackage;
 import org.modelsphere.sms.oo.java.db.srtypes.JVVisibility;
 import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GenerateClassModelOptionFrame extends JDialog {
     private static final String kUnspecified = LocaleMgr.screen.getString("Unspecified");

@@ -42,20 +42,29 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.be.db;
 
-import java.awt.*;
-import org.modelsphere.jack.baseDb.meta.*;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import org.modelsphere.sms.be.db.srtypes.*;
-import org.modelsphere.sms.be.international.LocaleMgr;
-import org.modelsphere.sms.db.*;
-import org.modelsphere.sms.db.srtypes.*;
-import javax.swing.Icon;
-import org.modelsphere.jack.util.StringUtil;
-import org.modelsphere.sms.SMSFilter;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.baseDb.db.DbRoot;
+import org.modelsphere.jack.baseDb.db.srtypes.SrDouble;
+import org.modelsphere.jack.baseDb.db.srtypes.SrInteger;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
 import org.modelsphere.jack.baseDb.util.Terminology;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.util.DefaultComparableElement;
+import org.modelsphere.jack.util.StringUtil;
+import org.modelsphere.sms.SMSFilter;
+import org.modelsphere.sms.be.db.srtypes.BETimeUnit;
+import org.modelsphere.sms.be.international.LocaleMgr;
+import org.modelsphere.sms.db.DbSMSClassifier;
+import org.modelsphere.sms.db.DbSMSNotation;
+import org.modelsphere.sms.db.DbSMSNotice;
+
+import javax.swing.*;
 
 /**
  * <b>Direct subclass(es)/subinterface(s) : </b>none.<br>
@@ -241,7 +250,7 @@ public final class DbBEUseCase extends DbSMSClassifier {
             Terminology term = terminologyUtil.findModelTerminology(model);
             setName(term.getTerm(DbBEUseCaseGo.metaClass));
             setTerminologyName(model.getTerminologyName());
-            setNumericIdentifier(new Integer(0));
+            setNumericIdentifier(Integer.valueOf(0));
         } else {
             DbBEUseCase useCase = (DbBEUseCase) getComposite();
             TerminologyUtil terminologyUtil = TerminologyUtil.getInstance();
@@ -259,7 +268,7 @@ public final class DbBEUseCase extends DbSMSClassifier {
                 compositeTerminology = ((DbBEModel) comp).getTerminologyName();
             if (tname == null)
                 useCase.setTerminologyName(compositeTerminology);
-            else if (tname.equals(""))
+            else if (tname.isEmpty())
                 useCase.setTerminologyName(compositeTerminology);
         }
     }
@@ -369,7 +378,7 @@ public final class DbBEUseCase extends DbSMSClassifier {
                 maxId = intValue.intValue();
         }
         dbEnum.close();
-        return new Integer(maxId + 1);
+        return Integer.valueOf(maxId + 1);
 
     }
 
@@ -393,7 +402,7 @@ public final class DbBEUseCase extends DbSMSClassifier {
             count = count + 1;
         }
         dbEnum.close();
-        return new String(new Integer(count).toString());
+        return new String(Integer.valueOf(count).toString());
 
     }
 

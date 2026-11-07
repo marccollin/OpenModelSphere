@@ -1,12 +1,12 @@
 package org.modelsphere.plugins.layout.nodes.layerers;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.modelsphere.jack.srtool.features.layout.LayoutException;
 import org.modelsphere.jack.srtool.features.layout.graph.Edge;
 import org.modelsphere.jack.srtool.features.layout.graph.Graph;
 import org.modelsphere.jack.srtool.features.layout.graph.Vertex;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The Class SinkConsumerLayerer.

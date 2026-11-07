@@ -33,12 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.io.Serializable;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -81,13 +75,20 @@ import org.modelsphere.sms.plugins.TargetSystem;
 import org.modelsphere.sms.plugins.TargetSystemInfo;
 import org.modelsphere.sms.plugins.TargetSystemManager;
 
+import java.io.Serializable;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
 
     protected DbSMSTargetSystem targetSystem; // composite target system.
     protected int rootID; // root ID of the composite target system (-1 if not
     // in a OR model).
-    private HashMap typeMap; // built-in types of the composite target system.
-    private HashMap domainMap; // domains of the composite target system.
+    private Map<String, DbORBuiltInType> typeMap; // built-in types of the composite target system.
+    private Map<String, DbORDomain> domainMap; // domains of the composite target system.
 
     private DbBEModel sourceBEModel;
     private DbBEModel targetBEModel;
@@ -130,8 +131,8 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
             throws DbException {
         TargetSystem ts = TargetSystemManager.getSingleton();
         List<Serializable> srcTargets = TargetSystem.getTargetSystems(srcProject, true);
-        for (int i = 0; i < srcTargets.size(); i++) {
-            int targetID = ((DbSMSTargetSystem) srcTargets.get(i)).getID().intValue();
+        for (Serializable srcTarget : srcTargets) {
+            int targetID = ((DbSMSTargetSystem) srcTarget).getID().intValue();
             if (TargetSystem.getSpecificTargetSystem(destProject, targetID) == null)
                 ts.createTargetSystem(destProject, targetID);
         }
@@ -155,7 +156,7 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
         int length = COPY_OF.length();
         String COPYOF = COPY_OF.substring(0, 5) + '(';
 
-        ArrayList<Boolean> sequenceIdList = new ArrayList<Boolean>();
+        List<Boolean> sequenceIdList = new ArrayList<Boolean>();
         sequenceIdList.add(Boolean.TRUE);
         sequenceIdList.add(Boolean.TRUE);
 
@@ -187,7 +188,7 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
         int i;
         for (i = 0; i < sequenceIdList.size(); i++) {
             Boolean retval = sequenceIdList.get(i);
-            if (retval.booleanValue() == false)
+            if (retval == false)
                 return i;
         }
         return i;
@@ -214,7 +215,7 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
         int retval = 0;
 
         try {
-            retval = new Integer(sequenceId).intValue();
+            retval = Integer.parseInt(sequenceId);
         } catch (Exception e) {
         }
 
@@ -282,7 +283,7 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
         // if "Copy of" was indeed found, we must find the next valid sequence
         // Id and build the name accordingly
 
-        Integer nextSeqId = new Integer(findNextSequenceId(composite, objectMetaClass));
+        Integer nextSeqId = findNextSequenceId(composite, objectMetaClass);
         return MessageFormat.format(COPY_OF_NUMBERED, new String[] { nextSeqId.toString(), name });
     }
 
@@ -425,7 +426,7 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
     // target system
     public final DbORBuiltInType getTypeFromName(String name) throws DbException {
         if (typeMap == null) {
-            typeMap = new HashMap();
+            typeMap = new HashMap<>();
             DbEnumeration dbEnum = targetSystem.getBuiltInTypePackage().getComponents().elements(
                     DbORBuiltInType.metaClass);
             while (dbEnum.hasMoreElements()) {
@@ -434,14 +435,14 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
             }
             dbEnum.close();
         }
-        return (DbORBuiltInType) typeMap.get(name);
+        return typeMap.get(name);
     }
 
     // Returns null if name is null or there is no domain of this name in the
     // target system
     public final DbORDomain getDomainFromName(String name) throws DbException {
         if (domainMap == null) {
-            domainMap = new HashMap();
+            domainMap = new HashMap<>();
             DbEnumeration enumModel = targetSystem.getPackages()
                     .elements(DbORDomainModel.metaClass);
             while (enumModel.hasMoreElements()) {
@@ -455,15 +456,15 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
             }
             enumModel.close();
         }
-        return (DbORDomain) domainMap.get(name);
+        return domainMap.get(name);
     }
 
     // If copy from a super-schema to a sub-schema, or the opposite side, set
     // the superCopy link whenever possible.
-    public final void endCopy(ArrayList srcRoots) throws DbException {
+    public final void endCopy(List<DbObject> srcRoots) throws DbException {
         int i;
         for (i = 0; i < srcRoots.size(); i++) {
-            DbObject dbo = (DbObject) srcRoots.get(i);
+            DbObject dbo = srcRoots.get(i);
             if (!AnySemObject.supportsSuper(dbo.getMetaClass()))
                 continue;
             if (dbo instanceof DbORAssociation)
@@ -489,7 +490,7 @@ public class SMSDeepCopyCustomizer implements DeepCopyCustomizer {
 
         // Link an association only if both its tables are linked.
         for (i = 0; i < srcRoots.size(); i++) {
-            DbObject dbo = (DbObject) srcRoots.get(i);
+            DbObject dbo = srcRoots.get(i);
             if (!(dbo instanceof DbORAssociation))
                 continue;
             DbORAssociation srcAssoc = (DbORAssociation) dbo;

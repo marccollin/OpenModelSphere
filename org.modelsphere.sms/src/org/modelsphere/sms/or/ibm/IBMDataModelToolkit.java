@@ -52,7 +52,6 @@ import org.modelsphere.sms.or.ibm.db.DbIBMPrimaryUnique;
 import org.modelsphere.sms.or.ibm.db.DbIBMTable;
 import org.modelsphere.sms.or.ibm.db.DbIBMTrigger;
 import org.modelsphere.sms.or.ibm.db.DbIBMView;
-import org.modelsphere.sms.or.informix.db.DbINFDataModel;
 
 public final class IBMDataModelToolkit extends GEDataModelToolkit {
 

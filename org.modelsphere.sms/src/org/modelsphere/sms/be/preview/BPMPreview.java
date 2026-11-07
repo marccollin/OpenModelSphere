@@ -33,17 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.preview;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Serializable;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.text.DecimalFormat;
-import java.text.MessageFormat;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -60,6 +49,17 @@ import org.modelsphere.sms.be.db.DbBEUseCase;
 import org.modelsphere.sms.be.db.DbBEUseCaseResource;
 import org.modelsphere.sms.be.db.srtypes.BETimeUnit;
 import org.modelsphere.sms.be.international.LocaleMgr;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.text.DecimalFormat;
+import java.text.MessageFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BPMPreview extends JackForwardEngineeringPlugin {
     private static final String TIME_ALLOCATION = LocaleMgr.misc.getString("TimeAllocation");
@@ -174,8 +174,8 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
 
         private void process(Writer writer, DbBEUseCase process) throws IOException, DbException {
             //fill the process list
-            List processList = new ArrayList();
-            List resourceList = new ArrayList();
+            List<DbBEUseCase> processList = new ArrayList<>();
+            List<DbBEResource> resourceList = new ArrayList<>();
             DbRelationN relN = process.getComponents();
             DbEnumeration dbEnum = relN.elements(DbBEUseCase.metaClass);
             while (dbEnum.hasMoreElements()) {
@@ -201,8 +201,8 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
             writer.write(s);
         } //end process()
 
-        private void fillBuffer(PrintWriter writer, DbBEUseCase process, List processList,
-                List resourceList) throws DbException {
+        private void fillBuffer(PrintWriter writer, DbBEUseCase process, List<DbBEUseCase> processList,
+                List<DbBEResource> resourceList) throws DbException {
 
             int nbColumns = processList.size();
             writer.println("<table BORDER COLS=" + (3 + nbColumns) + " WIDTH=\"100%\" > ");
@@ -212,7 +212,7 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
             writer.println("<td WIDTH=\"150\"></td>");
 
             for (int i = 0; i < nbColumns; i++) {
-                DbBEUseCase subProcess = (DbBEUseCase) processList.get(i);
+                DbBEUseCase subProcess = processList.get(i);
                 String ID = subProcess.getAlphanumericHierID();
                 String name = subProcess.getName();
                 String s = "<td WIDTH=\"150\"><b>" + ID + "(" + name + ")" + "</b></td>";
@@ -228,11 +228,10 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
 
             //write the content
             int nbRows = resourceList.size();
-            List resourceProcessList = new ArrayList();
-            List resourceProcessNodeList = new ArrayList();
-            for (Object o : resourceList) {
+            List<DbBEUseCase> resourceProcessList = new ArrayList<>();
+            List<DbBEUseCaseResource> resourceProcessNodeList = new ArrayList<>();
+            for (DbBEResource resource : resourceList) {
                 writer.println("<tr>");
-                DbBEResource resource = (DbBEResource) o;
                 String resName = resource.getName();
                 writer.println("<td WIDTH=\"150\">");
                 String s = "<b>" + resName + "</b><br>";
@@ -265,12 +264,12 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
                 dbEnum.close();
 
                 for (int j = 0; j < nbColumns; j++) {
-                    DbBEUseCase subProcess = (DbBEUseCase) processList.get(j);
+                    DbBEUseCase subProcess = processList.get(j);
 
                     writer.println("<td WIDTH=\"150\">");
                     if (resourceProcessList.contains(subProcess)) {
                         int idx = resourceProcessList.indexOf(subProcess);
-                        DbBEUseCaseResource usage = (DbBEUseCaseResource) resourceProcessNodeList
+                        DbBEUseCaseResource usage = resourceProcessNodeList
                                 .get(idx);
 
                         Double time = usage.getUsageRate();
@@ -326,7 +325,7 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
             writer.println("<td WIDTH=\"150\"><b>" + RESOURCE_VALUES + "</b></td>");
 
             for (int i = 0; i < nbColumns; i++) {
-                DbBEUseCase subProcess = (DbBEUseCase) processList.get(i);
+                DbBEUseCase subProcess = processList.get(i);
                 Double time = subProcess.getResourceTime();
                 BETimeUnit unit = subProcess.getResourceTimeUnit();
                 Double cost = subProcess.getResourceCost();
@@ -346,7 +345,7 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
             writer.println("<td WIDTH=\"150\"><b>" + FIXED_VALUES + "</b></td>");
 
             for (int i = 0; i < nbColumns; i++) {
-                DbBEUseCase subProcess = (DbBEUseCase) processList.get(i);
+                DbBEUseCase subProcess = processList.get(i);
                 time = subProcess.getFixedTime();
                 unit = subProcess.getFixedTimeUnit();
                 Double cost = subProcess.getFixedCost();
@@ -369,7 +368,7 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
             writer.println("<td WIDTH=\"150\"><b>" + PARTIAL_VALUES + "</b></td>");
 
             for (int i = 0; i < nbColumns; i++) {
-                DbBEUseCase subProcess = (DbBEUseCase) processList.get(i);
+                DbBEUseCase subProcess = processList.get(i);
                 time = subProcess.getPartialTime();
                 unit = subProcess.getPartialTimeUnit();
                 Double cost = subProcess.getPartialCost();
@@ -392,7 +391,7 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
             writer.println("<td WIDTH=\"150\"><b> " + TOTAL_VALUES + "</b></td>");
 
             for (int i = 0; i < nbColumns; i++) {
-                DbBEUseCase subProcess = (DbBEUseCase) processList.get(i);
+                DbBEUseCase subProcess = processList.get(i);
                 time = subProcess.getTotalTime();
                 unit = subProcess.getTotalTimeUnit();
                 Double cost = subProcess.getTotalCost();
@@ -498,21 +497,17 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
             } else {
                 double baseTime = getBaseTime(value, unit.getValue());
                 TimeAmountFormat timeFormat = TimeAmountFormat.getHhMmSsFormat();
-                String str = timeFormat.format((int) (baseTime * 1000));
-                return str;
+                return timeFormat.format((int) (baseTime * 1000));
             }
         } //end getQualifiedName()
 
         private double getBaseTime(double time, int timeUnit) {
-            switch (timeUnit) {
-            case BETimeUnit.MINUTE:
-                return (time * 60.0); //60.0 for floating-point division
-            case BETimeUnit.HOUR:
-                return (time * 3600.0); //3600.0 for floating-point division
+            return switch (timeUnit) {
+                case BETimeUnit.MINUTE -> (time * 60.0); //60.0 for floating-point division
+                case BETimeUnit.HOUR -> (time * 3600.0); //3600.0 for floating-point division
                 // NA or BETimeUnit.SECOND
-            default:
-                return time;
-            }
+                default -> time;
+            };
         } //end getBaseTime()
     } //end BPMPreviewRule
 
@@ -606,10 +601,8 @@ public class BPMPreview extends JackForwardEngineeringPlugin {
                 }
             } //end if
 
-            String text = MessageFormat.format(m_pattern, new Object[] { hr, min, sec, ms });
-            return text;
+            return MessageFormat.format(m_pattern, new Object[] { hr, min, sec, ms });
         } //end format
     } //end TimeAmountFormat
 
 } //end BPMPreview
-

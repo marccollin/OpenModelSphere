@@ -30,12 +30,13 @@
 # 
 # -------------------------------------------------------------------
 
+from org.modelsphere.jack.baseDb.db import Db
 #
 # import classes
-# 
+#
 from org.modelsphere.jack.srtool import ApplicationContext
-from org.modelsphere.jack.baseDb.db import Db
 from org.modelsphere.sms.templates import GenericMapping
+
 
 #
 # script's entry point

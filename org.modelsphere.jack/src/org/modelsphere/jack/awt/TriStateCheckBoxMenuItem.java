@@ -43,18 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Component;
-import java.awt.Font;
+import org.modelsphere.jack.actions.AbstractApplicationAction;
+import org.modelsphere.jack.actions.AbstractTriStatesAction;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.HierarchyListener;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
-import javax.swing.*;
-
-import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.actions.AbstractTriStatesAction;
 
 public class TriStateCheckBoxMenuItem extends JCheckBoxMenuItem {
     public static final int STATE_ON_OFF = AbstractTriStatesAction.STATE_ON_OFF;
@@ -139,7 +137,7 @@ public class TriStateCheckBoxMenuItem extends JCheckBoxMenuItem {
             updateFontUI();
             setSelected(triState == STATE_ON);
             setEnabled(triState != STATE_NOT_APPLICABLE);
-            putClientProperty(AbstractTriStatesAction.STATE, new Integer(triState));
+            putClientProperty(AbstractTriStatesAction.STATE, Integer.valueOf(triState));
         }
     }
 

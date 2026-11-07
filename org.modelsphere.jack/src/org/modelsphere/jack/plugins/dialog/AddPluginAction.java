@@ -1,17 +1,5 @@
 package org.modelsphere.jack.plugins.dialog;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.io.File;
-import java.text.MessageFormat;
-import java.util.zip.ZipFile;
-
-import javax.swing.AbstractAction;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import javax.swing.filechooser.FileFilter;
-
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.international.LocaleMgr;
@@ -19,6 +7,14 @@ import org.modelsphere.jack.plugins.PluginConfigurationHandler;
 import org.modelsphere.jack.plugins.PluginInstaller;
 import org.modelsphere.jack.plugins.PluginMgr;
 import org.modelsphere.jack.preference.PropertiesManager;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.text.MessageFormat;
+import java.util.zip.ZipFile;
 
 @SuppressWarnings("serial")
 class AddPluginAction extends AbstractAction {

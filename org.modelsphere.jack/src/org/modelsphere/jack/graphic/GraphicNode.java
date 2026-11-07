@@ -43,10 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic;
 
-import java.awt.Rectangle;
-
 import org.modelsphere.jack.graphic.shape.GraphicShape;
 import org.modelsphere.jack.util.SrVector;
+
+import java.awt.*;
 
 // A graphic component that may have lines connected to it.
 public class GraphicNode extends ZoneBox {

@@ -1,8 +1,9 @@
 # Test the signal module
-from test_support import verbose, TestSkipped
-import signal
 import os
+import signal
 import sys
+
+from test_support import verbose, TestSkipped
 
 if sys.platform[:3] in ('win', 'os2') or sys.platform=='riscos':
     raise TestSkipped, "Can't test signal on %s" % sys.platform

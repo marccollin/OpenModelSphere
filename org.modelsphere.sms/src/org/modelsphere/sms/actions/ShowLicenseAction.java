@@ -33,19 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Locale;
-
-import javax.swing.JCheckBox;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.gui.ScrollableTextDialog2;
@@ -54,6 +41,17 @@ import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.sms.MainFrame;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Locale;
 
 @SuppressWarnings("serial")
 public final class ShowLicenseAction extends AbstractApplicationAction {

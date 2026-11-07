@@ -34,7 +34,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.or.actions;
 
 import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.gui.wizard.Wizard;
 import org.modelsphere.jack.srtool.reverse.jdbc.ActiveConnectionListener;
 import org.modelsphere.jack.srtool.reverse.jdbc.ActiveConnectionManager;

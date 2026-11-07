@@ -42,13 +42,11 @@ open-modelsphere@grandite.com
  ***********************************************************************/
 package org.modelsphere.jack.baseDb.screen.spellchecking;
 
-import java.util.Locale;
-
-import javax.swing.JFrame;
-import javax.swing.UIManager;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.screen.TextEditorDialog;
+
+import javax.swing.*;
+import java.util.Locale;
 
 public class SpellCheckerTest {
     // *************

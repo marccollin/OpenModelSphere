@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.xml;
 
-import java.io.*;
+import java.io.IOException;
 
 interface XMLWriter {
 

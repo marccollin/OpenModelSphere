@@ -1,22 +1,18 @@
 # DOMException
-from xml.dom import INDEX_SIZE_ERR, DOMSTRING_SIZE_ERR , HIERARCHY_REQUEST_ERR
-from xml.dom import WRONG_DOCUMENT_ERR, INVALID_CHARACTER_ERR, NO_DATA_ALLOWED_ERR
-from xml.dom import NO_MODIFICATION_ALLOWED_ERR, NOT_FOUND_ERR, NOT_SUPPORTED_ERR
+from xml.FtCore import get_translator
+# Range Exceptions
+from xml.dom import BAD_BOUNDARYPOINTS_ERR
+from xml.dom import INDEX_SIZE_ERR, DOMSTRING_SIZE_ERR, HIERARCHY_REQUEST_ERR
 from xml.dom import INUSE_ATTRIBUTE_ERR, INVALID_STATE_ERR, SYNTAX_ERR
 from xml.dom import INVALID_MODIFICATION_ERR, NAMESPACE_ERR, INVALID_ACCESS_ERR
-from xml.dom import VALIDATION_ERR
-
+from xml.dom import INVALID_NODE_TYPE_ERR
+from xml.dom import NO_MODIFICATION_ALLOWED_ERR, NOT_FOUND_ERR, NOT_SUPPORTED_ERR
 # EventException
 from xml.dom import UNSPECIFIED_EVENT_TYPE_ERR
-
-#Range Exceptions
-from xml.dom import BAD_BOUNDARYPOINTS_ERR
-from xml.dom import INVALID_NODE_TYPE_ERR
-
+from xml.dom import VALIDATION_ERR
+from xml.dom import WRONG_DOCUMENT_ERR, INVALID_CHARACTER_ERR, NO_DATA_ALLOWED_ERR
 # Fourthought Exceptions
 from xml.dom import XML_PARSE_ERR
-
-from xml.FtCore import get_translator
 
 _ = get_translator("dom")
 

@@ -3,6 +3,7 @@
     Roger E. Masse
 """
 import cmath
+
 from test_support import verbose
 
 testdict = {'acos' : 1.0,

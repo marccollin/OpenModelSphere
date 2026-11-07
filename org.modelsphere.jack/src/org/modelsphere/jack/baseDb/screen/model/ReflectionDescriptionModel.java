@@ -43,9 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbProject;
@@ -67,6 +64,9 @@ import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.SemanticalModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReflectionDescriptionModel extends DbDescriptionModel {
 

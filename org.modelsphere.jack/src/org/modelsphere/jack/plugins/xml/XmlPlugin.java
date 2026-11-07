@@ -44,8 +44,6 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package org.modelsphere.jack.plugins.xml;
 
-import java.awt.event.ActionEvent;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
@@ -58,6 +56,8 @@ import org.modelsphere.jack.plugins.io.PluginContext;
 import org.modelsphere.jack.preference.OptionGroup;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.MainFrameMenu;
+
+import java.awt.event.ActionEvent;
 
 public class XmlPlugin implements Plugin2, PluginSelectionListener2 {
 	private XmlPluginDescriptor m_pluginDescriptor;

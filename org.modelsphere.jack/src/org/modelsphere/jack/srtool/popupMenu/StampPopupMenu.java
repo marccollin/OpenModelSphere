@@ -44,7 +44,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.srtool.popupMenu;
 
 import org.modelsphere.jack.actions.AbstractActionsStore;
-import org.modelsphere.jack.srtool.popupMenu.AbstractPopupMenu;
 
 public class StampPopupMenu extends AbstractPopupMenu {
     public static final String actionsName[] = { AbstractActionsStore.CHANGE_STAMP_IMAGE,

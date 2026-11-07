@@ -33,11 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.actions;
 
-import java.awt.Component;
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -55,6 +50,10 @@ import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.international.LocaleMgr;
 import org.modelsphere.sms.or.db.DbORCommonItem;
 import org.modelsphere.sms.or.db.util.AnyORObject;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public final class SetTypeAction extends AbstractApplicationAction implements

@@ -43,13 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.jdbc;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
-
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.services.ConnectionMessage;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.StringTokenizer;
 
 /**
  * 
@@ -69,10 +70,10 @@ public final class ConnectionInfoDialog extends JDialog implements ActionListene
     private static final String kDriverJDBCCompliant = LocaleMgr.screen
             .getString("DriverJDBCCompliant");
 
-    private JButton okButton = new JButton(kOK);
+    private final JButton okButton = new JButton(kOK);
 
-    private JEditorPane info = new JEditorPane("text/html", ""); // NOT LOCALIZABLE - content type
-    private JScrollPane scrollPane = new JScrollPane(info,
+    private final JEditorPane info = new JEditorPane("text/html", ""); // NOT LOCALIZABLE - content type
+    private final JScrollPane scrollPane = new JScrollPane(info,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
     public ConnectionInfoDialog(Frame owner, ConnectionMessage cm) {
@@ -121,7 +122,7 @@ public final class ConnectionInfoDialog extends JDialog implements ActionListene
                 + (cm == null ? kNotConnected : cm.jdbcDriverMajorVersion + "."
                         + cm.jdbcDriverMinorVersion) + "<br>"; // NOT LOCALIZABLE - HTML
         sInfo += "<b>" + kDriverJDBCCompliant + "</b><br>"
-                + (cm == null ? kNotConnected : new Boolean(cm.jdbcDriverJDBCCompliant).toString()); // NOT LOCALIZABLE - HTML
+                + (cm == null ? kNotConnected : Boolean.toString(cm.jdbcDriverJDBCCompliant)); // NOT LOCALIZABLE - HTML
         sInfo += "</body>"; // NOT LOCALIZABLE - HTML
         if (includeHtmlTag)
             sInfo += "</html>"; // NOT LOCALIZABLE - HTML

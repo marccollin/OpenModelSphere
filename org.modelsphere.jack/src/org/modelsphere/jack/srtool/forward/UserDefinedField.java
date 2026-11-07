@@ -43,11 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.*;
-import java.util.Hashtable;
-
 import org.modelsphere.jack.srtool.forward.exceptions.DomainNotFoundRuleException;
 import org.modelsphere.jack.srtool.forward.exceptions.NoModifierAllowedInRepositoryRuleException;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Hashtable;
 
 /* UserDefinedFunction Class */
 public abstract class UserDefinedField extends Rule {

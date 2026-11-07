@@ -43,15 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.shape;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Stroke;
-
 import org.modelsphere.jack.graphic.DiagramView;
 import org.modelsphere.jack.graphic.GraphicComponent;
 import org.modelsphere.jack.graphic.GraphicUtil;
+
+import java.awt.*;
 
 public class OvalUnderlinedShape implements GraphicShape {
 

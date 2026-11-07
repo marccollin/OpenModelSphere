@@ -43,15 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.tree.TreeCellRenderer;
-import javax.swing.tree.TreePath;
-import javax.swing.tree.TreeSelectionModel;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.HotKeysSupport;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -61,6 +52,22 @@ import org.modelsphere.jack.baseDb.screen.model.DbLookupNode;
 import org.modelsphere.jack.baseDb.screen.model.DbTreeModel;
 import org.modelsphere.jack.baseDb.screen.model.DbTreeModelListener;
 import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.event.TreeExpansionEvent;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.event.TreeWillExpandListener;
+import javax.swing.tree.TreeCellRenderer;
+import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * display a hierarchical lookup dialog of DbObjects
@@ -88,6 +95,7 @@ public class DbTreeLookupDialog extends JDialog {
     private JTree tree = new JTree();
     private JButton selectBtn = new JButton(LocaleMgr.screen.getString("Select"));
     private ActionListener cancelAction = new ActionListener() {
+        @Override
         public void actionPerformed(ActionEvent e) {
             userAction = CANCEL;
             dispose();

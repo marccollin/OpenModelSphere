@@ -1,5 +1,6 @@
-from test_support import TestFailed
 from random import random
+
+from test_support import TestFailed
 
 # These tests ensure that complex math does the right thing; tests of
 # the complex() function/constructor are in test_b1.py.

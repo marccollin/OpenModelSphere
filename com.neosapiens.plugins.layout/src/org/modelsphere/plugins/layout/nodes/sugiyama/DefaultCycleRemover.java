@@ -1,13 +1,19 @@
 package org.modelsphere.plugins.layout.nodes.sugiyama;
 
-import java.util.*;
-
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.alg.CycleDetector;
 import org.modelsphere.jack.srtool.features.layout.LayoutException;
-import org.modelsphere.jack.srtool.features.layout.graph.*;
+import org.modelsphere.jack.srtool.features.layout.graph.DummyVertex;
+import org.modelsphere.jack.srtool.features.layout.graph.Edge;
+import org.modelsphere.jack.srtool.features.layout.graph.Graph;
+import org.modelsphere.jack.srtool.features.layout.graph.Vertex;
 import org.modelsphere.plugins.layout.nodes.kandinsky.struct.DirectedEdgeRef;
 import org.modelsphere.plugins.layout.nodes.kandinsky.struct.LoopEdgeRef;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Temporarily remove cycles by reverting an edge in each cycle found. (or removing the edge if it

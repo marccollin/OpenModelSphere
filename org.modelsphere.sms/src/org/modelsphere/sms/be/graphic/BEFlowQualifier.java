@@ -33,35 +33,35 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.graphic;
 
-import java.awt.Image;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Vector;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.graphic.Diagram;
 import org.modelsphere.jack.graphic.zone.CompositeCellRenderer;
+import org.modelsphere.jack.graphic.zone.CompositeCellRenderer.CompositeCellRendererElement;
 import org.modelsphere.jack.graphic.zone.ImageCellRenderer;
 import org.modelsphere.jack.graphic.zone.ZoneCell;
-import org.modelsphere.jack.graphic.zone.CompositeCellRenderer.CompositeCellRendererElement;
 import org.modelsphere.jack.srtool.graphic.SrLineLabel;
 import org.modelsphere.sms.be.db.DbBEQualifier;
+
+import java.awt.*;
+import java.util.Iterator;
+import java.util.Vector;
+import java.util.List;
 
 public class BEFlowQualifier extends SrLineLabel {
 
     public BEFlowQualifier(Diagram diag, DbObject semObj, BEFlow flow, MetaField offsetMF,
-            ArrayList qualifiers) throws DbException {
+            List<DbBEQualifier> qualifiers) throws DbException {
         super(diag, semObj, flow, offsetMF, "");
         zone.setCellRenderer(new CompositeCellRenderer());
-        Iterator i = qualifiers.iterator();
-        Vector icons = new Vector();
+        Iterator<DbBEQualifier> i = qualifiers.iterator();
+        List<CompositeCellRendererElement> icons = new Vector<>();
         while (i.hasNext()) {
-            DbBEQualifier qualifier = (DbBEQualifier) i.next();
+            DbBEQualifier qualifier = i.next();
             Image icon = qualifier.getIcon();
             if (icon != null)
-                icons.addElement(new CompositeCellRendererElement(new ImageCellRenderer(), icon));
+                icons.add(new CompositeCellRendererElement(new ImageCellRenderer(), icon));
         }
         zone.setValue(new ZoneCell(semObj, icons));
     }

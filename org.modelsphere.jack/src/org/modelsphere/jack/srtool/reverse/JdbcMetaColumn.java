@@ -58,25 +58,25 @@ public final class JdbcMetaColumn implements Serializable {
     public static final int INT_TYPE = 2;
     public static final int SHORT_TYPE = 3;
 
-    private int JdbcMetaColumnIndex;
-    private String JdbctMetaColumnName;
-    private int JdbcMetaColumnType;
-    private boolean JdbcMetaColumnUsed = true;
-    private String JdbcMetaColumnComment = null;
+    private final int JdbcMetaColumnIndex;
+    private final String JdbctMetaColumnName;
+    private final int JdbcMetaColumnType;
+    private final boolean JdbcMetaColumnUsed;
+    private final String JdbcMetaColumnComment;
 
     public JdbcMetaColumn(int anIndex, String aName, int aType) {
-        this.JdbcMetaColumnIndex = anIndex;
-        this.JdbctMetaColumnName = aName;
-        this.JdbcMetaColumnType = aType;
+        this(anIndex, aName, aType, true, null);
     }
 
     public JdbcMetaColumn(int anIndex, String aName, int aType, boolean used) {
-        this(anIndex, aName, aType);
-        this.JdbcMetaColumnUsed = used;
+        this(anIndex, aName, aType, used, null);
     }
 
     public JdbcMetaColumn(int anIndex, String aName, int aType, boolean used, String aComment) {
-        this(anIndex, aName, aType, used);
+        this.JdbcMetaColumnIndex = anIndex;
+        this.JdbctMetaColumnName = aName;
+        this.JdbcMetaColumnType = aType;
+        this.JdbcMetaColumnUsed = used;
         this.JdbcMetaColumnComment = aComment;
     }
 

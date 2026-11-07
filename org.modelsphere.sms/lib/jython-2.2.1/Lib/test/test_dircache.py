@@ -3,9 +3,13 @@
   Nick Mathewson
 """
 
+import dircache
+import os
+import sys
+import time
 import unittest
+
 from test_support import run_unittest, TESTFN
-import dircache, os, time, sys
 
 
 class DircacheTests(unittest.TestCase):

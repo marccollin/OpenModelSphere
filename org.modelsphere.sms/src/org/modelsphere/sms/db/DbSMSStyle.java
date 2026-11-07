@@ -32,13 +32,24 @@ open-modelsphere@grandite.com
 **********************************************************************/
 package org.modelsphere.sms.db;
 
-import java.awt.*;
-import org.modelsphere.jack.baseDb.meta.*;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import org.modelsphere.sms.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.baseDb.db.DbStyleI;
+import org.modelsphere.jack.baseDb.db.srtypes.DbtPrefix;
+import org.modelsphere.jack.baseDb.db.srtypes.SrBoolean;
+import org.modelsphere.jack.baseDb.db.srtypes.SrColor;
+import org.modelsphere.jack.baseDb.db.srtypes.SrFont;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelation1;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
+import org.modelsphere.sms.db.srtypes.SMSDisplayDescriptor;
+import org.modelsphere.sms.db.srtypes.SMSStyleCategory;
 import org.modelsphere.sms.international.LocaleMgr;
-import java.util.HashMap;
+
+import java.awt.*;
+import java.util.Map;
 
 /**
 <b>Direct subclass(es)/subinterface(s) : </b><A HREF="../../../../org/modelsphere/sms/oo/db/DbOOStyle.html">DbOOStyle</A>, <A HREF="../../../../org/modelsphere/sms/or/db/DbORStyle.html">DbORStyle</A>, <A HREF="../../../../org/modelsphere/sms/or/db/DbORDomainStyle.html">DbORDomainStyle</A>, <A HREF="../../../../org/modelsphere/sms/or/db/DbORCommonItemStyle.html">DbORCommonItemStyle</A>, <A HREF="../../../../org/modelsphere/sms/be/db/DbBEStyle.html">DbBEStyle</A>.<br>
@@ -221,7 +232,7 @@ public abstract class DbSMSStyle extends DbObject implements DbStyleI {
   }
 
   static final long serialVersionUID =  -8958192070188200162L;
-  private static HashMap fieldMap;
+  private static Map fieldMap;
   public static String DEFAULT_STYLE_NAME = LocaleMgr.misc.getString( "DefaultStyle");
 
  
@@ -299,7 +310,7 @@ public abstract class DbSMSStyle extends DbObject implements DbStyleI {
 
 /**
 
-    @param metafield org.modelsphere.jack.baseDb.meta.MetaField
+    @param metaField org.modelsphere.jack.baseDb.meta.MetaField
     @return object
  **/
   public final Object find(MetaField metaField) throws DbException {

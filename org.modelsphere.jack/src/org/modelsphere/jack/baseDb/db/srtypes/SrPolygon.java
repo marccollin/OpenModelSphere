@@ -43,10 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.srtypes;
 
-import java.awt.Polygon;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
+
+import java.awt.*;
 
 public final class SrPolygon extends SrType {
 
@@ -87,6 +87,7 @@ public final class SrPolygon extends SrType {
         return true;
     }
 
+    @Override
     public String toString() {
         String str = "";
         for (int i = 0; i < xs.length; i++) {

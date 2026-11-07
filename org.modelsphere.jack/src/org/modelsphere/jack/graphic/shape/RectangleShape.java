@@ -43,11 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.shape;
 
-import java.awt.*;
-
 import org.modelsphere.jack.graphic.DiagramView;
 import org.modelsphere.jack.graphic.GraphicComponent;
 import org.modelsphere.jack.graphic.RenderingFlags;
+
+import java.awt.*;
 
 public class RectangleShape implements GraphicShape, RenderingFlags {
     private static final Color TRANSPARENT = new Color(255, 255, 255, 0);

@@ -43,9 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.features;
 
-import javax.swing.tree.TreePath;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
+import org.modelsphere.jack.baseDb.db.DbUDF;
 import org.modelsphere.jack.baseDb.db.srtypes.UDFValueType;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.srtool.ApplicationContext;
@@ -55,6 +57,8 @@ import org.modelsphere.jack.srtool.explorer.GroupParams;
 import org.modelsphere.jack.srtool.graphic.DbGraphic;
 import org.modelsphere.jack.util.CollationComparator;
 import org.modelsphere.jack.util.SrVector;
+
+import javax.swing.tree.TreePath;
 
 public final class DbFindSession {
     // direction values

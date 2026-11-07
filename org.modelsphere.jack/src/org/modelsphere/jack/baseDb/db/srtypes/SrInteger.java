@@ -71,6 +71,7 @@ public final class SrInteger extends SrType {
         return (value == ((SrInteger) obj).value);
     }
 
+    @Override
     public String toString() {
         return Integer.toString(value);
     }

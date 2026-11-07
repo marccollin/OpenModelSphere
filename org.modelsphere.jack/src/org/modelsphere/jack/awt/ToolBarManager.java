@@ -43,20 +43,25 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.Vector;
-
-import javax.swing.*;
-import javax.swing.plaf.ToolBarUI;
-import javax.swing.plaf.basic.BasicToolBarUI;
-
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.ApplicationContext;
+
+import javax.swing.*;
+import javax.swing.plaf.ToolBarUI;
+import javax.swing.plaf.basic.BasicToolBarUI;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Vector;
 
 /**
  * This class provides a way for managing multiple toolbar
@@ -79,7 +84,7 @@ public final class ToolBarManager implements ActionListener, /* PropertiesProvid
     private static final String DIALOG_LOC_WIDTH = "_width"; // NOT LOCALIZABLE, property key
     private static final String DIALOG_LOC_HEIGHT = "_height"; // NOT LOCALIZABLE, property key
 
-    private Vector toolBars = new Vector(15);
+    private Vector<PopupItem> toolBars = new Vector<>(15);
     private JPopupMenu popup = new JPopupMenu();
     private JMenuItem showAllToolBarItem = new JMenuItem(LocaleMgr.action
             .getString("showAllToolBar"));
@@ -89,7 +94,7 @@ public final class ToolBarManager implements ActionListener, /* PropertiesProvid
             .getString("SelectToolBars_"));
     private PopupMouseListener popupListener = new PopupMouseListener();
 
-    private Vector dialogToolBars = new Vector(5); // contains toolbars dialogs
+    private Vector<JToolBar> dialogToolBars = new Vector<>(5); // contains toolbars dialogs
 
     private static final ToolBarManager singleton;
 
@@ -125,7 +130,7 @@ public final class ToolBarManager implements ActionListener, /* PropertiesProvid
                                 "Invalid ToolBar Key (Remove spaces or '//').  Preferences for this toolbar will not be saved.");
             }
             String toolBarName = toolBar.getName();
-            if ((toolBarName == null) || toolBarName.equals(""))
+            if ((toolBarName == null) || toolBarName.isEmpty())
                 toolBarName = new String("NONAME"); //NOT LOCALIZABLE
             JCheckBoxMenuItem item = new JCheckBoxMenuItem(toolBarName, toolBar.isVisible());
             singleton.toolBars.addElement(new PopupItem(toolBar, item, key));
@@ -153,6 +158,7 @@ public final class ToolBarManager implements ActionListener, /* PropertiesProvid
         }
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == hideAllToolBarItem) {
             setToolBarsVisible(false);
@@ -162,7 +168,7 @@ public final class ToolBarManager implements ActionListener, /* PropertiesProvid
             int count = toolBars.size();
             SelectDialogItem[] selectItems = new SelectDialogItem[count];
             for (int i = 0; i < count; i++) {
-                PopupItem item = (PopupItem) toolBars.get(i);
+                PopupItem item = toolBars.get(i);
                 JComponent tb = item.toolBar;
                 selectItems[i] = new SelectDialogItem(tb.getName(), null,
                         isToolBarVisible(item.key), item.key);
@@ -197,24 +203,24 @@ public final class ToolBarManager implements ActionListener, /* PropertiesProvid
         else
             refLoc = ApplicationContext.getDefaultMainFrame().getLocationOnScreen();
 
-        Iterator iter = singleton.dialogToolBars.iterator();
+        Iterator<JToolBar> iter = singleton.dialogToolBars.iterator();
         int deltax = 0;
         int deltay = 0;
         while (iter.hasNext()) {
-            JToolBar toolbar = (JToolBar) iter.next();
+            JToolBar toolbar = iter.next();
             PopupItem item = findItem(toolbar);
             JDialog diag = (JDialog) SwingUtilities.getAncestorOfClass(JDialog.class, toolbar);
             PropertiesSet propSet = PropertiesManager.APPLICATION_PROPERTIES_SET;
 
             Dimension defaultSize = diag.getPreferredSize();
             int x = propSet.getPropertyInteger(ToolBarManager.class, item.key + DIALOG_LOC_X,
-                    new Integer(refLoc.x + deltax + (adjSize.width * 2 / 3))).intValue();
+                    Integer.valueOf(refLoc.x + deltax + (adjSize.width * 2 / 3))).intValue();
             int y = propSet.getPropertyInteger(ToolBarManager.class, item.key + DIALOG_LOC_Y,
-                    new Integer(refLoc.y + deltay + (adjSize.height + 10))).intValue();
+                    Integer.valueOf(refLoc.y + deltay + (adjSize.height + 10))).intValue();
             int w = propSet.getPropertyInteger(ToolBarManager.class, item.key + DIALOG_LOC_WIDTH,
-                    new Integer(defaultSize.width)).intValue();
+                    Integer.valueOf(defaultSize.width)).intValue();
             int h = propSet.getPropertyInteger(ToolBarManager.class, item.key + DIALOG_LOC_HEIGHT,
-                    new Integer(defaultSize.height)).intValue();
+                    Integer.valueOf(defaultSize.height)).intValue();
             w = Math.max(w, MIN_WIDTH);
             h = Math.max(h, MIN_HEIGHT);
 
@@ -242,9 +248,7 @@ public final class ToolBarManager implements ActionListener, /* PropertiesProvid
     }
 
     public void updateProperties(Component component) {
-        Iterator iter = dialogToolBars.iterator();
-        while (iter.hasNext()) {
-            JToolBar tb = (JToolBar) iter.next();
+        for (JToolBar tb : dialogToolBars) {
             JDialog diag = (JDialog) SwingUtilities.getAncestorOfClass(JDialog.class, tb);
             if (diag != component)
                 continue;
@@ -291,7 +295,7 @@ public final class ToolBarManager implements ActionListener, /* PropertiesProvid
     public static final void restoreFloatingState() {
         PropertiesSet propSet = PropertiesManager.APPLICATION_PROPERTIES_SET;
         for (int i = 0; i < singleton.toolBars.size(); i++) {
-            PopupItem item = (PopupItem) (singleton.toolBars.elementAt(i));
+            PopupItem item = singleton.toolBars.elementAt(i);
             if (!(item.toolBar instanceof JToolBar))
                 continue;
             final JToolBar toolBar = (JToolBar) item.toolBar;
@@ -306,10 +310,10 @@ public final class ToolBarManager implements ActionListener, /* PropertiesProvid
                         return;
                     Point p = toolBar.getLocation();
                     int x = propSet.getPropertyInteger(ToolBarPanel.class,
-                            item.key + FLOATING_LOC_X_PROPERTY_EXTENTION, new Integer(p.x + 20))
+                            item.key + FLOATING_LOC_X_PROPERTY_EXTENTION, Integer.valueOf(p.x + 20))
                             .intValue();
                     int y = propSet.getPropertyInteger(ToolBarPanel.class,
-                            item.key + FLOATING_LOC_Y_PROPERTY_EXTENTION, new Integer(p.y + 40))
+                            item.key + FLOATING_LOC_Y_PROPERTY_EXTENTION, Integer.valueOf(p.y + 40))
                             .intValue();
                     Point p2 = new Point(x, y);
                     final Point p3 = new Point(p2);
@@ -375,7 +379,7 @@ public final class ToolBarManager implements ActionListener, /* PropertiesProvid
     private static PopupItem findItem(String key) {
         PopupItem itemfound = null;
         for (int i = 0; i < singleton.toolBars.size(); i++) {
-            PopupItem item = (PopupItem) (singleton.toolBars.elementAt(i));
+            PopupItem item = singleton.toolBars.elementAt(i);
             if (key.equals(item.key)) {
                 itemfound = item;
                 break;
@@ -387,7 +391,7 @@ public final class ToolBarManager implements ActionListener, /* PropertiesProvid
     private static PopupItem findItem(JToolBar tb) {
         PopupItem itemfound = null;
         for (int i = 0; i < singleton.toolBars.size(); i++) {
-            PopupItem item = (PopupItem) (singleton.toolBars.elementAt(i));
+            PopupItem item = singleton.toolBars.elementAt(i);
             if (tb == item.toolBar) {
                 itemfound = item;
                 break;
@@ -415,7 +419,7 @@ public final class ToolBarManager implements ActionListener, /* PropertiesProvid
     }
 
     public final void setToolBarsVisible(boolean b) {
-        Enumeration enumeration = toolBars.elements();
+        Enumeration<PopupItem> enumeration = toolBars.elements();
         while (enumeration.hasMoreElements()) {
             Object o = enumeration.nextElement();
             if (o instanceof PopupItem) {
@@ -445,7 +449,7 @@ public final class ToolBarManager implements ActionListener, /* PropertiesProvid
      */
     private void transferComponents(JPopupMenu target) {
         target.removeAll();
-        Enumeration enumeration = toolBars.elements();
+        Enumeration<PopupItem> enumeration = toolBars.elements();
         while (enumeration.hasMoreElements()) {
             Object o = enumeration.nextElement();
             if (o instanceof PopupItem) {
@@ -464,10 +468,10 @@ public final class ToolBarManager implements ActionListener, /* PropertiesProvid
      */
     private void transferComponents(JMenu target) {
         target.removeAll();
-        Enumeration enumeration = toolBars.elements();
+        Enumeration<PopupItem> enumeration = toolBars.elements();
         while (enumeration.hasMoreElements()) {
             Object o = enumeration.nextElement();
-            if (o instanceof PopupItem) {
+            if (o != null) {
                 PopupItem pop = (PopupItem) o;
                 target.add(pop.item);
             }

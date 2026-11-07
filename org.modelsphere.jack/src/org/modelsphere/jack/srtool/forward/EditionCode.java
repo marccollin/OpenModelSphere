@@ -42,7 +42,9 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 
 public abstract class EditionCode extends Rule {
     protected static int g_margin = 0;

@@ -2,11 +2,8 @@
 
 import copy
 import xml.dom
-
-from xml.dom.minicompat import *
-
 from xml.dom.NodeFilter import NodeFilter
-
+from xml.dom.minicompat import *
 
 __all__ = ["DOMBuilder", "DOMEntityResolver", "DOMInputSource"]
 

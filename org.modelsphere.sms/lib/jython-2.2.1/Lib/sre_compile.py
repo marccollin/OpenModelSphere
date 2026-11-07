@@ -10,7 +10,8 @@
 
 """Internal support module for sre"""
 
-import _sre, sys
+import _sre
+import sys
 
 from sre_constants import *
 

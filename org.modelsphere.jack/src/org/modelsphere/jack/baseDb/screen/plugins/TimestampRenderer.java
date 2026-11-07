@@ -42,20 +42,18 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.Component;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.TimeZone;
-
-import javax.swing.JLabel;
-import javax.swing.table.DefaultTableCellRenderer;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.screen.Renderer;
 import org.modelsphere.jack.baseDb.screen.ScreenView;
 import org.modelsphere.jack.international.LocaleChangeManager;
 import org.modelsphere.jack.srtool.ApplicationContext;
+
+import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 /**
  * @author nicolask

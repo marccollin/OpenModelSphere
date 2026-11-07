@@ -43,11 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.gui;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.*;
 
 @SuppressWarnings("serial")
 public final class InfoDialog extends JDialog {

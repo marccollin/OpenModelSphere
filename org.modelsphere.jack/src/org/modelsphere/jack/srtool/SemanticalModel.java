@@ -43,13 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool;
 
-import java.awt.Image;
-import java.awt.Point;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.TimeZone;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
@@ -60,6 +53,13 @@ import org.modelsphere.jack.baseDb.screen.plugins.MultiTimestampRenderer;
 import org.modelsphere.jack.baseDb.util.Terminology;
 import org.modelsphere.jack.srtool.list.ListDescriptor;
 import org.modelsphere.jack.srtool.list.ListTableModel;
+
+
+import java.awt.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.TimeZone;
 
 public abstract class SemanticalModel {
     public static final int NAME_SHORT_FORM = DbObject.SHORT_FORM;
@@ -113,8 +113,7 @@ public abstract class SemanticalModel {
             return name;
         }
 
-        String name = (form == DbObject.LONG_FORM) ? dbo.buildFullNameString() : dbo.getName();
-        return name;
+        return (form == DbObject.LONG_FORM) ? dbo.buildFullNameString() : dbo.getName();
     }
 
     // Display Text For a MetaField
@@ -230,7 +229,7 @@ public abstract class SemanticalModel {
 
     public abstract DbRelationN getGos(DbObject semObj) throws DbException;
 
-    public abstract ArrayList getLineLabels(DbObject semObj) throws DbException;
+    public abstract List getLineLabels(DbObject semObj) throws DbException;
 
     // Order is important (will be displayed according to the order in the
     // returned array)

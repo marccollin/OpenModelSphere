@@ -10,12 +10,12 @@ version = "0.10"
 revision = "$Revision: 1.5 $"
 
 import string
-from xml.sax import xmlreader, saxutils
-from xml.sax.handler import feature_namespaces, feature_namespace_prefixes
-from xml.sax import _exceptions
-
 # we only work in jython
 import sys
+from xml.sax import _exceptions
+from xml.sax import xmlreader, saxutils
+from xml.sax.handler import feature_namespaces, feature_namespace_prefixes
+
 if sys.platform[:4] != "java":
     raise _exceptions.SAXReaderNotAvailable("drv_javasax not available in CPython", None)
 del sys

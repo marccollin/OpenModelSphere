@@ -43,17 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import org.modelsphere.jack.international.LocaleMgr;
+import org.modelsphere.jack.io.IoUtil;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-
-import javax.swing.*;
-
-import org.modelsphere.jack.international.LocaleMgr;
-import org.modelsphere.jack.io.IoUtil;
 
 public class JackFileTextItem extends JPanel implements ActionListener {
 
@@ -76,6 +73,7 @@ public class JackFileTextItem extends JPanel implements ActionListener {
                 -6));
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == fileChooserButton) {
             JFrame frame = (JFrame) AwtUtil.getParentFrame(this);

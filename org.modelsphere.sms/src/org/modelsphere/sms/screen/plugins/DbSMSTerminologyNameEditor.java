@@ -38,49 +38,35 @@ open-modelsphere@grandite.com
  */
 package org.modelsphere.sms.screen.plugins;
 
-import java.awt.Component;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.EventObject;
-import java.util.Iterator;
-
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.event.CellEditorListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.EventListenerList;
-import javax.swing.table.TableCellEditor;
-
 import org.modelsphere.jack.awt.AbstractTableCellEditor;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.baseDb.screen.DefaultRenderer;
 import org.modelsphere.jack.baseDb.screen.Editor;
 import org.modelsphere.jack.baseDb.screen.Renderer;
 import org.modelsphere.jack.baseDb.screen.ScreenView;
 import org.modelsphere.jack.baseDb.screen.model.ScreenModel;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.screen.design.DesignPanel;
 import org.modelsphere.jack.util.DefaultComparableElement;
 import org.modelsphere.sms.be.db.DbBEModel;
 import org.modelsphere.sms.be.db.DbBENotation;
 import org.modelsphere.sms.be.db.DbBEUseCase;
 import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.db.DbSMSStereotype;
-import org.modelsphere.sms.db.DbSMSUmlExtensibility;
-import org.modelsphere.sms.oo.java.db.DbJVClass;
-import org.modelsphere.sms.screen.plugins.MultiDbSMSTerminologyNameEditor.ComboActionListener;
+
+import javax.swing.*;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.EventListenerList;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.EventObject;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author Nicolask
@@ -130,10 +116,8 @@ public class DbSMSTerminologyNameEditor implements Editor {
             parentDbo.getDb().beginTrans(Db.READ_TRANS);
             DbObject currentDbo = (DbObject) unwrapValue(value);
             int selInd = -1;
-            Collection dbos = getSelectionSet(parentDbo);
-            Iterator iter = dbos.iterator();
-            while (iter.hasNext()) {
-                DbObject dbo = (DbObject) iter.next();
+            Collection<DbObject> dbos = getSelectionSet(parentDbo);
+            for (DbObject dbo : dbos) {
                 combo.addItem(new DefaultComparableElement(dbo, dbo.getName(), getUserObject(dbo)));
                 if (dbo == currentDbo)
                     selInd = combo.getItemCount() - 1;
@@ -160,13 +144,13 @@ public class DbSMSTerminologyNameEditor implements Editor {
         return comp;
     }
 
-    protected final Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList dbos = new ArrayList();
+    protected final Collection<DbObject> getSelectionSet(DbObject parentDbo) throws DbException {
+        List<DbObject> dbos = new ArrayList<>();
         if (parentDbo instanceof DbBEUseCase) {
             DbBEUseCase useCase = (DbBEUseCase) parentDbo;
             if (useCase.getTerminologyName() == null)
                 return dbos;
-            if (useCase.getTerminologyName().length() == 0)
+            if (useCase.getTerminologyName().isEmpty())
                 return dbos;
         }
         DbEnumeration dbEnum = parentDbo.getProject().getComponents().elements(

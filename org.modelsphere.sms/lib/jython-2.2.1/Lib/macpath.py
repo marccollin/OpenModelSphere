@@ -1,6 +1,7 @@
 """Pathname and path-related operations for the Macintosh."""
 
 import os
+
 from stat import *
 
 __all__ = ["normcase","isabs","join","splitdrive","split","splitext",

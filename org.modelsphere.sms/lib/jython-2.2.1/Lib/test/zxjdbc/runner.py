@@ -14,8 +14,12 @@ If no vendors are given, then all vendors will be tested.  If a
 vendor is given, then only that vendor will be tested.
 """
 
-import unittest, os
-import xmllib, __builtin__, re
+import __builtin__
+import os
+import re
+import unittest
+import xmllib
+
 
 def __imp__(module, attr=None):
 	if attr:

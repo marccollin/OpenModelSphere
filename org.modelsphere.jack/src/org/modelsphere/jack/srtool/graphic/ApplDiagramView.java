@@ -43,14 +43,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.graphic;
 
-import java.awt.*;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.graphic.*;
+import org.modelsphere.jack.graphic.Diagram;
+import org.modelsphere.jack.graphic.DiagramView;
+import org.modelsphere.jack.graphic.GraphicComponent;
+import org.modelsphere.jack.graphic.ZoneBox;
 import org.modelsphere.jack.graphic.zone.CellID;
 import org.modelsphere.jack.graphic.zone.Zone;
 import org.modelsphere.jack.srtool.features.SrDropTarget;
+
+import java.awt.*;
 
 public final class ApplDiagramView extends DiagramView implements SrDropTarget {
 

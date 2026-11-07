@@ -43,12 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins.external;
 
-import java.awt.Component;
-
-import javax.swing.JTable;
-
 import org.modelsphere.jack.actions.util.DbMultiTrans;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.baseDb.screen.plugins.MultiDomainEditor;
 import org.modelsphere.jack.srtool.screen.design.DesignTableModel;
@@ -56,6 +55,9 @@ import org.modelsphere.sms.db.DbSMSAssociationEnd;
 import org.modelsphere.sms.db.srtypes.SMSMultiplicity;
 import org.modelsphere.sms.or.db.DbORAssociationEnd;
 import org.modelsphere.sms.or.features.ReferentialRules;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * 

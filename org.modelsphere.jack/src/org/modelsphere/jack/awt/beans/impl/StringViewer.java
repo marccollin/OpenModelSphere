@@ -43,19 +43,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.beans.impl;
 
-import java.awt.Component;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
-import java.util.EventObject;
-
-import javax.swing.JTextField;
-import javax.swing.JTable;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableCellEditor;
+import javax.swing.*;
 import javax.swing.event.CellEditorListener;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.EventObject;
 
 final class StringViewer extends AbstractViewer {
 
@@ -111,6 +109,7 @@ final class StringViewer extends AbstractViewer {
     };
 
     private ActionListener m_actionListener = new ActionListener() {
+        @Override
         public void actionPerformed(ActionEvent ev) {
             String text = m_textField.getText();
             setValueInModel(text);

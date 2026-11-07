@@ -43,14 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.util;
 
-import java.io.*;
-import java.net.URLEncoder;
+import org.modelsphere.jack.io.PathFile;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-
-import org.modelsphere.jack.io.PathFile;
+import java.util.List;
 
 /**
  * Utility methods for Java archive handling
@@ -64,11 +68,11 @@ public final class JarUtil {
     public static File[] createTemporaryFiles(JarFile jarfile, String extension) throws IOException {
         if (jarfile == null || extension == null)
             return null;
-        ArrayList files = new ArrayList();
+        List<File> files = new ArrayList<>();
         extension = extension.toLowerCase();
-        Enumeration entries = jarfile.entries();
+        Enumeration<JarEntry> entries = jarfile.entries();
         while (entries.hasMoreElements()) {
-            JarEntry entry = (JarEntry) entries.nextElement();
+            JarEntry entry = entries.nextElement();
             if (entry.getName().toLowerCase().endsWith(extension)) {
                 File tempfile = createTemporaryFile(jarfile, entry);
                 files.add(tempfile);
@@ -76,7 +80,7 @@ public final class JarUtil {
         }
         File[] arrayfiles = new File[files.size()];
         for (int i = 0; i < arrayfiles.length; i++)
-            arrayfiles[i] = (File) files.get(i);
+            arrayfiles[i] = files.get(i);
         return arrayfiles;
     }
 
@@ -92,9 +96,9 @@ public final class JarUtil {
         if (url == null)
             return null;
         String sURL = url;
-        if (!(sURL.indexOf("jar:") == 0) || !(sURL.indexOf("!/") > -1)) // NOT LOCALIZABLE
+        if (!(sURL.indexOf("jar:") == 0) || !(sURL.contains("!/"))) // NOT LOCALIZABLE
             return null;
-        return  sURL.substring(sURL.indexOf("!/") + 2, sURL.length()); // NOT LOCALIZABLE, jarFileName
+        return  sURL.substring(sURL.indexOf("!/") + 2); // NOT LOCALIZABLE, jarFileName
     }
 
     // Return the entry name part of this url or null if not a jar file
@@ -102,7 +106,7 @@ public final class JarUtil {
         if (url == null)
             return null;
         String sURL = url;
-        if (!(sURL.indexOf("jar:") == 0) || !(sURL.indexOf("!/") > -1)) // NOT LOCALIZABLE
+        if (!(sURL.indexOf("jar:") == 0) || !(sURL.contains("!/"))) // NOT LOCALIZABLE
             return null;
         return  sURL.substring("jar:file:".length(), sURL.indexOf("!/")); // NOT LOCALIZABLE, jarFileName
     }
@@ -160,7 +164,7 @@ public final class JarUtil {
     public static File createTemporaryFile(InputStream input, String fileName) throws IOException {
     	int ch;
     	String tempDir = System.getProperty("java.io.tmpdir");
-    	String tempFileName = tempDir + System.getProperty("file.separator") + fileName;
+    	String tempFileName = tempDir + FileSystems.getDefault().getSeparator() + fileName;
     	File tempfile = PathFile.createFile(tempFileName, false, true);
     	
     	FileOutputStream out = new FileOutputStream(tempfile);
@@ -189,12 +193,12 @@ public final class JarUtil {
         String tempDir = System.getProperty("java.io.tmpdir"); // NOT LOCALIZABLE
         String jarFileName = sURL.substring("jar:file:".length(), sURL.indexOf("!/")); // NOT LOCALIZABLE
         JarFile jarfile = new JarFile(new File(jarFileName));
-        String fileName = sURL.substring(sURL.indexOf("!/") + 2, sURL.length()); // NOT LOCALIZABLE
+        String fileName = sURL.substring(sURL.indexOf("!/") + 2); // NOT LOCALIZABLE
         JarEntry entry = jarfile.getJarEntry(fileName);
         if (entry == null)
             return null;
 
-        String tempFileName = tempDir + System.getProperty("file.separator") + fileName;
+        String tempFileName = tempDir + FileSystems.getDefault().getSeparator() + fileName;
 
         try {
             tempfile = PathFile.createFile(tempFileName, false, true);

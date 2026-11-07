@@ -43,20 +43,29 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.integrate;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.Icon;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
-
 import org.modelsphere.jack.awt.TextViewerDialog;
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
-import org.modelsphere.jack.awt.treeTable.*;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.awt.treeTable.TreeTableModel;
+import org.modelsphere.jack.awt.treeTable.TreeTableModelAdapter;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
+import org.modelsphere.jack.baseDb.db.DbUDF;
 import org.modelsphere.jack.baseDb.db.DbUDF.UDFMap;
+import org.modelsphere.jack.baseDb.db.DbUDFValue;
+import org.modelsphere.jack.baseDb.db.DeepCopy;
+import org.modelsphere.jack.baseDb.db.DeepCopyCustomizer;
 import org.modelsphere.jack.baseDb.db.srtypes.UDFValueType;
-import org.modelsphere.jack.baseDb.meta.*;
+import org.modelsphere.jack.baseDb.meta.MetaChoice;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelation1;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
+import org.modelsphere.jack.baseDb.meta.MetaRelationship;
 import org.modelsphere.jack.baseDb.screen.LookupDialog;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.srtool.ApplicationContext;
@@ -65,7 +74,15 @@ import org.modelsphere.jack.srtool.explorer.GroupParams;
 import org.modelsphere.jack.srtool.integrate.IntegrateNode.IntegrateProperty;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.text.MessageFormat;
-import org.modelsphere.jack.util.*;
+import org.modelsphere.jack.util.CollationComparator;
+import org.modelsphere.jack.util.ExceptionHandler;
+import org.modelsphere.jack.util.SrVector;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+import java.util.ArrayList;
+import java.util.List;
 
 public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
 
@@ -387,7 +404,7 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
         DbObject leftDbo = node.getLeftDbo();
         DbObject rightDbo = node.getRightDbo();
         int action = getBasicAction(node.getAction());
-        List propList = new ArrayList();
+        List<IntegrateProperty> propList = new ArrayList<>();
         CheckTreeNode classNode = node.getClassNode();
         if (classNode != null && classNode.isSelected()) {
             int nb = classNode.getChildCount();
@@ -411,7 +428,7 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
     }
 
     // Compare a single property of <leftDbo> and <rightDbo> and add an antry to the property list if values differ.
-    private void buildProperty(List propList, DbObject leftDbo, DbObject rightDbo,
+    private void buildProperty(List<IntegrateProperty> propList, DbObject leftDbo, DbObject rightDbo,
             CheckTreeNode fieldNode, int action) throws DbException {
         Object property = fieldNode.getUserObject();
         if (property instanceof MetaField[]) { // if navigation path, navigate to the last dbObject of the path.
@@ -501,7 +518,7 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
     }
 
     private DbObject[] getRelNProperty(DbObject dbo, MetaClass metaClass) throws DbException {
-        List dboList = new ArrayList();
+        List<DbObject> dboList = new ArrayList<>();
         if (dbo != null) {
             DbEnumeration dbEnum = dbo.getComponents().elements(metaClass);
             while (dbEnum.hasMoreElements())
@@ -620,7 +637,7 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
         try {
             leftModel.getDb().beginTrans(Db.READ_TRANS);
             rightModel.getDb().beginTrans(Db.READ_TRANS);
-            List matchNodes = new ArrayList();
+            List<IntegrateNode> matchNodes = new ArrayList<>();
             IntegrateNode groupNode = (IntegrateNode) node.getParent();
             int nb = groupNode.getChildCount();
             for (int i = 0; i < nb; i++) {
@@ -650,7 +667,7 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
             leftModel.getDb().beginTrans(Db.WRITE_TRANS, matchActionName);
             rightModel.getDb().beginTrans(Db.WRITE_TRANS, matchActionName);
 
-            IntegrateNode matchNode = (IntegrateNode) matchNodes.get(index);
+            IntegrateNode matchNode = matchNodes.get(index);
             if (node.getLeftDbo() != null)
                 match(node, matchNode);
             else
@@ -1098,7 +1115,7 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
                     prefix = "";
             }
         }
-        return (prefix.length() == 0);
+        return (prefix.isEmpty());
     }
 
     private boolean reportModifNode(StringBuffer reportBuffer, IntegrateNode node, String prefix,
@@ -1106,21 +1123,21 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
         boolean hasModif = false;
         IntegrateProperty[] props = node.getProperties();
         if (props != null) {
-            for (int i = 0; i < props.length; i++) {
-                if (action != props[i].getAction())
+            for (IntegrateProperty prop : props) {
+                if (action != prop.getAction())
                     continue;
                 String oldVal, newVal;
                 if (action == ACT_MODIFY_LEFT) {
-                    oldVal = props[i].getLeftVal();
-                    newVal = props[i].getRightVal();
+                    oldVal = prop.getLeftVal();
+                    newVal = prop.getRightVal();
                 } else {
-                    oldVal = props[i].getRightVal();
-                    newVal = props[i].getLeftVal();
+                    oldVal = prop.getRightVal();
+                    newVal = prop.getLeftVal();
                 }
                 if (inInteg) { // if integration done, recalculate the string <newVal> from actual values in Db (only for relations).
                     DbObject dbo = (action == ACT_MODIFY_LEFT ? node.getLeftDbo() : node
                             .getRightDbo());
-                    Object property = props[i].getProperty();
+                    Object property = prop.getProperty();
                     if (property instanceof MetaClass)
                         newVal = getPropertyString((MetaClass) property, getRelNProperty(dbo,
                                 (MetaClass) property));
@@ -1139,7 +1156,7 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
                             + LocaleMgr.screen.getString("modified") + '\n'); //NOT LOCALIZABLE
                     hasModif = true;
                 }
-                reportBuffer.append(valSep + props[i].getName() + valSep
+                reportBuffer.append(valSep + prop.getName() + valSep
                         + getValueReportStr(newVal) + valSep + getValueReportStr(oldVal) + '\n'); //NOT LOCALIZABLE
             }
         }
@@ -1255,8 +1272,8 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
     private void integrateProperties(IntegrateNode node, boolean leftIfNone) throws DbException {
         IntegrateProperty[] props = node.getProperties();
         if (props != null) {
-            for (int i = 0; i < props.length; i++) {
-                int action = props[i].getAction();
+            for (IntegrateProperty prop : props) {
+                int action = prop.getAction();
                 if (leftIfNone) {
                     if (action != ACT_NONE)
                         continue;
@@ -1267,7 +1284,7 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
                     if (action == ACT_MODIFY_RIGHT && noRightUpdate)
                         continue;
                 }
-                integrateProperty(node.getLeftDbo(), node.getRightDbo(), props[i].getProperty(),
+                integrateProperty(node.getLeftDbo(), node.getRightDbo(), prop.getProperty(),
                         action);
             }
         }
@@ -1378,7 +1395,7 @@ public class IntegrateModel extends DefaultTreeModel implements TreeTableModel {
     }
 
     protected List getChildren(DbObject parent) throws DbException {
-        List children = new ArrayList();
+        List<DbObject> children = new ArrayList<>();
         DbEnumeration dbEnum = parent.getComponents().elements();
         while (dbEnum.hasMoreElements()) {
             children.add(dbEnum.nextElement());

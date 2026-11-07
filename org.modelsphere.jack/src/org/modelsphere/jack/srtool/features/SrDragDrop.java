@@ -43,9 +43,21 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.features;
 
-import java.awt.Component;
-import java.awt.Point;
-import java.awt.Rectangle;
+import org.modelsphere.jack.actions.util.DbMultiTrans;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.debug.Debug;
+import org.modelsphere.jack.srtool.ApplicationContext;
+import org.modelsphere.jack.srtool.graphic.ApplDiagramView;
+import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
+import org.modelsphere.jack.srtool.graphic.DiagramInternalFrame;
+import org.modelsphere.jack.srtool.international.LocaleMgr;
+import org.modelsphere.jack.srtool.screen.ScreenPerspective;
+import org.modelsphere.jack.util.ExceptionHandler;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -53,7 +65,6 @@ import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DragGestureEvent;
 import java.awt.dnd.DragGestureListener;
 import java.awt.dnd.DragSource;
-import java.awt.dnd.DragSourceContext;
 import java.awt.dnd.DragSourceDragEvent;
 import java.awt.dnd.DragSourceDropEvent;
 import java.awt.dnd.DragSourceEvent;
@@ -65,23 +76,6 @@ import java.awt.dnd.DropTargetDropEvent;
 import java.awt.dnd.DropTargetEvent;
 import java.awt.dnd.DropTargetListener;
 import java.io.Serializable;
-
-import javax.swing.JViewport;
-import javax.swing.SwingUtilities;
-
-import org.modelsphere.jack.actions.util.DbMultiTrans;
-import org.modelsphere.jack.baseDb.db.Db;
-import org.modelsphere.jack.baseDb.db.DbException;
-import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.debug.Debug;
-import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.explorer.ExplorerView;
-import org.modelsphere.jack.srtool.graphic.ApplDiagramView;
-import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
-import org.modelsphere.jack.srtool.graphic.DiagramInternalFrame;
-import org.modelsphere.jack.srtool.international.LocaleMgr;
-import org.modelsphere.jack.srtool.screen.ScreenPerspective;
-import org.modelsphere.jack.util.ExceptionHandler;
 
 public abstract class SrDragDrop {
     protected static final String kCopy = LocaleMgr.action.getString("copy");

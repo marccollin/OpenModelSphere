@@ -5,8 +5,8 @@
 Note: string objects have grown methods in Python 1.6
 This module requires Python 1.6 or later.
 """
-from types import StringType, UnicodeType
 import sys
+from types import StringType, UnicodeType
 
 __all__ = ["UserString","MutableString"]
 

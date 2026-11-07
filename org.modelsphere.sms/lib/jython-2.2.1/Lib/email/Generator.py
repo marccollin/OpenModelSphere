@@ -4,17 +4,15 @@
 """Classes to generate plain text from a message object tree.
 """
 
+import locale
+import random
 import re
 import sys
 import time
-import locale
-import random
-
-from types import ListType, StringType
 from cStringIO import StringIO
-
 from email.Header import Header
 from email.Parser import NLCRE
+from types import ListType, StringType
 
 try:
     from email._compat22 import _isstring

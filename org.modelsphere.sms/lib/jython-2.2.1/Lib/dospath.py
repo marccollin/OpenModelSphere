@@ -1,6 +1,7 @@
 """Common operations on DOS pathnames."""
 
 import os
+
 import stat
 
 __all__ = ["normcase","isabs","join","splitdrive","split","splitext",

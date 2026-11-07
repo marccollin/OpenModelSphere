@@ -33,10 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.features.reverse;
 
-import java.io.ObjectInputStream;
-import java.util.HashMap;
-import java.util.Vector;
-
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.srtool.reverse.file.ReverseException;
@@ -46,6 +42,10 @@ import org.modelsphere.sms.oo.db.DbOOAbstractMethod;
 import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.DbJVDataMember;
 import org.modelsphere.sms.oo.java.db.DbJVParameter;
+
+import java.io.ObjectInputStream;
+import java.util.Map;
+import java.util.Vector;
 
 public interface Actions extends org.modelsphere.jack.srtool.reverse.file.Actions {
 
@@ -59,7 +59,7 @@ public interface Actions extends org.modelsphere.jack.srtool.reverse.file.Action
             ObjectInputStream from_server,
             // org.modelsphere.sms.db.DbSMSProject destinationProject,
             DbSMSPackage targetPackage, String aFilename, java.io.InputStream input,
-            Vector aVecOfIncompletedObject, Vector objectsToDeleteVector, HashMap diagMap,
+            Vector aVecOfIncompletedObject, Vector objectsToDeleteVector, Map diagMap,
             ReverseParameters parameters) throws org.modelsphere.jack.baseDb.db.DbException;
 
     // public abstract void processPackage(String packageName, String separator)
@@ -116,7 +116,7 @@ public interface Actions extends org.modelsphere.jack.srtool.reverse.file.Action
                 ObjectInputStream from_server,
                 // org.modelsphere.sms.db.DbSMSProject destinationProject,
                 DbSMSPackage targetPack, String aFilename, java.io.InputStream input,
-                Vector aVecOfIncompletedObject, Vector objectsToDeleteVector, HashMap diagMap,
+                Vector aVecOfIncompletedObject, Vector objectsToDeleteVector, Map diagMap,
                 ReverseParameters parameters) throws org.modelsphere.jack.baseDb.db.DbException {
         }
 

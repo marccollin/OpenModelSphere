@@ -1,22 +1,33 @@
 // $ANTLR 3.3 Nov 30, 2010 12:50:56 C:\\Users\\Admin\\Documents\\My Workspaces\\Open Modelsphere-18\\workspace\\javasource_reverse\\src\\com\\neosapiens\\plugins\\reverse\\javasource\\parsing\\Java1_6.g 2011-04-05 08:20:09
 
 	package com.neosapiens.plugins.reverse.javasource.parsing;
-	import com.neosapiens.plugins.reverse.javasource.actions.SemanticAction;
-	import com.neosapiens.plugins.reverse.javasource.utils.ParameterOfMethode;
-	import com.neosapiens.plugins.reverse.javasource.utils.FieldOfClass;
-	import com.neosapiens.plugins.reverse.javasource.utils.DeclarationOfMethod;
-	import com.neosapiens.plugins.reverse.javasource.utils.DeclarationOfClassOrInterface;
-	import com.neosapiens.plugins.reverse.javasource.utils.InitializationBlockOfClass;
-	import java.util.Vector;
-	import java.lang.reflect.Modifier;
 
+import com.neosapiens.plugins.reverse.javasource.actions.SemanticAction;
+import com.neosapiens.plugins.reverse.javasource.utils.DeclarationOfClassOrInterface;
+import com.neosapiens.plugins.reverse.javasource.utils.DeclarationOfMethod;
+import com.neosapiens.plugins.reverse.javasource.utils.FieldOfClass;
+import com.neosapiens.plugins.reverse.javasource.utils.InitializationBlockOfClass;
+import com.neosapiens.plugins.reverse.javasource.utils.ParameterOfMethode;
+import org.antlr.runtime.BaseRecognizer;
+import org.antlr.runtime.BitSet;
+import org.antlr.runtime.DFA;
+import org.antlr.runtime.EarlyExitException;
+import org.antlr.runtime.IntStream;
+import org.antlr.runtime.MismatchedSetException;
+import org.antlr.runtime.NoViableAltException;
+import org.antlr.runtime.Parser;
+import org.antlr.runtime.ParserRuleReturnScope;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.RecognizerSharedState;
+import org.antlr.runtime.Token;
+import org.antlr.runtime.TokenStream;
 
-import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Vector;
+
 public class Java1_6Parser extends Parser {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "IDENTIFIER", "INTLITERAL", "LONGLITERAL", "FLOATLITERAL", "DOUBLELITERAL", "CHARLITERAL", "STRINGLITERAL", "TRUE", "FALSE", "NULL", "IntegerNumber", "LongSuffix", "HexPrefix", "HexDigit", "Exponent", "NonIntegerNumber", "FloatSuffix", "DoubleSuffix", "EscapeSequence", "WS", "COMMENT", "LINE_COMMENT", "ABSTRACT", "ASSERT", "BOOLEAN", "BREAK", "BYTE", "CASE", "CATCH", "CHAR", "CLASS", "CONST", "CONTINUE", "DEFAULT", "DO", "DOUBLE", "ELSE", "ENUM", "EXTENDS", "FINAL", "FINALLY", "FLOAT", "FOR", "GOTO", "IF", "IMPLEMENTS", "IMPORT", "INSTANCEOF", "INT", "INTERFACE", "LONG", "NATIVE", "NEW", "PACKAGE", "PRIVATE", "PROTECTED", "PUBLIC", "RETURN", "SHORT", "STATIC", "STRICTFP", "SUPER", "SWITCH", "SYNCHRONIZED", "THIS", "THROW", "THROWS", "TRANSIENT", "TRY", "VOID", "VOLATILE", "WHILE", "LPAREN", "RPAREN", "LBRACE", "RBRACE", "LBRACKET", "RBRACKET", "SEMI", "COMMA", "DOT", "ELLIPSIS", "EQ", "BANG", "TILDE", "QUES", "COLON", "EQEQ", "AMPAMP", "BARBAR", "PLUSPLUS", "SUBSUB", "PLUS", "SUB", "STAR", "SLASH", "AMP", "BAR", "CARET", "PERCENT", "PLUSEQ", "SUBEQ", "STAREQ", "SLASHEQ", "AMPEQ", "BAREQ", "CARETEQ", "PERCENTEQ", "MONKEYS_AT", "BANGEQ", "GT", "LT", "IdentifierStart", "IdentifierPart", "SurrogateIdentifer"

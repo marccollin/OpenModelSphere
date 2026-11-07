@@ -34,14 +34,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.plugins.report.screen;
 
 // JDK
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Enumeration;
-
-import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.HotKeysSupport;
@@ -49,6 +41,14 @@ import org.modelsphere.jack.awt.tree.CheckTreeModel;
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
 import org.modelsphere.sms.plugins.report.LocaleMgr;
 import org.modelsphere.sms.plugins.report.model.ReportModel;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Enumeration;
 
 public class ConceptChooser {
 
@@ -128,6 +128,8 @@ public class ConceptChooser {
 
         void jbInit() {
             //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+            // CODE POUR CONCEPTION GRAPHIQUE (Libellés temporaires)
+            //A mettre en commentaire lorsque completé
 
             selectButton.setText(LocaleMgr.misc.getString("Select")); // NOT LOCALIZABLE
             cancelButton.setText(LocaleMgr.misc.getString("Cancel")); // NOT LOCALIZABLE

@@ -43,15 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.tool;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
@@ -62,6 +53,14 @@ import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.CurrentFocusListener;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A ToolButtonGroup is Tool container. It is also an AWT Component that can be added to any AWT
@@ -75,11 +74,11 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
 
     private static final String MASTER_TOOL_TIP = " " + LocaleMgr.message.getString("MasterTool");
 
-    private DiagramView diagView = null;
-    private DbSemanticalObject diagPackage = null;
-    private ArrayList origTools = new ArrayList();
-    private ArrayList toolComponents = new ArrayList();
-    private int origMaster = 0;
+    private DiagramView diagView;
+    private DbSemanticalObject diagPackage;
+    private final List<Tool> origTools = new ArrayList<>();
+    private final List<JComponent> toolComponents = new ArrayList<>();
+    private int origMaster;
 
     public ToolButtonGroup() {
         super();
@@ -94,6 +93,8 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
                     try {
                         tool.updateHelp();
                     } catch (Exception e) {
+                        org.modelsphere.jack.util.ExceptionHandler
+                                .processUncatchedException(diagView, e);
                     }
                 }
             }
@@ -124,10 +125,7 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
         if (comp.getName() == null)
             comp.setName(tool.getClass().getName());
 
-        if (tool.supportedDiagramMetaClasses != null && !tool.isAlwaysVisible())
-            comp.setVisible(false);
-        else
-            comp.setVisible(true);
+        comp.setVisible(tool.supportedDiagramMetaClasses == null || tool.isAlwaysVisible());
         //add(comp);
         origTools.add(tool);
         toolComponents.add(comp);
@@ -142,7 +140,7 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
         int idx = origTools.indexOf(tool);
         if (idx == -1)
             return null;
-        return (JComponent) toolComponents.get(idx);
+        return toolComponents.get(idx);
     }
 
     public final Tool[] getOrigTools(DiagramView diagView) {
@@ -159,13 +157,12 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
         return origMaster;
     }
 
-    private boolean init = false;
-    private HashMap diagramPackagesCompVisibility = new HashMap();
-    private HashMap diagramPackagesCompEnabled = new HashMap();
+    private final Map<MetaClass, boolean[]> diagramPackagesCompVisibility = new HashMap<>();
+    private final Map<MetaClass, boolean[]> diagramPackagesCompEnabled = new HashMap<>();
 
     public void setVisible(int index, boolean visible) {
         MetaClass diagPackageMetaClass = diagPackage.getMetaClass();
-        boolean[] componentsVisible = (boolean[]) this.diagramPackagesCompVisibility
+        boolean[] componentsVisible = this.diagramPackagesCompVisibility
                 .get(diagPackageMetaClass);
         componentsVisible[index] = visible;
         diagramPackagesCompVisibility.put(diagPackageMetaClass, componentsVisible);
@@ -173,7 +170,7 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
 
     public void setEnabled(int index, boolean visible) {
         MetaClass diagPackageMetaClass = diagPackage.getMetaClass();
-        boolean[] componentsEnabled = (boolean[]) diagramPackagesCompEnabled
+        boolean[] componentsEnabled = diagramPackagesCompEnabled
                 .get(diagPackageMetaClass);
         componentsEnabled[index] = visible;
         diagramPackagesCompEnabled.put(diagPackageMetaClass, componentsEnabled);
@@ -184,16 +181,15 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
             return;
 
         MetaClass diagPackageMetaClass = diagPackage.getMetaClass();
-        boolean[] componentsVisibility = (boolean[]) diagramPackagesCompVisibility
+        boolean[] componentsVisibility = diagramPackagesCompVisibility
                 .get(diagPackageMetaClass);
-        boolean[] componentsEnabled = (boolean[]) diagramPackagesCompEnabled
+        boolean[] componentsEnabled = diagramPackagesCompEnabled
                 .get(diagPackageMetaClass);
         if (componentsVisibility == null) {
             componentsVisibility = new boolean[toolComponents.size()];
             componentsEnabled = new boolean[toolComponents.size()];
             for (int i = 0; i < toolComponents.size(); i++) {
-                Component comp = (Component) toolComponents.get(i);
-                Tool tool = (Tool) origTools.get(i);
+                Tool tool = origTools.get(i);
                 MetaClass[] supported = tool.supportedDiagramMetaClasses;
                 if (supported == null) {
                     componentsVisibility[i] = true;
@@ -214,15 +210,15 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
         }
         Tool[] tools = diagView.getTools();
         for (int i = 0; i < toolComponents.size(); i++) {
-            Component comp = (Component) toolComponents.get(i);
+            JComponent comp = toolComponents.get(i);
             comp.setEnabled(componentsEnabled[i]);
             comp.setVisible(componentsVisibility[i]);
 
             Tool oriTool = tools[i];
             String sToolTip = oriTool.getText();
-            ((JComponent) comp).setToolTipText(sToolTip);
-            if (comp instanceof DefaultToolComponent)
-                ((DefaultToolComponent) comp).setIcon(new ImageIcon(oriTool.getIcon()));
+            comp.setToolTipText(sToolTip);
+            if (comp instanceof DefaultToolComponent toolComponent)
+                toolComponent.setIcon(new ImageIcon(oriTool.getIcon()));
         }
         diagView.setTools(tools);
     }
@@ -297,7 +293,7 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
 
     private void setSelectDrawing(int ind, boolean selected) {
         ToolComponent comp = (ToolComponent) toolComponents.get(ind);
-        int newstate = comp.getState();
+        int newstate;
         if (selected) {
             newstate = ToolComponent.STATE_SELECTED
                     | (comp.getState() & ToolComponent.STATE_MASTER);
@@ -310,7 +306,7 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
 
     private void setMasterDrawing(int ind, boolean master) {
         ToolComponent comp = (ToolComponent) toolComponents.get(ind);
-        int newstate = comp.getState();
+        int newstate;
         if (master) {
             newstate = ToolComponent.STATE_MASTER
                     | (comp.getState() & ToolComponent.STATE_SELECTED);
@@ -322,9 +318,7 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
     }
 
     private void setAllEnabled(boolean value) {
-        int nb = toolComponents.size();
-        for (int i = 0; i < nb; i++) {
-            JComponent comp = (JComponent) toolComponents.get(i);
+        for (JComponent comp : toolComponents) {
             comp.setEnabled(value);
         }
     }
@@ -347,10 +341,10 @@ public class ToolButtonGroup implements ActionListener, CurrentFocusListener {
     //
     public void currentFocusChanged(Object oldFocusObject, Object focusObject) throws DbException {
 
-        diagPackage = (focusObject instanceof ApplicationDiagram ? ((ApplicationDiagram) focusObject)
+        diagPackage = (focusObject instanceof ApplicationDiagram applicationDiagram ? applicationDiagram
                 .getSemanticalObject()
                 : null);
-        DiagramView diagView = (focusObject instanceof ApplicationDiagram ? ((ApplicationDiagram) focusObject)
+        DiagramView diagView = (focusObject instanceof ApplicationDiagram applicationDiagram ? applicationDiagram
                 .getMainView()
                 : null);
         setDiagramView(diagView);

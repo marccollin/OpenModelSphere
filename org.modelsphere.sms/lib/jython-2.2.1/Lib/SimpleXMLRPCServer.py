@@ -69,10 +69,12 @@ server.serve_forever()
 # Written by Brian Quinlan (brian@sweetapp.com).
 # Based on code written by Fredrik Lundh.
 
-import xmlrpclib
-import SocketServer
-import BaseHTTPServer
 import sys
+
+import BaseHTTPServer
+import SocketServer
+import xmlrpclib
+
 
 class SimpleXMLRPCRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     """Simple XML-RPC request handler class.

@@ -44,18 +44,38 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package org.modelsphere.jack.plugins.xml;
 
-import java.awt.Image;
+import org.modelsphere.jack.baseDb.international.LocaleMgr;
+import org.modelsphere.jack.plugins.Plugin;
+import org.modelsphere.jack.plugins.Plugin2;
+import org.modelsphere.jack.plugins.PluginConstants;
+import org.modelsphere.jack.plugins.PluginDescriptor;
+import org.modelsphere.jack.plugins.PluginStartupTiming;
+import org.modelsphere.jack.plugins.io.ImageUtilities;
+import org.modelsphere.jack.plugins.io.PluginContext;
+import org.modelsphere.jack.plugins.io.PluginLoader;
+import org.modelsphere.jack.plugins.xml.extensions.AbstractPluginExtension;
+import org.modelsphere.jack.plugins.xml.extensions.PopupExtension;
+import org.modelsphere.jack.plugins.xml.fs.FsEntry;
+import org.modelsphere.jack.plugins.xml.fs.FsFile;
+import org.modelsphere.jack.plugins.xml.fs.FsFolder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.imageio.ImageIO;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.security.AllPermission;
@@ -70,31 +90,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
-import java.util.ResourceBundle.Control;
-
-import javax.imageio.ImageIO;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.modelsphere.jack.baseDb.international.LocaleMgr;
-import org.modelsphere.jack.baseDb.meta.MetaClass;
-import org.modelsphere.jack.plugins.Plugin;
-import org.modelsphere.jack.plugins.Plugin2;
-import org.modelsphere.jack.plugins.PluginConstants;
-import org.modelsphere.jack.plugins.PluginDescriptor;
-import org.modelsphere.jack.plugins.io.ImageUtilities;
-import org.modelsphere.jack.plugins.io.PluginContext;
-import org.modelsphere.jack.plugins.io.PluginLoader;
-import org.modelsphere.jack.plugins.xml.extensions.AbstractPluginExtension;
-import org.modelsphere.jack.plugins.xml.extensions.PopupExtension;
-import org.modelsphere.jack.plugins.xml.fs.FsFile;
-import org.modelsphere.jack.plugins.xml.fs.FsFolder;
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 public class XmlPluginDescriptor implements PluginDescriptor {
     public static final String LICENSE = "license"; // NOT LOCALIZABLE, keyword
@@ -202,7 +197,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 			PluginContext context = getContext();
 			Map<String, Object> attributes = getAttributes();
 			String imageResource = context.getLocalizedString((String) attributes.get(IMAGE));
-	        if (imageResource != null && imageResource.trim().length() > 0) {
+	        if (imageResource != null && !imageResource.trim().isEmpty()) {
 	            URL imageURL = null;
 	            try {
 	            	FsFolder parent = m_pluginXml.getParent(); 
@@ -230,7 +225,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 		Map<String, Object> attributes = getAttributes();
 		Image image = null;
 		
-	    if (imageName != null && imageName.trim().length() > 0) {
+	    if (imageName != null && !imageName.trim().isEmpty()) {
             URL imageURL = null;
             try {
             	FsFolder parent = m_pluginXml.getParent(); 
@@ -255,7 +250,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 	public URL getLicenseURL() {
 		if (licenseURL == null) {
 			String licenseResource = getLocalizedString(LICENSE);
-	        if (licenseResource != null && licenseResource.trim().length() > 0) {
+	        if (licenseResource != null && !licenseResource.trim().isEmpty()) {
 	           // try {
 	            	FsFolder parent = m_pluginXml.getParent(); 
 	            	FsFile licenceFile = (FsFile)parent.getNamedDescendent(licenseResource); 
@@ -288,21 +283,24 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 	@Override
 	public Class<? extends Plugin> getPluginClass() {
 		if (pluginClass == null) {
-		    grantPermissions();
-			String className = getClassName();
-			PluginContext context = getContext();
-			ClassLoader classLoader = context == null ? null : context.getClassLoader();
+            try (PluginStartupTiming timing = PluginStartupTiming.start(
+                    "xml.class", getClassName())) {
+                grantPermissions();
+                String className = getClassName();
+                PluginContext context = getContext();
+                ClassLoader classLoader = context == null ? null : context.getClassLoader();
 
-			if (classLoader == null) {
-		    	classLoader = createClassLoader();
-		    	context.setClassLoader(classLoader);
-		    }
-			
-			try {
-				pluginClass = (Class<? extends Plugin>) Class.forName(className, true, classLoader);
-			} catch (ClassNotFoundException ex) {
-				pluginClass = null;
-			}
+                if (classLoader == null) {
+                    classLoader = createClassLoader();
+                    context.setClassLoader(classLoader);
+                }
+
+                try {
+                    pluginClass = (Class<? extends Plugin>) Class.forName(className, true, classLoader);
+                } catch (ClassNotFoundException ex) {
+                    pluginClass = null;
+                }
+            }
 		}
 		
 		return pluginClass;
@@ -344,9 +342,8 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 
 	@Override
 	public String getStatusText() {
-		String className = getClassName(); 
-		String text = getStatusText(className); 
-		return text; 
+		String className = getClassName();
+        return getStatusText(className);
 	}
 	
 	public Class<?>[] getSupportedClasses() {
@@ -382,8 +379,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 	@Override
 	public PLUGIN_TYPE getType() {
 		Map<String, Object> attributes = getAttributes();
-		PLUGIN_TYPE type = PLUGIN_TYPE.toType((String) attributes.get(PluginConstants.TYPE)); 
-		return type;
+        return PLUGIN_TYPE.toType((String) attributes.get(PluginConstants.TYPE));
 	}
 
 	@Override
@@ -571,7 +567,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 		Map<String, Object> attributes = getAttributes();
 		String baseName = (String)attributes.get(PluginConstants.RESOURCEBUNDLE);
 		
-        if (baseName != null && baseName.trim().length() > 0) {
+        if (baseName != null && !baseName.trim().isEmpty()) {
             try {
             	//String ressName = homeDirectory.getPath() + "_" + baseName; 
             	Locale locale = LocaleMgr.getLocaleFromPreferences(Locale.getDefault(), true); 
@@ -713,7 +709,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 		if (EXTENSION.equals(name)) {
         	value = readExtension(childNode);
         } else {
-	    	if (text == null || text.length() == 0) {
+	    	if (text == null || text.isEmpty()) {
 	    		value = null;
 	    	} else {
 	    		value = text;
@@ -813,17 +809,9 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 		PluginContext context = getContext();
 		URL url = context.getURL();
 		
+		FsFolder parent = m_pluginXml.getParent();
 		if (url == null) {
-			FsFolder parent = m_pluginXml.getParent(); 
 			url = parent.toURL();
-			
-			/*
-			//File home = getHomeDirectory();
-			try {
-				url = home.toURI().toURL();
-			} catch (MalformedURLException ex) {
-				url = null;
-			}*/
 		}
 		
         if (url != null) {
@@ -831,7 +819,16 @@ public class XmlPluginDescriptor implements PluginDescriptor {
             //ensure Plugin2 is loaded before creating the URLClassLoader
             //required by Java Web Start
             ClassLoader parentCL = Plugin2.class.getClassLoader();
-            classLoader = new URLClassLoader(new URL[] { url }, parentCL);
+            List<URL> urls = new ArrayList<URL>();
+            String jarPath = (String) getAttributes().get(PluginConstants.JAR);
+            if (jarPath != null) {
+                FsEntry jarFile = parent.getNamedDescendent(jarPath);
+                URL jarURL = jarFile == null ? null : jarFile.toURL();
+                if (jarURL != null)
+                    urls.add(jarURL);
+            }
+            urls.add(url);
+            classLoader = new URLClassLoader(urls.toArray(new URL[urls.size()]), parentCL);
         } else {
             System.out.println("Undefined class loader for " + this);
             classLoader = null;
@@ -851,8 +848,7 @@ public class XmlPluginDescriptor implements PluginDescriptor {
 
 	public List<AbstractPluginExtension> getPluginExtensions() {
 		Map<String, Object> attributes = getAttributes();
-		List<AbstractPluginExtension> extensions = (List<AbstractPluginExtension>)attributes.get(EXTENSION);
-		return extensions;
+        return (List<AbstractPluginExtension>)attributes.get(EXTENSION);
 	}
 
 	/*

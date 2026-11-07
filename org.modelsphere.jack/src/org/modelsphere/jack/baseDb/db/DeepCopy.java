@@ -43,12 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db;
 
+import org.modelsphere.jack.baseDb.db.DbUDF.UDFMap;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
+import org.modelsphere.jack.baseDb.meta.MetaRelationship;
+
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
-
-import org.modelsphere.jack.baseDb.db.DbUDF.UDFMap;
-import org.modelsphere.jack.baseDb.meta.*;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Perform a deep copy, i.e. copy all the DbObjects passed in parameters in the destination
@@ -77,10 +81,10 @@ public final class DeepCopy {
     private DbProject srcProject;
     private DbProject destProject;
     private DeepCopyCustomizer customizer;
-    private ArrayList srcRoots = new ArrayList();
-    private HashSet srcObjects = new HashSet();
+    private List<DbObject> srcRoots = new ArrayList<>();
+    private Set<DbObject> srcObjects = new HashSet<>();
     private UDFMap udfMap = null;
-    private ArrayList objsToRemove = new ArrayList();
+    private List<DbObject> objsToRemove = new ArrayList<>();
 
     // beginMatching must be done prior to DeepCopy object instantiation.
     public DeepCopy(DbProject srcProject, DbProject destProject, DeepCopyCustomizer customizer)
@@ -97,8 +101,7 @@ public final class DeepCopy {
 
     public final void create(DbObject[] srcObjs, DbObject destComposite,
             boolean namePrefixedWithCopyOf) throws DbException {
-        for (int i = 0; i < srcObjs.length; i++)
-            create(srcObjs[i], destComposite, namePrefixedWithCopyOf);
+        for (DbObject srcObj : srcObjs) create(srcObj, destComposite, namePrefixedWithCopyOf);
     }
 
     public final DbObject create(DbObject srcObj, DbObject destComposite,
@@ -110,16 +113,13 @@ public final class DeepCopy {
 
     // Must be called after all calls to <create>, to complete the copy operation.
     public final void fill() throws DbException {
-        Iterator iter = srcObjects.iterator();
-        while (iter.hasNext()) {
-            DbObject srcObj = (DbObject) iter.next();
+        for (DbObject srcObj : srcObjects) {
             copyUdfValues(srcObj);
             fillAux(srcObj);
         }
         if (customizer != null)
             customizer.endCopy(srcRoots);
-        for (int i = 0; i < objsToRemove.size(); i++)
-            ((DbObject) objsToRemove.get(i)).remove();
+        for (DbObject dbo : objsToRemove) dbo.remove();
     }
 
     // deepCopy step 1: create all the objects without links, except composite 
@@ -196,8 +196,7 @@ public final class DeepCopy {
         MetaClass commonClass = srcObj.getMetaClass().getCommonSuperMetaClass(
                 destObj.getMetaClass());
         MetaField[] allMetaFields = commonClass.getAllMetaFields();
-        for (int i = 0; i < allMetaFields.length; i++) {
-            MetaField metaField = allMetaFields[i];
+        for (MetaField metaField : allMetaFields) {
             if (!(metaField instanceof MetaRelationship))
                 continue;
             MetaRelationship relation = (MetaRelationship) metaField;

@@ -3,8 +3,9 @@
    Roger E. Masse
 """
 
-from test_support import verify, verbose
 import crypt
+
+from test_support import verbose
 
 c = crypt.crypt('mypassword', 'ab')
 if verbose:

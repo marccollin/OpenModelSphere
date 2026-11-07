@@ -34,7 +34,8 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.plugins.report.screen;
 
 // Swing
-import javax.swing.JTable;
+
+import javax.swing.*;
 
 public interface Renderer {
 

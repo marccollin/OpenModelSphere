@@ -32,11 +32,18 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms;
 
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
 import org.modelsphere.jack.baseDb.db.event.DbUpdateListener;
 import org.modelsphere.jack.baseDb.meta.MetaField;
-import org.modelsphere.sms.db.*;
+import org.modelsphere.sms.db.DbSMSGraphicalObject;
+import org.modelsphere.sms.db.DbSMSLink;
+import org.modelsphere.sms.db.DbSMSLinkGo;
+import org.modelsphere.sms.db.DbSMSNotice;
+import org.modelsphere.sms.db.DbSMSNoticeGo;
 
 /**
  * @author gpelletier, neosapiens inc

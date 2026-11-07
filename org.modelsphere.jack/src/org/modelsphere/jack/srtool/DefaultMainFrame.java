@@ -43,62 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
-import java.awt.print.PageFormat;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyVetoException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.StringWriter;
-import java.nio.file.FileSystems;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-
-import javax.swing.DefaultDesktopManager;
-import javax.swing.JDesktopPane;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JLayeredPane;
-import javax.swing.JMenu;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRootPane;
-import javax.swing.JToolBar;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
-import javax.swing.event.InternalFrameListener;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.plaf.DesktopPaneUI;
-import javax.swing.plaf.metal.DefaultMetalTheme;
-import javax.swing.plaf.metal.MetalLookAndFeel;
-import javax.swing.plaf.metal.MetalTheme;
-
 import org.modelsphere.jack.actions.AbstractActionsStore;
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.awt.AwtUtil;
@@ -176,6 +120,40 @@ import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.jack.util.SrVector;
 import org.modelsphere.jack.util.StringUtil;
 
+import javax.swing.*;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.plaf.DesktopPaneUI;
+import javax.swing.plaf.metal.DefaultMetalTheme;
+import javax.swing.plaf.metal.MetalLookAndFeel;
+import javax.swing.plaf.metal.MetalTheme;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.print.PageFormat;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyVetoException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.StringWriter;
+import java.nio.file.FileSystems;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+
 /**
  * If you application use the standard Silverun lookAndfeel, your mainfram should extends this
  * class, this class will manage the following aspect of an application: -Find -Explorer -Internal
@@ -225,7 +203,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
 
     public static final String PROPERTY_LAYOUT = "layout"; //NOT LOCALIZABLE, property key
 
-    public static final Integer PROPERTY_LAYOUT_DEFAULT = new Integer(LAYOUT_LEFT_LEFT);
+    public static final Integer PROPERTY_LAYOUT_DEFAULT = LAYOUT_LEFT_LEFT;
 
     // Frame Preference keys
     public static final String STATUSBAR_PROPERTY = "StatusBar";//NOT LOCALIZABLE, property key
@@ -365,15 +343,17 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
     private JPanel contentPanel = new JPanel();
 
     private JDesktopPane internalFrameContainer = new JDesktopPane() {
+        @Override
         public void setUI(DesktopPaneUI ui) {
-            if (UIManager.getLookAndFeel().getClass().getName().equals(
-                    "com.sun.java.swing.plaf.windows.WindowsLookAndFeel")) { // NOT LOCALIZABLE
-                // We don't want the windows behavior. Conflicts with our
-                // magnifier and overview frames
-                super.setUI(ui);
+            super.setUI(ui);
+
+            //Vérification si le Look and Feel actif est celui de Windows
+            LookAndFeel laf = UIManager.getLookAndFeel();
+            if (laf != null && "Windows".equals(laf.getID())) {
+                // On écrase le DesktopManager spécifique à Windows
+                // pour éviter les conflits avec les frames de loupe et d'aperçu
                 setDesktopManager(new DefaultDesktopManager());
-            } else
-                super.setUI(ui);
+            }
         }
     };
 
@@ -381,7 +361,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
 
     private SrVector projectsNeedingRefresh;
 
-    private ArrayList lockingObjects = new ArrayList();
+    private List<Object> lockingObjects = new ArrayList<>();
 
     private boolean explorerMayBeLocked = false; // Used for locking the
 
@@ -444,6 +424,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
         }); 
         
         this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 if (prepareToExitApplication()) {
                     dispose();
@@ -1144,7 +1125,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
     // complete size information.
     private Dimension getMinPages(Diagram diag, Dimension pageSize) {
         Dimension minPages = new Dimension(0, 0);
-        Enumeration enumeration = diag.components();
+        Enumeration<GraphicComponent> enumeration = diag.components();
         while (enumeration.hasMoreElements()) {
             GraphicComponent gc = (GraphicComponent) enumeration.nextElement();
             Rectangle rect = gc.getRectangle();
@@ -1328,7 +1309,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
         ListInternalFrame frame = null;
         Boolean relationship = descriptor.HasRelationship();
         if (relationship != null) {
-            if (relationship.booleanValue() == true)
+            if (relationship == true)
                 frame = FindRelationshipFrame(root, descriptor.getNeighborsMetaClass());
             else
                 frame = FindEntityFrame(root, descriptor.getNeighborsMetaClass());
@@ -1406,7 +1387,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
             ListInternalFrame listFrame = (ListInternalFrame) listFrames[i];
             Boolean value = listFrame.isRelationships();
             if (value != null)
-                if (value.booleanValue() == true) {
+                if (value.booleanValue()) {
                     listFound = listFrame;
                     break;
                 }
@@ -1422,7 +1403,7 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
             ListInternalFrame listFrame = (ListInternalFrame) listFrames[i];
             Boolean value = listFrame.isRelationships();
             if (value != null)
-                if (value.booleanValue() == false) {
+                if (!value.booleanValue()) {
                     listFound = listFrame;
                     break;
                 }
@@ -1653,6 +1634,19 @@ public abstract class DefaultMainFrame extends JFrame implements DbRefreshListen
 
         boolean isReadOnly;
         try {
+            if (!doItLikeANew) {
+                File requestedFile = new File(fileName).getCanonicalFile();
+                for (DbProject openProject : DbApplication.getProjects()) {
+                    String openFileName = openProject.getRamFileName();
+                    if (openFileName != null
+                            && requestedFile.equals(new File(openFileName).getCanonicalFile())) {
+                        findInExplorer(openProject);
+                        if (statusBarModel != null)
+                            statusBarModel.stopWaitingBar(null);
+                        return openProject;
+                    }
+                }
+            }
             try {
                 File file = new File(fileName);
                 long length = file.length();

@@ -43,11 +43,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.debug;
 
-import java.io.*;
-import java.util.Date;
-
 import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.preference.PropertiesSet;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
 
 /**
  * This class provide services to log informations to a log file according to the configurations.
@@ -115,12 +121,12 @@ public final class Log {
             PropertiesSet debugpreference = PropertiesManager
                     .getPropertiesSet(Debug.DEBUG_PROPERTIES);
             int maxsize = debugpreference.getPropertyInteger(Log.class, MAX_SIZE_PROPERTY,
-                    new Integer((int) (maxSize / 1024))).intValue();
+                    Integer.valueOf((int) (maxSize / 1024))).intValue();
             int cleanupsize = debugpreference.getPropertyInteger(Log.class, CLEANUP_SIZE_PROPERTY,
-                    new Integer((int) (cleanupSize / 1024))).intValue();
+                    Integer.valueOf((int) (cleanupSize / 1024))).intValue();
             configureMaxSize(maxsize, cleanupsize);
             int config = debugpreference.getPropertyInteger(Log.class, CONFIG_PROPERTY,
-                    new Integer(configuration)).intValue();
+                    Integer.valueOf(configuration)).intValue();
             configureOptions(config);
         }
     }

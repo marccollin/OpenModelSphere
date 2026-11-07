@@ -43,13 +43,22 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.graphic;
 
-import java.util.HashMap;
-import java.awt.*;
-
 import org.modelsphere.jack.actions.ActionInformation;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.graphic.*;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.graphic.Diagram;
+import org.modelsphere.jack.graphic.GraphLayout;
+import org.modelsphere.jack.graphic.GraphLayoutLink;
+import org.modelsphere.jack.graphic.GraphLayoutNode;
+import org.modelsphere.jack.graphic.GraphicComponent;
+import org.modelsphere.jack.graphic.GraphicUtil;
 import org.modelsphere.jack.util.SrVector;
+
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class DiagramLayout {
 
@@ -58,7 +67,7 @@ public abstract class DiagramLayout {
     private DbObject diagGo;
     private GraphicComponent[] selComps;
     private GraphLayout layout;
-    private HashMap nodeMap = new HashMap();
+    private Map<DbObject, GraphLayoutNode> nodeMap = new HashMap<>();
     private SrVector recursiveLinks = new SrVector();
     private Point posArea;
     private Dimension dimArea;
@@ -104,10 +113,10 @@ public abstract class DiagramLayout {
             }
             dbEnum.close();
         } else {
-            for (int i = 0; i < selComps.length; i++) {
+            for (GraphicComponent selComp : selComps) {
                 DbObject go = null;
-                if (selComps[i] instanceof ActionInformation)
-                    go = ((ActionInformation) selComps[i]).getGraphicalObject();
+                if (selComp instanceof ActionInformation)
+                    go = ((ActionInformation) selComp).getGraphicalObject();
                 if (go == null || !isNode(go) || nodeMap.containsKey(go))
                     continue;
                 Rectangle rect = DbGraphic.getRectangle(go);
@@ -138,7 +147,7 @@ public abstract class DiagramLayout {
             while (dbEnum.hasMoreElements()) {
                 DbObject lineGo = dbEnum.nextElement();
                 DbObject backGo = (DbObject) lineGo.get(DbGraphic.fLineGoBackEndGo);
-                GraphLayoutNode backNode = (GraphLayoutNode) nodeMap.get(backGo);
+                GraphLayoutNode backNode = nodeMap.get(backGo);
                 if (backNode == null)
                     continue; /* not selected */
                 if (backNode == frontNode) {

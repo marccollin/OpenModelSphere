@@ -5,7 +5,9 @@
 
 import os
 import sys
+
 from test_support import TestSkipped
+
 
 # popen2 contains its own testing routine
 # which is especially useful to see if open files

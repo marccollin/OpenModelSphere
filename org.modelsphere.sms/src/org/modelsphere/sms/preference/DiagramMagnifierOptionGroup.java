@@ -33,20 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.preference;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import org.modelsphere.jack.graphic.DiagramView;
 import org.modelsphere.jack.graphic.MagnifierView;
 import org.modelsphere.jack.preference.OptionGroup;
@@ -54,6 +40,13 @@ import org.modelsphere.jack.preference.OptionPanel;
 import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class DiagramMagnifierOptionGroup extends OptionGroup {
 
@@ -122,12 +115,12 @@ public class DiagramMagnifierOptionGroup extends OptionGroup {
 
             int zoom = (int) (prefs.getPropertyFloat(MagnifierView.class,
                     MagnifierView.ZOOM_FACTOR_PROPERTY,
-                    new Float(MagnifierView.ZOOM_FACTOR_PROPERTY_DEFAULT)).floatValue() * 100);
+                    Float.valueOf(MagnifierView.ZOOM_FACTOR_PROPERTY_DEFAULT)).floatValue() * 100);
             magnifierZoom.setValue(zoom);
 
             zoom = (int) (prefs.getPropertyFloat(DiagramView.class,
                     DiagramView.ZOOM_FACTOR_PROPERTY,
-                    new Float(DiagramView.ZOOM_FACTOR_PROPERTY_DEFAULT)).floatValue() * 100);
+                    Float.valueOf(DiagramView.ZOOM_FACTOR_PROPERTY_DEFAULT)).floatValue() * 100);
             defaultZoom.setValue(zoom);
         }
 
@@ -136,24 +129,24 @@ public class DiagramMagnifierOptionGroup extends OptionGroup {
             Object source = e.getSource();
             if (source == magnifierZoom && !magnifierZoom.getValueIsAdjusting())
                 fireOptionChanged(prefs, MagnifierView.class, MagnifierView.ZOOM_FACTOR_PROPERTY,
-                        new Float((float) (((float) magnifierZoom.getValue()) / 100)));
+                        Float.valueOf((float) (((float) magnifierZoom.getValue()) / 100)));
             if (source == defaultZoom && !defaultZoom.getValueIsAdjusting())
                 fireOptionChanged(prefs, DiagramView.class, DiagramView.ZOOM_FACTOR_PROPERTY,
-                        new Float((float) (((float) defaultZoom.getValue()) / 100)));
+                        Float.valueOf((float) (((float) defaultZoom.getValue()) / 100)));
         }
 
         public void actionPerformed(ActionEvent e) {
             Object source = e.getSource();
             if (source == defButton) {
                 PropertiesSet prefs = PropertiesManager.getPreferencePropertiesSet();
-                magnifierZoom.setValue((int) (new Float(
+                magnifierZoom.setValue((int) (Float.valueOf(
                         MagnifierView.ZOOM_FACTOR_PROPERTY_DEFAULT * 100)).floatValue());
                 fireOptionChanged(prefs, MagnifierView.class, MagnifierView.ZOOM_FACTOR_PROPERTY,
-                        new Float(MagnifierView.ZOOM_FACTOR_PROPERTY_DEFAULT));
-                defaultZoom.setValue((int) (new Float(
+                        Float.valueOf(MagnifierView.ZOOM_FACTOR_PROPERTY_DEFAULT));
+                defaultZoom.setValue((int) (Float.valueOf(
                         DiagramView.ZOOM_FACTOR_PROPERTY_DEFAULT * 100)).floatValue());
                 fireOptionChanged(prefs, DiagramView.class, DiagramView.ZOOM_FACTOR_PROPERTY,
-                        new Float(DiagramView.ZOOM_FACTOR_PROPERTY_DEFAULT));
+                        Float.valueOf(DiagramView.ZOOM_FACTOR_PROPERTY_DEFAULT));
             }
         }
 

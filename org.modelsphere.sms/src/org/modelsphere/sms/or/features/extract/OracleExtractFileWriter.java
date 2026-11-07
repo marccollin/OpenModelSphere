@@ -33,14 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.extract;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbProject;
@@ -72,6 +64,14 @@ import org.modelsphere.sms.or.oracle.db.DbORASequence;
 import org.modelsphere.sms.or.oracle.db.DbORATable;
 import org.modelsphere.sms.or.oracle.db.DbORATablespace;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.StringTokenizer;
+
 /**
  * Writes an Oracle extract file for RDM
  * 
@@ -102,7 +102,7 @@ class OracleExtractFileWriter extends ExtractFileWriter {
     // 23 Oracle 7.x
     protected void writeHeader(PrintWriter writer, DbORDataModel dataModel) throws DbException {
         DbSMSTargetSystem ts = dataModel.getTargetSystem();
-        int smsID = ts.getID().intValue();
+        int smsID = ts.getID();
         RdmDbmsIdMapping mapping = RdmDbmsIdMapping.getSingleton();
         int rdmID = mapping.getRDMCounterPart(smsID);
 
@@ -135,7 +135,7 @@ class OracleExtractFileWriter extends ExtractFileWriter {
         writer.println("--******** END OF HEADER *********"); // NOT LOCALIZABLE
     } // end writeHeader()
 
-    protected void writeDataModel(DbORDataModel dataModel, File directory, ArrayList fileList)
+    protected void writeDataModel(DbORDataModel dataModel, File directory, List fileList)
             throws IOException, DbException {
         // create file and write file header
         File file = createFile(dataModel, directory, fileList);
@@ -490,11 +490,11 @@ class OracleExtractFileWriter extends ExtractFileWriter {
 
         // get column length
         Integer len = column.getLength();
-        int i = (len == null) ? 0 : len.intValue();
+        int i = (len == null) ? 0 : len;
         writer.println("col_len " + i);
 
         Integer nbDecs = column.getNbDecimal();
-        i = (nbDecs == null) ? 0 : nbDecs.intValue();
+        i = (nbDecs == null) ? 0 : nbDecs;
         writer.println("data_prec " + i);
 
         // data_scale
@@ -729,10 +729,8 @@ class OracleExtractFileWriter extends ExtractFileWriter {
         // get delete rule
         ORValidationRule rule = end.getDeleteRule();
         int value = rule.getValue();
-        switch (value) {
-        case ORValidationRule.NONE:
+        if (value == ORValidationRule.NONE) {
             writer.println("del_rule NO ACTION");
-            break;
         } // end switch
 
         // deferrable
@@ -904,7 +902,7 @@ class OracleExtractFileWriter extends ExtractFileWriter {
         // increment
         Integer cache = sequence.getCacheValue();
         if (cache != null) {
-            writer.println("cache " + cache.intValue());
+            writer.println("cache " + cache);
         } // end if
     } // end writeSequence()
 } // end OracleExtractFileWriter

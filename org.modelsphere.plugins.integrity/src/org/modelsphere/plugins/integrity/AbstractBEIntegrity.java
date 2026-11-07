@@ -33,13 +33,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.integrity;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
-import org.modelsphere.sms.be.db.*;
+import org.modelsphere.sms.be.db.DbBEActor;
+import org.modelsphere.sms.be.db.DbBEFlow;
+import org.modelsphere.sms.be.db.DbBEResource;
+import org.modelsphere.sms.be.db.DbBEStore;
+import org.modelsphere.sms.be.db.DbBEUseCase;
 import org.modelsphere.sms.db.DbSMSClassifier;
+
+import java.util.List;
 
 /**
  * @author pierrem
@@ -116,11 +120,11 @@ public abstract class AbstractBEIntegrity extends AbstractIntegrity {
      * int STORE = 2;
      */
 
-    public ArrayList useCaseList;
-    public ArrayList actorList;
-    public ArrayList storeList;
-    public ArrayList flowList;
-    public ArrayList resourceList;
+    public List useCaseList;
+    public List actorList;
+    public List storeList;
+    public List flowList;
+    public List resourceList;
 
     //méthodes
     public void getAllObjects(DbObject beModel) throws DbException {
@@ -135,10 +139,10 @@ public abstract class AbstractBEIntegrity extends AbstractIntegrity {
     /**
      * Occurence sans représentation graphique
      */
-    public void verifyOccurenceWithoutGO(ArrayList aList, StringBuffer buffer, int operation)
+    public void verifyOccurenceWithoutGO(List aList, StringBuffer buffer, int operation)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbSMSClassifier semObj = (DbSMSClassifier) (aList.get(i));
+        for (Object o : aList) {
+            DbSMSClassifier semObj = (DbSMSClassifier) o;
             DbRelationN relN = semObj.getClassifierGos();
             if (relN.size() == 0) {
                 if (operation == INTEGRITY)

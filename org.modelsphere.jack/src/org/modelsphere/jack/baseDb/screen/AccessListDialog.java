@@ -43,21 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collections;
-
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.HotKeysSupport;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbLogin;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.baseDb.db.srtypes.DbtLoginList;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.international.LocaleMgr;
@@ -65,6 +58,16 @@ import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.CollationComparator;
 import org.modelsphere.jack.util.DefaultComparableElement;
 import org.modelsphere.jack.util.ExceptionHandler;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public final class AccessListDialog extends JDialog implements ActionListener,
         ListSelectionListener {
@@ -104,7 +107,7 @@ public final class AccessListDialog extends JDialog implements ActionListener,
         super(frame, title, true);
         this.db = db;
         inheritChk.setSelected(loginList == null);
-        ArrayList elems = new ArrayList();
+        List<DefaultComparableElement> elems = new ArrayList<>();
         if (loginList != null) {
             DbLogin[] logins = loginList.getLogins(db);
             for (int i = 0; i < logins.length; i++) {
@@ -181,7 +184,7 @@ public final class AccessListDialog extends JDialog implements ActionListener,
         try {
             db.beginReadTrans();
             AccessListModel model = (AccessListModel) list.getModel();
-            ArrayList elems = new ArrayList();
+            List<DefaultComparableElement> elems = new ArrayList<>();
             DbEnumeration dbEnum = db.getLoginNode().getComponents().elements(DbLogin.metaClass);
             nextLogin: while (dbEnum.hasMoreElements()) {
                 DbLogin login = (DbLogin) dbEnum.nextElement();
@@ -225,13 +228,13 @@ public final class AccessListDialog extends JDialog implements ActionListener,
     }
 
     private static class AccessListModel extends AbstractListModel {
-        private ArrayList elems;
+        private List<DefaultComparableElement> elems;
 
-        AccessListModel(ArrayList elems) {
+        AccessListModel(List<DefaultComparableElement> elems) {
             this.elems = elems;
         }
 
-        final void add(Object elem) {
+        final void add(DefaultComparableElement elem) {
             elems.add(elem);
             int index = elems.size() - 1;
             fireIntervalAdded(this, index, index);

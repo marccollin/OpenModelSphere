@@ -1,9 +1,13 @@
 # Test packages (dotted-name import)
 
-import sys, os, tempfile, traceback
-from os import mkdir, rmdir, extsep          # Can't test if these fail
+import os
+import sys
+import tempfile
+import traceback
+from os import mkdir, rmdir, extsep  # Can't test if these fail
+
 del mkdir, rmdir
-from test_support import verify, verbose, TestFailed
+from test_support import verbose, TestFailed
 
 # Helpers to create and destroy hierarchies.
 

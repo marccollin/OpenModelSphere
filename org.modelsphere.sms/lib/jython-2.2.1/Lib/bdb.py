@@ -1,7 +1,7 @@
 """Debugger basics"""
 
-import sys
 import os
+import sys
 import types
 
 __all__ = ["BdbQuit","Bdb","Breakpoint"]

@@ -33,20 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.report.screen;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.Enumeration;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.table.DefaultTableColumnModel;
-import javax.swing.table.TableColumn;
-import javax.swing.tree.TreeSelectionModel;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.awt.HotKeysSupport;
@@ -59,6 +45,19 @@ import org.modelsphere.sms.plugins.report.PropertiesSet;
 import org.modelsphere.sms.plugins.report.model.Properties;
 import org.modelsphere.sms.plugins.report.model.PropertyGroup;
 import org.modelsphere.sms.plugins.report.model.ReportModel;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.TableColumn;
+import javax.swing.tree.TreeSelectionModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Enumeration;
 
 public class ReportPropertiesFrame extends JDialog implements TreeSelectionListener, ActionListener {
     public static final int CLOSE = 0;

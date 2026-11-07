@@ -32,12 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.features.startupwizard;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.awt.ThinBevelBorder;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbProject;
@@ -48,6 +42,11 @@ import org.modelsphere.sms.be.db.DbBENotation;
 import org.modelsphere.sms.db.DbSMSNotation;
 import org.modelsphere.sms.db.util.DbInitialization;
 import org.modelsphere.sms.features.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 @SuppressWarnings("serial")
 class UMLDiagramTypePage extends AbstractPage {

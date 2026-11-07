@@ -44,31 +44,35 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package com.neosapiens.plugins.codegen;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.net.URL;
-import java.net.URLDecoder;
-import java.util.*;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
+import com.neosapiens.plugins.codegen.wrappers.DbClassWrapper;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.util.JarUtil;
 import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.DbJVPackage;
 import org.modelsphere.sms.or.db.DbORTable;
-import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.neosapiens.plugins.codegen.wrappers.DbClassWrapper;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Locale;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 public class GenerationTarget {
     private File m_templateFile;
@@ -114,7 +118,7 @@ public class GenerationTarget {
             return m_targets;
         }
 
-        m_targets = new ArrayList<GenerationTarget>();
+        m_targets = new ArrayList<>();
 
         URL location = getClassLocation();
 
@@ -124,13 +128,9 @@ public class GenerationTarget {
         if (location.getProtocol().equals("file")) {
             String encoded = location.getFile();
             File classFileLocation = null;
-            try {
-                String decoded = URLDecoder.decode(encoded, "UTF-8"); //important
-                classFileLocation = new File(decoded);
+            String decoded = URLDecoder.decode(encoded, StandardCharsets.UTF_8); //important
+            classFileLocation = new File(decoded);
 
-            } catch (UnsupportedEncodingException ex) {
-                ex.printStackTrace();
-            } //end try
             if (classFileLocation != null) {
                 File root = classFileLocation;
                 String classname = GenerationTarget.class.getName();
@@ -145,32 +145,28 @@ public class GenerationTarget {
             }
         } else if (location.getProtocol().equals("jar")) {
             String jarname = location.toExternalForm();
-            
-            try {
-				jarname = URLDecoder.decode(jarname, "UTF-8");
-				int index = jarname.indexOf(".jar!");
-	            if (index > -1)
-	                jarname = jarname.substring(0, index + 4);
-	            index = jarname.indexOf("jar:");
-	            if (index > -1) {
-	                jarname = jarname.substring(4);
-	            }
-	            index = jarname.indexOf("file:/");
-                if (index > -1) {
-                    jarname = jarname.substring(6);
-                    // S'assurer que le chemin est absolu sur Unix/Linux
-                    if (File.separatorChar == '/' && !jarname.startsWith("/")) {
-                        jarname = "/" + jarname;
-                    }
+
+            jarname = URLDecoder.decode(jarname, StandardCharsets.UTF_8);
+            int index = jarname.indexOf(".jar!");
+            if (index > -1)
+                jarname = jarname.substring(0, index + 4);
+            index = jarname.indexOf("jar:");
+            if (index > -1) {
+                jarname = jarname.substring(4);
+            }
+            index = jarname.indexOf("file:/");
+            if (index > -1) {
+                jarname = jarname.substring(6);
+                // S'assurer que le chemin est absolu sur Unix/Linux
+                if (File.separatorChar == '/' && !jarname.startsWith("/")) {
+                    jarname = "/" + jarname;
                 }
-	            index = jarname.indexOf("file:");
-	            if (index > -1) {
-	                jarname = jarname.substring(5);
-	            }
-	            scanJar(new File(jarname), new File(System.getProperty("java.io.tmpdir")), m_targets);
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
+            }
+            index = jarname.indexOf("file:");
+            if (index > -1) {
+                jarname = jarname.substring(5);
+            }
+            scanJar(new File(jarname), new File(System.getProperty("java.io.tmpdir")), m_targets);
         }
 
         return m_targets;

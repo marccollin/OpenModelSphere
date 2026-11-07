@@ -43,9 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -119,6 +116,8 @@ import org.modelsphere.sms.or.oracle.db.DbORASequence;
 import org.modelsphere.sms.or.oracle.db.DbORASubPartition;
 import org.modelsphere.sms.or.oracle.db.DbORATablespace;
 import org.modelsphere.sms.plugins.TargetSystem;
+
+import java.util.List;
 
 public class SMSIntegrateModelUtil {
 

@@ -32,13 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.oo.java.actions;
 
-import java.awt.Component;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.text.MessageFormat;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.actions.AbstractDomainAction;
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.actions.SelectionActionListener;
@@ -78,6 +71,11 @@ import org.modelsphere.sms.oo.java.db.srtypes.JVClassCategory;
 import org.modelsphere.sms.oo.java.db.srtypes.JVVisibility;
 import org.modelsphere.sms.oo.java.db.util.JavaUtility;
 import org.modelsphere.sms.oo.java.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.text.MessageFormat;
 
 /**
  * @author Grandite

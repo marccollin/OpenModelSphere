@@ -54,9 +54,9 @@ package org.modelsphere.jack.srtool.reverse.engine;
 
 final class FieldMapping {
 
-    DbElement dbElement;
-    SrxElement srxElement;
-    int options;
+    final DbElement dbElement;
+    final SrxElement srxElement;
+    final int options;
 
     FieldMapping(DbElement dbElement, SrxElement srxElement) {
         this(dbElement, srxElement, 0);

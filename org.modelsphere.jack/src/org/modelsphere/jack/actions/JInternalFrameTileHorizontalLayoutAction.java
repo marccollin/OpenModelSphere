@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.actions;
 
-import java.awt.Rectangle;
-
 import org.modelsphere.jack.international.LocaleMgr;
+
+import java.awt.*;
 
 public class JInternalFrameTileHorizontalLayoutAction extends JInternalFrameAbstractLayoutAction {
 

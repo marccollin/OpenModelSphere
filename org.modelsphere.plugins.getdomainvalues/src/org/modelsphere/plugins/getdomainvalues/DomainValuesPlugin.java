@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.getdomainvalues;
 
-import java.awt.event.ActionEvent;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.plugins.Plugin2;
@@ -50,6 +48,8 @@ import org.modelsphere.sms.or.db.DbORColumn;
 import org.modelsphere.sms.or.db.DbORCommonItem;
 import org.modelsphere.sms.or.db.DbORDomain;
 import org.modelsphere.sms.or.db.DbORTypeClassifier;
+
+import java.awt.event.ActionEvent;
 
 public final class DomainValuesPlugin implements Plugin2 {
     public PluginSignature getSignature() {
@@ -68,9 +68,9 @@ public final class DomainValuesPlugin implements Plugin2 {
         PluginServices.multiDbBeginTrans(Db.WRITE_TRANS, LocaleMgr.misc
                 .getString("UpdateFromDomainValue"));
         DbObject[] attributes = PluginServices.getSelectedSemanticalObjects();
-        for (int i = 0; i < attributes.length; i++) {
-            if (attributes[i] instanceof DbORAttribute) {
-                DbORAttribute attr = (DbORAttribute) attributes[i];
+        for (DbObject attribute : attributes) {
+            if (attribute instanceof DbORAttribute) {
+                DbORAttribute attr = (DbORAttribute) attribute;
                 DbORTypeClassifier type = attr.getType();
 
                 if (type instanceof DbORDomain) {
@@ -78,20 +78,20 @@ public final class DomainValuesPlugin implements Plugin2 {
                     attr.setNbDecimal(((DbORDomain) type).getNbDecimal());
 
                     if (attr instanceof DbORColumn) {
-                        ((DbORColumn) attr).setNull(new Boolean(((DbORDomain) type).isNull()));
-                        ((DbORColumn) attr).setReference(new Boolean(((DbORDomain) type)
+                        ((DbORColumn) attr).setNull(Boolean.valueOf(((DbORDomain) type).isNull()));
+                        ((DbORColumn) attr).setReference(Boolean.valueOf(((DbORDomain) type)
                                 .isReference()));
                     }
                 }
-            } else if (attributes[i] instanceof DbORCommonItem) {
-                DbORCommonItem attr = (DbORCommonItem) attributes[i];
+            } else if (attribute instanceof DbORCommonItem) {
+                DbORCommonItem attr = (DbORCommonItem) attribute;
                 DbORTypeClassifier type = attr.getType();
 
                 if (type instanceof DbORDomain) {
                     attr.setLength(((DbORDomain) type).getLength());
                     attr.setNbDecimal(((DbORDomain) type).getNbDecimal());
 
-                    ((DbORCommonItem) attr).setNull(new Boolean(((DbORDomain) type).isNull()));
+                    ((DbORCommonItem) attr).setNull(Boolean.valueOf(((DbORDomain) type).isNull()));
                     //((DbORCommonItem)attr).setReference(new Boolean(((DbORDomain)type).isReference()));
                 }
             }

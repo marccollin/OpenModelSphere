@@ -43,20 +43,20 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic;
 
-import java.awt.Rectangle;
+import java.awt.*;
 
 public interface DiagramListener {
 
-    public void drawingAreaResized();
+    void drawingAreaResized();
 
     /*
      * Add the rectangle to the damaged region (enlarge the rectangle to take into account the
      * selection handles). If rectangle is null, the whole drawing area needs to be redrawn.
      */
-    public void areaDamaged(Rectangle rect);
+    void areaDamaged(Rectangle rect);
 
     // Draw in XOR mode the selection handles for a graphic component.
-    public void paintSelHandles(GraphicComponent gc);
+    void paintSelHandles(GraphicComponent gc);
 
-    public void diagramDeleted();
+    void diagramDeleted();
 }

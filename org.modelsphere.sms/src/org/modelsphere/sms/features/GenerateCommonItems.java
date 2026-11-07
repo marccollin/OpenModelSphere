@@ -33,12 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.features;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -63,6 +57,13 @@ import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.db.DbORTable;
 import org.modelsphere.sms.or.db.DbORTypeClassifier;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 final class GenerateCommonItems {
     static final int GENERATE_REPORT = 0;
@@ -235,8 +236,8 @@ final class GenerateCommonItems {
         }
 
         protected void runJob() throws Exception {
-            ArrayList itemList = new ArrayList();
-            HashMap itemMap = new HashMap();
+            List<CommonInfoStruct> itemList = new ArrayList<>();
+            Map<String, DbORCommonItem> itemMap = new HashMap<>();
 
             int nb = m_semObjs.length;
             for (int i = 0; i < nb; i++) {
@@ -328,7 +329,7 @@ final class GenerateCommonItems {
             return commonItemModel;
         } // end getCommonItemModelFrom()
 
-        private void generateCommonItemsForProject(ArrayList itemList, HashMap itemMap,
+        private void generateCommonItemsForProject(List<CommonInfoStruct> itemList, Map<String, DbORCommonItem> itemMap,
                 DbSMSProject proj, DbORCommonItemModel commonItemModel) throws DbException {
             // for each data model
             DbRelationN relN = proj.getComponents();
@@ -349,7 +350,7 @@ final class GenerateCommonItems {
 
         } // end generateCommonItemsForProject
 
-        private void generateCommonItemsForDataModel(ArrayList itemList, HashMap itemMap,
+        private void generateCommonItemsForDataModel(List<CommonInfoStruct> itemList, Map<String, DbORCommonItem> itemMap,
                 DbORDataModel dataModel, DbORCommonItemModel commonItemModel) throws DbException {
             DbRelationN relN = dataModel.getComponents();
             DbEnumeration dbEnum = relN.elements(DbORTable.metaClass);
@@ -367,7 +368,7 @@ final class GenerateCommonItems {
             dbEnum.close();
         } // end generateCommonItemsForDataModel()
 
-        private void generateCommonItemsForClassModel(ArrayList itemList, HashMap itemMap,
+        private void generateCommonItemsForClassModel(List<CommonInfoStruct> itemList, Map<String, DbORCommonItem> itemMap,
                 DbJVClassModel classModel, DbORCommonItemModel commonItemModel) throws DbException {
             DbRelationN relN = classModel.getComponents();
             DbEnumeration dbEnum = relN.elements(DbJVClass.metaClass);
@@ -385,7 +386,7 @@ final class GenerateCommonItems {
             dbEnum.close();
         } // end generateCommonItemsForClassModel()
 
-        private void generateCommonItemsForPackage(ArrayList itemList, HashMap itemMap,
+        private void generateCommonItemsForPackage(List<CommonInfoStruct> itemList, Map<String, DbORCommonItem> itemMap,
                 DbJVPackage pack, DbORCommonItemModel commonItemModel) throws DbException {
             DbRelationN relN = pack.getComponents();
             DbEnumeration dbEnum = relN.elements(DbJVClass.metaClass);
@@ -403,7 +404,7 @@ final class GenerateCommonItems {
             dbEnum.close();
         } // end generateCommonItemsForClassModel()
 
-        private void generateCommonItemsForTable(ArrayList itemList, HashMap itemMap,
+        private void generateCommonItemsForTable(List<CommonInfoStruct> itemList, Map<String, DbORCommonItem> itemMap,
                 DbORTable table, DbORCommonItemModel commonItemModel) throws DbException {
             DbRelationN relN = table.getComponents();
             DbEnumeration dbEnum = relN.elements(DbORColumn.metaClass);
@@ -423,7 +424,7 @@ final class GenerateCommonItems {
                         setCommonItemToColumn(column, newStruct);
                     } else if ((m_options & ONE_ITEM_PER_TYPE_PROFILE) != 0) {
                         if (itemList.contains(newStruct)) {
-                            CommonInfoStruct struct = (CommonInfoStruct) itemList.get(itemList
+                            CommonInfoStruct struct = itemList.get(itemList
                                     .indexOf(newStruct));
                             setCommonItemToColumn(column, struct);
                         } else {
@@ -435,7 +436,7 @@ final class GenerateCommonItems {
                         String colName = column.getName();
                         colName = (colName == null) ? "" : colName;
                         if (itemMap.containsKey(colName)) {
-                            item = (DbORCommonItem) itemMap.get(colName);
+                            item = itemMap.get(colName);
                             assignItemToColumn(column, item);
                         } else {
                             item = createNewCommonItem(commonItemModel, column);
@@ -447,7 +448,7 @@ final class GenerateCommonItems {
             dbEnum.close();
         } // end generateCommonItemsForDataModel()
 
-        private void generateCommonItemsForClass(ArrayList itemList, HashMap itemMap,
+        private void generateCommonItemsForClass(List<CommonInfoStruct> itemList, Map<String, DbORCommonItem> itemMap,
                 DbJVClass claz, DbORCommonItemModel commonItemModel) throws DbException {
             DbRelationN relN = claz.getComponents();
             DbEnumeration dbEnum = relN.elements(DbJVDataMember.metaClass);
@@ -475,7 +476,7 @@ final class GenerateCommonItems {
                         setCommonItemToField(field, newStruct);
                     } else if ((m_options & ONE_ITEM_PER_TYPE_PROFILE) != 0) {
                         if (itemList.contains(newStruct)) {
-                            CommonInfoStruct struct = (CommonInfoStruct) itemList.get(itemList
+                            CommonInfoStruct struct = itemList.get(itemList
                                     .indexOf(newStruct));
                             setCommonItemToField(field, struct);
                         } else {
@@ -487,7 +488,7 @@ final class GenerateCommonItems {
                         String colName = field.getName();
                         colName = (colName == null) ? "" : colName;
                         if (itemMap.containsKey(colName)) {
-                            item = (DbORCommonItem) itemMap.get(colName);
+                            item = itemMap.get(colName);
                             assignItemToField(field, item);
                         } else {
                             item = createNewCommonItem(commonItemModel, field);
@@ -582,9 +583,9 @@ final class GenerateCommonItems {
                 item.setTypeUseStyle(style);
                 item.setVisibility(JVVisibility.getInstance(visib.getValue()));
                 item.setStatic(Boolean.valueOf(isStatic));
-                item.setFinal(new Boolean(isFinal));
-                item.setTransient(new Boolean(isTransient));
-                item.setVolatile(new Boolean(isVolatile));
+                item.setFinal(Boolean.valueOf(isFinal));
+                item.setTransient(Boolean.valueOf(isTransient));
+                item.setVolatile(Boolean.valueOf(isVolatile));
                 item.setUmlStereotype(stereotype);
                 item.setDescription(desc);
 

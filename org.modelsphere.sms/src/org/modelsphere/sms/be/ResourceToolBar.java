@@ -33,15 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.swing.JComponent;
-import javax.swing.JInternalFrame;
-import javax.swing.JList;
-
 import org.modelsphere.jack.awt.JackToolBar;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -67,13 +58,20 @@ import org.modelsphere.sms.be.db.DbBEModel;
 import org.modelsphere.sms.be.db.DbBEResource;
 import org.modelsphere.sms.be.international.LocaleMgr;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 public class ResourceToolBar extends JackToolBar implements CurrentFocusListener, DbRefreshListener {
     public static final String KEY = "ToolbarResource"; // NOT LOCALIZABLE
     private ToolButtonGroup toolGroup;
     private DefaultLinkUnlinkListPanel listpanel;
     private DbObject lastModel; // retains last model to limit list refresh
 
-    public ResourceToolBar(List tools, List components, ToolButtonGroup toolGroup) {
+    public ResourceToolBar(List<? extends Tool> tools, List<? extends JComponent> components,
+            ToolButtonGroup toolGroup) {
         super();
         SMSActionsStore actionsStore = SMSActionsStore.getSingleton();
         setName(LocaleMgr.misc.getString("ResourceToolBarName"));
@@ -81,14 +79,11 @@ public class ResourceToolBar extends JackToolBar implements CurrentFocusListener
         add(listpanel);
         this.toolGroup = toolGroup;
 
-        Iterator iter = components.iterator();
-        while (iter.hasNext()) {
-            listpanel.addToolComponent((JComponent) iter.next());
+        for (JComponent component : components) {
+            listpanel.addToolComponent(component);
         }
 
-        iter = tools.iterator();
-        while (iter.hasNext()) {
-            Tool tool = (Tool) iter.next();
+        for (Tool tool : tools) {
             if (!(tool instanceof LinkUnlinkTool))
                 continue;
             ((LinkUnlinkTool) tool).setListComponent(listpanel.getJList());
@@ -191,7 +186,7 @@ public class ResourceToolBar extends JackToolBar implements CurrentFocusListener
         Object[] backupSelection = list.getSelectedValues();
 
         list.removeAll();
-        List listItems = new ArrayList();
+        List<DefaultComparableElement> listItems = new ArrayList<>();
         DbObject model = (dbo instanceof DbBEModel ? dbo : dbo
                 .getCompositeOfType(DbBEModel.metaClass));
         if (model != null) {

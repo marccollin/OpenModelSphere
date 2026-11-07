@@ -43,17 +43,24 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.Component;
-import java.util.Collection;
-import java.util.ArrayList;
-import java.util.Iterator;
-import javax.swing.JComboBox;
-
 import org.modelsphere.jack.awt.AbstractTableCellEditor;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.screen.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.screen.DefaultRenderer;
+import org.modelsphere.jack.baseDb.screen.Editor;
+import org.modelsphere.jack.baseDb.screen.Renderer;
+import org.modelsphere.jack.baseDb.screen.ScreenView;
 import org.modelsphere.jack.baseDb.screen.model.ScreenModel;
 import org.modelsphere.jack.util.DefaultComparableElement;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 public abstract class DbSemanticalObjectShortEditor implements Editor {
 
@@ -73,10 +80,9 @@ public abstract class DbSemanticalObjectShortEditor implements Editor {
             parentDbo.getDb().beginTrans(Db.READ_TRANS);
             DbObject currentDbo = (DbObject) renderer.unwrapValue(value);
             int selInd = -1;
-            Collection dbos = getSelectionSet(parentDbo);
-            Iterator iter = dbos.iterator();
-            while (iter.hasNext()) {
-                DbObject dbo = (DbObject) iter.next();
+            Collection<?> dbos = getSelectionSet(parentDbo);
+            for (Object o : dbos) {
+                DbObject dbo = (DbObject) o;
                 combo.addItem(new DefaultComparableElement(dbo, dbo.getName(), getUserObject(dbo)));
                 if (dbo == currentDbo)
                     selInd = combo.getItemCount() - 1;
@@ -107,6 +113,7 @@ public abstract class DbSemanticalObjectShortEditor implements Editor {
             parentDbo.getDb().commitTrans();
             return value;
         } catch (Exception ex) {
+            org.modelsphere.jack.util.ExceptionHandler.processUncatchedException(comp, ex);
             return oldValue;
         }
     }
@@ -119,7 +126,7 @@ public abstract class DbSemanticalObjectShortEditor implements Editor {
     }
 
     protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList dbos = new ArrayList();
+        List<DbObject> dbos = new ArrayList<>();
         DbEnumeration dbEnum = getSelectionEnum(parentDbo);
         if (dbEnum != null) {
             while (dbEnum.hasMoreElements())

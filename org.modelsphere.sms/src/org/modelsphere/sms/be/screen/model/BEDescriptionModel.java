@@ -33,10 +33,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.screen.model;
 
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.meta.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
 import org.modelsphere.jack.baseDb.screen.ScreenView;
-import org.modelsphere.jack.baseDb.screen.model.*;
+import org.modelsphere.jack.baseDb.screen.model.ReflectionDescriptionModel;
 
 public class BEDescriptionModel extends ReflectionDescriptionModel {
 

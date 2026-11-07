@@ -42,23 +42,20 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.srtool.reverse.file;
 
-import java.io.File;
-import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.Vector;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.gui.task.Controller;
 
+import java.io.File;
+import java.io.StringWriter;
+import java.util.Map;
+import java.util.Vector;
+
 public abstract class AbstractReverser {
     protected Controller m_controller;
     protected long m_fileLength;
     protected long m_totalSize;
-
-    public AbstractReverser() {
-    }
 
     // When a file is large (ex: a .jar file), update the progresion while the
     // big file is being reversed
@@ -69,7 +66,7 @@ public abstract class AbstractReverser {
     } // end setPartialProgression()
 
     public abstract String reverseCurrentFile(DbObject reverseEngineeredPackage,
-            JackReverseEngineeringPlugin reverse, Vector obsoleteObjectVector, HashMap diagMap,
+            JackReverseEngineeringPlugin reverse, Vector obsoleteObjectVector, Map diagMap,
             File file, DbProject project, StringWriter logBuffer) throws Exception;
 
     public abstract void preparePackageForDisplay(DbObject pack) throws Exception;

@@ -33,11 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.graphic;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.util.Vector;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -53,18 +48,21 @@ import org.modelsphere.jack.graphic.shape.FolderShape;
 import org.modelsphere.jack.graphic.zone.CellRenderer;
 import org.modelsphere.jack.graphic.zone.CellRenderingOption;
 import org.modelsphere.jack.graphic.zone.CompositeCellRenderer;
+import org.modelsphere.jack.graphic.zone.CompositeCellRenderer.CompositeCellRendererElement;
 import org.modelsphere.jack.graphic.zone.ImageCellRenderer;
 import org.modelsphere.jack.graphic.zone.MatrixZone;
 import org.modelsphere.jack.graphic.zone.SingletonZone;
 import org.modelsphere.jack.graphic.zone.StringCellRenderer;
 import org.modelsphere.jack.graphic.zone.ZoneCell;
-import org.modelsphere.jack.graphic.zone.CompositeCellRenderer.CompositeCellRendererElement;
 import org.modelsphere.jack.srtool.graphic.DbTextFieldCellEditor;
 import org.modelsphere.sms.db.DbSMSGraphicalObject;
 import org.modelsphere.sms.db.DbSMSPackage;
 import org.modelsphere.sms.db.DbSMSPackageGo;
 import org.modelsphere.sms.db.DbSMSStereotype;
 import org.modelsphere.sms.db.DbSMSStyle;
+
+import java.awt.*;
+import java.util.Vector;
 
 public abstract class PackageBox extends GraphicNode implements ActionInformation {
 
@@ -197,7 +195,7 @@ public abstract class PackageBox extends GraphicNode implements ActionInformatio
     protected abstract void populateStereotype() throws DbException;
 
     protected Vector getStereotypeImageData(DbSMSPackage packageSO) throws DbException {
-        Vector compositeElements = new Vector();
+        Vector<CompositeCellRendererElement> compositeElements = new Vector<>();
 
         DbSMSStereotype stereotype = packageSO.getUmlStereotype();
         if (stereotype != null) {

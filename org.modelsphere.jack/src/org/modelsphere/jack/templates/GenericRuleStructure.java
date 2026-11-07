@@ -43,11 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.templates;
 
-import java.util.ArrayList;
-
-import org.modelsphere.jack.srtool.forward.*;
+import org.modelsphere.jack.srtool.forward.BooleanModifier;
+import org.modelsphere.jack.srtool.forward.StringStructure;
+import org.modelsphere.jack.srtool.forward.TemplateEnumeration;
+import org.modelsphere.jack.srtool.forward.VariableDecl;
 import org.modelsphere.jack.srtool.forward.exceptions.TemplateFormatException;
 import org.modelsphere.jack.util.StringUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 //A .tpl file is a list of several RuleStructures
 public class GenericRuleStructure {
@@ -149,7 +153,7 @@ public class GenericRuleStructure {
             // invalid
 
             TemplateEnumeration enumeration = new TemplateEnumeration(ruleText);
-            ArrayList ruleList = new ArrayList();
+            List<String> ruleList = new ArrayList<>();
             while (enumeration.hasMoreElements()) {
                 StringStructure ss = (StringStructure) enumeration.nextElement();
                 if (ss.stringRule != null) {
@@ -162,7 +166,7 @@ public class GenericRuleStructure {
             m_stringRules = new String[ruleList.size()];
 
             for (int i = 0; i < ruleList.size(); i++) {
-                String s = (String) ruleList.get(i);
+                String s = ruleList.get(i);
                 m_stringRules[i] = s;
             } // end for
         } // end GenericTemplateStructure()
@@ -170,7 +174,7 @@ public class GenericRuleStructure {
         // throws IllegalArgumentException if invalid
         private void validateRuleText(String ruleText) {
             // an empty string is perfectly legal
-            if (ruleText.length() == 0) {
+            if (ruleText.isEmpty()) {
                 return;
             }
 

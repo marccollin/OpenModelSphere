@@ -2,12 +2,14 @@
 
 Made for Jython.
 """
+import StringIO
 import array
 import cStringIO
 import tempfile
-import test_support
 import unittest
-import StringIO
+
+import test_support
+
 
 class LongIntArgsTestCase(unittest.TestCase):
 

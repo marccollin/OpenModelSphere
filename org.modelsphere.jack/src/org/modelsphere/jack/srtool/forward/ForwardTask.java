@@ -43,22 +43,25 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.actions.util.DbMultiTrans;
 import org.modelsphere.jack.awt.LongTask;
 import org.modelsphere.jack.awt.SwingWorker;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.text.MessageFormat;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class ForwardTask extends LongTask {
 
     private JackForwardEngineeringPlugin forward;
     private DbObject[] semObjs;
     private int[] steps;
-    private ArrayList m_generatedFileList = new ArrayList();
+    private List<Object> m_generatedFileList = new ArrayList<>();
 
     public ForwardTask(JackForwardEngineeringPlugin forward, DbObject[] semObjs) throws DbException {
         this.forward = forward;
@@ -89,7 +92,7 @@ public final class ForwardTask extends LongTask {
         worker.start();
     }
 
-    public final ArrayList getGeneratedFileList() {
+    public final List<Object> getGeneratedFileList() {
         return m_generatedFileList;
     }
 

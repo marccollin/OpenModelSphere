@@ -42,8 +42,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.srtool.actions;
 
-import java.awt.Font;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -54,6 +52,8 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.graphic.DbGraphic;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import java.awt.*;
 
 public class SetPageNumberAction extends AbstractApplicationAction implements
         SelectionActionListener {

@@ -43,15 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins.io;
 
-import java.net.URL;
-import java.util.HashMap;
-import java.util.ResourceBundle;
-
-import javax.swing.Action;
-
 import org.modelsphere.jack.plugins.Plugin;
 import org.modelsphere.jack.plugins.Plugin2;
 import org.modelsphere.jack.preference.OptionGroup;
+
+import javax.swing.*;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.ResourceBundle;
+import java.util.Map;
 
 public class PluginContext {
     public static final String STATUS_TEXT = "PluginContext.status";
@@ -65,9 +65,9 @@ public class PluginContext {
 
     private int buildRequired = -1;
 
-    private HashMap<String, Object> properties = new HashMap<String, Object>();
+    private Map<String, Object> properties = new HashMap<String, Object>();
 
-    private HashMap<String, Action> actionsMap = new HashMap<String, Action>();
+    private Map<String, Action> actionsMap = new HashMap<String, Action>();
 
     private ConfigurationCommand configurationCommand;
 
@@ -136,7 +136,7 @@ public class PluginContext {
         }
     }
 
-    public HashMap<String, Action> getActionsMap() {
+    public Map<String, Action> getActionsMap() {
         return actionsMap;
     }
 

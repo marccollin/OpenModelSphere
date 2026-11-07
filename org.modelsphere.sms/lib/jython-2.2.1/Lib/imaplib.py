@@ -18,7 +18,12 @@ Public functions:       Internaldate2tuple
 
 __version__ = "2.49"
 
-import binascii, re, socket, time, random, sys
+import binascii
+import random
+import re
+import socket
+import sys
+import time
 
 __all__ = ["IMAP4", "Internaldate2tuple",
            "Int2AP", "ParseFlags", "Time2Internaldate"]

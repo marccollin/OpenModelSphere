@@ -33,20 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.actions;
 
-import java.beans.BeanInfo;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Serializable;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.*;
-
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.awt.ExtensionFileFilter;
@@ -84,6 +70,21 @@ import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.features.dbms.DBMSForwardOptions;
 import org.modelsphere.sms.preference.DirectoryOptionGroup;
 import org.modelsphere.sms.templates.GenericForwardEngineeringPlugin;
+
+import javax.swing.*;
+import java.beans.BeanInfo;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 
@@ -174,17 +175,14 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
         return file;
     } // end chooseWorkingDirectory()
 
-    public static ArrayList getConditions(VariableScope varList) {
-        ArrayList conditions = new ArrayList();
+    public static List<VariableDecl.VariableStructure> getConditions(VariableScope varList) {
+        List<VariableDecl.VariableStructure> conditions = new ArrayList<>();
 
         // get conditions
         VariableScope map = varList;
-        Set set = map.getKeySet();
-        Iterator iter = set.iterator();
-        while (iter.hasNext()) {
-            String key = (String) iter.next();
-            VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) map
-                    .getVariable(key);
+        Set<String> set = map.getKeySet();
+        for (String key : set) {
+            VariableDecl.VariableStructure variable = map.getVariable(key);
             if (variable.isExtern()) {
                 // TODO : and if variable is a BOOLEAN..
                 conditions.add(variable);
@@ -477,12 +475,11 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
                 VariableScope varList, VariableScope variableList, String scopeDir)
                 throws DbException {
 
-            List externalRules = new ArrayList();
+            List<Rule> externalRules = new ArrayList<>();
 
             // get EXTERNal rules
-            Iterator iter = rules.iterator();
-            while (iter.hasNext()) {
-                Rule rule = (Rule) iter.next();
+            for (Object o : rules) {
+                Rule rule = (Rule) o;
                 if (rule.externModifier != null) {
                     externalRules.add(rule);
                 }
@@ -498,7 +495,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
                 JDialog parentDialog = guiController.getDialog();
 
                 // get conditions
-                List conditions = getConditions(varList);
+                List<VariableDecl.VariableStructure> conditions = getConditions(varList);
 
                 SMSIntegrateModelUtil util = SMSIntegrateModelUtil.getSingleInstance();
                 boolean deepTraversal = true;
@@ -536,17 +533,17 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
 
             fwd.setFile(file);
             Controller controller = getController();
-            List externalRules = new ArrayList();
+            List<Rule> externalRules = new ArrayList<>();
             List externalVariables = new ArrayList();
             fwd.getExternalItems(controller, externalRules); // Parse the .tpl
             // here
             boolean errorWhileReadingFile = false;
 
-            if (externalRules.size() == 0) {
+            if (externalRules.isEmpty()) {
                 controller.println(SYN_ERR_MSG);
                 return null;
             } else if (externalRules.size() == 1) {
-                Rule rule = (Rule) externalRules.get(0);
+                Rule rule = externalRules.get(0);
                 if (rule.isError) {
                     errorWhileReadingFile = true;
                     processError(rule, abstractPackage);
@@ -570,7 +567,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
                 }
             } else {
                 selectedRules = new ArrayList();
-                Rule rule = (Rule) externalRules.get(0);
+                Rule rule = externalRules.get(0);
                 selectedRules.add(rule);
             } // end if
 
@@ -615,7 +612,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
                         } // end if
 
                         StringWriter swriter = new StringWriter();
-                        List excludeList = null;
+                        List<String> excludeList = null;
                         if (m_fieldTree != null) {
                             excludeList = DBMSForwardOptions.getExcludeList(m_fieldTree);
                         }
@@ -815,9 +812,7 @@ public class GenerateFromTemplatesAction extends AbstractApplicationAction imple
             org.modelsphere.sms.Application.initMeta();
             boolean success = true;
 
-            for (int i = 0; i < g_templatesToTest.length; i++) {
-                File file = g_templatesToTest[i];
-
+            for (File file : g_templatesToTest) {
                 String obj = "HelloWorld"; // NOT LOCALIZABLE, unit test
                 DbSMSAbstractPackage absPack = null;
                 TemplateGenericForward fwd = new TemplateGenericForward();

@@ -33,10 +33,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.lang.reflect.Method;
-
 import org.modelsphere.jack.util.StringUtil;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.lang.reflect.Method;
 
 public abstract class SMSBackup {
 
@@ -57,8 +57,8 @@ public abstract class SMSBackup {
                     // LOCALIZABLE
                     new Class[] { String.class, int.class, long.class, String.class });
             Boolean done = (Boolean) method.invoke(null, new Object[] {
-                    Application.REPOSITORY_ROOT_NAME, new Integer(SMSVersionConverter.VERSION),
-                    new Long(CHECKWORD), fileName });
+                    Application.REPOSITORY_ROOT_NAME, Integer.valueOf(SMSVersionConverter.VERSION),
+                    Long.valueOf(CHECKWORD), fileName });
             if (done.booleanValue())
                 System.out.println(LocaleMgr.message.getString("backupCompleted"));
         } catch (Exception e) {

@@ -43,10 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.util.Properties;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbRAM;
@@ -54,6 +50,9 @@ import org.modelsphere.jack.baseDb.db.VersionConverter;
 import org.modelsphere.jack.baseDb.db.event.DbListener;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
+import java.util.Properties;
 
 public final class ConnectRepositoryAction extends AbstractApplicationAction implements DbListener {
     private static final String kConnect = LocaleMgr.action.getString("ConnectRepository");

@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -47,6 +44,10 @@ import org.modelsphere.sms.or.db.DbORIndex;
 import org.modelsphere.sms.or.db.DbORIndexKey;
 import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 /**
  * 
  * Editor for fields: DbORIndex.fConstraint, DbORPrimaryUnique.fIndex, DbORForeign.fIndex
@@ -54,8 +55,8 @@ import org.modelsphere.sms.or.db.DbORPrimaryUnique;
  */
 public final class DbORIndexConstraintEditor extends DbSemanticalObjectShortEditor {
 
-    protected final Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList dbos = new ArrayList();
+    protected final Collection<DbObject> getSelectionSet(DbObject parentDbo) throws DbException {
+        List<DbObject> dbos = new ArrayList<>();
         DbEnumeration dbEnum = parentDbo.getComposite().getComponents().elements();
         while (dbEnum.hasMoreElements()) {
             DbObject dbo = dbEnum.nextElement();

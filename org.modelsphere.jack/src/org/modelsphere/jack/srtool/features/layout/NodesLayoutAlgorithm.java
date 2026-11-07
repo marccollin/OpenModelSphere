@@ -42,10 +42,10 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.srtool.features.layout;
 
-import java.util.List;
-
 import org.modelsphere.jack.srtool.features.layout.graph.Graph;
 import org.modelsphere.jack.srtool.features.layout.graph.Node;
+
+import java.util.List;
 
 /**
  * The Interface NodesLayoutAlgorithm.

@@ -43,9 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.shape;
 
-import java.awt.*;
+import org.modelsphere.jack.graphic.DiagramView;
+import org.modelsphere.jack.graphic.GraphicComponent;
+import org.modelsphere.jack.graphic.GraphicUtil;
 
-import org.modelsphere.jack.graphic.*;
+import java.awt.*;
 
 public class TriangleShape implements GraphicShape {
 
@@ -85,8 +87,8 @@ public class TriangleShape implements GraphicShape {
         Rectangle rect = gc.getRectangle();
         x -= rect.x + rect.width / 2;
         y -= rect.y + rect.height / 2;
-        double dx = (double) x / (rect.width / 2);
-        double dy = (double) y / (rect.height / 2);
+        double dx = (double) x / ((double) rect.width / 2);
+        double dy = (double) y / ((double) rect.height / 2);
         return (dx * dx + dy * dy <= 1);
     }
 

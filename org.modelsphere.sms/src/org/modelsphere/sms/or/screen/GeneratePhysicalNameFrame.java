@@ -33,49 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.screen;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.io.File;
-import java.util.HashMap;
-import java.util.StringTokenizer;
-
-import javax.swing.DefaultCellEditor;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
-
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.awt.HotKeysSupport;
 import org.modelsphere.jack.awt.WholeNumberField;
@@ -88,6 +45,29 @@ import org.modelsphere.sms.or.features.ORPNGStatus;
 import org.modelsphere.sms.or.features.PhysicalNameDictionary;
 import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.or.screen.model.GeneratePhysicalNameModel;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.io.File;
+import java.nio.file.FileSystems;
+import java.util.HashMap;
+import java.util.StringTokenizer;
+import java.util.Map;
 
 public class GeneratePhysicalNameFrame extends JDialog {
     private static final String PROPERTIES_DIRECTORY = ApplicationContext.getPropertiesFolderPath();
@@ -130,7 +110,7 @@ public class GeneratePhysicalNameFrame extends JDialog {
     private String wordDelimiters = null;
     private String dictionaryFileName = null;
     private String accentedCharactersToReplace = null;
-    private HashMap accentedCharactersToReplaceHashMap = null;
+    private Map<String, String> accentedCharactersToReplaceHashMap = null;
     private PhysicalNameDictionary dictionary = null;
     private static final String EMPTY_COMBOBOX_VALUE = new String(""); // NOT
     // LOCALIZABLE
@@ -254,7 +234,7 @@ public class GeneratePhysicalNameFrame extends JDialog {
 
     ItemListener uniqueCheckBoxListener = new ItemListener() {
         public void itemStateChanged(ItemEvent e) {
-            updateTableColumn(4, new Boolean(uniqueCheckBox.isSelected()));
+            updateTableColumn(4, Boolean.valueOf(uniqueCheckBox.isSelected()));
         }
     };
 
@@ -263,7 +243,7 @@ public class GeneratePhysicalNameFrame extends JDialog {
         super(frame, title, modal);
         this.dictionary = dictionary;
         PropertiesManager.installPropertiesSet(PHYSICAL_NAME_GENERATION_PROPERTIES, new File(
-                PROPERTIES_DIRECTORY + System.getProperty("file.separator")
+                PROPERTIES_DIRECTORY + FileSystems.getDefault().getSeparator()
                         + PHYSICAL_NAME_GENERATION_PROPERTIES_FILE_NAME)); // NOT
         // LOCALIZABLE,
         // property
@@ -285,7 +265,7 @@ public class GeneratePhysicalNameFrame extends JDialog {
                 GeneratePhysicalNameFrame.class, WORD_DELIMITERS, ""); // NOT
         // LOCALIZABLE
         useDictionary = physicalNameGenerationPropertiesSet.getPropertyBoolean(
-                GeneratePhysicalNameFrame.class, USE_DICTIONARY, new Boolean(useDictionary))
+                GeneratePhysicalNameFrame.class, USE_DICTIONARY, Boolean.valueOf(useDictionary))
                 .booleanValue();
         accentedCharactersToReplace = physicalNameGenerationPropertiesSet.getPropertyString(
                 GeneratePhysicalNameFrame.class, ACCENTED_CHARACTERS_TO_REPLACE,
@@ -356,7 +336,7 @@ public class GeneratePhysicalNameFrame extends JDialog {
         integerField.setHorizontalAlignment(WholeNumberField.RIGHT);
         DefaultCellEditor integerEditor = new DefaultCellEditor(integerField) {
             public Object getCellEditorValue() {
-                return new Integer(integerField.getValue());
+                return Integer.valueOf(integerField.getValue());
             }
         };
         conceptsTable.setDefaultEditor(Integer.class, integerEditor);
@@ -553,17 +533,17 @@ public class GeneratePhysicalNameFrame extends JDialog {
         return wordDelimiters;
     }
 
-    public final HashMap getAccentedCharactersToReplace() {
+    public final Map<String, String> getAccentedCharactersToReplace() {
         return accentedCharactersToReplaceHashMap;
     }
 
-    private final HashMap convertAccentedCharactersToReplaceStringToHashMap() {
-        HashMap hm = new HashMap();
+    private final Map<String, String> convertAccentedCharactersToReplaceStringToHashMap() {
+        Map<String, String> hm = new HashMap<>();
         StringTokenizer st = new StringTokenizer(accentedCharactersToReplace, ";"); // NOT LOCALIZABLE
         try {
             while (st.hasMoreTokens()) {
                 String token = st.nextToken();
-                if (token.indexOf("=") != -1) { // NOT LOCALIZABLE
+                if (token.contains("=")) { // NOT LOCALIZABLE
                     String key = token.substring(0, token.indexOf("=")); // NOT
                     // LOCALIZABLE
                     String value = token.substring(token.indexOf("=") + 1, token.length()); // NOT LOCALIZABLE
@@ -600,8 +580,8 @@ public class GeneratePhysicalNameFrame extends JDialog {
         TableModel tableModel = conceptsTable.getModel();
         tableModel.removeTableModelListener(tableModelListener);
         int[] selectedRows = conceptsTable.getSelectedRows();
-        for (int i = 0; i < selectedRows.length; i++) {
-            tableModel.setValueAt(value, selectedRows[i], col);
+        for (int selectedRow : selectedRows) {
+            tableModel.setValueAt(value, selectedRow, col);
         }
         tableModel.addTableModelListener(tableModelListener);
     }
@@ -621,23 +601,23 @@ public class GeneratePhysicalNameFrame extends JDialog {
             status = EMPTY_COMBOBOX_VALUE;
             replacementChar = GeneratePhysicalNameModel.DEFAULT_REPLACEMENT_STRING;
             length = String.valueOf(GeneratePhysicalNameModel.DEFAULT_LENGTH);
-            Unique = new Boolean(GeneratePhysicalNameModel.DEFAULT_UNIQUE);
+            Unique = Boolean.valueOf(GeneratePhysicalNameModel.DEFAULT_UNIQUE);
             nbCharByWord = String.valueOf(GeneratePhysicalNameModel.DEFAULT_NCBW);
             caseChange = EMPTY_COMBOBOX_VALUE;
         }
 
-        for (int i = 0; i < selectedRows.length; i++) {
+        for (int selectedRow : selectedRows) {
             if (status == null)
-                status = tableModel.getValueAt(selectedRows[i], 1);
-            else if (status != tableModel.getValueAt(selectedRows[i], 1))
+                status = tableModel.getValueAt(selectedRow, 1);
+            else if (status != tableModel.getValueAt(selectedRow, 1))
                 status = EMPTY_COMBOBOX_VALUE;
-            replacementChar = (String) tableModel.getValueAt(selectedRows[i], 2);
-            length = String.valueOf(tableModel.getValueAt(selectedRows[i], 3));
-            Unique = (Boolean) tableModel.getValueAt(selectedRows[i], 4);
-            nbCharByWord = String.valueOf(tableModel.getValueAt(selectedRows[i], 5));
+            replacementChar = (String) tableModel.getValueAt(selectedRow, 2);
+            length = String.valueOf(tableModel.getValueAt(selectedRow, 3));
+            Unique = (Boolean) tableModel.getValueAt(selectedRow, 4);
+            nbCharByWord = String.valueOf(tableModel.getValueAt(selectedRow, 5));
             if (caseChange == null)
-                caseChange = tableModel.getValueAt(selectedRows[i], 6);
-            else if (caseChange != tableModel.getValueAt(selectedRows[i], 6))
+                caseChange = tableModel.getValueAt(selectedRow, 6);
+            else if (caseChange != tableModel.getValueAt(selectedRow, 6))
                 caseChange = EMPTY_COMBOBOX_VALUE;
 
         }
@@ -702,7 +682,7 @@ public class GeneratePhysicalNameFrame extends JDialog {
             Dimension dim = null;
             synchronized (target.getTreeLock()) {
                 Insets insets = target.getInsets();
-                dim = new Dimension(100, new Double(caseCombo.getPreferredSize().getHeight())
+                dim = new Dimension(100, Double.valueOf(caseCombo.getPreferredSize().getHeight())
                         .intValue()
                         + insets.top + insets.bottom);
             }
@@ -713,7 +693,7 @@ public class GeneratePhysicalNameFrame extends JDialog {
             Dimension dim = null;
             synchronized (target.getTreeLock()) {
                 Insets insets = target.getInsets();
-                dim = new Dimension(100, new Double(caseCombo.getPreferredSize().getHeight())
+                dim = new Dimension(100, Double.valueOf(caseCombo.getPreferredSize().getHeight())
                         .intValue()
                         + insets.top + insets.bottom);
             }

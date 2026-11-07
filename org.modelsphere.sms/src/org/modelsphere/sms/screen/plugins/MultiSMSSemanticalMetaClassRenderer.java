@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import javax.swing.JTable;
-import javax.swing.table.TableModel;
-
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.screen.MultiDefaultRenderer;
 import org.modelsphere.jack.srtool.screen.design.DesignTableModel;
@@ -44,6 +41,9 @@ import org.modelsphere.sms.db.DbSMSSemanticalObject;
 import org.modelsphere.sms.international.LocaleMgr;
 import org.modelsphere.sms.or.db.DbORAbsTable;
 import org.modelsphere.sms.or.db.DbORColumn;
+
+import javax.swing.*;
+import javax.swing.table.TableModel;
 
 /**
  * 

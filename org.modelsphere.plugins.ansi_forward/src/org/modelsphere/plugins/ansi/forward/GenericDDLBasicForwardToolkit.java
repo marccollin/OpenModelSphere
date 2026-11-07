@@ -33,26 +33,38 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.ansi.forward;
 
-import java.awt.Frame;
-import java.io.*;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.awt.AwtUtil;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.jack.gui.task.DefaultController;
 import org.modelsphere.jack.plugins.PluginMgr;
 import org.modelsphere.jack.plugins.PluginServices;
 import org.modelsphere.jack.plugins.PluginSignature;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.forward.*;
+import org.modelsphere.jack.srtool.forward.EditionCode;
+import org.modelsphere.jack.srtool.forward.ForwardOptions;
+import org.modelsphere.jack.srtool.forward.ForwardWorker;
+import org.modelsphere.jack.srtool.forward.GenerateInFileInfo;
+import org.modelsphere.jack.srtool.forward.JackForwardEngineeringPlugin;
+import org.modelsphere.jack.srtool.forward.Rule;
+import org.modelsphere.jack.srtool.forward.RuleException;
 import org.modelsphere.sms.features.forward.GenerateDialog;
 import org.modelsphere.sms.or.features.dbms.DBMSForwardOptions;
 import org.modelsphere.sms.templates.BasicForwardToolkit;
 import org.modelsphere.sms.templates.GenericForwardEngineeringPlugin;
 import org.modelsphere.sms.templates.SQLForwardEngineeringPlugin;
+
+import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class GenericDDLBasicForwardToolkit extends BasicForwardToolkit {
     private static final PluginSignature signature = new PluginSignature(LocaleMgr.misc
@@ -151,7 +163,7 @@ public final class GenericDDLBasicForwardToolkit extends BasicForwardToolkit {
 
             boolean expanded = false;
             int nb = objects.length;
-            List generatedFiles = new ArrayList();
+            List<String> generatedFiles = new ArrayList<>();
             for (DbObject dbObject : objects) {
                 DbSemanticalObject object = (DbSemanticalObject) dbObject;
                 int status = generateFile(object, sqlForward, path, info, controller,
@@ -168,7 +180,7 @@ public final class GenericDDLBasicForwardToolkit extends BasicForwardToolkit {
 
         private int generateFile(DbSemanticalObject object, SQLForwardEngineeringPlugin sqlForward,
                 String path, GenerateInFileInfo info, Controller controller,
-                List generatedFiles) throws DbException { //TODO catch exceptions
+                List<String> generatedFiles) throws DbException { //TODO catch exceptions
             int status = SUCCESSFUL;
 
             StringWriter stringWriter = new StringWriter();

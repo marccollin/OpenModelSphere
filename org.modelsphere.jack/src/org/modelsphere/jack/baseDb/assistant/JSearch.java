@@ -42,15 +42,19 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.baseDb.assistant;
 
-import java.io.*;
-import java.net.URL;
-import java.util.Vector;
-
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.util.DirectoryScanner;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.StreamTokenizer;
+import java.net.URL;
+import java.util.Vector;
+import java.util.List;
 
 public class JSearch {
 
@@ -87,8 +91,7 @@ public class JSearch {
                 try {
                     for (int tokenType = st.nextToken(); tokenType != StreamTokenizer.TT_EOF; tokenType = st
                             .nextToken()) {
-                        switch (tokenType) {
-                        case StreamTokenizer.TT_WORD:
+                        if (tokenType == StreamTokenizer.TT_WORD) {
                             if (st.sval.equalsIgnoreCase(searchTextField)) {
                                 foundURL = new URL(kFileBuild + inFile);
                                 resultURL.addElement(foundURL);
@@ -102,7 +105,6 @@ public class JSearch {
                                 // System.out.println("title: " +
                                 // scanTitle(inFile));
                             }
-                            break;
                         }
                     }
                 } catch (IOException g) {
@@ -126,10 +128,10 @@ public class JSearch {
 
     public Vector scanTitle() {
         try {
-            Vector url = getSearchResultVector();
+            List<?> url = getSearchResultVector();
 
-            for (int x = 0; x < url.size(); x++) {
-                String urlElement = url.elementAt(x).toString().substring(5);
+            for (Object o : url) {
+                String urlElement = o.toString().substring(5);
                 // System.out.println("urlElement :" + urlElement);
                 FileReader fileReader = new FileReader(urlElement);
                 StreamTokenizer st = new StreamTokenizer(fileReader);
@@ -139,8 +141,7 @@ public class JSearch {
                 try {
                     for (int tokenType = st.nextToken(); tokenType != StreamTokenizer.TT_EOF; tokenType = st
                             .nextToken()) {
-                        switch (tokenType) {
-                        case StreamTokenizer.TT_WORD:
+                        if (tokenType == StreamTokenizer.TT_WORD) {
                             if (st.sval.equalsIgnoreCase("<title>")) // NOT
                             // LOCALIZABLE
                             {

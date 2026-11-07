@@ -43,17 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.awt.Polygon;
-
 import org.modelsphere.jack.actions.AbstractTriStatesAction;
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.actions.SelectionActionListener;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.graphic.Line;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.graphic.DbGraphic;
 import org.modelsphere.jack.srtool.graphic.SrLine;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import java.awt.*;
 
 public final class RightAngleAction extends AbstractTriStatesAction implements
         SelectionActionListener {

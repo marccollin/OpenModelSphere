@@ -43,11 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.awt.*;
-import java.io.File;
-import java.net.URL;
-import javax.swing.JFileChooser;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.awt.ImagePreviewer;
@@ -58,6 +53,11 @@ import org.modelsphere.jack.srtool.graphic.DbGraphic;
 import org.modelsphere.jack.srtool.graphic.Stamp;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.util.ExceptionHandler;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.net.URL;
 
 public final class ChangeStampImageAction extends AbstractApplicationAction {
 

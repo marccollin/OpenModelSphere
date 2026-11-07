@@ -1,10 +1,10 @@
 package com.neosapiens.plugins.reverse.javasource.actions;
 
+import com.neosapiens.plugins.reverse.javasource.utils.DeclarationOfClassOrInterface;
+import com.neosapiens.plugins.reverse.javasource.utils.DeclarationOfMethod;
+import com.neosapiens.plugins.reverse.javasource.utils.FieldOfClass;
 import com.neosapiens.plugins.reverse.javasource.utils.InitializationBlockOfClass;
 import com.neosapiens.plugins.reverse.javasource.utils.ParameterOfMethode;
-import com.neosapiens.plugins.reverse.javasource.utils.FieldOfClass;
-import com.neosapiens.plugins.reverse.javasource.utils.DeclarationOfMethod;
-import com.neosapiens.plugins.reverse.javasource.utils.DeclarationOfClassOrInterface;
 
 
 public class OutputSemanticAction implements SemanticAction {
@@ -204,7 +204,7 @@ public class OutputSemanticAction implements SemanticAction {
         System.out.print(" ");
         System.out.print(")");
         
-        if (declarationOfMethod.getMethodExceptionsList().size() != 0)
+        if (!declarationOfMethod.getMethodExceptionsList().isEmpty())
         {
             System.out.print("throws");
         

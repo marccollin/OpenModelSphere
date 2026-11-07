@@ -45,7 +45,10 @@ package org.modelsphere.jack.baseDb.db;
 
 import org.modelsphere.jack.baseDb.db.srtypes.ZoneJustification;
 import org.modelsphere.jack.baseDb.international.LocaleMgr;
-import org.modelsphere.jack.baseDb.meta.*;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelation1;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
 
 /**
  * Defines display attributes of a single zone for graphical objects. A single zone contains only
@@ -135,9 +138,9 @@ public abstract class DbSingleZoneDisplay extends DbZoneDisplay {
             ZoneJustification justification, boolean separator) throws DbException {
         super(composite);
         setMetaField(metaField);
-        setDisplayed(new Boolean(displayed));
+        setDisplayed(Boolean.valueOf(displayed));
         setJustification(justification);
-        setSeparator(new Boolean(separator));
+        setSeparator(Boolean.valueOf(separator));
         setDefaultInitialValues();
     }
 
@@ -157,9 +160,9 @@ public abstract class DbSingleZoneDisplay extends DbZoneDisplay {
             ZoneJustification justification, boolean separator) throws DbException {
         super(composite);
         setUdf(udf);
-        setDisplayed(new Boolean(displayed));
+        setDisplayed(Boolean.valueOf(displayed));
         setJustification(justification);
-        setSeparator(new Boolean(separator));
+        setSeparator(Boolean.valueOf(separator));
         setDefaultInitialValues();
     }
 
@@ -178,9 +181,9 @@ public abstract class DbSingleZoneDisplay extends DbZoneDisplay {
         super(composite);
         setUdf(null);
         setMetaField(null);
-        setDisplayed(new Boolean(displayed));
+        setDisplayed(Boolean.valueOf(displayed));
         setJustification(justification);
-        setSeparator(new Boolean(separator));
+        setSeparator(Boolean.valueOf(separator));
         setDefaultInitialValues();
     }
 

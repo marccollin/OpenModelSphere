@@ -43,16 +43,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.gui.task;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.FileWriter;
-import java.io.IOException;
-import javax.swing.*;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.JTextAreaFix;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.ApplicationContext;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * This class provide a default implementation for Controller.
@@ -141,6 +142,7 @@ public final class DefaultController extends GuiController {
 
         setDetailVisible(detailVisible);
         detailButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 setDetailVisible(!detailVisible);
             }

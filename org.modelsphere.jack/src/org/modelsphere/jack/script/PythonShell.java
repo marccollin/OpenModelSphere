@@ -43,15 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.script;
 
+import org.modelsphere.jack.debug.Debug;
+import org.modelsphere.jack.international.LocaleMgr;
+import org.python.core.PyException;
+import org.python.core.PyInteger;
+import org.python.core.PyObject;
+import org.python.core.PySystemState;
+import org.python.util.PythonInterpreter;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.StringTokenizer;
-
-import org.modelsphere.jack.debug.Debug;
-import org.modelsphere.jack.international.LocaleMgr;
-import org.python.core.*;
-import org.python.util.PythonInterpreter;
 
 public final class PythonShell extends Shell {
     private static final String kTitle = LocaleMgr.screen.getString("PythonShell"); // NOT LOCALIZABLE

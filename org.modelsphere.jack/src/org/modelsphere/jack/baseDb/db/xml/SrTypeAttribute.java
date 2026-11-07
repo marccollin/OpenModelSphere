@@ -43,11 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.xml;
 
-import java.lang.reflect.Field;
-
 import org.modelsphere.jack.baseDb.db.srtypes.SrType;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.util.DataConversion;
+
+import java.lang.reflect.Field;
 
 class SrTypeAttribute extends XMLAttribute {
     private SrType m_srTypeValue;

@@ -43,11 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.actions;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.srtool.actions.*;
+
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 /**
  * 
@@ -411,9 +411,9 @@ public abstract class AbstractActionsStore extends Hashtable {
         // debug
         // only
         if (c != null) {
-            Enumeration enumeration = keys();
+            Enumeration<?> enumeration = keys();
             while (enumeration.hasMoreElements()) {
-                Object key = (Object) enumeration.nextElement();
+                Object key = enumeration.nextElement();
                 if (key == null)
                     continue;
                 Object action = get(key);

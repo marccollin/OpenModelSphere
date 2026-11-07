@@ -52,9 +52,9 @@ package org.modelsphere.jack.srtool.forward;
  * @version 1.0
  */
 
-import java.io.Writer;
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.Writer;
 
 public class TabSign extends EditionCode {
 

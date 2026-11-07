@@ -43,10 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.xml;
 
-import java.io.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.meta.MetaField;
 
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.meta.*;
+import java.io.IOException;
 
 class TextElement extends XMLElement {
 

@@ -43,12 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.checklist;
 
-import java.awt.*;
+import org.modelsphere.jack.awt.CheckMultiIcon;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-
-import org.modelsphere.jack.awt.CheckMultiIcon;
+import java.awt.*;
 
 final class CheckListCellRenderer extends JCheckBox implements ListCellRenderer {
     private CheckMultiIcon nonSelectedIconEnabled = new CheckMultiIcon(false, true);

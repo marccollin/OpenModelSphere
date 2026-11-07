@@ -33,12 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-
 import org.modelsphere.jack.awt.AbstractTableCellEditor;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -51,6 +45,11 @@ import org.modelsphere.jack.baseDb.screen.ScreenView;
 import org.modelsphere.jack.baseDb.screen.model.ScreenModel;
 import org.modelsphere.sms.international.LocaleMgr;
 import org.modelsphere.sms.oo.java.db.DbJVMethod;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public final class DbJVMethodEditor implements Editor, ActionListener {
 

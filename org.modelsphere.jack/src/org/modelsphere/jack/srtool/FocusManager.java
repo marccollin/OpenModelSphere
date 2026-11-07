@@ -43,20 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool;
 
-import java.awt.Component;
-import java.awt.event.ContainerEvent;
-import java.awt.event.ContainerListener;
-import java.util.HashSet;
-
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.actions.util.DbMultiTrans;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbRAM;
 import org.modelsphere.jack.baseDb.db.event.DbRefreshListener;
 import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
 import org.modelsphere.jack.baseDb.screen.DbDataEntryFrame;
@@ -68,6 +62,15 @@ import org.modelsphere.jack.srtool.graphic.DiagramViewInternalFrame;
 import org.modelsphere.jack.srtool.list.ListInternalFrame;
 import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.jack.util.SrVector;
+
+import javax.swing.*;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
+import java.awt.*;
+import java.awt.event.ContainerEvent;
+import java.awt.event.ContainerListener;
+import java.util.HashSet;
+import java.util.Set;
 
 public final class FocusManager implements DbRefreshListener {
 
@@ -432,7 +435,7 @@ public final class FocusManager implements DbRefreshListener {
      * in the graphic.
      */
     private DbObject[] convertIntoSemanticalObjects(Object[] objs) {
-        HashSet semObjSet = new HashSet(objs.length + objs.length / 2);
+        Set<DbObject> semObjSet = new HashSet<>(objs.length + objs.length / 2);
         for (int i = 0; i < objs.length; i++) {
             DbObject semObj = null;
             if (objs[i] instanceof DbObject)
@@ -443,7 +446,7 @@ public final class FocusManager implements DbRefreshListener {
                 semObjSet.add(semObj);
         }
         DbObject[] semObjs = new DbObject[semObjSet.size()];
-        return (DbObject[]) semObjSet.toArray(semObjs);
+        return semObjSet.toArray(semObjs);
     }
 
     public boolean isGuiLocked() {

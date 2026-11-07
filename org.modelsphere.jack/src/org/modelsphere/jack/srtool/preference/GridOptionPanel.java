@@ -43,21 +43,20 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.preference;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import org.modelsphere.jack.awt.ComponentTestable;
 import org.modelsphere.jack.awt.ThinBevelBorder;
 import org.modelsphere.jack.graphic.Grid;
 import org.modelsphere.jack.preference.OptionPanel;
 import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 @SuppressWarnings("serial")
 public class GridOptionPanel extends JPanel implements ComponentTestable {
@@ -243,8 +242,8 @@ public class GridOptionPanel extends JPanel implements ComponentTestable {
         //activeGridChkBox.setSelected(options.m_gridActive);
 
         //spinner value
-        columnSpinner.setValue(new Integer(options.m_columnsPerPage));
-        rowSpinner.setValue(new Integer(options.m_rowsPerPage));
+        columnSpinner.setValue(Integer.valueOf(options.m_columnsPerPage));
+        rowSpinner.setValue(Integer.valueOf(options.m_rowsPerPage));
 
         //color value
         colorChooser.setColor(options.m_lineColor);
@@ -300,7 +299,7 @@ public class GridOptionPanel extends JPanel implements ComponentTestable {
 
                 if (optionPanel != null) {
                     optionPanel.fireOptionChanged(PropertiesManager.APPLICATION_PROPERTIES_SET,
-                            Grid.class, Grid.PROPERTY_PERCENT_OF_CELL, new Integer(value));
+                            Grid.class, Grid.PROPERTY_PERCENT_OF_CELL, Integer.valueOf(value));
                 }
 
                 updatePreview();
@@ -317,7 +316,7 @@ public class GridOptionPanel extends JPanel implements ComponentTestable {
                     if (optionPanel != null) {
                         int value = newColor.getRGB();
                         optionPanel.fireOptionChanged(PropertiesManager.APPLICATION_PROPERTIES_SET,
-                                Grid.class, Grid.PROPERTY_GRID_COLOR, new Integer(value));
+                                Grid.class, Grid.PROPERTY_GRID_COLOR, Integer.valueOf(value));
                     }
 
                     updatePreview();
@@ -334,11 +333,11 @@ public class GridOptionPanel extends JPanel implements ComponentTestable {
                     else if (columnsPerPage > 20)
                         columnsPerPage = 20;
 
-                    columnSpinner.setValue(new Integer(columnsPerPage));
+                    columnSpinner.setValue(Integer.valueOf(columnsPerPage));
 
                     optionPanel
                             .fireOptionChanged(PropertiesManager.APPLICATION_PROPERTIES_SET,
-                                    Grid.class, Grid.PROPERTY_NB_OF_CELLS_IN_X, new Integer(
+                                    Grid.class, Grid.PROPERTY_NB_OF_CELLS_IN_X, Integer.valueOf(
                                             columnsPerPage));
                 }
 
@@ -355,10 +354,10 @@ public class GridOptionPanel extends JPanel implements ComponentTestable {
                     else if (rowsPerPage > 20)
                         rowsPerPage = 20;
 
-                    rowSpinner.setValue(new Integer(rowsPerPage));
+                    rowSpinner.setValue(Integer.valueOf(rowsPerPage));
 
                     optionPanel.fireOptionChanged(PropertiesManager.APPLICATION_PROPERTIES_SET,
-                            Grid.class, Grid.PROPERTY_NB_OF_CELLS_IN_Y, new Integer(rowsPerPage));
+                            Grid.class, Grid.PROPERTY_NB_OF_CELLS_IN_Y, Integer.valueOf(rowsPerPage));
                 }
 
                 updatePreview();

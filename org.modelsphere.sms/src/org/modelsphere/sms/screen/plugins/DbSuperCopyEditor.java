@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -49,10 +46,14 @@ import org.modelsphere.sms.or.db.DbORAssociation;
 import org.modelsphere.sms.or.db.DbORAssociationEnd;
 import org.modelsphere.sms.or.db.util.AnyORObject;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 public final class DbSuperCopyEditor extends DbSemanticalObjectEditor {
 
-    protected final Collection getSelectionSet(DbObject dbo) throws DbException {
-        ArrayList superDbos = new ArrayList();
+    protected final Collection<DbSMSSemanticalObject> getSelectionSet(DbObject dbo) throws DbException {
+        List<DbSMSSemanticalObject> superDbos = new ArrayList<>();
         if (dbo instanceof DbORAssociation) {
             // An association can have as super any association in the
             // super-schema

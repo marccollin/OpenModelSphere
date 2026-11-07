@@ -43,21 +43,32 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.script;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.beans.PropertyVetoException;
-import java.io.*;
-import java.util.ArrayList;
-
-import javax.swing.*;
-import javax.swing.plaf.TabbedPaneUI;
-
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.awt.JTextAreaFix;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.graphic.CascadingJInternalFrame;
 import org.modelsphere.jack.text.MessageFormat;
+
+import javax.swing.*;
+import javax.swing.plaf.TabbedPaneUI;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyVetoException;
+import java.io.ByteArrayOutputStream;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Shell extends CascadingJInternalFrame {
     private static final String kClose = LocaleMgr.screen.getString("Close");
@@ -271,7 +282,7 @@ public abstract class Shell extends CascadingJInternalFrame {
                         break;
 
                     command = command.trim();
-                    if (command.length() > 0) {
+                    if (!command.isEmpty()) {
                         String result = null;
                         try {
                             result = execute(command);
@@ -348,7 +359,7 @@ public abstract class Shell extends CascadingJInternalFrame {
     public class CommandLine extends JTextAreaFix {
         private ShellKeyListener shellKeyListener = new ShellKeyListener(this);
         private JTextArea resultArea;
-        private ArrayList history = new ArrayList();
+        private List<String> history = new ArrayList<>();
         private int callBack = 0;
 
         CommandLine(JTextArea aResultArea) {
@@ -365,7 +376,7 @@ public abstract class Shell extends CascadingJInternalFrame {
         public String getPrompt() {
             int historyCount = history.size() - callBack + 1;
             String prompt = MessageFormat.format(shellInitializer.promptPattern,
-                    new Object[] { new Integer(historyCount) });
+                    new Object[] { Integer.valueOf(historyCount) });
             return prompt;
         }
 
@@ -380,7 +391,7 @@ public abstract class Shell extends CascadingJInternalFrame {
 
         void executeCommand(String command, String aPrompt) {
             command = command.trim();
-            if (command.length() > 0) {
+            if (!command.isEmpty()) {
                 String result = null;
                 try {
                     result = execute(command);
@@ -431,7 +442,7 @@ public abstract class Shell extends CascadingJInternalFrame {
 
             String text = "";
             if (callBack != 0) {
-                text = (String) history.get(history.size() - callBack);
+                text = history.get(history.size() - callBack);
             }
 
             String command = getPrompt() + text;

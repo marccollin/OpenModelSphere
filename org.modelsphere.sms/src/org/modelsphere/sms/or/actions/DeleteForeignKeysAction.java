@@ -32,18 +32,12 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.or.actions;
 
-import java.text.MessageFormat;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;
@@ -52,17 +46,17 @@ import org.modelsphere.sms.db.srtypes.SMSMultiplicity;
 import org.modelsphere.sms.or.db.DbORAbsTable;
 import org.modelsphere.sms.or.db.DbORAssociation;
 import org.modelsphere.sms.or.db.DbORAssociationEnd;
-import org.modelsphere.sms.or.db.DbORColumn;
 import org.modelsphere.sms.or.db.DbORDataModel;
-import org.modelsphere.sms.or.db.DbORFKeyColumn;
 import org.modelsphere.sms.or.db.DbORForeign;
 import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 import org.modelsphere.sms.or.db.util.ForeignKey;
 import org.modelsphere.sms.or.db.util.PrimaryKey;
 import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.or.screen.DeleteKeysAndRulesFrame;
-import org.modelsphere.sms.or.screen.GeneratePrimaryKeysFrame;
 import org.modelsphere.sms.or.screen.DeleteKeysAndRulesFrame.DeleteKeysOptions;
+
+import javax.swing.*;
+import java.text.MessageFormat;
 
 public final class DeleteForeignKeysAction extends AbstractApplicationAction implements
         SelectionActionListener {

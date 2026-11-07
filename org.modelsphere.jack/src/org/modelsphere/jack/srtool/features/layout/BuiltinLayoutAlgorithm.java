@@ -43,13 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.features.layout;
 
-import java.util.List;
-
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.srtool.features.layout.graph.Graph;
 import org.modelsphere.jack.srtool.features.layout.graph.Node;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
+import java.util.List;
 
 public class BuiltinLayoutAlgorithm implements NodesLayoutAlgorithm {
 	

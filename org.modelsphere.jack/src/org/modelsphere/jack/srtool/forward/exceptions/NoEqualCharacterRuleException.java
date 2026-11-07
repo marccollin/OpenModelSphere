@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward.exceptions;
 
-import org.modelsphere.jack.srtool.forward.*;
+import org.modelsphere.jack.srtool.forward.RuleException;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.text.MessageFormat;
 
@@ -56,7 +56,7 @@ public final class NoEqualCharacterRuleException extends RuleException {
 
     public static String buildMessage(int i, String parameter) {
         String msg = MessageFormat.format(MESSAGE_PATTERN,
-                new Object[] { new Integer(i), parameter });
+                new Object[] { Integer.valueOf(i), parameter });
         return msg;
     } // end buildMessage();
 

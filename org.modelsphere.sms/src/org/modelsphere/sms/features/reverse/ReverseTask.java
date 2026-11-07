@@ -34,12 +34,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.features.reverse;
 
 //Java
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Vector;
 
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -51,9 +45,16 @@ import org.modelsphere.sms.oo.db.DbOOAbstractMethod;
 import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.DbJVCompilationUnit;
 
+import java.io.File;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
+
 public final class ReverseTask extends org.modelsphere.jack.srtool.reverse.file.ReverseTask {
 
-    public ReverseTask(Vector aFileVector, ArrayList aReverseList, DbProject targetProj) {
+    public ReverseTask(Vector aFileVector, List aReverseList, DbProject targetProj) {
         super(aFileVector, aReverseList, targetProj, MainFrame.getSingleton());
     }
 
@@ -152,8 +153,8 @@ public final class ReverseTask extends org.modelsphere.jack.srtool.reverse.file.
     }
 
     protected String reverseCurrentFile(Hashtable modelTable,
-            org.modelsphere.jack.srtool.reverse.file.JackReverseEngineeringPlugin reverse,
-            Class modelClaz, Vector obsoleteObjectVector, HashMap diagMap, File file)
+                                        org.modelsphere.jack.srtool.reverse.file.JackReverseEngineeringPlugin reverse,
+                                        Class modelClaz, Vector obsoleteObjectVector, Map diagMap, File file)
             throws Exception {
         String errMsg;
         /*

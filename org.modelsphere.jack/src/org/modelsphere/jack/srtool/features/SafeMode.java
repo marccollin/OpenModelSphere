@@ -42,17 +42,13 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.srtool.features;
 
-import java.awt.Component;
-import java.io.File;
-import java.text.DateFormat;
-import java.util.Date;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.preference.context.ContextIO;
 import org.modelsphere.jack.properties.PropertySet;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.DefaultMainFrame;
+
+import java.io.File;
+import java.text.DateFormat;
+import java.util.Date;
 
 public class SafeMode {
 	private static final String EXITED_NORMALLY = "ExitedNormally"; //NOT LOCALIZABLE, property

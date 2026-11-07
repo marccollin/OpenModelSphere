@@ -43,13 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.io;
 
-import java.io.*;
-import java.util.ArrayList;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.debug.TestException;
 import org.modelsphere.jack.debug.Testable;
 import org.modelsphere.jack.util.StringUtil;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -65,17 +70,26 @@ public final class LineRandomAccessFile extends RandomAccessFile implements Test
     // code
 
     // this array list contains the absolute position for each line
-    private ArrayList m_absolutePositions = new ArrayList();
+    private List<Long> m_absolutePositions = new ArrayList<>();
 
     public LineRandomAccessFile(File file) throws FileNotFoundException, IOException {
 
         super(file, readOnly);
 
-        // Build a vector containing positions of each line
-        do {
-            long filepos = getFilePointer();
-            m_absolutePositions.add(new Long(filepos));
-        } while (readLine() != null);
+        try {
+            // Build a vector containing positions of each line
+            do {
+                long filepos = getFilePointer();
+                m_absolutePositions.add(Long.valueOf(filepos));
+            } while (readLine() != null);
+        } catch (IOException ex) {
+            try {
+                close();
+            } catch (IOException closeEx) {
+                ex.addSuppressed(closeEx);
+            }
+            throw ex;
+        }
     }
 
     /** Get current line number */
@@ -86,7 +100,7 @@ public final class LineRandomAccessFile extends RandomAccessFile implements Test
 
         // TODO: perform binary search (valuable if nb lines > 100)
         for (int i = 0; i < len; i++) {
-            Long lineStart = (Long) m_absolutePositions.get(i);
+            Long lineStart = m_absolutePositions.get(i);
             if (filepos <= lineStart.longValue()) {
                 lineNo = i;
                 break;
@@ -105,8 +119,8 @@ public final class LineRandomAccessFile extends RandomAccessFile implements Test
 
     /** seek ith line */
     public void seekLine(int lineno) throws IOException {
-        Long filepos = (Long) m_absolutePositions.get(lineno - 1);
-        seek(filepos.longValue());
+        Long filepos = m_absolutePositions.get(lineno - 1);
+        seek(filepos);
     }
 
     public int getNbLines() throws IOException {
@@ -114,8 +128,8 @@ public final class LineRandomAccessFile extends RandomAccessFile implements Test
     }
 
     public long getAbsolutePosition(int line, int column) {
-        Long pos = (Long) m_absolutePositions.get(line - 1);
-        long absolutePosition = pos.longValue() + column - 1; // line starts at
+        Long pos = m_absolutePositions.get(line - 1);
+        long absolutePosition = pos + column - 1; // line starts at
         // column 1
         return absolutePosition;
     }
@@ -181,7 +195,6 @@ public final class LineRandomAccessFile extends RandomAccessFile implements Test
             writer.close();
             File file = writer.getFile();
             input = new LineRandomAccessFile(file);
-            file.delete();
         } catch (IOException ex) {
             throw new TestException(ex.toString());
         }

@@ -43,14 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.beans.impl;
 
-import java.awt.Image;
-import java.io.File;
-import java.util.HashMap;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
+import java.awt.*;
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
 
 final class CellViewerMapping {
-    private HashMap m_mapping = new HashMap();
+    private Map<Class<?>, Class<? extends AbstractViewer>> m_mapping = new HashMap<>();
 
     // not directly instantiable
     private CellViewerMapping() {
@@ -80,14 +82,14 @@ final class CellViewerMapping {
         }
 
         try {
-            AbstractViewer viewer = (AbstractViewer) claz.newInstance();
+            AbstractViewer viewer = (AbstractViewer) claz.getDeclaredConstructor().newInstance();
             TableCellRenderer renderer = viewer.getTableCellRenderer();
             TableCellEditor editor = viewer.getTableCellEditor();
             cellViewer = new TableCellViewer(renderer, editor);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException | InstantiationException | NoSuchMethodException ex) {
             cellViewer = null;
-        } catch (InstantiationException ex) {
-            cellViewer = null;
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
         }
 
         return cellViewer;

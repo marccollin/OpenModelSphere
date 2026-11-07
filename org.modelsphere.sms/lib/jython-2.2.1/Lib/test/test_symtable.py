@@ -1,6 +1,6 @@
-from test_support import verify
-
 import _symtable
+
+from test_support import verify
 
 symbols = _symtable.symtable("def f(x): return x", "?", "exec")
 

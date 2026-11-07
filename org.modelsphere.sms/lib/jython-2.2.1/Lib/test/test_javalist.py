@@ -1,5 +1,6 @@
-from test_support import *
 from javatests import ListTest
+from test_support import *
+
 
 class PyListTest(ListTest):
        

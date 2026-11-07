@@ -43,16 +43,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.jdbc.bridge;
 
+import org.modelsphere.jack.srtool.reverse.jdbc.JdbcBuilder;
+
 import java.util.ArrayList;
 import java.util.Collections;
-
-import org.modelsphere.jack.srtool.reverse.jdbc.JdbcBuilder;
+import java.util.List;
 
 /**
  * This service executes JDBC API calls
  **/
 public class JdbcCatalogListBuilder extends JdbcBuilder {
-    private ArrayList nameList = new ArrayList();
+    private List<String> nameList = new ArrayList<>();
 
     JdbcCatalogListBuilder() {
     }

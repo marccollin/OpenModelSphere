@@ -33,13 +33,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.graphic.tool;
 
-import java.awt.Image;
-import java.awt.Toolkit;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.graphic.Diagram;
 import org.modelsphere.jack.graphic.GraphicComponent;
 import org.modelsphere.jack.graphic.GraphicUtil;
 import org.modelsphere.jack.graphic.tool.KeyTool;
@@ -49,8 +45,6 @@ import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.graphic.SrLineEndZone;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;
 import org.modelsphere.sms.SMSToolkit;
-import org.modelsphere.sms.be.db.DbBEDiagram;
-import org.modelsphere.sms.be.db.DbBENotation;
 import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.or.db.DbORAbsTable;
@@ -60,12 +54,13 @@ import org.modelsphere.sms.or.db.DbORDiagram;
 import org.modelsphere.sms.or.db.DbORNotation;
 import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 import org.modelsphere.sms.or.db.DbORTable;
-import org.modelsphere.sms.or.db.DbORView;
 import org.modelsphere.sms.or.db.srtypes.ORConnectivityPosition;
 import org.modelsphere.sms.or.graphic.MultiplicityLabel;
 import org.modelsphere.sms.or.graphic.ORAssociation;
 import org.modelsphere.sms.or.graphic.ORTableBox;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import java.awt.*;
 
 public class ORKeyTool extends KeyTool {
 

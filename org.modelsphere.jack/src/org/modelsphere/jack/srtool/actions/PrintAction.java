@@ -43,8 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import javax.swing.*;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.srtool.ApplicationContext;
@@ -52,6 +50,7 @@ import org.modelsphere.jack.srtool.CurrentFocusListener;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class PrintAction extends AbstractApplicationAction implements CurrentFocusListener {

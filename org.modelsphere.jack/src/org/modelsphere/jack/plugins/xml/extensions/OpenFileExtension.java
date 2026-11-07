@@ -1,13 +1,5 @@
 package org.modelsphere.jack.plugins.xml.extensions;
 
-import java.awt.event.ActionEvent;
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
-import javax.swing.JFileChooser;
-
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.plugins.xml.XmlPlugin;
@@ -15,6 +7,13 @@ import org.modelsphere.jack.plugins.xml.XmlPluginDescriptor;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.util.ExceptionHandler;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class OpenFileExtension extends AbstractPluginExtension {
     private String _fileExtension;

@@ -43,7 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool;
 
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbRoot;
 import org.modelsphere.jack.util.DefaultComparableElement;
 import org.modelsphere.jack.util.SrVector;
 

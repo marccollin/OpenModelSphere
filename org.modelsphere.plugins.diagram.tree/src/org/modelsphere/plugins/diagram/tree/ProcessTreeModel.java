@@ -33,15 +33,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.diagram.tree;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Iterator;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.sms.db.DbSMSSemanticalObject;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-
-import org.modelsphere.jack.baseDb.db.DbException;
-import org.modelsphere.sms.db.DbSMSSemanticalObject;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author Grandite
@@ -50,7 +50,7 @@ import org.modelsphere.sms.db.DbSMSSemanticalObject;
  *         Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
 class ProcessTreeModel extends DefaultTreeModel {
-    private ArrayList[] m_levels = null;
+    private List[] m_levels = null;
     private int m_widestLevel = -1;
 
     public ProcessTreeModel(DefaultMutableTreeNode root) {
@@ -59,8 +59,7 @@ class ProcessTreeModel extends DefaultTreeModel {
 
     public int getDepth() {
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) this.getRoot();
-        int depth = root.getDepth();
-        return depth;
+        return root.getDepth();
     }
 
     public void computeWidestLevel(boolean isCenter, boolean isSpan) throws DbException {
@@ -90,7 +89,7 @@ class ProcessTreeModel extends DefaultTreeModel {
         } else { //compute weigth
             Enumeration enumeration = node.children();
             if (!enumeration.hasMoreElements()) { //leaf has a weigth of 1
-                content.weight = new Integer(1);
+                content.weight = Integer.valueOf(1);
                 weight = 1;
             } else {
                 while (enumeration.hasMoreElements()) {
@@ -99,7 +98,7 @@ class ProcessTreeModel extends DefaultTreeModel {
                     int childWeight = getWeight(child, isSpan);
                     weight += isSpan ? childWeight : 1;
                 } //end while
-                content.weight = new Integer(weight);
+                content.weight = Integer.valueOf(weight);
             } //end if
         } //end if
 
@@ -118,7 +117,7 @@ class ProcessTreeModel extends DefaultTreeModel {
         DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
         if (parent == null) { //if root
             gap = isCenter ? (content.weight.intValue() / 2) : 0;
-            content.position = new Integer(gap);
+            content.position = Integer.valueOf(gap);
         } else {
             ProcessTreeModel.NodeContent parentContent = (ProcessTreeModel.NodeContent) parent
                     .getUserObject();
@@ -132,7 +131,7 @@ class ProcessTreeModel extends DefaultTreeModel {
             ProcessTreeModel.NodeContent childContent = (ProcessTreeModel.NodeContent) child
                     .getUserObject();
             gap = isCenter ? (childContent.weight.intValue() / 2) : 0;
-            childContent.position = new Integer(parentOrigin + cumulatedPosition + gap);
+            childContent.position = Integer.valueOf(parentOrigin + cumulatedPosition + gap);
 
             cumulatedPosition += childContent.weight.intValue();
             setPosition(child, isCenter, isSpan, gap);
@@ -155,7 +154,7 @@ class ProcessTreeModel extends DefaultTreeModel {
 
     public int getWidth(int level, boolean isSpan) throws DbException {
         int totalWeight = 0;
-        ArrayList list = m_levels[level];
+        List<?> list = m_levels[level];
         if (!isSpan) {
             totalWeight = list.size();
         } else {
@@ -170,7 +169,7 @@ class ProcessTreeModel extends DefaultTreeModel {
         return totalWeight;
     }
 
-    public ArrayList getNodesByLevels(int level) {
+    public List getNodesByLevels(int level) {
         return m_levels[level];
     }
 

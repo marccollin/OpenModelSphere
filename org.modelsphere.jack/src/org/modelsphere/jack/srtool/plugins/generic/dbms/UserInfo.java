@@ -43,16 +43,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.plugins.generic.dbms;
 
-import java.util.*;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserInfo {
     public String username;
     public DbObject user;
     public boolean isSelected = true;
     public int id;
-    public ArrayList occurences = new ArrayList();
+    public List occurences = new ArrayList();
 
     public UserInfo(String aUserName) {
         username = aUserName;

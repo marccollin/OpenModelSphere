@@ -44,7 +44,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.or.features.dbms;
 
 //Java
-import java.util.ArrayList;
 
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -54,6 +53,9 @@ import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectScope;
 import org.modelsphere.jack.srtool.services.ConnectionMessage;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBMSReverseOptions {
     private static final String kReverseOptions = LocaleMgr.misc.getString("ReverseOptions_");
@@ -78,7 +80,7 @@ public class DBMSReverseOptions {
     // the initialisation is made in the toolkit
     private Object specificDBMSOptions;
 
-    public ArrayList nameList = new ArrayList();
+    public List nameList = new ArrayList();
 
     // used for reading from extract files
     public boolean fromExtractFile = false;
@@ -112,11 +114,11 @@ public class DBMSReverseOptions {
         connection = aConnection;
     }
 
-    public ArrayList getNameList() {
+    public List getNameList() {
         return nameList;
     }
 
-    public void setNameList(ArrayList aList) {
+    public void setNameList(List aList) {
         nameList = aList;
     }
 
@@ -144,6 +146,7 @@ public class DBMSReverseOptions {
         return objectsScope;
     }
 
+    @Override
     public String toString() {
         String eol = "\n";
         String indent = "\t"; // NOT LOCALIZABLE

@@ -43,16 +43,24 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.plugins.xml;
 
-import java.io.*;
-import java.util.Hashtable;
-import java.util.Stack;
-
 import org.modelsphere.jack.debug.Debug;
-import org.xml.sax.*;
+import org.xml.sax.AttributeList;
+import org.xml.sax.DocumentHandler;
+import org.xml.sax.HandlerBase;
+import org.xml.sax.Locator;
+import org.xml.sax.Parser;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
-import javax.xml.parsers.SAXParserFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.File;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Hashtable;
+import java.util.Stack;
+import java.util.Map;
 
 //
 // Simple demonstration of using SAX event-driven APIs directly.
@@ -83,7 +91,7 @@ public final class XmlParser implements DocumentHandler {
     private boolean expectingTargetTable = false;
     private boolean isDebug = false;
     private int newOccurrenceNameEmitted = 0;
-    private Hashtable idTable = new Hashtable(); // contains XMI ID for further references
+    private Map<String, String> idTable = new Hashtable<>(); // contains XMI ID for further references
     private Stack elementStack = new Stack(); // contains all XMI elements (class, name, type)
     private Stack occurrenceNameStack = new Stack(); // contains names of XMI elements which are occurrences (such as class names, attr names, etc.)
 
@@ -216,7 +224,7 @@ public final class XmlParser implements DocumentHandler {
                     String attr = attrs.getName(i);
                     if (attr.equals(kTarget)) {
                         String key = attrs.getValue(i);
-                        String name = (String) idTable.get(key);
+                        String name = idTable.get(key);
                         if (name != null) {
                             emit(name + eol);
                         }
@@ -323,7 +331,7 @@ public final class XmlParser implements DocumentHandler {
             if (removedSrxId != XmiMapping.UNKNOWN) {
                 // does this concept have an identifier?
                 String xmiName = XmiMapping.getXmiName(removedSrxId);
-                if (!xmiName.equals("")) {
+                if (!xmiName.isEmpty()) {
                     if (!occurrenceNameStack.empty()) {
                         occurrenceNameStack.pop(); // yes, so pop its name
                     }
@@ -384,7 +392,7 @@ public final class XmlParser implements DocumentHandler {
 
     private void emitNewTagValue(String tag) throws SAXException {
         if (tagFound) {
-            if (!tag.equals("")) {
+            if (!tag.isEmpty()) {
                 emit(tag + eol);
             }
         }

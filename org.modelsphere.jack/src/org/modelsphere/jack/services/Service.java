@@ -43,12 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.services;
 
-import java.io.*;
-import java.util.Enumeration;
-import java.util.StringTokenizer;
-
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.text.MessageFormat;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.util.Enumeration;
+import java.util.StringTokenizer;
 
 /**
  * Here is the Service interface that we have seen so much of. It defines only a single method which
@@ -219,10 +225,10 @@ public interface Service {
                         out.println(kPwRequiredError);
                     else {
                         // Display a list of all services currently running
-                        Enumeration keys = server.services.keys();
+                        Enumeration<Integer> keys = server.services.keys();
                         while (keys.hasMoreElements()) {
-                            Integer port = (Integer) keys.nextElement();
-                            ServiceServer.Listener listener = (ServiceServer.Listener) server.services
+                            Integer port = keys.nextElement();
+                            ServiceServer.Listener listener = server.services
                                     .get(port);
                             String msg = MessageFormat.format(kServiceAndPortPattern, new Object[] {
                                     listener.service.getClass().getName(), String.valueOf(port) });

@@ -8,13 +8,15 @@
 # getmouse(), ungetmouse(), init_color()
 #
 
-import curses, sys, tempfile
+import curses
+import sys
+import tempfile
+
+import test_support
 
 # Optionally test curses module.  This currently requires that the
 # 'curses' resource be given on the regrtest command line using the -u
 # option.  If not available, nothing after this line will be executed.
-
-import test_support
 test_support.requires('curses')
 
 def window_funcs(stdscr):

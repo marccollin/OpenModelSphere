@@ -43,10 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.util;
 
-import java.util.Comparator;
-
 import org.modelsphere.jack.debug.TestException;
 import org.modelsphere.jack.debug.Testable;
+
+import java.util.Comparator;
 
 public abstract class SrSort {
 

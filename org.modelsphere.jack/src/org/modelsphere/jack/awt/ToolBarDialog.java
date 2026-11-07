@@ -42,14 +42,11 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.awt;
 
+import org.modelsphere.jack.debug.Debug;
+
+import javax.swing.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JToolBar;
-
-import org.modelsphere.jack.debug.Debug;
 
 class ToolBarDialog extends JDialog {
     JToolBar toolbar;

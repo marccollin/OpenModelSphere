@@ -116,6 +116,7 @@ public final class DbPath {
         return metafield;
     }
 
+    @Override
     public String toString() {
         if (guiName != null)
             return guiName;

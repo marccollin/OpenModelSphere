@@ -33,13 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.graphic.tool;
 
-import java.awt.Cursor;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -62,6 +55,9 @@ import org.modelsphere.sms.be.international.LocaleMgr;
 import org.modelsphere.sms.be.text.BETextUtil;
 import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.db.DbSMSProject;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class BEUseCaseTool extends BEContextTool {
     private String m_actionName;

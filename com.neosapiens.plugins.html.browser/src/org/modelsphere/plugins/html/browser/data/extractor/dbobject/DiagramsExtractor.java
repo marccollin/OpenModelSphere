@@ -34,12 +34,13 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.data.extractor.dbobject;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.sms.db.DbSMSDiagram;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is used to extract the diagrams of a project from a
@@ -74,9 +75,9 @@ public class DiagramsExtractor
 	 * @throws DbException
 	 *             If an error occurs while handling a DbObject
 	 */
-	public ArrayList<DbSMSDiagram> extractDiagrams() throws DbException
+	public List<DbSMSDiagram> extractDiagrams() throws DbException
 	{
-		ArrayList<DbSMSDiagram> diagrams = new ArrayList<DbSMSDiagram>();
+		List<DbSMSDiagram> diagrams = new ArrayList<DbSMSDiagram>();
 
 		DbEnumeration diagramObjects = object.getComponents().elements(DbSMSDiagram.metaClass);
 		while (diagramObjects.hasMoreElements())

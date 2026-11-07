@@ -33,12 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.graphic.tool;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Polygon;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -57,7 +51,8 @@ import org.modelsphere.sms.db.DbSMSLinkModel;
 import org.modelsphere.sms.db.DbSMSSemanticalObject;
 import org.modelsphere.sms.db.DbSMSStyle;
 import org.modelsphere.sms.international.LocaleMgr;
-import org.modelsphere.sms.or.graphic.ORStamp;
+
+import java.awt.*;
 
 public final class SMSGraphicalLinkTool extends LineTool {
     private Cursor cursor;
@@ -117,7 +112,7 @@ public final class SMSGraphicalLinkTool extends LineTool {
             linkGo.setPolyline(poly);
             Point p = new Point(0, 0);
             linkGo.setCenterOffset(p);
-            linkGo.setRightAngle(new Boolean(this.rightAngle));
+            linkGo.setRightAngle(Boolean.valueOf(this.rightAngle));
             
             //set color of default style
             DbSMSStyle style = diagram.getStyle();

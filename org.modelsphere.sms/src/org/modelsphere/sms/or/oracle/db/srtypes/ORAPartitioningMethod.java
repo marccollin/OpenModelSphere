@@ -45,7 +45,8 @@ open-modelsphere@grandite.com
 // HASH
 package org.modelsphere.sms.or.oracle.db.srtypes;
 
-import org.modelsphere.jack.baseDb.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.srtypes.DbtAbstract;
+import org.modelsphere.jack.baseDb.db.srtypes.Domain;
 import org.modelsphere.sms.or.oracle.international.LocaleMgr;
 
 public class ORAPartitioningMethod extends ORAIndexPartitioningMethod {

@@ -457,7 +457,7 @@ public class PyType extends PyObject implements Serializable {
         }
     }
 
-    private static void fill_classic_mro(ArrayList acc,PyClass classic_cl) {
+    private static void fill_classic_mro(List acc,PyClass classic_cl) {
         if(!acc.contains(classic_cl))
             acc.add(classic_cl);
         PyObject[] bases = classic_cl.__bases__.getArray();
@@ -467,7 +467,7 @@ public class PyType extends PyObject implements Serializable {
     }
 
     private static PyObject[] classic_mro(PyClass classic_cl) {
-        ArrayList acc = new ArrayList();
+        List acc = new ArrayList();
         fill_classic_mro(acc, classic_cl);
         return (PyObject[])acc.toArray(new PyObject[0]);
     }
@@ -551,7 +551,7 @@ public class PyType extends PyObject implements Serializable {
         to_merge[n] = bases;
         remain[n] = 0;
 
-        ArrayList acc = new ArrayList();
+        List acc = new ArrayList();
         acc.add(this);
 
         int empty_cnt=0;
@@ -994,7 +994,7 @@ public class PyType extends PyObject implements Serializable {
     }
 
     private static void fillInClassic(Class c, Class base, PyObject dict) {
-        HashMap propnames = new HashMap();
+        Map propnames = new HashMap();
         Method[] methods = c.getMethods();
         for(int i = 0; i < methods.length; i++) {
             Method meth = methods[i];
@@ -1149,7 +1149,7 @@ public class PyType extends PyObject implements Serializable {
         newtype.non_instantiable = dict.__finditem__("__new__") == null;
     }
 
-    private static HashMap class_to_type;
+    private static Map class_to_type;
 
     public static interface Newstyle {
     }

@@ -33,20 +33,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.awt.Component;
-import java.awt.event.MouseEvent;
-import java.util.EventObject;
-
-import javax.swing.JCheckBox;
-import javax.swing.JTable;
-import javax.swing.event.CellEditorListener;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableModel;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.srtool.screen.design.DesignTableModel;
 import org.modelsphere.sms.be.db.DbBEDiagram;
 import org.modelsphere.sms.be.db.DbBEUseCase;
+
+import javax.swing.*;
+import javax.swing.event.CellEditorListener;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableModel;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.util.EventObject;
 
 public class MultiDbBEUseCaseExternalEditor extends JCheckBox implements TableCellEditor {
     private JTable focusTable = null;

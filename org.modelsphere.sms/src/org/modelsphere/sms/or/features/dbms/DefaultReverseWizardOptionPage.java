@@ -43,25 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.dbms;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
-
-import javax.swing.Box;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.TitledBorder;
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.modelsphere.jack.awt.tree.CheckEvent;
 import org.modelsphere.jack.awt.tree.CheckListener;
 import org.modelsphere.jack.awt.tree.CheckableTree;
@@ -76,6 +57,19 @@ import org.modelsphere.jack.srtool.services.ServiceProtocolList;
 import org.modelsphere.jack.util.TargetRuntimeException;
 import org.modelsphere.sms.or.db.DbORUser;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.tree.DefaultMutableTreeNode;
+import java.awt.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * 
@@ -184,8 +178,8 @@ public class DefaultReverseWizardOptionPage extends WizardPage {
         options.setRequestFile(requestFile);
 
         NameListMessage nameListMessage = getNameList(options);
-        ArrayList nameList = nameListMessage.nameList;
-        if (nameList.size() == 0)
+        List nameList = nameListMessage.nameList;
+        if (nameList.isEmpty())
             return false;
 
         kit.processNameListMessage(options, nameListMessage);
@@ -213,9 +207,8 @@ public class DefaultReverseWizardOptionPage extends WizardPage {
             // Build a list of statement id (order in get file) to skip based on
             // the concept scope
             ObjectScope[] scope = options.getObjectsScope();
-            ArrayList ignoredconceptsids = new ArrayList();
-            for (int i = 0; i < scope.length; i++) {
-                ObjectScope concept = scope[i];
+            List<Object> ignoredconceptsids = new ArrayList<>();
+            for (ObjectScope concept : scope) {
                 if (concept.SQLGetID != null
                         && !ObjectScope.verifyConceptSelection(scope, concept, false))
                     ignoredconceptsids.add(concept.SQLGetID);
@@ -233,10 +226,7 @@ public class DefaultReverseWizardOptionPage extends WizardPage {
             ObjectInputStream input = new ObjectInputStream(s.getInputStream());
             nameListMessage = (NameListMessage) input.readObject();
             errMsg = nameListMessage.errorMessage;
-        } catch (IOException ex) {
-            errMsg = ex.toString();
-            th = ex;
-        } catch (ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             errMsg = ex.toString();
             th = ex;
         }
@@ -262,7 +252,7 @@ public class DefaultReverseWizardOptionPage extends WizardPage {
 
         // get user; if null, objects' names are qualified
         int nameSize = options.nameList.size();
-        int id = ((Integer) userScope.SQLGetID).intValue();
+        int id = (Integer) userScope.SQLGetID;
         if (id >= nameSize) {
             return;
         }
@@ -276,12 +266,11 @@ public class DefaultReverseWizardOptionPage extends WizardPage {
             user = user.trim();
         }
 
-        for (int i = 0; i < scope.length; i++) {
-            ObjectScope concept = scope[i];
+        for (ObjectScope concept : scope) {
             concept.occurences.clear();
 
             if (concept.SQLGetID != null) {
-                int id2 = ((Integer) concept.SQLGetID).intValue();
+                int id2 = (Integer) concept.SQLGetID;
                 if (id2 >= nameSize) {
                     break;
                 }
@@ -300,7 +289,7 @@ public class DefaultReverseWizardOptionPage extends WizardPage {
                         if (owner == null) {
                             String qualObj = stok.nextToken(); // get
                             // 'owner.objname'
-                            if (qualObj.indexOf(".") != -1)
+                            if (qualObj.contains("."))
                                 owner = qualObj.substring(0, qualObj.indexOf(".")); // NOT LOCALIZABLE
                             obj = qualObj.substring(qualObj.indexOf(".") + 1); // NOT
                             // LOCALIZABLE
@@ -314,7 +303,7 @@ public class DefaultReverseWizardOptionPage extends WizardPage {
                         if (obj != null)
                             obj = obj.trim();
 
-                        if (owner == null || owner.length() == 0)
+                        if (owner == null || owner.isEmpty())
                             owner = DBMSUtil.NULL_USER;
 
                         boolean found = false;

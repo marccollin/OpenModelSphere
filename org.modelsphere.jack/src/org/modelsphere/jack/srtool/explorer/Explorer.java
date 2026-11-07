@@ -43,14 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.explorer;
 
-import java.util.*;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
-import javax.swing.*;
-import javax.swing.tree.*;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbGraphicalObjectI;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbRAM;
+import org.modelsphere.jack.baseDb.db.DbRoot;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.baseDb.db.event.DbListener;
 import org.modelsphere.jack.baseDb.db.event.DbRefreshListener;
 import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
@@ -67,6 +69,18 @@ import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.jack.util.SrVector;
 
+import javax.swing.*;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Enumeration;
+import java.util.List;
+
 public class Explorer extends DefaultTreeModel implements DbRefreshListener {
     public static final String kUpdate0 = LocaleMgr.screen.getString("Update0");
     private static final Icon kLocalIcon = GraphicUtil.loadIcon(ApplicationContext.class,
@@ -77,7 +91,7 @@ public class Explorer extends DefaultTreeModel implements DbRefreshListener {
     public static final String ROOT = "ROOT"; // NOT LOCALIZABLE, property key
     public static final String DB_RAM = "RAM"; // NOT LOCALIZABLE, property key
 
-    private List tooltipsFields = new ArrayList();
+    private List<MetaField> tooltipsFields = new ArrayList<>();
 
     class PreferencesListener implements PropertyChangeListener {
         public void propertyChange(PropertyChangeEvent evt) {
@@ -293,9 +307,9 @@ public class Explorer extends DefaultTreeModel implements DbRefreshListener {
             children.sort(getComparator(dbParent));
         }
         
-        ArrayList groupNodeList = new ArrayList();
+        List<DynamicNode> groupNodeList = new ArrayList<>();
         DynamicNode groupNode = null;
-        Enumeration enumeration = children.elements();
+        Enumeration<?> enumeration = children.elements();
         while (enumeration.hasMoreElements()) {
             DynamicNode childNode = (DynamicNode) enumeration.nextElement();
             GroupParams group = childNode.getGroupParams();
@@ -310,8 +324,8 @@ public class Explorer extends DefaultTreeModel implements DbRefreshListener {
                 }
                 else if (!groupNode.toString().equals(group.name)){
                 	boolean groupFound = false;
-                    for (Object o : groupNodeList) {
-                        groupNode = (DynamicNode) o;
+                    for (DynamicNode o : groupNodeList) {
+                        groupNode = o;
                         if (groupNode.toString().equals(group.name)) {
                             groupFound = true;
                             break;
@@ -425,20 +439,20 @@ public class Explorer extends DefaultTreeModel implements DbRefreshListener {
             }
             // check for missing Db
             Db[] dbs = Db.getDbs();
-            for (int i = 0; i < dbs.length; i++) {
-                if (!dbs[i].isValid() || !(dbs[i] instanceof DbRAM))
+            for (Db db : dbs) {
+                if (!db.isValid() || !(db instanceof DbRAM))
                     continue;
-                DynamicNode dbNode = getDynamicNode(parentNode, dbs[i], 0);
+                DynamicNode dbNode = getDynamicNode(parentNode, db, 0);
                 if (dbNode != null)
                     continue;
-                dbs[i].beginTrans(Db.READ_TRANS);
-                DbEnumeration dbEnum = dbs[i].getRoot().getComponents().elements(
+                db.beginTrans(Db.READ_TRANS);
+                DbEnumeration dbEnum = db.getRoot().getComponents().elements(
                         DbProject.metaClass);
                 if (dbEnum.hasMoreElements()) {
                     getDynamicNode(dbEnum.nextElement(), false);
                 }
                 dbEnum.close();
-                dbs[i].commitTrans();
+                db.commitTrans();
             }
             return;
         }
@@ -743,7 +757,7 @@ public class Explorer extends DefaultTreeModel implements DbRefreshListener {
 
     protected final void updateInsertIndexInChildrenOfNode(DynamicNode parentNode)
             throws DbException {
-        Enumeration childrenEnum = parentNode.children();
+        Enumeration<TreeNode> childrenEnum = parentNode.children();
         while (childrenEnum.hasMoreElements()) {
             DynamicNode node = (DynamicNode) childrenEnum.nextElement();
             DbObject dbo = (DbObject) node.getRealObject();

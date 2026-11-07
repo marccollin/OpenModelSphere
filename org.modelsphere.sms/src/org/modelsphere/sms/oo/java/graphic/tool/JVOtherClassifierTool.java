@@ -33,12 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.oo.java.graphic.tool;
 
-import java.awt.Cursor;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -53,11 +47,14 @@ import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.db.DbSMSStereotype;
 import org.modelsphere.sms.db.DbSMSUmlExtensibility;
 import org.modelsphere.sms.db.util.Extensibility;
-import org.modelsphere.sms.oo.java.international.LocaleMgr;
 import org.modelsphere.sms.oo.db.DbOOAdtGo;
 import org.modelsphere.sms.oo.java.JavaModule;
 import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.srtypes.JVClassCategory;
+import org.modelsphere.sms.oo.java.international.LocaleMgr;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class JVOtherClassifierTool extends ButtonSelectionPanelTool {
 

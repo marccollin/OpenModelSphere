@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.util;
 
-public final class DefaultComparableElement implements Comparable {
+public final class DefaultComparableElement implements Comparable<DefaultComparableElement> {
     public final Object object;
     public final Object object2; // optional in most cases - may represent an
     // other value for object
@@ -65,7 +65,8 @@ public final class DefaultComparableElement implements Comparable {
         return name;
     }
 
-    public final int compareTo(Object obj) {
-        return name.compareTo(((DefaultComparableElement) obj).name);
+    @Override
+    public final int compareTo(DefaultComparableElement obj) {
+        return name.compareTo(obj.name);
     }
 }

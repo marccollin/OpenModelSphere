@@ -43,16 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.list;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.SemanticalModel;
 import org.modelsphere.jack.srtool.explorer.Explorer;
 import org.modelsphere.jack.util.DefaultComparableElement;
 import org.modelsphere.jack.util.SrVector;
+
+import java.util.List;
 
 /**
  * 
@@ -69,7 +71,7 @@ final class RowData {
     ListTableModel model;
     TerminologyUtil terminologyUtil = TerminologyUtil.getInstance();
 
-    RowData(ListTableModel model, DbObject neighbor, SrVector values, List columns,
+    RowData(ListTableModel model, DbObject neighbor, SrVector values, List<ColumnInfo> columns,
             boolean load) throws DbException {
         this.model = model;
         this.values = values;
@@ -90,14 +92,14 @@ final class RowData {
         return null;
     }
 
-    void loadData(List columns) throws DbException {
+    void loadData(List<ColumnInfo> columns) throws DbException {
         if (values == null)
             values = new SrVector();
         values.clear();
         composite = neighbor.getComposite();
         for (int i = 0; i < columns.size() && i < ListTableModel.MAX_COLUMNS_COUNT; i++) {
             Object value = null;
-            ColumnInfo column = (ColumnInfo) columns.get(i);
+            ColumnInfo column = columns.get(i);
             if (column.udf != null) { // udf
                 value = neighbor.get(column.udf);
             } else if (column.objectType) { // object type

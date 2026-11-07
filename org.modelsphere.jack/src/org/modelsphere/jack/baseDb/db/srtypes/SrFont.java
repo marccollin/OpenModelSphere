@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.srtypes;
 
-import java.awt.Font;
+import java.awt.*;
 
 public final class SrFont extends SrType {
 
@@ -86,6 +86,7 @@ public final class SrFont extends SrType {
         return (name.equals(font.name) && style == font.style && size == font.size);
     }
 
+    @Override
     public String toString() {
         String strStyle;
         if ((style & Font.BOLD) != 0)

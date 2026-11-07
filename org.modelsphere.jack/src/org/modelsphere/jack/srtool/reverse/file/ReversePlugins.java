@@ -43,15 +43,19 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.file;
 
-import java.util.*;
-
-import org.modelsphere.jack.awt.*;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.awt.ExtensionFileFilter;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.jack.gui.task.DefaultController;
-import org.modelsphere.jack.plugins.*;
+import org.modelsphere.jack.plugins.PluginMgr;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
 
 public abstract class ReversePlugins {
     private static final String ERROR_DETAILS = org.modelsphere.jack.international.LocaleMgr.message
@@ -63,7 +67,7 @@ public abstract class ReversePlugins {
             .getString("AllSupportedTypes");
 
     // Returns the list of Reverse classes.
-    public static final ArrayList getReverseList() {
+    public static List getReverseList() {
         PluginMgr mgr = PluginMgr.getSingleInstance();
         List reverseList = mgr.getPluginsRegistry().getPluginClasses(
                 JackReverseEngineeringPlugin.class);
@@ -71,23 +75,23 @@ public abstract class ReversePlugins {
     }
 
     // Returns the list of Reverse objects.
-    public final ArrayList getReverseObjectList() {
+    public final List getReverseObjectList() {
         PluginMgr mgr = PluginMgr.getSingleInstance();
-        ArrayList reverseObjectList = mgr.getPluginsRegistry().getActivePluginInstances(
+        List reverseObjectList = mgr.getPluginsRegistry().getActivePluginInstances(
                 JackReverseEngineeringPlugin.class);
         return reverseObjectList;
     }
 
     public final void setFilters(Vector filterVector, SourceChooser fileChooser) {
-        Vector extVector = new Vector();
-        ArrayList reverseList = getReverseObjectList();
-        Iterator iter = reverseList.iterator();
+        List<String> extVector = new Vector<>();
+        List<?> reverseList = getReverseObjectList();
+        Iterator<?> iter = reverseList.iterator();
 
         while (iter.hasNext()) {
             JackReverseEngineeringPlugin reverse = (JackReverseEngineeringPlugin) iter.next();
             String ext = reverse.getExtension();
             String def = reverse.getDisplayName();
-            extVector.addElement(ext);
+            extVector.add(ext);
             ExtensionFileFilter filter = new ExtensionFileFilter(new String[] { ext }, def);
             filterVector.addElement(filter);
             fileChooser.addChoosableFileFilter(filter);
@@ -95,7 +99,7 @@ public abstract class ReversePlugins {
 
         String[] extList = new String[extVector.size()];
         for (int i = 0; i < extVector.size(); i++) {
-            extList[i] = (String) extVector.elementAt(i);
+            extList[i] = extVector.get(i);
         } //end for
 
         ExtensionFileFilter filter = new ExtensionFileFilter(extList, ALL_SUPPORTED_TYPES);
@@ -109,7 +113,7 @@ public abstract class ReversePlugins {
     public final void reverseFiles(Vector aFileVector, DbProject proj, AbstractReverser reverser)
             throws DbException {
         Controller controller = new DefaultController(title, true, jobDescription);
-        ArrayList reverseList = getReverseList();
+        List reverseList = getReverseList();
         ReverseOptions options = new ReverseOptions(aFileVector, proj, reverseList, reverser);
         ReverseWorker worker = new ReverseWorker(options);
         controller.start(worker);

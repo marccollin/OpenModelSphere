@@ -44,7 +44,6 @@ import org.modelsphere.jack.srtool.screen.ScreenPerspective;
 import org.modelsphere.sms.SMSFilter;
 import org.modelsphere.sms.db.DbSMSTargetSystem;
 import org.modelsphere.sms.or.db.DbORDataModel;
-import org.modelsphere.sms.or.db.DbORDiagram;
 import org.modelsphere.sms.or.db.DbORModel;
 import org.modelsphere.sms.or.features.ChangingTargetSystemWizard;
 import org.modelsphere.sms.or.international.LocaleMgr;

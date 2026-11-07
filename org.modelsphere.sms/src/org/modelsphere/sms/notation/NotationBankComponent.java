@@ -34,26 +34,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.notation;
 
 //Java
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Iterator;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.event.TreeModelEvent;
-import javax.swing.event.TreeModelListener;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
 
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -92,6 +72,22 @@ import org.modelsphere.sms.international.LocaleMgr;
 import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.db.DbORDiagram;
 import org.modelsphere.sms.or.db.DbORNotation;
+
+import javax.swing.*;
+import javax.swing.event.TreeModelEvent;
+import javax.swing.event.TreeModelListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 
 public class NotationBankComponent extends JPanel implements DbRefreshListener,
         TreeSelectionListener, TreeModelListener {
@@ -283,11 +279,7 @@ public class NotationBankComponent extends JPanel implements DbRefreshListener,
         try {
             project.getDb().beginTrans(Db.WRITE_TRANS, NOTATION_ADD);
             DbObject newNotation = project.createComponent(notationClass);
-            newNotation.set(DbSMSNotation.fName, NEW_NOTATION); // TODO: Move
-            // this value in
-            // init default
-            // value of
-            // DbSMSNotation
+            newNotation.set(DbSMSNotation.fName, NEW_NOTATION); // TODO: Move this value in init default value of DbSMSNotation
             if (newNotation instanceof DbORNotation) {
                 int answer = JOptionPane.showOptionDialog(ApplicationContext.getDefaultMainFrame(),
                         kMsgNewNotationMode, ApplicationContext.getApplicationName(),
@@ -295,23 +287,23 @@ public class NotationBankComponent extends JPanel implements DbRefreshListener,
                         new String[] { kConceptualMode, kRelationalMode, kCancel }, kCancel);
                 if (answer == JOptionPane.YES_OPTION) {// Conceptual Mode
                     ((DbORNotation) newNotation)
-                            .setNotationMode(new Integer(DbSMSNotation.ER_MODE));
+                            .setNotationMode(DbSMSNotation.ER_MODE);
                 } else if (answer == JOptionPane.NO_OPTION) {// Relational Mode
                     ((DbORNotation) newNotation)
-                            .setNotationMode(new Integer(DbSMSNotation.OR_MODE));
+                            .setNotationMode(DbSMSNotation.OR_MODE);
                 } else if (answer == JOptionPane.CANCEL_OPTION) {
                     project.getDb().abortTrans();
                     return;
                 }
                 ((DbORNotation) newNotation).initOptions();
             } else {
-                ((DbBENotation) newNotation).setNotationMode(new Integer(DbSMSNotation.BE_MODE));
+                ((DbBENotation) newNotation).setNotationMode(DbSMSNotation.BE_MODE);
                 ((DbBENotation) newNotation).initOptions();
             }
-            newNotation.set(DbSMSNotation.fNotationID, new Integer(DbInitialization
-                    .getNextNewNotationId()));
-            newNotation.set(DbSMSNotation.fMasterNotationID, new Integer(
-                    DbInitialization.GANE_SARSON));
+            newNotation.set(DbSMSNotation.fNotationID, DbInitialization
+                    .getNextNewNotationId());
+            newNotation.set(DbSMSNotation.fMasterNotationID,
+                    DbInitialization.GANE_SARSON);
             createNewNotation(newNotation);
             project.getDb().commitTrans();
         } catch (Exception ex) {
@@ -401,7 +393,7 @@ public class NotationBankComponent extends JPanel implements DbRefreshListener,
             DbSMSNotation notation = (DbSMSNotation) parentNode.getUserObject();
 
             notation.getDb().beginTrans(Db.READ_TRANS);
-            ArrayList diagList = new ArrayList();
+            List<DbObject> diagList = new ArrayList<>();
             // Add to diagList all the diagrams linked to this notation.
             DbEnumeration dbEnum = null;
             if (notation instanceof DbORNotation)
@@ -444,7 +436,7 @@ public class NotationBankComponent extends JPanel implements DbRefreshListener,
             }
 
             String[] items = new String[diagList.size()];
-            Iterator iter = diagList.iterator();
+            Iterator<DbObject> iter = diagList.iterator();
             for (int i = 0; iter.hasNext(); i++) {
                 DbSMSDiagram diag = (DbSMSDiagram) iter.next();
                 String packName = diag.getComposite().getSemanticalName(DbObject.LONG_FORM);
@@ -494,8 +486,7 @@ public class NotationBankComponent extends JPanel implements DbRefreshListener,
                     } else
                         ((DbBENotation) newNotation).copyOptions((DbBENotation) srcNotation);
 
-                    newNotation.set(DbSMSNotation.fNotationID, new Integer(DbInitialization
-                            .getNextNewNotationId()));
+                    newNotation.set(DbSMSNotation.fNotationID, DbInitialization.getNextNewNotationId());
                     newNotation.set(DbSMSNotation.fMasterNotationID, ((DbSMSNotation) srcNotation)
                             .getMasterNotationID());
                     createNewNotation(newNotation);

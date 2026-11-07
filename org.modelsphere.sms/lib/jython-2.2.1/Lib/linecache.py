@@ -5,8 +5,9 @@ is not found, it will look down the module search path for a file by
 that name.
 """
 
-import sys
 import os
+import sys
+
 from stat import *
 
 __all__ = ["getline","clearcache","checkcache"]

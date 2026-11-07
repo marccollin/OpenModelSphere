@@ -32,8 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.features;
 
-import java.awt.Color;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
@@ -52,6 +50,8 @@ import org.modelsphere.sms.oo.java.db.DbJVClassModel;
 import org.modelsphere.sms.oo.java.db.DbJVPackage;
 import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.db.DbORDiagram;
+
+import java.awt.*;
 
 public class DisplayRecentModifications {
 

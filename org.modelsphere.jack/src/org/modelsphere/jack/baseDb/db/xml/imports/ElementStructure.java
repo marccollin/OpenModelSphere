@@ -92,6 +92,7 @@ class ElementStructure {
     }
 
     // OVERRIDES java.lang.Object
+    @Override
     public String toString() {
         return "( parent=" + m_compositeId + "; nbProps=" + m_props.length + " )";
     }

@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.screen.plugins.MultiDbSemanticalObjectEditor;
@@ -43,12 +40,15 @@ import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.or.db.DbORCommonItem;
 import org.modelsphere.sms.or.db.util.AnyORObject;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class MultiDbORTypeClassifierEditor extends MultiDbSemanticalObjectEditor {
 
-    protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
+    protected Collection<DbObject> getSelectionSet(DbObject parentDbo) throws DbException {
         if (parentDbo instanceof DbORCommonItem)
-            return AnyORObject.getAllTypes(new ArrayList(), (DbSMSProject) parentDbo.getProject());
-        return AnyORObject.getAllTypes(new ArrayList(), AnyORObject.getTargetSystem(parentDbo));
+            return AnyORObject.getAllTypes(new ArrayList<DbObject>(), (DbSMSProject) parentDbo.getProject());
+        return AnyORObject.getAllTypes(new ArrayList<DbObject>(), AnyORObject.getTargetSystem(parentDbo));
     }
 
 }

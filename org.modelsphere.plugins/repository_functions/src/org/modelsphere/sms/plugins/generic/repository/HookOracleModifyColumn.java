@@ -43,19 +43,22 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.generic.repository;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.io.Writer;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.plugins.PluginSignature;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.forward.*;
+import org.modelsphere.jack.srtool.forward.Modifier;
+import org.modelsphere.jack.srtool.forward.Rule;
+import org.modelsphere.jack.srtool.forward.RuleException;
+import org.modelsphere.jack.srtool.forward.UserDefinedField;
 import org.modelsphere.sms.SMSSynchroModel.SynchroObject;
 import org.modelsphere.sms.or.db.DbORColumn;
 import org.modelsphere.sms.or.features.dbms.DefaultSynchroModel;
 import org.modelsphere.sms.or.oracle.db.DbORAColumn;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.Writer;
 
 /**
  * Finds out if the modified properties of a column justify a MODIFY COLUMN SQL clause <br>
@@ -113,8 +116,7 @@ public final class HookOracleModifyColumn extends UserDefinedField {
         boolean modDesc = false;
         int returnCode = 0;
 
-        for (int i = 0; i < modifiedFields.length; i++) {
-            MetaField metaField = modifiedFields[i];
+        for (MetaField metaField : modifiedFields) {
             if (metaField == DbORColumn.fType)
                 doAlterTable = true;
             else if ((metaField == DbORColumn.fLength) || (metaField == DbORColumn.fNbDecimal))
@@ -181,7 +183,7 @@ public final class HookOracleModifyColumn extends UserDefinedField {
 
     private String buildNullClause(DbORAColumn column) throws DbException {
         boolean isNull = column.isNull();
-        if (isNull == true)
+        if (isNull)
             return " " + NULL;
         else
             return " " + NOT_NULL;

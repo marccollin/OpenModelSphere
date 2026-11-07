@@ -1,6 +1,7 @@
+from jarray import array
 from java import awt
 from math import *
-from jarray import array
+
 
 class Graph(awt.Canvas):
 	def __init__(self, initialExpression=None):

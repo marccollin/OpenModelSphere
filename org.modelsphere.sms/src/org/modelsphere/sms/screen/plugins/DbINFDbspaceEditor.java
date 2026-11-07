@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -44,13 +41,17 @@ import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.db.DbORDatabase;
 import org.modelsphere.sms.or.informix.db.DbINFDbspace;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 public class DbINFDbspaceEditor extends DbSemanticalObjectEditor {
 
     private DbORDatabase dbDatabase;
     private DbEnumeration dbEnum;
 
-    protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList dbspaces = new ArrayList();
+    protected Collection<DbINFDbspace> getSelectionSet(DbObject parentDbo) throws DbException {
+        List<DbINFDbspace> dbspaces = new ArrayList<>();
         /*
          * if (parentDbo instanceof DbORDatabase){ int a = 3; return null; } else {
          */
@@ -60,7 +61,7 @@ public class DbINFDbspaceEditor extends DbSemanticalObjectEditor {
             if (database != null) {
                 dbEnum = database.getComponents().elements(DbINFDbspace.metaClass);
                 while (dbEnum.hasMoreElements())
-                    dbspaces.add(dbEnum.nextElement());
+                    dbspaces.add((DbINFDbspace) dbEnum.nextElement());
                 dbEnum.close();
             }
         }
@@ -73,7 +74,7 @@ public class DbINFDbspaceEditor extends DbSemanticalObjectEditor {
                         .elements(DbINFDbspace.metaClass);
             }
             while (dbEnum.hasMoreElements())
-                dbspaces.add(dbEnum.nextElement());
+                dbspaces.add((DbINFDbspace) dbEnum.nextElement());
             dbEnum.close();
         }
         return dbspaces;

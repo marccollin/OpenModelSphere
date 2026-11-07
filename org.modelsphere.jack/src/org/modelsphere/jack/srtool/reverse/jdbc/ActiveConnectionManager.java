@@ -43,23 +43,22 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.jdbc;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
-import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.services.ConnectionMessage;
 import org.modelsphere.jack.srtool.services.ConnectionService;
 import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.jack.util.SrVector;
 
-public final class ActiveConnectionManager {
-    private static SrVector listeners = new SrVector();
+import java.sql.Connection;
+import java.sql.SQLException;
 
-    private static ConnectionMessage cm = null;
+public final class ActiveConnectionManager {
+    private static final SrVector listeners = new SrVector();
+
+    private static ConnectionMessage cm;
 
     private ActiveConnectionManager() {
-    };
+    }
 
     public static void addActiveConnectionListener(ActiveConnectionListener listener) {
         if (listener == null || listeners.contains(listener))

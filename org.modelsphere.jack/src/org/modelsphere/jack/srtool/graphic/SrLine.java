@@ -43,11 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.graphic;
 
-import java.awt.Polygon;
-
 import org.modelsphere.jack.actions.ActionInformation;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.graphic.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbGraphicalObjectI;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.graphic.Diagram;
+import org.modelsphere.jack.graphic.GraphicNode;
+import org.modelsphere.jack.graphic.Line;
+
+import java.awt.*;
 
 public abstract class SrLine extends Line implements ActionInformation {
 

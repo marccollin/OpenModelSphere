@@ -42,13 +42,12 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.Font;
-
-import javax.swing.SwingConstants;
-
 import org.modelsphere.jack.baseDb.db.srtypes.SrFont;
 import org.modelsphere.jack.baseDb.screen.DefaultRenderer;
 import org.modelsphere.jack.baseDb.screen.ScreenView;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * @author Grandite

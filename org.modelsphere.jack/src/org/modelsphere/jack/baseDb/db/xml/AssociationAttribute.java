@@ -44,8 +44,10 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.baseDb.db.xml;
 
 //import javax.xml.transform.stream.StreamResult;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.meta.*;
+
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.meta.MetaRelationship;
 
 class AssociationAttribute extends MetaFieldAttribute {
     private MetaRelationship association;

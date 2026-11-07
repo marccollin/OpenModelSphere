@@ -43,7 +43,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.file;
 
-import java.awt.Component;
+import org.modelsphere.jack.awt.JackOptionPane;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.gui.task.Controller;
+import org.modelsphere.jack.gui.task.GuiController;
+import org.modelsphere.jack.gui.task.Worker;
+import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -54,18 +64,9 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Vector;
-
-import javax.swing.JDialog;
-
-import org.modelsphere.jack.awt.JackOptionPane;
-import org.modelsphere.jack.baseDb.db.Db;
-import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.baseDb.db.DbProject;
-import org.modelsphere.jack.gui.task.Controller;
-import org.modelsphere.jack.gui.task.GuiController;
-import org.modelsphere.jack.gui.task.Worker;
-import org.modelsphere.jack.srtool.international.LocaleMgr;
 
 public class ReverseWorker extends Worker {
     private static final String DONT_KNOW_HOW_TO_REVERSE_MSG = LocaleMgr.message
@@ -87,7 +88,7 @@ public class ReverseWorker extends Worker {
     // (to put in options?)
     private static final int MAX_SIZE_FOR_A_SINGLE_TRANSACTION = 2 * 1024 * 1024;
 
-    ReverseOptions m_options;
+    private final ReverseOptions m_options;
 
     public ReverseWorker(ReverseOptions options) {
         m_options = options;
@@ -98,10 +99,10 @@ public class ReverseWorker extends Worker {
         UniqueFileVector uniqueFileVector = new UniqueFileVector(fileVector);
         int totalReverseCount = uniqueFileVector.size();
         Enumeration enumeration = uniqueFileVector.elements();
-        ArrayList reverseList = getInstantiatedReverseList();
-        Hashtable modelTable = new Hashtable();
+        List reverseList = getInstantiatedReverseList();
+        Map<Class, DbObject> modelTable = new Hashtable<>();
         Vector obsoleteObjectVector = new Vector();
-        HashMap diagMap = new HashMap(); // set to null if we do not want
+        Map diagMap = new HashMap(); // set to null if we do not want
         // graphics
         StringWriter logBuffer = new StringWriter();
         int successfulReverseCount = 0;
@@ -149,7 +150,7 @@ public class ReverseWorker extends Worker {
                 // and put the package and its instance in hash table
 
                 if ((modelClaz != null) && modelTable.containsKey(modelClaz)) {
-                    pack = (DbObject) modelTable.get(modelClaz);
+                    pack = modelTable.get(modelClaz);
                 } else {
                     newlyCreatedPackage = reverse.createNewPackage(modelClaz, project);
                     pack = newlyCreatedPackage;
@@ -194,9 +195,8 @@ public class ReverseWorker extends Worker {
         terminate(instantiatedReverseList, successfulReverseCount, totalReverseCount, logBuffer,
                 name);
         int state = controller.getState();
-        boolean failed = ((state == Controller.STATE_ABORTING)
-                || (state == Controller.STATE_ABORTED) || (state == Controller.STATE_ERROR)) ? true
-                : false;
+        boolean failed = state == Controller.STATE_ABORTING || state == Controller.STATE_ABORTED
+                || state == Controller.STATE_ERROR;
 
         if (singleTransaction == SINGLE_TRANSACTION) {
             if (failed) {
@@ -252,32 +252,27 @@ public class ReverseWorker extends Worker {
                 JackOptionPane.DEFAULT_OPTION, JackOptionPane.WARNING_MESSAGE, null, options,
                 options[0]);
 
-        cancel = (option == 0) ? false : true;
+        cancel = option != 0;
         return cancel;
     }
 
     // returns a number between 1 and 100
     private int computeProgression(long cumulativeSize, long totalSize) {
-        int progression = (int) (((double) cumulativeSize / (double) totalSize) * 99.0 + 1.0);
-        return progression;
+        return (int) (((double) cumulativeSize / (double) totalSize) * 99.0 + 1.0);
     } // end computeProgression()
 
     // Instantiate reverse only once ArrayList getReverseList()
-    private ArrayList instantiatedReverseList = null;
+    private List instantiatedReverseList = null;
 
-    protected ArrayList getInstantiatedReverseList() {
+    protected List getInstantiatedReverseList() {
         if (instantiatedReverseList == null) {
             instantiatedReverseList = new ArrayList();
-            Iterator iter = m_options.m_reverseList.iterator();
-            while (iter.hasNext()) {
-                Class claz = (Class) iter.next();
+            for (Object o : m_options.m_reverseList) {
+                Class claz = (Class) o;
                 try {
-                    JackReverseEngineeringPlugin reverse = (JackReverseEngineeringPlugin) claz
-                            .newInstance();
+                    JackReverseEngineeringPlugin reverse = (JackReverseEngineeringPlugin) claz.newInstance();
                     instantiatedReverseList.add(reverse);
-                } catch (IllegalAccessException ex) {
-                    // try next reverse
-                } catch (InstantiationException ex) {
+                } catch (IllegalAccessException | InstantiationException ex) {
                     // try next reverse
                 }
             } // end while
@@ -286,7 +281,7 @@ public class ReverseWorker extends Worker {
         return instantiatedReverseList;
     } // end getInstantiatedReverseList()
 
-    private JackReverseEngineeringPlugin getReverseForFile(ArrayList reverseList, File file) {
+    private JackReverseEngineeringPlugin getReverseForFile(List reverseList, File file) {
         JackReverseEngineeringPlugin reverse = null;
 
         Iterator iter = reverseList.iterator();
@@ -311,31 +306,31 @@ public class ReverseWorker extends Worker {
     // Sort files according the priority of their reverse module (for example,
     // if ClassReverse has a higher priority than JavaReverse, .class files
     // will be reversed before .java files)
-    protected void sortAccordingPriority(Vector uniqueFileVector, final ArrayList reverseList) {
+    protected void sortAccordingPriority(Vector uniqueFileVector, final List reverseList) {
         // use a hashtable to associate a file with a reverse module
-        final Hashtable table = new Hashtable();
+        final Map<File, JackReverseEngineeringPlugin> table = new Hashtable<>();
 
-        class PriorityComparator implements Comparator {
-            public int compare(Object file1, Object file2) {
+        class PriorityComparator implements Comparator<File> {
+            public int compare(File file1, File file2) {
                 int comparation = 0;
                 try {
                     // already in the table?
-                    JackReverseEngineeringPlugin reverse1 = (JackReverseEngineeringPlugin) table
+                    JackReverseEngineeringPlugin reverse1 = table
                             .get(file1);
 
                     // if not found
                     if (reverse1 == null) {
-                        reverse1 = getRelevantReverse((File) file1, reverseList);
+                        reverse1 = getRelevantReverse(file1, reverseList);
                         table.put(file1, reverse1);
                     }
 
                     // already in the table?
-                    JackReverseEngineeringPlugin reverse2 = (JackReverseEngineeringPlugin) table
+                    JackReverseEngineeringPlugin reverse2 = table
                             .get(file2);
 
                     // if not found
                     if (reverse2 == null) {
-                        reverse2 = getRelevantReverse((File) file2, reverseList);
+                        reverse2 = getRelevantReverse(file2, reverseList);
                         table.put(file2, reverse2);
                     }
 
@@ -352,13 +347,12 @@ public class ReverseWorker extends Worker {
         }
     } // end sortAccordingPriority()
 
-    private JackReverseEngineeringPlugin getRelevantReverse(File file, ArrayList reverseList)
+    private JackReverseEngineeringPlugin getRelevantReverse(File file, List reverseList)
             throws IOException {
         JackReverseEngineeringPlugin reverse = null;
 
-        Iterator iter = reverseList.iterator();
-        while (iter.hasNext()) {
-            Class claz = (Class) iter.next();
+        for (Object o : reverseList) {
+            Class claz = (Class) o;
             try {
                 JackReverseEngineeringPlugin r = (JackReverseEngineeringPlugin) claz.newInstance();
 
@@ -366,9 +360,7 @@ public class ReverseWorker extends Worker {
                     reverse = r;
                     break;
                 }
-            } catch (IllegalAccessException ex) {
-                // ignore and continue with the next reverse
-            } catch (InstantiationException ex) {
+            } catch (IllegalAccessException | InstantiationException ex) {
                 // ignore and continue with the next reverse
             }
         } // end while
@@ -377,20 +369,20 @@ public class ReverseWorker extends Worker {
     } // getRelevantReverse()
 
     // Normaly terminated
-    final private void terminate(ArrayList reverseList, int successfulReverseCount,
+    final private void terminate(List reverseList, int successfulReverseCount,
             int totalReverseCount, StringWriter logBuffer, String name) {
         Controller controller = getController();
         String log = logBuffer.toString();
 
         // if warning messages in log buffer
-        if (log.length() != 0) {
+        if (!log.isEmpty()) {
             controller.println(log);
         }
 
         if (successfulReverseCount > 0) {
             String reverseCountMessage = java.text.MessageFormat.format(FILES_REVERSED,
-                    new Object[] { new Integer(successfulReverseCount),
-                            new Integer(totalReverseCount), name });
+                    new Object[] { successfulReverseCount,
+                            totalReverseCount, name });
             controller.println(reverseCountMessage);
         } // end if
     } // end terminate()

@@ -43,6 +43,23 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.dbms;
 
+import org.modelsphere.jack.debug.Debug;
+import org.modelsphere.jack.gui.task.Controller;
+import org.modelsphere.jack.gui.task.Worker;
+import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectScope;
+import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectSelection;
+import org.modelsphere.jack.srtool.plugins.generic.dbms.UserInfo;
+import org.modelsphere.jack.srtool.reverse.Actions;
+import org.modelsphere.jack.srtool.reverse.InputFileParser;
+import org.modelsphere.jack.srtool.reverse.SQLLexerStream;
+import org.modelsphere.jack.srtool.reverse.TargetObjectBuilder;
+import org.modelsphere.jack.srtool.reverse.engine.ReverseBuilder;
+import org.modelsphere.jack.srtool.services.ConnectionMessage;
+import org.modelsphere.jack.srtool.services.ServiceProtocolList;
+import org.modelsphere.jack.srtool.services.StatementMessage;
+import org.modelsphere.sms.or.db.DbORUser;
+import org.modelsphere.sms.or.international.LocaleMgr;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -62,23 +79,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.StringTokenizer;
-
-import org.modelsphere.jack.debug.Debug;
-import org.modelsphere.jack.gui.task.Controller;
-import org.modelsphere.jack.gui.task.Worker;
-import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectScope;
-import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectSelection;
-import org.modelsphere.jack.srtool.plugins.generic.dbms.UserInfo;
-import org.modelsphere.jack.srtool.reverse.Actions;
-import org.modelsphere.jack.srtool.reverse.InputFileParser;
-import org.modelsphere.jack.srtool.reverse.SQLLexerStream;
-import org.modelsphere.jack.srtool.reverse.TargetObjectBuilder;
-import org.modelsphere.jack.srtool.reverse.engine.ReverseBuilder;
-import org.modelsphere.jack.srtool.services.ConnectionMessage;
-import org.modelsphere.jack.srtool.services.ServiceProtocolList;
-import org.modelsphere.jack.srtool.services.StatementMessage;
-import org.modelsphere.sms.or.db.DbORUser;
-import org.modelsphere.sms.or.international.LocaleMgr;
+import java.util.List;
 
 public class DBMSReverseWorker extends Worker {
     private static final String kReverseJobSynchro = LocaleMgr.misc.getString("ReverseInSynchro");
@@ -219,13 +220,13 @@ public class DBMSReverseWorker extends Worker {
             errMsg = ex.toString();
         }
 
-        ArrayList list = statementMsg.resultList;
+        List<?> list = statementMsg.resultList;
         int len = list.size();
-        for (int i = 0; i < len; i++) {
-            ArrayList sublist = (ArrayList) list.get(i);
+        for (Object o : list) {
+            List<?> sublist = (List<?>) o;
             int sublen = sublist.size();
-            for (int j = 0; j < sublen; j++) {
-                String s = (String) sublist.get(j);
+            for (Object object : sublist) {
+                String s = (String) object;
                 writer.write(s);
             }
         }
@@ -416,10 +417,10 @@ public class DBMSReverseWorker extends Worker {
 
     private void processRequest(String request, Writer writer) throws SQLException, IOException {
         if (toBeExecuted(request)) {
-            ArrayList requests = customize(request);
-            Iterator iter = requests.iterator();
+            List<String> requests = customize(request);
+            Iterator<String> iter = requests.iterator();
             while (iter.hasNext()) {
-                String sql = (String) iter.next();
+                String sql = iter.next();
                 if (sql != null) {
                     executeSQL(options.getConnection(), sql, writer);
                 }
@@ -430,10 +431,10 @@ public class DBMSReverseWorker extends Worker {
     // customize the WHERE clause, build the $scope tag
     // The request may be splitted in many sql request (according to
     // MAX_DBMS_LIST_ELEMENTS).
-    // The returned ArrayList contains all the String corresponding to each of
+    // The returned List contains all the String corresponding to each of
     // these sql request.
-    private ArrayList customize(String request) {
-        ArrayList requests = new ArrayList();
+    private List<String> customize(String request) {
+        List<String> requests = new ArrayList<>();
 
         // find the "$scope" tag...
         int index = request.lastIndexOf("$scope"); // NOT LOCALIZABLE - sql tag
@@ -532,13 +533,13 @@ public class DBMSReverseWorker extends Worker {
         if (!userAdded)
             return null;
 
-        if (filter.length() > 0)
+        if (!filter.isEmpty())
             filter = " (" + filter + ") ";
 
         return filter;
     }
 
-    private String getINClause(ArrayList selections, boolean in) {
+    private String getINClause(List selections, boolean in) {
         String list = "";
         boolean first = true;
         ObjectSelection selection = null;
@@ -552,7 +553,7 @@ public class DBMSReverseWorker extends Worker {
                 first = false;
             }
         }
-        if (list.length() > 0) {
+        if (!list.isEmpty()) {
             list = (in ? "" : " NOT") + " IN (" + list + ") "; // NOT
             // LOCALIZABLE -
             // sql tag
@@ -647,7 +648,7 @@ public class DBMSReverseWorker extends Worker {
 
     // synchronized ??? must block other threads to close srxFileWriter (if
     // exception)
-    private void dumpSRXToFile(ArrayList srxResult) {
+    private void dumpSRXToFile(List srxResult) {
         if (srxResult == null || srxFileWriter == null)
             return;
 
@@ -656,7 +657,7 @@ public class DBMSReverseWorker extends Worker {
             Iterator iter1 = srxResult.iterator();
             while (iter1.hasNext()) {
                 String result = new String("");
-                ArrayList srxObject = (ArrayList) iter1.next();
+                List<?> srxObject = (List<?>) iter1.next();
                 if (srxObject != null) {
                     Iterator iter2 = srxObject.iterator();
                     while (iter2.hasNext()) {

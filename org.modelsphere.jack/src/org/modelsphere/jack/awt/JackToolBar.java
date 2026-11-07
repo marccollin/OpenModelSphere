@@ -43,25 +43,28 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Window;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.*;
-import javax.swing.plaf.ToolBarUI;
-import javax.swing.plaf.basic.BasicToolBarUI;
-
-import org.modelsphere.jack.actions.*;
+import org.modelsphere.jack.actions.AbstractApplicationAction;
+import org.modelsphere.jack.actions.AbstractColorDomainAction;
+import org.modelsphere.jack.actions.AbstractDomainAction;
+import org.modelsphere.jack.actions.AbstractMenuAction;
+import org.modelsphere.jack.actions.AbstractTriStatesAction;
+import org.modelsphere.jack.actions.SelectionActionListener;
+import org.modelsphere.jack.actions.UndoRedoAbstractAction;
 import org.modelsphere.jack.actions.util.DbMultiTrans;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.actions.ShowAbstractAction;
 import org.modelsphere.jack.util.ExceptionHandler;
+
+import javax.swing.*;
+import javax.swing.plaf.ToolBarUI;
+import javax.swing.plaf.basic.BasicToolBarUI;
+import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class JackToolBar extends JToolBar {
 

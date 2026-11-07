@@ -43,15 +43,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.html;
 
+import org.modelsphere.jack.baseDb.db.DbObject;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import org.modelsphere.jack.baseDb.db.DbObject;
+import java.util.List;
+import java.util.Map;
 
 public final class InternalLinkSet {
-    HashMap map = new HashMap(); // Map to array List - the key is the dbo
-    ArrayList links = new ArrayList();
+    Map<DbObject, List<InternalLink>> map = new HashMap<>(); // Map to array List - the key is the dbo
+    List<InternalLink> links = new ArrayList<>();
     int nextKey = 0;
 
     public InternalLinkSet() {
@@ -65,11 +67,7 @@ public final class InternalLinkSet {
         if (dbo == null)
             return null;
 
-        ArrayList dbolinks = (ArrayList) map.get(dbo);
-        if (dbolinks == null) {
-            dbolinks = new ArrayList(2);
-            map.put(dbo, dbolinks);
-        }
+        List<InternalLink> dbolinks = map.computeIfAbsent(dbo, k -> new ArrayList<>(2));
         InternalLink link = new InternalLink(nextKey, dbo, action, text, imageUrl);
         nextKey++;
         links.add(link);
@@ -92,19 +90,18 @@ public final class InternalLinkSet {
             // LOCALIZABLE
             return null;
         int idx = slink.toLowerCase().indexOf("key="); // NOT LOCALIZABLE
-        slink = slink.substring(idx + "key=".length(), slink.length()); // NOT
-        // LOCALIZABLE
+        slink = slink.substring(idx + "key=".length()); // NOT LOCALIZABLE
         String number = "";
         idx = 0;
         while (idx < slink.length()) {
             char c = slink.charAt(idx);
             if (!Character.isDigit(c))
                 break;
-            number = number.concat(new String(new char[] { c }));
+            number = number.concat(String.valueOf(c));
             idx++;
         }
 
-        if (number.length() == 0)
+        if (number.isEmpty())
             return null;
 
         int key = -1;
@@ -117,7 +114,7 @@ public final class InternalLinkSet {
         if (key < 0 || key >= links.size())
             return null;
 
-        return (InternalLink) links.get(key);
+        return links.get(key);
     }
 
 }

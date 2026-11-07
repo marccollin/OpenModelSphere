@@ -33,14 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.awt.Component;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.Iterator;
-
-import javax.swing.JComboBox;
-
 import org.modelsphere.jack.awt.AbstractTableCellEditor;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -54,6 +46,13 @@ import org.modelsphere.sms.db.DbSMSSemanticalObject;
 import org.modelsphere.sms.or.db.DbORAbsTable;
 import org.modelsphere.sms.or.db.DbORColumn;
 
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
+
 /**
  * 
  * Editor for fields: DbORIndex.fConstraint, DbORPrimaryUnique.fIndex, DbORForeign.fIndex
@@ -61,10 +60,8 @@ import org.modelsphere.sms.or.db.DbORColumn;
  */
 public final class SMSSemanticalMetaClassEditor implements Editor {
 
-    private Object oldValue;
-    private DbObject parentDbo;
     private org.modelsphere.jack.baseDb.screen.Renderer renderer;
-    private Component comp = null;
+    private Component comp;
 
     private static final String kTableOrEntity = org.modelsphere.sms.international.LocaleMgr.screen
             .getString("TableOrEntity");
@@ -73,19 +70,18 @@ public final class SMSSemanticalMetaClassEditor implements Editor {
     private static final String kColumnOrAttribute = org.modelsphere.sms.international.LocaleMgr.screen
             .getString("ColumnOrAttribute");
 
-    private ArrayList semanticalMetaClasses = null;
+    private List<DefaultComparableElement> semanticalMetaClasses;
 
     public final Component getTableCellEditorComponent(ScreenView screenView,
             AbstractTableCellEditor editor, Object value, boolean isSelected, int row, int column) {
-        oldValue = value;
         ScreenModel model = screenView.getModel();
-        parentDbo = (DbObject) model.getParentValue(row);
+        DbObject parentDbo = (DbObject) model.getParentValue(row);
 
         renderer = model.getRenderer(row, column);
         try {
             if (semanticalMetaClasses == null) {
-                semanticalMetaClasses = new ArrayList();
-                Enumeration enumeration = MetaClass.enumMetaClasses();
+                semanticalMetaClasses = new ArrayList<>();
+                Enumeration<?> enumeration = MetaClass.enumMetaClasses();
                 while (enumeration.hasMoreElements()) {
                     MetaClass metaclass = (MetaClass) enumeration.nextElement();
                     if (((metaclass.getFlags() & MetaClass.UML_EXTENSIBILITY_FILTER) != 0)
@@ -108,7 +104,7 @@ public final class SMSSemanticalMetaClassEditor implements Editor {
                 Collections.sort(semanticalMetaClasses);
             }
 
-            JComboBox combo = new JComboBox();
+            JComboBox<DefaultComparableElement> combo = new JComboBox<>();
             int selInd = -1;
 
             String currentMetaclassName = (String) value;
@@ -119,9 +115,8 @@ public final class SMSSemanticalMetaClassEditor implements Editor {
                 currentMetaclass = DbSMSSemanticalObject.metaClass;
 
             parentDbo.getDb().beginTrans(Db.READ_TRANS);
-            Iterator iter = semanticalMetaClasses.iterator();
-            while (iter.hasNext()) {
-                MetaClass metaclass = (MetaClass) ((DefaultComparableElement) iter.next()).object;
+            for (DefaultComparableElement element : semanticalMetaClasses) {
+                MetaClass metaclass = (MetaClass) element.object;
                 if (metaclass == DbORAbsTable.metaClass)
                     combo.addItem(new DefaultComparableElement(metaclass, kTableOrEntity));
                 else if (metaclass == DbSMSAssociation.metaClass)

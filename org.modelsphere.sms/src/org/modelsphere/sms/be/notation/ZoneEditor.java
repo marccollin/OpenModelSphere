@@ -33,46 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.notation;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.Icon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-
 import org.modelsphere.jack.awt.ThinBevelBorder;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -97,6 +57,23 @@ import org.modelsphere.sms.be.db.DbBEUseCase;
 import org.modelsphere.sms.be.db.srtypes.BEZoneStereotype;
 import org.modelsphere.sms.be.international.LocaleMgr;
 import org.modelsphere.sms.db.srtypes.SMSZoneOrientation;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 public final class ZoneEditor extends JPanel implements ActionListener {
     private static final int HORIZONTAL_ORIENTATION = 0;
@@ -335,8 +312,8 @@ public final class ZoneEditor extends JPanel implements ActionListener {
                     x += col0width;
                 } else {
                     col1width = (dim.width - insets.left - insets.right);
-                    cellheight = components.length > 0 ? (dim.height - insets.top - insets.bottom)
-                            / components.length : (dim.height - insets.top - insets.bottom);
+                    cellheight = (dim.height - insets.top - insets.bottom)
+                            / components.length;
                     firstCell.setBounds(x, y, col1width, cellheight);
                     y += cellheight;
                 }
@@ -540,8 +517,8 @@ public final class ZoneEditor extends JPanel implements ActionListener {
 
     private void loadSelected() throws DbException {
         editor.removeAll();
-        ArrayList listvalues = new ArrayList();
-        ArrayList zones = null;
+        List<SelectedZoneElement> listvalues = new ArrayList<>();
+        List<DbBESingleZoneDisplay> zones = null;
         int orientation = 0;
         SMSZoneOrientation horizontalOrientation = SMSZoneOrientation
                 .getInstance(SMSZoneOrientation.HORIZONTAL);
@@ -575,23 +552,21 @@ public final class ZoneEditor extends JPanel implements ActionListener {
                         : VERTICAL_ORIENTATION;
         }
 
-        Iterator iter = zones.iterator();
         for (int i = 0; i < zones.size(); i++) {
-            DbBESingleZoneDisplay zone = (DbBESingleZoneDisplay) zones.get(i);
+            DbBESingleZoneDisplay zone = zones.get(i);
             listvalues.add(new SelectedZoneElement(zone, i, i == 0 ? orientation
                     : HORIZONTAL_ORIENTATION));
         }
         Collections.sort(listvalues);
-        iter = listvalues.iterator();
-        while (iter.hasNext()) {
-            Cell cell = new Cell((SelectedZoneElement) iter.next(), !stereotype
+        for (SelectedZoneElement listvalue : listvalues) {
+            Cell cell = new Cell(listvalue, !stereotype
                     .equals(BEZoneStereotype.getInstance(BEZoneStereotype.FLOW)));
             editor.add(cell);
         }
     }
 
     private void loadAvailable() throws DbException {
-        ArrayList listvalues = new ArrayList();
+        List<AvailableZoneElement> listvalues = new ArrayList<>();
         MetaClass metaclass = null;
         if (stereotype.equals(BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR)))
             metaclass = DbBEActor.metaClass;
@@ -602,7 +577,7 @@ public final class ZoneEditor extends JPanel implements ActionListener {
         else
             metaclass = DbBEUseCase.metaClass;
 
-        ArrayList zones = new ArrayList();
+        List<Object> zones = new ArrayList<>();
         try {
             Class claz = metaclass.getJClass();
             Field field = (Field) claz.getField("notationFields"); // NOT LOCALIZABLE
@@ -621,7 +596,7 @@ public final class ZoneEditor extends JPanel implements ActionListener {
         }
         dbEnum.close();
 
-        Iterator iter = zones.iterator();
+        Iterator<Object> iter = zones.iterator();
         int index = -1;
         SemanticalModel model = ApplicationContext.getSemanticalModel();
         while (iter.hasNext()) {
@@ -638,7 +613,7 @@ public final class ZoneEditor extends JPanel implements ActionListener {
     }
 
     private DbBESingleZoneDisplay[] getZones() throws DbException {
-        ArrayList zonelist = new ArrayList();
+        List<DbBESingleZoneDisplay> zonelist = new ArrayList<>();
         DbEnumeration dbEnum = notation.getComponents().elements(DbBESingleZoneDisplay.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbBESingleZoneDisplay zone = (DbBESingleZoneDisplay) dbEnum.nextElement();
@@ -648,7 +623,7 @@ public final class ZoneEditor extends JPanel implements ActionListener {
 
         DbBESingleZoneDisplay[] zones = new DbBESingleZoneDisplay[zonelist.size()];
         for (int i = 0; i < zones.length; i++)
-            zones[i] = (DbBESingleZoneDisplay) zonelist.get(i);
+            zones[i] = zonelist.get(i);
 
         return zones;
     }
@@ -666,8 +641,8 @@ public final class ZoneEditor extends JPanel implements ActionListener {
             return;
         selectedCell = newSelectedCell;
         Component[] components = editor.getComponents();
-        for (int i = 0; i < components.length; i++) {
-            Cell cell = (Cell) components[i];
+        for (Component component : components) {
+            Cell cell = (Cell) component;
             if (cell.selected && cell == selectedCell)
                 return;
             cell.setSelected(cell == selectedCell);

@@ -43,13 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.debug;
 
-import java.util.Properties;
-
-import javax.swing.UIManager;
-
 import org.modelsphere.jack.plugins.PluginMgr;
 import org.modelsphere.jack.plugins.io.PluginLoader;
 import org.modelsphere.jack.srtool.ApplicationContext;
+
+import javax.swing.*;
+import java.util.Properties;
 
 public final class TechnicalSupport {
     private static final String TECH_SUPPORT_EMAIL = "???.com"; // NOT LOCALIZABLE - email
@@ -106,7 +105,7 @@ public final class TechnicalSupport {
         char[] chars = linesep == null ? new char[] {} : linesep.toCharArray();
         String charsint = "";
         for (int i = 0; i < chars.length; i++) {
-            charsint += new Integer((int) chars[i]).toString() + " ";
+            charsint += Integer.valueOf((int) chars[i]).toString() + " ";
         }
         info += "line.separator = " + charsint + "\n"; // NOT LOCALIZABLE
         info += "path.separator = " + System.getProperty("path.separator") + "\n"; // NOT LOCALIZABLE

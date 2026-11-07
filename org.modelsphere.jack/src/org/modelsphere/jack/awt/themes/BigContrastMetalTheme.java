@@ -43,13 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.themes;
 
-import javax.swing.plaf.*;
-import javax.swing.plaf.metal.*;
-import javax.swing.*;
-import javax.swing.border.*;
-
 import org.modelsphere.jack.international.LocaleMgr;
 
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
+import javax.swing.plaf.BorderUIResource;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.plaf.metal.MetalIconFactory;
 import java.awt.*;
 
 public class BigContrastMetalTheme extends ContrastMetalTheme {
@@ -132,7 +133,7 @@ public class BigContrastMetalTheme extends ContrastMetalTheme {
         table.put("ScrollPane.border", blackLineBorder); // NOT LOCALIZABLE,
         // property key
 
-        table.put("ScrollBar.width", new Integer(25)); // NOT LOCALIZABLE,
+        table.put("ScrollBar.width", Integer.valueOf(25)); // NOT LOCALIZABLE,
         // property key
     }
 }

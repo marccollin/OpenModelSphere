@@ -43,23 +43,23 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Point;
+import org.modelsphere.jack.actions.AbstractApplicationAction;
+import org.modelsphere.jack.actions.UndoRedoAbstractAction;
+import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.MessageFormat;
-
-import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.event.*;
-
-import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.actions.UndoRedoAbstractAction;
-import org.modelsphere.jack.international.LocaleMgr;
 
 public class PopupCommandHistoryPanel extends PopupButton {
     private static final String kActionCount = LocaleMgr.misc.getString("Actions0");
@@ -140,6 +140,7 @@ public class PopupCommandHistoryPanel extends PopupButton {
             list.setModel(new DefaultListModel());
 
             list.addListSelectionListener(new ListSelectionListener() {
+                @Override
                 public void valueChanged(ListSelectionEvent e) {
                     if (e.getValueIsAdjusting() && e.getFirstIndex() != -1) {
                         list.setSelectionInterval(0, e.getLastIndex());

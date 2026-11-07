@@ -44,9 +44,14 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.srtool.forward;
 
 import java.beans.BeanInfo;
-import java.beans.Introspector;
 import java.beans.IntrospectionException;
-import java.io.*;
+import java.beans.Introspector;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.io.Writer;
 
 public class ImportClause extends Rule {
 

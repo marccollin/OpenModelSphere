@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.actions;
 
-import javax.swing.Icon;
-
 import org.modelsphere.jack.actions.AbstractDomainAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -47,23 +45,22 @@ import org.modelsphere.sms.be.BEModule;
 import org.modelsphere.sms.be.db.DbBEFlow;
 import org.modelsphere.sms.be.international.LocaleMgr;
 
+import javax.swing.*;
+
 public final class DirectionAction extends AbstractDomainAction implements SelectionActionListener {
-    private static Icon kArrowImage1 = GraphicUtil.loadIcon(BEModule.class,
+    private static final Icon kArrowImage1 = GraphicUtil.loadIcon(BEModule.class,
             "international/resources/dir_1.gif");
-    private static Icon kArrowImage2 = GraphicUtil.loadIcon(BEModule.class,
+    private static final Icon kArrowImage2 = GraphicUtil.loadIcon(BEModule.class,
             "international/resources/dir_3.gif");
-    private static Icon kArrowImage3 = GraphicUtil.loadIcon(BEModule.class,
+    private static final Icon kArrowImage3 = GraphicUtil.loadIcon(BEModule.class,
             "international/resources/dir_2.gif");
-    private static Icon kArrowImage4 = GraphicUtil.loadIcon(BEModule.class,
+    private static final Icon kArrowImage4 = GraphicUtil.loadIcon(BEModule.class,
             "international/resources/dir_4.gif");
 
     DirectionAction() {
         super(LocaleMgr.action.getString("Direction"), new Object[] { kArrowImage1, kArrowImage2,
                 kArrowImage3, kArrowImage4 }, true); // TODO
-        // convert
-        // Object[]
-        // to
-        // ImageIcon
+        // convert Object[] to ImageIcon
         setEnabled(false);
 
     }
@@ -79,11 +76,10 @@ public final class DirectionAction extends AbstractDomainAction implements Selec
         try {
             // should not be executed on more than one diagram (ie one Db)
             selobjs[0].getDb().beginWriteTrans(LocaleMgr.action.getString("Direction"));
-            for (int i = 0; i < selobjs.length; i++) {
-                if (!(selobjs[i] instanceof DbBEFlow)) {
+            for (DbObject selobj : selobjs) {
+                if (!(selobj instanceof DbBEFlow flow)) {
                     continue;
                 }
-                DbBEFlow flow = (DbBEFlow) selobjs[i];
                 if (index == 0) {
                     flow.setArrowFirstEnd(Boolean.FALSE);
                     flow.setArrowSecondEnd(Boolean.FALSE);
@@ -111,8 +107,8 @@ public final class DirectionAction extends AbstractDomainAction implements Selec
             return;
         }
 
-        for (int i = 0; i < selobjs.length; i++) {
-            if (!(selobjs[i] instanceof DbBEFlow)) {
+        for (DbObject selobj : selobjs) {
+            if (!(selobj instanceof DbBEFlow)) {
                 setEnabled(false);
                 return;
             }

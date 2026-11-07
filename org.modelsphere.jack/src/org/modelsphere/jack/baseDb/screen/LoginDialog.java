@@ -43,15 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.HotKeysSupport;
 import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginDialog extends JDialog implements ActionListener {
 

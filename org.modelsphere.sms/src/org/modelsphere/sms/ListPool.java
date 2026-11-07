@@ -33,12 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import javax.swing.Icon;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
@@ -149,6 +143,10 @@ import org.modelsphere.sms.or.oracle.db.DbORATable;
 import org.modelsphere.sms.or.oracle.db.DbORATablespace;
 import org.modelsphere.sms.or.oracle.db.DbORATrigger;
 import org.modelsphere.sms.or.oracle.db.DbORAView;
+
+import javax.swing.*;
+import java.util.HashMap;
+import java.util.List;
 
 final class ListPool extends HashMap {
     private static final String NOT_NAVIGABLE = LocaleMgr.screen.getString("NotNavigable");

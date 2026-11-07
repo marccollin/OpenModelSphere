@@ -44,8 +44,8 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.srtool.reverse.file;
 
 public class FilePositions {
-    private int m_linePos;
-    private int m_colnPos;
+    private final int m_linePos;
+    private final int m_colnPos;
 
     public int getLine() {
         return m_linePos;
@@ -61,17 +61,8 @@ public class FilePositions {
     } // end FilePositions()
 
     public boolean isBefore(FilePositions anotherPositions) {
-        boolean isBefore;
-
-        if (m_linePos < anotherPositions.m_linePos) {
-            isBefore = true;
-        } else if (m_linePos > anotherPositions.m_linePos) {
-            isBefore = false;
-        } else {
-            isBefore = (m_colnPos < anotherPositions.m_colnPos) ? true : false;
-        } // end if
-
-        return isBefore;
+        return m_linePos < anotherPositions.m_linePos
+                || (m_linePos == anotherPositions.m_linePos && m_colnPos < anotherPositions.m_colnPos);
     } // end isBefore()
 
 } // end FilePositions

@@ -32,19 +32,17 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.screen;
 
-import java.awt.Toolkit;
-import java.util.Locale;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.srtool.AddElement;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;
 import org.modelsphere.sms.Application;
-import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.db.DbSMSUmlExtensibility;
 import org.modelsphere.sms.international.LocaleMgr;
 import org.modelsphere.sms.or.db.DbORUserNode;
+
+import java.awt.*;
+import java.util.Locale;
 
 //Customization of an application
 //Application name and icone: SMSScreenPerspective.setApplicationNameAndSymbols()

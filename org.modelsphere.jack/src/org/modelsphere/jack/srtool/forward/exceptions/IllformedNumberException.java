@@ -52,10 +52,10 @@ package org.modelsphere.jack.srtool.forward.exceptions;
  * @version 1.0
  */
 
-import java.text.MessageFormat;
-
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.templates.parsing.ParseException;
+
+import java.text.MessageFormat;
 
 public class IllformedNumberException extends ParseException {
 

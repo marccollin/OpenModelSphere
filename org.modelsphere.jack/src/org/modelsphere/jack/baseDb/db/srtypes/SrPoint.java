@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.srtypes;
 
-import java.awt.Point;
+import java.awt.*;
 
 public final class SrPoint extends SrType {
 
@@ -76,6 +76,7 @@ public final class SrPoint extends SrType {
         return (x == point.x && y == point.y);
     }
 
+    @Override
     public String toString() {
         return "x=" + x + ",y=" + y; // NOT LOCALIZABLE
     }

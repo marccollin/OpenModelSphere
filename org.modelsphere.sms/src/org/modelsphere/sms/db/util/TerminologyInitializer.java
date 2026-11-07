@@ -42,8 +42,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.db.util;
 
-import javax.swing.Icon;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.util.Terminology;
@@ -86,6 +84,8 @@ import org.modelsphere.sms.or.informix.db.DbINFTable;
 import org.modelsphere.sms.or.oracle.db.DbORAColumn;
 import org.modelsphere.sms.or.oracle.db.DbORAPrimaryUnique;
 import org.modelsphere.sms.or.oracle.db.DbORATable;
+
+import javax.swing.*;
 
 /**
  * @author Grandite

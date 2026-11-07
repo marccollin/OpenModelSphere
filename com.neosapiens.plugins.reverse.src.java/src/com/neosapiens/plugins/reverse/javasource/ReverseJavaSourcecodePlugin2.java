@@ -1,12 +1,8 @@
 package com.neosapiens.plugins.reverse.javasource;
 
-import java.awt.event.ActionEvent;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-
+import com.neosapiens.plugins.reverse.javasource.international.JavaSourceReverseLocaleMgr;
+import com.neosapiens.plugins.reverse.javasource.ui.ReverseJavaSourcecodeWizard;
+import com.neosapiens.plugins.reverse.javasource.ui.WizardParameters;
 import org.modelsphere.jack.awt.JackMenu;
 import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.jack.gui.task.Worker;
@@ -19,9 +15,8 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.MainFrameMenu;
 
-import com.neosapiens.plugins.reverse.javasource.international.JavaSourceReverseLocaleMgr;
-import com.neosapiens.plugins.reverse.javasource.ui.ReverseJavaSourcecodeWizard;
-import com.neosapiens.plugins.reverse.javasource.ui.WizardParameters;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("deprecation")
 public class ReverseJavaSourcecodePlugin2 implements Plugin2 {
@@ -43,7 +38,6 @@ public class ReverseJavaSourcecodePlugin2 implements Plugin2 {
     public Class<? extends Object>[] getSupportedClasses() {
         return null;
     }
-    
 
     @Override
     public void execute(ActionEvent ev) throws Exception {

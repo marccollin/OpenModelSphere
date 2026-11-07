@@ -25,12 +25,13 @@ Misc variables:
 
 __version__ = "$Revision: 1.56.4.4 $"       # Code version
 
-from types import *
-from copy_reg import dispatch_table, safe_constructors
-import marshal
-import sys
 import struct
+import sys
+from types import *
+
+import marshal
 import re
+from copy_reg import dispatch_table
 
 __all__ = ["PickleError", "PicklingError", "UnpicklingError", "Pickler",
            "Unpickler", "dump", "dumps", "load", "loads"]

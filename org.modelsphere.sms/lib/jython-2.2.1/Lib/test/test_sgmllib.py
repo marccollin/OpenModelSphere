@@ -1,7 +1,8 @@
 import pprint
 import sgmllib
-import test_support
 import unittest
+
+import test_support
 
 
 class EventCollector(sgmllib.SGMLParser):

@@ -33,7 +33,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.report.model;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class HtmlColor extends Color {
 
@@ -45,6 +45,7 @@ public class HtmlColor extends Color {
         this(color.getRed(), color.getGreen(), color.getBlue());
     }
 
+    @Override
     public String toString() {
         String str = "#";
         String red = Integer.toHexString(this.getRed()).toUpperCase();

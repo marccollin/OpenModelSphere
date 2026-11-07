@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -44,10 +41,14 @@ import org.modelsphere.sms.or.db.DbORDatabase;
 import org.modelsphere.sms.or.db.DbOROperationLibrary;
 import org.modelsphere.sms.or.db.util.AnyORObject;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 public class DbOROperationLibraryEditor extends DbSemanticalObjectEditor {
 
-    protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList operationLibraries = new ArrayList();
+    protected Collection<DbOROperationLibrary> getSelectionSet(DbObject parentDbo) throws DbException {
+        List<DbOROperationLibrary> operationLibraries = new ArrayList<>();
         DbEnumeration dbEnum = parentDbo.getProject().componentTree(DbOROperationLibrary.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbOROperationLibrary dbo = (DbOROperationLibrary) dbEnum.nextElement();

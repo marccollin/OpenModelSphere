@@ -1,17 +1,28 @@
 package org.modelsphere.sms.features.layout;
 
-import java.awt.Dimension;
-import java.util.*;
-
 import org.modelsphere.jack.actions.ActionInformation;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbGraphicalObjectI;
+import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.graphic.Diagram;
 import org.modelsphere.jack.graphic.GraphicComponent;
 import org.modelsphere.jack.srtool.features.layout.GraphFactory;
-import org.modelsphere.jack.srtool.features.layout.graph.*;
+import org.modelsphere.jack.srtool.features.layout.graph.Edge;
 import org.modelsphere.jack.srtool.features.layout.graph.Edge.OrientationConstraint;
 import org.modelsphere.jack.srtool.features.layout.graph.Edge.RelationType;
-import org.modelsphere.sms.db.*;
+import org.modelsphere.jack.srtool.features.layout.graph.Graph;
+import org.modelsphere.jack.srtool.features.layout.graph.GraphEdgeFactory;
+import org.modelsphere.jack.srtool.features.layout.graph.Node;
+import org.modelsphere.sms.db.DbSMSAssociationGo;
+import org.modelsphere.sms.db.DbSMSClassifierGo;
+import org.modelsphere.sms.db.DbSMSInheritanceGo;
+import org.modelsphere.sms.db.DbSMSPackageGo;
+
+import java.awt.*;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * A factory for creating SMSGraph objects.

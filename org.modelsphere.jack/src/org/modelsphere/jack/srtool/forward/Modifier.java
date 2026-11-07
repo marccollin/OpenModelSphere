@@ -43,12 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.*;
-import java.util.*;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.srtool.forward.Rule.RuleOptions;
 import org.modelsphere.jack.srtool.forward.exceptions.EditionCodesNotAllowedRuleException;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 public abstract class Modifier implements Serializable {
     Template m_tmpl = null;
@@ -83,7 +87,7 @@ public abstract class Modifier implements Serializable {
     public void setActualSubRules(Hashtable table, boolean editCodesAllowed) throws RuleException {
         // extract rule names from m_tmpl
         TemplateEnumeration enumeration = new TemplateEnumeration(m_format);
-        List list = new ArrayList();
+        List<StringStructure> list = new ArrayList<>();
 
         while (enumeration.hasMoreElements()) {
             StringStructure ss = (StringStructure) enumeration.nextElement();
@@ -94,7 +98,7 @@ public abstract class Modifier implements Serializable {
         int rawRulesIndex = 0;
         Rule[] subActualRules = new Rule[nb];
         for (int i = 0; i < nb; i++) {
-            StringStructure ss = (StringStructure) list.get(i);
+            StringStructure ss = list.get(i);
             if (ss.editionCode != null) {
                 if (!editCodesAllowed) {
                     throw new EditionCodesNotAllowedRuleException();

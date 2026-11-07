@@ -43,20 +43,21 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.treeTable;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.util.EventObject;
+import org.modelsphere.jack.awt.AbstractTableCellEditor;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
-import javax.swing.tree.*;
-
-import org.modelsphere.jack.awt.AbstractTableCellEditor;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreeCellRenderer;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.util.EventObject;
 
 /**
  * An expandable/collapsable tree with several columns (like a table). Not currently supported by
@@ -102,6 +103,7 @@ public class TreeTable extends JTable {
                     // Action
                     // key
 
+                    @Override
                     public void actionPerformed(ActionEvent e) {
                         if (m_tree != null) {
                             final int selRow = m_tree.getLeadSelectionRow();

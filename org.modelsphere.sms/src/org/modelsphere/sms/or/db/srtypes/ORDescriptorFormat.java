@@ -43,7 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.db.srtypes;
 
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.srtypes.DbtAbstract;
 
 public final class ORDescriptorFormat extends DbtAbstract {
@@ -103,6 +104,7 @@ public final class ORDescriptorFormat extends DbtAbstract {
         return (bold == format.bold && italic == format.italic && underline == format.underline);
     }
 
+    @Override
     public String toString() {
         String str = "";
         str = str + "Bold: " + (bold == true ? "true" : "false") + "| Italic: "

@@ -43,12 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.Component;
-import javax.swing.JCheckBox;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.baseDb.screen.model.*;
+import org.modelsphere.jack.baseDb.screen.model.DbDescriptionModel;
+import org.modelsphere.jack.baseDb.screen.model.DbListModel;
+import org.modelsphere.jack.baseDb.screen.model.ScreenModel;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class BooleanRenderer extends JCheckBox implements
         org.modelsphere.jack.baseDb.screen.Renderer {

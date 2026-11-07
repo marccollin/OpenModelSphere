@@ -36,6 +36,7 @@ python ftplib.py -d localhost -l -p -l
 
 import os
 import sys
+
 import string
 
 # Import SOCKS module if it exists, else standard socket module socket

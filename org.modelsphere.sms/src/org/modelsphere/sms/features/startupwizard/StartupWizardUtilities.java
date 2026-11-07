@@ -32,12 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.features.startupwizard;
 
-import java.awt.GridBagConstraints;
-import java.awt.Image;
-import java.awt.Insets;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.util.Terminology;
@@ -45,14 +39,30 @@ import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.graphic.GraphicUtil;
 import org.modelsphere.jack.graphic.tool.Tool;
 import org.modelsphere.sms.SMSToolkit;
-import org.modelsphere.sms.be.db.*;
-import org.modelsphere.sms.be.graphic.tool.*;
+import org.modelsphere.sms.be.db.DbBEActor;
+import org.modelsphere.sms.be.db.DbBEFlow;
+import org.modelsphere.sms.be.db.DbBEStore;
+import org.modelsphere.sms.be.db.DbBEUseCase;
+import org.modelsphere.sms.be.graphic.tool.BEActorTool;
+import org.modelsphere.sms.be.graphic.tool.BEDecisionTool;
+import org.modelsphere.sms.be.graphic.tool.BEFinalStateTool;
+import org.modelsphere.sms.be.graphic.tool.BEFlowTool;
+import org.modelsphere.sms.be.graphic.tool.BEInitialStateTool;
+import org.modelsphere.sms.be.graphic.tool.BEStoreTool;
+import org.modelsphere.sms.be.graphic.tool.BESynchronizationTool;
+import org.modelsphere.sms.be.graphic.tool.BEUseCaseTool;
 import org.modelsphere.sms.be.international.LocaleMgr;
 import org.modelsphere.sms.be.text.BETextUtil;
 import org.modelsphere.sms.db.DbSMSNotation;
 import org.modelsphere.sms.db.DbSMSStereotype;
 import org.modelsphere.sms.db.util.DbInitialization;
-import org.modelsphere.sms.or.graphic.tool.*;
+import org.modelsphere.sms.or.graphic.tool.ORAssociationTool;
+import org.modelsphere.sms.or.graphic.tool.ORSubModelTool;
+import org.modelsphere.sms.or.graphic.tool.ORTableTool;
+import org.modelsphere.sms.or.graphic.tool.ORViewTool;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class StartupWizardUtilities {
 

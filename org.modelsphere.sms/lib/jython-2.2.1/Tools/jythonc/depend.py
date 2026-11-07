@@ -1,12 +1,10 @@
 # Copyright (c) Corporation for National Research Initiatives
 
-import sys
 import os
-from types import TypeType
-
+import sys
 from java import io
 from java.util.zip import ZipFile
-
+from types import TypeType
 
 
 def fix(n):
@@ -119,7 +117,7 @@ def defaultFilter(name):
 
 
 from org.python.core import PyJavaPackage
-from util import lookup, getzip
+from util import lookup
 from util import openResource
 def getFile(name):
     dot = name.rfind('.')

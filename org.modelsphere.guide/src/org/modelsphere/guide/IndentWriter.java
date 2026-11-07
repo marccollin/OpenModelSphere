@@ -33,9 +33,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.guide;
 
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.io.OutputStream;
 
 /**
  * An indent writer is a print writer that outputs indentation whitespace
@@ -127,7 +127,7 @@ public void print(char c) {
     if (c == '\n') newline = true;
 }
 public void print(char[] s) {
-    for (int i = 0; i < s.length; ++i) print(s[i]);
+    for (char c : s) print(c);
 }
 public void print(double d) { doIndent(); super.print(d); }
 public void print(float f) { doIndent(); super.print(f); }

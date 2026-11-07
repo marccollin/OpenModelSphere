@@ -42,29 +42,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.templates;
 
-import java.io.EOFException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.StreamCorruptedException;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.file.FileSystems;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
@@ -112,6 +89,28 @@ import org.modelsphere.jack.templates.parsing.TemplateParser;
 import org.modelsphere.jack.templates.parsing.TokenMgrError;
 import org.modelsphere.jack.util.JarUtil;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.StreamCorruptedException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
+import java.nio.file.FileSystems;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.List;
 
 /**
  * This class provides common services for code generation plug-ins.
@@ -172,7 +171,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
         }
     }
 
-    protected Hashtable m_ruletable = new Hashtable();
+    protected Hashtable<String, Rule> m_ruletable = new Hashtable<>();
 
     //DUMMY METHOD, its only purpose is to avoid the declarations of forwardTo(DbObject, int)
     //in subclasses.  DO NOT REMOVE final modifier [MS]
@@ -181,7 +180,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
         return 0;
     }
 
-    protected void forwardTo(DbObject semObj, ArrayList generatedFiles) throws DbException,
+    protected void forwardTo(DbObject semObj, List generatedFiles) throws DbException,
             IOException, RuleException {
         // has to be coded
     }
@@ -324,7 +323,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
     private Modifier[] createModifiers(GenericRuleStructure currentRS, Modifier optionalModifier)
             throws VariableNotDefinedRuleException {
         Modifier[] modifiers;
-        List modifierList = new ArrayList();
+        List<Modifier> modifierList = new ArrayList<>();
         if (optionalModifier != null) {
             modifierList.add(optionalModifier);
         }
@@ -390,7 +389,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
         nb = modifierList.size();
         modifiers = new Modifier[nb];
         for (int i = 0; i < nb; i++) {
-            modifiers[i] = (Modifier) modifierList.get(i);
+            modifiers[i] = modifierList.get(i);
         }
 
         return modifiers;
@@ -540,8 +539,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
             rule = userConn.createInstance(childRule, oneChildRule);
 
             //add modifiers
-            for (int i = 0; i < modifiers.length; i++) {
-                Modifier mod = modifiers[i];
+            for (Modifier mod : modifiers) {
                 if (mod instanceof PrefixModifier) {
                     rule.prefixModifier = (PrefixModifier) mod;
                 } else if (mod instanceof SeparatorModifier) {
@@ -568,13 +566,13 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
         String[] subr = currentRS.m_stringRules;
         String[] dom = currentRS.m_stringDomains;
         String[] tmpRules = null;
-        List rulesList = new ArrayList();
+        List<Rule> rulesList = new ArrayList<>();
 
         for (String string : subr) {
 
             if (currentRS.m_ruleCategory == GenericRuleStructure.CDOM) {
                 TemplateEnumeration enumeration = new TemplateEnumeration(string);
-                List ruleList = new ArrayList();
+                List<String> ruleList = new ArrayList<>();
                 while (enumeration.hasMoreElements()) {
                     StringStructure ss = (StringStructure) enumeration.nextElement();
                     if (ss.stringRule != null) {
@@ -587,7 +585,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
                 tmpRules = new String[ruleList.size()];
 
                 for (int i = 0; i < ruleList.size(); i++) {
-                    String s = (String) ruleList.get(i);
+                    String s = ruleList.get(i);
                     tmpRules[i] = s;
                 } //end for i
             } // end if
@@ -603,7 +601,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
         Rule[] rules = new Rule[rulesList.size()];
 
         for (int b = 0; b < rulesList.size(); b++) {
-            rules[b] = (Rule) rulesList.get(b);
+            rules[b] = rulesList.get(b);
         }
         rule = new CharacterDomain(rulename, dom, subr);
         return rule;
@@ -694,8 +692,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
         int duplication = GenericModifierStructure.NONE;
         GenericModifierStructure[] modifs = currentRS.m_modifiers;
         int nb = modifs.length;
-        for (int i = 0; i < nb; i++) {
-            GenericModifierStructure ms = modifs[i];
+        for (GenericModifierStructure ms : modifs) {
             if (ms.m_modifierCategory == GenericModifierStructure.UNIQUE_MODIFIER) {
                 duplication = GenericModifierStructure.UNIQUE_MODIFIER;
                 break;
@@ -755,9 +752,9 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
             output.writeObject(getVarScope());
 
             //write all the rules
-            Enumeration enumeration = m_ruletable.elements();
+            Enumeration<Rule> enumeration = m_ruletable.elements();
             while (enumeration.hasMoreElements()) {
-                Rule rule = (Rule) enumeration.nextElement();
+                Rule rule = enumeration.nextElement();
 
                 if (rule instanceof Connector) {
                     Connector conn = (Connector) rule;
@@ -943,12 +940,12 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
 
     private void findActualSubRules() throws RuleException {
         //for each rule of the Hashtable
-        Enumeration enumeration = m_ruletable.elements();
+        Enumeration<Rule> enumeration = m_ruletable.elements();
         String currentRule = null;
 
         try {
             while (enumeration.hasMoreElements()) {
-                Rule rule = (Rule) enumeration.nextElement();
+                Rule rule = enumeration.nextElement();
                 currentRule = rule.m_ruleName; //keep the name, if case of failure
 
                 try {
@@ -1055,7 +1052,7 @@ public abstract class GenericForwardEngineeringPlugin extends JackForwardEnginee
                     return null;
                 }
 
-                rule = (Rule) m_ruletable.get(rulename);
+                rule = m_ruletable.get(rulename);
                 if (rule == null) {
                     String msg = MessageFormat.format(RULE_NOT_FOUND_PATTRN,
                             new Object[] { rulename });

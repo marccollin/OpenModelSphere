@@ -3,10 +3,10 @@
 # (can be adapted to test alternative re-implemations even while they are developed
 # write a *Envl class and change/add to to_test for that)
 
-import unittest
-
 import java
 import org.python.core
+import unittest
+
 
 class PyReflFuncEnvl:
 

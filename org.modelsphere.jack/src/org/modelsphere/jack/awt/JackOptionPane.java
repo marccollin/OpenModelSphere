@@ -43,13 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Component;
-
-import javax.swing.Icon;
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class JackOptionPane extends JOptionPane {
 

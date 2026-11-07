@@ -1,5 +1,5 @@
-import mimetypes
 import StringIO
+import mimetypes
 import unittest
 
 import test_support

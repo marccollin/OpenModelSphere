@@ -1,6 +1,6 @@
-import os
 import base64
 import gettext
+import os
 
 
 def test_api_1(localedir, mofile):

@@ -33,14 +33,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import javax.swing.JButton;
-
 import org.modelsphere.jack.awt.JackToolBar;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.graphic.tool.ZoomCombo;
 import org.modelsphere.jack.srtool.actions.ZoomAction;
 import org.modelsphere.sms.actions.SMSActionsStore;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import javax.swing.*;
 
 public class DisplayToolBar extends JackToolBar {
 

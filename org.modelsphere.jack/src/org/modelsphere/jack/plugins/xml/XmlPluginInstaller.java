@@ -44,37 +44,29 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package org.modelsphere.jack.plugins.xml;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.StringTokenizer;
-
-import org.modelsphere.jack.plugins.Plugin;
 import org.modelsphere.jack.plugins.PluginDescriptor;
+import org.modelsphere.jack.plugins.PluginStartupTiming;
 import org.modelsphere.jack.plugins.PluginsConfiguration;
 import org.modelsphere.jack.plugins.PluginsRegistry;
 import org.modelsphere.jack.plugins.io.PluginContext;
 import org.modelsphere.jack.plugins.io.PluginLoader;
 import org.modelsphere.jack.plugins.io.XMLPluginContext;
-import org.modelsphere.jack.plugins.io.XMLPluginUtilities;
 import org.modelsphere.jack.plugins.xml.extensions.AbstractPluginExtension;
-import org.modelsphere.jack.plugins.xml.extensions.PopupExtension;
 import org.modelsphere.jack.plugins.xml.fs.FsEntry;
 import org.modelsphere.jack.plugins.xml.fs.FsFile;
 import org.modelsphere.jack.plugins.xml.fs.FsFolder;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.Splash;
 import org.modelsphere.jack.srtool.popupMenu.ApplicationPopupMenu;
+
+import java.io.File;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.StringTokenizer;
 
 public class XmlPluginInstaller {
 
@@ -112,33 +104,42 @@ public class XmlPluginInstaller {
         //read plugins.xml
         PluginsConfiguration pluginsConfiguration = PluginsConfiguration.getSingleton();
         List<PluginDescriptor> configuredPlugins = new ArrayList<PluginDescriptor>();
-        pluginsConfiguration.load(configuredPlugins);
+        try (PluginStartupTiming timing = PluginStartupTiming.start("xml.configuration")) {
+            pluginsConfiguration.load(configuredPlugins);
+        }
 
         //return plugin paths
-        List<FsFolder> pluginPaths = getPluginPaths(pluginsRegistry);
+        List<FsFolder> pluginPaths;
+        try (PluginStartupTiming timing = PluginStartupTiming.start("xml.paths")) {
+            pluginPaths = getPluginPaths(pluginsRegistry);
+        }
 
         //get URIs of all plugin.xml files
         List<FsFile> pluginXmlList = new ArrayList<FsFile>();
         int searchDepth = 2;
-        for (FsFolder path : pluginPaths) {
-            scanPath(pluginXmlList, path, searchDepth);
+        try (PluginStartupTiming timing = PluginStartupTiming.start("xml.scan")) {
+            for (FsFolder path : pluginPaths) {
+                scanPath(pluginXmlList, path, searchDepth);
+            }
         }
 
         //read plugin.xml files
         List<XmlPluginDescriptor> descriptorList = new ArrayList<XmlPluginDescriptor>();
-        for (FsFile pluginXml : pluginXmlList) {	
-            try {
-                XmlPluginDescriptor descriptor = XmlPluginDescriptor.create(pluginXml);
-                if (descriptor != null) {
-                    if (! descriptorList.contains(descriptor)) {
-                        descriptorList.add(descriptor);
+        try (PluginStartupTiming timing = PluginStartupTiming.start("xml.parse")) {
+            for (FsFile pluginXml : pluginXmlList) {
+                try {
+                    XmlPluginDescriptor descriptor = XmlPluginDescriptor.create(pluginXml);
+                    if (descriptor != null) {
+                        if (! descriptorList.contains(descriptor)) {
+                            descriptorList.add(descriptor);
+                        }
                     }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
 
-        } //end for
+            } //end for
+        }
 
         //register plug-ins
         for (XmlPluginDescriptor pluginDescriptor : descriptorList) {
@@ -173,7 +174,8 @@ public class XmlPluginInstaller {
             if (pluginDescriptor instanceof XmlPluginDescriptor) {
                 XmlPluginDescriptor xmlDescriptor = (XmlPluginDescriptor)pluginDescriptor; 
 
-                try {
+                try (PluginStartupTiming timing = PluginStartupTiming.start(
+                        "xml.extensions", pluginDescriptor.getClassName())) {
                     Class<?> claz = xmlDescriptor.getPluginClass();
                     if (claz != null) {
                         //for each extension
@@ -224,7 +226,10 @@ public class XmlPluginInstaller {
         XmlPluginActionFactory factory = XmlPluginActionFactory.getInstance();
         for (PluginDescriptor pluginDescriptor : descriptorList) {
             if (pluginDescriptor instanceof XmlPluginDescriptor) {
-                factory.createPluginAction(splash, (XmlPluginDescriptor)pluginDescriptor);
+                try (PluginStartupTiming timing = PluginStartupTiming.start(
+                        "xml.action", pluginDescriptor.getClassName())) {
+                    factory.createPluginAction(splash, (XmlPluginDescriptor)pluginDescriptor);
+                }
             }
         }
     }
@@ -357,7 +362,7 @@ public class XmlPluginInstaller {
 
 	private static class PopupMap {
         Class<?> clazz;
-        ArrayList<String> keys = new ArrayList<String>();
+        List<String> keys = new ArrayList<String>();
 
         PopupMap(Class<?> c) {
             this.clazz = c;

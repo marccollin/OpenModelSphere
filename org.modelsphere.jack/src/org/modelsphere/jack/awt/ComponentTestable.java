@@ -49,7 +49,7 @@ open-modelsphere@grandite.com
  */
 package org.modelsphere.jack.awt;
 
-import javax.swing.JComponent;
+import javax.swing.*;
 
 /**
  * @author Grandite

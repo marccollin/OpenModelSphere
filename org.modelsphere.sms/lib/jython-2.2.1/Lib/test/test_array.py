@@ -7,12 +7,13 @@
 #      The jarray module is being phased out, with all functionality
 #      now available in the array module.
 
-from test_support import *
-from array import array, zeros
 import sys
+from array import array, zeros
 from java.lang import String
 from java.lang.reflect import Array
 from java.util import Arrays
+
+from test_support import *
 
 print_test('array module (test_array.py)', 1)
 
@@ -52,7 +53,6 @@ def test_java_object_arrays():
          (jStringArr.typecode, str(String)))
    verify(zeros(String, 5) == Array.newInstance(String, 5))
 
-   import java # require for eval to work
    if jStringArr != eval(str(jStringArr)):
       raise TestFailed, "eval(str(%s)) <> %s" % (jStringArr,)*2
    

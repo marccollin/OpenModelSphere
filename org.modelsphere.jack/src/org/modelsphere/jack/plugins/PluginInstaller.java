@@ -1,6 +1,22 @@
 package org.modelsphere.jack.plugins;
 
-import java.io.*;
+import org.modelsphere.jack.international.LocaleMgr;
+import org.modelsphere.jack.plugins.io.InstallCommand;
+import org.modelsphere.jack.plugins.io.InvalidSignatureException;
+import org.modelsphere.jack.plugins.io.PluginLoader;
+import org.modelsphere.jack.plugins.io.XMLPluginUtilities;
+import org.modelsphere.jack.srtool.ApplicationContext;
+import org.modelsphere.jack.util.FileUtils;
+import org.xml.sax.SAXException;
+
+import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Enumeration;
@@ -8,17 +24,6 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
-
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpressionException;
-
-import org.modelsphere.jack.international.LocaleMgr;
-import org.modelsphere.jack.plugins.io.*;
-import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.util.FileUtils;
-import org.xml.sax.SAXException;
 
 public class PluginInstaller {
     private static final String NEWER_VERSION = LocaleMgr.screen.getString("PluginNewer");

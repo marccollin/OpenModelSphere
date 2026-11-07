@@ -43,13 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import javax.swing.*;
-
 import org.modelsphere.jack.baseDb.screen.DefaultRenderer;
 import org.modelsphere.jack.baseDb.screen.ScreenView;
 
-import java.awt.Image;
-import java.awt.Component;
+import javax.swing.*;
+import java.awt.*;
 
 public class SrImageRenderer extends DefaultRenderer {
     public static final SrImageRenderer singleton = new SrImageRenderer();

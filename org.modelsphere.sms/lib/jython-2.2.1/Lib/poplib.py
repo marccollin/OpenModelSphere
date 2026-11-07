@@ -12,7 +12,8 @@ Based on the J. Myers POP3 draft, Jan. 96
 
 # Imports
 
-import re, socket
+import re
+import socket
 
 __all__ = ["POP3","error_proto"]
 

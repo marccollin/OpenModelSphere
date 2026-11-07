@@ -43,13 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen;
 
-import java.awt.Component;
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -58,6 +51,12 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.util.CollationComparator;
 import org.modelsphere.jack.util.DefaultComparableElement;
 import org.modelsphere.jack.util.SrSort;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 public abstract class DbLookupDialog {
 
@@ -70,10 +69,10 @@ public abstract class DbLookupDialog {
      * closes the transaction before displaying the dialog.
      */
     public static DefaultComparableElement selectDbo(Component comp, String title, Point center,
-            Db db, Collection dbos, DbObject currentDbo, String nullStr, boolean fullName)
+            Db db, Collection<?> dbos, DbObject currentDbo, String nullStr, boolean fullName)
             throws DbException {
         int nb = dbos.size();
-        ArrayList arrayDefaultComparableElements = new ArrayList();
+        List<DefaultComparableElement> arrayDefaultComparableElements = new ArrayList<>();
 
         if (nullStr != null) {
             arrayDefaultComparableElements.add(new DefaultComparableElement(null, nullStr));
@@ -85,9 +84,8 @@ public abstract class DbLookupDialog {
                 .isObjectEntityOrAssociation(currentDbo);
         boolean bObjectIsRelationship = terminologyUtil.isObjectAssociation(currentDbo);
 
-        Iterator iter = dbos.iterator();
-        while (iter.hasNext()) {
-            DbObject dbo = (DbObject) iter.next();
+        for (Object o : dbos) {
+            DbObject dbo = (DbObject) o;
             String name;
             if (fullName) {
                 name = ApplicationContext.getSemanticalModel().getDisplayText(dbo,

@@ -43,13 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.db.srtypes;
 
-import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.srtypes.DbtAbstract;
+import org.modelsphere.jack.baseDb.db.srtypes.Domain;
+import org.modelsphere.jack.baseDb.db.srtypes.IntDomain;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.sms.international.LocaleMgr;
-import org.modelsphere.sms.oo.db.DbOODiagram;
-import org.modelsphere.sms.or.db.DbORDiagram;
 
 public class SMSRecentModificationOption extends IntDomain {
 

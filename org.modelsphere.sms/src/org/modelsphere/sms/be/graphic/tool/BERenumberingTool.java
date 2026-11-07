@@ -33,11 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.graphic.tool;
 
-import java.awt.Cursor;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.event.MouseEvent;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -67,6 +62,9 @@ import org.modelsphere.sms.be.graphic.BEStoreBox;
 import org.modelsphere.sms.be.graphic.BEUseCaseBox;
 import org.modelsphere.sms.be.international.LocaleMgr;
 import org.modelsphere.sms.db.DbSMSClassifier;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public final class BERenumberingTool extends Tool {
     private Cursor cursor;
@@ -207,7 +205,7 @@ public final class BERenumberingTool extends Tool {
 
         // increment counter for the next call
         int inc = renumbering.getIncrement().intValue();
-        renumbering.setCounter(new Integer(id + inc));
+        renumbering.setCounter(Integer.valueOf(id + inc));
 
         return id;
     } // end computeIdentifier()
@@ -362,13 +360,13 @@ public final class BERenumberingTool extends Tool {
             throws DbException {
         if (semObj instanceof DbBEUseCase) {
             DbBEUseCase usecase = (DbBEUseCase) semObj;
-            usecase.setNumericIdentifier(new Integer(identifier));
+            usecase.setNumericIdentifier(Integer.valueOf(identifier));
         } else if (semObj instanceof DbBEActor) {
             DbBEActor actor = (DbBEActor) semObj;
-            actor.setIdentifier(new Integer(identifier));
+            actor.setIdentifier(Integer.valueOf(identifier));
         } else if (semObj instanceof DbBEStore) {
             DbBEStore store = (DbBEStore) semObj;
-            store.setIdentifier(new Integer(identifier));
+            store.setIdentifier(Integer.valueOf(identifier));
         } else if (semObj instanceof DbBEFlow) {
             DbBEFlow flow = (DbBEFlow) semObj;
             String id = getStrValue(identifier, flowIdPrefrix);

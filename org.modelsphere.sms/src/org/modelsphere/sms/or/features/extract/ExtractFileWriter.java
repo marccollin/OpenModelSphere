@@ -33,11 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.extract;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
@@ -54,6 +49,11 @@ import org.modelsphere.sms.or.db.DbORTable;
 import org.modelsphere.sms.or.db.DbORTypeClassifier;
 import org.modelsphere.sms.or.oracle.db.srtypes.ORASizeUnit;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
 abstract class ExtractFileWriter {
     protected static final String MSG_PATTERN = org.modelsphere.jack.srtool.international.LocaleMgr.message
             .getString("successfullyCreatedPattern");
@@ -67,7 +67,7 @@ abstract class ExtractFileWriter {
         m_controller = controller;
     }
 
-    protected File createFile(DbORDataModel dataModel, File directory, ArrayList fileList)
+    protected File createFile(DbORDataModel dataModel, File directory, List fileList)
             throws IOException, DbException {
         // create file and write file header
         String filename = dataModel.getName() + TEXT_EXT;
@@ -163,7 +163,7 @@ abstract class ExtractFileWriter {
         } // end if
 
         String name = obj.getPhysicalName();
-        if ((name == null) || (name.equals("")))
+        if ((name == null) || (name.isEmpty()))
             name = obj.getName();
 
         return name;
@@ -200,7 +200,7 @@ abstract class ExtractFileWriter {
     //
     abstract void writeHeader(PrintWriter writer, DbORDataModel dataModel) throws DbException;
 
-    abstract void writeDataModel(DbORDataModel dataModel, File directory, ArrayList fileList)
+    abstract void writeDataModel(DbORDataModel dataModel, File directory, List fileList)
             throws IOException, DbException;
 
     abstract void writeTable(DbORTable table, PrintWriter writer) throws DbException;

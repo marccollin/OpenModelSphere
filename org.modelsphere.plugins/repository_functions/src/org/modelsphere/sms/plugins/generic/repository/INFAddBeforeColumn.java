@@ -44,9 +44,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.plugins.generic.repository;
 
 //Java
-import java.io.IOException;
-import java.io.Serializable;
-import java.io.Writer;
 
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -58,6 +55,10 @@ import org.modelsphere.jack.srtool.forward.RuleException;
 import org.modelsphere.jack.srtool.forward.UserDefinedField;
 import org.modelsphere.sms.or.informix.db.DbINFColumn;
 import org.modelsphere.sms.or.informix.db.DbINFTable;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.Writer;
 
 public class INFAddBeforeColumn extends UserDefinedField {
 

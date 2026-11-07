@@ -33,17 +33,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.graphic;
 
-import java.util.Vector;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.graphic.Diagram;
 import org.modelsphere.jack.graphic.zone.CompositeCellRenderer;
+import org.modelsphere.jack.graphic.zone.CompositeCellRenderer.CompositeCellRendererElement;
 import org.modelsphere.jack.graphic.zone.StringCellRenderer;
 import org.modelsphere.jack.graphic.zone.ZoneCell;
-import org.modelsphere.jack.graphic.zone.CompositeCellRenderer.CompositeCellRendererElement;
 import org.modelsphere.jack.srtool.graphic.SrLineLabel;
 import org.modelsphere.sms.or.db.DbORAssociationEnd;
+
+import java.util.Vector;
+import java.util.List;
 
 public class MultiplicityLabel extends SrLineLabel {
 
@@ -53,8 +54,8 @@ public class MultiplicityLabel extends SrLineLabel {
     }
 
     public final void setValue(String prefix, String value, boolean underline) {
-        Vector elements = new Vector();
-        if (prefix.length() != 0)
+        List<CompositeCellRendererElement> elements = new Vector<>();
+        if (!prefix.isEmpty())
             elements.add(new CompositeCellRendererElement(new StringCellRenderer(), prefix));
         elements.add(new CompositeCellRendererElement(new StringCellRenderer(underline, false),
                 value));

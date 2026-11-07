@@ -1,6 +1,7 @@
 import ntpath
-from test_support import verbose, TestFailed
 import os
+
+from test_support import verbose, TestFailed
 
 errors = 0
 

@@ -32,9 +32,9 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.oo.java.db.util;
 
-import java.util.Vector;
-
 import org.modelsphere.jack.baseDb.db.DbException;
+
+import java.util.Vector;
 
 public interface InheritanceCircularityListener {
 

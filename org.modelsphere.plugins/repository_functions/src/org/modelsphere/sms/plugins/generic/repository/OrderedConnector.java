@@ -43,19 +43,26 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.generic.repository;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaRelationship;
 import org.modelsphere.jack.plugins.PluginSignature;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.forward.*;
+import org.modelsphere.jack.srtool.forward.Connector;
+import org.modelsphere.jack.srtool.forward.Modifier;
+import org.modelsphere.jack.srtool.forward.Rule;
+import org.modelsphere.jack.srtool.forward.RuleException;
 import org.modelsphere.jack.util.CollationComparator;
 import org.modelsphere.jack.util.DefaultComparableElement;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * For any object, lists by alphabetical order. <br>
@@ -114,7 +121,7 @@ public abstract class OrderedConnector extends Connector.UserConnector {
             }
 
             int size = 0;
-            ArrayList elems = new ArrayList();
+            List<DefaultComparableElement> elems = new ArrayList<>();
 
             int i = 0;
             try {

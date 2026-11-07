@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.actions;
 
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -48,6 +46,8 @@ import org.modelsphere.sms.be.db.DbBEDiagram;
 import org.modelsphere.sms.be.db.DbBEUseCase;
 import org.modelsphere.sms.be.features.UpdateEnvironment;
 import org.modelsphere.sms.be.international.LocaleMgr;
+
+import javax.swing.*;
 
 public final class UpdateEnvironmentAction extends AbstractApplicationAction implements
         SelectionActionListener {

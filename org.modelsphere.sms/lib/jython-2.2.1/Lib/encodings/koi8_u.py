@@ -9,7 +9,9 @@ Modified by Maxim Dzumanenko <mvd@mylinux.com.ua>.
 
 """#"
 
-import codecs, koi8_r
+import codecs
+import koi8_r
+
 
 ### Codec APIs
 

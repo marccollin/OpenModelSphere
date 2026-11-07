@@ -32,20 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.oo.java.db.util;
 
-import java.awt.Rectangle;
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.StringTokenizer;
-import java.util.jar.Attributes;
-import java.util.jar.JarFile;
-import java.util.jar.Manifest;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -74,6 +60,19 @@ import org.modelsphere.sms.oo.java.db.DbJVParameter;
 import org.modelsphere.sms.oo.java.db.DbJVPrimitiveType;
 import org.modelsphere.sms.oo.java.db.srtypes.JVClassCategory;
 import org.modelsphere.sms.oo.java.features.JavaToolkit;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+import java.util.jar.Attributes;
+import java.util.jar.JarFile;
+import java.util.jar.Manifest;
 
 /**
  * @author Grandite
@@ -107,8 +106,7 @@ public class JavaUtility {
             return "";
 
         char ch = Character.toLowerCase(originalName.charAt(0));
-        String newName = (len > 1) ? (ch + originalName.substring(1)) : ch + "";
-        return newName;
+        return (len > 1) ? (ch + originalName.substring(1)) : ch + "";
     }
 
     public String capitalize(String originalName) {
@@ -513,18 +511,16 @@ public class JavaUtility {
         JavaToolkit toolkit = JavaToolkit.getSingleton();
 
         Object[] jarFiles = toolkit.getSystemJarFiles();
-        List classList = new ArrayList();
+        List<String> classList = new ArrayList<>();
         toolkit.fillClassList(jarFiles, packageList, classList);
 
-        for (Object o : classList) {
-            String className = (String) o;
+        for (String className : classList) {
             findBuiltinType(classModel, className);
         } // end while
     } // end createBuiltInClasses()
 
     public JavaInfo getJavaVersion(File jreHome) {
-        JavaInfo info = new JavaInfo(jreHome);
-        return info;
+        return new JavaInfo(jreHome);
     }
 
     public static class JavaInfo {

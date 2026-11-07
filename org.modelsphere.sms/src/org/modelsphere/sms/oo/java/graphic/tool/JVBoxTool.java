@@ -32,9 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.oo.java.graphic.tool;
 
-import java.awt.Image;
-import java.awt.Rectangle;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.graphic.tool.BoxTool;
@@ -44,6 +41,8 @@ import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.oo.db.DbOOAdtGo;
 import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.srtypes.JVClassCategory;
+
+import java.awt.*;
 
 public abstract class JVBoxTool extends BoxTool {
 

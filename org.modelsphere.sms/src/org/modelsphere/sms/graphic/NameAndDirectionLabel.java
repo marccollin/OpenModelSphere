@@ -33,11 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.graphic;
 
-import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaField;
@@ -48,6 +43,8 @@ import org.modelsphere.jack.srtool.graphic.SrLine;
 import org.modelsphere.sms.db.DbSMSAssociation;
 import org.modelsphere.sms.db.DbSMSAssociationGo;
 import org.modelsphere.sms.db.DbSMSLineGo;
+
+import java.awt.*;
 
 public class NameAndDirectionLabel extends NameAndDuplicateLabel {
 

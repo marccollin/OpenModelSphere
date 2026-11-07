@@ -34,11 +34,11 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.plugins.report.model;
 
 // JDK
-import java.io.File;
-
-import javax.swing.text.html.HTML;
 
 import org.modelsphere.sms.plugins.report.LocaleMgr;
+
+import javax.swing.text.html.HTML;
+import java.io.File;
 
 // Sms
 
@@ -77,6 +77,7 @@ public class DiagramProperties implements Properties {
         return m_concept;
     }
 
+    @Override
     public String toString() {
         return m_concept.toString();
     }

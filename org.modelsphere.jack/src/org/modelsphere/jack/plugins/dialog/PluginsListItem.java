@@ -43,17 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins.dialog;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.net.URI;
-import java.net.URL;
-import java.text.MessageFormat;
-import java.util.StringTokenizer;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.plugins.LicenseAgreementDialog;
 import org.modelsphere.jack.plugins.PluginConfigurationHandler;
@@ -62,6 +51,19 @@ import org.modelsphere.jack.plugins.io.ConfigurationCommandFactory;
 import org.modelsphere.jack.plugins.io.DeleteCommand;
 import org.modelsphere.jack.plugins.io.PluginLoader;
 import org.modelsphere.jack.srtool.ApplicationContext;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.net.URI;
+import java.net.URL;
+import java.text.MessageFormat;
+import java.util.StringTokenizer;
 
 @SuppressWarnings("serial")
 class PluginsListItem extends JPanel implements PropertyChangeListener {

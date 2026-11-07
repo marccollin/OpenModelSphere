@@ -43,15 +43,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.plugins.xml;
 
-import java.io.File;
-import java.io.StringWriter;
-import java.io.Writer;
-
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.text.MessageFormat;
 import org.xml.sax.Parser;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
+import java.io.File;
+import java.io.StringWriter;
+import java.io.Writer;
 
 public final class XmlReverse {
     private static final String EXTENSION = "xml"; // NOT LOCALIZABLE, file extension

@@ -43,10 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.jdbc;
 
-import java.sql.*;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.srtool.services.ConnectionService;
+
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /*******************************************************************************
  * This service executes JDBC API calls
@@ -56,11 +59,11 @@ import org.modelsphere.jack.srtool.services.ConnectionService;
  ******************************************************************************/
 public final class JdbcReader {
     // For debug use
-    private static boolean PRINTINFO = false;
+    private static final boolean PRINTINFO = false;
 
-    private JdbcBuilder builder;
-    private Connection connection;
-    private DatabaseMetaData dbmd;
+    private final JdbcBuilder builder;
+    private final Connection connection;
+    private final DatabaseMetaData dbmd;
 
     public JdbcReader(JdbcBuilder aBuilder, int connectionId) throws SQLException {
         builder = aBuilder;

@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.oo.java.actions;
 
-import java.awt.event.ActionEvent;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.actions.SelectionActionListener;
@@ -49,6 +47,8 @@ import org.modelsphere.sms.db.DbSMSClassifierGo;
 import org.modelsphere.sms.oo.db.DbOOAssociationEnd;
 import org.modelsphere.sms.oo.java.db.DbJVDataMember;
 import org.modelsphere.sms.oo.java.international.LocaleMgr;
+
+import java.awt.event.ActionEvent;
 
 final class CreateAssociationAction extends AbstractApplicationAction implements
         SelectionActionListener {

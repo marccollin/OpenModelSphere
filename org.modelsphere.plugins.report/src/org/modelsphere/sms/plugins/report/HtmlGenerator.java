@@ -38,26 +38,43 @@ package org.modelsphere.sms.plugins.report;
 // Sms
 
 // JDK
-import java.awt.Color;
-import java.awt.Font;
-import java.io.*;
+
+import org.modelsphere.jack.awt.ExtensionFileFilter;
+import org.modelsphere.jack.awt.tree.CheckTreeModel;
+import org.modelsphere.jack.awt.tree.CheckTreeNode;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
+import org.modelsphere.jack.baseDb.db.DbUDF;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.gui.task.Controller;
+import org.modelsphere.jack.io.IoUtil;
+import org.modelsphere.sms.db.DbSMSDiagram;
+import org.modelsphere.sms.plugins.report.model.ColumnAlignmentDomain;
+import org.modelsphere.sms.plugins.report.model.ColumnHorizontalAlignmentDomain;
+import org.modelsphere.sms.plugins.report.model.ColumnVerticalAlignmentDomain;
+import org.modelsphere.sms.plugins.report.model.ComponentAttributeProperties;
+import org.modelsphere.sms.plugins.report.model.ConceptAttributeProperties;
+import org.modelsphere.sms.plugins.report.model.ConceptComponentProperties;
+import org.modelsphere.sms.plugins.report.model.ConceptProperties;
+import org.modelsphere.sms.plugins.report.model.Property;
+import org.modelsphere.sms.plugins.report.model.ReportModel;
+import org.modelsphere.sms.plugins.report.model.TableAlignmentDomain;
+import org.modelsphere.sms.plugins.report.model.UnitDomain;
+
+import javax.swing.text.html.HTML;
+import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.swing.text.html.HTML;
-
-import org.modelsphere.jack.awt.ExtensionFileFilter;
-import org.modelsphere.jack.awt.tree.CheckTreeModel;
-import org.modelsphere.jack.awt.tree.CheckTreeNode;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.meta.MetaField;
-import org.modelsphere.jack.gui.task.Controller;
-import org.modelsphere.jack.io.IoUtil;
-import org.modelsphere.sms.db.DbSMSDiagram;
-import org.modelsphere.sms.plugins.report.model.*;
 
 public class HtmlGenerator {
 
@@ -1081,7 +1098,7 @@ public class HtmlGenerator {
         if (jpegGenerator.getGeneratedFile() == null) {
             writeText(o, LocaleMgr.misc.getString("DiagramIsEmpty"), Color.red); // NOT LOCALIZABLE
         } else {
-            String imageReference = (model.getOptions().getDiagramDirectory().equals("") ? jpegGenerator
+            String imageReference = (model.getOptions().getDiagramDirectory().isEmpty() ? jpegGenerator
                     .getGeneratedFile().toString()
                     : model.getOptions().getDiagramDirectory() + File.separator
                             + jpegGenerator.getGeneratedFile().toString());

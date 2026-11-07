@@ -43,11 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.util;
 
-import java.awt.Color;
-import java.awt.Component;
-
-import javax.swing.Icon;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.screen.DbTreeLookupDialog;
@@ -56,6 +51,9 @@ import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.preference.PropertiesProvider;
 import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
+
+import javax.swing.*;
+import java.awt.*;
 
 public abstract class TerminologyUtil implements PropertiesProvider {
 

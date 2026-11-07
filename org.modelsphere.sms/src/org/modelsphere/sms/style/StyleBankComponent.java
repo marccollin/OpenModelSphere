@@ -33,27 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.style;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Iterator;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.event.TreeModelEvent;
-import javax.swing.event.TreeModelListener;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -84,6 +63,22 @@ import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.db.DbORDomainModel;
 import org.modelsphere.sms.or.db.DbORDomainStyle;
 import org.modelsphere.sms.or.db.DbORStyle;
+
+import javax.swing.*;
+import javax.swing.event.TreeModelEvent;
+import javax.swing.event.TreeModelListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public class StyleBankComponent extends JPanel implements DbRefreshListener, TreeSelectionListener,
         TreeModelListener {
@@ -323,7 +318,7 @@ public class StyleBankComponent extends JPanel implements DbRefreshListener, Tre
             DbSMSStyle style = (DbSMSStyle) parentNode.getUserObject();
 
             style.getDb().beginTrans(Db.READ_TRANS);
-            HashSet diagSet = new HashSet(); // use a Set to eliminate
+            Set<DbObject> diagSet = new HashSet<>(); // use a Set to eliminate
             // duplicates
             // Add to the Set all the diagrams linked to this style.
             DbEnumeration dbEnum = style.getDiagrams().elements();
@@ -366,7 +361,7 @@ public class StyleBankComponent extends JPanel implements DbRefreshListener, Tre
             }
 
             String[] items = new String[diagSet.size()];
-            Iterator iter = diagSet.iterator();
+            Iterator<DbObject> iter = diagSet.iterator();
             for (int i = 0; iter.hasNext(); i++) {
                 DbSMSDiagram diag = (DbSMSDiagram) iter.next();
                 String packName = diag.getComposite().getSemanticalName(DbObject.LONG_FORM);

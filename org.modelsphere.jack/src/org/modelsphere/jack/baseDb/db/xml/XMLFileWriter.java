@@ -43,7 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.xml;
 
-import java.io.*;
+import java.io.FileWriter;
+import java.io.IOException;
 
 class XMLFileWriter extends FileWriter implements XMLConstants, XMLWriter {
     private int currentIndent = 0;

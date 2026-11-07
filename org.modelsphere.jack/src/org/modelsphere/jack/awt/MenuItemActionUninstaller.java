@@ -43,12 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Component;
+import javax.swing.*;
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
-import javax.swing.JMenuItem;
-import javax.swing.SwingUtilities;
 
 /**
  * This class ensure that the links between an action and a menu item will be broken. Details of the
@@ -81,8 +79,7 @@ final class MenuItemActionUninstaller implements PropertyChangeListener {
                                 // Check for all sub menu components that may be
                                 // linked to an action and remove this link
                                 Component[] comps = ((JackMenu) item).getMenuComponents();
-                                for (int i = 0; i < comps.length; i++) {
-                                    Object subitem = comps[i];
+                                for (Object subitem : comps) {
                                     if (subitem instanceof JMenuItem)
                                         ((JMenuItem) subitem).setAction(null);
                                 }

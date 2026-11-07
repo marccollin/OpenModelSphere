@@ -4,13 +4,14 @@
 
 # (See pdb.doc for documentation.)
 
-import sys
-import linecache
-import cmd
-import bdb
-from repr import Repr
 import os
+import sys
+
+import bdb
+import cmd
+import linecache
 import re
+from repr import Repr
 
 # Create a custom safe Repr instance and increase its maxstring.
 # The default of 30 truncates error messages too easily.

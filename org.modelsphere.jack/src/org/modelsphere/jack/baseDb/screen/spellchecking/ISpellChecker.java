@@ -42,10 +42,10 @@ open-modelsphere@grandite.com
  ***********************************************************************/
 package org.modelsphere.jack.baseDb.screen.spellchecking;
 
-import java.util.List;
-
 import com.swabunga.spell.event.Word;
 import com.swabunga.spell.event.WordTokenizer;
+
+import java.util.List;
 
 /**
  * @author Marco Savard, neosapiens

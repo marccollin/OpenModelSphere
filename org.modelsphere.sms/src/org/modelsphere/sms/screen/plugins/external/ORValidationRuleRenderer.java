@@ -3,18 +3,13 @@
  */
 package org.modelsphere.sms.screen.plugins.external;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JList;
-import javax.swing.UIManager;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.sms.db.srtypes.SMSMultiplicity;
 import org.modelsphere.sms.or.db.srtypes.ORValidationRule;
 import org.modelsphere.sms.or.features.ReferentialRules;
+
+import javax.swing.*;
+import java.awt.*;
 
 @SuppressWarnings("serial")
 class ORValidationRuleRenderer extends DefaultListCellRenderer {
@@ -62,8 +57,8 @@ class ORValidationRuleRenderer extends DefaultListCellRenderer {
         } else {
             boolean allowed = false;
             if (allowedRules != null) {
-                for (int i = 0; i < allowedRules.length; i++) {
-                    if (allowedRules[i] == value) {
+                for (ORValidationRule allowedRule : allowedRules) {
+                    if (allowedRule == value) {
                         allowed = true;
                     }
                 }

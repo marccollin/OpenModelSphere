@@ -32,16 +32,14 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.oo.java.graphic.tool;
 
-import java.awt.Cursor;
-import java.awt.Image;
-import java.awt.Point;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.graphic.GraphicUtil;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.sms.oo.java.JavaModule;
 import org.modelsphere.sms.oo.java.db.srtypes.JVClassCategory;
 import org.modelsphere.sms.oo.java.international.LocaleMgr;
+
+import java.awt.*;
 
 public class JVExceptionTool extends JVBoxTool {
 

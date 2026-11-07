@@ -43,17 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic;
 
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Composite;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.awt.Stroke;
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Line extends GraphicComponent {
 
@@ -294,7 +286,7 @@ public class Line extends GraphicComponent {
         int delta = GraphicComponent.HANDLE_SIZE / 2;
         if (!constructing)
             g.setColor(Color.black);
-        ArrayList<Point> pts = new ArrayList<Point>();
+        List<Point> pts = new ArrayList<Point>();
         for (int i = 0; i < zoomPoly.npoints; i++) {
             int x = zoomPoly.xpoints[i];
             int y = zoomPoly.ypoints[i];

@@ -49,11 +49,10 @@ open-modelsphere@grandite.com
  */
 package org.modelsphere.jack.awt;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.*;
 
 /**
  * @author Grandite
@@ -142,6 +141,7 @@ public class JOptionPane2 extends JOptionPane {
 
         // add listener
         jButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent ev) {
                 g_selection = getSelection(buttons);
                 dialog.setVisible(false);

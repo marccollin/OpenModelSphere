@@ -38,13 +38,13 @@ package org.modelsphere.sms.plugins.report.model;
 // Sms
 
 // JDK
-import java.awt.Color;
-
-import javax.swing.text.html.HTML;
 
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.sms.plugins.report.LocaleMgr;
+
+import javax.swing.text.html.HTML;
+import java.awt.*;
 
 public class ConceptAttributeProperties implements Properties {
 
@@ -81,7 +81,7 @@ public class ConceptAttributeProperties implements Properties {
                             //new Property(LocaleMgr.misc.getString(WIDTH_PROPERTY_KEY), WIDTH_PROPERTY_KEY, new String()), // NOT LOCALIZABLE
                             //new Property(LocaleMgr.misc.getString(WIDTHUNIT_PROPERTY_KEY), WIDTHUNIT_PROPERTY_KEY, UnitDomain.getInstance(1)), // NOT LOCALIZABLE
                             new Property(LocaleMgr.misc.getString(HEIGHT_PROPERTY_KEY),
-                                    HEIGHT_PROPERTY_KEY, new Integer(0)), // NOT LOCALIZABLE
+                                    HEIGHT_PROPERTY_KEY, Integer.valueOf(0)), // NOT LOCALIZABLE
                             new Property(LocaleMgr.misc.getString(HEIGHTUNIT_PROPERTY_KEY),
                                     HEIGHTUNIT_PROPERTY_KEY, UnitDomain.getInstance(1)) // NOT LOCALIZABLE
                     }),
@@ -123,6 +123,7 @@ public class ConceptAttributeProperties implements Properties {
         return groups;
     }
 
+    @Override
     public String toString() {
         return m_metaField.getGUIName();
     }

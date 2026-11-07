@@ -1,9 +1,11 @@
 # Python test set -- part 5, built-in exceptions
 
-from test_support import *
-from types import ClassType
+import sys
+import traceback
 import warnings
-import sys, traceback
+from types import ClassType
+
+from test_support import *
 
 warnings.filterwarnings("error", "", OverflowWarning, __name__)
 

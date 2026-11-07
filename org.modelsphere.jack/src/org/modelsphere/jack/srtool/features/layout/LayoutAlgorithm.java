@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.features.layout;
 
-import javax.swing.JComponent;
+import javax.swing.*;
 
 /**
  * The Interface LayoutAlgorithm.

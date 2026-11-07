@@ -44,6 +44,7 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.srtool.forward;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public final class FileModifier extends Modifier {
     public FileModifier(String fileRule) {
@@ -56,7 +57,7 @@ public final class FileModifier extends Modifier {
 
     // Keep info about generated files
     // must be reset after each forward engineering process
-    public static ArrayList g_generatedFiles = new ArrayList();
+    public static List g_generatedFiles = new ArrayList();
 
     // ///////////////////////////
     // Set and Get Base Directory

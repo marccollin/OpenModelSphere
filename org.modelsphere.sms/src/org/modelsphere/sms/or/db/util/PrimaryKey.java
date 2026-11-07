@@ -42,13 +42,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.or.db.util;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -61,11 +54,17 @@ import org.modelsphere.sms.or.db.DbORAbsTable;
 import org.modelsphere.sms.or.db.DbORBuiltInType;
 import org.modelsphere.sms.or.db.DbORColumn;
 import org.modelsphere.sms.or.db.DbORDataModel;
-import org.modelsphere.sms.or.db.DbORForeign;
 import org.modelsphere.sms.or.db.DbORIndexKey;
 import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 import org.modelsphere.sms.or.db.DbORTable;
 import org.modelsphere.sms.or.screen.DeleteKeysAndRulesFrame.DeleteKeysOptions;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PrimaryKey {
     //members
@@ -292,7 +291,6 @@ public class PrimaryKey {
 
         //delete column
         col.remove();
-
     }
 
     //
@@ -319,8 +317,7 @@ public class PrimaryKey {
         public int compare(TypeInfo o1, TypeInfo o2) {
             String s1 = o1.m_typename;
             String s2 = o2.m_typename;
-            int comparison = s1.compareTo(s2);
-            return comparison;
+            return s1.compareTo(s2);
         }
 
     }

@@ -4,22 +4,20 @@
 """Miscellaneous utilities.
 """
 
-import time
-import socket
-import re
-import random
 import os
+import random
+import re
+import socket
+import time
 import warnings
 from cStringIO import StringIO
-from types import ListType
-
-from email._parseaddr import quote
 from email._parseaddr import AddressList as _AddressList
 from email._parseaddr import mktime_tz
-
 # We need wormarounds for bugs in these methods in older Pythons (see below)
 from email._parseaddr import parsedate as _parsedate
 from email._parseaddr import parsedate_tz as _parsedate_tz
+from email._parseaddr import quote
+from types import ListType
 
 try:
     True, False

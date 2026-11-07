@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.graphic;
 
-import java.awt.Point;
+import java.awt.*;
 import java.io.Serializable;
 
 /**

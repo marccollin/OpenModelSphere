@@ -33,13 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.features.reverse;
 
-import java.io.File;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Vector;
-
 import org.modelsphere.jack.actions.AbstractActionsStore;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -61,6 +54,14 @@ import org.modelsphere.sms.oo.db.DbOODiagram;
 import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.DbJVClassModel;
 import org.modelsphere.sms.oo.java.db.DbJVCompilationUnit;
+
+import java.io.File;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Map;
+import java.util.Vector;
+import java.util.List;
 
 public class ConcreteReverser extends AbstractReverser {
 
@@ -102,9 +103,9 @@ public class ConcreteReverser extends AbstractReverser {
     }
 
     public String reverseCurrentFile(DbObject reverseEngineeredPackage,
-            JackReverseEngineeringPlugin reverse, /* Class modelClaz, */
-            Vector obsoleteObjectVector, HashMap diagMap, File file, DbProject project,
-            StringWriter logBuffer) throws Exception {
+                                     JackReverseEngineeringPlugin reverse, /* Class modelClaz, */
+            Vector obsoleteObjectVector, Map diagMap, File file, DbProject project,
+                                     StringWriter logBuffer) throws Exception {
 
         String errMsg;
         DbSMSPackage pack = (DbSMSPackage) reverseEngineeredPackage;
@@ -123,7 +124,7 @@ public class ConcreteReverser extends AbstractReverser {
         errMsg = reverse.reverseFile(pack, logBuffer, options, file);
         //for all diagrams, create graphical objects 
 
-        ArrayList<DbOODiagram> diagrams = new ArrayList<DbOODiagram>();
+        List<DbOODiagram> diagrams = new ArrayList<DbOODiagram>();
         pack.getDb().beginReadTrans();
         DbEnumeration dbEnum = pack.componentTree(DbOODiagram.metaClass);
         while (dbEnum.hasMoreElements())
@@ -132,13 +133,13 @@ public class ConcreteReverser extends AbstractReverser {
         pack.getDb().commitTrans();
 
         pack.getDb().beginWriteTrans("");
-        for (int i = 0; i < diagrams.size(); i++) {
+        for (DbOODiagram diagram : diagrams) {
             CreateMissingGraphicsAction action2 = (CreateMissingGraphicsAction) ApplicationContext
                     .getActionStore().get(SMSActionsStore.CREATE_MISSING_GRAPHICS);
-            action2.performAction(diagrams.get(i));
+            action2.performAction(diagram);
             LayoutSelectionAction action3 = (LayoutSelectionAction) ApplicationContext
                     .getActionStore().get(SMSActionsStore.LAYOUT_SELECTION);
-            action3.performAction(new GraphicComponent[] {}, diagrams.get(i));
+            action3.performAction(new GraphicComponent[]{}, diagram);
         }
         pack.getDb().commitTrans();
 

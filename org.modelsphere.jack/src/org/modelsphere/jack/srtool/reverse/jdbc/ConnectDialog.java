@@ -43,30 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.jdbc;
 
-import java.awt.Container;
-import java.awt.Cursor;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.sql.DriverManager;
-import java.util.Enumeration;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.HotKeysSupport;
 import org.modelsphere.jack.debug.TestableWindow;
@@ -75,6 +51,16 @@ import org.modelsphere.jack.preference.DriversManager;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.services.ConnectionMessage;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.sql.DriverManager;
+import java.util.Enumeration;
 
 /**
  * 
@@ -128,16 +114,16 @@ public class ConnectDialog extends JDialog implements ActionListener, TestableWi
             Class c = Class.forName(driverinfo.getPropertyString(DriverInfo.class,
                     DriverInfo.DRIVER_JDBC, DriverInfo.DEFAULT_JDBC_VALUE));
             // check if jdbc driver is already loaded
-            Enumeration enumeration = DriverManager.getDrivers();
+            Enumeration<java.sql.Driver> enumeration = DriverManager.getDrivers();
             while (enumeration.hasMoreElements()) {
-                Object loadedDriver = enumeration.nextElement();
+                java.sql.Driver loadedDriver = enumeration.nextElement();
                 if (c.isInstance(loadedDriver)) {
-                    jdbcdriver = (java.sql.Driver) loadedDriver;
+                    jdbcdriver = loadedDriver;
                     break;
                 }
             }
             if (jdbcdriver == null) {
-                jdbcdriver = (java.sql.Driver) c.newInstance();
+                jdbcdriver = (java.sql.Driver) c.getDeclaredConstructor().newInstance();
                 if (jdbcdriver != null) {
                     DriverManager.registerDriver(jdbcdriver);
                 }
@@ -147,7 +133,7 @@ public class ConnectDialog extends JDialog implements ActionListener, TestableWi
             String osname = (String) System.getProperty("os.name"); // NOT LOCALIZABLE
             if (osname == null)
                 osname = ""; // NOT LOCALIZABLE
-            if (osname.toLowerCase().indexOf("mac") == -1) {
+            if (!osname.toLowerCase().contains("mac")) {
             	// this doesn't work in open jdk or java 8
 //                if (!(jdbcdriver instanceof sun.jdbc.odbc.JdbcOdbcDriver)) {
 //                    serverLabel.setVisible(false);
@@ -171,7 +157,7 @@ public class ConnectDialog extends JDialog implements ActionListener, TestableWi
                 if (useDataSource)
                     serverField.setText(datasourceName);
 
-                if (userName.length() > 0) {
+                if (!userName.isEmpty()) {
                     passwordField.grabFocus();
                 }
                 pack();
@@ -179,20 +165,10 @@ public class ConnectDialog extends JDialog implements ActionListener, TestableWi
                 AwtUtil.centerWindow(this);
             } catch (Exception e) {
             }
-        } catch (Exception e) {
+        } catch (Exception | Error e) {
             JOptionPane.showMessageDialog(ApplicationContext.getDefaultMainFrame(),
                     kDriverNotProperlyInstalled + "\n" //NOT LOCALIZABLE, escape code
                             + e.getMessage(), ApplicationContext.getApplicationName(),
-                    JOptionPane.ERROR_MESSAGE);
-            SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    dispose();
-                }
-            });
-        } catch (Error error) {
-            JOptionPane.showMessageDialog(ApplicationContext.getDefaultMainFrame(),
-                    kDriverNotProperlyInstalled + "\n" //NOT LOCALIZABLE, escape code
-                            + error.getMessage(), ApplicationContext.getApplicationName(),
                     JOptionPane.ERROR_MESSAGE);
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
@@ -203,6 +179,7 @@ public class ConnectDialog extends JDialog implements ActionListener, TestableWi
 
     }
 
+    @Override
     public void dispose() {
         if (cancel) {
             connectionMsg = null;
@@ -252,6 +229,7 @@ public class ConnectDialog extends JDialog implements ActionListener, TestableWi
         new HotKeysSupport(this, cancelButton, null);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source == connectButton) {
@@ -291,9 +269,7 @@ public class ConnectDialog extends JDialog implements ActionListener, TestableWi
             connectionMessage = (ConnectionMessage) input.readObject();
             errMsg = connectionMessage.errorMessage;
 
-        } catch (IOException ex) {
-            errMsg = ex.toString();
-        } catch (ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             errMsg = ex.toString();
         }
 
@@ -323,8 +299,8 @@ public class ConnectDialog extends JDialog implements ActionListener, TestableWi
     }
 
     //Unit testing
+    @Override
     public Window createTestWindow(Container owner) {
-        ConnectDialog dialog = new ConnectDialog("test");
-        return dialog;
+        return new ConnectDialog("test");
     }
 }

@@ -42,13 +42,18 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.srtool.reverse.jdbc;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.table.*;
-
 import org.modelsphere.jack.srtool.services.StatementMessage;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+import java.util.List;
 
 public final class SQLShellResultSetPanel extends JPanel {
 
@@ -65,7 +70,7 @@ public final class SQLShellResultSetPanel extends JPanel {
     private static final String REG = "&reg;"; // NOT LOCALIZABLE - HTML tag
     private static final String NBSP = "&nbsp;"; // NOT LOCALIZABLE - HTML tag
 
-    private int defaultTooltipDismissDelay = 0;
+    private int defaultTooltipDismissDelay;
 
     private class ResultSetTable extends JTable implements MouseMotionListener, MouseListener {
         ResultSetTable(StatementMessage statementMessage) {
@@ -84,9 +89,11 @@ public final class SQLShellResultSetPanel extends JPanel {
 
         // MOUSES SUPPORT (Tooltips)
 
+        @Override
         public final void mouseDragged(MouseEvent e) {
         }
 
+        @Override
         public final void mouseMoved(MouseEvent e) {
             Point ePoint = e.getPoint();
             int row = rowAtPoint(ePoint);
@@ -137,10 +144,10 @@ public final class SQLShellResultSetPanel extends JPanel {
                     } else if (token.equals("\"")) {
                         text += QUOT;
                         charinline += 1;
-                    } else if (token.equals("�")) {
+                    } else if (token.equals("©")) {
                         text += COPY;
                         charinline += 1;
-                    } else if (token.equals("�")) {
+                    } else if (token.equals("®")) {
                         text += REG;
                         charinline += 1;
                     } else if (charinline >= MAX_CHAR_PER_LINE) { // NOT
@@ -165,29 +172,34 @@ public final class SQLShellResultSetPanel extends JPanel {
             setToolTipText(text);
         }
 
+        @Override
         public void mouseClicked(MouseEvent e) {
         }
 
+        @Override
         public void mousePressed(MouseEvent e) {
         }
 
+        @Override
         public void mouseReleased(MouseEvent e) {
         }
 
+        @Override
         public void mouseEntered(MouseEvent e) {
         }
 
+        @Override
         public void mouseExited(MouseEvent e) {
             ToolTipManager.sharedInstance().setDismissDelay(defaultTooltipDismissDelay);
         }
     }
 
     private class ResultSetTableModel extends DefaultTableModel {
-        ArrayList columns = new ArrayList();
-        ArrayList rows = new ArrayList();
+        final List<String> columns = new ArrayList<>();
+        final List<List<String>> rows = new ArrayList<>();
 
         ResultSetTableModel(StatementMessage statementMessage) {
-            if (statementMessage.resultList.size() < 1 || statementMessage.columnList.size() < 1) {
+            if (statementMessage.resultList.isEmpty() || statementMessage.columnList.isEmpty()) {
                 return;
             }
 
@@ -205,12 +217,14 @@ public final class SQLShellResultSetPanel extends JPanel {
             fireTableDataChanged();
         }
 
+        @Override
         public int getColumnCount() {
             if (columns == null)
                 return 0;
             return columns.size();
         }
 
+        @Override
         public String getColumnName(int column) {
             if (columns == null)
                 return "";
@@ -218,24 +232,28 @@ public final class SQLShellResultSetPanel extends JPanel {
             return title == null ? "" : title.toString();
         }
 
+        @Override
         public Object getValueAt(int row, int column) {
             if (rows == null)
                 return "";
-            ArrayList r = (ArrayList) rows.get(row);
+            List<?> r = rows.get(row);
             if (r.size() <= column)
                 return "";
             return r.get(column);
         }
 
+        @Override
         public int getRowCount() {
             if (rows == null)
                 return 0;
             return rows.size();
         }
 
+        @Override
         public void setValueAt(Object aValue, int row, int column) {
         }
 
+        @Override
         public boolean isCellEditable(int row, int column) {
             return false;
         }

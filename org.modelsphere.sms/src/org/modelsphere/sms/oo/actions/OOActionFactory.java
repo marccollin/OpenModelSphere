@@ -35,9 +35,7 @@ package org.modelsphere.sms.oo.actions;
 
 import org.modelsphere.jack.actions.AbstractActionsStore;
 import org.modelsphere.sms.actions.ActionFactory;
-import org.modelsphere.sms.actions.CreateLinkAction;
 import org.modelsphere.sms.actions.GenerateCommonItemsAction;
-import org.modelsphere.sms.actions.SMSActionsStore;
 
 public class OOActionFactory implements ActionFactory {
     private static OOActionFactory singleton;

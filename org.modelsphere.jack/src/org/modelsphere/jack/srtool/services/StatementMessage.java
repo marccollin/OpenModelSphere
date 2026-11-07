@@ -43,15 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.services;
 
-import java.util.*;
-
 import org.modelsphere.jack.services.ServiceMessage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StatementMessage extends ServiceMessage {
     public int connectionId; // in
     public String statement; // in
-    public ArrayList resultList = new ArrayList(); // out
-    public ArrayList columnList = new ArrayList(); // out
+    public List<List<String>> resultList = new ArrayList<>(); // out
+    public List<String> columnList = new ArrayList<>(); // out
     public int updateCount = 0; // out
 
     public StatementMessage(int aConnectionId, String aStatement) {

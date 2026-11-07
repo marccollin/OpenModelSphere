@@ -43,11 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.io.File;
+import org.modelsphere.jack.international.LocaleMgr;
 
 import javax.swing.filechooser.FileFilter;
-
-import org.modelsphere.jack.international.LocaleMgr;
+import java.io.File;
 
 /**
  * A convenience implementation of FileFilter that filters out all files except for those type

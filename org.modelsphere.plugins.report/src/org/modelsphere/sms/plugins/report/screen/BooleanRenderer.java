@@ -33,14 +33,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.report.screen;
 
-import java.awt.Color;
-import java.awt.Component;
-
-import javax.swing.JCheckBox;
-import javax.swing.JTable;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 public class BooleanRenderer extends JCheckBox implements Renderer {
     private static Border noFocusBorder = new EmptyBorder(1, 1, 1, 1);

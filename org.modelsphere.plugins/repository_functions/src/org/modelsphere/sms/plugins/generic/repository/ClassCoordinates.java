@@ -43,24 +43,26 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.generic.repository;
 
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.io.IOException;
-import java.io.Serializable;
-import java.io.Writer;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.graphic.GraphicComponent;
 import org.modelsphere.jack.plugins.PluginSignature;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
-import org.modelsphere.jack.srtool.forward.*;
+import org.modelsphere.jack.srtool.forward.Modifier;
+import org.modelsphere.jack.srtool.forward.Rule;
+import org.modelsphere.jack.srtool.forward.RuleException;
+import org.modelsphere.jack.srtool.forward.UserDefinedField;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.graphic.DiagramInternalFrame;
 import org.modelsphere.sms.SMSToolkit;
 import org.modelsphere.sms.oo.db.DbOOAdtGo;
 import org.modelsphere.sms.oo.db.DbOODiagram;
+
+import java.awt.*;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.Writer;
 
 /**
  * For a graphical class, gets its XY coordonates. <br>

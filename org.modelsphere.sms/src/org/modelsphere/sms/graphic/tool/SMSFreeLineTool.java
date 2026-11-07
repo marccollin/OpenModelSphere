@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.graphic.tool;
 
-import java.awt.Image;
-import java.awt.Polygon;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.graphic.GraphicUtil;
 import org.modelsphere.jack.graphic.tool.LineTool;
@@ -44,6 +41,8 @@ import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.db.DbSMSFreeLineGo;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.awt.*;
 
 public class SMSFreeLineTool extends LineTool {
 
@@ -70,7 +69,7 @@ public class SMSFreeLineTool extends LineTool {
 
             DbSMSFreeLineGo lineGo = new DbSMSFreeLineGo(diagGO);
             lineGo.setPolyline(poly);
-            lineGo.setRightAngle(new Boolean(rightAngle));
+            lineGo.setRightAngle(Boolean.valueOf(rightAngle));
 
             diagGO.getDb().commitTrans();
         } catch (Exception ex) {

@@ -39,6 +39,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.Vector;
+import java.util.List;
 
 /**
  * 
@@ -47,7 +48,7 @@ import java.util.Vector;
  * 
  */
 public final class ReverseService implements org.modelsphere.jack.services.Service {
-    private Vector vec_reply = new Vector();
+    private List vec_reply = new Vector();
 
     public void serve(InputStream i, OutputStream o) throws IOException {
         ServiceList.getSingleInstance();

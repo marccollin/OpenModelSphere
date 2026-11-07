@@ -33,13 +33,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import javax.swing.Icon;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.awt.JackToolBar;
 import org.modelsphere.sms.actions.SMSActionsStore;
 import org.modelsphere.sms.international.LocaleMgr;
 import org.modelsphere.sms.oo.actions.OOActionConstants;
+
+import javax.swing.*;
 
 public class ToolsToolBar extends JackToolBar {
 

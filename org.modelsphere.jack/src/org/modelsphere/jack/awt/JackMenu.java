@@ -43,15 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Component;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.*;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
-
-import org.modelsphere.jack.actions.*;
+import org.modelsphere.jack.actions.AbstractApplicationAction;
+import org.modelsphere.jack.actions.AbstractDomainAction;
+import org.modelsphere.jack.actions.AbstractTriStatesAction;
+import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.actions.util.DbMultiTrans;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -59,6 +54,13 @@ import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.util.ExceptionHandler;
+
+import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
+import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * We should always use this class instead of JMenu. This class provides support for actions more
@@ -110,8 +112,7 @@ public class JackMenu extends JMenu implements MenuListener {
         // the component.
         // This listener will call a setAction(null).
         if (popupSubMenu)
-            new MenuItemActionUninstaller(this); // this will remove all
-        // subitems-action links
+            new MenuItemActionUninstaller(this); // this will remove all subitems-action links
     }
 
     public JMenuItem add(Action a) {
@@ -209,7 +210,7 @@ public class JackMenu extends JMenu implements MenuListener {
             // LOCALIZABLE
         }
         Component c = getItem(pos);
-        if (c instanceof JMenuItem) {
+        if (c != null) {
             JMenuItem mi = (JMenuItem) c;
             if (mi.getAction() != null) {
                 mi.getAction().removePropertyChangeListener(visibleListener);
@@ -237,9 +238,9 @@ public class JackMenu extends JMenu implements MenuListener {
         if (components == null)
             return;
         boolean separatorAllowed = false;
-        for (int i = 0; i < components.length; i++) {
-            if (components[i] instanceof JMenuItem) {
-                Action action = ((JMenuItem) components[i]).getAction();
+        for (Component component : components) {
+            if (component instanceof JMenuItem) {
+                Action action = ((JMenuItem) component).getAction();
                 if (action != null && (action instanceof AbstractApplicationAction)) {
                     // TODO - should also check if action always visible in Menu
                     if (((AbstractApplicationAction) action).isVisible()) {
@@ -247,7 +248,7 @@ public class JackMenu extends JMenu implements MenuListener {
                         continue;
                     }
                 }
-                if (components[i].isVisible()) {
+                if (component.isVisible()) {
                     separatorAllowed = true;
                     continue;
                 } else {
@@ -255,13 +256,13 @@ public class JackMenu extends JMenu implements MenuListener {
                     continue;
                 }
             }
-            if (components[i] instanceof JSeparator) {
+            if (component instanceof JSeparator) {
                 if (separatorAllowed) {
-                    components[i].setVisible(true);
+                    component.setVisible(true);
                     separatorAllowed = false;
                     continue;
                 }
-                components[i].setVisible(false);
+                component.setVisible(false);
             }
         }
     }
@@ -289,19 +290,14 @@ public class JackMenu extends JMenu implements MenuListener {
                     if (a != null
                             && (action.getVisibilityMode() & AbstractApplicationAction.VISIBILITY_ALWAYS_VISIBLE_IN_MENU) == 0)
                         setVisible((action != null ? action.isVisible() : true)); // Disabled
-                    // in
-                    // menu
-                    // (item
-                    // must
-                    // stay
-                    // visible)
+                    // in menu (item must stay visible)
                     else
                         setVisible(true);
                     setAccelerator((action != null ? action.getAccelerator() : null));
                     if (action != null) {
                         Integer i = (Integer) action.getValue(Action.MNEMONIC_KEY);
                         if (i != null)
-                            setMnemonic(i.intValue());
+                            setMnemonic(i);
                     }
                     ActionHelpPropertySupport.registerHelpSupport(this, action);
                 }
@@ -310,49 +306,50 @@ public class JackMenu extends JMenu implements MenuListener {
                     return new PropertyChangeListener() {
                         public void propertyChange(PropertyChangeEvent e) {
                             String propertyName = e.getPropertyName();
-                            if (propertyName.equals(Action.NAME)) {
-                                String text = (String) e.getNewValue();
-                                setText(text);
-                                repaint();
-                            } else if (propertyName.equals("enabled")) { // NOT
-                                // LOCALIZABLE
-                                // -
-                                // property
-                                Boolean enabledState = (Boolean) e.getNewValue();
-                                setEnabled(enabledState.booleanValue());
-                                repaint();
-                            } else if (propertyName.equals(Action.SMALL_ICON)) {
-                                Icon icon = (Icon) e.getNewValue();
-                                setIcon(icon);
-                                invalidate();
-                                repaint();
-                            } else if (propertyName.equals(Action.MNEMONIC_KEY)) {
-                                Integer mn = (Integer) e.getNewValue();
-                                setMnemonic(mn.intValue());
-                                invalidate();
-                                repaint();
-                            } else if (propertyName.equals(AbstractApplicationAction.VISIBLE)) { // Disabled
-                                // in
-                                // menu
-                                // (item
-                                // must
-                                // stay
-                                // visible)
-                                if (getAction() instanceof AbstractApplicationAction) {
-                                    boolean newValue = true;
-                                    if ((((AbstractApplicationAction) getAction())
-                                            .getVisibilityMode() & AbstractApplicationAction.VISIBILITY_ALWAYS_VISIBLE_IN_MENU) == 0)
-                                        newValue = ((Boolean) e.getNewValue()).booleanValue();
-                                    setVisible(newValue);
+                            switch (propertyName) {
+                                case Action.NAME -> {
+                                    String text = (String) e.getNewValue();
+                                    setText(text);
+                                    repaint();
+                                }
+                                case "enabled" -> {
+                                    // LOCALIZABLE
+                                    // -
+                                    // property
+                                    Boolean enabledState = (Boolean) e.getNewValue();
+                                    setEnabled(enabledState);
+                                    repaint();
+                                }
+                                case Action.SMALL_ICON -> {
+                                    Icon icon = (Icon) e.getNewValue();
+                                    setIcon(icon);
                                     invalidate();
                                     repaint();
                                 }
-                            } else if (propertyName
-                                    .equals(AbstractApplicationAction.ACCELERATOR_KEY)) {
-                                KeyStroke newValue = (KeyStroke) e.getNewValue();
-                                setAccelerator(newValue);
-                                invalidate();
-                                repaint();
+                                case Action.MNEMONIC_KEY -> {
+                                    Integer mn = (Integer) e.getNewValue();
+                                    setMnemonic(mn);
+                                    invalidate();
+                                    repaint();
+                                }
+                                case AbstractApplicationAction.VISIBLE -> {
+                                    // in menu (item must stay visible)
+                                    if (getAction() instanceof AbstractApplicationAction) {
+                                        boolean newValue = true;
+                                        if ((((AbstractApplicationAction) getAction())
+                                                .getVisibilityMode() & AbstractApplicationAction.VISIBILITY_ALWAYS_VISIBLE_IN_MENU) == 0)
+                                            newValue = (Boolean) e.getNewValue();
+                                        setVisible(newValue);
+                                        invalidate();
+                                        repaint();
+                                    }
+                                }
+                                case AbstractApplicationAction.ACCELERATOR_KEY -> {
+                                    KeyStroke newValue = (KeyStroke) e.getNewValue();
+                                    setAccelerator(newValue);
+                                    invalidate();
+                                    repaint();
+                                }
                             }
                         }
                     };
@@ -367,7 +364,7 @@ public class JackMenu extends JMenu implements MenuListener {
                     if (a != null) {
                         Integer i = (Integer) a.getValue(Action.MNEMONIC_KEY);
                         if (i != null)
-                            setMnemonic(i.intValue());
+                            setMnemonic(i);
                     }
                 }
 
@@ -375,27 +372,32 @@ public class JackMenu extends JMenu implements MenuListener {
                     return new PropertyChangeListener() {
                         public void propertyChange(PropertyChangeEvent e) {
                             String propertyName = e.getPropertyName();
-                            if (propertyName.equals(Action.NAME)) {
-                                String text = (String) e.getNewValue();
-                                setText(text);
-                                repaint();
-                            } else if (propertyName.equals("enabled")) { // NOT
-                                // LOCALIZABLE
-                                // -
-                                // property
-                                Boolean enabledState = (Boolean) e.getNewValue();
-                                setEnabled(enabledState.booleanValue());
-                                repaint();
-                            } else if (propertyName.equals(Action.SMALL_ICON)) {
-                                Icon icon = (Icon) e.getNewValue();
-                                setIcon(icon);
-                                invalidate();
-                                repaint();
-                            } else if (propertyName.equals(Action.MNEMONIC_KEY)) {
-                                Integer mn = (Integer) e.getNewValue();
-                                setMnemonic(mn.intValue());
-                                invalidate();
-                                repaint();
+                            switch (propertyName) {
+                                case Action.NAME -> {
+                                    String text = (String) e.getNewValue();
+                                    setText(text);
+                                    repaint();
+                                }
+                                case "enabled" -> {
+                                    // LOCALIZABLE
+                                    // -
+                                    // property
+                                    Boolean enabledState = (Boolean) e.getNewValue();
+                                    setEnabled(enabledState);
+                                    repaint();
+                                }
+                                case Action.SMALL_ICON -> {
+                                    Icon icon = (Icon) e.getNewValue();
+                                    setIcon(icon);
+                                    invalidate();
+                                    repaint();
+                                }
+                                case Action.MNEMONIC_KEY -> {
+                                    Integer mn = (Integer) e.getNewValue();
+                                    setMnemonic(mn);
+                                    invalidate();
+                                    repaint();
+                                }
                             }
                         }
                     };
@@ -523,8 +525,7 @@ public class JackMenu extends JMenu implements MenuListener {
         // actions may be hiden on some specific selection only.
         // We can't assume that those components will always be hidden.
         if (hiddenComponents != null) {
-            for (int i = 0; i < hiddenComponents.length; i++)
-                hiddenComponents[i].setVisible(true);
+            for (JComponent hiddenComponent : hiddenComponents) hiddenComponent.setVisible(true);
             hiddenComponents = null;
         }
     }

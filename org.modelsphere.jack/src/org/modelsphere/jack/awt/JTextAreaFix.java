@@ -43,10 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Color;
-
-import javax.swing.JTextArea;
-import javax.swing.UIManager;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * 

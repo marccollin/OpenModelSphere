@@ -43,14 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.generic.repository;
 
+import org.modelsphere.jack.plugins.PluginSignature;
+import org.modelsphere.jack.srtool.ApplicationContext;
+import org.modelsphere.jack.srtool.forward.Modifier;
+import org.modelsphere.jack.srtool.forward.Rule;
+import org.modelsphere.jack.srtool.forward.RuleException;
+import org.modelsphere.jack.srtool.forward.UserDefinedField;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
 import java.util.HashMap;
-
-import org.modelsphere.jack.plugins.PluginSignature;
-import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.forward.*;
+import java.util.Map;
 
 /**
  * For an object, returns a unique identification number. <br>
@@ -68,7 +72,7 @@ public final class ObjectId extends UserDefinedField {
             "$Revision: 4 $", ApplicationContext.APPLICATION_AUTHOR, "$Date: 2009/04/14 14:00p $",
             212); // NOT LOCALIZABLE
 
-    static HashMap map = new HashMap();
+    static Map map = new HashMap();
     private static int counter = 0;
 
     public static void reset() {
@@ -95,7 +99,7 @@ public final class ObjectId extends UserDefinedField {
         if (map.containsKey(object)) {
             id = (Integer) map.get(object);
         } else {
-            id = new Integer(counter++);
+            id = counter++;
             map.put(object, id);
         }
 

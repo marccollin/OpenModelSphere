@@ -47,5 +47,5 @@ import java.io.InputStream;
 
 public interface OnlineParser {
 
-    public void resetInput(InputStream input);
+    void resetInput(InputStream input);
 }

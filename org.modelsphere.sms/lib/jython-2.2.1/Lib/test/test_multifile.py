@@ -1,6 +1,6 @@
+import cStringIO
 import mimetools
 import multifile
-import cStringIO
 
 msg = """Mime-Version: 1.0
 Content-Type: multipart/mixed;

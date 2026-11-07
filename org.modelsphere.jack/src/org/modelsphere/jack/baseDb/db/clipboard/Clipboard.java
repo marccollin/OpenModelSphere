@@ -43,13 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.clipboard;
 
-import java.awt.Point;
-
 import org.modelsphere.jack.baseDb.db.DbDeadObjectException;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.util.SrVector;
+
+import java.awt.*;
 
 public final class Clipboard {
 

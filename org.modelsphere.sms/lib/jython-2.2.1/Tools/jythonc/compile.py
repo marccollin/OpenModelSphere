@@ -1,23 +1,19 @@
 # Copyright (c) Corporation for National Research Initiatives
 
-import sys
-import os
-from types import StringType
-
-from SrcGenCompiler import SrcGenCompiler
-from PythonModule import PythonModule
-from ObjectFactory import ObjectFactory
-from Object import PyObject
-
-import jast
-import ImportName
-import javac
-import proxies
-
 import java
 import org
-from java.lang import *
+import os
+import sys
+from types import StringType
 
+import ImportName
+import jast
+import javac
+import proxies
+from Object import PyObject
+from ObjectFactory import ObjectFactory
+from PythonModule import PythonModule
+from SrcGenCompiler import SrcGenCompiler
 
 
 def getdata(filename):
@@ -437,9 +433,6 @@ class Compiler:
             indent = indent+1
         return done.values()
 
-
-
-from java.io import *
 
 def writefile(filename, instream):
     file = File(filename)

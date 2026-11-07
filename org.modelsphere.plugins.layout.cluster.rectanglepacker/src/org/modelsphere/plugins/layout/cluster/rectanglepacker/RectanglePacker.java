@@ -1,7 +1,6 @@
 package org.modelsphere.plugins.layout.cluster.rectanglepacker;
 
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
 
 /**
  * Based on works by Ivan Montes <drslump@drslump.biz>, <http://blog.netxus.es> - RectanglePacker.js
@@ -20,7 +19,7 @@ import java.awt.Point;
  */
 
 public class RectanglePacker {
-    private static class Rect implements Cloneable {
+    private static class Rect {
         int width;
         int height;
         int x;
@@ -32,13 +31,11 @@ public class RectanglePacker {
         Rect() {
         }
 
-        @Override
-        public Object clone() throws CloneNotSupportedException {
-            Rect clone = (Rect) super.clone();
-            clone.leftRect = null;
-            clone.rightRect = null;
-            clone.used = false;
-            return clone;
+        Rect(Rect rect) {
+            this.width = rect.width;
+            this.height = rect.height;
+            this.x = rect.x;
+            this.y = rect.y;
         }
     }
 
@@ -71,9 +68,9 @@ public class RectanglePacker {
         // if fitted then recalculate the used dimensions
         if (coords != null) {
             if (this.usedWidth < coords.x + w)
-                this.usedWidth = (int) (coords.x + w);
+                this.usedWidth =  (coords.x + w);
             if (this.usedHeight < coords.y + h)
-                this.usedHeight = (int) (coords.y + h);
+                this.usedHeight =  (coords.y + h);
         }
         return coords;
     }
@@ -99,12 +96,9 @@ public class RectanglePacker {
                 return new Point(rect.x, rect.y);
             }
 
-            // initialize the left and right leafs by clonning the current one
-            try {
-                rect.leftRect = (Rect) rect.clone();
-                rect.rightRect = (Rect) rect.clone();
-            } catch (CloneNotSupportedException e) {
-            }
+            // Initialize the left and right leaves from the current rectangle.
+            rect.leftRect = new Rect(rect);
+            rect.rightRect = new Rect(rect);
 
             // checks if we partition in vertical or horizontal
             if (rect.width - w > rect.height - h) {

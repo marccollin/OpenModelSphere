@@ -77,6 +77,6 @@ public class ImageComponent extends GraphicComponent {
     }
 
     public final Float getOpacityFactor() {
-        return new Float(opacityFactor);
+        return Float.valueOf(opacityFactor);
     }
 }

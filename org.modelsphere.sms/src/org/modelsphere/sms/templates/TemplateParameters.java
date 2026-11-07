@@ -118,7 +118,7 @@ public class TemplateParameters implements Serializable {
     }
 
     // INDENTATION
-    private Integer m_indentation = new Integer(2);
+    private Integer m_indentation = Integer.valueOf(2);
 
     public Integer getIndentation() {
         return m_indentation;

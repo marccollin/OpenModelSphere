@@ -43,20 +43,26 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.*;
-import java.awt.image.BufferedImage;
-import java.util.Enumeration;
-
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.ThinBevelBorder;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.text.MessageFormat;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Dimension2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.Enumeration;
 
 @SuppressWarnings("serial")
 public class DrawingSizeDialog extends JDialog implements ChangeListener {
@@ -91,9 +97,9 @@ public class DrawingSizeDialog extends JDialog implements ChangeListener {
         yIncr = pageSize.getHeight() / scale;
         minX = minY = 1;
         previewDiagram = diagram;
-        Enumeration enumeration = diagram.components();
+        Enumeration<GraphicComponent> enumeration = diagram.components();
         while (enumeration.hasMoreElements()) {
-            GraphicComponent gc = (GraphicComponent) enumeration.nextElement();
+            GraphicComponent gc = enumeration.nextElement();
             if (contentRect == null)
                 contentRect = new Rectangle(gc.getRectangle());
             else
@@ -238,8 +244,8 @@ public class DrawingSizeDialog extends JDialog implements ChangeListener {
 
     private void refreshSizeLabel() {
         String pattern = LocaleMgr.screen.getString("drawingAreaInPages");
-        String text = MessageFormat.format(pattern, new Object[] { new Integer(nbPages.height),
-                new Integer(nbPages.width) });
+        String text = MessageFormat.format(pattern, new Object[] { Integer.valueOf(nbPages.height),
+                Integer.valueOf(nbPages.width) });
         sizeLabel.setText(text);
     }
 

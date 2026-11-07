@@ -43,7 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic;
 
-import java.awt.Graphics;
+import java.awt.*;
 
 public class LineEndZone extends GraphicComponent {
 

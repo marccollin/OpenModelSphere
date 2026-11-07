@@ -1,5 +1,9 @@
 
-import netrc, os, tempfile, test_support, unittest
+import netrc
+import os
+import tempfile
+import test_support
+import unittest
 
 TEST_NETRC = """
 machine foo login log1 password pass1 account acct1

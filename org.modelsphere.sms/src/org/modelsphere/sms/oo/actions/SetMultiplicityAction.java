@@ -45,7 +45,6 @@ import org.modelsphere.sms.SMSFilter;
 import org.modelsphere.sms.db.srtypes.SMSMultiplicity;
 import org.modelsphere.sms.oo.db.DbOODataMember;
 import org.modelsphere.sms.oo.international.LocaleMgr;
-import org.modelsphere.sms.or.db.DbORModel;
 
 public final class SetMultiplicityAction extends AbstractDomainAction implements
         SelectionActionListener {

@@ -73,11 +73,42 @@ val copyPlugins by tasks.registering(Copy::class) {
     group = "distribution"
 
     val pluginsDir = layout.buildDirectory.dir("distribution/OpenModelSphere-3.2/plugins")
+    val ansiForwardProject = project(":org.modelsphere.plugins.ansi_forward")
+    val ansiToolkitProject = project(":org.modelsphere.plugins.ansi_forward_toolkit")
+
+    dependsOn(
+        ":org.modelsphere.plugins.ansi_forward:jar",
+        ":org.modelsphere.plugins.ansi_forward_toolkit:jar"
+    )
 
     // SOURCE : org.modelsphere.sms/plugins/ (contient repository_functions.jar)
     from("${rootProject.projectDir}/org.modelsphere.sms/plugins/") {
         include("*.jar")
         exclude("*.zip", "*.bak", "*.tmp")
+    }
+
+    // These legacy XML plugins must be directories containing plugin.xml and lib/plugin.jar.
+    from(ansiForwardProject.file("src/plugin.xml")) {
+        into("org.modelsphere.plugins.ansi_forward")
+    }
+    from(ansiForwardProject.file("src")) {
+        include("locale*.properties", "license.html")
+        into("org.modelsphere.plugins.ansi_forward")
+    }
+    from(ansiForwardProject.tasks.named<Jar>("jar").flatMap { it.archiveFile }) {
+        into("org.modelsphere.plugins.ansi_forward/lib")
+        rename { "plugin.jar" }
+    }
+    from(ansiToolkitProject.file("src/plugin.xml")) {
+        into("org.modelsphere.plugins.ansi_forward_toolkit")
+    }
+    from(ansiToolkitProject.file("src")) {
+        include("locale*.properties", "license.html")
+        into("org.modelsphere.plugins.ansi_forward_toolkit")
+    }
+    from(ansiToolkitProject.tasks.named<Jar>("jar").flatMap { it.archiveFile }) {
+        into("org.modelsphere.plugins.ansi_forward_toolkit/lib")
+        rename { "plugin.jar" }
     }
 
     into(pluginsDir)

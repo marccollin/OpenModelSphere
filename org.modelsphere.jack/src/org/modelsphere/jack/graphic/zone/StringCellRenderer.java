@@ -43,19 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.zone;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
+import org.modelsphere.jack.graphic.DiagramView;
+import org.modelsphere.jack.graphic.GraphicUtil;
+
+import java.awt.*;
 import java.awt.font.TextAttribute;
 import java.text.AttributedString;
 import java.util.List;
-
-import org.modelsphere.jack.graphic.DiagramView;
-import org.modelsphere.jack.graphic.GraphicUtil;
 
 public class StringCellRenderer extends AbstractSelectionCellRenderer {
 

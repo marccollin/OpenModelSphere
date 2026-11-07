@@ -43,12 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.Component;
-import javax.swing.JComboBox;
-
 import org.modelsphere.jack.awt.AbstractTableCellEditor;
 import org.modelsphere.jack.baseDb.screen.Editor;
 import org.modelsphere.jack.baseDb.screen.ScreenView;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class SrBooleanEditor extends JComboBox implements Editor {
 

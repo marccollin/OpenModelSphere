@@ -33,22 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.awt.Component;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Vector;
-
-import javax.swing.Action;
-import javax.swing.Box;
-import javax.swing.Icon;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.awt.JackMenu;
 import org.modelsphere.jack.baseDb.db.DbProject;
@@ -68,6 +52,17 @@ import org.modelsphere.sms.oo.actions.ReverseAction;
 import org.modelsphere.sms.oo.java.actions.JavaActionConstants;
 import org.modelsphere.sms.or.actions.ORActionConstants;
 
+import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Vector;
+import java.util.List;
+
 public class MainFrameMenu extends org.modelsphere.jack.srtool.MainFrameMenu {
 	//locale-independent keys
 	private static final String REOPEN = "reopen"; // NOT LOCALIZABLE - Property Key
@@ -86,10 +81,10 @@ public class MainFrameMenu extends org.modelsphere.jack.srtool.MainFrameMenu {
 	
     // provided to override default action name for their respective plugins
     private static final String kGenerateJava = LocaleMgr.action.getString("GenerateJava");
-    private static final Integer kGenJavaMnemonic = new Integer(LocaleMgr.action
+    private static final Integer kGenJavaMnemonic = Integer.valueOf(LocaleMgr.action
             .getMnemonic("GenerateJava"));
     private static final String kGenerateXMI = LocaleMgr.action.getString("GenerateXMI");
-    private static final Integer kGenXMIMnemonic = new Integer(LocaleMgr.action
+    private static final Integer kGenXMIMnemonic = Integer.valueOf(LocaleMgr.action
             .getMnemonic("GenerateXMI"));
     private static final String kGenerate = LocaleMgr.misc.getString("Generate");
     private static final String kDataModel = LocaleMgr.misc.getString("DataModel");
@@ -105,12 +100,12 @@ public class MainFrameMenu extends org.modelsphere.jack.srtool.MainFrameMenu {
             .getString("bpmmodel");
     private static final String kGenerateProcessTree = org.modelsphere.sms.be.international.LocaleMgr.misc
             .getString("generateUpdateProcessTree");
-    private static final Integer kGenProcessTreeMnemonic = new Integer(0);
+    private static final Integer kGenProcessTreeMnemonic = Integer.valueOf(0);
     private static final String kValidateBPM = LocaleMgr.action.getString("Validate") + "...";
-    private static final Integer kValidateMnemonic = new Integer(LocaleMgr.action
+    private static final Integer kValidateMnemonic = Integer.valueOf(LocaleMgr.action
             .getMnemonic("Validate"));
     private static final String kCleanUpModel = LocaleMgr.action.getString("CleanUpModel");
-    private static final Integer kCleanUpModelMnemonic = new Integer(LocaleMgr.action
+    private static final Integer kCleanUpModelMnemonic = Integer.valueOf(LocaleMgr.action
             .getMnemonic("CleanUpModel"));
     private static final Icon kCleanUpMdelIcon = LocaleMgr.action.getImageIcon("CleanUpModel");
     private static final String kNew = LocaleMgr.screen.getString("new");
@@ -462,7 +457,7 @@ public class MainFrameMenu extends org.modelsphere.jack.srtool.MainFrameMenu {
         //action = createPluginAction("org.modelsphere.sms.plugins.bpm.validation.BpmValidation", kValidateBPM, kValidateMnemonic);  // NOT LOCALIZABLE
         //subMenuBPM.add(action); 
 
-        ArrayList<Object> tempObjects = new ArrayList<Object>();
+        List<Object> tempObjects = new ArrayList<Object>();
         tempObjects.add(kTools);
         tempObjects.add(String.copyValueOf(kMnemoChar, 4, 1));
 
@@ -594,7 +589,7 @@ public class MainFrameMenu extends org.modelsphere.jack.srtool.MainFrameMenu {
                 PluginMgr mgr = PluginMgr.getSingleInstance();
                 Class c = mgr.getPluginClass(classname);
                 PluginsRegistry registry = mgr.getPluginsRegistry();
-                ArrayList plugins = registry.getActivePluginInstances(c);
+                List plugins = registry.getActivePluginInstances(c);
                 if (plugins != null && plugins.size() > 0) {
                     action = new PluginDefaultAction((Plugin) plugins.get(0), actionName, mnemonic,
                             icon) {
@@ -630,7 +625,7 @@ public class MainFrameMenu extends org.modelsphere.jack.srtool.MainFrameMenu {
 
     public JackMenu createDefaultHelpMenu() {
 
-        Vector actionVector = new Vector();
+        List<Object> actionVector = new Vector<>();
 
         JackMenu subMenuAdvanced = new JackMenu(ADVANCED);
         subMenuAdvanced.add(SMSActionsStore.getSingleton().getAction(SMSActionsStore.SAFE_MODE));
@@ -657,7 +652,7 @@ public class MainFrameMenu extends org.modelsphere.jack.srtool.MainFrameMenu {
 
     private JackMenu createDefaultDebugMenu() {
 
-        Vector actionVector = new Vector();
+        List<Object> actionVector = new Vector<>();
 
         // put in a vector to be able to do conditional inclusions
         actionVector.add(kDebug);
@@ -678,15 +673,14 @@ public class MainFrameMenu extends org.modelsphere.jack.srtool.MainFrameMenu {
         actionVector.add(new org.modelsphere.sms.or.actions.ChangeTargetSystemAction());
         Object[] objects = actionVector.toArray();
 
-        JackMenu menu = MainFrameMenu.createMenu(MENU_DEBUG, objects);
-        return menu;
+        return MainFrameMenu.createMenu(MENU_DEBUG, objects);
     }
 
     private void updateMenuToolBar() {
         MainFrame.getSingleton().populateToolBarMenu(toolBarMenu);
     }
 
-    private void addComHelpPluginAction(Vector actionVector) {
+    private void addComHelpPluginAction(List<Object> actionVector) {
         String helpPluginPath = null;
         //Locale locale = LocaleMgr.getLocaleFromPreferences();
 

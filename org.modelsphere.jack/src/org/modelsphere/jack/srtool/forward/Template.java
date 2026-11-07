@@ -43,11 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.*;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.StringTokenizer;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.io.PathFile;
 import org.modelsphere.jack.srtool.ApplicationContext;
@@ -57,6 +52,17 @@ import org.modelsphere.jack.srtool.forward.exceptions.IllformedNumberException;
 import org.modelsphere.jack.srtool.forward.exceptions.NotADomainRuleException;
 import org.modelsphere.jack.srtool.forward.exceptions.SubruleMissingRuleException;
 import org.modelsphere.jack.text.MessageFormat;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * A template is a string containing template variables and edition codes. Processing (expanding) a
@@ -173,11 +179,11 @@ public final class Template extends Rule {
     private void parseFormatString() throws RuleException {
         TemplateEnumeration enumeration = new TemplateEnumeration(format);
         int nbSubStrings = 0;
-        java.util.Vector vecOfSubStrings = new java.util.Vector();
+        List<StringStructure> vecOfSubStrings = new java.util.Vector<>();
 
         while (enumeration.hasMoreElements()) {
             StringStructure ss = (StringStructure) enumeration.nextElement();
-            vecOfSubStrings.addElement(ss);
+            vecOfSubStrings.add(ss);
             nbSubStrings++;
         } // end while
 
@@ -188,7 +194,7 @@ public final class Template extends Rule {
         int rawRulesIndex = 0;
         try {
             for (int i = 0; i < nbSubStrings; i++) {
-                StringStructure ss = (StringStructure) vecOfSubStrings.elementAt(i);
+                StringStructure ss = vecOfSubStrings.get(i);
                 subStrings[i] = ss.str;
 
                 if (i < (nbSubStrings - 1)) {
@@ -274,6 +280,7 @@ public final class Template extends Rule {
 
     // ////////////////
     // OVERRIDES Object
+    @Override
     public String toString() {
         return (m_ruleName + "(" + format + ")");
     } // NOT LOCALIZABLE
@@ -319,7 +326,7 @@ public final class Template extends Rule {
         for (int i = 0; i < len; i++) {
             String s = subStrings[i];
             buffer.write(s);
-            if (!s.equals("")) {
+            if (!s.isEmpty()) {
                 expanded = true;
             }
 
@@ -334,14 +341,13 @@ public final class Template extends Rule {
 
         // write the last substring
         String s = subStrings[len];
-        if (!s.equals("")) {
+        if (!s.isEmpty()) {
             expanded = true;
         }
 
         buffer.write(s);
 
-        String txt = (expanded ? buffer.toString() : "");
-        return txt;
+        return (expanded ? buffer.toString() : "");
     }
 
     private boolean m_domainMode = false;
@@ -489,7 +495,7 @@ public final class Template extends Rule {
                 expanded |= expandWithDomainModifier(output, object, options);
 
                 // if no expansion, and a null modifier exists
-                if ((expanded == false) && (nullModifier != null)) {
+                if ((!expanded) && (nullModifier != null)) {
                     expanded = nullModifier.expand(output, object, options);
                 } // end if
 
@@ -524,7 +530,7 @@ public final class Template extends Rule {
                 int margin = EditionCode.getMargin();
                 String txt = expandSubRules(object, options);
 
-                if (!txt.equals("")) {
+                if (!txt.isEmpty()) {
                     // write prefix, if any
                     if (prefixModifier != null) {
                         EditionCode.reset(margin); // restore to previous value
@@ -550,7 +556,7 @@ public final class Template extends Rule {
             } // end if
 
             // if no expansion, and a null modifier exists
-            if ((expanded == false) && (nullModifier != null)) {
+            if ((!expanded) && (nullModifier != null)) {
                 expanded = nullModifier.expand(output, object, options);
             }
 

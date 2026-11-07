@@ -32,15 +32,23 @@ open-modelsphere@grandite.com
 **********************************************************************/
 package org.modelsphere.sms.oo.db;
 
-import java.awt.*;
-import org.modelsphere.jack.baseDb.meta.*;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import org.modelsphere.sms.oo.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.srtypes.DbtPrefix;
+import org.modelsphere.jack.baseDb.db.srtypes.SrBoolean;
+import org.modelsphere.jack.baseDb.db.srtypes.SrColor;
+import org.modelsphere.jack.baseDb.db.srtypes.SrFont;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelation1;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
+import org.modelsphere.sms.db.DbSMSProject;
+import org.modelsphere.sms.db.DbSMSStyle;
 import org.modelsphere.sms.oo.international.LocaleMgr;
-import org.modelsphere.sms.db.*;
-import org.modelsphere.sms.db.srtypes.*;
+
+import java.awt.*;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
 <b>Direct subclass(es)/subinterface(s) : </b>none.<br>
@@ -403,7 +411,7 @@ public final class DbOOStyle extends DbSMSStyle {
   }
 
   static final long serialVersionUID = 0;
-  private static HashMap fieldMap;
+  private static Map<String, MetaField> fieldMap;
   public static MetaField[] oojv_displayOptions;
   public static MetaField[] oojv_fontOptions;
   public static MetaField[] oojv_prefixOptions;
@@ -553,11 +561,11 @@ public final class DbOOStyle extends DbSMSStyle {
   public MetaField getMetaField(String name) {
     if (fieldMap == null) {
       MetaField[] fields = metaClass.getAllMetaFields();
-      fieldMap = new HashMap(fields.length + fields.length/2);
+      fieldMap = new HashMap<>(fields.length + fields.length/2);
       for (int i = 0;  i < fields.length;  i++)
         fieldMap.put(fields[i].getJName(), fields[i]);
     }
-    return (MetaField)fieldMap.get(name);
+    return fieldMap.get(name);
   }
 
 /**

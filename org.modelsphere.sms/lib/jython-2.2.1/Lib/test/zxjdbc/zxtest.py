@@ -5,10 +5,13 @@
 #
 # Copyright (c) 2001 brian zimmer <bzimmer@ziclix.com>
 
+import os
+import runner
+import tempfile
+import time
 from com.ziclix.python.sql import zxJDBC
 from java.util import Calendar, Date as JDate
 
-import tempfile, os, time, runner
 
 class zxCoreTestCase(runner.SQLTestCase):
 

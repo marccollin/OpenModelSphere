@@ -32,30 +32,13 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.actions;
 
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-
-import javax.swing.Icon;
-import javax.swing.tree.TreePath;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
-import org.modelsphere.jack.graphic.Diagram;
-import org.modelsphere.jack.graphic.DiagramView;
-import org.modelsphere.jack.graphic.GraphicComponent;
-import org.modelsphere.jack.graphic.ZoneBox;
-import org.modelsphere.jack.graphic.zone.CellID;
-import org.modelsphere.jack.graphic.zone.MatrixCellID;
-import org.modelsphere.jack.graphic.zone.MatrixZone;
-import org.modelsphere.jack.graphic.zone.Zone;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.explorer.ExplorerView;
-import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.util.CollationComparator;
 import org.modelsphere.jack.util.DefaultComparableElement;
 import org.modelsphere.jack.util.SrSort;
@@ -81,7 +64,11 @@ import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.or.oracle.db.DbORAColumn;
 import org.modelsphere.sms.or.oracle.db.DbORATable;
 import org.modelsphere.sms.or.oracle.db.DbORAView;
-import org.modelsphere.sms.plugins.TargetSystemInfo;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author nicolask
@@ -149,12 +136,12 @@ public class CreateCommonItemColumnsAction extends AbstractApplicationAction imp
             }
             if (composite != null) {
                 composite.getDb().beginWriteTrans(kCreateCommonItemColumns);
-                ArrayList compareList = new ArrayList();
-                for (int i = 0; i < commonItems.length; i++) {
-                    commonItems[i].getDb().beginReadTrans();
-                    compareList.add(new DefaultComparableElement(commonItems[i], commonItems[i]
+                List<DefaultComparableElement> compareList = new ArrayList<>();
+                for (DbObject commonItem : commonItems) {
+                    commonItem.getDb().beginReadTrans();
+                    compareList.add(new DefaultComparableElement(commonItem, commonItem
                             .getName()));
-                    commonItems[i].getDb().commitTrans();
+                    commonItem.getDb().commitTrans();
                 }
                 DefaultComparableElement[] ts = new DefaultComparableElement[compareList.size()];
                 compareList.toArray(ts);
@@ -195,10 +182,10 @@ public class CreateCommonItemColumnsAction extends AbstractApplicationAction imp
         } else
             insertPosition = relation.indexOf(classOrField);
 
-        for (int i = 0; i < sortedCommonItems.length; i++) {
+        for (DbObject sortedCommonItem : sortedCommonItems) {
             column = new DbJVDataMember(composite);
 
-            DbORCommonItem commonItem = (DbORCommonItem) sortedCommonItems[i];
+            DbORCommonItem commonItem = (DbORCommonItem) sortedCommonItem;
 
             // update the column values from the common item values
             column.setName(commonItem.getName());
@@ -246,7 +233,7 @@ public class CreateCommonItemColumnsAction extends AbstractApplicationAction imp
         } else
             insertPosition = relation.indexOf(tableOrColumn);
 
-        for (int i = 0; i < sortedCommonItems.length; i++) {
+        for (DbObject sortedCommonItem : sortedCommonItems) {
             if (composite instanceof DbGETable || composite instanceof DbGEView)
                 column = new DbGEColumn(composite);
             else if (composite instanceof DbORATable || composite instanceof DbORAView)
@@ -256,7 +243,7 @@ public class CreateCommonItemColumnsAction extends AbstractApplicationAction imp
             else if (composite instanceof DbINFTable || composite instanceof DbINFView)
                 column = new DbINFColumn(composite);
 
-            DbORCommonItem commonItem = (DbORCommonItem) sortedCommonItems[i];
+            DbORCommonItem commonItem = (DbORCommonItem) sortedCommonItem;
 
             // update the column values from the common item values
             column.setName(commonItem.getName());

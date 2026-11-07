@@ -43,13 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.plugins.xml;
 
-import java.io.*;
-import javax.swing.JFileChooser;
-
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringWriter;
 
 //[INTERACTIVE MODE] SUPPORT
 

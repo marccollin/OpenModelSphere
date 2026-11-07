@@ -33,13 +33,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.services;
 
+import org.modelsphere.jack.srtool.services.TargetPanelMessage;
+import org.modelsphere.jack.srtool.services.TargetPanelServiceProtocol;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-
-import org.modelsphere.jack.srtool.services.TargetPanelMessage;
-import org.modelsphere.jack.srtool.services.TargetPanelServiceProtocol;
 
 /**
  * 

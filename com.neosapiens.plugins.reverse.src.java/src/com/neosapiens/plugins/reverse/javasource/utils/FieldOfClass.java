@@ -1,8 +1,8 @@
 package com.neosapiens.plugins.reverse.javasource.utils;
 
-import java.lang.reflect.Modifier;
-
 import com.neosapiens.plugins.reverse.javasource.actions.SemanticAction;
+
+import java.lang.reflect.Modifier;
 
 public class FieldOfClass implements SemanticDeclaration {
     private String currentPackage;

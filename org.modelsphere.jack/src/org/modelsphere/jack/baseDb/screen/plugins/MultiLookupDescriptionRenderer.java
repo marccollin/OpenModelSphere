@@ -43,27 +43,28 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.table.*;
-
 import org.modelsphere.jack.baseDb.screen.MultiDefaultRenderer;
 import org.modelsphere.jack.srtool.list.ListTable;
 import org.modelsphere.jack.srtool.screen.design.DesignPanel;
 import org.modelsphere.jack.srtool.screen.design.DesignTableModel;
 
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableModel;
+import java.awt.*;
+
 public class MultiLookupDescriptionRenderer extends MultiDefaultRenderer {
     private static JPanel panel;
     private static JLabel label;
-    private static JButton textEditorBtn = new JButton();
+    private static final JButton textEditorBtn = new JButton();
 
     public static final Icon kTextToWrite = org.modelsphere.jack.srtool.international.LocaleMgr.screen
             .getImageIcon("TextToWrite");
     public static final Icon kTextWritten = org.modelsphere.jack.srtool.international.LocaleMgr.screen
             .getImageIcon("TextWritten");
 
-    private static Border noFocusBorder = new EmptyBorder(1, 2, 1, 2);
+    private static final Border noFocusBorder = new EmptyBorder(1, 2, 1, 2);
 
     public static final MultiLookupDescriptionRenderer singleton = new MultiLookupDescriptionRenderer();
 
@@ -89,12 +90,12 @@ public class MultiLookupDescriptionRenderer extends MultiDefaultRenderer {
             if (value == null) {
                 textEditorBtn.setIcon(kTextToWrite);
             } else {
-                textEditorBtn.setIcon(((String) value).length() > 0 ? kTextWritten : kTextToWrite);
+                textEditorBtn.setIcon(!((String) value).isEmpty() ? kTextWritten : kTextToWrite);
             }
         }
         TableModel model = table.getModel();
-        boolean valuesDiffer = model instanceof DesignTableModel ? ((DesignTableModel) model)
-                .isValuesDiffer(row) : false;
+        boolean valuesDiffer = model instanceof DesignTableModel designModel
+                && designModel.isValuesDiffer(row);
         if (valuesDiffer && !isSelected) {
             label.setForeground(table.getForeground());
             label.setBackground(DesignPanel.DIFFER_NO_FOCUS_COLOR);

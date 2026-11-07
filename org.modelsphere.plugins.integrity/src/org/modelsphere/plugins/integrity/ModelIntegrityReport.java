@@ -33,13 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.integrity;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.net.URL;
-
-import javax.swing.JEditorPane;
-import javax.swing.text.JTextComponent;
-
 import org.modelsphere.jack.awt.TextViewerFrame;
 import org.modelsphere.jack.awt.html.InternalLink;
 import org.modelsphere.jack.awt.html.InternalLinkAdapter;
@@ -52,7 +45,16 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.explorer.Explorer;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.sms.be.db.DbBEModel;
-import org.modelsphere.sms.or.db.*;
+import org.modelsphere.sms.or.db.DbORAssociation;
+import org.modelsphere.sms.or.db.DbORColumn;
+import org.modelsphere.sms.or.db.DbORTable;
+import org.modelsphere.sms.or.db.DbORView;
+
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.net.URL;
 
 /**
  * @author pierrem
@@ -495,11 +497,11 @@ public class ModelIntegrityReport {
         writer.write("<b><i>"); // NOT LOCALIZABLE
         writer.write(EOL + EOL);
         if (modelErrorCount > 0)
-            writer.write(MessageFormat.format(kErrorCount0, new Object[] { new Integer(
+            writer.write(MessageFormat.format(kErrorCount0, new Object[] { Integer.valueOf(
                     modelErrorCount) })
                     + EOL);
         if (modelWarningCount > 0)
-            writer.write(MessageFormat.format(kWarningCount0, new Object[] { new Integer(
+            writer.write(MessageFormat.format(kWarningCount0, new Object[] { Integer.valueOf(
                     modelWarningCount) })
                     + EOL);
         if (modelErrorCount == 0 && modelWarningCount == 0)

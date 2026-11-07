@@ -34,18 +34,11 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.plugins.report;
 
 // JDK
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import javax.swing.JOptionPane;
 
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.gui.task.DefaultController;
-import org.modelsphere.jack.plugins.Plugin;
 import org.modelsphere.jack.plugins.Plugin2;
 import org.modelsphere.jack.plugins.PluginAction;
 import org.modelsphere.jack.plugins.PluginSignature;
@@ -56,6 +49,12 @@ import org.modelsphere.jack.srtool.MainFrameMenu;
 import org.modelsphere.jack.srtool.forward.GenerateInFileInfo;
 import org.modelsphere.sms.plugins.report.model.ReportModel;
 import org.modelsphere.sms.plugins.report.screen.ReportPropertiesFrame;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ReportGeneratorPlugin implements Plugin2 {
 

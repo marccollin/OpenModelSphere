@@ -43,17 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.templates;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.net.URL;
-import java.nio.file.FileSystems;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -82,6 +71,16 @@ import org.modelsphere.sms.or.generic.db.DbGETable;
 import org.modelsphere.sms.or.generic.db.DbGETrigger;
 import org.modelsphere.sms.or.generic.db.DbGEView;
 import org.modelsphere.sms.preference.DirectoryOptionGroup;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.net.URL;
+import java.nio.file.FileSystems;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class provides common services for SQL generation plug-ins.
@@ -287,7 +286,7 @@ public abstract class SQLForwardEngineeringPlugin extends GenericForwardEngineer
     public static final Integer INFDatabaseId = 13;
     public static final Integer INFDataModelId = 14;
 
-    private static final Map ENTRY_POINT_MAP;
+    private static final Map<Integer, String[]> ENTRY_POINT_MAP;
     //Data
     private static final String PUKEY_CREATE_ENTRY_POINT = "pukeyEntryPoint"; //NOT LOCALIZABLE, template entry point
     private static final String FKEY_CREATE_ENTRY_POINT = "fkEntryPoint"; //NOT LOCALIZABLE, template entry point
@@ -305,7 +304,7 @@ public abstract class SQLForwardEngineeringPlugin extends GenericForwardEngineer
     private static final String MODEL_CREATE_ENTRY_POINT = "modelEntryPoint"; //NOT LOCALIZABLE, template entry point
 
     static {
-        ENTRY_POINT_MAP = new HashMap();
+        ENTRY_POINT_MAP = new HashMap<>();
         //                  MetaClass                        CREATE_ADD_FORWARD         CREATE_ADD_SYNCHRO  DROP/DELETE   ALTER/MODIFY  RENAME
         ENTRY_POINT_MAP.put(GETableId, new String[] { TABLE_CREATE_ENTRY_POINT, null, null, null, null });
         ENTRY_POINT_MAP.put(GEViewId, new String[] { VIEW_CREATE_ENTRY_POINT, null, null, null, null });
@@ -326,30 +325,30 @@ public abstract class SQLForwardEngineeringPlugin extends GenericForwardEngineer
         Rule rule = null;
 
         if (obj instanceof DbGETable) {
-            entryPoints = (String[]) ENTRY_POINT_MAP.get(GETableId);
+            entryPoints = ENTRY_POINT_MAP.get(GETableId);
         } else if (obj instanceof DbGEView) {
-            entryPoints = (String[]) ENTRY_POINT_MAP.get(GEViewId);
+            entryPoints = ENTRY_POINT_MAP.get(GEViewId);
         } else if (obj instanceof DbGEColumn) {
-            entryPoints = (String[]) ENTRY_POINT_MAP.get(GEColumnId);
+            entryPoints = ENTRY_POINT_MAP.get(GEColumnId);
         } else if (obj instanceof DbGEIndex) {
-            entryPoints = (String[]) ENTRY_POINT_MAP.get(GEIndexId);
+            entryPoints = ENTRY_POINT_MAP.get(GEIndexId);
         } else if (obj instanceof DbGETrigger) {
-            entryPoints = (String[]) ENTRY_POINT_MAP.get(GETriggerId);
+            entryPoints = ENTRY_POINT_MAP.get(GETriggerId);
         } else if (obj instanceof DbGEPrimaryUnique) {
             obj.getDb().beginTrans(Db.READ_TRANS);
             if (((DbGEPrimaryUnique) obj).isPrimary())
-                entryPoints = (String[]) ENTRY_POINT_MAP.get(PrimaryId);
+                entryPoints = ENTRY_POINT_MAP.get(PrimaryId);
             else
-                entryPoints = (String[]) ENTRY_POINT_MAP.get(UniqueId);
+                entryPoints = ENTRY_POINT_MAP.get(UniqueId);
             obj.getDb().commitTrans();
         } else if (obj instanceof DbGEProcedure) {
-            entryPoints = (String[]) ENTRY_POINT_MAP.get(GEProcedureId);
+            entryPoints = ENTRY_POINT_MAP.get(GEProcedureId);
         } else if (obj instanceof DbORUser) {
-            entryPoints = (String[]) ENTRY_POINT_MAP.get(ORUserId);
+            entryPoints = ENTRY_POINT_MAP.get(ORUserId);
         } else if (obj instanceof DbORDomain) {
-            entryPoints = (String[]) ENTRY_POINT_MAP.get(ORDomainId);
+            entryPoints = ENTRY_POINT_MAP.get(ORDomainId);
         } else if (obj instanceof DbGEDataModel) {
-            entryPoints = (String[]) ENTRY_POINT_MAP.get(GEDataModelId);
+            entryPoints = ENTRY_POINT_MAP.get(GEDataModelId);
         }
         if (entryPoints != null && entryPoints[action] != null)
             rule = getRule(entryPoints[action], getTemplateURL());

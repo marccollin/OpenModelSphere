@@ -33,13 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.awt.Component;
-import java.awt.Image;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.swing.JDialog;
-
 import org.modelsphere.jack.awt.AbstractTableCellEditor;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -60,6 +53,12 @@ import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.or.db.DbORAbsTable;
 import org.modelsphere.sms.or.db.DbORDiagram;
 import org.modelsphere.sms.or.db.DbORTableGo;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class StereotypeIconEditor implements Editor {
 
@@ -104,7 +103,7 @@ public class StereotypeIconEditor implements Editor {
     // MultiStereotypeIconEditor.getTableCellEditorComponent()
     static void refreshStereotypedObjects(MainFrame owner, DbSMSStereotype stereotype)
             throws DbException {
-        ArrayList internalFrameList = new ArrayList(); // list of affected
+        List<DiagramInternalFrame> internalFrameList = new ArrayList<>(); // list of affected
         // internal frames
         DbRelationN relN = stereotype.getStereotypedObjects();
 
@@ -166,9 +165,9 @@ public class StereotypeIconEditor implements Editor {
         dbEnum.close();
 
         // Refresh all internal frames affected
-        Iterator iter = internalFrameList.iterator();
+        Iterator<DiagramInternalFrame> iter = internalFrameList.iterator();
         while (iter.hasNext()) {
-            DiagramInternalFrame frame = (DiagramInternalFrame) iter.next();
+            DiagramInternalFrame frame = iter.next();
             if (frame != null) {
                 frame.refresh();
             }

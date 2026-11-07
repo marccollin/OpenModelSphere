@@ -43,25 +43,32 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.assistant;
 
+import org.modelsphere.jack.debug.Debug;
+import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreeSelectionModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.beans.PropertyVetoException;
 import java.net.URL;
-import java.util.*;
-
-import javax.swing.*;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.event.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.TreeSelectionModel;
-
-import org.modelsphere.jack.debug.Debug;
-import org.modelsphere.jack.international.LocaleMgr;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+import java.util.StringTokenizer;
+import java.util.Vector;
 
 public abstract class JHtmlBallonHelp extends JInternalFrame implements MouseListener,
         ListSelectionListener {
@@ -344,7 +351,7 @@ public abstract class JHtmlBallonHelp extends JInternalFrame implements MouseLis
     }
 
     protected Vector parseList(String indexList) {
-        Vector v = new Vector(10);
+        Vector<String> v = new Vector<>(10);
         StringTokenizer tokenizer = new StringTokenizer(indexList, ","); // NOT
         // LOCALIZABLE
         while (tokenizer.hasMoreTokens()) {
@@ -658,7 +665,7 @@ public abstract class JHtmlBallonHelp extends JInternalFrame implements MouseLis
                     .getResource("resources/show.gif")));
             showHideButton.setToolTipText(kShowHelpExplorer);
         }
-        if (visible == false) {
+        if (!visible) {
             tabbedPane.setVisible(true);
             showHideButton
                     .setIcon(new ImageIcon(LocaleMgr.class.getResource("resources/hide.gif")));
@@ -674,7 +681,7 @@ public abstract class JHtmlBallonHelp extends JInternalFrame implements MouseLis
 
     // //TOC PROPERTIES
     protected Vector parseToc(String tocList) {
-        Vector v = new Vector(10);
+        Vector<String> v = new Vector<>(10);
         StringTokenizer tokenizer = new StringTokenizer(tocList, ","); // NOT
         // LOCALIZABLE
         while (tokenizer.hasMoreTokens()) {
@@ -742,7 +749,7 @@ public abstract class JHtmlBallonHelp extends JInternalFrame implements MouseLis
 
     // Parsing the EditorPane
     protected Vector parseText(String input) {
-        Vector v = new Vector(10);
+        Vector<String> v = new Vector<>(10);
         StringTokenizer tokenizer = new StringTokenizer(input, " "); // NOT
         // LOCALIZABLE
         while (tokenizer.hasMoreTokens()) {

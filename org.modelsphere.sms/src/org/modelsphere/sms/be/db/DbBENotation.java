@@ -42,15 +42,25 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.be.db;
 
-import java.awt.*;
-import org.modelsphere.jack.baseDb.meta.*;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import org.modelsphere.sms.be.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.baseDb.db.srtypes.SrBoolean;
+import org.modelsphere.jack.baseDb.db.srtypes.SrInteger;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelation1;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
+import org.modelsphere.sms.be.db.srtypes.BEZoneStereotype;
 import org.modelsphere.sms.be.international.LocaleMgr;
-import org.modelsphere.sms.db.*;
-import org.modelsphere.sms.db.srtypes.*;
+import org.modelsphere.sms.db.DbSMSNotation;
+import org.modelsphere.sms.db.DbSMSProject;
+import org.modelsphere.sms.db.srtypes.SMSNotationShape;
+import org.modelsphere.sms.db.srtypes.SMSZoneOrientation;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <b>Direct subclass(es)/subinterface(s) : </b>none.<br>
@@ -246,8 +256,8 @@ public final class DbBENotation extends DbSMSNotation {
         useCaseOptions = new MetaField[] { fUseCaseDefaultWidth, fUseCaseDefaultHeight,
                 fUseCaseShape, fUseCaseZoneOrientation };
 
-        useCaseOptionDefaultValues = new Object[] { new Integer(USECASE_DEFAULT_WIDTH),
-                new Integer(USECASE_DEFAULT_HEIGHT),
+        useCaseOptionDefaultValues = new Object[] {USECASE_DEFAULT_WIDTH,
+                USECASE_DEFAULT_HEIGHT,
                 SMSNotationShape.getInstance(SMSNotationShape.ROUND_RECTANGLE),
                 SMSZoneOrientation.getInstance(SMSZoneOrientation.HORIZONTAL) };
 
@@ -255,8 +265,8 @@ public final class DbBENotation extends DbSMSNotation {
         actorOptions = new MetaField[] { fActorDefaultWidth, fActorDefaultHeight, fActorIdPrefix,
                 fActorShape, fActorZoneOrientation };
 
-        actorOptionDefaultValues = new Object[] { new Integer(ACTOR_DEFAULT_WIDTH),
-                new Integer(ACTOR_DEFAULT_HEIGHT), ACTOR_ID_PREFIX,
+        actorOptionDefaultValues = new Object[] {ACTOR_DEFAULT_WIDTH,
+                ACTOR_DEFAULT_HEIGHT, ACTOR_ID_PREFIX,
                 SMSNotationShape.getInstance(SMSNotationShape.SHADOW_RECTANGLE),
                 SMSZoneOrientation.getInstance(SMSZoneOrientation.HORIZONTAL) };
 
@@ -264,8 +274,8 @@ public final class DbBENotation extends DbSMSNotation {
         storeOptions = new MetaField[] { fStoreDefaultWidth, fStoreDefaultHeight, fStoreIdPrefix,
                 fStoreShape, fStoreZoneOrientation };
 
-        storeOptionDefaultValues = new Object[] { new Integer(STORE_DEFAULT_WIDTH),
-                new Integer(STORE_DEFAULT_HEIGHT), STORE_ID_PREFIX,
+        storeOptionDefaultValues = new Object[] { Integer.valueOf(STORE_DEFAULT_WIDTH),
+                Integer.valueOf(STORE_DEFAULT_HEIGHT), STORE_ID_PREFIX,
                 SMSNotationShape.getInstance(SMSNotationShape.OPENED_RECTANGLE_RIGHT),
                 SMSZoneOrientation.getInstance(SMSZoneOrientation.PERPENDICULAR) };
 
@@ -353,8 +363,8 @@ public final class DbBENotation extends DbSMSNotation {
         setConstraintCenter(Boolean.FALSE);
         setDefButtomBorder(Boolean.TRUE);
         setDefRightBorder(Boolean.TRUE);
-        setDefVerticalAlignment(new Integer(0));
-        setDefHorizontalAlignment(new Integer(0));
+        setDefVerticalAlignment(0);
+        setDefHorizontalAlignment(0);
         setHasFrame(Boolean.TRUE);
         setDisplayStereotypesAsIcons(Boolean.FALSE);
     }
@@ -364,7 +374,7 @@ public final class DbBENotation extends DbSMSNotation {
      * 
      * @return arraylist
      **/
-    public final ArrayList getUseCaseZones() throws DbException {
+    public final List<DbBESingleZoneDisplay> getUseCaseZones() throws DbException {
         return getAllZonesOfType(BEZoneStereotype.getInstance(BEZoneStereotype.USECASE));
     }
 
@@ -373,7 +383,7 @@ public final class DbBENotation extends DbSMSNotation {
      * 
      * @return arraylist
      **/
-    public final ArrayList getActorZones() throws DbException {
+    public final List<DbBESingleZoneDisplay> getActorZones() throws DbException {
         return getAllZonesOfType(BEZoneStereotype.getInstance(BEZoneStereotype.ACTOR));
     }
 
@@ -382,7 +392,7 @@ public final class DbBENotation extends DbSMSNotation {
      * 
      * @return arraylist
      **/
-    public final ArrayList getFlowZones() throws DbException {
+    public final List<DbBESingleZoneDisplay> getFlowZones() throws DbException {
         return getAllZonesOfType(BEZoneStereotype.getInstance(BEZoneStereotype.FLOW));
     }
 
@@ -391,7 +401,7 @@ public final class DbBENotation extends DbSMSNotation {
      * 
      * @return arraylist
      **/
-    public final ArrayList getStoreZones() throws DbException {
+    public final List<DbBESingleZoneDisplay> getStoreZones() throws DbException {
         return getAllZonesOfType(BEZoneStereotype.getInstance(BEZoneStereotype.STORE));
     }
 
@@ -400,8 +410,8 @@ public final class DbBENotation extends DbSMSNotation {
      *            org.modelsphere.sms.be.db.srtypes.BEZoneStereotype
      * @return arraylist
      **/
-    private ArrayList getAllZonesOfType(BEZoneStereotype stereotype) throws DbException {
-        ArrayList zones = new ArrayList();
+    private List<DbBESingleZoneDisplay> getAllZonesOfType(BEZoneStereotype stereotype) throws DbException {
+        List<DbBESingleZoneDisplay> zones = new ArrayList<>();
         DbEnumeration dbEnum = this.getComponents().elements(DbBESingleZoneDisplay.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbBESingleZoneDisplay zone = (DbBESingleZoneDisplay) dbEnum.nextElement();
@@ -426,29 +436,28 @@ public final class DbBENotation extends DbSMSNotation {
     }
 
     /**
-     * @param srcnotation
+     * @param srcNotation
      *            org.modelsphere.sms.be.db.DbBENotation
      **/
     public void copyOptions(DbBENotation srcNotation) throws DbException {
 
         // copy all options fields
-        for (int i = 0; i < optionGroups.length; i++) {
-            for (int j = 0; j < optionGroups[i].length; j++) {
-                MetaField metaField = optionGroups[i][j];
+        for (MetaField[] optionGroup : optionGroups) {
+            for (MetaField metaField : optionGroup) {
                 basicSet(metaField, srcNotation.get(metaField));
             }
         }
         // copy all zone
         DbEnumeration dbEnum = srcNotation.getComponents()
                 .elements(DbBESingleZoneDisplay.metaClass);
-        ArrayList zones = new ArrayList();
+        List<DbObject> zones = new ArrayList<>();
         while (dbEnum.hasMoreElements())
             zones.add(dbEnum.nextElement());
         dbEnum.close();
-        if (zones.size() > 0) {
+        if (!zones.isEmpty()) {
             DbObject[] sources = new DbObject[zones.size()];
             for (int i = 0; i < sources.length; i++)
-                sources[i] = (DbObject) zones.get(i);
+                sources[i] = zones.get(i);
             DbObject.deepCopy(sources, this, null);
         }
     }
@@ -801,7 +810,7 @@ public final class DbBENotation extends DbSMSNotation {
      * @return boolean
      **/
     public final boolean isBuiltIn() throws DbException {
-        return getBuiltIn().booleanValue();
+        return getBuiltIn();
     }
 
     /**

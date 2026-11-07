@@ -43,9 +43,7 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.beans;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  * This class is responsible to create a modal dialog and to show it; when the dialog is closed, the

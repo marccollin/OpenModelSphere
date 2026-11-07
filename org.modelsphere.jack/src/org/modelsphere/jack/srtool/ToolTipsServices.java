@@ -43,20 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.util.StringTokenizer;
-
-import javax.swing.JComponent;
-import javax.swing.ToolTipManager;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.srtool.preference.DisplayToolTipsOptionGroup;
 import org.modelsphere.jack.util.TargetRuntimeException;
+
+import javax.swing.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.StringTokenizer;
 
 /**
  * The work around Tooltips is not completed. Only the explorer take into consideration this

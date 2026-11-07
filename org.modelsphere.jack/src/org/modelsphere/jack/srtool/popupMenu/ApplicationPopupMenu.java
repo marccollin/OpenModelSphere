@@ -43,20 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.popupMenu;
 
-import java.util.HashSet;
-import java.util.HashMap;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.awt.Component;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.Action;
-
-import org.modelsphere.jack.actions.*;
+import org.modelsphere.jack.actions.AbstractActionsStore;
+import org.modelsphere.jack.actions.AbstractApplicationAction;
+import org.modelsphere.jack.actions.ActionInformation;
+import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.actions.util.DbMultiTrans;
-import org.modelsphere.jack.awt.*;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.awt.JackMenu;
+import org.modelsphere.jack.awt.JackPopupMenu;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.plugins.PluginAction;
@@ -70,6 +66,17 @@ import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.jack.util.SrVector;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public abstract class ApplicationPopupMenu {
 
@@ -90,7 +97,7 @@ public abstract class ApplicationPopupMenu {
      */
     protected static Object[] instanceWithPopupMenu = null;
 
-    private static HashMap itemNameMap = null;
+    private static Map<String, Integer> itemNameMap = null;
     private static Object[] popupMenuByClass = null;
 
     private static final int DISCARD = 0x10000;
@@ -125,17 +132,16 @@ public abstract class ApplicationPopupMenu {
         Object[] selObjects = focusManager.getSelectedObjects();
 
         if (selObjects.length > 0 && !useContainer) {
-            HashSet classes = new HashSet();
-            for (int i = 0; i < selObjects.length; i++) {
-                Object object = selObjects[i];
+            Set<Class<?>> classes = new HashSet<>();
+            for (Object object : selObjects) {
                 if (!classes.add(object.getClass()))
                     continue;
                 int[] indices = getItemIndices(object);
                 if (indices == null)
                     return null;
-                for (int j = 0; j < indices.length; j++) {
-                    if ((indices[j] & DISCARD) == 0)
-                        selArray[indices[j]]++;
+                for (int index : indices) {
+                    if ((index & DISCARD) == 0)
+                        selArray[index]++;
                 }
                 selCount++;
             }
@@ -168,16 +174,16 @@ public abstract class ApplicationPopupMenu {
             }
             //DbMultiTrans.commitTrans(selObjects);
 
-            ArrayList arrayToCommit = new ArrayList();
-            for (int w = 0; w < selObjects.length; w++) {
+            List<Object> arrayToCommit = new ArrayList<>();
+            for (Object selObject : selObjects) {
                 Db db = null;
-                if (selObjects[w] instanceof DbObject)
-                    db = ((DbObject) selObjects[w]).getDb();
-                else if (selObjects[w] instanceof ActionInformation)
-                    db = ((ActionInformation) selObjects[w]).getDb();
+                if (selObject instanceof DbObject)
+                    db = ((DbObject) selObject).getDb();
+                else if (selObject instanceof ActionInformation)
+                    db = ((ActionInformation) selObject).getDb();
                 if (db != null)
                     if (db.getTransMode() != Db.TRANS_NONE)
-                        arrayToCommit.add(selObjects[w]);
+                        arrayToCommit.add(selObject);
             }
             DbMultiTrans.commitTrans(arrayToCommit.toArray());
 
@@ -199,7 +205,7 @@ public abstract class ApplicationPopupMenu {
         JackPopupMenu popup = new JackPopupMenu();
         JackMenu generateMenu = null;
         JackMenu selectMenu = null;
-        ArrayList pluginMenuActions = null;
+        List pluginMenuActions = null;
 
         // check if not the last item and
         // check if two SEPARATOR without item menu
@@ -327,7 +333,7 @@ public abstract class ApplicationPopupMenu {
         DbObject[] objs = ApplicationContext.getFocusManager().getSelectedSemanticalObjects();
         boolean bShow = TerminologyUtil.getShowPhysicalConcepts(objs);
         boolean bIsPureERSet = TerminologyUtil.getInstance().isPureERSet(objs);
-        if (!bIsPureERSet && bShow == false) {
+        if (!bIsPureERSet && !bShow) {
             popup = new JackPopupMenu();
             JMenuItem menu = new JMenuItem(kRestrictedConcept);
             menu.setEnabled(false);
@@ -377,10 +383,10 @@ public abstract class ApplicationPopupMenu {
     private static void initialize() {
         if (itemNameMap != null)
             return;
-        itemNameMap = new HashMap();
+        itemNameMap = new HashMap<>();
         int i;
         for (i = 0; i < itemMenuNames.length; i++)
-            itemNameMap.put(itemMenuNames[i], new Integer(i));
+            itemNameMap.put(itemMenuNames[i], i);
 
         popupMenuByClass = new Object[instanceWithPopupMenu.length];
         for (i = 0; i < popupMenuByClass.length; i += 2) {
@@ -399,7 +405,7 @@ public abstract class ApplicationPopupMenu {
                 discard = DISCARD;
                 name = name.substring(1);
             }
-            Integer index = (Integer) itemNameMap.get(name);
+            Integer index = itemNameMap.get(name);
             if (index == null) {
                 String msg = "INTERNAL ERROR : String '"
                         + name

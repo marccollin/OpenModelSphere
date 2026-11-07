@@ -26,11 +26,13 @@ __all__ = ["altsep", "curdir", "pardir", "sep", "pathsep", "linesep",
            "popen", "popen2", "popen3", "popen4", "getlogin"
            ]
 
-from java.io import File
 import java.lang.System
+import time
+from java.io import File
+
 import javapath as path
 from UserDict import UserDict
-import time
+
 
 class stat_result:
   import stat as _stat

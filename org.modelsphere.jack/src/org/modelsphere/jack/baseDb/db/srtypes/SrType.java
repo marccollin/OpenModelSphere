@@ -43,7 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.srtypes;
 
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.PersistentObject;
 
 /**
  * There are 2 categories of SrTypes: - the wrappers of AWT types. - the application types (must

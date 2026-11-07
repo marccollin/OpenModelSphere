@@ -42,17 +42,15 @@
  **********************************************************************/
 package org.modelsphere.sms.or.informix.db;
 
-import java.awt.*;
-import org.modelsphere.jack.baseDb.meta.*;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import org.modelsphere.sms.or.informix.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
+import org.modelsphere.jack.baseDb.util.TerminologyUtil;
+import org.modelsphere.sms.db.DbSMSTargetSystem;
+import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.informix.international.LocaleMgr;
-import org.modelsphere.sms.or.db.*;
-import org.modelsphere.sms.or.db.srtypes.*;
-import org.modelsphere.sms.db.*;
-import org.modelsphere.sms.db.srtypes.*;
-import org.modelsphere.jack.baseDb.util.*;
 
 /**
  * <b>Direct subclass(es)/subinterface(s) : </b>none.<br>

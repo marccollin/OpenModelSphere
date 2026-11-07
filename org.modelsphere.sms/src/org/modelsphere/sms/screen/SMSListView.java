@@ -33,10 +33,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.screen;
 
 //Java
-import java.util.ArrayList;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -49,7 +45,6 @@ import org.modelsphere.jack.baseDb.screen.model.DbListModel;
 import org.modelsphere.jack.baseDb.screen.model.DbTreeModelListener;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.SrScreenContext;
-import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.sms.db.DbSMSLink;
 import org.modelsphere.sms.db.DbSMSLinkModel;
@@ -62,6 +57,10 @@ import org.modelsphere.sms.or.db.util.AnyORObject;
 import org.modelsphere.sms.plugins.TargetSystem;
 import org.modelsphere.sms.plugins.TargetSystemManager;
 import org.modelsphere.sms.screen.model.SMSListModel;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SMSListView extends DbListView {
 
@@ -126,7 +125,7 @@ public class SMSListView extends DbListView {
             DbSMSTargetSystem anyDbts = null;
             DbSMSTargetSystem userDbts = null;
             boolean isFreeUserTS = false;
-            ArrayList userTargetList = new ArrayList();
+            List<DbSMSTargetSystem> userTargetList = new ArrayList<>();
             semObj.getDb().beginTrans(Db.WRITE_TRANS);
             DbListModel model = (DbListModel) getModel();
             int[] selRows = getSelectedRows();
@@ -148,19 +147,19 @@ public class SMSListView extends DbListView {
             }
             JFrame frame = ApplicationContext.getDefaultMainFrame();
             String message = null;
-            if (ret && userTargetList.size() > 0) {
+            if (ret && !userTargetList.isEmpty()) {
                 if (userTargetList.size() == 1 && selRows.length == 1) {
                     message = kDelUserTarget; // le target user...
                 } else if (userTargetList.size() != selRows.length) {
                     message = kDelOneORMoreUserTarget; // un de la liste est user
-                } else if (userTargetList.size() == selRows.length) {
+                } else {
                     message = kDelAllUserTargets; // Tous les target user seront...
                 }
                 int rc = JOptionPane.showConfirmDialog(frame, message,
                         ApplicationContext.getApplicationName(), JOptionPane.YES_NO_CANCEL_OPTION);
                 if (rc == JOptionPane.YES_OPTION) {
-                    for (int j = 0; j < userTargetList.size(); j++) {
-                        userDbts = (DbSMSTargetSystem) userTargetList.get(j);
+                    for (DbSMSTargetSystem dbSMSTargetSystem : userTargetList) {
+                        userDbts = dbSMSTargetSystem;
                         TargetSystem.removeUserTargetSystem(userDbts.getID());
                     }
                 } else {

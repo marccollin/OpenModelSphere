@@ -34,16 +34,14 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.htmlgeneration;
 
-import java.awt.Image;
+import org.modelsphere.jack.graphic.GraphicUtil;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
-import org.modelsphere.jack.graphic.GraphicUtil;
 
 /**
  * This class is used to generate the icon files for the project.

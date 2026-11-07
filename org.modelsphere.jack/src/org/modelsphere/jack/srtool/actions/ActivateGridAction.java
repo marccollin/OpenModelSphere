@@ -49,14 +49,14 @@ open-modelsphere@grandite.com
  */
 package org.modelsphere.jack.srtool.actions;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
 import org.modelsphere.jack.actions.AbstractTriStatesAction;
 import org.modelsphere.jack.graphic.Grid;
 import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * @author nicolask

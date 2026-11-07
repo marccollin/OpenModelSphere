@@ -43,21 +43,31 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.jdbc;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.border.TitledBorder;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.event.*;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.debug.TestableWindow;
 import org.modelsphere.jack.io.PathFile;
-import org.modelsphere.jack.preference.*;
+import org.modelsphere.jack.preference.DriverInfo;
+import org.modelsphere.jack.preference.DriversManager;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.services.ConnectionMessage;
 import org.modelsphere.jack.text.MessageFormat;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * 
@@ -103,7 +113,7 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
     private DriverPanel driverPanel = new DriverPanel();
 
     private DriverData selectedDriver = null;
-    private ArrayList drivers = null;
+    private List<DriverData> drivers = null;
 
     private boolean changed = false;
 
@@ -190,7 +200,7 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
     } //end initGUI()
 
     private void loadDriverList() {
-        drivers = new ArrayList();
+        drivers = new ArrayList<>();
         String[] driverkeys = DriversManager.getDrivers();
         for (int i = 0; i < driverkeys.length; i++) {
             DriverInfo driver = DriversManager.getDriver(driverkeys[i]);
@@ -237,6 +247,7 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
         }
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source == closeButton) {
@@ -272,6 +283,7 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
         return true;
     }
 
+    @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!manualSelection) {
             if (!checkName())
@@ -320,11 +332,11 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
 
         if (drivers == null)
             return true;
-        ArrayList toRename = new ArrayList();
-        ArrayList toAdd = new ArrayList();
-        Iterator iter = drivers.iterator();
+        List<DriverData> toRename = new ArrayList<>();
+        List<DriverData> toAdd = new ArrayList<>();
+        Iterator<DriverData> iter = drivers.iterator();
         while (iter.hasNext()) {
-            DriverData driverData = (DriverData) iter.next();
+            DriverData driverData = iter.next();
 
             if (driverData.newdriver) {
                 toAdd.add(driverData);
@@ -494,9 +506,9 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
             return false;
         if (driver.newname.length() == 0)
             return false;
-        Iterator iterator = drivers.iterator();
+        Iterator<DriverData> iterator = drivers.iterator();
         while (iterator.hasNext()) {
-            DriverData driverData = (DriverData) iterator.next();
+            DriverData driverData = iterator.next();
             if (driver != driverData && driverData.newname.equalsIgnoreCase(driver.newname)) {
                 return false;
             }
@@ -565,6 +577,7 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
             return newname.compareTo("");
         }
 
+        @Override
         public String toString() {
             return newname;
         }
@@ -672,6 +685,7 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
             datasource.addFocusListener(this);
             password.addFocusListener(this);
             testjdbcButton.addActionListener(new ActionListener() {
+                @Override
                 public void actionPerformed(ActionEvent e) {
                     testDriver(jdbcDriver.getText());
                 }
@@ -741,7 +755,7 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
                 return;
             }
 
-            if ((m_previousText == null) || (m_previousText.equals(""))) {
+            if ((m_previousText == null) || (m_previousText.isEmpty())) {
                 m_previousText = jdbcDriver.getText();
             }
 
@@ -825,6 +839,7 @@ public final class DriverDialog extends JDialog implements ActionListener, ListS
         return g_singleInstance;
     } //end getSingleInstance()
 
+    @Override
     public Window createTestWindow(Container owner) {
         Window dialog = null;
 

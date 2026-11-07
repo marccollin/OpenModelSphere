@@ -77,17 +77,10 @@ public class ColumnAlignmentDomain extends IntDomain {
     }
 
     public final String getStringValue() {
-        String key;
-        switch (value) {
-        case RIGHT:
-            key = "RIGHT";
-            break;
-        case LEFT:
-            key = "LEFT";
-            break;
-        default:
-            key = "";
-        }
-        return key;
+        return switch (value) {
+            case RIGHT -> "RIGHT";
+            case LEFT -> "LEFT";
+            default -> "";
+        };
     }
 }

@@ -43,19 +43,23 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins.io;
 
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.*;
-import java.util.jar.JarFile;
-import java.util.jar.Manifest;
-
 import org.modelsphere.jack.plugins.Plugin;
 import org.modelsphere.jack.plugins.PluginDescriptor;
 import org.modelsphere.jack.plugins.PluginSignature;
 import org.modelsphere.jack.srtool.Splash;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
+import java.util.jar.JarFile;
+import java.util.jar.Manifest;
 
 class JARPluginLoader extends PluginLoader {
     JARPluginLoader() {
@@ -63,7 +67,7 @@ class JARPluginLoader extends PluginLoader {
 
     @Override
     protected List<PluginDescriptor> scan(File directory, File scanRoot) {
-        ArrayList<PluginDescriptor> scannedPluginInfo = new ArrayList<PluginDescriptor>();
+        List<PluginDescriptor> scannedPluginInfo = new ArrayList<PluginDescriptor>();
         File[] files = directory.listFiles();
         if (files == null) // not a directory
             return scannedPluginInfo;
@@ -104,43 +108,39 @@ class JARPluginLoader extends PluginLoader {
         try {
             // Check for jar file
             if (file.getName().toLowerCase().endsWith(".jar")) {
-                // file extension
-                JarFile jar = new JarFile(file);
-                if (jar == null)
-                    return null;
-                URL jarurl = file.toURL();
-                if (jarurl == null)
-                    return null;
+                try (JarFile jar = new JarFile(file)) {
+                    URL jarurl = file.toURI().toURL();
+                    PluginManifest manifest = readManifest(jar);
+                    JARPluginContext context = createPluginContext(jarurl, manifest);
 
-                JARPluginContext context = (JARPluginContext) createPluginContext(jarurl);
-                PluginManifest manifest = context.getPluginManifest();
-
-                String entryPoint = manifest == null ? null : manifest.getPluginClassName();
-                if (entryPoint != null) {
-                    try {
-                        ClassLoader pluginloader = new URLClassLoader(new URL[] { jarurl },
-                                defaultClassLoader);
-                        if (entryPoint.indexOf('$') < 0) {
-                            pluginDescriptor = new DefaultPluginDescriptor(entryPoint);
-                            pluginDescriptor.setContext(context);
-                            if (entryPoint.toLowerCase().endsWith(CLASS_EXTENSION)) {
-                                entryPoint = entryPoint.substring(0, entryPoint.toLowerCase()
-                                        .lastIndexOf(CLASS_EXTENSION));
-                                entryPoint = entryPoint.replace('/', '.');
-                                entryPoint = entryPoint.replace('\\', '.');
+                    String entryPoint = manifest == null ? null : manifest.getPluginClassName();
+                    if (entryPoint != null) {
+                        try {
+                            ClassLoader pluginloader = new URLClassLoader(new URL[] { jarurl },
+                                    defaultClassLoader);
+                            if (entryPoint.indexOf('$') < 0) {
+                                pluginDescriptor = new DefaultPluginDescriptor(entryPoint);
+                                pluginDescriptor.setContext(context);
+                                if (entryPoint.toLowerCase().endsWith(CLASS_EXTENSION)) {
+                                    entryPoint = entryPoint.substring(0, entryPoint.toLowerCase()
+                                            .lastIndexOf(CLASS_EXTENSION));
+                                    entryPoint = entryPoint.replace('/', '.');
+                                    entryPoint = entryPoint.replace('\\', '.');
+                                }
+                                context.setClassLoader(pluginloader);
+                                context.setJAR(jarurl);
+                                pluginDescriptor
+                                        .setPluginType(DefaultPluginDescriptor.PLUGIN_TYPE.PLUGIN);
+                                initFromManifest(pluginDescriptor);
                             }
-                            context.setClassLoader(pluginloader);
-                            context.setJAR(jarurl);
-                            pluginDescriptor
-                                    .setPluginType(DefaultPluginDescriptor.PLUGIN_TYPE.PLUGIN);
-                            initFromManifest(pluginDescriptor);
+                        } catch (Throwable th) {
+                            invalidate(pluginDescriptor, th, null, file);
                         }
-                    } catch (Throwable th) {
-                        invalidate(pluginDescriptor, th, null, file);
                     }
                 }
             }
         } catch (IOException ioe) {
+            invalidate(pluginDescriptor, ioe, null, file);
             pluginDescriptor = null;
         } // Invalid url access, skip
         return pluginDescriptor;
@@ -204,20 +204,28 @@ class JARPluginLoader extends PluginLoader {
 
     @Override
     public PluginContext createPluginContext(URL url) {
-        JARPluginContext context = new JARPluginContext(this, url);
-        if (url != null) {
-            try {
-                JarFile jar = new JarFile(url.getFile());
-                Manifest manifest = jar.getManifest();
-                if (manifest != null) {
-                    PluginManifest pluginManifest = new PluginManifest(manifest);
-                    context.setPluginManifest(pluginManifest);
-                }
-            } catch (Exception e) {
+        JARPluginContext context = createPluginContext(url, null);
+        if (url != null && url.getPath().toLowerCase().endsWith(".jar")) {
+            try (JarFile jar = new JarFile(new File(url.toURI()))) {
+                context.setPluginManifest(readManifest(jar));
+            } catch (IOException | URISyntaxException | IllegalArgumentException e) {
+                context.setStatusText(e.toString());
+                invalidate(null, e, null, new File(url.getPath()));
             }
         }
 
         return context;
+    }
+
+    protected JARPluginContext createPluginContext(URL url, PluginManifest manifest) {
+        JARPluginContext context = new JARPluginContext(this, url);
+        context.setPluginManifest(manifest);
+        return context;
+    }
+
+    protected static PluginManifest readManifest(JarFile jar) throws IOException {
+        Manifest manifest = jar.getManifest();
+        return manifest == null ? null : new PluginManifest(manifest);
     }
 
     @Override
@@ -261,12 +269,10 @@ class JARPluginLoader extends PluginLoader {
         URL url = context.getURL();
 
         if (url != null && url.toString().toLowerCase().endsWith(".jar")) {
-            try {
-                JarFile jar = new JarFile(url.getFile());
-                if (jar != null) {
-                    context.setJAR(url);
-                }
-            } catch (Exception e) {
+            try (JarFile jar = new JarFile(new File(url.toURI()))) {
+                context.setJAR(url);
+            } catch (IOException | URISyntaxException | IllegalArgumentException e) {
+                invalidate(pluginDescriptor, e, null, null);
             }
         }
 

@@ -1,7 +1,8 @@
 #! /usr/bin/env python
-from test_support import verbose, verify
-from types import TupleType, StringType, IntType
 import __future__
+from types import TupleType, StringType, IntType
+
+from test_support import verbose, verify
 
 GOOD_SERIALS = ("alpha", "beta", "candidate", "final")
 

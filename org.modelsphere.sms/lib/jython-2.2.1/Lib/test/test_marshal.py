@@ -1,6 +1,7 @@
-from test_support import TestFailed
 import marshal
 import sys
+
+from test_support import TestFailed
 
 # XXX Much more needed here.
 

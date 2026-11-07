@@ -43,11 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.Writer;
+import org.modelsphere.jack.srtool.forward.Rule.RuleOptions;
+
 import java.io.IOException;
 import java.io.Serializable;
-
-import org.modelsphere.jack.srtool.forward.Rule.RuleOptions;
+import java.io.Writer;
 
 public final class NullModifier extends Modifier {
     String nullTmpl;

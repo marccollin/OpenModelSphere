@@ -33,13 +33,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.features.reverse;
 
-import java.util.Stack;
-import java.util.Vector;
-
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.srtool.reverse.file.IncompletedObjectInterface;
 import org.modelsphere.jack.srtool.reverse.file.JackPositions;
 import org.modelsphere.sms.oo.db.DbOOAbstractMethod;
+
+import java.util.Stack;
+import java.util.Vector;
 
 /*
  * Returns by Reverse.getPosition()

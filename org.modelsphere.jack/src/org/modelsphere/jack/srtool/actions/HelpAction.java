@@ -43,13 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.net.URL;
-import javax.swing.*;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 
-import java.awt.event.*;
+import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.net.URL;
 
 public class HelpAction extends AbstractApplicationAction {
 

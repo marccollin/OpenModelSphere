@@ -39,17 +39,22 @@
  */
 package org.modelsphere.plugins.layout.clusters.arevalo;
 
-import java.awt.Rectangle;
-import java.util.*;
-import java.util.Map.Entry;
-
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.srtool.features.layout.ClustersLayoutAlgorithm;
 import org.modelsphere.jack.srtool.features.layout.LayoutAttribute;
 import org.modelsphere.jack.srtool.features.layout.LayoutException;
 import org.modelsphere.jack.srtool.features.layout.graph.Graph;
 import org.modelsphere.jack.srtool.features.layout.graph.Node;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
 
 /**
  * The Class ArevaloPackingAlgorithm.
@@ -65,13 +70,13 @@ public class ArevaloPackingAlgorithm implements ClustersLayoutAlgorithm {
     private ClusterDisposer superCluster;
 
     /** The clusters bounds. */
-    private HashMap<Bounds, Integer> clustersBounds;
+    private Map<Bounds, Integer> clustersBounds;
 
     /** The nodes bounds. */
-    private HashMap<Node, Bounds> nodesBounds;
+    private Map<Node, Bounds> nodesBounds;
 
     /** The nodes cluster. */
-    private HashMap<Node, Integer> nodesCluster;
+    private Map<Node, Integer> nodesCluster;
 
     /**
      * Instantiates a new arevalo packing algorithm.
@@ -98,11 +103,11 @@ public class ArevaloPackingAlgorithm implements ClustersLayoutAlgorithm {
      * (non-Javadoc)
      * 
      * @seeorg.modelsphere.jack.srtool.features.layout.ClustersLayoutAlgorithm# layoutClusters(org.
-     * modelsphere.jack.srtool.features.layout.graph.Graph, java.util.HashMap, java.util.HashMap)
+     * modelsphere.jack.srtool.features.layout.graph.Graph, java.util.Map, java.util.Map)
      */
     @Override
-    public void layoutClusters(Graph graph, HashMap<Node, Integer> clusters,
-            HashMap<LayoutAttribute<?>, Object> attributes) throws LayoutException {
+    public void layoutClusters(Graph graph, Map<Node, Integer> clusters,
+            Map<LayoutAttribute<?>, Object> attributes) throws LayoutException {
 
         clustersBounds.clear();
         nodesBounds.clear();
@@ -164,7 +169,7 @@ public class ArevaloPackingAlgorithm implements ClustersLayoutAlgorithm {
      *             the layout exception
      */
     void layout(int maxLayerWidth, int maxLayerHeight) throws LayoutException {
-        List<Bounds> clustersBoundsList = new ArrayList<Bounds>();
+        List<Bounds> clustersBoundsList = new ArrayList<>();
         clustersBoundsList.addAll(clustersBounds.keySet());
 
         // Sort the subRects based on dimensions, larger dimension goes first.
@@ -186,7 +191,7 @@ public class ArevaloPackingAlgorithm implements ClustersLayoutAlgorithm {
             if (isPlaced) {
                 for (Entry<Node, Integer> nodeEntry : nodesCluster.entrySet()) {
 
-                    if (nodeEntry.getValue() == clustersBounds.get(clusterBounds)) {
+                    if (Objects.equals(nodeEntry.getValue(), clustersBounds.get(clusterBounds))) {
                         int x = nextBounds.x + nodeEntry.getKey().getX() - clusterBounds.x;
                         int y = nextBounds.y + nodeEntry.getKey().getY() - clusterBounds.y;
                         nodeEntry.getKey().setLocation(x, y);

@@ -1,6 +1,10 @@
-from java.util.zip import ZipEntry, ZipOutputStream
+import jarray
+import os
+import string
+import sys
 from java.io import File, FileInputStream, ByteArrayOutputStream, FileOutputStream, ByteArrayInputStream
-import string, os, jarray, sys
+from java.util.zip import ZipEntry, ZipOutputStream
+
 
 class DirectoryOutput:
 	def __init__(self, dirname):

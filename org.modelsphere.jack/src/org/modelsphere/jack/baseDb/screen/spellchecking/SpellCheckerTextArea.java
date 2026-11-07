@@ -42,27 +42,23 @@ open-modelsphere@grandite.com
  ***********************************************************************/
 package org.modelsphere.jack.baseDb.screen.spellchecking;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
+import com.swabunga.spell.event.DocumentWordTokenizer;
+import com.swabunga.spell.event.Word;
+import com.swabunga.spell.event.WordTokenizer;
+import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.*;
-
-import org.modelsphere.jack.international.LocaleMgr;
-
-import com.swabunga.spell.event.DocumentWordTokenizer;
-import com.swabunga.spell.event.Word;
-import com.swabunga.spell.event.WordTokenizer;
 
 public class SpellCheckerTextArea extends JTextArea implements DocumentListener, MouseListener {
     private static final long serialVersionUID = 1L;

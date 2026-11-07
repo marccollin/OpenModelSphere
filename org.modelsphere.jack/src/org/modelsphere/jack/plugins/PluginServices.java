@@ -43,12 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins;
 
-import java.awt.Component;
-
 import org.modelsphere.jack.actions.util.DbMultiTrans;
 import org.modelsphere.jack.awt.TextViewerDialog;
 import org.modelsphere.jack.awt.TextViewerFrame;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.ApplicationContext;
@@ -56,6 +57,8 @@ import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.FocusManager;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.util.ExceptionHandler;
+
+import java.awt.*;
 
 /**
  * 

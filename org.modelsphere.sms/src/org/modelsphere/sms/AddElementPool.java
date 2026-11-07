@@ -33,16 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
-import java.io.Serializable;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
-import javax.swing.Icon;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -158,6 +148,14 @@ import org.modelsphere.sms.or.oracle.db.DbORATablespace;
 import org.modelsphere.sms.plugins.TargetSystem;
 import org.modelsphere.sms.plugins.TargetSystemManager;
 import org.modelsphere.sms.preference.DiagramAutomaticCreationOptionGroup;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.Serializable;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * For each kind of model elements, defines the possible components to allow the user to add

@@ -32,8 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.or;
 
-import java.awt.Image;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
@@ -46,6 +44,8 @@ import org.modelsphere.sms.graphic.tool.SMSNoticeTool;
 import org.modelsphere.sms.or.db.DbORCommonItem;
 import org.modelsphere.sms.or.db.DbORCommonItemModel;
 import org.modelsphere.sms.or.graphic.tool.ORCommonItemTool;
+
+import java.awt.*;
 
 public final class ORCommonItemModelToolkit extends SMSToolkit {
     private static final String kGraphicalLink = SMSGraphicalLinkTool.GRAPHICAL_LINKS;

@@ -33,27 +33,15 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.features;
 
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.NumericTextField;
 import org.modelsphere.jack.debug.TestableWindow;
 import org.modelsphere.sms.be.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public final class Renumbering extends JDialog implements TestableWindow {
     private static final String COUNTER = "counter"; // NOT LOCALIZABLE,
@@ -71,8 +59,8 @@ public final class Renumbering extends JDialog implements TestableWindow {
             .getString("OK");
     private static final String DEFAULT = LocaleMgr.screen.getString("default");
 
-    private static final Integer DEFAULT_COUNTER = new Integer(0);
-    private static final Integer DEFAULT_INCREMENT = new Integer(1);
+    private static final Integer DEFAULT_COUNTER = Integer.valueOf(0);
+    private static final Integer DEFAULT_INCREMENT = Integer.valueOf(1);
 
     private Integer m_counter = DEFAULT_COUNTER; // default value
     private Integer m_increment = DEFAULT_INCREMENT; // default value
@@ -182,10 +170,10 @@ public final class Renumbering extends JDialog implements TestableWindow {
                 try {
                     if (counterField.getText().length() != 0)
                         Renumbering.getSingleInstance().setCounter(
-                                new Integer(Integer.parseInt(counterField.getText())));
+                                Integer.valueOf(Integer.parseInt(counterField.getText())));
                     if (incrementField.getText().length() != 0)
                         Renumbering.getSingleInstance().setIncrement(
-                                new Integer(Integer.parseInt(incrementField.getText())));
+                                Integer.valueOf(Integer.parseInt(incrementField.getText())));
                 } catch (Exception ex) {
                 } // This should not happen, already validated by the
                 // NumericTextField

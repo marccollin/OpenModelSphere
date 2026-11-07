@@ -37,8 +37,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.w3c.dom.Node;
-
 class TableOfContents {
 	private IndentWriter enTOC; 
 	private IndentWriter frTOC; 

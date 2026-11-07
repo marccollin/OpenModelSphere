@@ -63,7 +63,7 @@ package org.modelsphere.jack.baseDb.db.xml.imports;
  *
  */
 
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.gui.task.DefaultController;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 

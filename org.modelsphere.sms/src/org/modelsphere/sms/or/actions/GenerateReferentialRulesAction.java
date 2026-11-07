@@ -33,11 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.actions;
 
-import java.text.MessageFormat;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -50,18 +45,16 @@ import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.jack.util.ExceptionMessage;
 import org.modelsphere.sms.SMSFilter;
 import org.modelsphere.sms.db.srtypes.SMSMultiplicity;
-import org.modelsphere.sms.or.db.DbORAbsTable;
 import org.modelsphere.sms.or.db.DbORAssociation;
 import org.modelsphere.sms.or.db.DbORAssociationEnd;
-import org.modelsphere.sms.or.db.DbORColumn;
 import org.modelsphere.sms.or.db.DbORDataModel;
-import org.modelsphere.sms.or.db.DbORFKeyColumn;
-import org.modelsphere.sms.or.db.DbORForeign;
-import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 import org.modelsphere.sms.or.db.srtypes.ORValidationRule;
 import org.modelsphere.sms.or.features.ReferentialRules;
 import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.or.screen.GenerateReferentialRulesFrame;
+
+import javax.swing.*;
+import java.text.MessageFormat;
 
 public final class GenerateReferentialRulesAction extends AbstractApplicationAction implements
         SelectionActionListener {

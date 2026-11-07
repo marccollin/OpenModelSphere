@@ -43,12 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.Component;
-import java.awt.Image;
-import javax.swing.*;
-
 import org.modelsphere.jack.baseDb.screen.MultiDefaultRenderer;
 import org.modelsphere.jack.util.DefaultComparableElement;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class MultiDbSemanticalObjectRenderer extends MultiDefaultRenderer {
 

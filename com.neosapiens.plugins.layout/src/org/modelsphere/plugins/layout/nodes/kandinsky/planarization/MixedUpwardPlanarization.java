@@ -1,11 +1,11 @@
 package org.modelsphere.plugins.layout.nodes.kandinsky.planarization;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.srtool.features.layout.graph.Edge;
 import org.modelsphere.jack.srtool.features.layout.graph.Graph;
 import org.modelsphere.jack.srtool.features.layout.graph.Vertex;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>

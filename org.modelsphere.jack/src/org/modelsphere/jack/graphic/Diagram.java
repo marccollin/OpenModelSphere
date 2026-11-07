@@ -43,21 +43,29 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic;
 
-import java.awt.*;
-import java.awt.font.FontRenderContext;
-import java.awt.font.TextLayout;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.awt.print.*;
-import java.util.*;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.graphic.zone.CellEditor;
 import org.modelsphere.jack.graphic.zone.CellID;
 import org.modelsphere.jack.graphic.zone.ComboBoxCellEditor;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;
 import org.modelsphere.jack.util.SrVector;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.font.FontRenderContext;
+import java.awt.font.TextLayout;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.awt.print.PageFormat;
+import java.awt.print.Pageable;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Enumeration;
+import java.util.EventObject;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public abstract class Diagram implements Pageable, Printable {
 
@@ -83,10 +91,10 @@ public abstract class Diagram implements Pageable, Printable {
     private SrVector[] layers = new SrVector[] { new SrVector(), new SrVector(), new SrVector(),
             new SrVector(), new SrVector() };
     // selection handles are drawn on top and in XOR mode
-    private Set selItems = null;
+    private Set<GraphicComponent> selItems = null;
     // graphic components that need to recompute their position data
-    private Set computePosGraphics = null;
-    private Set computePosLines = null;
+    private Set<GraphicComponent> computePosGraphics = null;
+    private Set<GraphicComponent> computePosLines = null;
 
     private PageFormat pageFormat;
     private int printScale;
@@ -136,8 +144,8 @@ public abstract class Diagram implements Pageable, Printable {
         if (editorCell != null && editorCell.zone.getBox() == gc)
             removeEditor(CellEditor.CANCEL);
         layers[gc.getLayer()].removeElement(gc);
-        Set computePosSet = (gc instanceof Line || gc instanceof Attachment ? computePosLines
-                : computePosGraphics);
+        Set<GraphicComponent> computePosSet = (gc instanceof Line || gc instanceof Attachment
+                ? computePosLines : computePosGraphics);
         if (computePosSet != null)
             computePosSet.remove(gc);
         if (selItems != null) {
@@ -265,13 +273,13 @@ public abstract class Diagram implements Pageable, Printable {
         selectionChangePosted = true;
     }
 
-    public final Enumeration components() {
+    public final Enumeration<GraphicComponent> components() {
         return layerEnumeration(0xffffffff);
     }
 
     // Enumerate from top to bottom.
-    public final Enumeration layerEnumeration(final int layerMask) {
-        return new Enumeration() {
+    public final Enumeration<GraphicComponent> layerEnumeration(final int layerMask) {
+        return new Enumeration<GraphicComponent>() {
             private int layer = layers.length - 1;
             private int ind = ((layerMask & 1 << layer) == 0 ? 0 : layers[layer].size());
 
@@ -289,9 +297,9 @@ public abstract class Diagram implements Pageable, Printable {
                 }
             }
 
-            public Object nextElement() {
+            public GraphicComponent nextElement() {
                 ind--;
-                return layers[layer].elementAt(ind);
+                return (GraphicComponent) layers[layer].elementAt(ind);
             }
         };
     }
@@ -299,9 +307,9 @@ public abstract class Diagram implements Pageable, Printable {
     // Return null if empty diagram.
     public final Rectangle getContentRect() {
         Rectangle contentRect = null;
-        Enumeration enumeration = components();
+        Enumeration<GraphicComponent> enumeration = components();
         while (enumeration.hasMoreElements()) {
-            GraphicComponent gc = (GraphicComponent) enumeration.nextElement();
+            GraphicComponent gc = enumeration.nextElement();
             if (contentRect == null)
                 contentRect = new Rectangle(gc.getRectangle());
             else
@@ -322,7 +330,8 @@ public abstract class Diagram implements Pageable, Printable {
     }
 
     public final void paintAux(Graphics g, DiagramView diagView, int drawingMode,
-            int renderingFlags, int left, int right, int top, int bottom, Set selGcs) {
+            int renderingFlags, int left, int right, int top, int bottom,
+            Set<? extends GraphicComponent> selGcs) {
         int d = GraphicComponent.LINE_BOLD_WIDTH;
         if (diagView != null)
             d = (int) (d / diagView.getZoomFactor());
@@ -331,8 +340,7 @@ public abstract class Diagram implements Pageable, Printable {
         top -= d;
         bottom += d;
 
-        for (int layer = 0; layer < layers.length; layer++) {
-            SrVector gcs = layers[layer];
+        for (SrVector gcs : layers) {
             int i, nb;
             for (i = 0, nb = gcs.size(); i < nb; i++) {
                 GraphicComponent gc = (GraphicComponent) gcs.elementAt(i);
@@ -463,9 +471,7 @@ public abstract class Diagram implements Pageable, Printable {
         right += d;
         top -= d;
         bottom += d;
-        Iterator iter = selItems.iterator();
-        while (iter.hasNext()) {
-            GraphicComponent gc = (GraphicComponent) iter.next();
+        for (GraphicComponent gc : selItems) {
             Rectangle rect = gc.getRectangle();
             if (rect.x > right || rect.x + rect.width < left || rect.y > bottom
                     || rect.y + rect.height < top)
@@ -586,20 +592,21 @@ public abstract class Diagram implements Pageable, Printable {
 
     // Create an image containing a selection of graphic components.
     // If selGcs null, create an image for the whole diagram.
-    public final Image createImage(Set selGcs, int scale) {
+    public final Image createImage(Set<? extends GraphicComponent> selGcs, int scale) {
         return createImage(selGcs, scale, false);
     }
 
     // Create an image containing a selection of graphic components.
     // If selGcs null, create an image for the whole diagram.
-    public final Image createImage(Set selGcs, int scale, boolean transparent) {
+    public final Image createImage(Set<? extends GraphicComponent> selGcs, int scale,
+            boolean transparent) {
         Rectangle rect = null;
         if (selGcs == null)
             rect = getContentRect();
         else {
-            Iterator iter = selGcs.iterator();
+            Iterator<? extends GraphicComponent> iter = selGcs.iterator();
             while (iter.hasNext()) {
-                GraphicComponent gc = (GraphicComponent) iter.next();
+                GraphicComponent gc = iter.next();
                 if (rect == null)
                     rect = new Rectangle(gc.getRectangle());
                 else
@@ -635,7 +642,8 @@ public abstract class Diagram implements Pageable, Printable {
         return createImage(null, rect, scale, transparent);
     }
 
-    public final Image createImage(Set selGcs, Rectangle rect, int scale, boolean transparent) {
+    public final Image createImage(Set<? extends GraphicComponent> selGcs, Rectangle rect, int scale,
+            boolean transparent) {
         double zoom = scale / 100.0;
         BufferedImage bufImage = null;
         if (transparent) {
@@ -680,8 +688,7 @@ public abstract class Diagram implements Pageable, Printable {
             boolean withSel) {
         Line selLine = null;
         if (withSel && selItems != null) {
-            for (Object selItem : selItems) {
-                GraphicComponent gc = (GraphicComponent) selItem;
+            for (GraphicComponent gc : selItems) {
                 if (gc instanceof Line) {
                     int i = ((Line) gc).segmentAt(diagView, x, y);
                     if (i != -1) {
@@ -720,7 +727,7 @@ public abstract class Diagram implements Pageable, Printable {
             firePaintSelHandles(gc);
             if (state) {
                 if (selItems == null)
-                    selItems = new HashSet();
+                    selItems = new HashSet<>();
                 selItems.add(gc);
             } else {
                 if (gc instanceof ZoneBox)
@@ -742,12 +749,12 @@ public abstract class Diagram implements Pageable, Printable {
     public final GraphicComponent[] getSelectedComponents() {
         if (selItems == null)
             return new GraphicComponent[0];
-        return (GraphicComponent[]) selItems.toArray(new GraphicComponent[selItems.size()]);
+        return selItems.toArray(new GraphicComponent[selItems.size()]);
     }
 
     public final void beginComputePos() {
-        computePosGraphics = new HashSet();
-        computePosLines = new HashSet();
+        computePosGraphics = new HashSet<>();
+        computePosLines = new HashSet<>();
     }
 
     public final void setComputePos(GraphicComponent gc) {
@@ -768,22 +775,22 @@ public abstract class Diagram implements Pageable, Printable {
     // <g> = any screen graphics, only used to get font metrics
     public final void endComputePos(Graphics g) {
         if (!computePosGraphics.isEmpty()) {
-            Iterator iter = computePosGraphics.iterator();
+            Iterator<GraphicComponent> iter = computePosGraphics.iterator();
             computePosGraphics = null; // prevents adding of non-lines; adding
             // of lines and attachments is still
             // possible
             while (iter.hasNext()) {
-                GraphicComponent gc = (GraphicComponent) iter.next();
+                GraphicComponent gc = iter.next();
                 gc.computePositionData(g);
             } // end while
         } // end if
         computePosGraphics = null;
 
         if (!computePosLines.isEmpty()) {
-            Iterator iter = computePosLines.iterator();
+            Iterator<GraphicComponent> iter = computePosLines.iterator();
             computePosLines = null; // prevents adding of lines and attachments
             while (iter.hasNext())
-                ((GraphicComponent) iter.next()).computePositionData(g);
+                iter.next().computePositionData(g);
         }
         computePosLines = null;
     }

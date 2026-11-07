@@ -43,8 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.Hashtable;
-import java.io.*;
+import java.util.Map;
 
 /**
  * <H1>EXECUTION VARIABLES</H1><BR>
@@ -66,7 +70,7 @@ import java.io.*;
 public final class VariableModifier extends Modifier {
     private static final String kRule = "$rule;"; // NOT LOCALIZABLE, internal use only
 
-    static Hashtable allVariables = new Hashtable();
+    static Map<String, String> allVariables = new Hashtable<>();
     String varKey;
     Rule rule;
 
@@ -96,7 +100,7 @@ public final class VariableModifier extends Modifier {
     } // end expand()
 
     public static String getValueOf(String varKey) {
-        String value = (String) allVariables.get(varKey);
+        String value = allVariables.get(varKey);
         return value;
     }
 

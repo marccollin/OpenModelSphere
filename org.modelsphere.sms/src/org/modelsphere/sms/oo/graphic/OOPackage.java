@@ -33,22 +33,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.oo.graphic;
 
-import java.util.Vector;
-
 import org.modelsphere.jack.baseDb.db.DbException;
-import org.modelsphere.jack.graphic.zone.CellEditor;
 import org.modelsphere.jack.graphic.zone.ColumnCellsOption;
-import org.modelsphere.jack.graphic.zone.StereotypeCellEditor;
 import org.modelsphere.jack.graphic.zone.ZoneCell;
 import org.modelsphere.sms.db.DbSMSPackageGo;
-import org.modelsphere.sms.db.DbSMSStereotype;
-import org.modelsphere.sms.db.DbSMSUmlExtensibility;
 import org.modelsphere.sms.graphic.PackageBox;
 import org.modelsphere.sms.graphic.SMSStereotypeEditor;
 import org.modelsphere.sms.oo.db.DbOODiagram;
 import org.modelsphere.sms.oo.db.DbOOPackage;
 import org.modelsphere.sms.oo.db.DbOOStyle;
-import org.modelsphere.sms.or.db.DbORTable;
+
+import java.util.List;
 
 public class OOPackage extends PackageBox {
     public OOPackage(org.modelsphere.jack.graphic.Diagram diag, DbSMSPackageGo newPackageGO)
@@ -58,19 +53,19 @@ public class OOPackage extends PackageBox {
 
     protected void populateStereotype() throws DbException {
         String stereotypeName = getStereotypeName(packageSO);
-        Vector composite = getStereotypeImageData(packageSO);
+        List<?> composite = getStereotypeImageData(packageSO);
         DbOOStyle style = getStyleFrom(packageGO);
         stereotypeZone.clear();
 
         int stereotypeStyle = 0;
         Boolean b = (style == null) ? Boolean.TRUE : style.getOojv_umlStereotypeDisplayed();
-        if ((b != null) && b.booleanValue()) {
+        if ((b != null) && b) {
             stereotypeZone.addColumn(new ColumnCellsOption(stereotypeNameCRO,
                     new SMSStereotypeEditor(DbOOPackage.fUmlStereotype)));
             stereotypeStyle += 1;
         }
         b = (style == null) ? Boolean.TRUE : style.getOojv_umlStereotypeIconDisplayed();
-        if ((b != null) && b.booleanValue()) {
+        if ((b != null) && b) {
             stereotypeZone.addColumn(new ColumnCellsOption(stereotypeImageCRO,
                     new SMSStereotypeEditor(DbOOPackage.fUmlStereotype)));
             stereotypeStyle += 2;

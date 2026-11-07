@@ -43,18 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Frame;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
-import javax.swing.JDialog;
-import javax.swing.SwingUtilities;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class TextViewerDialog extends JDialog implements DocumentListener {
 
@@ -95,6 +90,7 @@ public class TextViewerDialog extends JDialog implements DocumentListener {
         controller = new TextViewerController(this, text, useHTML, null, mailToEnable, enableVMMenu);
         getTextPanel().getDocument().addDocumentListener(this);
         getTextPanel().addKeyListener(new KeyAdapter() {
+            @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
                     controller.closeViewer();

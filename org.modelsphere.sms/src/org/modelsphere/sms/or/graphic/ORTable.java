@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.graphic;
 
-import java.awt.Rectangle;
-import java.util.HashSet;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -54,6 +51,9 @@ import org.modelsphere.sms.or.db.DbORNotation;
 import org.modelsphere.sms.or.db.DbORStyle;
 import org.modelsphere.sms.or.db.DbORTable;
 import org.modelsphere.sms.or.db.DbORTableGo;
+
+import java.awt.*;
+import java.util.HashSet;
 
 public class ORTable extends ORTableBox {
 

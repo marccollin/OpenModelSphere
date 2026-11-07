@@ -45,7 +45,7 @@ package org.modelsphere.jack.srtool.reverse.jdbc;
 
 /**
  * This service executes JDBC API calls
- **/
+ */
 public abstract class JdbcBuilder {
 
     /* Catalog */

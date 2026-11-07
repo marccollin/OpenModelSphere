@@ -34,12 +34,6 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.data.extractor.smsdiagram;
 
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -50,6 +44,12 @@ import org.modelsphere.plugins.html.browser.data.extractor.dbobject.FieldsExtrac
 import org.modelsphere.plugins.html.browser.data.extractor.dbobject.IconExtractor;
 import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.db.DbSMSGraphicalObject;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class is used to extract, the dimensions, the fields and their values,

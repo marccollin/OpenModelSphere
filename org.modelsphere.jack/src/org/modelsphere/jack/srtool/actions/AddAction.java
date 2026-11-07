@@ -43,8 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.actions.AbstractMenuAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -54,7 +52,9 @@ import org.modelsphere.jack.srtool.AddElement;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
-import org.modelsphere.jack.srtool.screen.ScreenPerspective;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AddAction extends AbstractMenuAction implements SelectionActionListener {
 
@@ -165,7 +165,7 @@ public abstract class AddAction extends AbstractMenuAction implements SelectionA
             return;
         }
 
-        ArrayList values = new ArrayList();
+        List<AddElement> values = new ArrayList<>();
         for (int i = 0; i < elementsincluded.length; i++) {
             if (elementsincluded[i]) {
                 values.add(elements[i]);
@@ -174,7 +174,7 @@ public abstract class AddAction extends AbstractMenuAction implements SelectionA
         }
 
         for (int i = 0; i < values.size(); i++) {
-            String name = ((AddElement) values.get(i)).getName();
+            String name = values.get(i).getName();
             if (name != null)
                 if (name.equals("-"))
                     values.set(i, null);

@@ -45,17 +45,22 @@ Email: marco.savard@neosapiens.com
 
 package com.neosapiens.plugins.codegen.wrappers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.sms.db.DbSMSStereotype;
 import org.modelsphere.sms.db.util.Extensibility;
 import org.modelsphere.sms.oo.db.DbOOAssociationEnd;
-import org.modelsphere.sms.oo.java.db.*;
+import org.modelsphere.sms.oo.java.db.DbJVClass;
+import org.modelsphere.sms.oo.java.db.DbJVConstructor;
+import org.modelsphere.sms.oo.java.db.DbJVDataMember;
+import org.modelsphere.sms.oo.java.db.DbJVInheritance;
+import org.modelsphere.sms.oo.java.db.DbJVMethod;
+import org.modelsphere.sms.oo.java.db.DbJVPackage;
 import org.modelsphere.sms.oo.java.db.srtypes.JVVisibility;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbClassWrapper extends DbObjectWrapper {
     private DbJVClass m_class;

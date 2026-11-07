@@ -43,13 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.gui;
 
-import java.awt.CardLayout;
-import java.awt.Rectangle;
-import java.awt.ScrollPane;
+import org.modelsphere.jack.international.LocaleMgr;
 
 import javax.swing.*;
-
-import org.modelsphere.jack.international.LocaleMgr;
+import java.awt.*;
 
 //TODO: This class is designed as an alternative to jack.awt.TextViewPanel
 //(and will probably replace it)

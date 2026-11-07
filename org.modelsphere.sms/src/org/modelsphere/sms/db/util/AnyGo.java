@@ -43,20 +43,43 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.db.util;
 
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Dimension;
-import java.awt.Polygon;
-import java.util.HashMap;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.graphic.Line;
 import org.modelsphere.jack.srtool.graphic.DbGraphic;
-import org.modelsphere.sms.be.db.*;
-import org.modelsphere.sms.db.*;
-import org.modelsphere.sms.oo.db.*;
-import org.modelsphere.sms.oo.java.db.*;
-import org.modelsphere.sms.or.db.*;
+import org.modelsphere.sms.be.db.DbBEActor;
+import org.modelsphere.sms.be.db.DbBEActorGo;
+import org.modelsphere.sms.be.db.DbBEFlow;
+import org.modelsphere.sms.be.db.DbBEFlowGo;
+import org.modelsphere.sms.be.db.DbBEStore;
+import org.modelsphere.sms.be.db.DbBEStoreGo;
+import org.modelsphere.sms.be.db.DbBEUseCase;
+import org.modelsphere.sms.be.db.DbBEUseCaseGo;
+import org.modelsphere.sms.db.DbSMSClassifier;
+import org.modelsphere.sms.db.DbSMSClassifierGo;
+import org.modelsphere.sms.db.DbSMSDiagram;
+import org.modelsphere.sms.db.DbSMSGraphicalObject;
+import org.modelsphere.sms.db.DbSMSInheritanceGo;
+import org.modelsphere.sms.db.DbSMSPackage;
+import org.modelsphere.sms.db.DbSMSStyle;
+import org.modelsphere.sms.oo.db.DbOOAdt;
+import org.modelsphere.sms.oo.db.DbOOAdtGo;
+import org.modelsphere.sms.oo.db.DbOOAssociation;
+import org.modelsphere.sms.oo.db.DbOOAssociationEnd;
+import org.modelsphere.sms.oo.db.DbOOAssociationGo;
+import org.modelsphere.sms.oo.db.DbOOClass;
+import org.modelsphere.sms.oo.db.DbOOInheritance;
+import org.modelsphere.sms.oo.java.db.DbJVClass;
+import org.modelsphere.sms.or.db.DbORAbsTable;
+import org.modelsphere.sms.or.db.DbORAssociation;
+import org.modelsphere.sms.or.db.DbORAssociationGo;
+import org.modelsphere.sms.or.db.DbORChoiceOrSpecialization;
+import org.modelsphere.sms.or.db.DbORTable;
+import org.modelsphere.sms.or.db.DbORTableGo;
+
+import java.awt.*;
+import java.util.Map;
 
 /**
  * 
@@ -66,7 +89,7 @@ import org.modelsphere.sms.or.db.*;
 
 public abstract class AnyGo {
 
-    public static DbSMSDiagram getDiagram(HashMap diagMap, DbSMSPackage pack) throws DbException {
+    public static DbSMSDiagram getDiagram(Map diagMap, DbSMSPackage pack) throws DbException {
         Object diag = diagMap.get(pack);
         if (diag == null) { // null means we did not map yet this package to a diagram
             // If a package has no diagram, we map it to a dummy object, to avoid remapping it each time.
@@ -104,7 +127,7 @@ public abstract class AnyGo {
     }
 
     // Do not create a graphic rep if inner class.
-    public static void createClassifierGo(HashMap diagMap, DbSMSClassifier adt) throws DbException {
+    public static void createClassifierGo(Map diagMap, DbSMSClassifier adt) throws DbException {
         DbObject parent = adt.getComposite();
         if (parent instanceof DbSMSPackage) {
             DbSMSDiagram diag = getDiagram(diagMap, (DbSMSPackage) parent);
@@ -127,7 +150,7 @@ public abstract class AnyGo {
     }
 
     // Create a graphic rep in the subclass diagram only if "extends" inheritance.
-    public static void createOOInheritanceGo(HashMap diagMap, DbOOInheritance inher)
+    public static void createOOInheritanceGo(Map diagMap, DbOOInheritance inher)
             throws DbException {
         DbSMSPackage pack = (DbSMSPackage) inher.getSubClass().getCompositeOfType(
                 DbSMSPackage.metaClass);
@@ -146,7 +169,7 @@ public abstract class AnyGo {
     }
 
     // Create a graphic rep in the diagram of each navigable member.
-    public static void createOOAssociationGo(HashMap diagMap, DbOOAssociation assoc)
+    public static void createOOAssociationGo(Map diagMap, DbOOAssociation assoc)
             throws DbException {
         DbSMSPackage frontPack = null;
         DbOOAssociationEnd end = assoc.getFrontEnd();

@@ -1,13 +1,12 @@
 package org.modelsphere.jack.srtool;
 
+import org.modelsphere.jack.graphic.GraphicUtil;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.StringTokenizer;
-
-import javax.swing.*;
-
-import org.modelsphere.jack.graphic.GraphicUtil;
 
 @SuppressWarnings("serial")
 final class SplashImage extends JPanel implements java.awt.image.ImageObserver {

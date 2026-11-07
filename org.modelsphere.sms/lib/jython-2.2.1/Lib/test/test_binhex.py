@@ -7,8 +7,9 @@
 import binhex
 import os
 import tempfile
-import test_support
 import unittest
+
+import test_support
 
 
 class BinHexTestCase(unittest.TestCase):

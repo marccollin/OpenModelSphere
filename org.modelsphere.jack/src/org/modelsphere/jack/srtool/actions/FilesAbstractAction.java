@@ -43,11 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import javax.swing.Icon;
-import javax.swing.Action;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.baseDb.db.event.DbRefreshListener;
 import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
 import org.modelsphere.jack.srtool.ApplicationContext;
@@ -55,6 +55,8 @@ import org.modelsphere.jack.srtool.CurrentProjectEvent;
 import org.modelsphere.jack.srtool.CurrentProjectListener;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.StringUtil;
+
+import javax.swing.*;
 
 public abstract class FilesAbstractAction extends AbstractApplicationAction implements
         CurrentProjectListener, DbRefreshListener {

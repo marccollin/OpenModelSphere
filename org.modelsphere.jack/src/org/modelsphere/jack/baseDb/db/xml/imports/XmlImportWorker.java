@@ -52,25 +52,6 @@ package org.modelsphere.jack.baseDb.db.xml.imports;
  * @version 1.0
  */
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.StringTokenizer;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -85,8 +66,8 @@ import org.modelsphere.jack.baseDb.db.srtypes.SrBoolean;
 import org.modelsphere.jack.baseDb.db.srtypes.SrType;
 import org.modelsphere.jack.baseDb.db.xml.XMLConstants;
 import org.modelsphere.jack.baseDb.db.xml.XMLUtilities;
-import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaChoice;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.baseDb.meta.MetaRelation1;
 import org.modelsphere.jack.baseDb.meta.MetaRelationN;
@@ -101,6 +82,26 @@ import org.modelsphere.jack.srtool.explorer.Explorer;
 import org.modelsphere.jack.srtool.explorer.ExplorerPanel;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.StringTokenizer;
+import java.util.List;
+import java.util.Map;
 
 public class XmlImportWorker extends Worker {
     private Db m_db;
@@ -144,9 +145,9 @@ public class XmlImportWorker extends Worker {
                 return;
             }
 
-            ArrayList keyList = new ArrayList();
-            HashMap elementMap = new HashMap();
-            HashMap idMap = new HashMap();
+            List<String> keyList = new ArrayList<>();
+            Map<String, ElementStructure> elementMap = new HashMap<>();
+            Map<String, String> idMap = new HashMap<>();
             NodeReader.HeaderStructure struct = new NodeReader.HeaderStructure();
             NodeReader reader = new NodeReader(elementMap, keyList, idMap, struct);
             reader.readNode(document, null);
@@ -211,11 +212,12 @@ public class XmlImportWorker extends Worker {
     } //end getDocument()
 
     //Called by the unit test
-    private void displayResult(HashMap elementMap, ArrayList keyList, HashMap idMap) {
-        Iterator iter = keyList.iterator();
+    private void displayResult(Map<String, ElementStructure> elementMap, List<String> keyList,
+            Map<String, String> idMap) {
+        Iterator<String> iter = keyList.iterator();
         while (iter.hasNext()) {
-            String key = (String) iter.next();
-            ElementStructure struct = (ElementStructure) elementMap.get(key);
+            String key = iter.next();
+            ElementStructure struct = elementMap.get(key);
             System.out.println(key + "  " + struct);
         } //end while
     } //end displayResult()
@@ -233,11 +235,12 @@ public class XmlImportWorker extends Worker {
      *            NOTES : We assume that the first element is a DBSMSProject. We create all the
      *            objects without links, except composite.
      */
-    private void createElements(Db db, HashMap elementMap, ArrayList keyList, HashMap idMap,
+    private void createElements(Db db, Map<String, ElementStructure> elementMap,
+            List<String> keyList, Map<String, String> idMap,
             final DefaultMainFrame mainFrame, NodeReader.HeaderStructure headerStruct) {
         GuiController controller = (GuiController) getController();
         int totalSize = elementMap.size(); //used to calculate progression in a progress bar
-        HashMap dbobjMap = new HashMap();
+        Map<String, DbObject> dbobjMap = new HashMap<>();
         boolean doAbort = false;
         Explorer explorer = mainFrame.getExplorerPanel().getExplorer();
         explorer.hideContent();
@@ -245,24 +248,24 @@ public class XmlImportWorker extends Worker {
         //PASS 2 : create dbObjects by calling their parameterless constructors
         try {
             db.beginWriteTrans(m_operationName);
-            Iterator iter = keyList.iterator();
+            Iterator<String> iter = keyList.iterator();
             int nbObjs = 0;
             while (iter.hasNext()) {
-                String key = (String) iter.next();
-                ElementStructure struct = (ElementStructure) elementMap.get(key);
+                String key = iter.next();
+                ElementStructure struct = elementMap.get(key);
                 DbObject composite;
                 if (struct.m_compositeId == null) {
                     //get db root (used as composite of DbSMSProject's constructor)
                     composite = db.getRoot();
                 } else {
                     //get the dbObject previously added in the hashmap
-                    composite = (DbObject) dbobjMap.get(struct.m_compositeId);
+                    composite = dbobjMap.get(struct.m_compositeId);
                 } //end if
 
                 try {
                     if (composite != null) { //if found
                         String idName = getClassName(key);
-                        String className = (String) idMap.get(idName);
+                        String className = idMap.get(idName);
 
                         Class claz = Class.forName(className);
                         DbObject newObject = null;
@@ -316,9 +319,9 @@ public class XmlImportWorker extends Worker {
                 nbObjs = 0;
                 iter = keyList.iterator();
                 while (iter.hasNext()) {
-                    String key = (String) iter.next();
-                    ElementStructure struct = (ElementStructure) elementMap.get(key);
-                    DbObject obj = (DbObject) dbobjMap.get(key);
+                    String key = iter.next();
+                    ElementStructure struct = elementMap.get(key);
+                    DbObject obj = dbobjMap.get(key);
                     if (obj instanceof DbProject) {
                         project = (DbProject) obj;
                     }
@@ -348,9 +351,9 @@ public class XmlImportWorker extends Worker {
                 nbObjs = 0;
                 iter = keyList.iterator();
                 while (iter.hasNext()) {
-                    String key = (String) iter.next();
-                    ElementStructure struct = (ElementStructure) elementMap.get(key);
-                    DbObject obj = (DbObject) dbobjMap.get(key);
+                    String key = iter.next();
+                    ElementStructure struct = elementMap.get(key);
+                    DbObject obj = dbobjMap.get(key);
                     setAssociations(db, obj, struct, dbobjMap);
 
                     //Update progress bar once at each 64 iterations
@@ -390,7 +393,7 @@ public class XmlImportWorker extends Worker {
             } else {
                 String IMPORT_PATTERN = "{0} {1} {2}.";
                 String msg = MessageFormat.format(IMPORT_PATTERN, new Object[] { IMPORT,
-                        new Integer(nbObjs), DbSemanticalObject.metaClass.getGUIName(true) });
+                        Integer.valueOf(nbObjs), DbSemanticalObject.metaClass.getGUIName(true) });
                 getController().println(msg);
                 db.commitTrans();
             } //end if
@@ -425,7 +428,7 @@ public class XmlImportWorker extends Worker {
     } //end printStackTrace
 
     private DbObject createNewInstance(Class claz, DbObject composite, ElementStructure struct,
-            HashMap dbobjMap) throws ClassNotFoundException, NoSuchMethodException,
+            Map<String, DbObject> dbobjMap) throws ClassNotFoundException, NoSuchMethodException,
             InstantiationException, IllegalAccessException, InvocationTargetException, DbException {
         DbObject newInstance = null;
 
@@ -438,12 +441,12 @@ public class XmlImportWorker extends Worker {
 
     //set fields & composite (but not other associations)
     private void setFields(Db db, DbProject project, DbObject obj, ElementStructure struct,
-            HashMap dbobjMap) throws DbException {
+            Map<String, DbObject> dbobjMap) throws DbException {
         DbServices services = DbServices.getSingleton();
         db.fetch(obj);
         services.setDbOfObject(obj, db);
 
-        DbObject composite = (DbObject) dbobjMap.get(struct.m_compositeId);
+        DbObject composite = dbobjMap.get(struct.m_compositeId);
         if (composite == null) {
             composite = db.getRoot();
         }
@@ -494,7 +497,7 @@ public class XmlImportWorker extends Worker {
         } //end if
     }
 
-    private void setAssociations(Db db, DbObject obj, ElementStructure struct, HashMap dbobjMap)
+    private void setAssociations(Db db, DbObject obj, ElementStructure struct, Map<String, DbObject> dbobjMap)
             throws DbException {
         DbServices services = DbServices.getSingleton();
         MetaClass mc = obj.getMetaClass();
@@ -520,12 +523,12 @@ public class XmlImportWorker extends Worker {
                 if (mf instanceof MetaChoice) { //if it's a choice
                     MetaChoice choice = (MetaChoice) mf;
                     String key = prop.m_value.substring(1); //skip the 1st character (the '#' character)
-                    DbObject refObj = (DbObject) dbobjMap.get(key);
+                    DbObject refObj = dbobjMap.get(key);
                     obj.set(choice, refObj);
                 } else if (mf instanceof MetaRelation1) { //if it's an association
                     MetaRelation1 relation = (MetaRelation1) mf;
                     String key = prop.m_value.substring(1); //skip the 1st character (the '#' character)
-                    DbObject refObj = (DbObject) dbobjMap.get(key);
+                    DbObject refObj = dbobjMap.get(key);
                     MetaRelationship oppositeRel = relation.getOppositeRel(refObj);
                     int nbNeighbors = refObj.getNbNeighbors(oppositeRel);
                     if (nbNeighbors < oppositeRel.getMaxCard()) {
@@ -538,7 +541,7 @@ public class XmlImportWorker extends Worker {
                     //skip the 1st character if it's '#'
                     String key = (prop.m_value.charAt(0) == '#') ? prop.m_value.substring(1)
                             : prop.m_value;
-                    DbObject refObj = (DbObject) dbobjMap.get(key);
+                    DbObject refObj = dbobjMap.get(key);
 
                     if (refObj != null) {
                         if (oppRel instanceof MetaRelationN) {
@@ -567,16 +570,16 @@ public class XmlImportWorker extends Worker {
                 actualValue = rawValue;
             } else if (type == boolean.class) {
                 boolean b = rawValue.equals("1") ? true : false;
-                actualValue = new Boolean(b);
+                actualValue = Boolean.valueOf(b);
             } else if (type == int.class) {
                 int i = Integer.parseInt(rawValue, 16);
-                actualValue = new Integer(i);
+                actualValue = Integer.valueOf(i);
             } else if (type == float.class) {
                 float fl = Float.parseFloat(rawValue);
-                actualValue = new Float(fl);
+                actualValue = Float.valueOf(fl);
             } else if (type == double.class) {
                 double d = Double.parseDouble(rawValue);
-                actualValue = new Double(d);
+                actualValue = Double.valueOf(d);
             } else if (SrType.class.isAssignableFrom(type)) {
                 actualValue = getSrActualValue(f, rawValue);
             } else {
@@ -719,7 +722,7 @@ public class XmlImportWorker extends Worker {
         } //end if
     } //end findField()
 
-    private DbObject newInstanceFromSpecialConstructor(String value, Class claz, HashMap dbobjMap)
+    private DbObject newInstanceFromSpecialConstructor(String value, Class claz, Map<String, DbObject> dbobjMap)
             throws ClassNotFoundException, NoSuchMethodException, InstantiationException,
             IllegalAccessException, InvocationTargetException {
 
@@ -744,7 +747,7 @@ public class XmlImportWorker extends Worker {
                 classes[0] = Class.forName(className);
 
                 String key = token.substring(idx + 2); // skip the 1st two character (the '=' and '#' character)
-                DbObject actualComposite = (DbObject) dbobjMap.get(key);
+                DbObject actualComposite = dbobjMap.get(key);
                 objects[0] = actualComposite;
             } else {
                 Class paramClass = getClassFor(token);
@@ -790,7 +793,7 @@ public class XmlImportWorker extends Worker {
                 //each intDomain has a getInstance() static method with an integer a sole parameter
                 Method method = claz.getMethod("getInstance", new Class[] { int.class });
                 //create a default instance
-                defValue = method.invoke(null, new Object[] { new Integer(1) });
+                defValue = method.invoke(null, new Object[] { Integer.valueOf(1) });
             } catch (Exception ex) {
                 defValue = null;
             } //end try

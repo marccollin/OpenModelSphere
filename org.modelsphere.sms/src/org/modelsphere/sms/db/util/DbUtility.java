@@ -42,14 +42,10 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.db.util;
 
-import java.awt.Rectangle;
-import java.util.ArrayList;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
-import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.sms.be.db.DbBEDiagram;
 import org.modelsphere.sms.be.db.DbBEModel;
 import org.modelsphere.sms.be.db.DbBENotation;
@@ -62,6 +58,10 @@ import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.or.db.DbORNotation;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Grandite
  * 
@@ -72,7 +72,7 @@ public class DbUtility {
 
     //Called by sms.actions.AddAction.doActionPerformed()
     public static DbSMSDiagram selectOneDiagram(DbSMSClassifier classifier) throws DbException {
-        ArrayList list = new ArrayList();
+        List<DbSMSDiagram> list = new ArrayList<>();
 
         DbRelationN relN = classifier.getClassifierGos();
         DbEnumeration dbEnum = relN.elements(DbSMSClassifierGo.metaClass);
@@ -86,7 +86,7 @@ public class DbUtility {
         } //end while
         dbEnum.close();
 
-        DbSMSDiagram diagram = (list.size() == 0) ? null : (DbSMSDiagram) list.get(0);
+        DbSMSDiagram diagram = (list.isEmpty()) ? null : list.get(0);
         return diagram;
     } //end selectOneDiagram()
 
@@ -100,7 +100,7 @@ public class DbUtility {
         String term = usecase.getTerminologyName();
         if (term == null)
             obj = null;
-        else if (term.equals(""))
+        else if (term.isEmpty())
             obj = null;
 
         if (obj != null)
@@ -136,8 +136,7 @@ public class DbUtility {
 
     public static boolean notationIsEntityRelationship(DbORNotation notation) throws DbException {
         String name = notation.getName();
-        boolean isER = name.equals(ENTITY_RELATIONSHIP_TXT);
-        return isER;
+        return name.equals(ENTITY_RELATIONSHIP_TXT);
     } //end notationIsEntityRelationship
 
     public static void onSetRectangle(Rectangle value) {

@@ -44,22 +44,29 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.awt.beans.impl;
 
 
-import java.awt.*;
-import java.awt.event.*;
-import java.beans.*;
-import java.io.Serializable;
-import java.lang.reflect.*;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.table.*;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.beans.BeanDialog;
 import org.modelsphere.jack.debug.Debug;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.beans.BeanDescriptor;
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BeanDialogImpl implements BeanDialog {
     private static final int ICON_KIND = BeanInfo.ICON_COLOR_16x16;
@@ -71,7 +78,7 @@ public class BeanDialogImpl implements BeanDialog {
     private int m_modelType; // EITHER BEAN_TYPE OR ARRAYLIST_TYPE
     private Serializable m_bean = null;
     private BeanInfo m_beaninfo = null;
-    private List m_primitiveList = null;
+    private List<? extends AbstractProperty> m_primitiveList = null;
     private static int g_defaultTooltipDismissDelay = 0;
 
     // CONSTRUCTORS
@@ -82,7 +89,7 @@ public class BeanDialogImpl implements BeanDialog {
         g_defaultTooltipDismissDelay = ToolTipManager.sharedInstance().getDismissDelay();
     }
 
-    public BeanDialogImpl(List primitiveList) {
+    public BeanDialogImpl(List<? extends AbstractProperty> primitiveList) {
         m_modelType = PROPERTYLIST_TYPE;
         m_primitiveList = primitiveList;
         g_defaultTooltipDismissDelay = ToolTipManager.sharedInstance().getDismissDelay();
@@ -103,19 +110,17 @@ public class BeanDialogImpl implements BeanDialog {
     //
     // /////////////////////////////////////////////////
 
-    public List getPrimitiveList() {
+    public List<? extends AbstractProperty> getPrimitiveList() {
         return m_primitiveList;
     }
 
     private void showDialog(JDialog dialog) {
-        switch (m_modelType) {
-        case BEAN_TYPE:
+        if (m_modelType == BEAN_TYPE) {
             BeanDescriptor desc = m_beaninfo.getBeanDescriptor();
             if (desc != null) {
                 String title = desc.getDisplayName();
                 dialog.setTitle(title);
             }
-            break;
         }
 
         Container parent = dialog.getContentPane();
@@ -145,15 +150,12 @@ public class BeanDialogImpl implements BeanDialog {
     private PropertyTable createPropertyTable() {
         BeanFrameInfo info = new BeanFrameInfo();
         // draw table
-        PropertyTableModel dm = null;
-        switch (m_modelType) {
-        case BEAN_TYPE:
-            dm = new PropertyTableModel(m_bean, m_beaninfo, info);
-            break;
-        case PROPERTYLIST_TYPE:
-            dm = new PropertyTableModel(m_primitiveList, info);
-            break;
-        } // end switch
+        // end switch
+        PropertyTableModel dm = switch (m_modelType) {
+            case BEAN_TYPE -> new PropertyTableModel(m_bean, m_beaninfo, info);
+            case PROPERTYLIST_TYPE -> new PropertyTableModel(m_primitiveList, info);
+            default -> null;
+        };
 
         PropertyTable table = new PropertyTable(this, dm);
         table.setName("Design"); // NOT LOCALIZABLE - For QA
@@ -176,7 +178,7 @@ public class BeanDialogImpl implements BeanDialog {
         private int g_counter;
         private int m_modelType;
         private Serializable m_bean;
-        private List m_propertyList;
+        private List<? extends AbstractProperty> m_propertyList;
         private int m_nbrows;
         private Image m_icon;
         private String m_title;
@@ -188,7 +190,7 @@ public class BeanDialogImpl implements BeanDialog {
         private Method[] m_writeMethods;
         private Class[] m_propertyTypes;
 
-        PropertyTableModel(List propertyList, BeanFrameInfo beanFrameInfo) {
+        PropertyTableModel(List<? extends AbstractProperty> propertyList, BeanFrameInfo beanFrameInfo) {
             m_modelType = PROPERTYLIST_TYPE;
             m_propertyList = propertyList;
             m_info = beanFrameInfo;
@@ -200,7 +202,7 @@ public class BeanDialogImpl implements BeanDialog {
             m_writeMethods = new Method[nb];
             m_propertyTypes = new Class[nb];
 
-            for (Object o : propertyList) {
+            for (AbstractProperty o : propertyList) {
                 AbstractProperty.BooleanProperty prop = (AbstractProperty.BooleanProperty) o;
                 m_names[m_nbrows] = prop.getName();
                 Class claz = AbstractProperty.BooleanProperty.class;
@@ -305,16 +307,13 @@ public class BeanDialogImpl implements BeanDialog {
         }
 
         private Serializable getVariable(int idx) {
-            Serializable variable = null;
-            switch (m_modelType) {
-            case BEAN_TYPE:
-                variable = m_bean;
-                break;
-            case PROPERTYLIST_TYPE:
-                variable = (Serializable) m_propertyList.get(idx);
-                break;
-            //
-            } // end switch
+            // end switch
+            Serializable variable = switch (m_modelType) {
+                case BEAN_TYPE -> m_bean;
+                case PROPERTYLIST_TYPE -> m_propertyList.get(idx);
+                default -> null;
+                //
+            };
             return variable;
         } // end getVariable()
 
@@ -330,8 +329,7 @@ public class BeanDialogImpl implements BeanDialog {
                     try {
                         Serializable variable = getVariable(rowIndex);
                         value = readMethod.invoke(variable, new Object[] {});
-                    } catch (InvocationTargetException ex) {
-                    } catch (IllegalAccessException ex) {
+                    } catch (InvocationTargetException | IllegalAccessException ex) {
                     } // end try
                 } // end if
 
@@ -359,8 +357,7 @@ public class BeanDialogImpl implements BeanDialog {
                         // notify property panel : m_info.setDirty(), furthur
                         // extension
                         // set the tree.
-                    } catch (InvocationTargetException ex) {
-                    } catch (IllegalAccessException ex) {
+                    } catch (InvocationTargetException | IllegalAccessException ex) {
                     } // end try
                 } // end if
             } // end if
@@ -393,6 +390,7 @@ public class BeanDialogImpl implements BeanDialog {
             m_table = this;
             setRenderersAndEditors(dm);
             this.addMouseListener(new MouseAdapter() {
+                @Override
                 public void mouseClicked(MouseEvent e) {
                     dialog.stopCellEditing();
                 }
@@ -673,7 +671,7 @@ public class BeanDialogImpl implements BeanDialog {
         // BeanDialog dialog = new BeanDialogImpl(bean, info);
 
         // create propertyList
-        ArrayList propertyList = new ArrayList();
+        List<AbstractProperty> propertyList = new ArrayList<>();
         propertyList.add(new AbstractProperty.BooleanProperty("generate user", true)); // NOT LOCALIZABLE, unit test
         propertyList.add(new AbstractProperty.BooleanProperty("physical specs", false)); // NOT LOCALIZABLE, unit test
         BeanDialog dialog = new BeanDialogImpl(propertyList);

@@ -33,12 +33,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.services;
 
+import org.modelsphere.jack.debug.Debug;
+
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Enumeration;
 import java.util.Vector;
-
-import org.modelsphere.jack.debug.Debug;
 
 /**
  * 
@@ -71,7 +71,7 @@ abstract class AbstractOccurrence implements java.io.Serializable {
     /* Object members */
     protected String m_name;
     // protected String m_typeName;
-    protected Vector m_vecOfFields = new Vector();
+    protected Vector<Field> m_vecOfFields = new Vector<>();
 
     /*
      * OPERATIONS
@@ -258,7 +258,7 @@ public final class Occurrence extends AbstractOccurrence {
                 new String[] {}); // NOT LOCALIZABLE
         // try {
         // TODO: mc = (MetaClass)m.invoke(currentDb, new String[] {});
-        java.util.Enumeration enumeration = null; // TODO:mc.getInstances();
+        Enumeration enumeration = null; // TODO:mc.getInstances();
 
         while (enumeration.hasMoreElements()) {
             so = (org.modelsphere.jack.baseDb.db.DbSemanticalObject) enumeration.nextElement();

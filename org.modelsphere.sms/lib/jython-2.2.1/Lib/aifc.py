@@ -134,8 +134,8 @@ changed by calling aiff() or aifc() before the first writeframes or
 writeframesraw.
 """
 
-import struct
 import __builtin__
+import struct
 
 __all__ = ["Error","open","openfp"]
 

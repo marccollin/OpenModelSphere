@@ -43,9 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.*;
-
 import org.modelsphere.jack.srtool.forward.exceptions.NegativeMarginRuleException;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.Writer;
 
 public final class EndOfLine extends EditionCode {
     private static final String EOL = System.getProperty("line.separator");

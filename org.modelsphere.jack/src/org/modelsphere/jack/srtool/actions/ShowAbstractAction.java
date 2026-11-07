@@ -43,10 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import javax.swing.Icon;
-import javax.swing.Action;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
+
+import javax.swing.*;
 
 public abstract class ShowAbstractAction extends AbstractApplicationAction {
 

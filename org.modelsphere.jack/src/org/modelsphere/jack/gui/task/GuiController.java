@@ -43,17 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.gui.task;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.lang.reflect.InvocationTargetException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.File;
-import java.util.Date;
-import java.text.DateFormat;
-import java.util.Calendar;
-import javax.swing.*;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -64,6 +53,20 @@ import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.forward.AbortRuleException;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.ExceptionHandler;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * This class used with class Worker provides a thread safe way to control a task It provides log
@@ -214,6 +217,7 @@ public abstract class GuiController extends Controller implements ActionListener
         window = getWindow();
         if (window != null) {
             window.addWindowListener(new WindowAdapter() {
+                @Override
                 public void windowClosing(WindowEvent e) {
                     dispose_();
                 }
@@ -332,13 +336,13 @@ public abstract class GuiController extends Controller implements ActionListener
             int seconds = calendar.get(Calendar.SECOND);
             String dateString = "";
             if (hours != 0)
-                dateString = MessageFormat.format(HOURS_MIN_SEC, new Object[] { new Integer(hours),
-                        new Integer(minutes), new Integer(seconds) });
+                dateString = MessageFormat.format(HOURS_MIN_SEC, new Object[] { Integer.valueOf(hours),
+                        Integer.valueOf(minutes), Integer.valueOf(seconds) });
             else if (minutes != 0)
-                dateString = MessageFormat.format(MIN_SEC, new Object[] { new Integer(minutes),
-                        new Integer(seconds) });
+                dateString = MessageFormat.format(MIN_SEC, new Object[] { Integer.valueOf(minutes),
+                        Integer.valueOf(seconds) });
             else
-                dateString = MessageFormat.format(SEC, new Object[] { new Integer(seconds) });
+                dateString = MessageFormat.format(SEC, new Object[] { Integer.valueOf(seconds) });
 
             final String updateString = dateString;
             doUpdate(new Runnable() {

@@ -44,30 +44,21 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package org.modelsphere.jack.plugins.xml.extensions;
 
-import java.awt.Image;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.MenuElement;
-
 import org.modelsphere.jack.actions.AbstractActionsStore;
 import org.modelsphere.jack.awt.JackMenu;
 import org.modelsphere.jack.awt.JackPopupMenu;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
-import org.modelsphere.jack.plugins.Plugin2;
-import org.modelsphere.jack.plugins.PluginAction;
 import org.modelsphere.jack.plugins.xml.XmlPlugin;
 import org.modelsphere.jack.plugins.xml.XmlPluginAction;
 import org.modelsphere.jack.plugins.xml.XmlPluginDescriptor;
 import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.DefaultMainFrame;
-import org.modelsphere.jack.srtool.MainFrameMenu;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 public class PopupExtension extends AbstractPluginExtension {
 

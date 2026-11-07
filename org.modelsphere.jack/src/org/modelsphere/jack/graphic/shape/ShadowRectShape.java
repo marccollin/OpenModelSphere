@@ -43,9 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.shape;
 
-import java.awt.*;
+import org.modelsphere.jack.graphic.DiagramView;
+import org.modelsphere.jack.graphic.GraphicComponent;
 
-import org.modelsphere.jack.graphic.*;
+import java.awt.*;
 
 public class ShadowRectShape implements GraphicShape {
     private boolean m_shadowEast = true;

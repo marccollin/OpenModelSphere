@@ -33,12 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.graphic;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -78,13 +72,17 @@ import org.modelsphere.sms.or.db.DbORDiagram;
 import org.modelsphere.sms.or.db.DbORNotation;
 import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 import org.modelsphere.sms.or.db.DbORStyle;
-import org.modelsphere.sms.or.db.DbORTableGo;
 import org.modelsphere.sms.or.db.srtypes.ORChoiceSpecializationCategory;
 import org.modelsphere.sms.or.db.srtypes.ORConnectivitiesDisplay;
 import org.modelsphere.sms.or.db.srtypes.ORConnectivityPosition;
 import org.modelsphere.sms.or.db.srtypes.ORNotationSymbol;
 import org.modelsphere.sms.or.db.srtypes.ORNumericRepresentation;
 import org.modelsphere.sms.or.db.util.AnyORObject;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public final class ORAssociation extends SrLine implements DbRefreshListener {
 
@@ -736,7 +734,7 @@ public final class ORAssociation extends SrLine implements DbRefreshListener {
             return "";
         String pattern = "{0}/{1}";
         return MessageFormat.format(pattern,
-                new Object[] { new Integer(index), new Integer(count) });
+                new Object[] { Integer.valueOf(index), Integer.valueOf(count) });
     }
 
     // /////////////////////////////////////////////

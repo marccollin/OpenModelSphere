@@ -38,14 +38,22 @@ package org.modelsphere.sms.plugins.report.screen;
 // Sms
 
 // JDK
-import java.awt.Color;
-import java.io.File;
 
 import org.modelsphere.jack.awt.tree.CheckTreeNode;
 import org.modelsphere.jack.baseDb.db.srtypes.IntDomain;
 import org.modelsphere.sms.plugins.report.PropertiesSet;
-import org.modelsphere.sms.plugins.report.model.*;
+import org.modelsphere.sms.plugins.report.model.ColumnHorizontalAlignmentDomain;
+import org.modelsphere.sms.plugins.report.model.ColumnVerticalAlignmentDomain;
+import org.modelsphere.sms.plugins.report.model.Properties;
+import org.modelsphere.sms.plugins.report.model.Property;
+import org.modelsphere.sms.plugins.report.model.PropertyGroup;
+import org.modelsphere.sms.plugins.report.model.ReportOptions;
+import org.modelsphere.sms.plugins.report.model.TableAlignmentDomain;
+import org.modelsphere.sms.plugins.report.model.UnitDomain;
 import org.modelsphere.sms.preference.DirectoryOptionGroup;
+
+import java.awt.*;
+import java.io.File;
 
 public class PropertiesTreeNode extends CheckTreeNode {
 

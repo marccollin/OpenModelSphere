@@ -1,7 +1,5 @@
 package org.modelsphere.sms.or.features;
 
-import java.text.MessageFormat;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
@@ -13,6 +11,8 @@ import org.modelsphere.sms.or.db.DbORFKeyColumn;
 import org.modelsphere.sms.or.db.DbORForeign;
 import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 import org.modelsphere.sms.or.db.srtypes.ORValidationRule;
+
+import java.text.MessageFormat;
 
 /**
  * This class contains the logic of determining which referential rule is appropriate with each case

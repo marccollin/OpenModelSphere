@@ -43,28 +43,44 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.templates;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
-import java.io.Serializable;
-import java.util.*;
-import java.util.List;
+import org.modelsphere.jack.awt.AwtUtil;
+import org.modelsphere.jack.awt.beans.impl.AbstractProperty;
+import org.modelsphere.jack.awt.beans.impl.PropertyDialog;
+import org.modelsphere.jack.awt.tree.CheckEvent;
+import org.modelsphere.jack.awt.tree.CheckListener;
+import org.modelsphere.jack.awt.tree.CheckTreeModel;
+import org.modelsphere.jack.awt.tree.CheckTreeNode;
+import org.modelsphere.jack.awt.tree.CheckableTree;
+import org.modelsphere.jack.debug.Debug;
+import org.modelsphere.jack.debug.TestableWindow;
+import org.modelsphere.jack.international.LocaleMgr;
+import org.modelsphere.jack.srtool.forward.BooleanModifier;
+import org.modelsphere.jack.srtool.forward.ExternModifier;
+import org.modelsphere.jack.srtool.forward.Rule;
+import org.modelsphere.jack.srtool.forward.RuleException;
+import org.modelsphere.jack.srtool.forward.VariableDecl;
+import org.modelsphere.jack.srtool.forward.VariableScope;
+import org.modelsphere.jack.srtool.integrate.IntegrateScopeDialog;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
-
-import org.modelsphere.jack.awt.AwtUtil;
-import org.modelsphere.jack.awt.beans.impl.AbstractProperty;
-import org.modelsphere.jack.awt.beans.impl.PropertyDialog;
-import org.modelsphere.jack.awt.tree.*;
-import org.modelsphere.jack.debug.Debug;
-import org.modelsphere.jack.debug.TestableWindow;
-import org.modelsphere.jack.international.LocaleMgr;
-import org.modelsphere.jack.srtool.forward.*;
-import org.modelsphere.jack.srtool.integrate.IntegrateScopeDialog;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 public class TemplateDialog extends JDialog implements TestableWindow {
     JPanel panel1 = new JPanel();
@@ -86,9 +102,9 @@ public class TemplateDialog extends JDialog implements TestableWindow {
     private List m_tmpls;
     private List m_conds;
     private VariableScope m_variableList;
-    private List m_propertyList;
+    private List<AbstractProperty> m_propertyList;
     private CheckTreeNode m_fieldTree;
-    private String m_scopedir = null;
+    private String m_scopedir;
 
     private static final String NONE = LocaleMgr.screen.getString("None");
     private static final String PARAMETER_FILE = LocaleMgr.screen.getString("ParameterFile");
@@ -153,15 +169,13 @@ public class TemplateDialog extends JDialog implements TestableWindow {
     }
 
     private List getSelectedRules(TemplateCheckableList list) {
-        List selectedRules = new ArrayList();
+        List<Rule> selectedRules = new ArrayList<>();
         TreeModel model = list.getModel();
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-        Enumeration enumeration = root.preorderEnumeration();
-        boolean atLeastOneSelected = false;
+        Enumeration<?> enumeration = root.preorderEnumeration();
         while (enumeration.hasMoreElements()) {
             Object element = enumeration.nextElement();
-            if (element instanceof TemplateCheckListNode) {
-                TemplateCheckListNode node = (TemplateCheckListNode) element;
+            if (element instanceof TemplateCheckListNode node) {
                 if (node.isSelected()) {
                     Rule rule = node.m_rule;
                     selectedRules.add(rule);
@@ -173,15 +187,13 @@ public class TemplateDialog extends JDialog implements TestableWindow {
     }
 
     private List getSetConditions(ModifierCheckableList list) {
-        List setConditions = new ArrayList();
+        List<VariableDecl.VariableStructure> setConditions = new ArrayList<>();
         TreeModel model = list.getModel();
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-        Enumeration enumeration = root.preorderEnumeration();
-        boolean atLeastOneSelected = false;
+        Enumeration<?> enumeration = root.preorderEnumeration();
         while (enumeration.hasMoreElements()) {
             Object element = enumeration.nextElement();
-            if (element instanceof ModifierCheckListNode) {
-                ModifierCheckListNode node = (ModifierCheckListNode) element;
+            if (element instanceof ModifierCheckListNode node) {
                 VariableDecl.VariableStructure variable = node.getVariable();
                 Boolean value = node.isSelected() ? Boolean.TRUE : Boolean.FALSE;
                 variable.setValue(value);
@@ -195,7 +207,7 @@ public class TemplateDialog extends JDialog implements TestableWindow {
     private void enableGenerateButton(TemplateCheckableList list) {
         TreeModel model = list.getModel();
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-        Enumeration enumeration = root.preorderEnumeration();
+        Enumeration<?> enumeration = root.preorderEnumeration();
         boolean atLeastOneSelected = false;
         while (enumeration.hasMoreElements()) {
             Object element = enumeration.nextElement();
@@ -298,14 +310,14 @@ public class TemplateDialog extends JDialog implements TestableWindow {
 
     // called by sms.or.dbms.features.DefaultForwardWizardObjectsPage and
     // TemplateDialog
-    public static List buildPropertyListFromVariables(VariableScope variableScope) {
-        List propertyList = new ArrayList();
+    public static List<AbstractProperty> buildPropertyListFromVariables(VariableScope variableScope) {
+        List<AbstractProperty> propertyList = new ArrayList<>();
 
         // For each external variable
-        Iterator iter = variableScope.getIterator();
+        Iterator<Map.Entry<String, VariableDecl.VariableStructure>> iter = variableScope.getIterator();
         while (iter.hasNext()) {
-            Map.Entry entry = (Map.Entry) iter.next();
-            VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) entry
+            Map.Entry<String, VariableDecl.VariableStructure> entry = iter.next();
+            VariableDecl.VariableStructure variable = entry
                     .getValue();
             if (variable.isExtern()) {
                 int type = variable.getType();
@@ -324,15 +336,14 @@ public class TemplateDialog extends JDialog implements TestableWindow {
     // reset variables' value according property list
     // called by sms.or.dbms.features.DefaultForwardWizardObjectsPage and
     // TemplateDialog
-    public static void resetValue(VariableScope variableScope, List propertyList) {
-        for (Object o : propertyList) {
-            AbstractProperty property = (AbstractProperty) o;
+    public static void resetValue(VariableScope variableScope, List<? extends AbstractProperty> propertyList) {
+        for (AbstractProperty property : propertyList) {
             String name = property.getName();
             Serializable value = property.getValue();
-            Iterator iter2 = variableScope.getIterator();
+            Iterator<Map.Entry<String, VariableDecl.VariableStructure>> iter2 = variableScope.getIterator();
             while (iter2.hasNext()) {
-                Map.Entry entry = (Map.Entry) iter2.next();
-                VariableDecl.VariableStructure variable = (VariableDecl.VariableStructure) entry
+                Map.Entry<String, VariableDecl.VariableStructure> entry = iter2.next();
+                VariableDecl.VariableStructure variable = entry
                         .getValue();
                 if (variable.getDisplayName().equals(name)) {
                     variable.setValue(value);
@@ -342,13 +353,13 @@ public class TemplateDialog extends JDialog implements TestableWindow {
         } // end while
     } // end resetValue()
 
-    private List m_selectedRules = null;
+    private List m_selectedRules;
 
     public List getSelectedRules() {
         return m_selectedRules;
     }
 
-    private List m_setConditions = null; // set by the Generate button
+    private List m_setConditions; // set by the Generate button
 
     public void getSetConditions(VariableScope varlist) {
         if (m_setConditions != null) {
@@ -361,7 +372,7 @@ public class TemplateDialog extends JDialog implements TestableWindow {
         } // end if
     } // end getSetConditions()
 
-    private TemplateCheckableList m_list = null;
+    private TemplateCheckableList m_list;
 
     private void initialize() {
         // localize button names
@@ -371,7 +382,6 @@ public class TemplateDialog extends JDialog implements TestableWindow {
         jButton4.setText(SET_SCOPE);
 
         BorderLayout layout2 = new BorderLayout();
-        BorderLayout layout3 = new BorderLayout();
         jPanel2.setLayout(layout2);
 
         // Add listeners
@@ -453,20 +463,17 @@ public class TemplateDialog extends JDialog implements TestableWindow {
             DefaultMutableTreeNode node;
 
             // 1) fill externalDisplayList
-            List externalDisplayList = new ArrayList();
+            List<ExternalDisplay> externalDisplayList = new ArrayList<>();
             for (Object optionName : optionNames) {
                 Rule rule = (Rule) optionName;
                 ExternModifier externModifier = rule.externModifier;
-                ExternalDisplay display = null;
-                if (externModifier != null) {
-                    String value = externModifier.getValue();
-                    if (value != null) {
-                        display = new ExternalDisplay(value, rule);
-                    } else {
-                        String ruleName = rule.m_ruleName;
-                        display = new ExternalDisplay("DISPLAY=\"" + ruleName + "\"", rule); // NOT LOCALIZABLE
-                    } // end if
-                } // end if
+                String value = externModifier == null ? null : externModifier.getValue();
+                ExternalDisplay display;
+                if (value != null) {
+                    display = new ExternalDisplay(value, rule);
+                } else {
+                    display = new ExternalDisplay("DISPLAY=\"" + rule.m_ruleName + "\"", rule); // NOT LOCALIZABLE
+                }
 
                 externalDisplayList.add(display);
             } // end for
@@ -475,8 +482,7 @@ public class TemplateDialog extends JDialog implements TestableWindow {
             Collections.sort(externalDisplayList);
 
             // 3 add checklistnode
-            for (Object o : externalDisplayList) {
-                ExternalDisplay display = (ExternalDisplay) o;
+            for (ExternalDisplay display : externalDisplayList) {
                 Rule rule = display.getRule();
                 String displayName = display.getDisplayName();
                 boolean checked = display.getEnabled();
@@ -538,11 +544,11 @@ public class TemplateDialog extends JDialog implements TestableWindow {
     } // end TemplateCheckListNode
 
     // INNER CLASS
-    private static class ExternalDisplay implements Comparable {
+    private static class ExternalDisplay implements Comparable<ExternalDisplay> {
         private String m_display;
         private int m_order = 100; // default order
-        private Rule m_rule;
-        private boolean m_enabled = false; // not selected by default
+        private final Rule m_rule;
+        private boolean m_enabled; // not selected by default
 
         private void setOption(String param) {
             Debug.trace("SETOPTION(" + param + ")"); // NOT LOCALIZABLE
@@ -557,8 +563,12 @@ public class TemplateDialog extends JDialog implements TestableWindow {
             }
 
             if (option.equals("DISPLAY")) { // NOT LOCALIZABLE
-                this.m_display = value.substring(1, value.length() - 1); // remove
-                // quotes
+                if (value == null || value.length() < 2
+                        || !value.startsWith("\"") || !value.endsWith("\"")) {
+                    throw new IllegalArgumentException(
+                            "DISPLAY must be enclosed in double quotes: " + param);
+                }
+                this.m_display = value.substring(1, value.length() - 1);
             } else if (option.equals("ORDER")) { // NOT LOCALIZABLE
                 int intValue = Integer.parseInt(value);
                 this.m_order = intValue;
@@ -569,6 +579,7 @@ public class TemplateDialog extends JDialog implements TestableWindow {
 
         ExternalDisplay(String value, Rule rule) {
             m_rule = rule;
+            m_display = rule.m_ruleName;
             // options are comma-separated
             StringTokenizer st = new StringTokenizer(value, ",");
             while (st.hasMoreTokens()) {
@@ -589,13 +600,9 @@ public class TemplateDialog extends JDialog implements TestableWindow {
             return m_enabled;
         }
 
-        public int compareTo(Object obj) {
-            if (!(obj instanceof ExternalDisplay)) {
-                throw new ClassCastException();
-            }
-
-            ExternalDisplay display = (ExternalDisplay) obj;
-            int diff = this.m_order - display.m_order;
+        @Override
+        public int compareTo(ExternalDisplay display) {
+            int diff = Integer.compare(this.m_order, display.m_order);
             if (diff != 0) {
                 return diff;
             } else {
@@ -628,8 +635,8 @@ public class TemplateDialog extends JDialog implements TestableWindow {
 
     private static void test(Object fieldTreeObject, String scopedir) {
         CheckTreeNode fieldTree = (CheckTreeNode) fieldTreeObject;
-        List m_tmpls = new ArrayList();
-        List m_conds = new ArrayList();
+        List<Rule> m_tmpls = new ArrayList<>();
+        List<VariableDecl.VariableStructure> m_conds = new ArrayList<>();
         JDialog owner = new JDialog();
         org.modelsphere.jack.srtool.forward.VariableScope varList = getVarList();
 
@@ -646,8 +653,8 @@ public class TemplateDialog extends JDialog implements TestableWindow {
 
     public Window createTestWindow(Container owner) {
         CheckTreeNode fieldTree = (CheckTreeNode) getTestFieldTree();
-        List m_tmpls = new ArrayList();
-        List m_conds = new ArrayList();
+        List<Rule> m_tmpls = new ArrayList<>();
+        List<VariableDecl.VariableStructure> m_conds = new ArrayList<>();
         JDialog owner2 = new JDialog();
         org.modelsphere.jack.srtool.forward.VariableScope varList = getVarList();
 
@@ -666,36 +673,36 @@ public class TemplateDialog extends JDialog implements TestableWindow {
         Object fieldTree = null;
         try {
             // org.modelsphere.sms.Application.initMeta()
-            Class claz = Class.forName("org.modelsphere.sms.Application"); // NOT
+            Class<?> claz = Class.forName("org.modelsphere.sms.Application"); // NOT
             // LOCALIZABLE,
             // unit
             // test
-            java.lang.reflect.Method method = claz.getDeclaredMethod("initMeta", new Class[] {}); // NOT LOCALIZABLE, unit test
+            java.lang.reflect.Method method = claz.getDeclaredMethod("initMeta"); // NOT LOCALIZABLE, unit test
             method.invoke(null, new Object[] {});
 
             // util =
             // org.modelsphere.sms.SMSIntegrateModelUtil.getSingleInstance()
-            Class modelUtilClass = Class.forName("org.modelsphere.sms.SMSIntegrateModelUtil"); // NOT
+            Class<?> modelUtilClass = Class.forName("org.modelsphere.sms.SMSIntegrateModelUtil"); // NOT
             // LOCALIZABLE,
             // unit
             // test
-            method = modelUtilClass.getDeclaredMethod("getSingleInstance", new Class[] {}); // NOT LOCALIZABLE, unit test
+            method = modelUtilClass.getDeclaredMethod("getSingleInstance"); // NOT LOCALIZABLE, unit test
             Object modelUtil = method.invoke(null, new Object[] {});
 
             // model = new org.modelsphere.sms.or.generic.db.DbGEDataModel();
-            Class dataModelClass = Class.forName("org.modelsphere.sms.or.generic.db.DbGEDataModel"); // NOT
+            Class<?> dataModelClass = Class.forName("org.modelsphere.sms.or.generic.db.DbGEDataModel"); // NOT
             // LOCALIZABLE,
             // unit
             // test
-            java.lang.reflect.Constructor constr = dataModelClass.getConstructor(new Class[] {});
+            java.lang.reflect.Constructor<?> constr = dataModelClass.getConstructor();
             Object model = constr.newInstance(new Object[] {});
 
             // fieldTree = util.getFieldTree(model);
-            Class pack = Class.forName("org.modelsphere.sms.db.DbSMSPackage"); // NOT
+            Class<?> pack = Class.forName("org.modelsphere.sms.db.DbSMSPackage"); // NOT
             // LOCALIZABLE,
             // unit
             // test
-            method = modelUtilClass.getDeclaredMethod("getFieldTree", new Class[] { pack }); // NOT LOCALIZABLE, unit test
+            method = modelUtilClass.getDeclaredMethod("getFieldTree", pack); // NOT LOCALIZABLE, unit test
             fieldTree = method.invoke(modelUtil, new Object[] { model });
         } catch (Exception ex) {
             ex.printStackTrace(System.out);

@@ -5,9 +5,12 @@ but random access is not allowed."""
 
 # based on Andrew Kuchling's minigzip.py distributed with the zlib module
 
-import struct, sys, time
-import zlib
 import __builtin__
+import struct
+import sys
+import time
+
+import zlib
 
 __all__ = ["GzipFile","open"]
 

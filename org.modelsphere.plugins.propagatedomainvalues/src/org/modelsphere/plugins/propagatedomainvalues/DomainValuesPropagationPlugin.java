@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.propagatedomainvalues;
 
-import java.awt.event.ActionEvent;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -48,6 +46,8 @@ import org.modelsphere.jack.srtool.MainFrameMenu;
 import org.modelsphere.jack.srtool.actions.PluginDefaultAction;
 import org.modelsphere.sms.or.db.DbORColumn;
 import org.modelsphere.sms.or.db.DbORDomain;
+
+import java.awt.event.ActionEvent;
 
 public final class DomainValuesPropagationPlugin implements Plugin2 {
     public PluginSignature getSignature() {
@@ -66,16 +66,16 @@ public final class DomainValuesPropagationPlugin implements Plugin2 {
         PluginServices.multiDbBeginTrans(Db.WRITE_TRANS, LocaleMgr.misc
                 .getString("UpdateFromDomainValue"));
         DbObject[] domains = PluginServices.getSelectedSemanticalObjects();
-        for (int i = 0; i < domains.length; i++) {
-            if (domains[i] instanceof DbORDomain) {
-                DbORDomain domain = (DbORDomain) domains[i];
+        for (DbObject dbObject : domains) {
+            if (dbObject instanceof DbORDomain) {
+                DbORDomain domain = (DbORDomain) dbObject;
                 DbEnumeration columns = domain.getTypedAttributes().elements(DbORColumn.metaClass);
                 while (columns.hasMoreElements()) {
                     DbORColumn column = (DbORColumn) columns.nextElement();
                     column.setLength(domain.getLength());
                     column.setNbDecimal(domain.getNbDecimal());
-                    column.setNull(Boolean.valueOf(domain.isNull()));
-                    column.setReference(Boolean.valueOf(domain.isReference()));
+                    column.setNull(domain.isNull());
+                    column.setReference(domain.isReference());
                 }
                 columns.close();
             }

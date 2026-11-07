@@ -33,15 +33,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.awt.JackToolBar;
 import org.modelsphere.jack.graphic.tool.ToolButtonGroup;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import javax.swing.*;
+import java.util.List;
 
 public final class CreationToolBar extends JackToolBar {
     private ToolButtonGroup toolGroup;

@@ -43,14 +43,14 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import java.util.Enumeration;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.graphic.GraphicComponent;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.CurrentFocusListener;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
+
+import java.util.Enumeration;
 
 public abstract class AbstractSelectAction extends AbstractApplicationAction implements
         CurrentFocusListener {
@@ -66,9 +66,9 @@ public abstract class AbstractSelectAction extends AbstractApplicationAction imp
         if (!(focusObject instanceof ApplicationDiagram))
             return;
         ApplicationDiagram diag = (ApplicationDiagram) focusObject;
-        Enumeration e = diag.components();
+        Enumeration<GraphicComponent> e = diag.components();
         while (e.hasMoreElements()) {
-            GraphicComponent comp = (GraphicComponent) e.nextElement();
+            GraphicComponent comp = e.nextElement();
             if (classSelected == null || classSelected.isInstance(comp))
                 comp.setSelected(true);
         }

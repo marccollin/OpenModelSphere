@@ -2,11 +2,13 @@
    Tests for commands module
    Nick Mathewson
 '''
+import os
+import re
+import tempfile
 import unittest
-import os, tempfile, re
+from commands import *
 
 from test_support import TestSkipped, run_unittest
-from commands import *
 
 # The module says:
 #   "NB This only works (and is only relevant) for UNIX."

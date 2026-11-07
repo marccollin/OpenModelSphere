@@ -33,36 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.features;
 
-import java.awt.Color;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.io.File;
-
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JSlider;
-import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.Caret;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.awt.HotKeysSupport;
@@ -82,6 +52,18 @@ import org.modelsphere.sms.MainFrame;
 import org.modelsphere.sms.SMSToolkit;
 import org.modelsphere.sms.db.DbSMSDiagram;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Caret;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.File;
 
 @SuppressWarnings("serial")
 public final class SaveDiagramDialog extends JDialog {
@@ -858,7 +840,7 @@ public final class SaveDiagramDialog extends JDialog {
     public int getScaleFromPreference() {
         PropertiesSet appSet = PropertiesManager.APPLICATION_PROPERTIES_SET;
         return appSet.getPropertyInteger(SaveDiagramDialog.class, SAVE_DIAG_SCALE,
-                new Integer(DEFAULT_SCALE)).intValue();
+                Integer.valueOf(DEFAULT_SCALE)).intValue();
     }
 
     public void setScaleInPreference() {
@@ -869,7 +851,7 @@ public final class SaveDiagramDialog extends JDialog {
     public int getQualityFromPreference() {
         PropertiesSet appSet = PropertiesManager.APPLICATION_PROPERTIES_SET;
         return appSet.getPropertyInteger(SaveDiagramDialog.class, SAVE_DIAG_QUALITY,
-                new Integer(DEFAULT_QUALITY)).intValue();
+                Integer.valueOf(DEFAULT_QUALITY)).intValue();
     }
 
     public void setQualityInPreference() {

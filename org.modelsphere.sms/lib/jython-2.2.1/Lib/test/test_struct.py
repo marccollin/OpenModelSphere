@@ -1,8 +1,9 @@
-from test_support import TestFailed, verbose, verify
 import struct
-## import pdb
-
 import sys
+
+from test_support import TestFailed, verbose, verify
+
+## import pdb
 ISBIGENDIAN = sys.byteorder == "big"
 del sys
 verify((struct.pack('=i', 1)[0] == chr(0)) == ISBIGENDIAN,

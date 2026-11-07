@@ -178,4 +178,4 @@ class MimeWriter:
 
 
 if __name__ == '__main__':
-    import test.test_MimeWriter
+    pass

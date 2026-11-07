@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins.io;
 
-import java.net.URL;
-
 import org.modelsphere.jack.plugins.PluginSignature;
+
+import java.net.URL;
 
 public class JARPluginContext extends PluginContext {
     private static final String MANIFEST = "JARPluginContext.manifest";

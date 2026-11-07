@@ -1,19 +1,20 @@
 package org.modelsphere.plugins.layout.cluster.rectanglepacker;
 
-import java.awt.Point;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.awt.geom.Dimension2D;
-import java.awt.geom.Rectangle2D;
-import java.util.*;
-
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.srtool.features.layout.ClustersLayoutAlgorithm;
 import org.modelsphere.jack.srtool.features.layout.LayoutAttribute;
 import org.modelsphere.jack.srtool.features.layout.LayoutAttributes;
 import org.modelsphere.jack.srtool.features.layout.graph.Graph;
 import org.modelsphere.jack.srtool.features.layout.graph.Node;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Dimension2D;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RectanglePackerAlgorithm implements ClustersLayoutAlgorithm {
     private static final int CLUSTERS_GAP = 10;
@@ -24,7 +25,7 @@ public class RectanglePackerAlgorithm implements ClustersLayoutAlgorithm {
     private boolean randomCluster;
     private double wIncrement;
     private double hIncrement;
-    private HashMap<Node, Integer> clusters;
+    private Map<Node, Integer> clusters;
 
     @Override
     public JComponent createOptionComponent() {
@@ -37,8 +38,8 @@ public class RectanglePackerAlgorithm implements ClustersLayoutAlgorithm {
     }
 
     @Override
-    public void layoutClusters(Graph graph, HashMap<Node, Integer> clusters,
-            HashMap<LayoutAttribute<?>, Object> attributes) {
+    public void layoutClusters(Graph graph, Map<Node, Integer> clusters,
+            Map<LayoutAttribute<?>, Object> attributes) {
         this.dimension = LayoutAttributes.CANVAS_DIMENSION.getValue(attributes);
         this.clusters = clusters;
         this.clustersCount = clusters.size();
@@ -49,7 +50,7 @@ public class RectanglePackerAlgorithm implements ClustersLayoutAlgorithm {
     }
 
     private void layout() {
-        ArrayList<Integer> randomClusters = new ArrayList<Integer>();
+        List<Integer> randomClusters = new ArrayList<Integer>();
         for (int i = 0; i < clustersCount; i++) {
             randomClusters.add(i + 1);
         }
@@ -88,7 +89,7 @@ public class RectanglePackerAlgorithm implements ClustersLayoutAlgorithm {
     private boolean layoutClusters(List<Integer> clusters) {
         RectanglePacker packer = new RectanglePacker((int) dimension.getWidth() - NODES_GAP * 2,
                 (int) dimension.getHeight() - NODES_GAP * 2);
-        HashMap<Integer, Point> translations = new HashMap<Integer, Point>();
+        Map<Integer, Point> translations = new HashMap<Integer, Point>();
         for (int i = 1; i < clustersCount + 1; i++) {
             int cluster = clusters.get(i - 1);
 

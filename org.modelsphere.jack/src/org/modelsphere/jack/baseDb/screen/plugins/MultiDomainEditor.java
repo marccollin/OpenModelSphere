@@ -43,22 +43,20 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.util.EventObject;
+import org.modelsphere.jack.baseDb.db.srtypes.Domain;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.srtool.screen.design.DesignTableModel;
 
-import javax.swing.JComboBox;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.EventListenerList;
 import javax.swing.table.TableCellEditor;
-
-import org.modelsphere.jack.baseDb.db.srtypes.Domain;
-import org.modelsphere.jack.baseDb.meta.MetaField;
-import org.modelsphere.jack.srtool.screen.design.DesignTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.util.EventObject;
 
 @SuppressWarnings("serial")
 public class MultiDomainEditor extends JComboBox implements TableCellEditor {

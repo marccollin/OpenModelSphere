@@ -1,13 +1,13 @@
 package org.modelsphere.jack.plugins;
 
-import java.awt.Image;
-import java.beans.PropertyChangeListener;
-import java.net.URL;
-
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.plugins.io.PluginContext;
 import org.modelsphere.jack.srtool.features.layout.LayoutPlugin;
 import org.modelsphere.jack.srtool.forward.Rule;
+
+import java.awt.*;
+import java.beans.PropertyChangeListener;
+import java.net.URL;
 
 public interface PluginDescriptor extends Comparable<PluginDescriptor> {
     public static final String KUnknownAuthor = LocaleMgr.misc.getString("UnknownAuthor");
@@ -55,6 +55,7 @@ public interface PluginDescriptor extends Comparable<PluginDescriptor> {
             return null;
         }
 
+        @Override
         public String toString() {
             return type.getName();
         }

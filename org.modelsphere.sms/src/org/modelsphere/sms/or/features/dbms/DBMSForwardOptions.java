@@ -43,16 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.dbms;
 
+import org.modelsphere.jack.awt.tree.CheckTreeNode;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.srtool.forward.ForwardOptions;
+import org.modelsphere.jack.srtool.forward.JackForwardEngineeringPlugin;
+import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectScope;
+import org.modelsphere.sms.db.DbSMSAbstractPackage;
+
+import javax.swing.tree.TreeNode;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
-
-import org.modelsphere.jack.awt.tree.CheckTreeNode;
-import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.srtool.forward.JackForwardEngineeringPlugin;
-import org.modelsphere.jack.srtool.forward.ForwardOptions;
-import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectScope;
-import org.modelsphere.sms.db.DbSMSAbstractPackage;
+import java.util.List;
 
 public class DBMSForwardOptions implements ForwardOptions {
     // Statements To Generate
@@ -122,13 +124,13 @@ public class DBMSForwardOptions implements ForwardOptions {
     }
 
     // nameList
-    private ArrayList m_nameList = new ArrayList();
+    private List m_nameList = new ArrayList();
 
-    public ArrayList getNameList() {
+    public List getNameList() {
         return m_nameList;
     }
 
-    public void setNameList(ArrayList list) {
+    public void setNameList(List list) {
         m_nameList = list;
     }
 
@@ -190,11 +192,11 @@ public class DBMSForwardOptions implements ForwardOptions {
         return m_fieldTree;
     }
 
-    public static ArrayList getExcludeList(CheckTreeNode fieldTree) {
-        ArrayList excludeList = new ArrayList();
+    public static List<String> getExcludeList(CheckTreeNode fieldTree) {
+        List<String> excludeList = new ArrayList<>();
 
         if (fieldTree != null) {
-            Enumeration enumClasses = fieldTree.children();
+            Enumeration<TreeNode> enumClasses = fieldTree.children();
             while (enumClasses.hasMoreElements()) {
                 CheckTreeNode node = (CheckTreeNode) enumClasses.nextElement();
                 String className = node.toString();
@@ -202,7 +204,7 @@ public class DBMSForwardOptions implements ForwardOptions {
                     // its items
                     excludeList.add(className);
                 } else {
-                    Enumeration enumFields = node.children();
+                    Enumeration<TreeNode> enumFields = node.children();
                     while (enumFields.hasMoreElements()) {
                         CheckTreeNode subnode = (CheckTreeNode) enumFields.nextElement();
                         if (!subnode.isSelected()) {

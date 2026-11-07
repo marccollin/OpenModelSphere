@@ -33,11 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbLoginNode;
@@ -81,6 +76,11 @@ import org.modelsphere.sms.or.db.DbORDiagram;
 import org.modelsphere.sms.or.db.DbORDomainStyle;
 import org.modelsphere.sms.or.db.DbORNotation;
 import org.modelsphere.sms.or.db.DbORStyle;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public final class SMSVersionConverter implements VersionConverter {
 
@@ -452,7 +452,7 @@ public final class SMSVersionConverter implements VersionConverter {
             boolean translate = true;
             if (model.getTerminologyName() == null)
                 translate = false;
-            else if (model.getTerminologyName().equals(""))
+            else if (model.getTerminologyName().isEmpty())
                 translate = false;
             if (translate) {
                 String equivalent = translateString(model.getTerminologyName(), toEnglish);
@@ -1048,7 +1048,7 @@ public final class SMSVersionConverter implements VersionConverter {
             String retVal = model.getTerminologyName();
             if (retVal == null)
                 model.setTerminologyName(DbBENotation.GANE_SARSON);
-            else if (retVal.equals(""))
+            else if (retVal.isEmpty())
                 model.setTerminologyName(DbBENotation.GANE_SARSON);
 
             DbEnumeration dbEnum2 = model.componentTree(DbBEUseCase.metaClass);
@@ -1166,7 +1166,7 @@ public final class SMSVersionConverter implements VersionConverter {
             String retVal = model.getTerminologyName();
             if (retVal == null)
                 model.setTerminologyName(DbBENotation.GANE_SARSON);
-            else if (retVal.equals(""))
+            else if (retVal.isEmpty())
                 model.setTerminologyName(DbBENotation.GANE_SARSON);
 
             DbEnumeration dbEnum2 = model.componentTree(DbBEUseCase.metaClass);

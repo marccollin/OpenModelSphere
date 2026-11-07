@@ -43,20 +43,26 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.engine;
 
-import java.util.*;
-import java.lang.reflect.*;
-
-import org.modelsphere.jack.actions.AbstractActionsStore;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.meta.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.gui.task.Controller;
-import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.srtool.actions.ShowDiagramAction;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.reverse.Actions;
 import org.modelsphere.jack.srtool.reverse.SRXConstants;
 import org.modelsphere.jack.text.MessageFormat;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public abstract class ReverseBuilder implements Actions, SRXConstants {
     public static final String kReverse = LocaleMgr.screen.getString("ReverseEngineering");
@@ -143,42 +149,41 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
     // Use db.commitAndChain() instead of db.commit() -- Default is db.commit()
     // - FALSE
     protected static final String CHAIN_COMMIT = "chainCommit"; // Boolean //
-    // NOT
-    // LOCALIZABLE
-    private HashMap globalOptions = new HashMap(2);
+    // NOT LOCALIZABLE
+    private Map<String, Object> globalOptions = new HashMap<>(2);
 
     // This field contains all the properties of the created object. There is
     // one entry for each sql extraction result tag.
     // Also contains predefined tag (see CURRENT_OBJECT,
     // CURRENT_OBJECT_CONCEPT_ID, CURRENT_OBJECT_CONCEPT_NAME,
     // and CURRENT_OBJECT_COMPOSITE).
-    protected HashMap currentObject;
+    protected Map currentObject;
 
     // Stock all objects for the current concept
-    private ArrayList tempObjects = new ArrayList(100);
+    private List tempObjects = new ArrayList(100);
 
     // map an HashSet object for each supported concept - this HashSet object
     // contains all the field level mappings
-    private HashMap conceptMapping = new HashMap(15);
+    private Map conceptMapping = new HashMap(15);
 
     // map a concept with its composition definition (dbobject,
     // compositeMapping, SrxDbObjectElement or hook)
     // Used to get the dbobject
-    private HashMap compositionMapping = new HashMap(15);
+    private Map compositionMapping = new HashMap(15);
 
     // map concept-hook (to be executed after all occurrences of this concept
     // have been created)
-    private HashMap postProcessConceptMapping = new HashMap(2);
+    private Map<String, String> postProcessConceptMapping = new HashMap<>(2);
 
     // map concept-hook (to be executed after each occurrence creation for this
     // concept)
-    private HashMap postProcessOccurrenceMapping = new HashMap(2);
+    private Map<String, String> postProcessOccurrenceMapping = new HashMap<>(2);
 
     // contains the concept to skip
-    private ArrayList ignoredConcept = new ArrayList(5);
+    private List<String> ignoredConcept = new ArrayList<>(5);
 
     // contains the concept that used the MULTI_PART_OBJECT options.
-    private ArrayList multiPartConcept = new ArrayList(5);
+    private List<String> multiPartConcept = new ArrayList<>(5);
 
     // Will be set to true if a called to removeCurrentObject() occurs
     private boolean removeObject = false;
@@ -191,19 +196,19 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
 
     // Reports field - Concepts contains in this array will generate an output
     // feedback to the user
-    private ArrayList conceptInOutputRepport = new ArrayList(10);
-    private HashMap conceptGroupInOutputRepport = new HashMap(5);
+    private List<String> conceptInOutputRepport = new ArrayList<>(10);
+    private Map<String, String> conceptGroupInOutputRepport = new HashMap<>(5);
     private String repportSummary = new String();
-    private HashMap occurrencesCounters = new HashMap(10);
-    private HashMap guiNamesSingular = new HashMap(10);
-    private HashMap guiNamesPlural = new HashMap(10);
-    private ArrayList repportSummarySequence = new ArrayList(10);
+    private Map<String, Integer> occurrencesCounters = new HashMap<>(10);
+    private Map<String, String> guiNamesSingular = new HashMap<>(10);
+    private Map<String, String> guiNamesPlural = new HashMap<>(10);
+    private List<String> repportSummarySequence = new ArrayList<>(10);
 
     public final void init(DbProject project, Object configuration) throws Exception {
         Debug.assert2(project != null, "ReverseBuilder:  Null project");
         Debug.assert2(configuration != null, "ReverseBuilder:  Null configuration");
 
-        globalOptions = new HashMap(2);
+        globalOptions = new HashMap<>(2);
         this.configuration = configuration;
         root = getRoot();
         this.project = project;
@@ -452,10 +457,10 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
         // LOCALIZABLE
         if (!active)
             return;
-        for (int i = 0; i < conceptTags.length; i++) {
-            if (!conceptInOutputRepport.contains(conceptTags[i])) {
-                conceptInOutputRepport.add(conceptTags[i]);
-                conceptGroupInOutputRepport.put(conceptTags[i], group);
+        for (String conceptTag : conceptTags) {
+            if (!conceptInOutputRepport.contains(conceptTag)) {
+                conceptInOutputRepport.add(conceptTag);
+                conceptGroupInOutputRepport.put(conceptTag, group);
             }
         }
         if (!repportSummarySequence.contains(group))
@@ -474,13 +479,13 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
         if (occurrenceId != -1) { // Concept defined in class
             // 'org.modelsphere.jack.srtool.reverse.Mapping'
             currentObject = new HashMap(NEW_MAP_OBJECT_SIZE);
-            currentObject.put(CURRENT_OBJECT_CONCEPT_ID, new Integer(occurrenceId));
+            currentObject.put(CURRENT_OBJECT_CONCEPT_ID, Integer.valueOf(occurrenceId));
             currentObject.put(CURRENT_OBJECT_CONCEPT_NAME, conceptName);
         } else if ((conceptName != null) && (compositionMapping.get(conceptName) != null)) { // user
             // defined
             // concept
             currentObject = new HashMap(NEW_MAP_OBJECT_SIZE);
-            currentObject.put(CURRENT_OBJECT_CONCEPT_ID, new Integer(USER_DEFINED_CONCEPT_ID));
+            currentObject.put(CURRENT_OBJECT_CONCEPT_ID, Integer.valueOf(USER_DEFINED_CONCEPT_ID));
             currentObject.put(CURRENT_OBJECT_CONCEPT_NAME, conceptName);
         } else if (!ignoredConcept.contains(conceptName)) {
             Debug.trace("Unsupported concept:  " + conceptName);
@@ -533,9 +538,9 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
 
     private boolean isTextAttr(String word) {
         boolean found = false;
-        for (int i = 0; i < kTextKeywords.length; i++) {
+        for (String kTextKeyword : kTextKeywords) {
             String lowercase = word.toLowerCase();
-            if (lowercase.equals(kTextKeywords[i])) {
+            if (lowercase.equals(kTextKeyword)) {
                 found = true;
                 break;
             }
@@ -581,7 +586,7 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
                     processCurrentObject();
                 }
 
-                String hook = (String) postProcessConceptMapping.get(lastConcept);
+                String hook = postProcessConceptMapping.get(lastConcept);
                 invokeHook(this, hook);
             }
             currentObject = null;
@@ -593,14 +598,14 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
     protected final void incrementRepportCounter(String concept) {
         if (concept == null)
             return;
-        String group = (String) conceptGroupInOutputRepport.get(concept);
-        Integer count = (Integer) occurrencesCounters.get(group == null ? concept : group);
+        String group = conceptGroupInOutputRepport.get(concept);
+        Integer count = occurrencesCounters.get(group == null ? concept : group);
         if (count == null)
-            count = new Integer(1);
+            count = Integer.valueOf(1);
         else {
             int oldcount = count.intValue();
             oldcount++;
-            count = new Integer(oldcount);
+            count = Integer.valueOf(oldcount);
         }
         occurrencesCounters.put((group == null ? concept : group), count);
     }
@@ -622,13 +627,13 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
 
     // If MULTI_PART_OBJECT, merge parts
     private void mergeMultiPartObjects() {
-        if (tempObjects.size() == 0)
+        if (tempObjects.isEmpty())
             return;
         String concept = (String) ((HashMap) tempObjects.get(0)).get(CURRENT_OBJECT_CONCEPT_NAME);
         if (!multiPartConcept.contains(concept))
             return;
 
-        ArrayList mergedObjects = new ArrayList(50);
+        List mergedObjects = new ArrayList(50);
         int lastPart = Integer.MAX_VALUE;
         boolean firstPart = true;
 
@@ -637,21 +642,19 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
         if (fields == null)
             fields = new HashSet();
 
-        ArrayList toMergeFieldMaps = new ArrayList(); // String tag to merge
-        ArrayList toMergeKeys = new ArrayList(); // String tag to merge
-        Iterator iter = fields.iterator();
-        while (iter.hasNext()) {
-            FieldMapping fieldmap = (FieldMapping) iter.next();
+        List<FieldMapping> toMergeFieldMaps = new ArrayList<>(); // String tag to merge
+        List<String> toMergeKeys = new ArrayList<>(); // String tag to merge
+        for (Object field : fields) {
+            FieldMapping fieldmap = (FieldMapping) field;
             if ((fieldmap.options > 0) && (fieldmap.srxElement instanceof SrxPrimitiveElement)) {
                 toMergeFieldMaps.add(fieldmap);
-                toMergeKeys.add(((SrxPrimitiveElement) fieldmap.srxElement).fieldTag);
+                toMergeKeys.add(((SrxPrimitiveElement) fieldmap.srxElement).getFieldTag());
             }
         }
 
-        HashMap mergedObject = null;
-        Iterator objects = tempObjects.iterator();
-        while (objects.hasNext()) {
-            HashMap objmap = (HashMap) objects.next();
+        Map mergedObject = null;
+        for (Object tempObject : tempObjects) {
+            Map objmap = (HashMap) tempObject;
             int part = Integer.MAX_VALUE;
             try {
                 part = Integer.parseInt((String) objmap.get(multiPartTag));
@@ -670,9 +673,8 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
                 mergedObjects.add(mergedObject);
             }
 
-            Iterator iter1 = objmap.keySet().iterator();
-            while (iter1.hasNext()) {
-                String key = (String) iter1.next();
+            for (Object o : objmap.keySet()) {
+                String key = (String) o;
                 if (firstPart) {
                     mergedObject.put(key, objmap.get(key));
                     continue;
@@ -685,7 +687,7 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
                 String newValue = (String) objmap.get(key);
                 String resultValue = null;
 
-                int options = ((FieldMapping) toMergeFieldMaps.get(idx)).options;
+                int options = toMergeFieldMaps.get(idx).options;
                 if ((options & APPEND_EOL_TO_PART) != 0)
                     newValue = (newValue == null) ? null : newValue.concat(EOL);
                 if ((options & APPEND_OLD_VALUE_TO_NEW_VALUE) != 0)
@@ -704,7 +706,7 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
     private void processOccurrenceHook(String conceptName) throws Exception {
         if (conceptName == null)
             return;
-        String hook = (String) postProcessOccurrenceMapping.get(conceptName);
+        String hook = postProcessOccurrenceMapping.get(conceptName);
         invokeHook(hook);
     }
 
@@ -746,7 +748,7 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
             String guiName = dbo.getMetaClass().getGUIName(false, false);
             String dboName = dbo.getSemanticalName(DbObject.SHORT_FORM);
             if (guiName != null && dboName != null) {
-                String conceptGroup = (String) conceptGroupInOutputRepport.get(concept);
+                String conceptGroup = conceptGroupInOutputRepport.get(concept);
                 switch (getCompositionCategory(concept)) {
                 case COMPOSITION_FIND_EXISTING:
                 case COMPOSITION_USE_EXISTING:
@@ -924,7 +926,7 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
     }
 
     // For debug purpose only
-    protected final void printMapObject(HashMap map) throws DbException {
+    protected final void printMapObject(Map map) throws DbException {
         Iterator keys = map.keySet().iterator();
         Debug.trace("MAP OBJECT --------------------------------------------");
         while (keys.hasNext()) {
@@ -936,18 +938,16 @@ public abstract class ReverseBuilder implements Actions, SRXConstants {
 
     private void dumpRepportSummary() {
         String dump = "";
-        Iterator iter1 = repportSummarySequence.iterator();
-        while (iter1.hasNext()) {
-            String conceptOrGroup = (String) iter1.next();
-            Integer count = (Integer) occurrencesCounters.get(conceptOrGroup);
+        for (String conceptOrGroup : repportSummarySequence) {
+            Integer count = occurrencesCounters.get(conceptOrGroup);
             if (count == null)
                 continue;
-            String guiname = (count.intValue() < 2) ? (String) guiNamesSingular.get(conceptOrGroup)
-                    : (String) guiNamesPlural.get(conceptOrGroup);
+            String guiname = (count < 2) ? guiNamesSingular.get(conceptOrGroup)
+                    : guiNamesPlural.get(conceptOrGroup);
             if (guiname == null)
                 continue;
             String conceptsummary = EOL
-                    + MessageFormat.format(kRepportSummaryCount01, new Object[] { count, guiname });
+                    + MessageFormat.format(kRepportSummaryCount01, new Object[]{count, guiname});
             dump = dump.concat(conceptsummary);
         }
         String reportFooter = createRepportSummaryFooter();

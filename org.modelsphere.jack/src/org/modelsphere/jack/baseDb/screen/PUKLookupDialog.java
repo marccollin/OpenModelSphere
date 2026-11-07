@@ -43,18 +43,28 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.jack.baseDb.international.LocaleMgr;
-import org.modelsphere.jack.baseDb.meta.*;
+import org.modelsphere.jack.baseDb.meta.MetaChoice;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
+import org.modelsphere.jack.baseDb.meta.MetaRelationship;
 import org.modelsphere.jack.baseDb.util.Terminology;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.text.MessageFormat;
-import org.modelsphere.jack.util.*;
+import org.modelsphere.jack.util.CollationComparator;
+import org.modelsphere.jack.util.DefaultComparableElement;
+import org.modelsphere.jack.util.ExceptionHandler;
+import org.modelsphere.jack.util.SrVector;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * @author nicolask

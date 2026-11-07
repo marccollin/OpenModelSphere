@@ -32,20 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.oo.java.validation;
 
-import java.awt.Cursor;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.StringTokenizer;
-import java.util.Vector;
-
-import javax.swing.JEditorPane;
-import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
-
 import org.modelsphere.jack.awt.TextViewerFrame;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -64,6 +50,20 @@ import org.modelsphere.sms.oo.java.db.util.AnyAdt;
 import org.modelsphere.sms.oo.java.db.util.InheritanceCircularityListener;
 import org.modelsphere.sms.oo.java.international.LocaleMgr;
 
+import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
+import java.awt.*;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.StringTokenizer;
+import java.util.Vector;
+import java.util.List;
+import java.util.Set;
+
 // do Java Validation for package classes (not for inner classes)
 
 public class JavaValidation implements HyperlinkListener {
@@ -76,7 +76,7 @@ public class JavaValidation implements HyperlinkListener {
 
     private TextViewerFrame textFrame;
     private StringWriter writer = new StringWriter();
-    private HashSet classes = new HashSet();
+    private Set<DbJVClass> classes = new HashSet<>();
     private int circularityNbErrors = 0;
     private Db validatingDb = null;
 
@@ -87,13 +87,12 @@ public class JavaValidation implements HyperlinkListener {
     public boolean execute(DbObject[] roots) throws DbException {
         int nbErrorsFound = 0;
         validatingDb = roots[0].getDb();
-        for (int i = 0; i < roots.length; i++) {
-            if (roots[i] instanceof DbJVClass)
-                classes.add(roots[i]);
-            AnyAdt.getClassesAux(classes, roots[i]);
+        for (DbObject root : roots) {
+            if (root instanceof DbJVClass)
+                classes.add((DbJVClass) root);
+            AnyAdt.getClassesAux(classes, root);
         }
-        boolean validationFailed = doJavaValidation();
-        return validationFailed;
+        return doJavaValidation();
     } //end execute()
 
     private boolean doJavaValidation() throws DbException {
@@ -108,21 +107,20 @@ public class JavaValidation implements HyperlinkListener {
         // validation: classes circularity errors (an adt cannot be a subadt of itself, directly or indirectly)
         Vector validatedClasses = new Vector();
         Vector circularClasses = new Vector();
-        ArrayList sortedElements = new ArrayList(classes.size());
+        List<DefaultComparableElement> sortedElements = new ArrayList<>(classes.size());
 
-        for (Iterator iter = classes.iterator(); iter.hasNext();) {
-            DbJVClass aClass = (DbJVClass) iter.next();
+        for (DbJVClass aClass : classes) {
             sortedElements.add(new DefaultComparableElement(aClass, aClass.getName()));
         }
         Collections.sort(sortedElements, new CollationComparator());
 
         DbJVClass[] sortedClasses = new DbJVClass[sortedElements.size()];
         for (int i = 0; i < sortedElements.size(); i++) {
-            sortedClasses[i] = (DbJVClass) ((DefaultComparableElement) sortedElements.get(i)).object;
+            sortedClasses[i] = (DbJVClass) sortedElements.get(i).object;
         }
 
-        for (int i = 0; i < sortedClasses.length; i++) {
-            AnyAdt.validateCircularity(sortedClasses[i], circularClasses, new Vector(),
+        for (DbJVClass sortedClass : sortedClasses) {
+            AnyAdt.validateCircularity(sortedClass, circularClasses, new Vector(),
                     validatedClasses, new InheritanceCircularityListener() {
                         public void circularityPathFound(Vector circularityPath) throws DbException {
                             writeCircularityError(circularityPath);
@@ -130,8 +128,8 @@ public class JavaValidation implements HyperlinkListener {
                     });
         }
         // validation: classes errors
-        for (int i = 0; i < sortedClasses.length; i++) {
-            new AdtJavaValidation(sortedClasses[i], circularClasses.contains(sortedClasses[i]),
+        for (DbJVClass sortedClass : sortedClasses) {
+            new AdtJavaValidation(sortedClass, circularClasses.contains(sortedClass),
                     writer);
         }
 
@@ -152,17 +150,16 @@ public class JavaValidation implements HyperlinkListener {
         return validationFailed;
     } //end doJavaValidation()
 
-    private void findAllClassesToValidate(HashSet initialClasses) throws DbException {
-        HashSet ancestors = new HashSet();
-        HashSet typingClasses = new HashSet();
-        HashSet throwedExceptions = new HashSet();
-        for (Iterator iter = initialClasses.iterator(); iter.hasNext();) {
-            DbJVClass aClass = (DbJVClass) iter.next();
+    private void findAllClassesToValidate(Set<DbJVClass> initialClasses) throws DbException {
+        Set<Object> ancestors = new HashSet<>();
+        Set<Object> typingClasses = new HashSet<>();
+        Set<Object> throwedExceptions = new HashSet<>();
+        for (DbJVClass aClass : initialClasses) {
             AnyAdt.findAncestors(aClass, ancestors);
             AnyAdt.findTypingAdts(aClass, typingClasses);
             AnyAdt.findThrowedExceptions(aClass, throwedExceptions);
         }
-        HashSet additionalClasses = new HashSet();
+        Set<DbJVClass> additionalClasses = new HashSet<>();
         addToClasses(ancestors, additionalClasses);
         addToClasses(typingClasses, additionalClasses);
         addToClasses(throwedExceptions, additionalClasses);
@@ -170,9 +167,8 @@ public class JavaValidation implements HyperlinkListener {
             findAllClassesToValidate(additionalClasses);
     }
 
-    private void addToClasses(HashSet classesToAdd, HashSet additionalClasses) {
-        for (Iterator iter = classesToAdd.iterator(); iter.hasNext();) {
-            Object obj = iter.next();
+    private void addToClasses(Set<?> classesToAdd, Set<DbJVClass> additionalClasses) {
+        for (Object obj : classesToAdd) {
             if (obj instanceof DbJVClass) { // can be DbJVPrimitiveType
                 DbJVClass aClass = (DbJVClass) obj;
                 if (!classes.contains(aClass)) {
@@ -195,7 +191,7 @@ public class JavaValidation implements HyperlinkListener {
 
         String pattern = LocaleMgr.validation.getString("ErrorNbr0");
         writer.write(MessageFormat.format(pattern,
-                new Object[] { new Integer(circularityNbErrors) }));
+                new Object[] { Integer.valueOf(circularityNbErrors) }));
         writer.write(LocaleMgr.validation.getString("CyclicInheritanceByThePath"));
         boolean first = true;
         for (Enumeration e = adtsPath.elements(); e.hasMoreElements();) {
@@ -242,9 +238,8 @@ public class JavaValidation implements HyperlinkListener {
         userName = replaceBlanks(userName);
 
         String hyperlinkFmt = "<a href=\"{0}:{1}\">{2}</a>"; //NOT LOCALIZABLE, hyperklink
-        String hyperlink = MessageFormat.format(hyperlinkFmt, new Object[] { projectName, hrefName,
+        return MessageFormat.format(hyperlinkFmt, new Object[] { projectName, hrefName,
                 userName });
-        return hyperlink;
     }
 
     /*
@@ -288,7 +283,7 @@ public class JavaValidation implements HyperlinkListener {
         if (fullName == null)
             fullName = UNNAMED;
 
-        if (fullName.equals("")) {
+        if (fullName.isEmpty()) {
             fullName = UNNAMED;
         } //end if
 
@@ -305,7 +300,7 @@ public class JavaValidation implements HyperlinkListener {
                 if (parentName == null)
                     parentName = UNNAMED;
 
-                if (parentName.equals("")) {
+                if (parentName.isEmpty()) {
                     parentName = UNNAMED;
                 } //end if
 
@@ -455,8 +450,7 @@ public class JavaValidation implements HyperlinkListener {
                 "..", "....", "..Class.." };
 
         int nb = tests.length;
-        for (int i = 0; i < nb; i++) {
-            String test = tests[i];
+        for (String test : tests) {
             String result = replaceBlanks(test);
             System.out.println("'" + test + "'   gives   '" + result + "'");
         } //end for

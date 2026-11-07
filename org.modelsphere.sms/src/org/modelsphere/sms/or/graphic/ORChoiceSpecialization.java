@@ -32,9 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.or.graphic;
 
-import java.awt.Color;
-import java.awt.Rectangle;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -66,6 +63,8 @@ import org.modelsphere.sms.or.db.DbORStyle;
 import org.modelsphere.sms.or.db.DbORTable;
 import org.modelsphere.sms.or.db.DbORTableGo;
 import org.modelsphere.sms.or.db.srtypes.ORChoiceSpecializationCategory;
+
+import java.awt.*;
 
 public class ORChoiceSpecialization extends GraphicNode implements ActionInformation {
 	private DbORTableGo _tableGo;

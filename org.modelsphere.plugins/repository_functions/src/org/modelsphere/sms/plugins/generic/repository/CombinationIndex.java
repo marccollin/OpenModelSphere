@@ -43,10 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.generic.repository;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.io.Writer;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.plugins.PluginSignature;
@@ -54,7 +50,14 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.forward.Connector;
 import org.modelsphere.jack.srtool.forward.Modifier;
 import org.modelsphere.jack.srtool.forward.RuleException;
-import org.modelsphere.sms.or.db.*;
+import org.modelsphere.sms.or.db.DbORConstraint;
+import org.modelsphere.sms.or.db.DbORForeign;
+import org.modelsphere.sms.or.db.DbORIndex;
+import org.modelsphere.sms.or.db.DbORPrimaryUnique;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.Writer;
 
 public final class CombinationIndex extends Connector.UserConnector {
 

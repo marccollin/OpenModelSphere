@@ -66,13 +66,12 @@ where options include:
       Print this message and exit
 """
 
-import sys
-import os
 import getopt
+import os
+import sys
 from types import TupleType
 
 from compile import Compiler
-                
 
 
 # Standard usage message printing

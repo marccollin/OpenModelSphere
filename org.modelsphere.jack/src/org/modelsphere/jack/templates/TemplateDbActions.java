@@ -43,24 +43,49 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.templates;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Hashtable;
-
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.debug.Debug;
-import org.modelsphere.jack.srtool.forward.*;
-import org.modelsphere.jack.srtool.forward.exceptions.*;
-import org.modelsphere.jack.templates.GenericRuleStructure.*;
+import org.modelsphere.jack.srtool.forward.BooleanModifier;
+import org.modelsphere.jack.srtool.forward.CaseModifier;
+import org.modelsphere.jack.srtool.forward.IntegerModifier;
+import org.modelsphere.jack.srtool.forward.Modifier;
+import org.modelsphere.jack.srtool.forward.RuleException;
+import org.modelsphere.jack.srtool.forward.VariableDecl;
+import org.modelsphere.jack.srtool.forward.VariableScope;
+import org.modelsphere.jack.srtool.forward.exceptions.ConceptNameNotFoundException;
+import org.modelsphere.jack.srtool.forward.exceptions.DuplicatedRulenamesException;
+import org.modelsphere.jack.srtool.forward.exceptions.IllformedNumberException;
+import org.modelsphere.jack.srtool.forward.exceptions.TemplateFormatException;
+import org.modelsphere.jack.srtool.forward.exceptions.VariableNotDefinedRuleException;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericAddToListStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericCDomStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericClearListStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericConditionStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericConnectorStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericForEachEnumStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericForEachIterStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericGetVariableStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericGroupStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericImportStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericPropertyStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericSetVariableStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericTemplateStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericUserConnStructure;
+import org.modelsphere.jack.templates.GenericRuleStructure.GenericUserFnStructure;
 import org.modelsphere.jack.templates.parsing.ParseException;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 
 public final class TemplateDbActions extends TemplateActions {
     private static final int UNKNOWN = -1;
 
     private String m_previousDeclName = null;
     private int m_previousKindOfRule = UNKNOWN;
-    private Hashtable m_ruleList = new Hashtable();
+    private Map<String, GenericRuleStructure> m_ruleList = new Hashtable<>();
     private VariableScope m_varList;
 
     public TemplateDbActions(VariableScope varList) {
@@ -135,8 +160,8 @@ public final class TemplateDbActions extends TemplateActions {
         m_previousKindOfRule = GenericRuleStructure.CDOM;
     }
 
-    private ArrayList m_DList = new ArrayList();
-    private ArrayList m_RList = new ArrayList();
+    private List<String> m_DList = new ArrayList<>();
+    private List<String> m_RList = new ArrayList<>();
 
     public void processCharacterDomainClause(String domain, String value) {
         // remove starting and ending doubles quotes
@@ -431,25 +456,21 @@ public final class TemplateDbActions extends TemplateActions {
     // BOOLEAN
     //
     public BooleanModifier processNotExpression(BooleanModifier bm1) {
-        BooleanModifier bm = new BooleanModifier(BooleanModifier.NOT_EXPRESSION, bm1);
-        return bm;
+        return new BooleanModifier(BooleanModifier.NOT_EXPRESSION, bm1);
     }
 
     public BooleanModifier processBooleanExpression(int operation, Modifier m1, Modifier m2) {
-        BooleanModifier bm = new BooleanModifier(operation, m1, m2);
-        return bm;
+        return new BooleanModifier(operation, m1, m2);
     }
 
     public BooleanModifier processBooleanVariable(String varname)
             throws VariableNotDefinedRuleException {
-        BooleanModifier bm = new BooleanModifier(m_varList, varname);
-        return bm;
+        return new BooleanModifier(m_varList, varname);
     }
 
     public BooleanModifier processBooleanExpression(int operation, String pred, String operand,
             String varname) throws VariableNotDefinedRuleException {
-        BooleanModifier bm = new BooleanModifier(operation, pred, operand, m_varList, varname);
-        return bm;
+        return new BooleanModifier(operation, pred, operand, m_varList, varname);
     }
 
     public BooleanModifier processInstanceOf(String conceptname)
@@ -486,14 +507,12 @@ public final class TemplateDbActions extends TemplateActions {
 
     public IntegerModifier processIntegerVariable(String varname)
             throws VariableNotDefinedRuleException {
-        IntegerModifier im = new IntegerModifier(m_varList, varname);
-        return im;
+        return new IntegerModifier(m_varList, varname);
     }
 
     public IntegerModifier processIntegerLength(String varname)
             throws VariableNotDefinedRuleException {
-        IntegerModifier im = new IntegerModifier(IntegerModifier.INTEGER_LENGTH, m_varList, varname);
-        return im;
+        return new IntegerModifier(IntegerModifier.INTEGER_LENGTH, m_varList, varname);
     }
 
     /*
@@ -515,8 +534,8 @@ public final class TemplateDbActions extends TemplateActions {
         m_variable = null;
         m_value = null;
         m_condition = null;
-        m_DList = new ArrayList();
-        m_RList = new ArrayList();
+        m_DList = new ArrayList<>();
+        m_RList = new ArrayList<>();
         m_beanClassfile = null;
 
         // erase qualifiers
@@ -558,7 +577,7 @@ public final class TemplateDbActions extends TemplateActions {
 
     private GenericModifierStructure[] createModifierStruct() {
         GenericModifierStructure[] modifiers;
-        ArrayList list = new ArrayList();
+        List<GenericModifierStructure> list = new ArrayList<>();
 
         GenericModifierStructure mod = null;
 
@@ -716,8 +735,8 @@ public final class TemplateDbActions extends TemplateActions {
         String[] dom = new String[m_DList.size()];
         String[] rlz = new String[m_RList.size()];
         for (int i = 0; i < m_DList.size(); i++) {
-            dom[i] = removeDoubleQuotes((String) m_DList.get(i));
-            rlz[i] = removeDoubleQuotes((String) m_RList.get(i));
+            dom[i] = removeDoubleQuotes(m_DList.get(i));
+            rlz[i] = removeDoubleQuotes(m_RList.get(i));
         }
 
         GenericRuleStructure rs = new GenericCDomStructure(m_previousDeclName, dom, rlz, modifiers);
@@ -853,9 +872,8 @@ public final class TemplateDbActions extends TemplateActions {
         GenericRuleStructure[] rules = new GenericRuleStructure[nb];
 
         int i = 0;
-        Enumeration enumeration = m_ruleList.elements();
-        while (enumeration.hasMoreElements()) {
-            rules[i++] = (GenericRuleStructure) enumeration.nextElement();
+        for (GenericRuleStructure rule : m_ruleList.values()) {
+            rules[i++] = rule;
         } // end while
 
         return rules;

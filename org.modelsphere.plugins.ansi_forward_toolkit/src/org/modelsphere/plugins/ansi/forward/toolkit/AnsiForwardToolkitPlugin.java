@@ -34,9 +34,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.plugins.ansi.forward.toolkit;
 
 //Java
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -72,6 +69,11 @@ import org.modelsphere.sms.plugins.TargetSystem;
 import org.modelsphere.sms.plugins.TargetSystemInfo;
 import org.modelsphere.sms.plugins.TargetSystemManager;
 import org.modelsphere.sms.templates.SQLForwardEngineeringPlugin;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 public final class AnsiForwardToolkitPlugin extends ForwardToolkitPlugin implements Plugin2{
     public AnsiForwardToolkitPlugin() {
@@ -127,13 +129,11 @@ public final class AnsiForwardToolkitPlugin extends ForwardToolkitPlugin impleme
     }
 
     public WizardPage getPage(int pageid) {
-        switch (pageid) {
-        case DBMSDefaultForwardWizardModel.PAGE_FIRST:
-            return new DefaultForwardWizardStartPage();
-        case DBMSDefaultForwardWizardModel.PAGE_OBJECTS_SELECTION:
-            return new DefaultForwardWizardObjectsPage();
-        }
-        return null;
+        return switch (pageid) {
+            case DBMSDefaultForwardWizardModel.PAGE_FIRST -> new DefaultForwardWizardStartPage();
+            case DBMSDefaultForwardWizardModel.PAGE_OBJECTS_SELECTION -> new DefaultForwardWizardObjectsPage();
+            default -> null;
+        };
     }
 
     public boolean dropPKUKIndex() {
@@ -164,7 +164,7 @@ public final class AnsiForwardToolkitPlugin extends ForwardToolkitPlugin impleme
                 database = lib.getDeploymentDatabase();
             }
             if (database != null) {
-                ArrayList arrayListEnum = new ArrayList();
+                List arrayListEnum = new ArrayList();
                 //DbORProgramUnitLibrary operationLibrary = (DbORAProgramUnitLibrary)database.getOperationLibrary();
                 //if (operationLibrary != null)
                 //  arrayListEnum.add(operationLibrary.getComponents().elements(metaClass));
@@ -247,8 +247,8 @@ public final class AnsiForwardToolkitPlugin extends ForwardToolkitPlugin impleme
     public boolean isContainedInArray(int[] array, int elem) {
         boolean contained = false;
         int nb = array.length;
-        for (int i = 0; i < nb; i++) {
-            if (array[i] == elem) {
+        for (int j : array) {
+            if (j == elem) {
                 contained = true;
                 break;
             } //end if

@@ -1,6 +1,7 @@
-from test_support import verbose, TestSkipped
 import locale
 import sys
+
+from test_support import verbose, TestSkipped
 
 if sys.platform == 'darwin':
     raise TestSkipped("Locale support on MacOSX is minimal and cannot be tested")

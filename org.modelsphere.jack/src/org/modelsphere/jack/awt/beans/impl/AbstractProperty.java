@@ -69,11 +69,11 @@ public abstract class AbstractProperty implements Serializable {
         }
 
         public Serializable getValue() {
-            return new Boolean(m_value);
+            return m_value;
         }
 
         void setValue(Object val) {
-            m_value = ((Boolean) val).booleanValue();
+            m_value = (Boolean) val;
         }
 
         Class getType() {

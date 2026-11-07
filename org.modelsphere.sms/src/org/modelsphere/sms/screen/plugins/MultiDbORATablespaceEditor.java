@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -44,20 +41,24 @@ import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.db.DbORDatabase;
 import org.modelsphere.sms.or.oracle.db.DbORATablespace;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 public class MultiDbORATablespaceEditor extends MultiDbSemanticalObjectEditor {
 
     private DbORDatabase dbDatabase;
     private DbEnumeration dbEnum;
 
-    protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList tablespaces = new ArrayList();
+    protected Collection<DbORATablespace> getSelectionSet(DbObject parentDbo) throws DbException {
+        List<DbORATablespace> tablespaces = new ArrayList<>();
         DbORDataModel model = (DbORDataModel) parentDbo.getCompositeOfType(DbORDataModel.metaClass);
         if (model != null) {
             DbORDatabase database = model.getDeploymentDatabase();
             if (database != null) {
                 dbEnum = database.getComponents().elements(DbORATablespace.metaClass);
                 while (dbEnum.hasMoreElements())
-                    tablespaces.add(dbEnum.nextElement());
+                    tablespaces.add((DbORATablespace) dbEnum.nextElement());
                 dbEnum.close();
             }
         }
@@ -66,7 +67,7 @@ public class MultiDbORATablespaceEditor extends MultiDbSemanticalObjectEditor {
             dbEnum = parentDbo.getCompositeOfType(DbORDatabase.metaClass).getComponents().elements(
                     DbORATablespace.metaClass);
             while (dbEnum.hasMoreElements())
-                tablespaces.add(dbEnum.nextElement());
+                tablespaces.add((DbORATablespace) dbEnum.nextElement());
             dbEnum.close();
         }
         return tablespaces;

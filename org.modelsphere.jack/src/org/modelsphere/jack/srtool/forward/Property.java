@@ -43,11 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward;
 
-import java.io.*;
-import java.util.Hashtable;
-import java.util.StringTokenizer;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.srtypes.IntDomain;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaField;
@@ -56,6 +53,13 @@ import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.srtool.forward.exceptions.DomainNotFoundRuleException;
 import org.modelsphere.jack.srtool.forward.exceptions.InvalidMetafieldRuleException;
 import org.modelsphere.jack.srtool.forward.exceptions.NotADomainRuleException;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Hashtable;
+import java.util.StringTokenizer;
 
 /**
  * Optional Keywords: PrefixModifier, SuffixModifier, NullModifier, DomainModifier

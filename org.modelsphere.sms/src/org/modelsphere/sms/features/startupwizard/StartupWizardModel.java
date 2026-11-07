@@ -32,23 +32,36 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.features.startupwizard;
 
-import java.awt.Component;
-import java.io.File;
-import java.text.MessageFormat;
-import java.util.*;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.jack.baseDb.util.Terminology;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
-import org.modelsphere.jack.gui.wizard2.*;
-import org.modelsphere.jack.preference.*;
+import org.modelsphere.jack.gui.wizard2.AbstractPage;
+import org.modelsphere.jack.gui.wizard2.DefaultWizardModel;
+import org.modelsphere.jack.gui.wizard2.Page;
+import org.modelsphere.jack.gui.wizard2.UndefinedPage;
+import org.modelsphere.jack.preference.PropertiesManager;
+import org.modelsphere.jack.preference.PropertiesProvider;
+import org.modelsphere.jack.preference.PropertiesSet;
+import org.modelsphere.jack.preference.RecentFiles;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.FocusManager;
 import org.modelsphere.jack.util.ExceptionHandler;
-import org.modelsphere.sms.be.db.*;
+import org.modelsphere.sms.be.db.DbBEDiagram;
+import org.modelsphere.sms.be.db.DbBEModel;
+import org.modelsphere.sms.be.db.DbBENotation;
+import org.modelsphere.sms.be.db.DbBEUseCase;
 import org.modelsphere.sms.be.db.util.BEUtility;
-import org.modelsphere.sms.db.*;
+import org.modelsphere.sms.db.DbSMSBuiltInTypeNode;
+import org.modelsphere.sms.db.DbSMSDiagram;
+import org.modelsphere.sms.db.DbSMSNotation;
+import org.modelsphere.sms.db.DbSMSPackage;
+import org.modelsphere.sms.db.DbSMSStyle;
+import org.modelsphere.sms.db.DbSMSTargetSystem;
 import org.modelsphere.sms.features.international.LocaleMgr;
 import org.modelsphere.sms.oo.db.DbOODiagram;
 import org.modelsphere.sms.oo.java.db.DbJVClassModel;
@@ -62,6 +75,15 @@ import org.modelsphere.sms.or.db.util.AnyORObject;
 import org.modelsphere.sms.plugins.TargetSystem;
 import org.modelsphere.sms.plugins.TargetSystemInfo;
 import org.modelsphere.sms.plugins.TargetSystemManager;
+
+import java.awt.*;
+import java.io.File;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author Grandite
@@ -88,7 +110,7 @@ public class StartupWizardModel extends DefaultWizardModel implements Properties
     private static final String kMessageSelectFile = LocaleMgr.message.getString("selectFile");
     private static final String kMessageSelectJRE = LocaleMgr.message.getString("selectJRE");
 
-    static final ArrayList<String> DEFAULT_JRE_JARS = new ArrayList<String>(Arrays
+    static final List<String> DEFAULT_JRE_JARS = new ArrayList<String>(Arrays
             .asList(new String[] { "lib" + File.separator + "rt.jar",
                     "lib" + File.separator + "jsse.jar", "lib" + File.separator + "jce.jar",
                     "lib" + File.separator + "charsets.jar", }));
@@ -96,7 +118,7 @@ public class StartupWizardModel extends DefaultWizardModel implements Properties
     // Step 0
     private boolean newModel = true;
     private String openFileName;
-    private ArrayList<String> recentFiles = new ArrayList<String>();
+    private List<String> recentFiles = new ArrayList<String>();
 
     // Shared
     private boolean newProject;
@@ -142,7 +164,7 @@ public class StartupWizardModel extends DefaultWizardModel implements Properties
 
     private int umlModelType = -1;
 
-    private ArrayList<String> packages;
+    private List<String> packages;
 
     private static final String PROPERTY_MODEL_TYPE = "modelType";
     private static final int PROPERTY_MODEL_TYPE_DEFAULT = -1;
@@ -650,9 +672,9 @@ public class StartupWizardModel extends DefaultWizardModel implements Properties
 
         JavaToolkit toolkit = JavaToolkit.getSingleton();
 
-        ArrayList<String> classList = new ArrayList<String>();
+        List<String> classList = new ArrayList<String>();
 
-        ArrayList<String> fileNames = new ArrayList<String>();
+        List<String> fileNames = new ArrayList<String>();
 
         for (int i = 0; i < DEFAULT_JRE_JARS.size(); i++) {
             fileNames.add(new File(jreHome, DEFAULT_JRE_JARS.get(i)).getPath());

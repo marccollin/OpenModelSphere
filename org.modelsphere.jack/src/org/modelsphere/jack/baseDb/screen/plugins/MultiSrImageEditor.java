@@ -43,16 +43,20 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.EventObject;
-import javax.swing.*;
-import javax.swing.table.*;
-import javax.swing.event.*;
-
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.awt.ImagePreviewer;
 import org.modelsphere.jack.graphic.GraphicUtil;
+
+import javax.swing.*;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.EventListenerList;
+import javax.swing.table.TableCellEditor;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.util.EventObject;
 
 public class MultiSrImageEditor implements TableCellEditor, ActionListener {
 

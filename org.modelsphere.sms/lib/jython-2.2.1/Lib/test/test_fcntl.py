@@ -2,9 +2,11 @@
 """Test program for the fcntl C module.
    Roger E. Masse
 """
-import struct
 import fcntl
-import os, sys
+import os
+import struct
+import sys
+
 from test_support import verbose, TESTFN
 
 filename = TESTFN

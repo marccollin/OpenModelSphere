@@ -43,10 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.actions;
 
-import javax.swing.JInternalFrame;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.baseDb.screen.DbDataEntryFrame;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
@@ -54,6 +53,8 @@ import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
 import org.modelsphere.jack.srtool.graphic.DiagramInternalFrame;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.list.ListInternalFrame;
+
+import javax.swing.*;
 
 public class RefreshAllAction extends AbstractApplicationAction {
 

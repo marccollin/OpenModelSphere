@@ -43,12 +43,22 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.preference.context;
 
-import java.util.ArrayList;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbRAM;
+import org.modelsphere.jack.baseDb.db.DbRoot;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.util.ExceptionHandler;
-import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Utility class for ContextComponents.
@@ -125,7 +135,7 @@ public class ContextUtils {
     private static Element createDOMPathElement(Document document, DbObject dbo) throws DbException {
         Element path = document.createElement(PATH_TAG);
         DbObject composite = dbo;
-        ArrayList<Element> elements = new ArrayList<Element>();
+        List<Element> elements = new ArrayList<Element>();
         while (composite != null && !(composite instanceof DbProject)) {
             String name = composite.getName();
             if (name == null || name.trim().length() == 0)

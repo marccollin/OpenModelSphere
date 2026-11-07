@@ -33,14 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.graphic;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-
 import org.modelsphere.jack.actions.ActionInformation;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -89,6 +81,16 @@ import org.modelsphere.sms.db.srtypes.SMSZoneOrientation;
 import org.modelsphere.sms.graphic.SMSStereotypeEditor;
 import org.modelsphere.sms.oo.java.db.DbJVClass;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefreshListener {
 
     static {
@@ -107,11 +109,11 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
     protected DbBEStoreGo storeGO;
     protected DbBEStore storeSO;
     protected DbBENotation notation;
-    private HashMap zonesMap = null;
+    private Map<DbBESingleZoneDisplay, MatrixZone> zonesMap = null;
     private DbBEDiagram beDiagram;
-    private ArrayList zones = null;
+    private List<DbBESingleZoneDisplay> zones = null;
     private BEQualifier qualifiersGo = null;
-    private ArrayList qualifiers = null;
+    private List<DbBEQualifier> qualifiers = null;
     private String boxName = null;
 
     // listeners
@@ -242,9 +244,9 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
         removeRefreshListener();
         removeZonesListener();
         removeQualifiersListener();
-        Enumeration enumeration = this.displayedZones();
+        Enumeration<Zone> enumeration = this.displayedZones();
         while (enumeration.hasMoreElements()) {
-            Zone zone = (Zone) enumeration.nextElement();
+            Zone zone = enumeration.nextElement();
             if (zone instanceof MatrixZone)
                 ((MatrixZone) zone).removeAllRows();
         }
@@ -255,12 +257,12 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
         clearAllZones();
         if (zonesMap != null)
             removeZonesListener();
-        zonesMap = new HashMap();
+        zonesMap = new HashMap<>();
         zones = notation.getStoreZones();
-        Iterator i = zones.iterator();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         int index = 0;
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             if (!zoneDisplay.isDisplayed())
                 continue;
             int alignment = ZoneJustification.getGraphicUtilAligmentValue(zoneDisplay
@@ -288,17 +290,17 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
     }
 
     private void removeZonesListener() {
-        Iterator i = zones.iterator();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             zoneDisplay.removeDbRefreshListener(this);
         }
     }
 
     private void addZonesListener() {
-        Iterator i = zones.iterator();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             zoneDisplay.addDbRefreshListener(this);
         }
     }
@@ -306,9 +308,9 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
     private void addQualifiersListener() {
         if (qualifiers == null)
             return;
-        Iterator i = qualifiers.iterator();
+        Iterator<DbBEQualifier> i = qualifiers.iterator();
         while (i.hasNext()) {
-            DbBEQualifier qualifier = (DbBEQualifier) i.next();
+            DbBEQualifier qualifier = i.next();
             qualifier.addDbRefreshListener(this);
         }
     }
@@ -316,9 +318,9 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
     private void removeQualifiersListener() {
         if (qualifiers == null)
             return;
-        Iterator i = qualifiers.iterator();
+        Iterator<DbBEQualifier> i = qualifiers.iterator();
         while (i.hasNext()) {
-            DbBEQualifier qualifier = (DbBEQualifier) i.next();
+            DbBEQualifier qualifier = i.next();
             qualifier.removeDbRefreshListener(this);
         }
         qualifiers = null;
@@ -327,13 +329,13 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
     private void populateZones() throws DbException {
         boxName = storeSO.getName();
         int zonePos = 0;
-        ArrayList zones = notation.getStoreZones();
-        Iterator i = zones.iterator();
+        List<DbBESingleZoneDisplay> zones = notation.getStoreZones();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             if (!zoneDisplay.isDisplayed())
                 continue;
-            MatrixZone zone = (MatrixZone) zonesMap.get(zoneDisplay);
+            MatrixZone zone = zonesMap.get(zoneDisplay);
             if (zone != null) {
                 zone.removeAllRows();
                 int row = 0; // todo pour l'utilisation pour les enum...
@@ -356,6 +358,7 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
                         DbSMSStereotype stereotype = storeSO.getUmlStereotype();
                         bSetEditor = true;
                         if (stereotype != null) {
+                            strValue = "«" + stereotype.getName() + "»";
                         } // end if
                     } else {
                         strValue = (value != null ? value.toString() : "");
@@ -392,9 +395,9 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
 
     protected void setTextColor() throws DbException {
         Color color = (Color) storeGO.find(DbBEStoreGo.fTextColor);
-        Enumeration enumeration = this.displayedZones();
+        Enumeration<Zone> enumeration = this.displayedZones();
         while (enumeration.hasMoreElements()) {
-            Zone zone = (Zone) enumeration.nextElement();
+            Zone zone = enumeration.nextElement();
             zone.setTextColor(color);
         }
     }
@@ -436,7 +439,7 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
             while (dbEnum.hasMoreElements()) {
                 DbBEStoreQualifier storeQualifier = (DbBEStoreQualifier) dbEnum.nextElement();
                 if (qualifiers == null) {
-                    qualifiers = new ArrayList();
+                    qualifiers = new ArrayList<>();
                 }
                 qualifiers.add(storeQualifier.getQualifier());
             }
@@ -468,7 +471,7 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
             return null;
         String pattern = "({0}/{1})";
         return MessageFormat.format(pattern,
-                new Object[] { new Integer(index), new Integer(count) });
+                new Object[] { Integer.valueOf(index), Integer.valueOf(count) });
     }
 
     public void refreshAfterDbUpdate(DbUpdateEvent e) throws DbException {
@@ -503,7 +506,7 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
      */
     private static class BoxRefreshTg implements DbRefreshListener, DbRefreshPassListener {
 
-        private HashSet refreshedBoxs = null;
+        private Set<DbBEStore> refreshedBoxs = null;
 
         BoxRefreshTg() {
         }
@@ -536,7 +539,7 @@ public class BEStoreBox extends GraphicNode implements ActionInformation, DbRefr
          */
         private void refreshBox(DbBEStore store) throws DbException {
             if (refreshedBoxs == null)
-                refreshedBoxs = new HashSet();
+                refreshedBoxs = new HashSet<>();
             if (!refreshedBoxs.add(store)) // already done in this transaction
                 return;
             DbRelationN storeGos = store.getClassifierGos();

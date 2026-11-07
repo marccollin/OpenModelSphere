@@ -43,19 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.dbms;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.util.ArrayList;
-import java.util.Hashtable;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.border.TitledBorder;
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.modelsphere.jack.awt.tree.CheckEvent;
 import org.modelsphere.jack.awt.tree.CheckListener;
 import org.modelsphere.jack.awt.tree.CheckTreeModel;
@@ -85,6 +72,15 @@ import org.modelsphere.sms.or.db.DbORPrimaryUnique;
 import org.modelsphere.sms.or.db.DbORUser;
 import org.modelsphere.sms.or.db.util.AnyORObject;
 import org.modelsphere.sms.templates.SQLForwardEngineeringPlugin;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.tree.DefaultMutableTreeNode;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 
 public class DefaultForwardWizardStartPage extends WizardPage {
     private GridBagLayout startGridBagLayout = new GridBagLayout();
@@ -277,7 +273,7 @@ public class DefaultForwardWizardStartPage extends WizardPage {
                         populateObjectScopeWithEnum((DbEnumeration) dbEnum, options, concept,
                                 userScope);
                     else if (dbEnum instanceof ArrayList) {
-                        ArrayList listEnum = (ArrayList) dbEnum;
+                        List<?> listEnum = (List<?>) dbEnum;
                         for (int j = 0; j < listEnum.size(); j++) {
                             populateObjectScopeWithEnum((DbEnumeration) listEnum.get(j), options,
                                     concept, userScope);
@@ -295,10 +291,10 @@ public class DefaultForwardWizardStartPage extends WizardPage {
             // For Owned Objects, use the username
             DbObject obj = dbEnum.nextElement();
             if (obj instanceof DbORPrimaryUnique) {
-                if (concept.conceptID == SQLForwardEngineeringPlugin.UniqueId.intValue()
+                if (concept.conceptID == SQLForwardEngineeringPlugin.UniqueId
                         && ((DbORPrimaryUnique) obj).isPrimary())
                     continue;
-                else if (concept.conceptID == SQLForwardEngineeringPlugin.PrimaryId.intValue()
+                else if (concept.conceptID == SQLForwardEngineeringPlugin.PrimaryId
                         && !((DbORPrimaryUnique) obj).isPrimary())
                     continue;
             }
@@ -373,7 +369,7 @@ public class DefaultForwardWizardStartPage extends WizardPage {
         ConceptTreeModel(DefaultMutableTreeNode root, DBMSForwardOptions options) {
             super(root);
 
-            Hashtable table = new Hashtable();
+            Map table = new Hashtable();
             ObjectScope[] scope = options.getObjectsScope();
 
             for (int i = 0; i < scope.length; i++) {

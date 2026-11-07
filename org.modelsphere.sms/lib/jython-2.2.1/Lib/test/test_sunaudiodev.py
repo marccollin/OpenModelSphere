@@ -1,6 +1,7 @@
-from test_support import verbose, findfile, TestFailed, TestSkipped
-import sunaudiodev
 import os
+import sunaudiodev
+
+from test_support import findfile, TestFailed, TestSkipped
 
 try:
     audiodev = os.environ["AUDIODEV"]

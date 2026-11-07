@@ -32,19 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.features.startupwizard;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.text.Position;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.gui.wizard2.AbstractPage;
@@ -52,11 +39,18 @@ import org.modelsphere.jack.gui.wizard2.SectionHeader;
 import org.modelsphere.jack.util.CollationComparator;
 import org.modelsphere.jack.util.DefaultComparableElement;
 import org.modelsphere.jack.util.SrSort;
-import org.modelsphere.sms.db.DbSMSTargetSystem;
 import org.modelsphere.sms.features.international.LocaleMgr;
 import org.modelsphere.sms.plugins.TargetSystem;
 import org.modelsphere.sms.plugins.TargetSystemInfo;
 import org.modelsphere.sms.plugins.TargetSystemManager;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 @SuppressWarnings("serial")
 class DMTargetPage extends AbstractPage {
@@ -141,7 +135,7 @@ class DMTargetPage extends AbstractPage {
         TargetSystem targetSystem = TargetSystemManager.getSingleton();
 
         Iterator iter = targetSystem.getAllTargetSystemInfos().iterator();
-        ArrayList<DefaultComparableElement> tsList = new ArrayList<DefaultComparableElement>();
+        List<DefaultComparableElement> tsList = new ArrayList<DefaultComparableElement>();
 
         while (iter.hasNext()) {
             TargetSystemInfo targetSystemInfo = (TargetSystemInfo) iter.next();

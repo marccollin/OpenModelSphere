@@ -42,8 +42,8 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.awt.tree;
 
-import javax.swing.tree.*;
-import javax.swing.Icon;
+import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 // This class add to the DefaultMutableTreeNode a support for the selected property.
 // It can be used with the CheckableTree and the CheckRenderer to provide a checkbox in
@@ -89,6 +89,7 @@ public class CheckTreeNode extends DefaultMutableTreeNode {
         displayText = (text == null ? "" : text);
     }
 
+    @Override
     public String toString() {
         return displayText;
     }

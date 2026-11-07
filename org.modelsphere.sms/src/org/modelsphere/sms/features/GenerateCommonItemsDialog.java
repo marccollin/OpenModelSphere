@@ -33,37 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.features;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.border.TitledBorder;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -77,6 +46,15 @@ import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.db.DbSMSUserDefinedPackage;
 import org.modelsphere.sms.or.db.DbORCommonItemModel;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GenerateCommonItemsDialog extends JDialog {
 
@@ -112,7 +90,7 @@ public class GenerateCommonItemsDialog extends JDialog {
     private DbSMSProject m_project;
     private DbObject[] m_semObjs;
     private DbORCommonItemModel m_selectedCommonItemModel = null;
-    private ArrayList m_commonItemModelList;
+    private List<DbORCommonItemModel> m_commonItemModelList;
     private JTextArea m_textArea = new JTextArea(10, 20);
     private String m_baseTitle;
 
@@ -312,7 +290,7 @@ public class GenerateCommonItemsDialog extends JDialog {
             selectModelRadioBtn.setEnabled(false);
             selectModelBtn.setEnabled(false);
         } else {
-            m_selectedCommonItemModel = (DbORCommonItemModel) m_commonItemModelList.get(0);
+            m_selectedCommonItemModel = m_commonItemModelList.get(0);
             try {
                 noneLabel.setText(m_selectedCommonItemModel.getName());
             } catch (DbException ex) {
@@ -408,8 +386,8 @@ public class GenerateCommonItemsDialog extends JDialog {
         } // end try
     } // end chooseCommonItemModel()
 
-    private ArrayList getCommonItemModelList(DbSMSProject project) throws DbException {
-        ArrayList list = new ArrayList();
+    private List<DbORCommonItemModel> getCommonItemModelList(DbSMSProject project) throws DbException {
+        List<DbORCommonItemModel> list = new ArrayList<>();
         if (project == null) {
             return list;
         }
@@ -419,7 +397,7 @@ public class GenerateCommonItemsDialog extends JDialog {
         while (dbEnum.hasMoreElements()) {
             DbObject obj = dbEnum.nextElement();
             if (obj instanceof DbORCommonItemModel) {
-                list.add(obj);
+                list.add((DbORCommonItemModel) obj);
             } else if (obj instanceof DbSMSUserDefinedPackage) {
                 DbSMSUserDefinedPackage userPackage = (DbSMSUserDefinedPackage) obj;
                 addInCommonItemModelList(list, userPackage);
@@ -431,14 +409,14 @@ public class GenerateCommonItemsDialog extends JDialog {
         return list;
     } // end getCommonItemModelList()
 
-    private void addInCommonItemModelList(ArrayList list, DbSMSUserDefinedPackage userPackage)
+    private void addInCommonItemModelList(List<DbORCommonItemModel> list, DbSMSUserDefinedPackage userPackage)
             throws DbException {
         DbRelationN relN = userPackage.getComponents();
         DbEnumeration dbEnum = relN.elements();
         while (dbEnum.hasMoreElements()) {
             DbObject obj = dbEnum.nextElement();
             if (obj instanceof DbORCommonItemModel) {
-                list.add(obj);
+                list.add((DbORCommonItemModel) obj);
             } else if (obj instanceof DbSMSUserDefinedPackage) {
                 DbSMSUserDefinedPackage subUserPackage = (DbSMSUserDefinedPackage) obj;
                 addInCommonItemModelList(list, subUserPackage);
@@ -509,7 +487,7 @@ public class GenerateCommonItemsDialog extends JDialog {
                 if (nbItems == 0) {
                     report = NO_ITEM_GENERATED;
                 } else {
-                    report = MessageFormat.format(ITEMS_GENERATED_PATN, new Object[] { new Integer(
+                    report = MessageFormat.format(ITEMS_GENERATED_PATN, new Object[] { Integer.valueOf(
                             nbItems) });
                 }
                 m_textArea.append(report);

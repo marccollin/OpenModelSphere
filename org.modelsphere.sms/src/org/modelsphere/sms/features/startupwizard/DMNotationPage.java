@@ -32,15 +32,6 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.features.startupwizard;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.util.ArrayList;
-
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import org.modelsphere.jack.awt.ThinBevelBorder;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -54,6 +45,13 @@ import org.modelsphere.sms.db.DbSMSStyle;
 import org.modelsphere.sms.db.util.DbInitialization;
 import org.modelsphere.sms.features.international.LocaleMgr;
 import org.modelsphere.sms.or.db.DbORNotation;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("serial")
 class DMNotationPage extends AbstractPage {
@@ -152,7 +150,7 @@ class DMNotationPage extends AbstractPage {
     }
 
     private void initNotationList() throws DbException {
-        ArrayList<String> notationListOut = new ArrayList<String>();
+        List<String> notationListOut = new ArrayList<String>();
         DbProject project = model.getChosenProject();
 
         project.getDb().beginReadTrans();

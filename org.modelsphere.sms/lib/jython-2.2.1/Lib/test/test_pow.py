@@ -1,4 +1,5 @@
 import sys
+
 from test_support import *
 
 print_test("power (test_pow.py)", 2)

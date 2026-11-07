@@ -43,10 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.tool;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
-import javax.swing.JButton;
+import javax.swing.*;
+import java.awt.*;
 
 public class DefaultToolComponent extends JButton implements ToolComponent {
     private int state = ToolComponent.STATE_NORMAL;

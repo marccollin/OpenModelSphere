@@ -43,15 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Vector;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -60,6 +51,13 @@ import org.modelsphere.jack.international.LocaleChangeEvent;
 import org.modelsphere.jack.international.LocaleChangeListener;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.screen.ScreenPerspective;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Vector;
+import java.util.List;
 
 public abstract class ScreenView extends JPanel implements LocaleChangeListener, ScreenTabPanel {
     public static final int ADD_BTN = 0x0001;
@@ -232,9 +230,10 @@ public abstract class ScreenView extends JPanel implements LocaleChangeListener,
     private JPanel createControlPanel() {
         if ((actionMode & ALL_BUTTONS) == 0)
             return null;
-        Vector vecButton = new Vector();
+        List<JButton> vecButton = new Vector<>();
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         ActionListener buttonListener = new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == addBtn)
                     addAction();
@@ -297,11 +296,11 @@ public abstract class ScreenView extends JPanel implements LocaleChangeListener,
         }
 
         JButton[] buttons = new JButton[vecButton.size()];
-        vecButton.copyInto(buttons);
+        vecButton.toArray(buttons);
         AwtUtil.normalizeComponentDimension(buttons);
-        for (int i = 0; i < buttons.length; i++) {
-            buttons[i].addActionListener(buttonListener);
-            panel.add(buttons[i]);
+        for (JButton button : buttons) {
+            button.addActionListener(buttonListener);
+            panel.add(button);
         }
         return panel;
     }

@@ -1,13 +1,19 @@
 package org.modelsphere.plugins.layout.nodes.kandinsky;
 
-import java.util.*;
-
 import org.modelsphere.jack.srtool.features.layout.graph.Edge;
+import org.modelsphere.jack.srtool.features.layout.graph.Edge.OrientationConstraint;
 import org.modelsphere.jack.srtool.features.layout.graph.Graph;
 import org.modelsphere.jack.srtool.features.layout.graph.Vertex;
-import org.modelsphere.jack.srtool.features.layout.graph.Edge.OrientationConstraint;
 import org.modelsphere.plugins.layout.nodes.kandinsky.planarization.UpwardPlaneStringGraph;
-import org.modelsphere.plugins.layout.nodes.kandinsky.struct.*;
+import org.modelsphere.plugins.layout.nodes.kandinsky.struct.AbsoluteKandinskyShape;
+import org.modelsphere.plugins.layout.nodes.kandinsky.struct.AngleConstraint;
+import org.modelsphere.plugins.layout.nodes.kandinsky.struct.BendConstraint;
+import org.modelsphere.plugins.layout.nodes.kandinsky.struct.DirectedEdgeRef;
+
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * <p>

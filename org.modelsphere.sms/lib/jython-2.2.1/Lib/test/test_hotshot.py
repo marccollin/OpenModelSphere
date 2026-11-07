@@ -3,10 +3,9 @@ import hotshot.log
 import os
 import pprint
 import unittest
+from hotshot.log import ENTER, EXIT, LINE
 
 import test_support
-
-from hotshot.log import ENTER, EXIT, LINE
 
 
 def shortfilename(fn):

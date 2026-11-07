@@ -43,9 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.actions;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
-
-import javax.swing.Icon;
 
 // Currently supported for Toolbar only
 
@@ -72,7 +71,7 @@ public abstract class AbstractMenuAction extends AbstractDomainAction {
         subIndex = -1;
         try {
             String actionCommand = e.getActionCommand();
-            if (actionCommand.indexOf(ACTION_COMMAND_SUB_VALUE_SEPARATOR) != -1) {
+            if (actionCommand.contains(ACTION_COMMAND_SUB_VALUE_SEPARATOR)) {
                 index = Integer.parseInt(actionCommand.substring(0, actionCommand
                         .indexOf(ACTION_COMMAND_SUB_VALUE_SEPARATOR)));
                 subIndex = Integer.parseInt(actionCommand.substring(actionCommand

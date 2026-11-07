@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.actions;
 
-import org.modelsphere.sms.actions.SMSActionsStore;
-
 public interface ORActionConstants {
     ////////////////////////////////////////////////////////////////////////////
     // OR Keys, other keys are defined in AbstractActionsStore

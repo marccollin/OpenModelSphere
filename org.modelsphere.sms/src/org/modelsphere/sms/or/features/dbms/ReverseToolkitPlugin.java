@@ -43,17 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features.dbms;
 
-import java.awt.event.ActionEvent;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.awt.ExtensionFileFilter;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbProject;
+import org.modelsphere.jack.baseDb.db.DbRAM;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.baseDb.meta.MetaRelationship;
@@ -61,7 +57,11 @@ import org.modelsphere.jack.gui.task.DefaultController;
 import org.modelsphere.jack.gui.task.GuiController;
 import org.modelsphere.jack.gui.task.Worker;
 import org.modelsphere.jack.gui.wizard.WizardPage;
-import org.modelsphere.jack.plugins.*;
+import org.modelsphere.jack.plugins.Plugin;
+import org.modelsphere.jack.plugins.PluginDescriptor;
+import org.modelsphere.jack.plugins.PluginMgr;
+import org.modelsphere.jack.plugins.PluginSelectionListener;
+import org.modelsphere.jack.plugins.PluginSignature;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.MainFrameMenu;
@@ -69,14 +69,35 @@ import org.modelsphere.jack.srtool.integrate.IntegrateFrame;
 import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectScope;
 import org.modelsphere.jack.srtool.reverse.Actions;
 import org.modelsphere.jack.srtool.reverse.engine.ReverseBuilder;
-import org.modelsphere.jack.srtool.services.*;
+import org.modelsphere.jack.srtool.services.ConnectionMessage;
+import org.modelsphere.jack.srtool.services.NameListMessage;
+import org.modelsphere.jack.srtool.services.ServiceProtocolList;
+import org.modelsphere.jack.srtool.services.StatementMessage;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.sms.SMSSynchroModel.SynchroObject;
 import org.modelsphere.sms.db.DbSMSUserDefinedPackage;
-import org.modelsphere.sms.or.db.*;
+import org.modelsphere.sms.or.db.DbORAbsTable;
+import org.modelsphere.sms.or.db.DbORCheck;
+import org.modelsphere.sms.or.db.DbORDataModel;
+import org.modelsphere.sms.or.db.DbORDatabase;
+import org.modelsphere.sms.or.db.DbORDomainModel;
+import org.modelsphere.sms.or.db.DbORIndex;
+import org.modelsphere.sms.or.db.DbOROperationLibrary;
+import org.modelsphere.sms.or.db.DbORPrimaryUnique;
+import org.modelsphere.sms.or.db.DbORTrigger;
 import org.modelsphere.sms.or.db.util.AnyORObject;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.nio.file.FileSystems;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public abstract class ReverseToolkitPlugin implements Plugin {
     protected static final String kReverseEng = LocaleMgr.misc.getString("ReverseEng");
@@ -94,19 +115,19 @@ public abstract class ReverseToolkitPlugin implements Plugin {
     private static final String ERROR = LocaleMgr.message.getString("Error");
 
     public static final String DEFAULT_LOG_FILENAME = ApplicationContext.getLogPath()
-            + System.getProperty("file.separator") + "reverse.log";
+            + FileSystems.getDefault().getSeparator() + "reverse.log";
 
     // The default toolkit is considered as a Null Object.
     // Getting the toolkit doesn't need a (toolkit != null) verification.
     private static ReverseToolkitPlugin defaultToolkit = new DefaultReverseToolkit();
 
     // Toolkits - DBMS name mapping
-    private static ArrayList toolkitsDBMS = new ArrayList(20);
+    private static List<KitDBMSMapping> toolkitsDBMS = new ArrayList<>(20);
     // Toolkits - Target id mapping
-    private static ArrayList toolkitsTarget = new ArrayList(20);
+    private static List<KitTargetMapping> toolkitsTarget = new ArrayList<>(20);
     // Supported extension file filters
-    private static ArrayList toolkitsExtension = new ArrayList(20);
-    private static ArrayList extensionFileFilters = new ArrayList(5);
+    private static List<KitFileExtensionMapping> toolkitsExtension = new ArrayList<>(20);
+    private static List<ExtensionFileFilter> extensionFileFilters = new ArrayList<>(5);
 
     // Optimization purposes
     private static ReverseToolkitPlugin lastKit = null;
@@ -184,20 +205,19 @@ public abstract class ReverseToolkitPlugin implements Plugin {
             if (!(this instanceof DefaultReverseToolkit)) {
                 String[] supportedDBMSs = getSupportedDBMSNames();
                 if (supportedDBMSs != null) {
-                    for (int i = 0; i < supportedDBMSs.length; i++)
-                        toolkitsDBMS.add(new KitDBMSMapping(supportedDBMSs[i], this));
+                    for (String dbmSs : supportedDBMSs) toolkitsDBMS.add(new KitDBMSMapping(dbmSs, this));
                 }
                 int[] supportedTargets = getSupportedTargetIds();
                 if (supportedTargets != null) {
-                    for (int i = 0; i < supportedTargets.length; i++)
-                        toolkitsTarget.add(new KitTargetMapping(supportedTargets[i], this));
+                    for (int supportedTarget : supportedTargets)
+                        toolkitsTarget.add(new KitTargetMapping(supportedTarget, this));
                 }
                 ExtensionFileFilter[] supportedFilters = getSupportedExtensionFileFilter();
                 if (supportedFilters != null) {
-                    for (int i = 0; i < supportedFilters.length; i++) {
+                    for (ExtensionFileFilter supportedFilter : supportedFilters) {
                         toolkitsExtension
-                                .add(new KitFileExtensionMapping(supportedFilters[i], this));
-                        extensionFileFilters.add(supportedFilters[i]);
+                                .add(new KitFileExtensionMapping(supportedFilter, this));
+                        extensionFileFilters.add(supportedFilter);
                     }
                 }
             }
@@ -227,15 +247,15 @@ public abstract class ReverseToolkitPlugin implements Plugin {
         String dbmsVersion = connection.databaseProductVersion;
 
         //search the kit
-        Object[] map = toolkitsDBMS.toArray();
-        for (int i = 0; i < map.length; i++) {
-            if (dbmsName.toLowerCase().indexOf(((KitDBMSMapping) map[i]).dbmsName.toLowerCase()) != -1) {
+        KitDBMSMapping[] map = toolkitsDBMS.toArray(new KitDBMSMapping[0]);
+        for (KitDBMSMapping mapping : map) {
+            if (dbmsName.toLowerCase().contains(mapping.dbmsName.toLowerCase())) {
                 // check in the toolkit if the version is supported
-                int id = ((KitDBMSMapping) map[i]).kit.getTargetSystemId(dbmsVersion);
+                int id = mapping.kit.getTargetSystemId(dbmsVersion);
                 if (id != -1) {
-                    ArrayList kitsForTarget = findMatchingToolkitsForTargetId(id);
-                    if (kitsForTarget.contains(((KitDBMSMapping) map[i]).kit)) {
-                        lastKit = ((KitDBMSMapping) map[i]).kit;
+                    List<ReverseToolkitPlugin> kitsForTarget = findMatchingToolkitsForTargetId(id);
+                    if (kitsForTarget.contains(mapping.kit)) {
+                        lastKit = mapping.kit;
                         return lastKit;
                     }
                 }
@@ -244,12 +264,12 @@ public abstract class ReverseToolkitPlugin implements Plugin {
         return defaultToolkit;
     }
 
-    private static final ArrayList findMatchingToolkitsForTargetId(int id) {
-        ArrayList kits = new ArrayList(5);
-        Object[] map = toolkitsTarget.toArray();
-        for (int i = 0; i < map.length; i++) {
-            if (id == ((KitTargetMapping) map[i]).targetId) {
-                kits.add(((KitTargetMapping) map[i]).kit);
+    private static final List<ReverseToolkitPlugin> findMatchingToolkitsForTargetId(int id) {
+        List<ReverseToolkitPlugin> kits = new ArrayList<>(5);
+        KitTargetMapping[] map = toolkitsTarget.toArray(new KitTargetMapping[0]);
+        for (KitTargetMapping mapping : map) {
+            if (id == mapping.targetId) {
+                kits.add(mapping.kit);
             }
         }
         return kits;
@@ -269,15 +289,14 @@ public abstract class ReverseToolkitPlugin implements Plugin {
         String dbmsVersion = connection.databaseProductVersion;
 
         //search the kit
-        Object[] map = toolkitsDBMS.toArray();
+        KitDBMSMapping[] map = toolkitsDBMS.toArray(new KitDBMSMapping[0]);
         String lwDbmsName = dbmsName.toLowerCase();
 
-        for (int i = 0; i < map.length; i++) {
-            KitDBMSMapping mapping = (KitDBMSMapping) map[i];
-            if (lwDbmsName.indexOf(mapping.dbmsName.toLowerCase()) != -1) {
+        for (KitDBMSMapping mapping : map) {
+            if (lwDbmsName.contains(mapping.dbmsName.toLowerCase())) {
                 // check in the toolkit if the version is supported
                 if (mapping.kit.getTargetSystemId(dbmsVersion) != -1) {
-                    return ((KitDBMSMapping) map[i]).kit;
+                    return mapping.kit;
                 }
             }
         }
@@ -296,13 +315,13 @@ public abstract class ReverseToolkitPlugin implements Plugin {
         String dbmsVersion = cm.databaseProductVersion;
 
         //search the kit
-        Object[] map = toolkitsDBMS.toArray();
+        KitDBMSMapping[] map = toolkitsDBMS.toArray(new KitDBMSMapping[0]);
         tempConnection = cm;
-        for (int i = 0; i < map.length; i++) {
-            if (dbmsName.toLowerCase().indexOf(((KitDBMSMapping) map[i]).dbmsName.toLowerCase()) != -1) {
+        for (KitDBMSMapping mapping : map) {
+            if (dbmsName.toLowerCase().contains(mapping.dbmsName.toLowerCase())) {
                 // check in the toolkit if the version is supported
-                if (((KitDBMSMapping) map[i]).kit.getTargetSystemId(dbmsVersion) != -1) {
-                    return ((KitDBMSMapping) map[i]).kit;
+                if (mapping.kit.getTargetSystemId(dbmsVersion) != -1) {
+                    return mapping.kit;
                 }
             }
         }
@@ -311,11 +330,11 @@ public abstract class ReverseToolkitPlugin implements Plugin {
     }
 
     public static final ReverseToolkitPlugin getToolkitForExtension(String extension) {
-        if (extension == null || extension.length() == 0)
+        if (extension == null || extension.isEmpty())
             return defaultToolkit;
-        Iterator iter = toolkitsExtension.iterator();
+        Iterator<KitFileExtensionMapping> iter = toolkitsExtension.iterator();
         while (iter.hasNext()) {
-            KitFileExtensionMapping filtermap = (KitFileExtensionMapping) iter.next();
+            KitFileExtensionMapping filtermap = iter.next();
             if (filtermap.filter.getExtension() == null)
                 continue;
             if (filtermap.filter.getExtension().equalsIgnoreCase(extension))
@@ -332,10 +351,10 @@ public abstract class ReverseToolkitPlugin implements Plugin {
             return defaultToolkit;
 
         //search the kit
-        Object[] map = toolkitsTarget.toArray();
-        for (int i = 0; i < map.length; i++) {
-            if (activeDiagramTargetId == ((KitTargetMapping) map[i]).targetId) {
-                return ((KitTargetMapping) map[i]).kit;
+        KitTargetMapping[] map = toolkitsTarget.toArray(new KitTargetMapping[0]);
+        for (KitTargetMapping mapping : map) {
+            if (activeDiagramTargetId == mapping.targetId) {
+                return mapping.kit;
             }
         }
         return defaultToolkit;
@@ -347,10 +366,10 @@ public abstract class ReverseToolkitPlugin implements Plugin {
             return defaultToolkit;
 
         //search the kit
-        Object[] map = toolkitsTarget.toArray();
-        for (int i = 0; i < map.length; i++) {
-            if (ts == ((KitTargetMapping) map[i]).targetId) {
-                return ((KitTargetMapping) map[i]).kit;
+        KitTargetMapping[] map = toolkitsTarget.toArray(new KitTargetMapping[0]);
+        for (KitTargetMapping mapping : map) {
+            if (ts == mapping.targetId) {
+                return mapping.kit;
             }
         }
         return defaultToolkit;
@@ -373,7 +392,7 @@ public abstract class ReverseToolkitPlugin implements Plugin {
         lastKit = null;
     }
 
-    public static final ArrayList getExtensionFileFilters() {
+    public static final List<ExtensionFileFilter> getExtensionFileFilters() {
         return extensionFileFilters;
     }
 
@@ -912,4 +931,3 @@ public abstract class ReverseToolkitPlugin implements Plugin {
     ////////////////////////
 
 } //end ReverseToolkit
-

@@ -28,7 +28,9 @@ Written by Marc-Andre Lemburg (mal@lemburg.com).
 
 """#"
 
-import codecs,aliases,exceptions
+import aliases
+import codecs
+import exceptions
 
 _cache = {}
 _unknown = '--unknown--'

@@ -43,20 +43,22 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import org.modelsphere.jack.international.LocaleMgr;
+import org.modelsphere.jack.srtool.ApplicationContext;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import org.modelsphere.jack.international.LocaleMgr;
-import org.modelsphere.jack.srtool.ApplicationContext;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class SelectDialog extends JDialog implements ActionListener, ListSelectionListener,
         MouseListener {
@@ -68,7 +70,7 @@ public class SelectDialog extends JDialog implements ActionListener, ListSelecti
     public static final int OPTION_SELECT_MIN_1 = 0x02;
     public static final int OPTION_SELECT_MAX_1 = 0x04;
 
-    private JList list = new JList();
+    private JList<SelectDialogItem> list = new JList<>();
     private JButton okButton = new JButton(LocaleMgr.screen.getString("OK"));
     private JButton cancelButton = new JButton(LocaleMgr.screen.getString("Cancel"));
 
@@ -78,7 +80,7 @@ public class SelectDialog extends JDialog implements ActionListener, ListSelecti
 
     private int options = 0;
 
-    private static class SelectDialogCellRenderer extends JCheckBox implements ListCellRenderer {
+    private static class SelectDialogCellRenderer extends JCheckBox implements ListCellRenderer<SelectDialogItem> {
         protected static Border noFocusBorder;
 
         public SelectDialogCellRenderer() {
@@ -90,7 +92,8 @@ public class SelectDialog extends JDialog implements ActionListener, ListSelecti
             setBorder(noFocusBorder);
         }
 
-        public Component getListCellRendererComponent(JList list, Object value, int index,
+        public Component getListCellRendererComponent(JList<? extends SelectDialogItem> list,
+                SelectDialogItem value, int index,
                 boolean isSelected, boolean cellHasFocus) {
             setComponentOrientation(list.getComponentOrientation());
             if (isSelected) {
@@ -101,7 +104,7 @@ public class SelectDialog extends JDialog implements ActionListener, ListSelecti
                 setForeground(list.getForeground());
             }
 
-            SelectDialogItem item = (SelectDialogItem) value;
+            SelectDialogItem item = value;
             setIcon(item.icon);
             setSelected(item.selected);
             setText((value == null) ? "" : value.toString());
@@ -169,6 +172,7 @@ public class SelectDialog extends JDialog implements ActionListener, ListSelecti
         init(items, options);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == okButton) {
             // check option SELECT_MIN_1
@@ -176,7 +180,7 @@ public class SelectDialog extends JDialog implements ActionListener, ListSelecti
                 int count = list.getModel().getSize();
                 boolean oneselected = false;
                 for (int i = 0; i < count; i++) {
-                    SelectDialogItem item = (SelectDialogItem) list.getModel().getElementAt(i);
+                    SelectDialogItem item = list.getModel().getElementAt(i);
                     if (!item.selected)
                         continue;
                     oneselected = true;
@@ -221,7 +225,7 @@ public class SelectDialog extends JDialog implements ActionListener, ListSelecti
         if (index == -1)
             return;
 
-        SelectDialogItem item = (SelectDialogItem) list.getModel().getElementAt(index);
+        SelectDialogItem item = list.getModel().getElementAt(index);
         if (iconRect != null) {
             if (iconRect.width + ((JComponent) list.getCellRenderer()).getInsets().left < e
                     .getPoint().x)
@@ -234,7 +238,7 @@ public class SelectDialog extends JDialog implements ActionListener, ListSelecti
         if ((options & SelectDialog.OPTION_SELECT_MAX_1) != 0) {
             int count = list.getModel().getSize();
             for (int i = 0; i < count; i++) {
-                SelectDialogItem item2 = (SelectDialogItem) list.getModel().getElementAt(i);
+                SelectDialogItem item2 = list.getModel().getElementAt(i);
                 item2.selected = false;
             } // end for
         } // end if
@@ -246,7 +250,7 @@ public class SelectDialog extends JDialog implements ActionListener, ListSelecti
         int idx = -1;
         int nb = list.getModel().getSize();
         for (int i = 0; i < nb; i++) {
-            SelectDialogItem item = (SelectDialogItem) list.getModel().getElementAt(i);
+            SelectDialogItem item = list.getModel().getElementAt(i);
             if (item.selected) {
                 idx = i;
                 break;
@@ -272,10 +276,10 @@ public class SelectDialog extends JDialog implements ActionListener, ListSelecti
         this.options = options;
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         JPanel contentPane = (JPanel) this.getContentPane();
-        List listItems = Arrays.asList(items);
+        List<SelectDialogItem> listItems = Arrays.asList(items);
         if ((options & SelectDialog.OPTION_SORT_ITEMS) != 0)
             Collections.sort(listItems);
-        list.setListData(listItems.toArray());
+        list.setListData(listItems.toArray(new SelectDialogItem[0]));
         list.setCellRenderer(new SelectDialogCellRenderer());
         list.addListSelectionListener(this);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -367,12 +371,9 @@ public class SelectDialog extends JDialog implements ActionListener, ListSelecti
         frame.setVisible(true);
 
         Object[] elems = new Object[] { "Alpha", "Beta", "Gamma" }; // NOT
-        // LOCALIZABLE,
-        // unit test
+        // LOCALIZABLE, unit test
         String question = "Use case will be exploded in which kind of diagram ?"; // NOT
-        // LOCALIZABLE,
-        // unit
-        // test
+        // LOCALIZABLE, unit test
         int idx = SelectDialog.select(frame, question, elems, null, 1, true, true);
     } // end main ()
 

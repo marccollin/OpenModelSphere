@@ -43,16 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.*;
-import java.io.*;
-import java.awt.event.*;
-import javax.swing.*;
-
 import org.modelsphere.jack.awt.AbstractTableCellEditor;
 import org.modelsphere.jack.awt.ExtensionFileFilter;
 import org.modelsphere.jack.awt.ImagePreviewer;
-import org.modelsphere.jack.baseDb.screen.*;
+import org.modelsphere.jack.baseDb.screen.Editor;
+import org.modelsphere.jack.baseDb.screen.ScreenView;
 import org.modelsphere.jack.graphic.GraphicUtil;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 public class SrImageEditor implements Editor, ActionListener {
 

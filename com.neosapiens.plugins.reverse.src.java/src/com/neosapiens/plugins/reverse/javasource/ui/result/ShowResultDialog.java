@@ -43,33 +43,19 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package com.neosapiens.plugins.reverse.javasource.ui.result;
 
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-
+import com.neosapiens.plugins.reverse.javasource.international.JavaSourceReverseLocaleMgr;
+import com.neosapiens.plugins.reverse.javasource.utils.SearchFiltering;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.sms.db.DbSMSProject;
 
-import com.neosapiens.plugins.reverse.javasource.international.JavaSourceReverseLocaleMgr;
-import com.neosapiens.plugins.reverse.javasource.utils.SearchFiltering;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public class ShowResultDialog extends JPanel implements ActionListener {
@@ -251,7 +237,7 @@ public class ShowResultDialog extends JPanel implements ActionListener {
         
         boolean showAll = false;
         // if no option is selected, we show all results
-        if(matchingText.equals("") && !caseSensitive && !searchInName && 
+        if(matchingText.isEmpty() && !caseSensitive && !searchInName && 
                 !searchInDescription && !searchInBody)
             showAll = true;
         

@@ -43,11 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.plugins.PluginMgr;
 import org.modelsphere.sms.or.features.dbms.ForwardToolkitPlugin;
 import org.modelsphere.sms.or.features.dbms.ReverseToolkitPlugin;
+
+import java.util.List;
 
 public final class BuiltinPluginsInializer {
 
@@ -57,14 +57,14 @@ public final class BuiltinPluginsInializer {
         if (initDone)
             return;
         PluginMgr manager = PluginMgr.getSingleInstance();
-        ArrayList<ForwardToolkitPlugin> forwardToolkits = manager.getPluginsRegistry()
+        List<ForwardToolkitPlugin> forwardToolkits = manager.getPluginsRegistry()
                 .getActivePluginInstances(ForwardToolkitPlugin.class);
         if (forwardToolkits != null) {
             for (ForwardToolkitPlugin forwardToolkitPlugin : forwardToolkits) {
                 forwardToolkitPlugin.init();
             }
         }
-        ArrayList<ReverseToolkitPlugin> reverseToolkits = manager.getPluginsRegistry()
+        List<ReverseToolkitPlugin> reverseToolkits = manager.getPluginsRegistry()
                 .getActivePluginInstances(ReverseToolkitPlugin.class);
         if (reverseToolkits != null) {
             for (ReverseToolkitPlugin reverseToolkitPlugin : reverseToolkits) {

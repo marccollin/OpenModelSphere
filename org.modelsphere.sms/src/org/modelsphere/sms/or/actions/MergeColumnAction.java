@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.actions;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -49,6 +47,9 @@ import org.modelsphere.sms.or.db.DbORColumn;
 import org.modelsphere.sms.or.db.DbORTypeClassifier;
 import org.modelsphere.sms.or.db.util.ForeignKey;
 import org.modelsphere.sms.or.international.LocaleMgr;
+
+import java.util.ArrayList;
+import java.util.List;
 
 final class MergeColumnAction extends AbstractApplicationAction implements SelectionActionListener {
 
@@ -74,7 +75,7 @@ final class MergeColumnAction extends AbstractApplicationAction implements Selec
             DbORTypeClassifier type = mergeCol.getType();
             DbORColumn source = (mergeCol.getFKeyColumns().size() != 0 ? ForeignKey
                     .getUltimateSource(mergeCol) : null);
-            ArrayList cols = new ArrayList();
+            List<DbORColumn> cols = new ArrayList<>();
             DbEnumeration dbEnum = mergeCol.getComposite().getComponents().elements(
                     DbORColumn.metaClass);
             while (dbEnum.hasMoreElements()) {

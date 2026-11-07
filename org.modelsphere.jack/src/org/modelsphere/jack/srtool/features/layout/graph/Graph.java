@@ -1,8 +1,11 @@
 package org.modelsphere.jack.srtool.features.layout.graph;
 
-import java.awt.Dimension;
-import java.awt.Polygon;
-import java.awt.Rectangle;
+import org.jgrapht.EdgeFactory;
+import org.jgrapht.graph.DirectedMultigraph;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.srtool.features.layout.graph.Edge.OrientationConstraint;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -10,11 +13,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
-
-import org.jgrapht.EdgeFactory;
-import org.jgrapht.graph.DirectedMultigraph;
-import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.jack.srtool.features.layout.graph.Edge.OrientationConstraint;
 
 /**
  * <p>
@@ -651,7 +649,7 @@ public class Graph extends DirectedMultigraph<Vertex, Edge> {
         }
 
         // if there are any
-        if (dummyNeighbors.size() != 0) {
+        if (!dummyNeighbors.isEmpty()) {
             // try each one recursively.
             for (DummyVertex neighbor : dummyNeighbors) {
                 stack.add(neighbor);

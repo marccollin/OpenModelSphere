@@ -43,9 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.features;
 
-import java.awt.Point;
-
 import org.modelsphere.jack.baseDb.db.DbObject;
+
+import java.awt.*;
 
 public interface SrDropTarget {
     public DbObject getSemObjAtLocation(Point pt);

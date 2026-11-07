@@ -43,19 +43,28 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.*;
-import javax.swing.table.*;
-import javax.swing.event.*;
-
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.screen.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.screen.MultiDefaultRenderer;
 import org.modelsphere.jack.srtool.screen.design.DesignTableModel;
 import org.modelsphere.jack.util.DefaultComparableElement;
 
-import java.util.*;
+import javax.swing.*;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.EventListenerList;
+import javax.swing.table.TableCellEditor;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.EventObject;
+import java.util.Iterator;
+import java.util.List;
 
 public class MultiDbSemanticalObjectShortEditor implements TableCellEditor {
 
@@ -94,10 +103,9 @@ public class MultiDbSemanticalObjectShortEditor implements TableCellEditor {
             parentDbos[0].getDb().beginTrans(Db.READ_TRANS);
             DbObject currentDbo = (DbObject) unwrapValue(value);
             int selInd = -1;
-            Collection dbos = getSelectionSet(parentDbos);
-            Iterator iter = dbos.iterator();
-            while (iter.hasNext()) {
-                DbObject dbo = (DbObject) iter.next();
+            Collection<?> dbos = getSelectionSet(parentDbos);
+            for (Object o : dbos) {
+                DbObject dbo = (DbObject) o;
                 combo.addItem(new DefaultComparableElement(dbo, dbo.getName(), getUserObject(dbo)));
                 if (dbo == currentDbo)
                     selInd = combo.getItemCount() - 1;
@@ -129,7 +137,7 @@ public class MultiDbSemanticalObjectShortEditor implements TableCellEditor {
     }
 
     protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList dbos = new ArrayList();
+        List<DbObject> dbos = new ArrayList<>();
         DbEnumeration dbEnum = getSelectionEnum(parentDbo);
         if (dbEnum != null) {
             while (dbEnum.hasMoreElements())
@@ -144,8 +152,8 @@ public class MultiDbSemanticalObjectShortEditor implements TableCellEditor {
     }
 
     protected final Collection getSelectionSet(DbObject[] parentDbos) throws DbException {
-        ArrayList childs = new ArrayList();
-        Collection tempchilds = null;
+        List<Object> childs = new ArrayList<>();
+        Collection<?> tempchilds = null;
         for (int i = 0; i < parentDbos.length; i++) {
             tempchilds = getSelectionSet(parentDbos[i]);
             if (tempchilds == null) {
@@ -155,7 +163,7 @@ public class MultiDbSemanticalObjectShortEditor implements TableCellEditor {
             if (i == 0)
                 childs.addAll(tempchilds);
             else {
-                Iterator iter = childs.iterator();
+                Iterator<Object> iter = childs.iterator();
                 while (iter.hasNext()) {
                     Object element = iter.next();
                     if (tempchilds.contains(element))
@@ -163,7 +171,7 @@ public class MultiDbSemanticalObjectShortEditor implements TableCellEditor {
                     iter.remove();
                 }
             }
-            if (childs.size() == 0)
+            if (childs.isEmpty())
                 break;
         }
         return childs;
@@ -232,6 +240,7 @@ public class MultiDbSemanticalObjectShortEditor implements TableCellEditor {
     }
 
     class ComboActionListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             stopCellEditing();
         }

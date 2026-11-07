@@ -1,12 +1,11 @@
-import unittest
-import test_support
-
-from org.python.core import PyFile
-import re
-
-import os
 import javashell
+import os
+import re
+import unittest
 from javashell import LazyDict
+from org.python.core import PyFile
+
+import test_support
 
 # testCmds is a list of (command, expectedOutput)
 # each command is executed twice, once in unitialized environment and

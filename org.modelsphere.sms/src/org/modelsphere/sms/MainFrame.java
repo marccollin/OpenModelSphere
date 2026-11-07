@@ -33,13 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JComponent;
-
 import org.modelsphere.jack.awt.StatusBar;
 import org.modelsphere.jack.awt.ToolBarManager;
 import org.modelsphere.jack.baseDb.assistant.JHtmlBallonHelp;
@@ -51,6 +44,7 @@ import org.modelsphere.jack.baseDb.db.DbRAM;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.baseDb.db.VersionConverter;
 import org.modelsphere.jack.baseDb.db.clipboard.Clipboard;
+import org.modelsphere.jack.baseDb.db.xml.imports.XmlFileOpener;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.baseDb.screen.PropertiesFrame;
 import org.modelsphere.jack.graphic.tool.Tool;
@@ -83,6 +77,11 @@ import org.modelsphere.sms.or.db.DbORFKeyColumn;
 import org.modelsphere.sms.or.db.DbORStyle;
 import org.modelsphere.sms.preference.DisplayWindowsOptionGroup;
 import org.modelsphere.sms.style.StyleFrame;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainFrame extends DefaultMainFrame {
     private static final long SMS_FILE_CHECKWORD = 81500477737620267L;
@@ -177,12 +176,12 @@ public class MainFrame extends DefaultMainFrame {
     public void installToolBars() {
 
         JComponent toolComponent = null;
-        List creationComponents = new ArrayList();
-        List drawingComponents = new ArrayList();
-        List resourceComponents = new ArrayList();
-        List resourceTools = new ArrayList();
-        List qualifierComponents = new ArrayList();
-        List qualifierTools = new ArrayList();
+        List<JComponent> creationComponents = new ArrayList<>();
+        List<JComponent> drawingComponents = new ArrayList<>();
+        List<JComponent> resourceComponents = new ArrayList<>();
+        List<Tool> resourceTools = new ArrayList<>();
+        List<JComponent> qualifierComponents = new ArrayList<>();
+        List<Tool> qualifierTools = new ArrayList<>();
         diagramsToolGroup = new ToolButtonGroup();
         Tool[] tools = SMSToolkit.getTools();
         for (int i = 0; i < tools.length; i++) {
@@ -295,20 +294,16 @@ public class MainFrame extends DefaultMainFrame {
 
     private final Dimension getDefaultInternalFrameSize(int sizeoption) {
         Dimension desktopsize = getJDesktopPane().getSize();
-        switch (sizeoption) {
-        case WINDOWS_MEDIUM:
-            return new Dimension(720, 520);
-        case WINDOWS_LARGE:
-            return new Dimension(900, 650);
-        case WINDOWS_DESKTOPSIZE:
-            return new Dimension(Math.max(desktopsize.width, 300), Math
+        return switch (sizeoption) {
+            case WINDOWS_MEDIUM -> new Dimension(720, 520);
+            case WINDOWS_LARGE -> new Dimension(900, 650);
+            case WINDOWS_DESKTOPSIZE -> new Dimension(Math.max(desktopsize.width, 300), Math
                     .max(desktopsize.height, 200));
-        case WINDOWS_SMALL:
-            return new Dimension(540, 350);
-        default: // WINDOWS_3_4_DESKTOPSIZE:
-            return new Dimension(Math.max((desktopsize.width * 75) / 100, 350), Math.max(
-                    (desktopsize.height * 75) / 100, 250));
-        }
+            case WINDOWS_SMALL -> new Dimension(540, 350);
+            default -> // WINDOWS_3_4_DESKTOPSIZE:
+                    new Dimension(Math.max((desktopsize.width * 75) / 100, 350), Math.max(
+                            (desktopsize.height * 75) / 100, 250));
+        };
     }
 
     private void setInternalFrameBounds(CascadingJInternalFrame frame, int sizeoption) {
@@ -400,8 +395,7 @@ public class MainFrame extends DefaultMainFrame {
 
     @Override
     public boolean saveCurrentProject(DbProject selProject, boolean saveAs) {
-        if (selProject instanceof DbSMSProject) {
-            DbSMSProject proj = (DbSMSProject) selProject;
+        if (selProject instanceof DbSMSProject proj) {
             DisplayRecentModifications.notifySaveProject(proj);
         }
 
@@ -411,10 +405,8 @@ public class MainFrame extends DefaultMainFrame {
 
     //Entry point to open a XML-formatted file
     public void doOpenFromXmlFile(Db db, String filename) {
-        /*
-         * TODO XmlFileOpener openFile = XmlFileOpener.getSingleton(); openFile.doOpenFile(db,
-         * filename);
-         */
+        XmlFileOpener openFile = XmlFileOpener.getSingleton();
+        openFile.doOpenFile(db, filename, this);
     } //end doOpenFromXmlFile()
 
     //

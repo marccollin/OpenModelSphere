@@ -43,15 +43,33 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.services;
 
-import java.io.*;
-import java.util.*;
-import java.sql.*;
-import java.net.URL;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.reverse.SQLLexerStream;
 import org.modelsphere.jack.srtool.reverse.jdbc.ObjectNameReader;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.PipedReader;
+import java.io.PipedWriter;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.Writer;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A very simple service. It displays the current time on the server to the client, and closes the
@@ -117,7 +135,7 @@ public final class NameListService extends NameListServiceProtocol {
         }
     }
 
-    private void executeParsedFile(NameListMessage nameListMessage, ArrayList cmds) {
+    private void executeParsedFile(NameListMessage nameListMessage, List<String> cmds) {
         BufferedWriter buffer = null;
         int connectionId = nameListMessage.connectionId;
         boolean commaSeparated = nameListMessage.commaSeparated;
@@ -156,14 +174,14 @@ public final class NameListService extends NameListServiceProtocol {
 
                 // execute each SQL statement
                 // we skip objects that don't need to be reversed
-                Iterator iter = cmds.iterator();
+                Iterator<String> iter = cmds.iterator();
                 int index = -1;
                 while (iter.hasNext()) {
-                    String cmd = (String) iter.next();
+                    String cmd = iter.next();
                     index++;
                     // check if this statement id is marked as <to skip>
                     if (nameListMessage.ignoredStatementIds != null
-                            && nameListMessage.ignoredStatementIds.contains(new Integer(index))) {
+                            && nameListMessage.ignoredStatementIds.contains(index)) {
                         if (commaSeparated) {
                             buffer.flush();
                             buffer.newLine();
@@ -222,7 +240,7 @@ public final class NameListService extends NameListServiceProtocol {
 
     private void parseSqlFile(NameListMessage nameListMessage) {
         BufferedWriter buffer = null;
-        ArrayList cmds = new ArrayList();
+        List<String> cmds = new ArrayList<>();
         try {
             URL url = new URL(nameListMessage.filename.toExternalForm());
             InputStreamReader inputStreamReader = new InputStreamReader(url.openStream());

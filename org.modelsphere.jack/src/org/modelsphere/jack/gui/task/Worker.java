@@ -43,11 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.gui.task;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Date;
-
 import org.modelsphere.jack.debug.Debug;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * This class and the Controller class provide a framework to handle and execute a task.
@@ -82,14 +83,14 @@ import org.modelsphere.jack.debug.Debug;
  */
 
 public abstract class Worker extends Thread {
-    public static final String EOL = System.getProperty("line.separator"); // NOT LOCALIZABLE, property key
+    public static final String EOL = System.lineSeparator(); // NOT LOCALIZABLE, property key
 
     private Controller controller;
 
     // protected int errorCount = 0;
     private boolean errorCountEnabled = true;
 
-    private ArrayList subThreads = new ArrayList();
+    private List<Thread> subThreads = new ArrayList<>();
 
     public Worker() {
         super(new ThreadGroup("worker group"), "main worker"); // NOT LOCALIZABLE, thread name not visible to user
@@ -151,9 +152,9 @@ public abstract class Worker extends Thread {
     // checkPoint() and terminate before
     // a dispose() on the dialog occurs
     private void joinAllThread() {
-        Iterator iter = subThreads.iterator();
+        Iterator<Thread> iter = subThreads.iterator();
         while (iter.hasNext()) {
-            Thread t = (Thread) iter.next();
+            Thread t = iter.next();
             if (t.isAlive()) {
                 try {
                     t.join();

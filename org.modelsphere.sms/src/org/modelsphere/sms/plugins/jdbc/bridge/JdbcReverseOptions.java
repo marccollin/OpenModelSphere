@@ -43,17 +43,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.jdbc.bridge;
 
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.modelsphere.jack.srtool.reverse.jdbc.JdbcMetaInfo;
 import org.modelsphere.jack.text.MessageFormat;
 import org.modelsphere.jack.util.StringUtil;
 import org.modelsphere.sms.plugins.TargetSystem;
 import org.modelsphere.sms.plugins.TargetSystemInfo;
 import org.modelsphere.sms.plugins.TargetSystemManager;
+
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class JdbcReverseOptions {
 
@@ -105,14 +105,14 @@ public class JdbcReverseOptions {
     }
 
     public List getTargetSystems() {
-        ArrayList tsList = new ArrayList();
+        List<TargetSystemInfo> tsList = new ArrayList<>();
         TargetSystemInfo targetInfo = null;
         Iterator iter = TargetSystemManager.getSingleton().getAllTargetSystemInfos().iterator();
         while (iter.hasNext()) {
             targetInfo = (TargetSystemInfo) iter.next();
             boolean addTarget = true;
-            for (int i = 0; i < jdbcUnsupportedTargetSystems.length; i++) {
-                if (jdbcUnsupportedTargetSystems[i] == targetInfo.getRootID()) {
+            for (int jdbcUnsupportedTargetSystem : jdbcUnsupportedTargetSystems) {
+                if (jdbcUnsupportedTargetSystem == targetInfo.getRootID()) {
                     addTarget = false;
                     break;
                 }
@@ -123,6 +123,7 @@ public class JdbcReverseOptions {
         return tsList;
     }
 
+    @Override
     public String toString() {
         String s = "\t";
         s += (catalogName == null ? "" : MessageFormat.format(LocaleMgr.misc.getString("Catalog0"),

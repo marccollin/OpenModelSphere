@@ -33,9 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
@@ -43,10 +40,14 @@ import org.modelsphere.jack.baseDb.screen.plugins.MultiDbSemanticalObjectEditor;
 import org.modelsphere.sms.or.db.DbORDomainModel;
 import org.modelsphere.sms.or.db.util.AnyORObject;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 public class MultiDbORDatabaseDefaultDomainModelEditor extends MultiDbSemanticalObjectEditor {
 
-    protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        ArrayList domainModels = new ArrayList();
+    protected Collection<DbORDomainModel> getSelectionSet(DbObject parentDbo) throws DbException {
+        List<DbORDomainModel> domainModels = new ArrayList<>();
         DbEnumeration dbEnum = parentDbo.getProject().componentTree(DbORDomainModel.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbORDomainModel dbo = (DbORDomainModel) dbEnum.nextElement();

@@ -2,9 +2,10 @@
 #
 # javac must be on your $PATH
 
-import sys
 import os
+import sys
 from java.lang import Runtime, System
+
 rt = Runtime.getRuntime()
 
 # make sure this directory doesn't appear on your CLASSPATH

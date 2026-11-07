@@ -32,25 +32,10 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.features.startupwizard;
 
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-
-import javax.swing.Icon;
-import javax.swing.JScrollPane;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
-
 import eu.essilab.lablib.checkboxtree.CheckboxTree;
 import eu.essilab.lablib.checkboxtree.DefaultCheckboxTreeCellRenderer;
-import eu.essilab.lablib.checkboxtree.TreeCheckingModel;
 import eu.essilab.lablib.checkboxtree.DefaultTreeCheckingModel;
-
+import eu.essilab.lablib.checkboxtree.TreeCheckingModel;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.gui.wizard2.AbstractPage;
 import org.modelsphere.jack.gui.wizard2.SectionHeader;
@@ -58,6 +43,23 @@ import org.modelsphere.jack.util.ExceptionHandler;
 import org.modelsphere.jack.util.FileUtils;
 import org.modelsphere.sms.features.international.LocaleMgr;
 import org.modelsphere.sms.oo.java.db.DbJVPackage;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("serial")
 class UMLClassPackagePage extends AbstractPage {
@@ -152,7 +154,7 @@ class UMLClassPackagePage extends AbstractPage {
             JarFile jar = new JarFile(jarfile);
             try {
                 Enumeration<JarEntry> entries = jar.entries();
-                ArrayList<String> packages = new ArrayList<String>();
+                List<String> packages = new ArrayList<String>();
                 if (entries != null) {
                     while (entries.hasMoreElements()) {
                         JarEntry jarEntry = entries.nextElement();
@@ -175,7 +177,7 @@ class UMLClassPackagePage extends AbstractPage {
                     }
                 }
 
-                HashMap<String, PackageNode> packageNodes = new HashMap<String, PackageNode>();
+                Map<String, PackageNode> packageNodes = new HashMap<String, PackageNode>();
                 boolean rtJAR = jarfile.getName().equals("rt.jar");
 
                 // create a node for each package
@@ -197,7 +199,7 @@ class UMLClassPackagePage extends AbstractPage {
                 }
 
                 // sort
-                ArrayList<String> keys = new ArrayList<String>(packageNodes.keySet());
+                List<String> keys = new ArrayList<String>(packageNodes.keySet());
                 Collections.sort(keys);
 
                 for (Iterator<String> packagesIterator = keys.iterator(); packagesIterator
@@ -302,7 +304,7 @@ class UMLClassPackagePage extends AbstractPage {
             checkingModel.setCheckingMode(TreeCheckingModel.CheckingMode.SIMPLE);
 
             if (treemodel.getJavaLangNode() != null) {
-                ArrayList<DefaultMutableTreeNode> path = new ArrayList<DefaultMutableTreeNode>();
+                List<DefaultMutableTreeNode> path = new ArrayList<DefaultMutableTreeNode>();
                 DefaultMutableTreeNode parent = (DefaultMutableTreeNode) treemodel
                         .getJavaLangNode().getParent();
                 while (parent != null) {

@@ -1,14 +1,11 @@
 # Copyright (c) Corporation for National Research Initiatives
 
+import org
+from java.lang.reflect import Modifier
+from java.lang.reflect.Modifier import *
 from types import TupleType, IntType
 
 import jast
-
-from java.lang.reflect.Modifier import *
-from java.lang.reflect import Modifier
-from java.lang import *
-import org, java
-
 
 
 def aget(dict, key, default):

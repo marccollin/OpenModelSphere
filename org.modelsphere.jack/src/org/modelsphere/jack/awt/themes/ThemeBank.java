@@ -43,7 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.themes;
 
-import javax.swing.plaf.metal.*;
+import javax.swing.plaf.metal.DefaultMetalTheme;
+import javax.swing.plaf.metal.MetalTheme;
 
 public final class ThemeBank {
     public static final MetalTheme[] themes = { new DefaultMetalTheme(),

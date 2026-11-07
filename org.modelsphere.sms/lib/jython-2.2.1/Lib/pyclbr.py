@@ -50,8 +50,9 @@ PACKAGE RELATED BUGS
   exists coded in Python in the freeze package.)
 """
 
-import sys
 import imp
+import sys
+
 import re
 import string
 

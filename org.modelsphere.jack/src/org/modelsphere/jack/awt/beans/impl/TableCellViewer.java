@@ -43,8 +43,8 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt.beans.impl;
 
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 
 /** Structure containg a TableCellRenderer and a TableCellEditor */
 class TableCellViewer {

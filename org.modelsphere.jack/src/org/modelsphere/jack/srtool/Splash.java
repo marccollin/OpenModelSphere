@@ -43,17 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool;
 
+import org.modelsphere.jack.awt.AwtUtil;
+import org.modelsphere.jack.graphic.GraphicUtil;
+import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
-
-import javax.swing.*;
-
-import org.modelsphere.jack.awt.AwtUtil;
-import org.modelsphere.jack.graphic.GraphicUtil;
-import org.modelsphere.jack.srtool.international.LocaleMgr;
 
 @SuppressWarnings("serial")
 public abstract class Splash extends JDialog implements ActionListener {
@@ -67,7 +66,7 @@ public abstract class Splash extends JDialog implements ActionListener {
     static {
         buildString = "("
                 + MessageFormat.format(LocaleMgr.screen.getString("Build0"),
-                        new Object[] { new Integer(ApplicationContext.APPLICATION_BUILD_ID) })
+                        new Object[] { Integer.valueOf(ApplicationContext.APPLICATION_BUILD_ID) })
                 + ")";
         copyrightString = LocaleMgr.screen.getString("Copyright");
 

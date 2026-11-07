@@ -43,18 +43,20 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.HotKeysSupport;
 import org.modelsphere.jack.awt.SRSystemClipboard;
 import org.modelsphere.jack.baseDb.screen.spellchecking.SpellCheckerTextArea;
 import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 // Only used by LookupDescriptionEditor.
 // For a text viewer, use instead jack.awt.TextViewerFrame or jack.awt.TextViewerDialog

@@ -33,23 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.preference;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collections;
-
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.LookAndFeel;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.plaf.metal.MetalTheme;
-
 import org.modelsphere.jack.awt.themes.ThemeBank;
 import org.modelsphere.jack.preference.OptionGroup;
 import org.modelsphere.jack.preference.OptionPanel;
@@ -58,9 +41,19 @@ import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.sms.international.LocaleMgr;
 
+import javax.swing.*;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.plaf.metal.MetalTheme;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class DisplayLFOptionGroup extends OptionGroup {
     private static String CUSTOM_LF_PROPERTIES = "lf";
-    private static ArrayList customLFs = null;
+    private static List<DisplayLFOptionPanel.LFDescription> customLFs = null;
 
     private static class DisplayLFOptionPanel extends OptionPanel implements ActionListener {
         private JComboBox lfCombo;
@@ -92,6 +85,7 @@ public class DisplayLFOptionGroup extends OptionGroup {
                 return this.lfClassName.compareTo(((LFDescription) obj).lfClassName);
             }
 
+            @Override
             public String toString() {
                 return lfStr;
             }
@@ -160,25 +154,25 @@ public class DisplayLFOptionGroup extends OptionGroup {
             MetalTheme[] themes = ThemeBank.themes;
             String osname = (String) System.getProperty("os.name"); // NOT
             // LOCALIZABLE
-            ArrayList lfValues = new ArrayList();
-            ArrayList themeValues = new ArrayList();
+            List<LFDescription> lfValues = new ArrayList<>();
+            List<ThemeDescription> themeValues = new ArrayList<>();
             if (osname == null)
                 osname = ""; // NOT LOCALIZABLE
-            for (int i = 0; i < lfs.length; i++) {
-                if (((osname.toLowerCase().indexOf("windows") == -1) && lfs[i].getClassName()
+            for (LookAndFeelInfo lf : lfs) {
+                if (((osname.toLowerCase().indexOf("windows") == -1) && lf.getClassName()
                         .equals("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"))
                         || // NOT LOCALIZABLE
-                        ((osname.toLowerCase().indexOf("sunos") == -1) && lfs[i].getClassName()
+                        ((osname.toLowerCase().indexOf("sunos") == -1) && lf.getClassName()
                                 .equals("com.sun.java.swing.plaf.motif.MotifLookAndFeel"))) { // NOT
                     // LOCALIZABLE
                     continue;
                 }
-                LFDescription lfDescription = new LFDescription(lfs[i].getName(), lfs[i]
+                LFDescription lfDescription = new LFDescription(lf.getName(), lf
                         .getClassName());
                 if (customLFs != null && customLFs.contains(lfDescription))
                     continue;
                 lfValues.add(lfDescription);
-                if (lfs[i].getClassName().equals("javax.swing.plaf.metal.MetalLookAndFeel")) { // NOT
+                if (lf.getClassName().equals("javax.swing.plaf.metal.MetalLookAndFeel")) { // NOT
                     // LOCALIZABLE
                     for (int j = 0; j < themes.length; j++) {
                         themeValues.add(new ThemeDescription(themes[j].getName()));
@@ -187,13 +181,13 @@ public class DisplayLFOptionGroup extends OptionGroup {
             }
 
             if (customLFs == null) {
-                customLFs = new ArrayList();
+                customLFs = new ArrayList<>();
                 int index = 0;
                 PropertiesSet customLF = PropertiesManager.getPropertiesSet(CUSTOM_LF_PROPERTIES);
                 String lfcustom = customLF.getPropertyString(javax.swing.LookAndFeel.class, "LF"
                         + index, "");
                 try {
-                    while (lfcustom.length() > 0) {
+                    while (!lfcustom.isEmpty()) {
                         Class lfClass = Class.forName(lfcustom);
                         if (lfClass != null) {
                             LookAndFeel lkFeel = (LookAndFeel) lfClass.newInstance();

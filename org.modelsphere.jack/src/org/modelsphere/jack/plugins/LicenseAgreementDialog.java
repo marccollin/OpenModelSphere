@@ -1,16 +1,15 @@
 package org.modelsphere.jack.plugins;
 
+import org.modelsphere.jack.awt.AwtUtil;
+import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
 import java.text.MessageFormat;
-
-import javax.swing.*;
-
-import org.modelsphere.jack.awt.AwtUtil;
-import org.modelsphere.jack.international.LocaleMgr;
 
 /**
  * Defines the dialog for plugin license. To display the dialog, use the utility method

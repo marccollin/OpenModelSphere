@@ -32,14 +32,8 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.be.graphic.tool;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Rectangle;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
-import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.jack.graphic.tool.BoxTool;
 import org.modelsphere.jack.graphic.zone.TableCell;
@@ -49,10 +43,11 @@ import org.modelsphere.sms.be.db.DbBEContextGo;
 import org.modelsphere.sms.be.db.DbBEDiagram;
 import org.modelsphere.sms.be.db.DbBENotation;
 import org.modelsphere.sms.be.db.DbBEStyle;
-import org.modelsphere.sms.be.db.util.BEUtility;
 import org.modelsphere.sms.db.srtypes.SMSHorizontalAlignment;
 import org.modelsphere.sms.db.srtypes.SMSVerticalAlignment;
 import org.modelsphere.sms.db.util.DbInitialization;
+
+import java.awt.*;
 
 /**
  * Superclass of BEUseCaseTool and BEStoreTool to share common behaviors

@@ -2,8 +2,9 @@
 
 Do not import directly; use urllib instead."""
 
-import urllib
 import os
+
+import urllib
 
 __all__ = ["url2pathname","pathname2url"]
 

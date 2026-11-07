@@ -33,15 +33,19 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Insets;
+import org.modelsphere.jack.awt.AwtUtil;
+import org.modelsphere.jack.awt.ExtensionFileFilter;
+import org.modelsphere.jack.awt.ImagePreviewer;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.sms.db.DbSMSStereotype;
+import org.modelsphere.sms.db.util.Extensibility;
+import org.modelsphere.sms.international.LocaleMgr;
+
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -54,28 +58,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.HashMap;
-
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.TitledBorder;
-
-import org.modelsphere.jack.awt.AwtUtil;
-import org.modelsphere.jack.awt.ExtensionFileFilter;
-import org.modelsphere.jack.awt.ImagePreviewer;
-import org.modelsphere.jack.baseDb.db.Db;
-import org.modelsphere.jack.baseDb.db.DbException;
-import org.modelsphere.sms.db.DbSMSStereotype;
-import org.modelsphere.sms.db.util.Extensibility;
-import org.modelsphere.sms.international.LocaleMgr;
+import java.util.Map;
 
 public class StereotypeIconChooser extends JPanel {
     JRadioButton defaultOption = new JRadioButton();
@@ -94,7 +77,7 @@ public class StereotypeIconChooser extends JPanel {
     JTextField imageName = new JTextField();
     JPanel okCancelPanel = new JPanel();
 
-    private static HashMap g_stereotypeMap = new HashMap(); //keep previous values
+    private static Map<DbSMSStereotype, StereotypeStructure> g_stereotypeMap = new HashMap<>(); //keep previous values
     private StereotypeStructure m_stereotypeStruct;
     private DbSMSStereotype m_stereotype;
     private boolean isCancelled = true; //until OK is pressed
@@ -133,7 +116,7 @@ public class StereotypeIconChooser extends JPanel {
     public StereotypeIconChooser(DbSMSStereotype stereotype) throws DbException {
         try {
             m_stereotype = stereotype;
-            m_stereotypeStruct = (StereotypeStructure) g_stereotypeMap.get(stereotype);
+            m_stereotypeStruct = g_stereotypeMap.get(stereotype);
             if (m_stereotypeStruct == null) {
                 stereotype.getDb().beginReadTrans();
                 String name = stereotype.getName();
@@ -307,9 +290,7 @@ public class StereotypeIconChooser extends JPanel {
 
         okButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                if (g_stereotypeMap.containsKey(m_stereotype)) {
-                    g_stereotypeMap.remove(m_stereotype);
-                }
+                g_stereotypeMap.remove(m_stereotype);
 
                 g_stereotypeMap.put(m_stereotype, m_stereotypeStruct);
                 isCancelled = false;

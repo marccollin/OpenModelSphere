@@ -30,6 +30,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 or see http://www.gnu.org/licenses/.
 
 Link Report plug-in has been developed by neosapiens inc. for
+the purposes of the Ministère de la Santé et des Services Sociaux
+du Québec (MSSS).
  
 You can reach neosapiens inc. at: 
   http://www.neosapiens.com
@@ -37,12 +39,12 @@ You can reach neosapiens inc. at:
  **********************************************************************/
 package org.modelsphere.plugins.export.links.wrappers;
 
-import java.util.List;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbUDF;
 import org.modelsphere.plugins.export.links.wrappers.Matrix.Cell;
 import org.modelsphere.plugins.export.links.wrappers.Matrix.Column;
+
+import java.util.List;
 
 public class DbUdfWrapper {
     private DbUDF m_dbUdf;

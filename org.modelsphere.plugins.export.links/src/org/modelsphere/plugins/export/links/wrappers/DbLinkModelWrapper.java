@@ -30,16 +30,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 or see http://www.gnu.org/licenses/.
 
 Link Report plug-in has been developed by neosapiens inc. for
+the purposes of the Ministère de la Santé et des Services Sociaux
+du Québec (MSSS).
  
 You can reach neosapiens inc. at: 
   http://www.neosapiens.com
 
  **********************************************************************/
 package org.modelsphere.plugins.export.links.wrappers;
-
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -48,6 +46,10 @@ import org.modelsphere.jack.baseDb.db.DbRelationN;
 import org.modelsphere.plugins.export.links.international.LocaleMgr;
 import org.modelsphere.sms.db.DbSMSLink;
 import org.modelsphere.sms.db.DbSMSLinkModel;
+
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbLinkModelWrapper {
     private static final String NO_MODEL = LocaleMgr.misc.getString("NoModel");

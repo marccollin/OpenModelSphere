@@ -1,6 +1,8 @@
-from test_support import verbose, verify
-import sys
 import new
+import sys
+
+from test_support import verbose, verify
+
 
 class Eggs:
     def get_yolks(self):

@@ -33,17 +33,21 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.screen.plugins.DbSemanticalObjectEditor;
+import org.modelsphere.sms.oo.java.db.DbJVClass;
 import org.modelsphere.sms.oo.java.db.util.AnyAdt;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class DbJVClassEditor extends DbSemanticalObjectEditor {
 
-    protected Collection getSelectionSet(DbObject parentDbo) throws DbException {
-        return AnyAdt.getClassesAux(new ArrayList(), parentDbo.getProject());
+    protected Collection<DbJVClass> getSelectionSet(DbObject parentDbo) throws DbException {
+        List<DbJVClass> classes = new ArrayList<>();
+        AnyAdt.getClassesAux(classes, parentDbo.getProject());
+        return classes;
     }
 }

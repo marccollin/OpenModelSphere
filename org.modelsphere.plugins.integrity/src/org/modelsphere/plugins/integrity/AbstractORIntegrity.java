@@ -33,12 +33,29 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.integrity;
 
-import java.util.ArrayList;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
-import org.modelsphere.sms.or.db.*;
+import org.modelsphere.sms.or.db.DbORAbsTable;
+import org.modelsphere.sms.or.db.DbORAssociation;
+import org.modelsphere.sms.or.db.DbORAssociationEnd;
+import org.modelsphere.sms.or.db.DbORCheck;
+import org.modelsphere.sms.or.db.DbORColumn;
+import org.modelsphere.sms.or.db.DbORCommonItem;
+import org.modelsphere.sms.or.db.DbORDomain;
+import org.modelsphere.sms.or.db.DbORFKeyColumn;
+import org.modelsphere.sms.or.db.DbORForeign;
+import org.modelsphere.sms.or.db.DbORIndex;
+import org.modelsphere.sms.or.db.DbORIndexKey;
+import org.modelsphere.sms.or.db.DbORParameter;
+import org.modelsphere.sms.or.db.DbORPrimaryUnique;
+import org.modelsphere.sms.or.db.DbORProcedure;
+import org.modelsphere.sms.or.db.DbORTable;
+import org.modelsphere.sms.or.db.DbORTrigger;
+import org.modelsphere.sms.or.db.DbORView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author pierrem
@@ -269,30 +286,30 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
             "DELETE_RELATION_LESS_2ARC", // NOT LOCALIZABLE    
     };
 
-    protected ArrayList databaseList;
-    protected ArrayList absTableList;
-    protected ArrayList tableList;
-    protected ArrayList entityList;
-    protected ArrayList erAssociationList;
-    protected ArrayList entityAssociationList;
-    protected ArrayList arcList;
-    protected ArrayList erRoleList;
-    protected ArrayList viewList;
-    protected ArrayList columnList;
-    protected ArrayList primUniqKeyList;
-    protected ArrayList foreignKeyList;
-    protected ArrayList udtDomainList;
-    protected ArrayList defaultDomainList;
-    protected ArrayList triggerList;
-    protected ArrayList checkList;
-    protected ArrayList indexList;
-    protected ArrayList procedureList;
-    protected ArrayList parameterList;
-    protected ArrayList domainList;
-    protected ArrayList commonItemList;
-    protected ArrayList associationList;
-    protected ArrayList roleList;
-    protected ArrayList fKeyColumnList;
+    protected List databaseList;
+    protected List absTableList;
+    protected List tableList;
+    protected List entityList;
+    protected List erAssociationList;
+    protected List entityAssociationList;
+    protected List arcList;
+    protected List erRoleList;
+    protected List viewList;
+    protected List columnList;
+    protected List primUniqKeyList;
+    protected List foreignKeyList;
+    protected List udtDomainList;
+    protected List defaultDomainList;
+    protected List triggerList;
+    protected List checkList;
+    protected List indexList;
+    protected List procedureList;
+    protected List parameterList;
+    protected List domainList;
+    protected List commonItemList;
+    protected List associationList;
+    protected List roleList;
+    protected List fKeyColumnList;
 
     public void getAllObjects(DbObject model, int modelType) throws DbException {
         switch (modelType) {
@@ -350,7 +367,7 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     /**
      *  
      */
-    protected void verifyTriggerWithoutBodyAndCol(ArrayList aList, StringBuffer buffer,
+    protected void verifyTriggerWithoutBodyAndCol(List aList, StringBuffer buffer,
             int operation) throws DbException {
         for (int i = 0; i < aList.size(); i++) {
             boolean haveColumnLinked = true;
@@ -378,10 +395,10 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     /**
      *  
      */
-    protected void verifyForeignkeyWithoutColumn(ArrayList aList, StringBuffer buffer, int operation)
+    protected void verifyForeignkeyWithoutColumn(List aList, StringBuffer buffer, int operation)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORForeign semObj = (DbORForeign) (aList.get(i));
+        for (Object o : aList) {
+            DbORForeign semObj = (DbORForeign) o;
             DbEnumeration foreignKeyCols = semObj.getComponents()
                     .elements(DbORFKeyColumn.metaClass);
             if (!foreignKeyCols.hasMoreElements()) {
@@ -400,7 +417,7 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     /**
      *  
      */
-    protected void verifyIndexWithoutIndexKey(ArrayList aList, StringBuffer buffer, int operation)
+    protected void verifyIndexWithoutIndexKey(List aList, StringBuffer buffer, int operation)
             throws DbException {
         for (int i = 0; i < aList.size(); i++) {
             int nbIndexKeys = 0;
@@ -434,7 +451,7 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     /**
      * Domaines sans Type
      */
-    protected void verifyDomainWithoutType(ArrayList aList, StringBuffer buffer, int operation)
+    protected void verifyDomainWithoutType(List aList, StringBuffer buffer, int operation)
             throws DbException {
         for (int i = 0; i < aList.size(); i++) {
             DbORDomain semObj = (DbORDomain) (aList.get(i));
@@ -456,10 +473,10 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     /**
      * Item commun sans type
      */
-    protected void verifyCommonItemWithoutType(ArrayList aList, StringBuffer buffer, int operation)
+    protected void verifyCommonItemWithoutType(List aList, StringBuffer buffer, int operation)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORCommonItem semObj = (DbORCommonItem) (aList.get(i));
+        for (Object o : aList) {
+            DbORCommonItem semObj = (DbORCommonItem) o;
             if (semObj.getType() == null) {
                 if (operation == INTEGRITY) {
                     modelIntegrityReport.printError(OR_IR_COMMON_ITEM_WITHOUT_TYPE, buffer, semObj,
@@ -478,10 +495,10 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     /**
      * Parametres sans type
      */
-    protected void verifyParameterWithoutType(ArrayList aList, StringBuffer buffer, int operation)
+    protected void verifyParameterWithoutType(List aList, StringBuffer buffer, int operation)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORParameter semObj = (DbORParameter) (aList.get(i));
+        for (Object o : aList) {
+            DbORParameter semObj = (DbORParameter) o;
             if (semObj.getType() == null) {
                 if (operation == INTEGRITY) {
                     modelIntegrityReport.printError(OR_IR_PARAMETER_WITHOUT_TYPE, buffer, semObj,
@@ -500,11 +517,11 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     /**
      * Parametres sans instructions
      */
-    protected void verifyProcedureWithoutBody(ArrayList aList, StringBuffer buffer, int operation)
+    protected void verifyProcedureWithoutBody(List aList, StringBuffer buffer, int operation)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
+        for (Object o : aList) {
             boolean haveColumnLinked = true;
-            DbORProcedure semObj = (DbORProcedure) (aList.get(i));
+            DbORProcedure semObj = (DbORProcedure) o;
             if (semObj.getBody() == null) {
                 if (operation == INTEGRITY) {
                     modelIntegrityReport.printError(OR_IR_PROCEDURE_WITHOUT_BODY, buffer, semObj,
@@ -536,10 +553,10 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     /**
      * Clés sans colonnes/attributs ni dépendances
      */
-    protected void verifyPrymaryUniquekeyWithoutColDir(ArrayList aList, StringBuffer buffer,
+    protected void verifyPrymaryUniquekeyWithoutColDir(List aList, StringBuffer buffer,
             int modelType, int operation) throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORPrimaryUnique semObj = (DbORPrimaryUnique) (aList.get(i));
+        for (Object o : aList) {
+            DbORPrimaryUnique semObj = (DbORPrimaryUnique) o;
             DbEnumeration primaryKeyCols = semObj.getColumns().elements();
             DbEnumeration primaryKeyDirs = semObj.getAssociationDependencies().elements();
             if (!primaryKeyCols.hasMoreElements() && !primaryKeyDirs.hasMoreElements()) {
@@ -572,10 +589,10 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     /**
      * Tables sans connecteurs / Entités ou Associations sans arc
      */
-    protected void verifyTableWithoutConnector(ArrayList aList, StringBuffer buffer, int modelType,
+    protected void verifyTableWithoutConnector(List aList, StringBuffer buffer, int modelType,
             int operation) throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORTable semObj = (DbORTable) (aList.get(i));
+        for (Object o : aList) {
+            DbORTable semObj = (DbORTable) o;
             DbEnumeration connectors = semObj.getAssociationEnds().elements();
             if (!connectors.hasMoreElements()) {
                 if (operation == INTEGRITY) {
@@ -606,10 +623,10 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     /**
      * Tables et vues sans colonnes / Entités sans attributs
      */
-    protected void verifyTableWithoutColumn(ArrayList aList, StringBuffer buffer, int modelType,
+    protected void verifyTableWithoutColumn(List aList, StringBuffer buffer, int modelType,
             int operation) throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORAbsTable semObj = (DbORAbsTable) (aList.get(i));
+        for (Object o : aList) {
+            DbORAbsTable semObj = (DbORAbsTable) o;
             DbEnumeration columns = semObj.getComponents().elements(DbORColumn.metaClass);
             if (!columns.hasMoreElements()) {
                 if (operation == INTEGRITY) {
@@ -644,10 +661,10 @@ public abstract class AbstractORIntegrity extends AbstractIntegrity {
     /**
      * Association avec moins de 2 arcs
      */
-    protected void verifyRelationshipLessTwoArcs(ArrayList aList, StringBuffer buffer, int operation)
+    protected void verifyRelationshipLessTwoArcs(List aList, StringBuffer buffer, int operation)
             throws DbException {
-        for (int i = 0; i < aList.size(); i++) {
-            DbORTable assocTable = (DbORTable) (aList.get(i));
+        for (Object o : aList) {
+            DbORTable assocTable = (DbORTable) o;
             int nbArcs = assocTable.getAssociationEnds().size();
             if (nbArcs < 2) {
                 if (operation == INTEGRITY)

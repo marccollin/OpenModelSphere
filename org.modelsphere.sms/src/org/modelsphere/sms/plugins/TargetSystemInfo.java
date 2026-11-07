@@ -43,6 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins;
 
+import org.modelsphere.sms.international.LocaleMgr;
+import org.modelsphere.sms.or.db.util.AnyORObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -50,9 +53,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.StringTokenizer;
-
-import org.modelsphere.sms.international.LocaleMgr;
-import org.modelsphere.sms.or.db.util.AnyORObject;
+import java.util.Map;
 
 // A TargetSystemInfo object stores all the information contained in a <.typ> file.
 public final class TargetSystemInfo {
@@ -76,10 +77,10 @@ public final class TargetSystemInfo {
     private String version = "";
     private int targetID = -1;
     private int rootID = -1;
-    private HashMap typeMap = new HashMap(); // type to logical type mapping
+    private Map<String, TypeInfo> typeMap = new HashMap<>(); // type to logical type mapping
     // (key = type name, object =
     // TypeInfo object)
-    private HashMap logicalTypeMap = new HashMap(); // logical type to type
+    private Map<String, String> logicalTypeMap = new HashMap<>(); // logical type to type
 
     // mapping (key = logical
     // type name, object = type
@@ -96,7 +97,7 @@ public final class TargetSystemInfo {
                 break;
             setProperty(line.substring(0, i).trim(), line.substring(i + 1).trim());
         }
-        if (name.length() == 0 || targetID == -1 || rootID == -1)
+        if (name.isEmpty() || targetID == -1 || rootID == -1)
             throw new RuntimeException("Missing properties");
 
         // Parse types section
@@ -155,7 +156,7 @@ public final class TargetSystemInfo {
             if (i != -1)
                 line = line.substring(0, i);
             line = line.trim();
-            if (line.length() != 0) // skip blank or comment lines
+            if (!line.isEmpty()) // skip blank or comment lines
                 break;
         }
         return line;
@@ -194,7 +195,7 @@ public final class TargetSystemInfo {
             String logicalType = null;
             if (tokens.hasMoreTokens()) {
                 logicalType = tokens.nextToken().trim();
-                if (logicalType.length() == 0)
+                if (logicalType.isEmpty())
                     logicalType = null;
             }
             typeMap.put(type, new TypeInfo(logicalType, typeMap.size()));
@@ -218,7 +219,7 @@ public final class TargetSystemInfo {
             int id = -1;
             while (tokens.hasMoreTokens()) {
                 String type = tokens.nextToken().trim();
-                TypeInfo typeInfo = (TypeInfo) typeMap.get(type);
+                TypeInfo typeInfo = typeMap.get(type);
                 if (typeInfo != null) {
                     if (id == -1)
                         id = typeInfo.id; // first alias
@@ -256,17 +257,17 @@ public final class TargetSystemInfo {
     }
 
     public final String typeToLogical(String type) {
-        TypeInfo typeInfo = (TypeInfo) typeMap.get(type);
+        TypeInfo typeInfo = typeMap.get(type);
         return (typeInfo != null ? typeInfo.logicalType : null);
     }
 
     public final String logicalToType(String logicalType) {
-        return (String) logicalTypeMap.get(logicalType);
+        return logicalTypeMap.get(logicalType);
     }
 
     public final boolean isAlias(String type1, String type2) {
-        TypeInfo typeInfo1 = (TypeInfo) typeMap.get(type1);
-        TypeInfo typeInfo2 = (TypeInfo) typeMap.get(type2);
+        TypeInfo typeInfo1 = typeMap.get(type1);
+        TypeInfo typeInfo2 = typeMap.get(type2);
         return (typeInfo1 != null && typeInfo2 != null && typeInfo1.id == typeInfo2.id);
     }
 

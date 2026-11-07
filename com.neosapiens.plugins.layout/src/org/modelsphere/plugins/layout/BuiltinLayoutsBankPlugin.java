@@ -1,8 +1,5 @@
 package org.modelsphere.plugins.layout;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelsphere.jack.plugins.Plugin2;
 import org.modelsphere.jack.plugins.PluginAction;
 import org.modelsphere.jack.preference.OptionGroup;
@@ -12,7 +9,13 @@ import org.modelsphere.plugins.layout.clusters.NullClusterLayoutAlgorithm;
 import org.modelsphere.plugins.layout.clusters.arevalo.ArevaloPackingAlgorithm;
 import org.modelsphere.plugins.layout.nodes.layerers.CoffmanGrahamLayerer;
 import org.modelsphere.plugins.layout.nodes.layerers.SinkConsumerLayerer;
-import org.modelsphere.plugins.layout.nodes.sugiyama.*;
+import org.modelsphere.plugins.layout.nodes.sugiyama.DefaultCoordinateAssigner;
+import org.modelsphere.plugins.layout.nodes.sugiyama.DefaultCycleRemover;
+import org.modelsphere.plugins.layout.nodes.sugiyama.QuickSmartNodeOrderer;
+import org.modelsphere.plugins.layout.nodes.sugiyama.SugiyamaLayoutAlgorithm;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Class BuiltinLayoutsBankPlugin.

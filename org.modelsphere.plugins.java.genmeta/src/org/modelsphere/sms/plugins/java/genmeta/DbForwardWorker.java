@@ -33,15 +33,17 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.java.genmeta;
 
-import java.io.File;
-import java.util.ArrayList;
-import org.modelsphere.jack.gui.task.Controller;
-import org.modelsphere.jack.srtool.forward.ForwardOptions;
-import org.modelsphere.jack.srtool.forward.ForwardWorker;
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
+import org.modelsphere.jack.gui.task.Controller;
+import org.modelsphere.jack.srtool.forward.ForwardOptions;
+import org.modelsphere.jack.srtool.forward.ForwardWorker;
 import org.modelsphere.sms.oo.java.db.DbJVPackage;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 final class DbForwardWorker extends ForwardWorker {
     private DbForwardOptions m_options;
@@ -61,7 +63,7 @@ final class DbForwardWorker extends ForwardWorker {
         DbForwardEngineeringPlugin forward = (DbForwardEngineeringPlugin) m_options.getForward();
         DbObject[] objects = m_options.getObjects();
         File actualDirectory = m_options.getActualDirectory();
-        ArrayList generatedFiles = new ArrayList();
+        List<String> generatedFiles = new ArrayList<>();
         DbSemanticalObject firstObj = (DbSemanticalObject) objects[0];
         Db db = firstObj.getDb();
         db.beginTrans(Db.READ_TRANS);

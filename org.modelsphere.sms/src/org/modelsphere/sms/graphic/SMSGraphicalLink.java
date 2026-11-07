@@ -33,11 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.graphic;
 
-import java.awt.Color;
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbUDFValue;
 import org.modelsphere.jack.baseDb.db.event.DbRefreshListener;
@@ -47,13 +42,19 @@ import org.modelsphere.jack.graphic.Diagram;
 import org.modelsphere.jack.graphic.GraphicNode;
 import org.modelsphere.jack.graphic.LineEnd;
 import org.modelsphere.jack.srtool.graphic.SrLine;
-import org.modelsphere.sms.db.*;
-import org.modelsphere.sms.or.db.DbORAssociationGo;
+import org.modelsphere.sms.db.DbSMSGraphicalObject;
+import org.modelsphere.sms.db.DbSMSLineGo;
+import org.modelsphere.sms.db.DbSMSLink;
+import org.modelsphere.sms.db.DbSMSLinkGo;
+import org.modelsphere.sms.db.DbSMSStereotype;
+
+import java.awt.*;
+import java.util.HashSet;
 
 public final class SMSGraphicalLink extends SrLine implements DbRefreshListener {
 
     private HashSet zonesSources;
-    private ArrayList zones = null;
+    private List zones = null;
 
     public SMSGraphicalLink(Diagram diag, DbSMSLinkGo newLinkGO, GraphicNode node1,
             GraphicNode node2) throws DbException {

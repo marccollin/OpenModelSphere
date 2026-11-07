@@ -43,21 +43,20 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Enumeration;
-
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import org.modelsphere.jack.awt.FontChooserDialog;
 import org.modelsphere.jack.awt.HotKeysSupport;
 import org.modelsphere.jack.baseDb.db.srtypes.PageNoPosition;
 import org.modelsphere.jack.debug.TestableWindow;
 import org.modelsphere.jack.international.LocaleMgr;
 import org.modelsphere.jack.srtool.graphic.ApplicationDiagram;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Enumeration;
 
 public class SetPageNumberPositionDialog extends JDialog implements TestableWindow {
     /* Use here appropriate LocalMgr calls */
@@ -268,8 +267,8 @@ public class SetPageNumberPositionDialog extends JDialog implements TestableWind
         else
             radioPanel.setBorder(BorderFactory.createLineBorder(Color.gray));
 
-        for (Enumeration e = radioGroup.getElements(); e.hasMoreElements();) {
-            ((JRadioButton) e.nextElement()).setEnabled(b);
+        for (Enumeration<AbstractButton> e = radioGroup.getElements(); e.hasMoreElements();) {
+            e.nextElement().setEnabled(b);
         }
         fontLabel.setEnabled(b);
         lookupBtn.setEnabled(b);
@@ -290,12 +289,9 @@ public class SetPageNumberPositionDialog extends JDialog implements TestableWind
      */
     private final void setPosition(int value) {
         String sValue = Integer.toString(value);
-        for (Enumeration e = radioGroup.getElements(); e.hasMoreElements();) {
-            JRadioButton rB = (JRadioButton) e.nextElement();
-            if (rB.getActionCommand().equals(sValue))
-                rB.setSelected(true);
-            else
-                rB.setSelected(false);
+        for (Enumeration<AbstractButton> e = radioGroup.getElements(); e.hasMoreElements();) {
+            AbstractButton rB = e.nextElement();
+            rB.setSelected(rB.getActionCommand().equals(sValue));
         }
     }
 
@@ -363,8 +359,7 @@ public class SetPageNumberPositionDialog extends JDialog implements TestableWind
     }
 
     public Window createTestWindow(Container owner) {
-        SetPageNumberPositionDialog dialog = new SetPageNumberPositionDialog();
-        return dialog;
+        return new SetPageNumberPositionDialog();
     }
 
     private static void runDemo() {
@@ -392,4 +387,3 @@ public class SetPageNumberPositionDialog extends JDialog implements TestableWind
     }
 
 } // end SetPageNumberPositionDialog
-

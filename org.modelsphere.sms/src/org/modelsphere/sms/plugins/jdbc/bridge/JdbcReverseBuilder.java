@@ -43,9 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.jdbc.bridge;
 
-import java.sql.Types;
-import java.util.HashMap;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.srtool.reverse.engine.Constraint;
@@ -91,6 +88,10 @@ import org.modelsphere.sms.or.generic.db.DbGEView;
 import org.modelsphere.sms.plugins.TargetSystemInfo;
 import org.modelsphere.sms.plugins.TargetSystemManager;
 
+import java.sql.Types;
+import java.util.HashMap;
+import java.util.Map;
+
 public class JdbcReverseBuilder extends GenericBuilder {
     protected static final int UNKNOWN = 0;
     protected static final int PARAMIN = 1;
@@ -112,7 +113,7 @@ public class JdbcReverseBuilder extends GenericBuilder {
     protected Constraint tableOwnerConstraint2 = null;
     protected Constraint procOwnerConstraint = null;
 
-    protected static HashMap typeMap = new HashMap(); // JDBC type definition
+    protected static Map<Integer, JdbcReverseTypeDef> typeMap = new HashMap<>(); // JDBC type definition
 
     public JdbcReverseBuilder() {
         initTypeMap();
@@ -272,12 +273,12 @@ public class JdbcReverseBuilder extends GenericBuilder {
         map_proc_fnc.put("3", Boolean.TRUE);
 
         map_proc_col_type = new DomainMapping(null);
-        map_proc_col_type.put("0", new Integer(UNKNOWN));
-        map_proc_col_type.put("1", new Integer(PARAMIN));
-        map_proc_col_type.put("2", new Integer(PARAMINOUT));
-        map_proc_col_type.put("3", new Integer(PARAMOUT));
-        map_proc_col_type.put("4", new Integer(RETURNTYPE));
-        map_proc_col_type.put("5", new Integer(RESULTCOLUMN));
+        map_proc_col_type.put("0", Integer.valueOf(UNKNOWN));
+        map_proc_col_type.put("1", Integer.valueOf(PARAMIN));
+        map_proc_col_type.put("2", Integer.valueOf(PARAMINOUT));
+        map_proc_col_type.put("3", Integer.valueOf(PARAMOUT));
+        map_proc_col_type.put("4", Integer.valueOf(RETURNTYPE));
+        map_proc_col_type.put("5", Integer.valueOf(RESULTCOLUMN));
     }
 
     protected void registerForOutput() throws DbException {
@@ -300,65 +301,65 @@ public class JdbcReverseBuilder extends GenericBuilder {
     }
 
     protected void initTypeMap() {
-        typeMap.put(new Integer(Types.ARRAY), new JdbcReverseTypeDef("ARRAY", false, false, false,
+        typeMap.put(Integer.valueOf(Types.ARRAY), new JdbcReverseTypeDef("ARRAY", false, false, false,
                 false, ORDomainCategory.getInstance(ORDomainCategory.COLLECTION))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.BIGINT), new JdbcReverseTypeDef("LONG INTEGER", false, false,
+        typeMap.put(Integer.valueOf(Types.BIGINT), new JdbcReverseTypeDef("LONG INTEGER", false, false,
                 false, true, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.BINARY), new JdbcReverseTypeDef("BINARY", true, false, false,
+        typeMap.put(Integer.valueOf(Types.BINARY), new JdbcReverseTypeDef("BINARY", true, false, false,
                 false, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.BIT), new JdbcReverseTypeDef("BIT", false, false, false,
+        typeMap.put(Integer.valueOf(Types.BIT), new JdbcReverseTypeDef("BIT", false, false, false,
                 true, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.BLOB), new JdbcReverseTypeDef("BLOB", false, false, false,
+        typeMap.put(Integer.valueOf(Types.BLOB), new JdbcReverseTypeDef("BLOB", false, false, false,
                 false, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.BOOLEAN), new JdbcReverseTypeDef("BOOLEAN", false, false,
+        typeMap.put(Integer.valueOf(Types.BOOLEAN), new JdbcReverseTypeDef("BOOLEAN", false, false,
                 false, true, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.CHAR), new JdbcReverseTypeDef("CHARACTER", true, false,
+        typeMap.put(Integer.valueOf(Types.CHAR), new JdbcReverseTypeDef("CHARACTER", true, false,
                 false, false, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.CLOB), new JdbcReverseTypeDef("CLOB", false, false, false,
+        typeMap.put(Integer.valueOf(Types.CLOB), new JdbcReverseTypeDef("CLOB", false, false, false,
                 false, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.DATALINK), new JdbcReverseTypeDef("DATALINK", false, false,
+        typeMap.put(Integer.valueOf(Types.DATALINK), new JdbcReverseTypeDef("DATALINK", false, false,
                 false, false, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.DATE), new JdbcReverseTypeDef("DATE", false, false, false,
+        typeMap.put(Integer.valueOf(Types.DATE), new JdbcReverseTypeDef("DATE", false, false, false,
                 false, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.DECIMAL), new JdbcReverseTypeDef("DECIMAL", true, true,
+        typeMap.put(Integer.valueOf(Types.DECIMAL), new JdbcReverseTypeDef("DECIMAL", true, true,
                 false, true, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.DISTINCT), new JdbcReverseTypeDef("DISTINCT", true, true,
+        typeMap.put(Integer.valueOf(Types.DISTINCT), new JdbcReverseTypeDef("DISTINCT", true, true,
                 false, false, ORDomainCategory.getInstance(ORDomainCategory.DISTINCT))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.DOUBLE), new JdbcReverseTypeDef("DOUBLE PRECISION", false,
+        typeMap.put(Integer.valueOf(Types.DOUBLE), new JdbcReverseTypeDef("DOUBLE PRECISION", false,
                 false, false, true, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.FLOAT), new JdbcReverseTypeDef("FLOAT", false, false, false,
+        typeMap.put(Integer.valueOf(Types.FLOAT), new JdbcReverseTypeDef("FLOAT", false, false, false,
                 true, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.INTEGER), new JdbcReverseTypeDef("INTEGER", false, false,
+        typeMap.put(Integer.valueOf(Types.INTEGER), new JdbcReverseTypeDef("INTEGER", false, false,
                 false, true, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.JAVA_OBJECT), new JdbcReverseTypeDef("JAVA OBJECT", false,
+        typeMap.put(Integer.valueOf(Types.JAVA_OBJECT), new JdbcReverseTypeDef("JAVA OBJECT", false,
                 false, false, false, ORDomainCategory.getInstance(ORDomainCategory.OPAQUE))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.LONGVARBINARY), new JdbcReverseTypeDef("LARGE VARBINARY",
+        typeMap.put(Integer.valueOf(Types.LONGVARBINARY), new JdbcReverseTypeDef("LARGE VARBINARY",
                 false, false, false, false, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.LONGVARCHAR), new JdbcReverseTypeDef("LONG VARCHAR", false,
+        typeMap.put(Integer.valueOf(Types.LONGVARCHAR), new JdbcReverseTypeDef("LONG VARCHAR", false,
                 false, false, false, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.NULL), new JdbcReverseTypeDef("NULL", true, true, false,
+        typeMap.put(Integer.valueOf(Types.NULL), new JdbcReverseTypeDef("NULL", true, true, false,
                 false, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.NUMERIC), new JdbcReverseTypeDef("NUMERIC", true, true,
+        typeMap.put(Integer.valueOf(Types.NUMERIC), new JdbcReverseTypeDef("NUMERIC", true, true,
                 false, true, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.OTHER), new JdbcReverseTypeDef("OTHER", true, true, false,
+        typeMap.put(Integer.valueOf(Types.OTHER), new JdbcReverseTypeDef("OTHER", true, true, false,
                 false, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.REAL), new JdbcReverseTypeDef("REAL", false, false, false,
+        typeMap.put(Integer.valueOf(Types.REAL), new JdbcReverseTypeDef("REAL", false, false, false,
                 true, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.REF), new JdbcReverseTypeDef("REF", false, false, true,
+        typeMap.put(Integer.valueOf(Types.REF), new JdbcReverseTypeDef("REF", false, false, true,
                 false, ORDomainCategory.getInstance(ORDomainCategory.STRUCTURED))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.SMALLINT), new JdbcReverseTypeDef("SMALL INTEGER", false,
+        typeMap.put(Integer.valueOf(Types.SMALLINT), new JdbcReverseTypeDef("SMALL INTEGER", false,
                 false, false, true, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.STRUCT), new JdbcReverseTypeDef("STRUCTURED", false, false,
+        typeMap.put(Integer.valueOf(Types.STRUCT), new JdbcReverseTypeDef("STRUCTURED", false, false,
                 false, false, ORDomainCategory.getInstance(ORDomainCategory.STRUCTURED))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.TIME), new JdbcReverseTypeDef("TIME", false, false, false,
+        typeMap.put(Integer.valueOf(Types.TIME), new JdbcReverseTypeDef("TIME", false, false, false,
                 false, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.TIMESTAMP), new JdbcReverseTypeDef("TIMESTAMP", false, false,
+        typeMap.put(Integer.valueOf(Types.TIMESTAMP), new JdbcReverseTypeDef("TIMESTAMP", false, false,
                 false, false, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.TINYINT), new JdbcReverseTypeDef("SMALL INTEGER", false,
+        typeMap.put(Integer.valueOf(Types.TINYINT), new JdbcReverseTypeDef("SMALL INTEGER", false,
                 false, false, true, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.VARBINARY), new JdbcReverseTypeDef("VARIABLE BINARY", true,
+        typeMap.put(Integer.valueOf(Types.VARBINARY), new JdbcReverseTypeDef("VARIABLE BINARY", true,
                 false, false, false, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
-        typeMap.put(new Integer(Types.VARCHAR), new JdbcReverseTypeDef("VARIABLE CHARACTER", true,
+        typeMap.put(Integer.valueOf(Types.VARCHAR), new JdbcReverseTypeDef("VARIABLE CHARACTER", true,
                 false, false, false, ORDomainCategory.getInstance(ORDomainCategory.DOMAIN))); // NOT LOCALIZABLE
     }
 
@@ -386,7 +387,7 @@ public class JdbcReverseBuilder extends GenericBuilder {
 
         // Try to find the type in the mapping table.
         if (sSQLType != null) {
-            typeDef = (JdbcReverseTypeDef) typeMap.get(new Integer(sSQLType));
+            typeDef = typeMap.get(Integer.valueOf(sSQLType));
             if (typeDef != null) {
                 targetLogicalName = typeDef.getName();
                 category = typeDef.getCategory();
@@ -401,9 +402,9 @@ public class JdbcReverseBuilder extends GenericBuilder {
         // Will process the type correctly
         domain = getDbORDomain(sName, type, category, true);
         if (length)
-            ((DbORDomain) domain).setLength(new Integer(sLength));
+            ((DbORDomain) domain).setLength(Integer.valueOf(sLength));
         if (isRef)
-            ((DbORDomain) domain).setReference(new Boolean(isRef));
+            ((DbORDomain) domain).setReference(Boolean.valueOf(isRef));
         ((DbORDomain) domain).setNull((Boolean) (map_type_null.get(sNullable)));
         ((DbORDomain) domain).setCaseSensitive((Boolean) (map_type_null.get(sCaseSens)));
 
@@ -463,17 +464,17 @@ public class JdbcReverseBuilder extends GenericBuilder {
         ORDomainCategory category = null;
 
         if (sSQLType != null) {
-            typeDef = (JdbcReverseTypeDef) typeMap.get(new Integer(sSQLType));
+            typeDef = typeMap.get(Integer.valueOf(sSQLType));
             if (typeDef != null) {
                 String length = (String) currentObject.get("size"); // NOT LOCALIZABLE
                 String decimal = (String) currentObject.get("decimals"); // NOT LOCALIZABLE
                 category = typeDef.getCategory();
                 isRef = typeDef.getRef();
                 if ((length != null) && (typeDef.getLength()))
-                    column.setLength(new Integer(length));
+                    column.setLength(Integer.valueOf(length));
                 if ((decimal != null) && (typeDef.getDecimal()))
-                    column.setNbDecimal(new Integer(decimal));
-                column.setReference(new Boolean(isRef));
+                    column.setNbDecimal(Integer.valueOf(decimal));
+                column.setReference(Boolean.valueOf(isRef));
                 String defValue = column.getInitialValue();
                 if (defValue != null) {
                     column.setInitialValue(getDefaultValue(defValue, typeDef));
@@ -559,7 +560,7 @@ public class JdbcReverseBuilder extends GenericBuilder {
         fKey = createForeignAux(frontEnd);
         if (pKey != null)
             frontEnd.setReferencedConstraint(pKey);
-        if (keyColsCreated == false)
+        if (!keyColsCreated)
             keyColsCreated = createForeignKeyColumns(fKey, sFkTable, sFkColumn, sPkTable, sPkColumn);
         return fKey;
     }
@@ -701,17 +702,17 @@ public class JdbcReverseBuilder extends GenericBuilder {
         JdbcReverseTypeDef typeDef = null;
         ORDomainCategory category = null;
         if (sSQLType != null) {
-            typeDef = (JdbcReverseTypeDef) typeMap.get(new Integer(sSQLType));
+            typeDef = typeMap.get(Integer.valueOf(sSQLType));
             if (typeDef != null) {
                 String sLength = (String) currentObject.get("length"); // NOT LOCALIZABLE
                 String sNbDecimal = (String) currentObject.get("nb_decimals"); // NOT LOCALIZABLE
                 category = typeDef.getCategory();
                 isRef = typeDef.getRef();
                 if ((sLength != null) && (typeDef.getLength()))
-                    param.setLength(new Integer(sLength));
+                    param.setLength(Integer.valueOf(sLength));
                 if ((sNbDecimal != null) && (typeDef.getDecimal()))
-                    param.setNbDecimal(new Integer(sNbDecimal));
-                param.setReference(new Boolean(isRef));
+                    param.setNbDecimal(Integer.valueOf(sNbDecimal));
+                param.setReference(Boolean.valueOf(isRef));
             }
         }
 
@@ -742,11 +743,11 @@ public class JdbcReverseBuilder extends GenericBuilder {
         JdbcReverseTypeDef typeDef = null;
         ORDomainCategory category = null;
         if (sSQLType != null) {
-            typeDef = (JdbcReverseTypeDef) typeMap.get(new Integer(sSQLType));
+            typeDef = typeMap.get(Integer.valueOf(sSQLType));
             if (typeDef != null) {
                 category = typeDef.getCategory();
                 isRef = typeDef.getRef();
-                aProc.setReturnTypeReference(new Boolean(isRef));
+                aProc.setReturnTypeReference(Boolean.valueOf(isRef));
             }
         }
 

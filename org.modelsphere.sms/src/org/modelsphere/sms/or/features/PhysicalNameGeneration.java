@@ -33,15 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features;
 
-import java.awt.Frame;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Set;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.actions.util.DbMultiTrans;
 import org.modelsphere.jack.awt.TextViewerDialog;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -69,6 +60,15 @@ import org.modelsphere.sms.or.oracle.db.DbORAAbsPartition;
 import org.modelsphere.sms.or.screen.GeneratePhysicalNameFrame;
 import org.modelsphere.sms.or.screen.model.GeneratePhysicalNameModel;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 public final class PhysicalNameGeneration {
     private static final String EOL = System.getProperty("line.separator"); //NOT LOCALIZABLE, property key
     private static final String TAB = "    "; //4 spaces use as TAB   NOT LOCALIZABLE, property key
@@ -87,7 +87,7 @@ public final class PhysicalNameGeneration {
     private PhysicalNameDictionary dictionary = new PhysicalNameDictionary();
     private StringBuffer report = new StringBuffer(250);
     private boolean somePhysicalNameGen = false;
-    private HashMap accentedCharactersHashMap = null;
+    private Map<String, String> accentedCharactersHashMap = null;
 
     public PhysicalNameGeneration() {
     }
@@ -112,11 +112,11 @@ public final class PhysicalNameGeneration {
         }
     }
 
-    private final void generateForConcepts(ArrayList concepts, DbObject[] semObjs)
+    private final void generateForConcepts(List<ORPNGParameters> concepts, DbObject[] semObjs)
             throws DbException {
         DbMultiTrans.beginTrans(Db.WRITE_TRANS, semObjs, PhysicalNameTrans);
-        for (int i = 0; i < semObjs.length; i++) {
-            DbObject semObj = semObjs[i];
+        for (DbObject obj : semObjs) {
+            DbObject semObj = obj;
             if (semObj instanceof DbORDiagram) {
                 semObj = (DbORModel) semObj.getCompositeOfType(DbORModel.metaClass);
             }
@@ -128,20 +128,19 @@ public final class PhysicalNameGeneration {
             if (semObj != null) {
                 writePackageHeader(semObj);
                 boolean innerPackageNameGen = false;
-                for (int j = 0; j < concepts.size(); j++) {
-                    ArrayList conceptsChanged = new ArrayList();
+                for (ORPNGParameters param : concepts) {
+                    List<String> conceptsChanged = new ArrayList<>();
                     boolean addSemObjToGeneration = false;
-                    ORPNGParameters param = (ORPNGParameters) concepts.get(j);
                     if (param.getConceptMetaClass().isAssignableFrom(semObj.getMetaClass()))
                         addSemObjToGeneration = true;
-                    ArrayList uniqueName = (param.isUnique().booleanValue() ? new ArrayList()
+                    List<String> uniqueName = (param.isUnique() ? new ArrayList<>()
                             : null);
                     if (param.getStatus().getValue() == ORPNGStatus.PARTIAL) {
-                        ArrayList listConcepts = new ArrayList();
+                        List<DbObject> listConcepts = new ArrayList<>();
                         if (addSemObjToGeneration)
                             listConcepts.add(semObj);
                         DbEnumeration dbEnum = semObj.componentTree(param.getConceptMetaClass(),
-                                new MetaClass[] { DbSMSPackage.metaClass, DbSMSDiagram.metaClass });
+                                new MetaClass[]{DbSMSPackage.metaClass, DbSMSDiagram.metaClass});
                         while (dbEnum.hasMoreElements()) {
                             DbSemanticalObject concept = (DbSemanticalObject) dbEnum.nextElement();
                             listConcepts.add(concept);
@@ -150,8 +149,8 @@ public final class PhysicalNameGeneration {
                                 uniqueName.add(concept.getPhysicalName());
                         } //end while
                         dbEnum.close();
-                        for (int ii = 0; ii < listConcepts.size(); ii++) {
-                            DbSemanticalObject concept = (DbSemanticalObject) listConcepts.get(ii);
+                        for (DbObject listConcept : listConcepts) {
+                            DbSemanticalObject concept = (DbSemanticalObject) listConcept;
                             if (StringUtil.isEmptyString(concept.getPhysicalName())) {
                                 String physicalName = generatePhysicalNameFor(concept, uniqueName,
                                         param);
@@ -174,7 +173,7 @@ public final class PhysicalNameGeneration {
                             } //end if
                         } //end if
                         DbEnumeration dbEnum = semObj.componentTree(param.getConceptMetaClass(),
-                                new MetaClass[] { DbSMSPackage.metaClass, DbSMSDiagram.metaClass });
+                                new MetaClass[]{DbSMSPackage.metaClass, DbSMSDiagram.metaClass});
                         while (dbEnum.hasMoreElements()) {
                             DbSemanticalObject concept = (DbSemanticalObject) dbEnum.nextElement();
                             String genName = generatePhysicalNameFor(concept, uniqueName, param);
@@ -188,7 +187,7 @@ public final class PhysicalNameGeneration {
                         } //end while
                     } //end if 
 
-                    if (conceptsChanged.size() > 0) {
+                    if (!conceptsChanged.isEmpty()) {
                         writeInnerPackageComment(param.getConceptName());
                         writeInnerConceptComment(conceptsChanged);
                         innerPackageNameGen = true;
@@ -205,7 +204,7 @@ public final class PhysicalNameGeneration {
         DbMultiTrans.commitTrans(semObjs);
     } //end generateForConcepts()
 
-    private final String generatePhysicalNameFor(DbSemanticalObject concept, ArrayList uniqueName,
+    private final String generatePhysicalNameFor(DbSemanticalObject concept, List<String> uniqueName,
             ORPNGParameters param) throws DbException {
         String physicalName = null;
 
@@ -219,7 +218,7 @@ public final class PhysicalNameGeneration {
         physicalName = getNameWithSpaceReplaced(physicalName, param);
         physicalName = getNameWithParamApplied(physicalName, param);
         physicalName = getNameWithAccentedCharactersReplaced(physicalName);
-        if (param.isUnique().booleanValue()) {
+        if (param.isUnique()) {
             physicalName = getUniqueName(physicalName, uniqueName, param);
         }
         return physicalName;
@@ -266,12 +265,12 @@ public final class PhysicalNameGeneration {
     // replace all accented characters ex: é = e à = a
     private final String getNameWithAccentedCharactersReplaced(String name) {
         String newName = name;
-        Set keySet = accentedCharactersHashMap.keySet();
-        Object[] keyArray = keySet.toArray();
+        Set<String> keySet = accentedCharactersHashMap.keySet();
+        String[] keyArray = keySet.toArray(new String[0]);
         for (int i = 0; i < keyArray.length; i++) {
-            String key = (String) keyArray[i];
+            String key = keyArray[i];
             if (newName.indexOf(key) != -1) {
-                String value = (String) accentedCharactersHashMap.get(key);
+                String value = accentedCharactersHashMap.get(key);
                 if (value != null)
                     newName = StringUtil.replaceWords(newName, key, value);
             }
@@ -348,9 +347,9 @@ public final class PhysicalNameGeneration {
         return newName;
     }
 
-    private final String getUniqueName(String name, ArrayList uniqueName, ORPNGParameters param) {
-        int length = param.getLength().intValue();
-        int nbrCharByWord = param.getNbrCharByWord().intValue();
+    private final String getUniqueName(String name, List<String> uniqueName, ORPNGParameters param) {
+        int length = param.getLength();
+        int nbrCharByWord = param.getNbrCharByWord();
         String newName = name;
 
         if (!uniqueNameContains(uniqueName, name))
@@ -370,9 +369,9 @@ public final class PhysicalNameGeneration {
         return newName;
     }
 
-    private final boolean uniqueNameContains(ArrayList uniqueName, String name) {
-        for (int j = 0; j < uniqueName.size(); j++) {
-            if (((String) uniqueName.get(j)).equalsIgnoreCase(name))
+    private final boolean uniqueNameContains(List<String> uniqueName, String name) {
+        for (String unique : uniqueName) {
+            if (unique.equalsIgnoreCase(name))
                 return true;
         }
         return false;
@@ -436,10 +435,10 @@ public final class PhysicalNameGeneration {
         report.append(TAB + TAB + s + EOL);
     }
 
-    private final void writeInnerConceptComment(ArrayList innerComments) throws DbException {
+    private final void writeInnerConceptComment(List<String> innerComments) throws DbException {
         Collections.sort(innerComments, new CollationComparator());
         for (int i = 0; i < innerComments.size(); i++) {
-            writeInnerConceptComment((String) innerComments.get(i));
+            writeInnerConceptComment(innerComments.get(i));
         }
     }
 

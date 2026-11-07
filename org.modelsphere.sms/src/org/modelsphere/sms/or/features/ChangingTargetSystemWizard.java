@@ -33,36 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.features;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.border.TitledBorder;
-
 import org.modelsphere.jack.awt.AwtUtil;
 import org.modelsphere.jack.awt.ThinBevelBorder;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -82,6 +52,17 @@ import org.modelsphere.sms.or.db.DbOROperationLibrary;
 import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.plugins.TargetSystem;
 import org.modelsphere.sms.plugins.TargetSystemManager;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChangingTargetSystemWizard extends JDialog {
     private TitledBorder titledBorder1;
@@ -514,7 +495,7 @@ public class ChangingTargetSystemWizard extends JDialog {
     private void initPage4() throws DbException {
         // if RDBMS of 2 different families
         DbSMSTargetSystem sourceTs = m_model.getTargetSystem();
-        ArrayList modelList = new ArrayList();
+        List<DbORModel> modelList = new ArrayList<>();
         StringWriter sw = new StringWriter();
         PrintWriter writer = new PrintWriter(sw);
         String indentation = "";
@@ -534,7 +515,7 @@ public class ChangingTargetSystemWizard extends JDialog {
     private static final int UNLINK_ACTION = 2;
     private static final int LEAVE_TS_ACTION = 3;
 
-    private void buildMessagePage4(ArrayList modelList, PrintWriter writer, String indentation,
+    private void buildMessagePage4(List<DbORModel> modelList, PrintWriter writer, String indentation,
             DbORModel model, DbORModel parentModel, int action) throws DbException {
         // if parentModel not linked to any model, or if model already is list
         if ((model == null) || (modelList.contains(model))) {
@@ -895,7 +876,7 @@ public class ChangingTargetSystemWizard extends JDialog {
         radioBtn2.setText(CONVERT_THE_DEPLOYMENT_DATABASE);
     } // end setOptionText()
 
-    private void findDomainModels(ArrayList list, DbObject composite, DbSMSTargetSystem destTarget)
+    private void findDomainModels(List list, DbObject composite, DbSMSTargetSystem destTarget)
             throws DbException {
         DbRelationN relN = composite.getComponents();
         DbEnumeration dbEnum = relN.elements(DbORDomainModel.metaClass);

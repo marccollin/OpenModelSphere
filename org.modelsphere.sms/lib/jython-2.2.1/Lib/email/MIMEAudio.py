@@ -5,13 +5,10 @@
 
 import sndhdr
 from cStringIO import StringIO
-
-from email import Errors
 from email import Encoders
+from email import Errors
 from email.MIMENonMultipart import MIMENonMultipart
 
-
-
 _sndhdr_MIMEmap = {'au'  : 'basic',
                    'wav' :'x-wav',
                    'aiff':'x-aiff',

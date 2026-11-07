@@ -33,10 +33,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.assistant;
 
-import java.net.URL;
-
 import org.modelsphere.jack.baseDb.assistant.JHtmlBallonHelp;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import java.net.URL;
 
 public class SMSAssistant extends JHtmlBallonHelp {
 

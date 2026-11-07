@@ -33,13 +33,22 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.plugins.integrity;
 
-import java.util.ArrayList;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.meta.MetaClass;
 import org.modelsphere.jack.plugins.PluginSelectionListener;
 import org.modelsphere.sms.db.DbSMSAbstractPackage;
-import org.modelsphere.sms.or.db.*;
+import org.modelsphere.sms.or.db.DbORAssociation;
+import org.modelsphere.sms.or.db.DbORCommonItemModel;
+import org.modelsphere.sms.or.db.DbORDataModel;
+import org.modelsphere.sms.or.db.DbORDomainModel;
+import org.modelsphere.sms.or.db.DbOROperationLibrary;
+import org.modelsphere.sms.or.db.DbORTable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author pierrem
@@ -74,15 +83,15 @@ public abstract class AbstractIntegrity {
      */
     public static final String DELETE_ONE = "DELETE_ONE"; // NOT LOCALIZABLE 
     static final String DELETE_ALL = "DELETE_ALL"; // NOT LOCALIZABLE  
-    protected static ArrayList[] occurencesToClean = null; //utiliser avec les constantes de ruleIndex
+    protected static List[] occurencesToClean = null; //utiliser avec les constantes de ruleIndex
 
     /*
      * public methods
      */
 
-    public ArrayList<DbObject> getOccurrences(DbObject model, MetaClass metaclass)
+    public List<DbObject> getOccurrences(DbObject model, MetaClass metaclass)
             throws DbException {
-        ArrayList<DbObject> occurences = new ArrayList<DbObject>();
+        List<DbObject> occurences = new ArrayList<DbObject>();
 
         if (model == null || metaclass == null)
             return occurences;
@@ -104,9 +113,9 @@ public abstract class AbstractIntegrity {
                 new MetaClass[] { DbSMSAbstractPackage.metaClass });
     }
 
-    public ArrayList getEntitiesAssociations(DbObject model, MetaClass metaclass,
-            boolean isAssociation) throws DbException {
-        ArrayList occurences = new ArrayList();
+    public List getEntitiesAssociations(DbObject model, MetaClass metaclass,
+                                        boolean isAssociation) throws DbException {
+        List<DbORTable> occurences = new ArrayList<>();
         DbORTable dbTable = null;
 
         if (model == null || metaclass == null)
@@ -127,8 +136,8 @@ public abstract class AbstractIntegrity {
         return occurences;
     }
 
-    public ArrayList getErRoles(DbObject model, MetaClass metaclass) throws DbException {
-        ArrayList occurences = new ArrayList();
+    public List getErRoles(DbObject model, MetaClass metaclass) throws DbException {
+        List<DbObject> occurences = new ArrayList<>();
         DbORAssociation association = null;
 
         if (model == null || metaclass == null)
@@ -197,9 +206,9 @@ public abstract class AbstractIntegrity {
      * CleanUp All occurences
      */
     protected static boolean deleteAllSectionOccurences() throws DbException {
-        for (int i = 0; i < occurencesToClean.length; i++) {
-            for (int j = 0; j < occurencesToClean[i].size(); j++) {
-                DbObject dbo = (DbObject) (occurencesToClean[i].get(j));
+        for (List arrayList : occurencesToClean) {
+            for (Object o : arrayList) {
+                DbObject dbo = (DbObject) o;
                 dbo.remove();
                 int status = dbo.getTransStatus();
                 if (status != Db.OBJ_REMOVED)

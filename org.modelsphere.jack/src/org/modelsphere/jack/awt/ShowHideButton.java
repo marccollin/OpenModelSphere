@@ -42,15 +42,12 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.awt;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.Action;
-import javax.swing.Icon;
-import javax.swing.JButton;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.srtool.actions.ShowAbstractAction;
+
+import javax.swing.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class ShowHideButton extends JButton {
     private boolean componentVisible = false;

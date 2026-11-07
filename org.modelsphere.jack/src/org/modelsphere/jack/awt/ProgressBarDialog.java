@@ -43,14 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.*;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.debug.TestableWindow;
 import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.nio.file.FileSystems;
 
 public class ProgressBarDialog extends JDialog implements TestableWindow {
 
@@ -68,7 +72,7 @@ public class ProgressBarDialog extends JDialog implements TestableWindow {
 
     public ProgressBarDialog(JFrame frame, LongTask aTask, String title, boolean addTaskOutput) {
         super(frame, title, true);
-        newline = System.getProperty("line.separator");
+        newline = FileSystems.getDefault().getSeparator();
         addedTaskOutput = addTaskOutput;
         task = aTask;
 
@@ -141,6 +145,7 @@ public class ProgressBarDialog extends JDialog implements TestableWindow {
         public void windowIconified(WindowEvent e) {
         }
 
+        @Override
         public void windowOpened(WindowEvent e) {
         }
     }

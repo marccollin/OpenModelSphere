@@ -43,12 +43,9 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.plugins.io;
 
-import java.awt.Image;
-import java.awt.MediaTracker;
-import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.*;
 import java.net.URL;
-
-import javax.swing.JLabel;
 
 public class ImageUtilities {
     private static MediaTracker tracker = new MediaTracker(new JLabel());

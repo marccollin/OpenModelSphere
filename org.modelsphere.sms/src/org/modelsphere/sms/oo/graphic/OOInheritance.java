@@ -34,7 +34,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.oo.graphic;
 
 //Java
-import java.awt.Color;
 
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
@@ -57,6 +56,8 @@ import org.modelsphere.sms.oo.db.DbOODiagram;
 import org.modelsphere.sms.oo.db.DbOOInheritance;
 import org.modelsphere.sms.oo.db.DbOOStyle;
 import org.modelsphere.sms.oo.java.db.DbJVClass;
+
+import java.awt.*;
 
 public class OOInheritance extends SrLine implements DbRefreshListener {
 
@@ -227,7 +228,7 @@ public class OOInheritance extends SrLine implements DbRefreshListener {
             return "";
         String pattern = "{0}/{1}";
         return MessageFormat.format(pattern,
-                new Object[] { new Integer(index), new Integer(count) });
+                new Object[] { Integer.valueOf(index), Integer.valueOf(count) });
     }
 
 }

@@ -79,7 +79,9 @@ XXX Possible additions:
 
 """
 
-import sys, os, stat
+import os
+import stat
+import sys
 
 __all__ = ["input","close","nextfile","filename","lineno","filelineno",
            "isfirstline","isstdin","FileInput"]

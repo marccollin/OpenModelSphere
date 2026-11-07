@@ -45,10 +45,9 @@ Email: marco.savard@neosapiens.com
 
 package com.neosapiens.plugins.reverse.java;
 
-import java.awt.event.ActionEvent;
-
-import javax.swing.*;
-
+import com.neosapiens.plugins.reverse.java.international.LocaleMgr;
+import com.neosapiens.plugins.reverse.java.ui.ReverseJavaBytecodeWizard;
+import com.neosapiens.plugins.reverse.java.ui.WizardParameters;
 import org.modelsphere.jack.awt.JackMenu;
 import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.jack.gui.task.DefaultController;
@@ -62,9 +61,8 @@ import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.MainFrameMenu;
 
-import com.neosapiens.plugins.reverse.java.international.LocaleMgr;
-import com.neosapiens.plugins.reverse.java.ui.ReverseJavaBytecodeWizard;
-import com.neosapiens.plugins.reverse.java.ui.WizardParameters;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class ReverseJavaBytecodePlugin2 implements Plugin2 {
 

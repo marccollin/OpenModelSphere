@@ -43,19 +43,29 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.xml;
 
-import java.text.MessageFormat;
-import java.awt.Polygon;
-import java.lang.reflect.*;
-import java.util.*;
-
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import org.modelsphere.jack.baseDb.meta.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.srtypes.SrBoolean;
+import org.modelsphere.jack.baseDb.db.srtypes.SrImage;
+import org.modelsphere.jack.baseDb.db.srtypes.SrPolygon;
+import org.modelsphere.jack.baseDb.db.srtypes.SrType;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.util.DataConversion;
 
+import java.awt.*;
+import java.lang.reflect.Field;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 public final class XMLUtilities implements XMLConstants {
-    private static HashMap idPool = null;
+    private static Map<MetaClass, String> idPool = null;
 
     static String getIndent(int indent) {
         if (indent <= 0)
@@ -124,23 +134,23 @@ public final class XMLUtilities implements XMLConstants {
         if (idPool == null) {
             initIDPool();
         }
-        return (String) idPool.get(metaclass);
+        return idPool.get(metaclass);
     }
 
     private static void initIDPool() {
-        idPool = new HashMap();
-        ArrayList shortNameList = new ArrayList(); // validation only
-        Enumeration allmetaclasses = MetaClass.enumMetaClasses();
+        idPool = new HashMap<>();
+        List<String> shortNameList = new ArrayList<>(); // validation only
+        Enumeration<MetaClass> allmetaclasses = MetaClass.enumMetaClasses();
         while (allmetaclasses.hasMoreElements()) {
-            MetaClass mc = (MetaClass) allmetaclasses.nextElement();
+            MetaClass mc = allmetaclasses.nextElement();
             String name = mc.getJClass().getName();
             int index = name.lastIndexOf(".Db"); // NOT LOCALIZABLE
             if (index > -1) {
-                name = name.substring(index + ".Db".length(), name.length()); // NOT
+                name = name.substring(index + ".Db".length()); // NOT
                 // LOCALIZABLE
             }
             // validate for duplicate
-            Debug.assert2(shortNameList.indexOf(name) == -1,
+            Debug.assert2(!shortNameList.contains(name),
                     "XMLUtilities:  Duplicated name for metaclass.");
             shortNameList.add(name);
             idPool.put(mc, name);
@@ -152,9 +162,7 @@ public final class XMLUtilities implements XMLConstants {
             initIDPool();
         }
         XMLElement idpool = new DefaultElement(TAG_ID_POOL);
-        Iterator metaclasses = idPool.keySet().iterator();
-        while (metaclasses.hasNext()) {
-            MetaClass metaclass = (MetaClass) metaclasses.next();
+        for (MetaClass metaclass : idPool.keySet()) {
             XMLElement id = new DefaultElement(TAG_ID);
             id.add(new DefaultAttribute(ID_SHORT, idPool.get(metaclass)));
             id.add(new DefaultAttribute(ID_LONG, metaclass.getJClass().getName()));
@@ -235,7 +243,7 @@ public final class XMLUtilities implements XMLConstants {
         DataConversion conversion = DataConversion.getSingleton();
 
         if (type == boolean.class) {
-            boolean b = fieldValue.equals("1") ? true : false;
+            boolean b = fieldValue.equals("1");
             field.setBoolean(obj, b);
         } else if (type == byte.class) {
             byte b = Byte.parseByte(fieldValue);

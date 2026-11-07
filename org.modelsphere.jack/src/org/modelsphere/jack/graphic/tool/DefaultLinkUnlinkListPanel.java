@@ -43,10 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic.tool;
 
-import java.awt.*;
-import javax.swing.*;
-
 import org.modelsphere.jack.util.DefaultComparableElement;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class DefaultLinkUnlinkListPanel extends JPanel {
     private JList list = new JList();

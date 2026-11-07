@@ -43,15 +43,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.graphic;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import org.modelsphere.jack.graphic.shape.GraphicShape;
+import org.modelsphere.jack.graphic.zone.CellEditor;
+import org.modelsphere.jack.graphic.zone.CellID;
+import org.modelsphere.jack.graphic.zone.MatrixCellID;
+import org.modelsphere.jack.graphic.zone.MatrixZone;
+import org.modelsphere.jack.graphic.zone.Zone;
+import org.modelsphere.jack.graphic.zone.ZoneCell;
+import org.modelsphere.jack.util.SrVector;
+
+import java.awt.*;
 import java.util.Enumeration;
 import java.util.Vector;
-
-import org.modelsphere.jack.graphic.shape.GraphicShape;
-import org.modelsphere.jack.graphic.zone.*;
-import org.modelsphere.jack.util.SrVector;
 
 public class ZoneBox extends GraphicComponent {
 
@@ -111,8 +114,8 @@ public class ZoneBox extends GraphicComponent {
     }
 
     // Enumerate the zones in display order.
-    public final Enumeration displayedZones() {
-        return new Enumeration() {
+    public final Enumeration<Zone> displayedZones() {
+        return new Enumeration<Zone>() {
             private int i = 0;
             private int nb = zones.size();
             private Zone zone = null;
@@ -128,7 +131,7 @@ public class ZoneBox extends GraphicComponent {
                 }
             }
 
-            public Object nextElement() {
+            public Zone nextElement() {
                 Zone ret = zone;
                 zone = null;
                 return ret;
@@ -384,10 +387,10 @@ public class ZoneBox extends GraphicComponent {
     }
 
     public final CellID[] getSelectedCells() {
-        Vector vecSelCells = new Vector();
+        Vector<CellID> vecSelCells = new Vector<>();
         int nb = zones.size();
-        for (int i = 0; i < nb; i++) {
-            Zone zone = (Zone) zones.get(i);
+        for (Object o : zones) {
+            Zone zone = (Zone) o;
             zone.getSelectedCells(vecSelCells);
         }
         CellID[] selCells = new CellID[vecSelCells.size()];
@@ -397,8 +400,7 @@ public class ZoneBox extends GraphicComponent {
 
     public final void deselectAllCells() {
         CellID[] selCells = getSelectedCells();
-        for (int i = 0; i < selCells.length; i++)
-            selectCell(selCells[i], false);
+        for (CellID selCell : selCells) selectCell(selCell, false);
     }
 
     public final boolean isCellSelected(CellID cellID) {

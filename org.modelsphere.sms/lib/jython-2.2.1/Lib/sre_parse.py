@@ -13,8 +13,8 @@
 # XXX: show string offset and offending character for all errors
 
 # this module works under 1.5.2 and later.  don't use string methods
-import string, sys
-
+import string
+import sys
 from sre_constants import *
 
 SPECIAL_CHARS = ".\\[{()*+?^$|"

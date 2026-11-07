@@ -33,14 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.screen.plugins;
 
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbRelationN;
@@ -64,6 +56,13 @@ import org.modelsphere.sms.be.features.MergeUseCase;
 import org.modelsphere.sms.db.DbSMSProject;
 import org.modelsphere.sms.db.DbSMSUserDefinedPackage;
 import org.modelsphere.sms.international.LocaleMgr;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbBEUseCaseExternalEditor extends JCheckBox implements
         org.modelsphere.jack.baseDb.screen.Editor {
@@ -206,7 +205,7 @@ public class DbBEUseCaseExternalEditor extends JCheckBox implements
 
         // find all other contexts
         DbBEUseCase context = findContextOf(process);
-        final ArrayList contextList = getAllContexts(context);
+        final List<DbBEUseCase> contextList = getAllContexts(context);
 
         if (contextList.isEmpty()) {
             String msg = LocaleMgr.screen.getString("YourProjectMustContainAtLeastOneOtherContext");
@@ -218,7 +217,7 @@ public class DbBEUseCaseExternalEditor extends JCheckBox implements
             process.getDb().beginReadTrans();
             DefaultComparableElement elem = DbLookupDialog.selectDbo(ApplicationContext
                     .getDefaultMainFrame(), title, (Point) null, process.getDb(), contextList,
-                    (DbBEUseCase) contextList.get(0), null, true);
+                    contextList.get(0), null, true);
             // DbLookupDialog.selectDbo closes the read transaction
 
             if (elem != null) {
@@ -244,8 +243,8 @@ public class DbBEUseCaseExternalEditor extends JCheckBox implements
         return process;
     } // end findContextOf
 
-    private static ArrayList getAllContexts(DbBEUseCase context) throws DbException {
-        ArrayList contextList = new ArrayList();
+    private static List<DbBEUseCase> getAllContexts(DbBEUseCase context) throws DbException {
+        List<DbBEUseCase> contextList = new ArrayList<>();
 
         DbRoot root = (DbRoot) context.getCompositeOfType(DbRoot.metaClass);
         DbRelationN relN = root.getComponents();
@@ -259,7 +258,7 @@ public class DbBEUseCaseExternalEditor extends JCheckBox implements
         return contextList;
     } // end getAllContexts()
 
-    private static void getAllContextsOfComposite(ArrayList contextList,
+    private static void getAllContextsOfComposite(List<DbBEUseCase> contextList,
             DbSemanticalObject composite, DbBEUseCase originalContext) throws DbException {
         DbRelationN relN = composite.getComponents();
         DbEnumeration dbEnum = relN.elements(DbBEModel.metaClass);
@@ -277,7 +276,7 @@ public class DbBEUseCaseExternalEditor extends JCheckBox implements
         dbEnum.close();
     } // end getAllContextsOfComposite()
 
-    private static void getAllContextsOfModel(ArrayList contextList, DbBEModel model,
+    private static void getAllContextsOfModel(List<DbBEUseCase> contextList, DbBEModel model,
             DbBEUseCase originalContext) throws DbException {
         DbRelationN relN = model.getComponents();
         DbEnumeration dbEnum = relN.elements(DbBEUseCase.metaClass);

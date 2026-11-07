@@ -43,20 +43,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.jdbc.bridge;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.sql.DatabaseMetaData;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.Box;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.srtool.plugins.generic.dbms.ObjectScope;
 import org.modelsphere.jack.srtool.reverse.jdbc.JdbcMetaInfo;
@@ -71,6 +57,14 @@ import org.modelsphere.sms.or.features.dbms.DBMSReverseOptions;
 import org.modelsphere.sms.or.features.dbms.DefaultReverseWizardOptionPage;
 import org.modelsphere.sms.plugins.TargetSystem;
 import org.modelsphere.sms.plugins.TargetSystemInfo;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class JdbcReverseSpecificOptionPage extends DefaultReverseWizardOptionPage {
 
@@ -233,8 +227,8 @@ public final class JdbcReverseSpecificOptionPage extends DefaultReverseWizardOpt
 
     private void populateTargetSystem(DBMSReverseOptions options) throws SQLException {
         JdbcReverseOptions jdbcOptions = (JdbcReverseOptions) options.getSpecificDBMSOptions();
-        ArrayList tsList = (ArrayList) jdbcOptions.getTargetSystems();
-        ArrayList compareList = new ArrayList();
+        List<?> tsList = jdbcOptions.getTargetSystems();
+        List<DefaultComparableElement> compareList = new ArrayList<>();
         TargetSystemInfo targetInfo = null;
 
         for (int i = 0; i < tsList.size(); i++) {
@@ -314,8 +308,7 @@ public final class JdbcReverseSpecificOptionPage extends DefaultReverseWizardOpt
             if (elements == null)
                 return;
 
-            for (int i = 0; i < elements.length; i++)
-                targetCombo.addItem(elements[i]);
+            for (Object element : elements) targetCombo.addItem(element);
         }
 
         public void setTargetSystem(int targetid) {
@@ -345,12 +338,11 @@ public final class JdbcReverseSpecificOptionPage extends DefaultReverseWizardOpt
             if (elements == null)
                 return;
 
-            for (int i = 0; i < elements.length; i++)
-                catalogCombo.addItem(elements[i]);
+            for (Object element : elements) catalogCombo.addItem(element);
         }
 
         public void setCatalogTerm(String term) {
-            if (term == null || term.length() == 0)
+            if (term == null || term.isEmpty())
                 catalogLabel.setText(catalogLabelKey);
             else
                 catalogLabel.setText(term);

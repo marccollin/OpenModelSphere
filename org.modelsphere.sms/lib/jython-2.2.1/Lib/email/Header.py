@@ -3,14 +3,13 @@
 
 """Header encoding and decoding functionality."""
 
-import re
 import binascii
-from types import StringType, UnicodeType
-
-import email.quopriMIME
 import email.base64MIME
-from email.Errors import HeaderParseError
+import email.quopriMIME
+import re
 from email.Charset import Charset
+from email.Errors import HeaderParseError
+from types import StringType, UnicodeType
 
 try:
     from email._compat22 import _floordiv

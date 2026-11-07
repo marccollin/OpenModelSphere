@@ -43,19 +43,28 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.international;
 
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.io.*;
-import java.lang.reflect.Field;
-import java.net.URL;
-import java.util.*;
-
-import javax.swing.AbstractButton;
-import javax.swing.ImageIcon;
-
 import org.modelsphere.jack.debug.Debug;
 import org.modelsphere.jack.plugins.PluginsConfiguration;
 import org.modelsphere.jack.util.StringUtil;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.reflect.Field;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+import java.util.List;
 
 /**
  * Get locale-dependent resources (such as strings, images, etc.) from the resource files
@@ -110,7 +119,7 @@ public class LocaleMgr {
         return m_resName;
     }
 
-    private ArrayList m_parentChain = new ArrayList();
+    private List<String> m_parentChain = new ArrayList<>();
 
     protected LocaleMgr(String resName) {
         m_resName = resName;
@@ -190,8 +199,7 @@ public class LocaleMgr {
         //get the "locale.properties" file
         String folderPath = System.getProperty("user.dir"); //NOT LOCALIZABLE, property
         String filename = "locale.properties"; //NOT LOCALIZABLE, independant from current language
-        File file = new File(folderPath, filename);
-        return file;
+        return new File(folderPath, filename);
     } //getLocalePropertyFile
 
     //get locale stored in "locale.properties" file
@@ -293,8 +301,7 @@ public class LocaleMgr {
         String value = line.substring(idx + 1);
 
         Locale[] locales = Locale.getAvailableLocales();
-        for (int i = 0; i < locales.length; i++) {
-            Locale currLocale = locales[i];
+        for (Locale currLocale : locales) {
             String s = currLocale.toString();
             if (value.equals(s)) {
                 locale = currLocale;
@@ -404,9 +411,9 @@ public class LocaleMgr {
     private String getRes(String key) {
         String res = null;
         String msg = null;
-        Iterator iter = m_parentChain.iterator();
+        Iterator<String> iter = m_parentChain.iterator();
         while (iter.hasNext()) { //iterates in the parent chain
-            String resName = (String) iter.next();
+            String resName = iter.next();
             ResourceBundle bundle = findResourceBundle(resName);
             try {
                 res = bundle.getString(key);
@@ -445,7 +452,7 @@ public class LocaleMgr {
         if (g_equivalenceMapping == null) {
             return res;
         } else {
-            String value = (String) g_equivalenceMapping.get(res);
+            String value = g_equivalenceMapping.get(res);
             if (value == null) {
                 value = res;
             }
@@ -453,9 +460,9 @@ public class LocaleMgr {
         } //end if
     } //end getResourceEquivalent()
 
-    private static HashMap g_equivalenceMapping = null;
+    private static Map<String, String> g_equivalenceMapping = null;
 
-    private static void setEquivalenceMapping(HashMap mapping) {
+    private static void setEquivalenceMapping(Map<String, String> mapping) {
         g_equivalenceMapping = mapping;
     }
 

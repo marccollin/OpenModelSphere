@@ -42,15 +42,15 @@ open-modelsphere@grandite.com
 **********************************************************************/
 package org.modelsphere.sms.or.db;
 
-import java.awt.*;
-import org.modelsphere.jack.baseDb.meta.*;
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import org.modelsphere.sms.or.db.srtypes.*;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelationN;
+import org.modelsphere.jack.baseDb.util.Terminology;
+import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.sms.or.international.LocaleMgr;
-import org.modelsphere.sms.db.*;
-import org.modelsphere.sms.db.srtypes.*;
-import org.modelsphere.jack.baseDb.util.*;
 
 /**
 <b>Direct subclass(es)/subinterface(s) : </b><A HREF="../../../../../org/modelsphere/sms/or/oracle/db/DbORAAbsTable.html">DbORAAbsTable</A>, <A HREF="../../../../../org/modelsphere/sms/or/ibm/db/DbIBMTable.html">DbIBMTable</A>, <A HREF="../../../../../org/modelsphere/sms/or/informix/db/DbINFTable.html">DbINFTable</A>, <A HREF="../../../../../org/modelsphere/sms/or/generic/db/DbGETable.html">DbGETable</A>.<br>

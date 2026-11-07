@@ -44,28 +44,21 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package org.modelsphere.jack.plugins.xml.extensions;
 
-import java.awt.Image;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.StringTokenizer;
-
-import javax.swing.Action;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-
 import org.modelsphere.jack.actions.AbstractActionsStore;
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.awt.JackMenu;
-import org.modelsphere.jack.plugins.Plugin2;
 import org.modelsphere.jack.plugins.PluginAction;
 import org.modelsphere.jack.plugins.xml.XmlPlugin;
 import org.modelsphere.jack.plugins.xml.XmlPluginDescriptor;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.MainFrameMenu;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 public class MenuExtension extends AbstractPluginExtension {
 	private String m_icon;
@@ -207,29 +200,26 @@ public class MenuExtension extends AbstractPluginExtension {
 	private String findActionKey(String className) {
 		String actionKey = null;
 		AbstractActionsStore store = ApplicationContext.getActionStore();
-	    Iterator iter = store.keySet().iterator(); 
-	    while (iter.hasNext()) {
-	    	Object key = iter.next();
-	    	Object value = store.get(key);
-	    	if (value instanceof AbstractApplicationAction) {
-	    		AbstractApplicationAction action = (AbstractApplicationAction)value;
-	    		Class cl = action.getClass(); 
-	    		String n = cl.getSimpleName(); 
-	    		if (className.equals(n)) {
-		    		actionKey = (String)key;
-		    		break;
-		    	}
-	    	}
-	    } //end while
+        for (Object key : store.keySet()) {
+            Object value = store.get(key);
+            if (value instanceof AbstractApplicationAction) {
+                AbstractApplicationAction action = (AbstractApplicationAction) value;
+                Class cl = action.getClass();
+                String n = cl.getSimpleName();
+                if (className.equals(n)) {
+                    actionKey = (String) key;
+                    break;
+                }
+            }
+        } //end while
 	     
 		return actionKey;
 	}
 	
 	 @Override 
 	    public String toString() {
-	        String name = m_label;
-	       
-	        return name;
+
+         return m_label;
 	    }
 	
 	private static class MenuLocation {

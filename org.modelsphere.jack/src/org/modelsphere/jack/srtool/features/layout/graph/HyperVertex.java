@@ -42,7 +42,7 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.jack.srtool.features.layout.graph;
 
-import java.awt.Point;
+import java.awt.*;
 
 /**
  * An hyper vertex is placed at the crossing point of hyper edges.

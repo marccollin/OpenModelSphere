@@ -34,6 +34,9 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.htmlgeneration;
 
+import org.modelsphere.plugins.html.browser.international.LocaleMgr;
+import org.modelsphere.plugins.html.browser.io.IndentWriter;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -42,9 +45,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
-
-import org.modelsphere.plugins.html.browser.international.LocaleMgr;
-import org.modelsphere.plugins.html.browser.io.IndentWriter;
 
 /**
  * This class is used to generate a HTML file that will be used with the HTML

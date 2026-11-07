@@ -43,10 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.forward.exceptions;
 
-import java.text.MessageFormat;
-
-import org.modelsphere.jack.srtool.forward.*;
+import org.modelsphere.jack.srtool.forward.RuleException;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
+
+import java.text.MessageFormat;
 
 /**
  * Thrown by Template, Group

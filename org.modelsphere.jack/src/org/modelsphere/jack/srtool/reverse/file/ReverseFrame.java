@@ -43,18 +43,23 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.file;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import java.util.*;
-import javax.swing.*;
-
 import org.modelsphere.jack.awt.ExtensionFileFilter;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbProject;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.util.DirectoryScanner;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.File;
+import java.util.Enumeration;
+import java.util.Vector;
+import java.util.List;
 
 public abstract class ReverseFrame extends JDialog {
     private static final String HELP = org.modelsphere.jack.international.LocaleMgr.screen
@@ -89,6 +94,7 @@ public abstract class ReverseFrame extends JDialog {
     protected JLabel packagesListTitle = new JLabel();
 
     MouseListener mouseListener4Files = new MouseAdapter() {
+        @Override
         public void mouseClicked(MouseEvent e) {
             int ind = fileList.getSelectedIndex();
             if (ind > -1)
@@ -99,6 +105,7 @@ public abstract class ReverseFrame extends JDialog {
     };
 
     MouseListener mouseListener4Packages = new MouseAdapter() {
+        @Override
         public void mouseClicked(MouseEvent e) {
             int ind = packageList.getSelectedIndex();
             if (ind > -1)
@@ -137,9 +144,8 @@ public abstract class ReverseFrame extends JDialog {
         packageList.addMouseListener(mouseListener4Packages);
         centerPanel.addTab(LocaleMgr.screen.getString("FilesSelecTabName"), getCenterPanel());
 
-        Iterator iter = plugins.getReverseObjectList().iterator();
-        while (iter.hasNext()) {
-            JackReverseEngineeringPlugin rev = (JackReverseEngineeringPlugin) iter.next();
+        for (Object o : plugins.getReverseObjectList()) {
+            JackReverseEngineeringPlugin rev = (JackReverseEngineeringPlugin) o;
             ReverseParameters revParam = rev.getRevParameters();
             if (revParam != null) {
                 JPanel revParamTab = revParam.getParametersTab();
@@ -155,7 +161,7 @@ public abstract class ReverseFrame extends JDialog {
         getContentPane().add(getControlPanel(), BorderLayout.SOUTH);
     }
 
-    private final void setLabels() {
+    private void setLabels() {
         // enabled help if mainframe found
         DefaultMainFrame mainframe = ApplicationContext.getDefaultMainFrame();
         if (mainframe != null) {
@@ -273,6 +279,7 @@ public abstract class ReverseFrame extends JDialog {
         String label = LocaleMgr.screen.getString("AddtoReverse");
         JButton button = getApproveButton(m_FileChooser, label);
         button.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 m_FileChooser.setApproveMethod(SourceChooser.BUTTONAPPROVE);
                 File[] files = { m_FileChooser.getSelectedFile() };
@@ -280,10 +287,10 @@ public abstract class ReverseFrame extends JDialog {
                 // selection
                 DefaultListModel fileToAdd = ((FileListPreviewer) m_FileChooser.getAccessory())
                         .getFilesFromList();
-                for (int i = 0; i < files.length; i++) {
-                    if (files[i] != null) {
-                        if (files[i].exists())
-                            fileToAdd.addElement(files[i]);
+                for (File file : files) {
+                    if (file != null) {
+                        if (file.exists())
+                            fileToAdd.addElement(file);
                     }
                 }
                 for (int i = 0; i < fileToAdd.size(); i++) {
@@ -330,16 +337,17 @@ public abstract class ReverseFrame extends JDialog {
         // getApproveButton(m_PackageChooser,LocaleMgr.screen.getString("AddtoReverse")).addActionListener(new
         // java.awt.event.ActionListener(){
         button.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 File[] packages = { m_PackageChooser.getSelectedFile() };
                 // File[] packages = m_PackageChooser.getSelectedFiles();
                 // //multiple selection
                 DefaultListModel packageToAdd = ((FileListPreviewer) m_PackageChooser
                         .getAccessory()).getFilesFromList();
-                for (int i = 0; i < packages.length; i++) {
-                    if (packages[i] != null) {
-                        if (packages[i].exists())
-                            packageToAdd.addElement(packages[i]);
+                for (File aPackage : packages) {
+                    if (aPackage != null) {
+                        if (aPackage.exists())
+                            packageToAdd.addElement(aPackage);
                     }
                 }
                 for (int i = 0; i < packageToAdd.size(); i++) {
@@ -385,7 +393,7 @@ public abstract class ReverseFrame extends JDialog {
     private final void getFilesFromPackages() {
         DirectoryScanner dirScan = new DirectoryScanner();
         Vector filesVector;
-        Vector extVector = new Vector();
+        List<String> extVector = new Vector<>();
         m_packages = m_packageModel.elements();
 
         // Build extension vector
@@ -393,7 +401,7 @@ public abstract class ReverseFrame extends JDialog {
         while (enumeration.hasMoreElements()) {
             ExtensionFileFilter currFilter = (ExtensionFileFilter) enumeration.nextElement();
             String ext = currFilter.getExtension();
-            extVector.addElement(ext);
+            extVector.add(ext);
         } // end while
 
         // For each package
@@ -401,10 +409,9 @@ public abstract class ReverseFrame extends JDialog {
             File currPackage = (File) m_packages.nextElement();
 
             String[] list = currPackage.list();
-            for (int i = 0; i < list.length; i++) {
-                String filename = list[i];
+            for (String filename : list) {
                 String ext = filename.substring(filename.indexOf('.') + 1);
-                if (extVector.indexOf(ext) != -1) {
+                if (extVector.contains(ext)) {
                     File file = new File(currPackage, filename);
                     m_model.addElement(file);
                 }
@@ -427,9 +434,8 @@ public abstract class ReverseFrame extends JDialog {
     }
 
     protected void updateParametersValues() {
-        Iterator iter = plugins.getReverseObjectList().iterator();
-        while (iter.hasNext()) {
-            JackReverseEngineeringPlugin rev = (JackReverseEngineeringPlugin) iter.next();
+        for (Object o : plugins.getReverseObjectList()) {
+            JackReverseEngineeringPlugin rev = (JackReverseEngineeringPlugin) o;
             ReverseParameters revParam = rev.getRevParameters();
             if (revParam != null) {
                 revParam.updateOptionValue();
@@ -438,9 +444,9 @@ public abstract class ReverseFrame extends JDialog {
     }
 
     protected final boolean nothingToReverse() {
-        boolean filesToReverse = fileList.getModel().getSize() > 0 ? true : false;
-        boolean packageToReverse = packageList.getModel().getSize() > 0 ? true : false;
-        return (filesToReverse || packageToReverse ? false : true);
+        boolean filesToReverse = fileList.getModel().getSize() > 0;
+        boolean packageToReverse = packageList.getModel().getSize() > 0;
+        return (!filesToReverse && !packageToReverse);
     }
 
     protected final void init_actionListeners() {
@@ -475,6 +481,7 @@ class cancelButton_actionAdapter implements java.awt.event.ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.cancelButton_actionPerformed(e);
     }
@@ -488,6 +495,7 @@ class helpBtn_actionAdapter implements java.awt.event.ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.helpBtn_actionPerformed(e);
     }
@@ -500,6 +508,7 @@ class addFilesButton_actionAdapter implements java.awt.event.ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.addFilesButton_actionPerformed(e);
 
@@ -516,6 +525,7 @@ class addPackagesButton_actionAdapter implements java.awt.event.ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.addPackagesButton_actionPerformed(e);
 
@@ -532,12 +542,13 @@ class removeFilesButton_actionAdapter implements java.awt.event.ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.removeFilesButton_actionPerformed(e);
         Object[] selectedFiles = adaptee.fileList.getSelectedValues();
 
-        for (int i = 0; i < selectedFiles.length; i++) {
-            adaptee.m_fileModel.removeElement((File) selectedFiles[i]);
+        for (Object selectedFile : selectedFiles) {
+            adaptee.m_fileModel.removeElement((File) selectedFile);
         }
 
         adaptee.fileList.clearSelection();
@@ -560,8 +571,8 @@ class removePackagesButton_actionAdapter implements java.awt.event.ActionListene
         adaptee.removePackagesButton_actionPerformed(e);
         Object[] selectedPackages = adaptee.packageList.getSelectedValues();
 
-        for (int i = 0; i < selectedPackages.length; i++) {
-            adaptee.m_packageModel.removeElement((File) selectedPackages[i]);
+        for (Object selectedPackage : selectedPackages) {
+            adaptee.m_packageModel.removeElement((File) selectedPackage);
         }
 
         adaptee.packageList.clearSelection();

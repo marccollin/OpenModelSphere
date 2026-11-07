@@ -43,13 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.features.layout;
 
-import java.awt.event.ActionEvent;
-import java.util.List;
-
 import org.modelsphere.jack.plugins.Plugin;
 import org.modelsphere.jack.plugins.PluginSignature;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.MainFrameMenu;
+
+import java.awt.event.ActionEvent;
+import java.util.List;
 
 /**
  * The Class LayoutPlugin.

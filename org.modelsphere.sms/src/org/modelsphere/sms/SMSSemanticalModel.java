@@ -33,14 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms;
 
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.dnd.DnDConstants;
-import java.util.ArrayList;
-import java.util.HashSet;
-
-import javax.swing.JOptionPane;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -197,6 +189,14 @@ import org.modelsphere.sms.or.oracle.db.DbORASubPartition;
 import org.modelsphere.sms.or.oracle.db.DbORATable;
 import org.modelsphere.sms.or.oracle.db.DbORAView;
 import org.modelsphere.sms.screen.SMSScreenPerspective;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.dnd.DnDConstants;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public final class SMSSemanticalModel extends SemanticalModel implements SelectionListener {
 
@@ -888,7 +888,7 @@ public final class SMSSemanticalModel extends SemanticalModel implements Selecti
                         // it
 
                         // add the relationships item //otherwise do nothing
-                        ListDescriptor newDescriptor = new ListDescriptor(ldEntity, new Boolean(
+                        ListDescriptor newDescriptor = new ListDescriptor(ldEntity, Boolean.valueOf(
                                 true));
                         String sDisplayText = terminology.getTerm(DbOOClass.metaClass, true);
                         newDescriptor.setDisplayText(sDisplayText);
@@ -906,7 +906,7 @@ public final class SMSSemanticalModel extends SemanticalModel implements Selecti
 
                         listDesc = (ListDescriptor[]) newArray;
 
-                        listDesc[0] = new ListDescriptor(listDesc[0], new Boolean(false));
+                        listDesc[0] = new ListDescriptor(listDesc[0], Boolean.valueOf(false));
                     }
                 }
             }
@@ -974,7 +974,7 @@ public final class SMSSemanticalModel extends SemanticalModel implements Selecti
     public final boolean isValidForCopy(DbObject[] dbos) throws DbException {
         if (dbos.length == 0)
             return false;
-        HashSet<DbObject> dboSet = new HashSet<DbObject>();
+        Set<DbObject> dboSet = new HashSet<DbObject>();
         DbProject project = dbos[0].getProject();
         int i;
         for (i = 0; i < dbos.length; i++) {
@@ -1480,7 +1480,7 @@ public final class SMSSemanticalModel extends SemanticalModel implements Selecti
     public final void paste(DbObject[] dbos, DbObject[] composites, String actionName,
             boolean prefixAllowed) throws DbException {
         // Start a write transaction on the source Db in case it is also a dest Db.
-        ArrayList<DbSMSGraphicalObject> graphicComponents = new ArrayList<DbSMSGraphicalObject>();
+        List<DbSMSGraphicalObject> graphicComponents = new ArrayList<DbSMSGraphicalObject>();
 
         dbos[0].getDb().beginTrans(Db.WRITE_TRANS, actionName);
         int i, k;
@@ -1548,7 +1548,7 @@ public final class SMSSemanticalModel extends SemanticalModel implements Selecti
     public final void paste(DbObject[] dbos, DbObject[] composites, String actionName,
             boolean prefixAllowed, Point location) throws DbException {
         // Start a write transaction on the source Db in case it is also a dest Db.
-        ArrayList<DbSMSGraphicalObject> graphicComponents = new ArrayList<DbSMSGraphicalObject>();
+        List<DbSMSGraphicalObject> graphicComponents = new ArrayList<DbSMSGraphicalObject>();
 
         dbos[0].getDb().beginTrans(Db.WRITE_TRANS, actionName);
         int i, k;

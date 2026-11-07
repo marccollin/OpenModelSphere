@@ -32,12 +32,11 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.plugins.java.genmeta;
 
-import java.io.*;
-import java.nio.file.FileSystems;
-import java.text.MessageFormat;
-import java.util.*;
-
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
 import org.modelsphere.jack.baseDb.meta.MetaField;
 import org.modelsphere.jack.gui.task.Controller;
 import org.modelsphere.jack.international.LocaleMgr;
@@ -48,13 +47,50 @@ import org.modelsphere.jack.preference.OptionGroup;
 import org.modelsphere.jack.preference.PropertiesManager;
 import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.actions.PluginDefaultAction;
-import org.modelsphere.jack.srtool.forward.*;
+import org.modelsphere.jack.srtool.forward.ForwardOptions;
+import org.modelsphere.jack.srtool.forward.ForwardToolkitInterface;
+import org.modelsphere.jack.srtool.forward.GenerateInFileInfo;
+import org.modelsphere.jack.srtool.forward.PropertyScreenPreviewInfo;
+import org.modelsphere.jack.srtool.forward.Rule;
+import org.modelsphere.jack.srtool.forward.VariableScope;
 import org.modelsphere.sms.db.srtypes.SMSMultiplicity;
-import org.modelsphere.sms.oo.db.*;
+import org.modelsphere.sms.oo.db.DbOOAbstractMethod;
+import org.modelsphere.sms.oo.db.DbOOAdt;
+import org.modelsphere.sms.oo.db.DbOOAssociationEnd;
+import org.modelsphere.sms.oo.db.DbOOClass;
+import org.modelsphere.sms.oo.db.DbOODataMember;
+import org.modelsphere.sms.oo.db.DbOOInheritance;
+import org.modelsphere.sms.oo.db.DbOOMethod;
+import org.modelsphere.sms.oo.db.DbOOParameter;
 import org.modelsphere.sms.oo.db.srtypes.OOAggregation;
 import org.modelsphere.sms.oo.db.srtypes.OOVisibility;
 import org.modelsphere.sms.oo.forward.OOForwardEngineeringPlugin;
-import org.modelsphere.sms.oo.java.db.*;
+import org.modelsphere.sms.oo.java.db.DbJVClass;
+import org.modelsphere.sms.oo.java.db.DbJVCompilationUnit;
+import org.modelsphere.sms.oo.java.db.DbJVConstructor;
+import org.modelsphere.sms.oo.java.db.DbJVDataMember;
+import org.modelsphere.sms.oo.java.db.DbJVImport;
+import org.modelsphere.sms.oo.java.db.DbJVInheritance;
+import org.modelsphere.sms.oo.java.db.DbJVInitBlock;
+import org.modelsphere.sms.oo.java.db.DbJVMethod;
+import org.modelsphere.sms.oo.java.db.DbJVPackage;
+import org.modelsphere.sms.oo.java.db.DbJVParameter;
+import org.modelsphere.sms.oo.java.db.DbJVPrimitiveType;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.io.Writer;
+import java.nio.file.FileSystems;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin implements Plugin2 {
 
@@ -67,6 +103,10 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
     }
 
     public void setVarScope(VariableScope varScope) {
+    }
+
+    protected String getTemplateFileName() {
+        return null;
     }
 
     private static final String PROP_ROOT_DIR = "RootDir";
@@ -279,7 +319,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
     // ENTRY POINT, called by DbForwardWorker.runJob()
     //
     void genPackages(DbJVPackage dbPack, File actualDirectory, Controller controller,
-            List generatedFiles) throws DbException, IOException {
+            List<String> generatedFiles) throws DbException, IOException {
         init(dbPack);
         m_actualDirectory = actualDirectory;
         genPackage(dbPack, actualDirectory, controller, generatedFiles);
@@ -299,7 +339,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
     // All the methods below are private to this class
     //
     private void genPackage(DbJVPackage dbPack, File actualDirectory, Controller controller,
-            List generatedFiles) throws DbException, IOException {
+            List<String> generatedFiles) throws DbException, IOException {
         if (!dbPack.getName().equals(DB_PACK_NAME))
             return;
 
@@ -352,7 +392,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         return rootDir + pathName;
     }
 
-    private void genFile(DbObject dbo, Controller controller, List generatedFiles)
+    private void genFile(DbObject dbo, Controller controller, List<String> generatedFiles)
             throws DbException, IOException {
         String name = (dbo instanceof DbJVCompilationUnit ? dbo.getName() : dbo.getName() + ".java");
         String filename = m_pathName + name;
@@ -373,7 +413,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         }
     }
 
-    private void genFinalClasses(Controller controller, List generatedFiles)
+    private void genFinalClasses(Controller controller, List<String> generatedFiles)
             throws DbException, IOException {
         String filename = m_pathName + "ApplClasses.java";
         PrintWriter output = new PrintWriter(new FileWriter(filename));
@@ -403,7 +443,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         controller.println(filename);
     }
 
-    private void genLocaleStrs(Controller controller, List generatedFiles) throws IOException {
+    private void genLocaleStrs(Controller controller, List<String> generatedFiles) throws IOException {
         for (int i = 0; i <= LAST_LANGUAGE; i++) {
             LocaleDictionary dictionary = m_dictionaries[i];
             Map entries = dictionary.m_localeEntries;
@@ -1671,7 +1711,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
 
     } //end displaySubClasses()
 
-    private void findAssociations(DbJVClass claz, ArrayList assocList) throws DbException {
+    private void findAssociations(DbJVClass claz, List<AssociationStructure> assocList) throws DbException {
         DbRelationN relationN = claz.getComponents();
         DbEnumeration dbEnum = relationN.elements(DbJVDataMember.metaClass);
         while (dbEnum.hasMoreElements()) {
@@ -1719,7 +1759,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         dbEnum.close();
     } //end findAssociations()
 
-    private void displayAssociations(PrintWriter output, ArrayList assocList, DbJVPackage pack)
+    private void displayAssociations(PrintWriter output, List<AssociationStructure> assocList, DbJVPackage pack)
             throws DbException {
         int nb = assocList.size();
 
@@ -1727,7 +1767,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         output.print(SP4 + "<b>Composites : </b>");
         boolean none = true;
         for (int i = 0; i < nb; i++) {
-            AssociationStructure struct = (AssociationStructure) assocList.get(i);
+            AssociationStructure struct = assocList.get(i);
             if (struct.m_kindOf == COMPOSITE) {
                 if (!none) {
                     output.print(", ");
@@ -1747,7 +1787,7 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
         output.print(SP4 + "<b>Components : </b>");
         none = true;
         for (int i = 0; i < nb; i++) {
-            AssociationStructure struct = (AssociationStructure) assocList.get(i);
+            AssociationStructure struct = assocList.get(i);
             if (struct.m_kindOf == COMPONENT) {
                 if (!none) {
                     output.print(", ");
@@ -1769,10 +1809,10 @@ public final class DbForwardEngineeringPlugin extends OOForwardEngineeringPlugin
     private void genCommentClassifier(PrintWriter output, DbJVClass claz) throws DbException {
         output.println("/**");
         String description = claz.getDescription();
-        if ((description != null) && (description.length() != 0)) {
+        if ((description != null) && (!description.isEmpty())) {
             output.println(SP4 + description);
         }
-        ArrayList assocList = new ArrayList();
+        List<AssociationStructure> assocList = new ArrayList<>();
         displaySubClasses(output, claz);
         assocList.clear();
         findAssociations(claz, assocList);

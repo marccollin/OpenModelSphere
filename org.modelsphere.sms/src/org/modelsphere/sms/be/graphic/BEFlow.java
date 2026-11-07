@@ -33,12 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.be.graphic;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-
 import org.modelsphere.jack.baseDb.db.Db;
 import org.modelsphere.jack.baseDb.db.DbEnumeration;
 import org.modelsphere.jack.baseDb.db.DbException;
@@ -75,15 +69,22 @@ import org.modelsphere.sms.db.DbSMSSemanticalObject;
 import org.modelsphere.sms.db.DbSMSStereotype;
 import org.modelsphere.sms.graphic.NameAndDuplicateLabel;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 public class BEFlow extends SrLine implements DbRefreshListener {
 
     private DbBEDiagram dbDiagram;
-    private HashSet zonesSources;
+    private Set<Object> zonesSources;
     private DbBENotation notation;
-    private ArrayList zones = null;
-    private ArrayList allLabels = null;
+    private List<DbBESingleZoneDisplay> zones = null;
+    private List<SrLineLabel> allLabels = null;
     private BEFlowQualifier qualifiersGo = null;
-    private ArrayList qualifiers = null;
+    private List<DbBEQualifier> qualifiers = null;
 
     public BEFlow(Diagram diag, DbBEFlowGo newFlowGO, GraphicNode node1, GraphicNode node2)
             throws DbException {
@@ -178,7 +179,7 @@ public class BEFlow extends SrLine implements DbRefreshListener {
             removeZonesListener();
         if (allLabels != null)
             removeLabels();
-        allLabels = new ArrayList();
+        allLabels = new ArrayList<>();
 
         // check style if label are visible
         boolean display = ((DbBEStyle) ((DbBEFlowGo) lineGo).findStyle()).getDisplayLabelDbBEFlow()
@@ -186,9 +187,9 @@ public class BEFlow extends SrLine implements DbRefreshListener {
         String name = semObj.getName();
         if (name == null || name.compareTo("") == 0) {
             display = false;
-            ArrayList al = notation.getFlowZones();
+            List<DbBESingleZoneDisplay> al = notation.getFlowZones();
             if (al.size() != 0) {
-                DbBESingleZoneDisplay zonedisp = (DbBESingleZoneDisplay) al.get(0);
+                DbBESingleZoneDisplay zonedisp = al.get(0);
                 if (zonedisp != null)
                     if (zonedisp.getValue(semObj) instanceof DbSMSStereotype)
                         display = true;
@@ -196,12 +197,12 @@ public class BEFlow extends SrLine implements DbRefreshListener {
                         display = false;
                     else if (al.size() > 0) {
                         for (int i = 0; i < al.size(); i++) {
-                            DbBESingleZoneDisplay disp = ((DbBESingleZoneDisplay) al.get(i));
+                            DbBESingleZoneDisplay disp = al.get(i);
                             Object o = disp.getValue(semObj);
                             String zname = (String) o;
                             if (zname == null)
                                 continue;
-                            if (zname.equals(""))
+                            if (zname.isEmpty())
                                 continue;
                             else
                                 display = true;
@@ -211,31 +212,24 @@ public class BEFlow extends SrLine implements DbRefreshListener {
         }
 
         if (display) {
-            zonesSources = new HashSet();
+            zonesSources = new HashSet<>();
             zones = notation.getFlowZones();
-            Iterator i = zones.iterator();
+            Iterator<DbBESingleZoneDisplay> i = zones.iterator();
             BEFlowLabel labels = null;
             int zoneIndex = 0;
             while (i.hasNext()) {
-                DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+                DbBESingleZoneDisplay zoneDisplay = i.next();
                 if (!zoneDisplay.isDisplayed()
                         || (zoneDisplay.getValue(semObj) == null && zoneDisplay.getMetaField() != DbSemanticalObject.fName))
                     continue;
                 zonesSources.add(zoneDisplay.getSourceObject());
-                MetaField offset;
-                switch (zoneIndex) {
-                case 0:
-                    offset = DbBEFlowGo.fZone1Offset;
-                    break;
-                case 1:
-                    offset = DbBEFlowGo.fZone2Offset;
-                    break;
-                case 2:
-                    offset = DbBEFlowGo.fZone3Offset;
-                    break;
-                default:
-                    offset = DbBEFlowGo.fZone4Offset;
-                }
+
+                MetaField offset = switch (zoneIndex) {
+                    case 0 -> DbBEFlowGo.fZone1Offset;
+                    case 1 -> DbBEFlowGo.fZone2Offset;
+                    case 2 -> DbBEFlowGo.fZone3Offset;
+                    default -> DbBEFlowGo.fZone4Offset;
+                };
                 BEFlowLabel label;
                 String labelValue = "";
                 Object value = zoneDisplay.getValue(semObj);
@@ -262,6 +256,7 @@ public class BEFlow extends SrLine implements DbRefreshListener {
 
                 if (value instanceof DbSMSStereotype) {
                     DbSMSStereotype stereotype = (DbSMSStereotype) value;
+                    labelValue = "«" + stereotype.getName() + "»";
                 } else {
                     labelValue = value != null ? value.toString() : "";
                 }
@@ -308,9 +303,9 @@ public class BEFlow extends SrLine implements DbRefreshListener {
     }
 
     private void removeLabels() {
-        Iterator i = allLabels.iterator();
+        Iterator<SrLineLabel> i = allLabels.iterator();
         while (i.hasNext()) {
-            SrLineLabel label = (SrLineLabel) i.next();
+            SrLineLabel label = i.next();
             label.setNextLabel(null);
             label.delete(false);
         }
@@ -318,9 +313,9 @@ public class BEFlow extends SrLine implements DbRefreshListener {
     }
 
     private void addZonesListener() {
-        Iterator i = zones.iterator();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             zoneDisplay.addDbRefreshListener(this);
         }
     }
@@ -328,9 +323,9 @@ public class BEFlow extends SrLine implements DbRefreshListener {
     private void removeZonesListener() {
         if (zones == null)
             return;
-        Iterator i = zones.iterator();
+        Iterator<DbBESingleZoneDisplay> i = zones.iterator();
         while (i.hasNext()) {
-            DbBESingleZoneDisplay zoneDisplay = (DbBESingleZoneDisplay) i.next();
+            DbBESingleZoneDisplay zoneDisplay = i.next();
             zoneDisplay.removeDbRefreshListener(this);
         }
     }
@@ -338,9 +333,9 @@ public class BEFlow extends SrLine implements DbRefreshListener {
     private void addQualifiersListener() {
         if (qualifiers == null)
             return;
-        Iterator i = qualifiers.iterator();
+        Iterator<DbBEQualifier> i = qualifiers.iterator();
         while (i.hasNext()) {
-            DbBEQualifier qualifier = (DbBEQualifier) i.next();
+            DbBEQualifier qualifier = i.next();
             qualifier.addDbRefreshListener(this);
         }
     }
@@ -348,9 +343,9 @@ public class BEFlow extends SrLine implements DbRefreshListener {
     private void removeQualifiersListener() {
         if (qualifiers == null)
             return;
-        Iterator i = qualifiers.iterator();
+        Iterator<DbBEQualifier> i = qualifiers.iterator();
         while (i.hasNext()) {
-            DbBEQualifier qualifier = (DbBEQualifier) i.next();
+            DbBEQualifier qualifier = i.next();
             qualifier.removeDbRefreshListener(this);
         }
         qualifiers = null;
@@ -367,7 +362,7 @@ public class BEFlow extends SrLine implements DbRefreshListener {
             while (dbEnum.hasMoreElements()) {
                 DbBEFlowQualifier flowQualifier = (DbBEFlowQualifier) dbEnum.nextElement();
                 if (qualifiers == null) {
-                    qualifiers = new ArrayList();
+                    qualifiers = new ArrayList<>();
                 }
                 qualifiers.add(flowQualifier.getQualifier());
             }
@@ -450,7 +445,7 @@ public class BEFlow extends SrLine implements DbRefreshListener {
             return "";
         String pattern = "({0}/{1})";
         return MessageFormat.format(pattern,
-                new Object[] { new Integer(index), new Integer(count) });
+                new Object[] { Integer.valueOf(index), Integer.valueOf(count) });
     }
 
 }

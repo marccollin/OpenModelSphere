@@ -43,24 +43,46 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.list;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import java.lang.Comparable;
-import java.util.List;
-import javax.swing.*;
-import javax.swing.table.*;
-
-import org.modelsphere.jack.baseDb.db.*;
-import org.modelsphere.jack.baseDb.db.event.*;
-import org.modelsphere.jack.baseDb.db.srtypes.*;
-import org.modelsphere.jack.baseDb.meta.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.baseDb.db.DbSemanticalObject;
+import org.modelsphere.jack.baseDb.db.DbUDF;
+import org.modelsphere.jack.baseDb.db.DbUDFValue;
+import org.modelsphere.jack.baseDb.db.event.DbRefreshListener;
+import org.modelsphere.jack.baseDb.db.event.DbUpdateEvent;
+import org.modelsphere.jack.baseDb.db.srtypes.Domain;
+import org.modelsphere.jack.baseDb.meta.MetaClass;
+import org.modelsphere.jack.baseDb.meta.MetaField;
+import org.modelsphere.jack.baseDb.meta.MetaRelationship;
 import org.modelsphere.jack.baseDb.util.TerminologyUtil;
 import org.modelsphere.jack.debug.Debug;
-import org.modelsphere.jack.preference.*;
+import org.modelsphere.jack.preference.PropertiesManager;
+import org.modelsphere.jack.preference.PropertiesSet;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
-import org.modelsphere.jack.util.*;
+import org.modelsphere.jack.util.DefaultComparableElement;
+import org.modelsphere.jack.util.ExceptionHandler;
+import org.modelsphere.jack.util.SrVector;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
 
 public/* final */class ListTableModel extends DefaultTableModel implements Comparator,
         DbRefreshListener {
@@ -86,7 +108,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
 
     // The available metafields and udfs for this model (displayed or not)
     // Contains a ColumnDescriptor object for each possible columns.  This contains the title for all columns.
-    private ArrayList columnDescriptors = new ArrayList();
+    private List<ColumnDescriptor> columnDescriptors = new ArrayList<>();
 
     // The root composite
     DbObject root;
@@ -104,13 +126,13 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
 
     // Contains a RowData object for each neighbors of the root object
     protected List rows = new ArrayList();
-    protected List columns = new ArrayList();
+    protected List<ColumnInfo> columns = new ArrayList<>();
 
     private ListTable list;
     ListDescriptor descriptor;
 
     // Optimization
-    private List addedObjects = new ArrayList();
+    private List<Integer> addedObjects = new ArrayList<>();
 
     // Optimization
     //private ArrayList     updatedObjects      = new ArrayList();
@@ -121,7 +143,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
     }
 
     public boolean isColumnEditable(int column) {
-        return !((ColumnDescriptor) columnDescriptors.get(column)).bDisabled;
+        return !columnDescriptors.get(column).bDisabled;
     }
 
     public ListTableModel(DbObject root, ListDescriptor descriptor) throws DbException {
@@ -141,20 +163,19 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
 
         // init all available columns ... if not specified within the descriptor, get the default from meta
         if (descriptor.defaultColumns == null) {
-            List fields = neighborsMetaClass.getScreenMetaFields();
-            for (Object o : fields) {
-                MetaField field = (MetaField) o;
+            List<MetaField> fields = neighborsMetaClass.getScreenMetaFields();
+            for (MetaField field : fields) {
                 if (field == association)
                     continue;
                 if (!ApplicationContext.getSemanticalModel().isVisibleOnScreen(neighborsMetaClass,
                         field, null, false, ListTableModel.class))
                     continue;
                 if (!rows.isEmpty()) {
-                    ColumnDescriptor cd = new ColumnDescriptor(this, rowData.neighbor, o);
+                    ColumnDescriptor cd = new ColumnDescriptor(this, rowData.neighbor, field);
                     if (!(cd.bDisabled && !bShowFields))
                         columnDescriptors.add(cd);
                 } else {
-                    ColumnDescriptor cd = new ColumnDescriptor(this, null, o);
+                    ColumnDescriptor cd = new ColumnDescriptor(this, null, field);
                     if (!(cd.bDisabled && !bShowFields))
                         columnDescriptors.add(cd);
                 }
@@ -187,10 +208,10 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
         if (includeComposite) {
             // Find a super common name for all possible composite metaclasses of the component metaclasses
             boolean[] compositePath = neighborsMetaClass.markCompositePaths();
-            List compositeMetaClasses = new ArrayList();
-            Enumeration enumeration = MetaClass.enumMetaClasses();
+            List<MetaClass> compositeMetaClasses = new ArrayList<>();
+            Enumeration<MetaClass> enumeration = MetaClass.enumMetaClasses();
             while (enumeration.hasMoreElements()) {
-                MetaClass metaclass = (MetaClass) enumeration.nextElement();
+                MetaClass metaclass = enumeration.nextElement();
                 if (compositePath[metaclass.getSeqNo()]
                         && (metaclass.getSubMetaClasses().length == 0)
                         && neighborsMetaClass.compositeIsAllowed(metaclass))
@@ -201,8 +222,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
             if (descriptor.compositeName == null) {
                 displayText = kComposite;
                 MetaClass metaclass0 = null;
-                for (Object compositeMetaClass : compositeMetaClasses) {
-                    MetaClass metaclass1 = (MetaClass) compositeMetaClass;
+                for (MetaClass metaclass1 : compositeMetaClasses) {
                     if (metaclass0 == null) {
                         metaclass0 = metaclass1;
                         continue;
@@ -249,9 +269,9 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
     private void initStructure(boolean load) throws DbException {
         columns.clear();
         // remove all udfs ColumnDescriptor - must be refrehed
-        Iterator iter = columnDescriptors.iterator();
+        Iterator<ColumnDescriptor> iter = columnDescriptors.iterator();
         while (iter.hasNext()) {
-            ColumnDescriptor descriptor = (ColumnDescriptor) iter.next();
+            ColumnDescriptor descriptor = iter.next();
             if (descriptor.object instanceof DbUDF)
                 iter.remove();
         }
@@ -268,7 +288,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
         // Define the columns model contents (visible columns)
         iter = columnDescriptors.iterator();
         while (iter.hasNext()) {
-            ColumnDescriptor descriptor = (ColumnDescriptor) iter.next();
+            ColumnDescriptor descriptor = iter.next();
             int index = loadIndex(descriptor);
             if (index == -1 && load)
                 continue;
@@ -317,7 +337,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
     private Object getColumValueByName(String name, RowData row) {
         int size = columns.size();
         for (int i = 0; i < size; i++) {
-            ColumnInfo ci = (ColumnInfo) columns.get(i);
+            ColumnInfo ci = columns.get(i);
             if (ci.metafield.getJName().compareTo(name) == 0) {
                 return row.getValue(i);
             }
@@ -527,8 +547,8 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     DbObject[] selectionBackup = list.getSelectedDbObjects();
-                    int firstidx = (Integer) addedObjects.get(0);
-                    int lastidx = ((Integer) addedObjects.get(addedObjects.size() - 1)).intValue();
+                    int firstidx = addedObjects.get(0);
+                    int lastidx = addedObjects.get(addedObjects.size() - 1);
                     // flush the list of added idx to process
                     addedObjects.clear();
                     fireTableRowsInserted(firstidx, lastidx);
@@ -557,11 +577,11 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
     private int indexOf(MetaField metafield) {
         if (metafield == null)
             return -1;
-        Iterator iter = columns.iterator();
+        Iterator<ColumnInfo> iter = columns.iterator();
         int index = -1;
         int count = 0;
         while (iter.hasNext()) {
-            ColumnInfo column = (ColumnInfo) iter.next();
+            ColumnInfo column = iter.next();
             if (column.metafield == metafield) {
                 index = count;
                 break;
@@ -578,7 +598,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
         }
         // if the specified metafield correspond to the sorted column metafield, sort and repaint the table
         else if (sortedColumn != -1 && sortedColumn <= columns.size()
-                && metafield == ((ColumnInfo) columns.get(sortedColumn)).metafield) {
+                && metafield == columns.get(sortedColumn).metafield) {
             sort();
             //list.repaint();
         }
@@ -603,7 +623,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
     public String getColumnName(int columnIndex) {
         if (columns == null)
             return "";
-        return ((ColumnInfo) columns.get(columnIndex)).title;
+        return columns.get(columnIndex).title;
     }
 
     public Class getColumnClass(int columnIndex) {
@@ -613,7 +633,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
     ColumnDescriptor[] getColumnDescriptors() {
         ColumnDescriptor[] descriptors = new ColumnDescriptor[columnDescriptors.size()];
         for (int i = 0; i < descriptors.length; i++)
-            descriptors[i] = (ColumnDescriptor) columnDescriptors.get(i);
+            descriptors[i] = columnDescriptors.get(i);
         return descriptors;
     }
 
@@ -637,7 +657,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
 
         int size = columns.size();
         for (int i = 0; i < size; i++) {
-            ColumnInfo column = (ColumnInfo) columns.get(i);
+            ColumnInfo column = columns.get(i);
             if (column.metafield != null && column.metafield == descriptor.object)
                 return i;
             if (column.udf != null && column.udf == descriptor.object)
@@ -655,25 +675,25 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
     public MetaField getMetaFieldAt(int columnIndex) {
         if (columns == null)
             return null;
-        return ((ColumnInfo) columns.get(columnIndex)).metafield;
+        return columns.get(columnIndex).metafield;
     }
 
     public DbUDF getUDFAt(int columnIndex) {
         if (columns == null)
             return null;
-        return ((ColumnInfo) columns.get(columnIndex)).udf;
+        return columns.get(columnIndex).udf;
     }
 
     public String getRendererAt(int columnIndex) {
         if (columns == null)
             return null;
-        return ((ColumnInfo) columns.get(columnIndex)).renderer;
+        return columns.get(columnIndex).renderer;
     }
 
     public Integer getColumnOrdering(int columnIndex) {
         if (columns == null)
             return null;
-        return ((ColumnInfo) columns.get(columnIndex)).ordering;
+        return columns.get(columnIndex).ordering;
     }
 
     public String getDbValueFullQualifiedName(int row, int col) {
@@ -734,9 +754,8 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
         // backup selection
         DbObject[] selObjs = list.getSelectedDbObjects();
 
-        List newVisibleDescriptors = Arrays.asList(descriptors);
-        for (Object columnDescriptor : columnDescriptors) {
-            ColumnDescriptor descriptor = (ColumnDescriptor) columnDescriptor;
+        List<ColumnDescriptor> newVisibleDescriptors = Arrays.asList(descriptors);
+        for (ColumnDescriptor descriptor : columnDescriptors) {
             int index = indexInModelOf(descriptor); // index in visible columns
             // already shown
             if ((index > -1) && newVisibleDescriptors.contains(descriptor)) {
@@ -826,12 +845,12 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
 
     // Apply current column orderring to the model
     private void saveColumnsPreferences() {
-        Iterator iter = columns.iterator();
+        Iterator<ColumnInfo> iter = columns.iterator();
         int index = -1;
-        List rowsConverted = new ArrayList();
+        List<Integer> rowsConverted = new ArrayList<>();
         while (iter.hasNext()) {
             index++;
-            ColumnInfo col = (ColumnInfo) iter.next();
+            ColumnInfo col = iter.next();
             col.index = list.convertColumnIndexToView(index);
             // ensure index switch is done once
             if (!rowsConverted.contains(index)) {
@@ -856,11 +875,11 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
         TableColumnModel colModel = list.getColumnModel();
         if (colModel == null)
             return;
-        Iterator iter = columns.iterator();
+        Iterator<ColumnInfo> iter = columns.iterator();
         int index = -1;
         while (iter.hasNext()) {
             index++;
-            ColumnInfo col = (ColumnInfo) iter.next();
+            ColumnInfo col = iter.next();
             TableColumn column = list.getColumnModel().getColumn(index);
             if (column == null)
                 continue;
@@ -900,11 +919,11 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
     }
 
     private void loadColumnsIndexes() {
-        Iterator iter = columns.iterator();
+        Iterator<ColumnInfo> iter = columns.iterator();
         int index = -1;
         while (iter.hasNext()) {
             index++;
-            ColumnInfo col = (ColumnInfo) iter.next();
+            ColumnInfo col = iter.next();
             col.index = list.convertColumnIndexToView(index);
         }
     }
@@ -1027,9 +1046,9 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
                     if (column == sortedColumn) {
                         // change the state of the column
                         if (val.equals(ListTable.ASC))
-                            ((ColumnInfo) columns.get(column)).ordering = ListTable.DESC;
+                            columns.get(column).ordering = ListTable.DESC;
                         else
-                            ((ColumnInfo) columns.get(column)).ordering = ListTable.ASC;
+                            columns.get(column).ordering = ListTable.ASC;
                     }
                     DbObject[] selectionBackup = list.getSelectedDbObjects();
                     sorter.sortByColumn(column);
@@ -1051,9 +1070,8 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
         String key = neighborsMetaClass.getJClass().getName() + "_"; // NOT LOCALIZABLE
         key += descriptor.getID();
         key += "_index"; // NOT LOCALIZABLE
-        int index = LIST_PROPERTIES_SET.getPropertyInteger(root.getMetaClass().getJClass(), key,
+        return LIST_PROPERTIES_SET.getPropertyInteger(root.getMetaClass().getJClass(), key,
                 1);
-        return index;
     }
 
     private void saveIndex(ColumnDescriptor descriptor, int index) {
@@ -1115,7 +1133,7 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
             return 0;
         String key = neighborsMetaClass.getJClass().getName() + "_sort"; // NOT LOCALIZABLE
         int orderring = LIST_PROPERTIES_SET.getPropertyInteger(root.getMetaClass().getJClass(),
-                key, new Integer(0)).intValue();
+                key, Integer.valueOf(0)).intValue();
         return orderring;
     }
 
@@ -1132,15 +1150,14 @@ public/* final */class ListTableModel extends DefaultTableModel implements Compa
         final DbObject[] selection = list.getSelectedDbObjects();
         saveColumnsPreferences();
         Collections.sort(columns);
-        for (Object columnDescriptor : columnDescriptors) {
-            ColumnDescriptor descriptor = (ColumnDescriptor) columnDescriptor;
+        for (ColumnDescriptor descriptor : columnDescriptors) {
             int index = indexInModelOf(descriptor);
             if (index == -1) {
                 saveIndex(descriptor, index);
                 continue;
             }
             // get the screen order
-            ColumnInfo column = (ColumnInfo) columns.get(index);
+            ColumnInfo column = columns.get(index);
             saveIndex(descriptor, column.index);
             saveOrderring(descriptor, column.ordering);
             saveWidth(descriptor, column.width);

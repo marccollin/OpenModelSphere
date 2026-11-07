@@ -5,7 +5,9 @@ Written by Brian Quinlan(brian@sweetapp.com). NO WARRANTY.
 
 import codecs
 import copy
+
 import cp037
+
 
 ### Codec APIs
 

@@ -44,7 +44,8 @@ open-modelsphere@grandite.com
 package org.modelsphere.jack.plugins.io;
 
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.PropertyResourceBundle;
@@ -73,13 +74,13 @@ class XMLPluginResourceBundleControl extends ResourceBundle.Control {
             InstantiationException, IOException {
         String bundleName = toBundleName(this.baseName, locale);
         String resourceName = toResourceName(bundleName, "properties");
-        ResourceBundle bundle = null;
-        FileReader reader = null;
         File file = new File(home, resourceName);
-        reader = new FileReader(file);
-        bundle = new PropertyResourceBundle(reader);
-        reader.close();
-        return bundle;
+        if (!file.isFile()) {
+            return null;
+        }
+        try (InputStream input = new FileInputStream(file)) {
+            return new PropertyResourceBundle(input);
+        }
     }
 
 }

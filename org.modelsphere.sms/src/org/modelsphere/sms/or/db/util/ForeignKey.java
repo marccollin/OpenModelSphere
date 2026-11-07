@@ -44,12 +44,6 @@ open-modelsphere@grandite.com
 package org.modelsphere.sms.or.db.util;
 
 //Java
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
-import javax.swing.JOptionPane;
 
 import org.modelsphere.jack.awt.TextViewerDialog;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -94,6 +88,13 @@ import org.modelsphere.sms.or.screen.DeleteKeysAndRulesFrame.DeleteKeysOptions;
 import org.modelsphere.sms.plugins.TargetSystem;
 import org.modelsphere.sms.plugins.TargetSystemInfo;
 import org.modelsphere.sms.plugins.TargetSystemManager;
+
+import javax.swing.*;
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 
@@ -160,7 +161,7 @@ public final class ForeignKey {
     private boolean reorderPuCols;
     private MetaClass[] metaClasses;
     private List<DbORAssociationEnd> assocEnds; // ordered list of assocEnds to be generated
-    private HashSet<DbORPrimaryUnique> puKeySet; // primary/unique keys with dependencies processed
+    private Set<DbORPrimaryUnique> puKeySet; // primary/unique keys with dependencies processed
     private SrVector[] changeLists;
 
     // Generate the foreign keys on a complete model.
@@ -216,7 +217,7 @@ public final class ForeignKey {
     // on which they depend.
     private void buildAssocEndList() throws DbException {
         assocEnds = new ArrayList<DbORAssociationEnd>();
-        HashSet<DbORAssociationEnd> assocEndSet = new HashSet<DbORAssociationEnd>(); // visited assocEnds
+        Set<DbORAssociationEnd> assocEndSet = new HashSet<DbORAssociationEnd>(); // visited assocEnds
         DbEnumeration dbEnum = model.getComponents().elements(DbORAssociation.metaClass);
         while (dbEnum.hasMoreElements()) {
             DbORAssociation assoc = (DbORAssociation) dbEnum.nextElement();
@@ -227,7 +228,7 @@ public final class ForeignKey {
     }
 
     // Recursive method.
-    private void buildAssocEndListAux(HashSet<DbORAssociationEnd> assocEndSet, List<DbORAssociationEnd> dependStack,
+    private void buildAssocEndListAux(Set<DbORAssociationEnd> assocEndSet, List<DbORAssociationEnd> dependStack,
             DbORAssociationEnd assocEnd) throws DbException {
         if (!assocEndSet.add(assocEnd)) // add to the set of visited assocEnds; if already visited, return.
             return;

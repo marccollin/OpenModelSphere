@@ -43,19 +43,16 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
-import java.awt.Color;
+import org.modelsphere.jack.actions.AbstractApplicationAction;
+import org.modelsphere.jack.actions.AbstractDomainAction;
+import org.modelsphere.jack.srtool.ApplicationContext;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
-import javax.swing.Action;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.Icon;
-
-import org.modelsphere.jack.actions.AbstractApplicationAction;
-import org.modelsphere.jack.actions.AbstractDomainAction;
-import org.modelsphere.jack.srtool.ApplicationContext;
 
 /**
  * This class define a component for supporting the AbstractDomainAction in a JackToolbar. See
@@ -79,6 +76,7 @@ class DomainComboBox extends JackComboBox {
         setMaximumRowCount(15);
         removeActionListener(a);
         addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 fireAction();
             }
@@ -118,7 +116,7 @@ class DomainComboBox extends JackComboBox {
                 String propertyName = e.getPropertyName();
                 if (propertyName.equals("enabled")) { // NOT LOCALIZABLE,
                     // property key
-                    setEnabled(((Boolean) e.getNewValue()).booleanValue());
+                    setEnabled((Boolean) e.getNewValue());
                 } else if (propertyName.equals(AbstractApplicationAction.VISIBLE)
                         || propertyName.equals(AbstractApplicationAction.TOOLBAR_VISIBLE_OPTION)) {
                     updateVisible();
@@ -128,8 +126,7 @@ class DomainComboBox extends JackComboBox {
                     preventEvent = false;
                 } else if (propertyName.equals(AbstractDomainAction.SELECTED_VALUE)) {
                     if (uiSelectionVisible) {
-                        int newsel = e.getNewValue() == null ? -1 : ((Integer) e.getNewValue())
-                                .intValue();
+                        int newsel = e.getNewValue() == null ? -1 : (Integer) e.getNewValue();
                         preventEvent = true;
                         setSelectedIndex(newsel);
                         preventEvent = false;

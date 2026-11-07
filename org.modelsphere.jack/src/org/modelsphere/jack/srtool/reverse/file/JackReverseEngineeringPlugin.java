@@ -43,17 +43,19 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool.reverse.file;
 
-import java.awt.event.ActionEvent;
-import java.io.*;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.db.DbProject;
-import org.modelsphere.jack.plugins.*;
+import org.modelsphere.jack.plugins.Plugin;
 import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.MainFrameMenu;
+
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * This class provides common services for all file-based reverse engineering plug-ins. The
@@ -131,7 +133,7 @@ public abstract class JackReverseEngineeringPlugin implements Plugin {
      * @returns the priority (positive integer). '1' is the highest priority.
      * 
      */
-    private int DEFAULT_PRIORITY = 10;
+    private static final int DEFAULT_PRIORITY = 10;
 
     public int getPriority() {
         return DEFAULT_PRIORITY;
@@ -165,23 +167,19 @@ public abstract class JackReverseEngineeringPlugin implements Plugin {
     }
 
     protected Constructor getDefaultModelConstructor(Class modelClaz) throws NoSuchMethodException {
-        Constructor constr = modelClaz.getConstructor(new Class[] { DbObject.class });
-        return constr;
+        return modelClaz.getConstructor(new Class[] { DbObject.class });
     }
 
     protected Object[] getDefaultConstructorObjects(DbProject proj) throws NoSuchMethodException,
             DbException {
-        Object[] objs = new Object[] { proj };
-        return objs;
+        return new Object[] { proj };
     }
 
     protected long getActualtTaskSize(File file) {
         // by default, return the length of the file
         // we assume that a 10-K .java file takes the same time to reverse that
         // a 10-K .class file
-        long len = file.length();
-
-        return len;
+        return file.length();
     }
 
     public abstract DbObject createNewPackage(Class modelClaz, DbProject project)

@@ -1,5 +1,6 @@
-from test_support import verbose
 import pwd
+
+from test_support import verbose
 
 print 'pwd.getpwall()'
 entries = pwd.getpwall()

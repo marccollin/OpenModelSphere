@@ -43,21 +43,20 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.objectviewer;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
+import org.modelsphere.jack.awt.JackMenu;
+import org.modelsphere.jack.awt.StatusBar;
+import org.modelsphere.jack.awt.StatusBarModel;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Enumeration;
-
-import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
-
-import org.modelsphere.jack.awt.JackMenu;
-import org.modelsphere.jack.awt.StatusBar;
-import org.modelsphere.jack.awt.StatusBarModel;
+import java.util.List;
 
 public final class Viewer extends JDialog {
     private VExplorer explorer;
@@ -70,30 +69,24 @@ public final class Viewer extends JDialog {
         }
 
         public JComponent getComponentAt(int col) {
-            switch (col) {
-            case 0:
+            if (col == 0) {
                 return messageLabel;
-            default:
-                return new JLabel(""); // NOT LOCALIZABLE
             }
+            return new JLabel(""); // NOT LOCALIZABLE
         }
 
         public int getWidthAt(int col) {
-            switch (col) {
-            case 0:
+            if (col == 0) {
                 return StatusBar.RELATIVE_WIDTH;
-            default:
-                return 1;
             }
+            return 1;
         }
 
         public JComponent getTitleForComponentAt(int col) {
-            switch (col) {
-            case 0:
-                return null;
-            default:
+            if (col == 0) {
                 return null;
             }
+            return null;
         }
 
         public void startWaitingBar(String message) {
@@ -106,7 +99,7 @@ public final class Viewer extends JDialog {
         }
 
         public void setMessage(String message) {
-            if (message == null || message.length() == 0)
+            if (message == null || message.isEmpty())
                 message = " ";
             messageLabel.setText(message);
             messageLabel.setToolTipText(message);
@@ -147,8 +140,8 @@ public final class Viewer extends JDialog {
                 Viewer.this.dispose();
             } else if (event.getSource() == newviewer) {
                 Object root = explorer.getModel().getRoot();
-                ArrayList tempRoots = new ArrayList();
-                Enumeration enumeration = ((DefaultMutableTreeNode) root).children();
+                List<Object> tempRoots = new ArrayList<>();
+                Enumeration<TreeNode> enumeration = ((DefaultMutableTreeNode) root).children();
                 while (enumeration.hasMoreElements()) {
                     tempRoots.add(((DefaultMutableTreeNode) enumeration.nextElement())
                             .getUserObject());
@@ -158,9 +151,9 @@ public final class Viewer extends JDialog {
                 TreePath[] selectedPath = explorer.getSelectionPaths();
                 if (selectedPath == null)
                     return;
-                ArrayList tempRoots = new ArrayList();
-                for (int i = 0; i < selectedPath.length; i++) {
-                    Object obj = selectedPath[i].getLastPathComponent();
+                List<Object> tempRoots = new ArrayList<>();
+                for (TreePath treePath : selectedPath) {
+                    Object obj = treePath.getLastPathComponent();
                     tempRoots.add(((DefaultMutableTreeNode) obj).getUserObject());
                 }
                 Viewer.showViewer(Viewer.this.getParent(), tempRoots.toArray());

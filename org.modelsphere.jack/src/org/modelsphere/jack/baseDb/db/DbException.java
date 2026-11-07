@@ -64,6 +64,7 @@ import java.io.PrintWriter;
  * import jack.util.ExceptionHandler;
  * 
  * try {
+ *   db.beginWriteTrans("action");
  *   performAction();
  *   db.commitTrans();
  * } catch (Exception e) {

@@ -43,14 +43,23 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-
 import org.modelsphere.jack.awt.AbstractTableCellEditor;
 import org.modelsphere.jack.baseDb.meta.MetaField;
-import org.modelsphere.jack.baseDb.screen.*;
-import org.modelsphere.jack.baseDb.screen.model.*;
+import org.modelsphere.jack.baseDb.screen.DescriptionView;
+import org.modelsphere.jack.baseDb.screen.Editor;
+import org.modelsphere.jack.baseDb.screen.ListView;
+import org.modelsphere.jack.baseDb.screen.ScreenView;
+import org.modelsphere.jack.baseDb.screen.TextEditorDialog;
+import org.modelsphere.jack.baseDb.screen.model.DbDescriptionModel;
+import org.modelsphere.jack.baseDb.screen.model.DbListModel;
+import org.modelsphere.jack.baseDb.screen.model.DescriptionField;
+import org.modelsphere.jack.baseDb.screen.model.MetaFieldDescriptionField;
+import org.modelsphere.jack.baseDb.screen.model.ScreenModel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LookupDescriptionEditor implements Editor, ActionListener {
 

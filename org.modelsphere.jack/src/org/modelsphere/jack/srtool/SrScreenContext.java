@@ -43,12 +43,12 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.srtool;
 
-import javax.swing.JPopupMenu;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.baseDb.db.DbObject;
 import org.modelsphere.jack.baseDb.screen.PropertiesFrame;
 import org.modelsphere.jack.baseDb.screen.ScreenContext;
+
+import javax.swing.*;
 
 public class SrScreenContext implements ScreenContext {
 

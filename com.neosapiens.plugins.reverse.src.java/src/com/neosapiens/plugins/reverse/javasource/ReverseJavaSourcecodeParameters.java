@@ -89,12 +89,13 @@ Email: marco.savard@neosapiens.com
 
 package com.neosapiens.plugins.reverse.javasource;
 
+import com.neosapiens.plugins.reverse.javasource.ui.WizardParameters;
+import org.modelsphere.jack.properties.PropertySet;
+import org.modelsphere.sms.db.DbSMSProject;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import org.modelsphere.jack.properties.PropertySet;
-import org.modelsphere.sms.db.DbSMSProject;
-import com.neosapiens.plugins.reverse.javasource.ui.WizardParameters;
 
 
 public class ReverseJavaSourcecodeParameters extends WizardParameters {
@@ -105,7 +106,7 @@ public class ReverseJavaSourcecodeParameters extends WizardParameters {
     private static final String CREATE_METHODS = "CREATE_METHODS";
     private File m_selectedFolder;
     private DbSMSProject m_project;
-    private List<File> m_filesToImport = new ArrayList<File>();
+    private final List<File> m_filesToImport = new ArrayList<File>();
     
     public long totalSize = 0L;
     public int nbFilesScanned = 0;
@@ -119,7 +120,6 @@ public class ReverseJavaSourcecodeParameters extends WizardParameters {
     public boolean createDiagrams = true;
     public boolean createFields = true;
     public boolean createMethods = true;
-    
     
     private void loadProperties() {
         properties = PropertySet.getInstance(ReverseJavaSourcecodeParameters.class);
@@ -143,37 +143,30 @@ public class ReverseJavaSourcecodeParameters extends WizardParameters {
         loadProperties();
     }
     
-    
     public void setSelectedFolder(File folder) {
         m_selectedFolder = folder;
     }
-    
 
     public File getSelectedFolder() {
         return m_selectedFolder;
     }
     
-    
     public DbSMSProject getOutputProject() {
         return createNewProject ? null : m_project;
     }
-    
 
     public void setOutputProject(DbSMSProject project) {
         m_project = project;
     }
     
-    
     public List<File> getFilesToImport() {
         return m_filesToImport;
     }
-    
 
     public void addFileToImport(File file) {
         m_filesToImport.add(file);
     }
-    
-    
+
     public void clearFilesToImport() {
         m_filesToImport.clear();
     }

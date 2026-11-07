@@ -44,19 +44,24 @@ Email: marco.savard@neosapiens.com
  **********************************************************************/
 package com.neosapiens.plugins.reverse.java.ui;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
-
-import javax.swing.*;
-
+import com.neosapiens.plugins.reverse.java.ReverseJavaBytecodeParameters;
+import com.neosapiens.plugins.reverse.java.international.LocaleMgr;
 import org.modelsphere.jack.awt.dirchooser.DirectoryChooser2;
-import org.modelsphere.jack.baseDb.db.*;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbEnumeration;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbRelationN;
+import org.modelsphere.jack.baseDb.db.DbRoot;
 import org.modelsphere.jack.properties.PropertySet;
 import org.modelsphere.sms.db.DbSMSProject;
 
-import com.neosapiens.plugins.reverse.java.ReverseJavaBytecodeParameters;
-import com.neosapiens.plugins.reverse.java.international.LocaleMgr;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.File;
 
 public class ReverseJavaBytecodeWizardPage1 extends WizardPage implements ActionListener,
         KeyListener {

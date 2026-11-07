@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.or.actions;
 
-import java.beans.PropertyVetoException;
-
 import org.modelsphere.jack.actions.AbstractApplicationAction;
 import org.modelsphere.jack.actions.SelectionActionListener;
 import org.modelsphere.jack.baseDb.db.Db;
@@ -59,6 +57,8 @@ import org.modelsphere.sms.or.db.DbORDataModel;
 import org.modelsphere.sms.or.international.LocaleMgr;
 import org.modelsphere.sms.screen.SMSListView;
 import org.modelsphere.sms.screen.SMSPropertiesFrame;
+
+import java.beans.PropertyVetoException;
 
 public final class SetupTargetSystemAction extends AbstractApplicationAction implements
         CurrentProjectListener, SelectionActionListener {

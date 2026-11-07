@@ -33,22 +33,18 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.features.reverse;
 
-import java.io.File;
-import java.util.Enumeration;
-import java.util.Locale;
-import java.util.Vector;
-
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.jack.srtool.ApplicationContext;
 import org.modelsphere.jack.srtool.international.LocaleMgr;
 import org.modelsphere.jack.srtool.reverse.file.AbstractReverser;
 import org.modelsphere.jack.srtool.reverse.file.FileListPreviewer;
 import org.modelsphere.jack.srtool.reverse.file.SourceChooser;
+
+import javax.swing.*;
+import java.io.File;
+import java.util.Enumeration;
+import java.util.Locale;
+import java.util.Vector;
 
 public final class ReverseFrame extends org.modelsphere.jack.srtool.reverse.file.ReverseFrame {
 
@@ -105,7 +101,7 @@ public final class ReverseFrame extends org.modelsphere.jack.srtool.reverse.file
             updateParametersValues();
 
             // Fill fileVector
-            Enumeration enumeration = m_model.elements();
+            Enumeration<?> enumeration = m_model.elements();
             while (enumeration.hasMoreElements()) {
                 File f = (File) enumeration.nextElement();
                 fileVector.addElement(f);
@@ -135,7 +131,7 @@ public final class ReverseFrame extends org.modelsphere.jack.srtool.reverse.file
         owner.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Locale.setDefault(Locale.ENGLISH);
-        Vector fileVector = new Vector();
+        Vector<File> fileVector = new Vector<>();
         JPanel panel = new JPanel();
         ReverseFrame reverseFrame = new ReverseFrame(owner, fileVector, panel);
         reverseFrame.setVisible(true);

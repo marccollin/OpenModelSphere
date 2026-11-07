@@ -43,14 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.gui;
 
+import org.modelsphere.jack.debug.TestableWindow;
+import org.modelsphere.jack.international.LocaleMgr;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.*;
-
-import org.modelsphere.jack.debug.TestableWindow;
-import org.modelsphere.jack.international.LocaleMgr;
 
 public class ScrollableTextDialog extends JDialog implements TestableWindow {
     private JPanel intermediatePanel = new JPanel();
@@ -95,6 +94,7 @@ public class ScrollableTextDialog extends JDialog implements TestableWindow {
     private void addListener() {
         final ScrollableTextDialog thisDialog = this;
         jButton1.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent ev) {
                 thisDialog.dispose();
             }

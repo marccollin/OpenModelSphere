@@ -43,7 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.io;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.Writer;
 
 /**
  * 
@@ -58,32 +64,43 @@ public final class TemporaryFileWriter extends Writer {
     private static final String SUFF = "zzz"; // NOT LOCALIZABLE
     private File m_file;
     private FileWriter m_writer;
-    private boolean deleteOnExit = true; // by default
 
     // Create a temporary file
     public TemporaryFileWriter() throws IOException {
         m_file = File.createTempFile(PREF, SUFF);
-        m_writer = new FileWriter(m_file);
+        m_file.deleteOnExit();
+        try {
+            m_writer = new FileWriter(m_file);
+        } catch (IOException ex) {
+            try {
+                java.nio.file.Files.deleteIfExists(m_file.toPath());
+            } catch (IOException cleanupEx) {
+                ex.addSuppressed(cleanupEx);
+            }
+            throw ex;
+        }
     }
 
     // ////////////////////////
     // OVERRIDES Object
+    @Override
     public String toString() {
+        if (m_file == null) {
+            return "";
+        }
         try {
-            m_writer.flush();
-            FileReader reader = new FileReader(m_file);
-            StringWriter writer = new StringWriter();
-            int buflen = 1024;
-            char[] buffer = new char[buflen];
-            int bytesRead;
-            do {
-                bytesRead = reader.read(buffer, 0, buflen);
-                if (bytesRead > 0) {
-                    writer.write(buffer, 0, bytesRead);
+            if (m_writer != null) {
+                m_writer.flush();
+            }
+            try (FileReader reader = new FileReader(m_file)) {
+                StringWriter writer = new StringWriter();
+                char[] buffer = new char[1024];
+                int charsRead;
+                while ((charsRead = reader.read(buffer)) != -1) {
+                    writer.write(buffer, 0, charsRead);
                 }
-            } while (bytesRead > 0);
-
-            return writer.toString();
+                return writer.toString();
+            }
         } catch (IOException ex) {
             return ex.toString();
         }
@@ -95,15 +112,24 @@ public final class TemporaryFileWriter extends Writer {
     // ////////////////////////
     // OVERRIDES Writer
     public void write(char[] cbuf, int off, int len) throws IOException {
+        if (m_writer == null) {
+            throw new IOException("Temporary file writer is closed");
+        }
         m_writer.write(cbuf, off, len);
     }
 
     public void flush() throws IOException {
+        if (m_writer == null) {
+            throw new IOException("Temporary file writer is closed");
+        }
         m_writer.flush();
     }
 
     public void close() throws IOException {
-        m_writer.close();
+        if (m_writer != null) {
+            m_writer.close();
+            m_writer = null;
+        }
     }
 
     //
@@ -111,21 +137,11 @@ public final class TemporaryFileWriter extends Writer {
 
     // Dump the content of a reader into the temporary file
     public void dump(Reader reader) throws IOException {
-        try {
-            char[] cbuf = new char[1024];
-            int nbChars;
-            do {
-                nbChars = reader.read(cbuf, 0, 1023);
-                if (nbChars <= 0) {
-                    break;
-                }
-                write(cbuf, 0, nbChars);
-            } while (true);
-        } catch (EOFException ex) {
-            // expecting this exception to exit from the loop
+        char[] buffer = new char[1024];
+        int count;
+        while ((count = reader.read(buffer)) != -1) {
+            write(buffer, 0, count);
         }
-
-        // complete the dump
         flush();
     }
 
@@ -134,18 +150,34 @@ public final class TemporaryFileWriter extends Writer {
     }
 
     public void cleanup() {
-        m_file.delete();
-        m_file = null;
-        m_writer = null;
-        deleteOnExit = false;
-    }
-
-    // when this object is finalized, and has not been deleted yet,
-    // then ask VM to delete the temporary file after application's end
-    // of session.
-    public void finalize() {
-        if (deleteOnExit) {
-            m_file.deleteOnExit();
+        if (m_file == null) {
+            return;
+        }
+        File file = m_file;
+        IOException failure = null;
+        try {
+            close();
+        } catch (IOException ex) {
+            failure = ex;
+        }
+        boolean deleted = false;
+        try {
+            java.nio.file.Files.deleteIfExists(file.toPath());
+            deleted = true;
+        } catch (IOException ex) {
+            if (failure == null) {
+                failure = ex;
+            } else {
+                failure.addSuppressed(ex);
+            }
+        }
+        if (deleted) {
+            m_file = null;
+            m_writer = null;
+        }
+        if (failure != null) {
+            throw new java.io.UncheckedIOException(
+                    "Could not clean up temporary file: " + file, failure);
         }
     }
 }

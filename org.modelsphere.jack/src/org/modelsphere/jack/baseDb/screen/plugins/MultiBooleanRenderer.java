@@ -43,13 +43,13 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.screen.plugins;
 
-import java.awt.Component;
-
-import javax.swing.*;
-import javax.swing.table.*;
-
 import org.modelsphere.jack.srtool.screen.design.DesignPanel;
 import org.modelsphere.jack.srtool.screen.design.DesignTableModel;
+
+import javax.swing.*;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
+import java.awt.*;
 
 public class MultiBooleanRenderer extends JCheckBox implements TableCellRenderer {
 

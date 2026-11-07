@@ -34,13 +34,12 @@ http://www.javaforge.com/project/3219
 
 package org.modelsphere.plugins.html.browser.data;
 
-import java.io.IOException;
-
-import javax.swing.Icon;
-
 import org.modelsphere.jack.baseDb.db.DbException;
 import org.modelsphere.plugins.html.browser.htmlgeneration.HTMLGenerationHelper;
 import org.modelsphere.plugins.html.browser.io.IndentWriter;
+
+import javax.swing.*;
+import java.io.IOException;
 
 /**
  * This is an abstract class that defines the common components present in

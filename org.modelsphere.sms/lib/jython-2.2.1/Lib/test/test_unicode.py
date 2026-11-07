@@ -5,8 +5,10 @@ Written by Marc-Andre Lemburg (mal@lemburg.com).
 (c) Copyright CNRI, All Rights Reserved. NO WARRANTY.
 
 """#"
+import string
+import sys
+
 from test_support import verify, verbose, TestFailed
-import sys, string
 
 # Test basic sanity of repr()
 verify(repr(u'abc') == "u'abc'")
@@ -451,7 +453,7 @@ if sys.platform[:4] != 'java':
 
 verify(u"%(x)s, %(y)s" % {'x':u"abc", 'y':"def"} == u'abc, def')
 try:
-    value = u"%(x)s, %(ä)s" % {'x':u"abc", u'ä':"def"}
+    value = u"%(x)s, %(ï¿½)s" % {'x':u"abc", u'ï¿½':"def"}
 except KeyError:
     print '*** formatting failed for "%s"' % "u'abc, def'"
 else:

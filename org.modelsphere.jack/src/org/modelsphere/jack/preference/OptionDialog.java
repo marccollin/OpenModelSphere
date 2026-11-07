@@ -43,6 +43,25 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.preference;
 
+import org.modelsphere.jack.awt.AwtUtil;
+import org.modelsphere.jack.international.LocaleMgr;
+import org.modelsphere.jack.io.IoUtil;
+import org.modelsphere.jack.io.PathFile;
+import org.modelsphere.jack.plugins.Plugin;
+import org.modelsphere.jack.plugins.PluginMgr;
+import org.modelsphere.jack.srtool.ApplicationContext;
+import org.modelsphere.jack.util.ExceptionHandler;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,23 +70,12 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.*;
-
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.*;
-
-import org.modelsphere.jack.awt.AwtUtil;
-import org.modelsphere.jack.international.LocaleMgr;
-import org.modelsphere.jack.io.IoUtil;
-import org.modelsphere.jack.io.PathFile;
-import org.modelsphere.jack.plugins.Plugin2;
-import org.modelsphere.jack.plugins.PluginMgr;
-import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.jack.util.ExceptionHandler;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
+import java.util.List;
 
 public final class OptionDialog extends JDialog implements ActionListener {
     private static final String kPluginsOptionGroup = LocaleMgr.screen
@@ -91,7 +99,7 @@ public final class OptionDialog extends JDialog implements ActionListener {
     private RootOptionGroup rootOptionGroup = new RootOptionGroup();
     private JTree tree = new JTree();
 
-    private HashMap optionPanelLoaded = new HashMap(); // The key is the option group.
+    private Map<OptionGroup, OptionPanel> optionPanelLoaded = new HashMap<>(); // The key is the option group.
 
     private JSplitPane splitPane = new JSplitPane() {
         public void updateUI() {
@@ -120,7 +128,7 @@ public final class OptionDialog extends JDialog implements ActionListener {
         private void updateGroupUI(OptionGroup group) {
             if (group == null)
                 return;
-            JComponent panel = (JComponent) optionPanelLoaded.get(group);
+            JComponent panel = optionPanelLoaded.get(group);
             if (panel != null && optionPanelContainer.getComponentCount() > 0
                     && panel != optionPanelContainer.getComponent(0))
                 optionPanelLoaded.remove(group);
@@ -133,7 +141,7 @@ public final class OptionDialog extends JDialog implements ActionListener {
         }
     };
 
-    private ArrayList unsavedProperties = new ArrayList();
+    private List<OptionUpdate> unsavedProperties = new ArrayList<>();
 
     private PropertyChangeListener preferencesListener = new PropertyChangeListener() {
         public void propertyChange(PropertyChangeEvent evt) {
@@ -215,8 +223,8 @@ public final class OptionDialog extends JDialog implements ActionListener {
             super(group);
 
             OptionGroup[] groups = group.getOptionGroups();
-            for (int i = 0; i < groups.length; i++) {
-                add(new OptionTreeNode(groups[i]));
+            for (OptionGroup optionGroup : groups) {
+                add(new OptionTreeNode(optionGroup));
             }
         }
 
@@ -233,7 +241,7 @@ public final class OptionDialog extends JDialog implements ActionListener {
         OptionPanel panel = null;
         if (optionGroup != null) {
             // get used panel for this optionGroup or get a new one from optionGroup
-            panel = (OptionPanel) optionPanelLoaded.get(optionGroup);
+            panel = optionPanelLoaded.get(optionGroup);
             if (panel == null) {
                 panel = optionGroup.createOptionPanel();
                 if (panel != null) {
@@ -326,11 +334,9 @@ public final class OptionDialog extends JDialog implements ActionListener {
         // Insert plugin groups
         OptionGroup pluginGroup = new OptionGroup(kPluginsOptionGroup);
         PluginMgr mgr = PluginMgr.getSingleInstance();
-        Map pluginsOptionsGroups = mgr.getPluginOptionGroups();
-        Iterator iter = pluginsOptionsGroups.keySet().iterator();
-        while (iter.hasNext()) {
-            Plugin2 plugin = (Plugin2) iter.next();
-            OptionGroup optiongroup = (OptionGroup) pluginsOptionsGroups.get(plugin);
+        Map<Plugin, OptionGroup> pluginsOptionsGroups = mgr.getPluginOptionGroups();
+        for (Plugin plugin : pluginsOptionsGroups.keySet()) {
+            OptionGroup optiongroup = pluginsOptionsGroups.get(plugin);
             if (optiongroup != null) {
                 pluginGroup.addOptionGroup(optiongroup);
             }
@@ -365,9 +371,7 @@ public final class OptionDialog extends JDialog implements ActionListener {
     }
 
     private void applyChanges() {
-        Iterator iter = unsavedProperties.iterator();
-        while (iter.hasNext()) {
-            OptionUpdate update = (OptionUpdate) iter.next();
+        for (OptionUpdate update : unsavedProperties) {
             if (update.value == null)
                 continue;
             if (update.value instanceof String) {
@@ -402,8 +406,7 @@ public final class OptionDialog extends JDialog implements ActionListener {
 
         //notify OptionPanel
         Component[] components = optionPanelContainer.getComponents();
-        for (int i = 0; i < components.length; i++) {
-            Component c = components[i];
+        for (Component c : components) {
             if (c instanceof OptionPanel) {
                 OptionPanel panel = (OptionPanel) c;
                 panel.terminate();
@@ -428,7 +431,7 @@ public final class OptionDialog extends JDialog implements ActionListener {
             if (!value.toString().equals(oldvalue))
                 unsavedProperties.add(update);
         } else {
-            update = (OptionUpdate) unsavedProperties.get(index);
+            update = unsavedProperties.get(index);
             // if value equals initial value, remove the update object
             String oldvalue = update.set.getProperty(cls, key);
             if (value.toString().equals(oldvalue))
@@ -437,7 +440,7 @@ public final class OptionDialog extends JDialog implements ActionListener {
                 update.value = value;
         }
 
-        applyButton.setEnabled(unsavedProperties.size() > 0);
+        applyButton.setEnabled(!unsavedProperties.isEmpty());
 
     }
 

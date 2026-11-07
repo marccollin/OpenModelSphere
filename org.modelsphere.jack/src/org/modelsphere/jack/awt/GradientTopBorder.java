@@ -43,11 +43,10 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.awt;
 
+import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.lang.reflect.Method;
-
-import javax.swing.LookAndFeel;
-import javax.swing.border.Border;
 
 public final class GradientTopBorder implements Border {
     private Color color;

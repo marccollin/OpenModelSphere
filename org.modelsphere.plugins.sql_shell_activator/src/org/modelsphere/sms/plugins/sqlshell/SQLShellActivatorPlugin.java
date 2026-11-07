@@ -33,8 +33,6 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.sms.plugins.sqlshell;
 
-import java.awt.event.ActionEvent;
-
 import org.modelsphere.jack.plugins.Plugin2;
 import org.modelsphere.jack.plugins.PluginAction;
 import org.modelsphere.jack.plugins.PluginSignature;
@@ -44,6 +42,8 @@ import org.modelsphere.jack.srtool.DefaultMainFrame;
 import org.modelsphere.jack.srtool.MainFrameMenu;
 import org.modelsphere.jack.srtool.reverse.jdbc.SQLShell;
 import org.modelsphere.sms.SMSFilter;
+
+import java.awt.event.ActionEvent;
 
 /**
  * 

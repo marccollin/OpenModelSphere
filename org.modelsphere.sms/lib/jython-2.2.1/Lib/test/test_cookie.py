@@ -1,7 +1,8 @@
 # Simple test suite for Cookie.py
 
-from test_support import verify, verbose, run_doctest
 import Cookie
+
+from test_support import verify, run_doctest
 
 # Currently this only tests SimpleCookie
 

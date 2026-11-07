@@ -32,6 +32,14 @@ open-modelsphere@grandite.com
  **********************************************************************/
 package org.modelsphere.sms.features.startupwizard;
 
+import org.modelsphere.jack.awt.dirchooser.DirectoryChooser2;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.gui.wizard2.AbstractPage;
+import org.modelsphere.jack.gui.wizard2.SectionHeader;
+import org.modelsphere.jack.srtool.ApplicationContext;
+import org.modelsphere.sms.features.international.LocaleMgr;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,15 +50,6 @@ import java.util.Properties;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
-
-import javax.swing.*;
-
-import org.modelsphere.jack.awt.dirchooser.DirectoryChooser2;
-import org.modelsphere.jack.baseDb.db.DbException;
-import org.modelsphere.jack.gui.wizard2.AbstractPage;
-import org.modelsphere.jack.gui.wizard2.SectionHeader;
-import org.modelsphere.jack.srtool.ApplicationContext;
-import org.modelsphere.sms.features.international.LocaleMgr;
 
 @SuppressWarnings("serial")
 class UMLJavaVMPage extends AbstractPage {

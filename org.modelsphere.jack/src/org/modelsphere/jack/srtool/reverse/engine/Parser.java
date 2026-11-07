@@ -45,6 +45,6 @@ package org.modelsphere.jack.srtool.reverse.engine;
 
 public interface Parser {
 
-    public Object parse(String value);
+    Object parse(String value);
 
 }

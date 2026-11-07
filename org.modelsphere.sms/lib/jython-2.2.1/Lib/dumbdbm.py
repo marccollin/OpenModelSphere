@@ -21,8 +21,8 @@ is read when the database is opened, and some updates rewrite the whole index)
 
 """
 
-import os as _os
 import __builtin__
+import os as _os
 
 _open = __builtin__.open
 

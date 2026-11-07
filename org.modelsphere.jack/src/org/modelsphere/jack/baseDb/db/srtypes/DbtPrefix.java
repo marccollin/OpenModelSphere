@@ -43,9 +43,11 @@ open-modelsphere@grandite.com
 
 package org.modelsphere.jack.baseDb.db.srtypes;
 
-import java.awt.Image;
+import org.modelsphere.jack.baseDb.db.Db;
+import org.modelsphere.jack.baseDb.db.DbException;
+import org.modelsphere.jack.baseDb.db.DbObject;
 
-import org.modelsphere.jack.baseDb.db.*;
+import java.awt.*;
 
 public final class DbtPrefix extends DbtAbstract {
 
@@ -125,6 +127,7 @@ public final class DbtPrefix extends DbtAbstract {
                 prefix.imageName));
     }
 
+    @Override
     public String toString() {
         String str = "";
         switch (displayedComponent) {
