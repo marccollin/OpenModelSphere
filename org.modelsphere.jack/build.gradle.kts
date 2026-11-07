@@ -7,7 +7,7 @@ dependencies {
     //api(rootProject.libs.jazzy.core)
     implementation(files("lib/jazzy-core.jar"))
 
-    implementation("org.apache.bcel:bcel:6.8.1")
+    //bcel comes from the version catalog (api below)
 
 
     api(rootProject.libs.jgrapht.core)
